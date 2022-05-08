@@ -1,0 +1,12 @@
+# Disallow canonical comment pages.
+Disallow: /comment
+Disallow: /comment/*
+
+# Disallow index.php* pages, because they are indexed as well sometimes.
+Disallow: /index.php*
+
+# Disallow weird query params not used by the site.
+# Mostly these weird pages are indexed by Yandex.
+Disallow: /*?q=
+Disallow: /*?do=
+Disallow: /*?c=
