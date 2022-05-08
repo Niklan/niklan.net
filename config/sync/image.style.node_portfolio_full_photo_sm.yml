@@ -1,0 +1,15 @@
+uuid: 2f7da254-5546-4689-a364-2cbd0d661cd8
+langcode: ru
+status: true
+dependencies: {  }
+name: node_portfolio_full_photo_sm
+label: 'Node - Portfolio - Full - Photo: SM'
+effects:
+  c0beb1a7-50ca-47fa-b108-96590d88f61a:
+    uuid: c0beb1a7-50ca-47fa-b108-96590d88f61a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 328
+      height: 328
+      anchor: center-top

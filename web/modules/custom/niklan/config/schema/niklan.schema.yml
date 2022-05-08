@@ -1,0 +1,19 @@
+block.settings.niklan_blog_post_tags:
+  type: block_settings
+  label: 'Blog post tags block'
+  mapping:
+    content:
+      type: string
+      label: Content
+
+block.settings.niklan_search:
+  type: block_settings
+  label: 'Search block'
+  mapping:
+    content:
+      type: string
+      label: Content
+
+filter_settings.niklan_markdown:
+  type: filter
+  label: 'Markdown filter'

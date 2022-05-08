@@ -1,0 +1,51 @@
+niklan.toolbar:
+  version: VERSION
+  css:
+    theme:
+      assets/css/niklan.toolbar.css: { }
+
+mobile-sidebar:
+  version: VERSION
+  js:
+    assets/js/mobile-sidebar.js: { }
+
+code-highlight:
+  js:
+    assets/js/code-highlight.js: { }
+  dependencies:
+    - core/drupal
+    - niklan/prismjs
+
+prismjs:
+  remote: https://prismjs.com/
+  version: 1.15
+  license:
+    name: MIT
+    gpl-compatible: true
+  js:
+    assets/js/prism.manual.js: { weight: -1 }
+    /libraries/prismjs/prism.js: { minfied: true }
+
+share:
+  version: VERSION
+  js:
+    assets/js/Share.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once
+
+oembed-video:
+  version: VERSION
+  js:
+    assets/js/OEmbedVideo.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once
+
+# @todo fix or remove
+code_line_highlight:
+  version: VERSION
+  js:
+    assets/js/paragraph-code--highlighted-lines.js: { }
+  dependencies:
+    - core/drupal

@@ -1,0 +1,9 @@
+uuid: f9ef2db1-93a1-4209-ae51-750dc012b861
+langcode: ru
+status: true
+dependencies: {  }
+id: video
+label: Видео
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

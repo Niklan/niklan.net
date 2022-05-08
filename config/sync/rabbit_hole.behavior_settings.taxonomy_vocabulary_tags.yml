@@ -1,0 +1,14 @@
+uuid: a916cf13-173e-43fd-b750-f39bdabf2f51
+langcode: ru
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags
+id: taxonomy_vocabulary_tags
+entity_type_id: taxonomy_vocabulary
+entity_id: tags
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

@@ -1,0 +1,15 @@
+uuid: 50b1e0b4-4f31-4d3c-af8c-b003845da42d
+langcode: ru
+status: true
+dependencies: {  }
+name: paragraph_image_image_xl
+label: 'Paragraph - Image - Image: XL'
+effects:
+  d73a0a6d-1fb2-436f-9042-071818a50959:
+    uuid: d73a0a6d-1fb2-436f-9042-071818a50959
+    id: image_scale
+    weight: 1
+    data:
+      width: 704
+      height: null
+      upscale: false

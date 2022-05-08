@@ -1,0 +1,17 @@
+name: Niklan
+description: 'My custom code is here!'
+type: module
+core_version_requirement: ^8 || ^9
+package: Custom
+dependencies:
+  - drupal:media
+  - drupal:file
+  - drupal:image
+  - drupal:responsive_image
+  - drupal:comment
+  - drupal:system
+  - drupal:user
+  - drupal:search_api
+
+'interface translation project': niklan
+'interface translation server pattern': ../assets/translation/%language.po

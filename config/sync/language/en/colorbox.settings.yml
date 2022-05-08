@@ -1,0 +1,12 @@
+custom:
+  text_current: '{current} of {total}'
+  text_previous: '« Prev'
+  text_next: 'Next »'
+  text_close: Close
+  maxwidth: 98%
+  maxheight: 98%
+  initialwidth: '300'
+  initialheight: '250'
+  slideshow:
+    text_start: 'start slideshow'
+    text_stop: 'stop slideshow'

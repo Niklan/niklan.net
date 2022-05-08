@@ -1,0 +1,10 @@
+uuid: eb1a849a-ceb8-4dee-b052-7b282574de07
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 7yrlW5z9zdg2eBucB2GPqXKSMQfH9lSRSO4DbWF7AFc
+id: footer
+label: 'Нижний колонтитул'
+description: 'Ссылки информации о сайте'
+locked: true

@@ -1,0 +1,32 @@
+uuid: 7de2e062-64b7-47ea-9075-ecaf3de85194
+langcode: ru
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.teaser
+    - taxonomy.vocabulary.tags
+id: taxonomy_term.tags.teaser
+targetEntityType: taxonomy_term
+bundle: tags
+mode: teaser
+content:
+  blog_entries_count:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  extra_field_niklan_taxonomy_tag_statistics:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  promo:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  description: true
+  extra_field_niklan_taxonomy_last_post_image: true
+  langcode: true
+  search_api_excerpt: true

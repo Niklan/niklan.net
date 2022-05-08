@@ -1,0 +1,11 @@
+uuid: 4d8dc6c8-8538-40df-a11e-3891963fb746
+langcode: ru
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.portfolio_categories
+id: taxonomy_term.portfolio_categories
+target_entity_type_id: taxonomy_term
+target_bundle: portfolio_categories
+default_langcode: site_default
+language_alterable: false

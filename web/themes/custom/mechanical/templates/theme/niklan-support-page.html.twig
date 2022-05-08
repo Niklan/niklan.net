@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a support page contents.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ */
+#}
+{% set bank_url = 'https://www.tinkoff.ru/sl/2EJrAUbSg66' %}
+<p>
+  👋 {% trans %}Hi. You occasionally ask <em>«How can I support financially?»</em> or ask to add a donate button. Well, if this is about you, you've come to the right place.{% endtrans %}
+</p>
+
+<p>
+  {% trans %}A blog is a hobby. Donations will not affect the quality and regularity of the content. I do it when I am in the mood, time and desire.{% endtrans %}
+</p>
+
+<p>
+  {% trans %}Donations are not a goal or a motivator. Think twice, or better yet, three times before you support.{% endtrans %}
+</p>
+
+<p>
+  {% trans %}If you haven't changed your mind, you can donate through <a href="{{ bank_url}}"><strong>Tinkoff Bank</strong></a>.{% endtrans %}
+</p>

@@ -1,0 +1,81 @@
+{%
+  set block = bem_block([
+    node.entityTypeId(),
+    node.bundle(),
+    view_mode != 'default' ? view_mode,
+  ])
+%}
+{%
+  set modifiers = [
+    node.isPromoted() ? 'promoted',
+    node.isSticky() ? 'sticky',
+    not node.isPublished() ? 'unpublished',
+  ]
+%}
+{%
+  set classes = [
+    bem(block, null, modifiers),
+  ]
+%}
+{%
+  set title_classes = [
+    bem(block, 'title'),
+  ]
+%}
+{%
+  set author_classes = [
+    bem(block, 'submitted'),
+  ]
+%}
+{%
+  set content_classes = [
+    bem(block, 'content'),
+  ]
+%}
+{# @see https://www.drupal.org/project/drupal/issues/3117230 #}
+{% if attributes.hasAttribute('role') %}
+  {% set attributes = attributes.removeAttribute('role') %}
+{% endif %}
+<article{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  {% block node %}
+    {% if display_submitted %}
+      <header class="{{ bem(block, 'header') }}">
+        {% block header %}
+          {% if not page %}
+            <h2{{ title_attributes.addClass(title_classes) }}>
+              {% block title %}
+                <a class="{{ bem(block, 'link') }}" href="{{ url }}" rel="bookmark">{{ label }}</a>
+              {% endblock %}
+            </h2>
+          {% endif %}
+
+          <div{{ author_attributes.addClass(author_classes) }}>
+            {% block submitted %}
+              {{ date }}
+              {{ metadata }}
+            {% endblock %}
+          </div>
+
+        {% endblock %}
+      </header>
+    {% endif %}
+
+    <div{{ content_attributes.addClass(content_classes) }}>
+      {% block content %}
+        {{ content|without('links') }}
+      {% endblock %}
+    </div>
+
+    {% if content.links %}
+      <div class="{{ bem(block, 'links') }}">
+        {% block links %}
+          {{ content.links }}
+        {% endblock %}
+      </div>
+    {% endif %}
+
+  {% endblock node %}
+</article>

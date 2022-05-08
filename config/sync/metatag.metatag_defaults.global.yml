@@ -1,0 +1,18 @@
+uuid: e4736af8-0fe2-4d89-b466-ded4a5b1af24
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 5rOnjIF_aDyGBmfXNhJnkPXxQMlem0CmVmggV-TF3Fg
+id: global
+label: Global
+tags:
+  abstract: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'
+  canonical_url: '[current-page:url]'
+  title: '[current-page:title] — [site:name]'
+  description: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=5.0'
+  twitter_cards_type: summary
+  twitter_cards_description: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'
+  twitter_cards_site: '@NiklanRUS'
+  twitter_cards_title: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'

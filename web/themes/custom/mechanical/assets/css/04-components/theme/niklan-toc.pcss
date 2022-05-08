@@ -1,0 +1,71 @@
+:root {
+  --toc-link-color: var(--text-color);
+  --toc-link-hover-color: var(--link-color);
+  --toc-counter-color: var(--link-color);
+  --toc-submenu-line-color: var(--color-border);
+}
+
+.toc {
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  overflow-y: auto;
+}
+
+.toc__menu {
+  margin: unset;
+  padding: unset;
+}
+
+.toc__link {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--toc-link-color);
+}
+
+.toc__link:hover,
+.toc__link:focus {
+  text-decoration: none;
+  color: var(--toc-link-hover-color);
+  --focus-box-shadow: none;
+}
+
+.toc__link--active {
+  font-weight: bold;
+  color: var(--link-color);
+}
+
+.toc__submenu {
+  position: relative;
+}
+
+.toc__submenu::before {
+  position: absolute;
+  left: calc( var(--spacing-sm) * -1);
+  display: block;
+  width: 2px;
+  height: 100%;
+  content: '';
+  background-color: var(--toc-submenu-line-color);
+}
+
+.toc ul {
+  counter-reset: item;
+}
+
+.toc ul ul {
+  margin: 0 0 0 var(--spacing-sm);
+  padding-left: unset;
+}
+
+.toc li {
+  display: block;
+  vertical-align: top;
+}
+
+.toc li a::before {
+  content: counters(item, ".") ". ";
+  counter-increment: item;
+  vertical-align: top;
+}

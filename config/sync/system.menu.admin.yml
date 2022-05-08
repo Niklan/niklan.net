@@ -1,0 +1,10 @@
+uuid: 58ac22c6-e41f-4ad0-8307-601845f7477b
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: sapEi2YDGoI9yQIT_WgIV2vUdQ6DScH0V3fAyTadAL0
+id: admin
+label: Администрирование
+description: 'Ссылки административных заданий'
+locked: true

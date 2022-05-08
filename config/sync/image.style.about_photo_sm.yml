@@ -1,0 +1,15 @@
+uuid: 4691362d-655c-474b-b324-8f6469a6aedc
+langcode: ru
+status: true
+dependencies: {  }
+name: about_photo_sm
+label: 'About photo: SM'
+effects:
+  9425c4f5-6734-4615-b540-9bc142479bd8:
+    uuid: 9425c4f5-6734-4615-b540-9bc142479bd8
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 170
+      height: 170
+      anchor: center-center

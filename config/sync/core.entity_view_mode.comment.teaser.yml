@@ -1,0 +1,10 @@
+uuid: 0c5ba651-0d5e-4a56-b24c-9480972af7f4
+langcode: ru
+status: true
+dependencies:
+  module:
+    - comment
+id: comment.teaser
+label: Teaser
+targetEntityType: comment
+cache: true

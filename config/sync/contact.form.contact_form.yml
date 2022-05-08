@@ -1,0 +1,22 @@
+uuid: 367b1f69-2178-4117-8e08-91361fea8687
+langcode: ru
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    submit_text: Отправить
+    show_preview: false
+    disabled_form_message: 'This contact form has been disabled.'
+    maximum_submissions_user: 0
+    page_autoreply_format: plain_text
+id: contact_form
+label: 'Контактная форма'
+recipients:
+  - i@niklan.net
+  - niklanrus@gmail.com
+reply: ''
+weight: 0
+message: 'Всё круто! Сообщение отправлено.'
+redirect: ''

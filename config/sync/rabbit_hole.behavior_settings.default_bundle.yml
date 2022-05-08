@@ -1,0 +1,12 @@
+uuid: df0ba31c-e6b5-4650-a573-dc3ee1d35871
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 9tPXnSvxaFBxdiQkvZZpU3OIFpU-AyFgeQSIPj2frXg
+id: default_bundle
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 0
+redirect_fallback_action: access_denied

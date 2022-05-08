@@ -1,0 +1,12 @@
+uuid: aae5f51e-feed-4d79-81d7-fed55d3f06fc
+langcode: ru
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: flXhTcp55yLcyy7ZLOhPGKGZobZQJdkAFVWV3LseiuI
+id: user.register
+label: Регистрация
+targetEntityType: user
+cache: true

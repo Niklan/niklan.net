@@ -1,0 +1,23 @@
+uuid: de719429-5fb4-4296-8de2-6f48d4fc1714
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_heading_level
+    - paragraphs.paragraphs_type.heading
+  module:
+    - options
+id: paragraph.heading.field_heading_level
+field_name: field_heading_level
+entity_type: paragraph
+bundle: heading
+label: Уровень
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: h2
+default_value_callback: ''
+settings: {  }
+field_type: list_string

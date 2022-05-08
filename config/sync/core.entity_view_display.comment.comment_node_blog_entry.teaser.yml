@@ -1,0 +1,38 @@
+uuid: 30953a80-b41e-4bae-8500-375343ce9802
+langcode: ru
+status: true
+dependencies:
+  config:
+    - comment.type.comment_node_blog_entry
+    - core.entity_view_mode.comment.teaser
+    - field.field.comment.comment_node_blog_entry.comment_body
+  module:
+    - text
+id: comment.comment_node_blog_entry.teaser
+targetEntityType: comment
+bundle: comment_node_blog_entry
+mode: teaser
+content:
+  comment_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  extra_field_author_name:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  letter_avatar:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  extra_field_letter_avatar: true
+  homepage: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

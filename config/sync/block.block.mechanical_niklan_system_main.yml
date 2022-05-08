@@ -1,0 +1,22 @@
+uuid: b34aacb2-abb7-4c62-acc3-84afd6868bd5
+langcode: ru
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - mechanical
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: mechanical_niklan_system_main
+theme: mechanical
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  label_display: '0'
+  provider: system
+visibility: {  }

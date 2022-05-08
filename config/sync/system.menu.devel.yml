@@ -1,0 +1,8 @@
+uuid: 304c65e9-2e70-4264-acc6-2991ac766986
+langcode: ru
+status: true
+dependencies: {  }
+id: devel
+label: Разработка
+description: 'Development link'
+locked: false

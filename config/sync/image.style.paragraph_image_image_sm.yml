@@ -1,0 +1,15 @@
+uuid: b50a4b17-5fad-4db0-90cc-7e8180b39d99
+langcode: ru
+status: true
+dependencies: {  }
+name: paragraph_image_image_sm
+label: 'Paragraph - Image - Image: SM'
+effects:
+  b2cdd0d4-4ae4-4987-bb0d-bf4f0573c101:
+    uuid: b2cdd0d4-4ae4-4987-bb0d-bf4f0573c101
+    id: image_scale
+    weight: 1
+    data:
+      width: 671
+      height: null
+      upscale: false

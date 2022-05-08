@@ -1,0 +1,15 @@
+uuid: da47b076-a3f2-4657-b3c2-195309ac2120
+langcode: ru
+status: true
+dependencies: {  }
+name: about_photo_lg
+label: 'About photo: LG'
+effects:
+  8ac76f53-76f2-468a-a34a-e4858456b869:
+    uuid: 8ac76f53-76f2-468a-a34a-e4858456b869
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 180
+      height: 180
+      anchor: center-center

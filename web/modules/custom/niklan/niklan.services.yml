@@ -1,0 +1,19 @@
+services:
+  niklan.event_subscriber:
+    class: Drupal\niklan\EventSubscriber\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  niklan.repository.about_settings:
+    class: Drupal\niklan\Repository\AboutSettingsRepository
+    arguments: ['@keyvalue']
+
+  niklan.helper.tag_statistics:
+    class: Drupal\niklan\Helper\TagStatistics
+    arguments: ['@entity_type.manager', '@database']
+
+  niklan.event_subscriber.term_page_build:
+    class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
+    arguments: [ '@class_resolver' ]
+    tags:
+      - { name: event_subscriber }

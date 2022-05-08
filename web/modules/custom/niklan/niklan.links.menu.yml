@@ -1,0 +1,63 @@
+niklan.admin:
+  title: Niklan
+  parent: system.admin
+  route_name: niklan.admin
+  weight: -50
+
+niklan.admin_general:
+  title: General settings
+  parent: niklan.admin
+  route_name: niklan.admin
+  weight: -10
+
+niklan.about_settings:
+  title: About page
+  description: The about page settings.
+  route_name: niklan.about_settings
+  parent: niklan.admin_general
+  weight: 10
+
+niklan.frontpage:
+  title: Home
+  route_name: <front>
+  menu_name: main
+  weight: 0
+
+niklan.blog:
+  title: Blog
+  route_name: niklan.blog_list
+  menu_name: main
+  weight: 1
+
+niklan.comments:
+  title: Comments
+  route_name: niklan.comments
+  menu_name: main
+  weight: 2
+
+niklan.tags:
+  title: Tags
+  route_name: niklan.tags
+  menu_name: main
+  weight: 3
+
+niklan.about:
+  title: About
+  title_context: 'author'
+  route_name: niklan.about
+  menu_name: main
+  weight: 4
+
+niklan.services:
+  title: Services
+  title_context: 'work'
+  route_name: niklan.services
+  menu_name: main
+  weight: 5
+
+niklan.contact:
+  title: Contact
+  title_context: 'menu'
+  route_name: contact.site_page
+  menu_name: main
+  weight: 6

@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update processes.
+ */
+
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * Move paragraphs behavior settings.
+ */
+function niklan_update_8101(): void {
+  $paragraph_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+  $ids = $paragraph_storage->getQuery()
+    ->execute();
+
+  $paragraphs = $paragraph_storage->loadMultiple($ids);
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  foreach ($paragraphs as $paragraph) {
+    if ($value = $paragraph->getBehaviorSetting('niklan_code_line_highlight', 'line_highlight')) {
+      $paragraph->setBehaviorSettings(
+        'niklan_paragraphs_code_line_highlight',
+        ['highlighted_lines' => $value],
+      );
+
+      $paragraph->save();
+    }
+  }
+}
+
+/**
+ * Migrate about settings to a new storage.
+ */
+function niklan_update_9300(): string {
+  $config = \Drupal::configFactory()->getEditable('niklan.about_settings');
+  /** @var \Drupal\niklan\Repository\AboutSettingsRepositoryInterface $about_settings */
+  $about_settings = \Drupal::service('niklan.repository.about_settings');
+
+  $about_settings->setPhotoMediaId($config->get('photo.media_id'));
+  $about_settings->setPhotoResponsiveImageStyleId($config->get('photo.responsive_image_style'));
+
+  $config->delete();
+
+  return new TranslatableMarkup('Settings for about page successfully migrated.');
+}

@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present blog post listing.
+ *
+ * Available variables:
+ * - attributes: An attributes.
+ * - items: An array with items to show.
+ * - pager: The pager.
+ */
+#}
+<div{{ attributes.addClass('blog-posts') }}>
+  <div class="blog-posts__items">
+    {% for item in items %}
+      {{- item -}}
+    {% endfor %}
+  </div>
+
+  {% if pager %}
+    <div class="blog-posts__pager">
+      {{- pager -}}
+    </div>
+  {% endif %}
+</div>

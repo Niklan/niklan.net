@@ -1,0 +1,15 @@
+uuid: cc680476-8451-4fa7-885c-2377b8911f2d
+langcode: ru
+status: true
+dependencies: {  }
+name: about_photo_md
+label: 'About photo: MD'
+effects:
+  2070d838-2e5f-4e90-bea1-eb2e65201fda:
+    uuid: 2070d838-2e5f-4e90-bea1-eb2e65201fda
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 237
+      height: 237
+      anchor: center-center

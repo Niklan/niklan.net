@@ -1,0 +1,31 @@
+# Theme base information.
+screenshot: screenshot.png
+name: Mechanical
+type: theme
+base theme: glisseo
+description: 'The 2020 theme v2.'
+package: Glisseo
+core_version_requirement: ^9
+
+libraries:
+  - mechanical/global.style.generic
+  - mechanical/global.style.elements
+  - mechanical/global.style.components
+  - mechanical/global.style.utilities
+  - mechanical/navigation
+  - mechanical/keyboard-focus
+
+regions:
+  sidebar_left: 'Sidebar left'
+  content_top: Content Top
+  content: Content
+  sidebar_right: 'Sidebar right'
+  footer: Footer
+
+# Disable system libraries.
+libraries-override:
+  system/base: false
+  core/picturefill: false
+libraries-extend:
+  niklan/code-highlight:
+    - mechanical/component.javascript.prismjs

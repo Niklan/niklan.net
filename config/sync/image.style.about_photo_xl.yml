@@ -1,0 +1,15 @@
+uuid: 4aadbea5-c477-4e3c-ae99-4502b3bdb228
+langcode: ru
+status: true
+dependencies: {  }
+name: about_photo_xl
+label: 'About photo: XL'
+effects:
+  97593cb3-f178-4904-b5a0-57173da4c4a3:
+    uuid: 97593cb3-f178-4904-b5a0-57173da4c4a3
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 180
+      height: 180
+      anchor: center-center

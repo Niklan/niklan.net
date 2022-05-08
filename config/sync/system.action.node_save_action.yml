@@ -1,0 +1,13 @@
+uuid: 39ae24f8-1081-4f80-8255-5d019c4113bc
+langcode: ru
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: U9HspszLxcw6pZmRacFa6yDbbheyMN-We4fPbrWWHGg
+id: node_save_action
+label: 'Сохранить материал'
+type: node
+plugin: 'entity:save_action:node'
+configuration: {  }

@@ -1,0 +1,47 @@
+.branding {
+  display: flex;
+  align-items: center;
+  margin: var(--spacing-lg) var(--spacing-md);
+}
+
+.branding__logo {
+  position: relative;
+  top: 0;
+  display: block;
+  width: 48px;
+  transition: top .15s ease-in-out;
+}
+
+.branding__logo:focus {
+  box-shadow: unset;
+}
+
+.branding__logo:hover,
+.branding__logo:focus {
+  top: var(--spacing-xxs);
+}
+
+.branding__img {
+  width: 100%;
+}
+
+.branding__name-and-slogan {
+  margin-left: var(--spacing-md);
+}
+
+.branding__name {
+  font-size: var(--font-size-h4);
+  font-weight: bold;
+  line-height: 1;
+  display: block;
+  --focus-box-shadow: none;
+  --link-color: var(--heading-color);
+}
+
+.branding__name:focus {
+  --link-color: var(--text-color);
+}
+
+.branding__slogan {
+  font-size: var(--font-size-sm);
+}

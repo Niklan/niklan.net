@@ -1,0 +1,22 @@
+uuid: 99ee3b6b-054a-4482-8772-fdd682bab74c
+langcode: ru
+status: true
+dependencies:
+  module:
+    - comment
+    - contact
+    - media
+    - system
+_core:
+  default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
+id: anonymous
+label: 'Анонимный пользователь'
+weight: 0
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'view media'

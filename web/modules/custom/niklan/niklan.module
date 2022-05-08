@@ -1,0 +1,384 @@
+<?php
+
+/**
+ * @file
+ * Place for hooks.
+ */
+
+declare(strict_types=1);
+
+use Drupal\comment\CommentInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\responsive_image\Entity\ResponsiveImageStyle;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function niklan_form_comment_comment_node_blog_entry_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  $form['author']['name']['#attributes']['placeholder'] = 'Harry Potter';
+  $form['author']['mail']['#attributes']['placeholder'] = 'gryffindor@hogwarts.com';
+  unset($form['author']['mail']['#description']);
+  $form['author']['homepage']['#attributes']['placeholder'] = 'https://harrypotter.com';
+
+  $form['#after_build'][] = 'niklan_form_comment_comment_node_blog_entry_form_after_build';
+}
+
+/**
+ * After build for removing formatting tips.
+ */
+function niklan_form_comment_comment_node_blog_entry_form_after_build(array $form, FormStateInterface $form_state): array {
+  $form['comment_body']['widget'][0]['format']['#access'] = FALSE;
+  return $form;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for 'contact_message_contact_form_form'.
+ */
+function niklan_form_contact_message_contact_form_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  $form['field_email']['widget'][0]['value']['#placeholder'] = 'example@example.com';
+  $form['field_email']['widget'][0]['value']['#description'] = new TranslatableMarkup("I'll send a reply to the specified address.");
+}
+
+/**
+ * Implements hook_theme().
+ */
+function niklan_theme(array $existing, string $type, string $theme, string $path): array {
+  return [
+    'niklan_follow' => [
+      'variables' => [],
+    ],
+    'niklan_previous_next' => [
+      'variables' => [
+        'previous_url' => NULL,
+        'previous_label' => NULL,
+        'next_url' => NULL,
+        'next_label' => NULL,
+      ],
+    ],
+    'niklan_share' => [
+      'variables' => [
+        'url' => NULL,
+        'text' => NULL,
+      ],
+    ],
+    'niklan_toc' => [
+      'variables' => [
+        'links' => NULL,
+      ],
+    ],
+    'niklan_contact_page' => [
+      'variables' => [],
+    ],
+    'niklan_form_success' => [
+      'variables' => [
+        'title' => NULL,
+        'message' => NULL,
+      ],
+    ],
+    'niklan_copyright' => [
+      'variables' => [
+        'attributes' => [],
+      ],
+    ],
+    'niklan_support_page' => [
+      'variables' => [
+        'attributes' => [],
+      ],
+    ],
+    'niklan_last_content' => [
+      'variables' => [
+        'attributes' => [],
+        'items' => [],
+        'title' => NULL,
+        'more_url' => NULL,
+        'more_label' => NULL,
+      ],
+    ],
+    'niklan_about_page' => [
+      'variables' => [],
+      'file' => 'niklan.theme.inc',
+    ],
+    'niklan_services_page' => [
+      'variables' => [],
+    ],
+    'niklan_mobile_header_bar' => [
+      'variables' => [
+        'logo' => NULL,
+      ],
+    ],
+    'niklan_comment_list' => [
+      'variables' => [
+        'attributes' => [],
+        'comments' => [],
+        'pager' => NULL,
+      ],
+    ],
+    'niklan_media_attached_file' => [
+      'variables' => [
+        'attributes' => [],
+        'uri' => NULL,
+        'filename' => NULL,
+        'filesize' => NULL,
+        'label' => NULL,
+      ],
+    ],
+    'niklan_oembed_video' => [
+      'variables' => [
+        'preview' => NULL,
+        'content' => NULL,
+      ],
+    ],
+    'niklan_blog_list' => [
+      'variables' => [
+        'items' => [],
+        'pager' => NULL,
+      ],
+    ],
+    'niklan_portfolio_list' => [
+      'variables' => [
+        'items' => [],
+      ],
+    ],
+    'niklan_search_page' => [
+      'variables' => [
+        'search_form' => NULL,
+        'results' => [],
+        'pager' => NULL,
+      ],
+    ],
+    'niklan_blog_meta' => [
+      'variables' => [
+        'created' => NULL,
+        'comment_count' => NULL,
+        'comments_url' => NULL,
+        'estimated_read_time' => NULL,
+      ],
+    ],
+    'niklan_tag_page' => [
+      'variables' => [
+        'items' => [],
+        'pager' => NULL,
+      ],
+    ],
+    'niklan_tag_list' => [
+      'variables' => [
+        'items' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function niklan_mail_alter(array &$message): void {
+  if (isset($message['id']) && $message['id'] == 'contact_page_mail') {
+    /** @var \Drupal\contact\Entity\Message $contact_message */
+    $contact_message = $message['params']['contact_message'];
+    $contact_form = $contact_message->bundle();
+
+    switch ($contact_form) {
+      case 'contact_form':
+        // @todo Set 'from' from email address filled out by user.
+        // $email = $contact_message->field_email->value;
+        // $message['from'] = $email;
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_contact_tools_ajax_response_alter().
+ *
+ * Allows modules to alter AJAX response handled by the module. You can fully
+ * alter, remove and add new commands to response.
+ */
+function niklan_contact_tools_ajax_response_alter(AjaxResponse &$ajax_response, array $form, FormStateInterface $form_state): void {
+  if ($form_state->isExecuted()) {
+    $class_name = '.' . Html::getClass($form['#form_id'] . '-contact-tools-processed');
+    $thanks = [
+      '#theme' => 'niklan_form_success',
+      '#title' => new TranslatableMarkup('Successful!'),
+      '#message' => new TranslatableMarkup('Thank you, your message was successfully sent.'),
+    ];
+    $ajax_response->addCommand(new ReplaceCommand($class_name, $thanks));
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function niklan_preprocess_toolbar(array &$variables): void {
+  $variables['#attached']['library'][] = 'niklan/niklan.toolbar';
+}
+
+/**
+ * Implements hook_toolbar().
+ */
+function niklan_toolbar(): array {
+  $items['node_edit_link'] = [
+    '#cache' => [
+      'contexts' => [
+        'user.permissions',
+        'url',
+      ],
+    ],
+  ];
+
+  $route_match = Drupal::routeMatch();
+  if ($route_match->getRouteName() != 'entity.node.canonical') {
+    return $items;
+  }
+
+  $node = $route_match->getParameter('node');
+  $language = Drupal::languageManager()->getCurrentLanguage();
+  $url = $node->toUrl('edit-form', ['language' => $language]);
+  if (!$url->access()) {
+    return $items;
+  }
+
+  $items['node_edit_link'] += [
+    '#type' => 'toolbar_item',
+    '#weight' => 500,
+    'tab' => [
+      '#type' => 'link',
+      '#title' => new TranslatableMarkup('Edit'),
+      '#url' => $url,
+      '#attributes' => [
+        'class' => ['toolbar-icon', 'toolbar-icon-edit'],
+      ],
+    ],
+    '#wrapper_attributes' => [
+      'class' => ['example-toolbar-tab'],
+    ],
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'responsive-image.html.twig'.
+ */
+function niklan_preprocess_responsive_image(array &$variables): void {
+  // This hook is also set width and height required by default lazy loading
+  // implementation. But this one called after, so with and height is not set
+  // at the point when default lazy is added, so we force it.
+  $variables['img_element']['#attributes']['loading'] = 'lazy';
+  $variables['img_element']['#attributes']['decoding'] = 'async';
+
+  /** @var \Drupal\responsive_image\ResponsiveImageStyleInterface $responsive_style */
+  $responsive_style = ResponsiveImageStyle::load($variables['responsive_image_style_id']);
+  if (!$responsive_style) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Image\ImageFactory $image_factory */
+  $image_factory = \Drupal::service('image.factory');
+  /** @var \Drupal\image\Entity\ImageStyle $fallback_style */
+  $fallback_style = ImageStyle::load($responsive_style->getFallbackImageStyle());
+  if (!$fallback_style) {
+    return;
+  }
+  $fallback_image = $fallback_style->buildUri($variables['uri']);
+  $image_factory->get($fallback_image);
+  $variables['img_element']['#attributes']['width'] = $image_factory->get($fallback_image)
+    ->getWidth();
+  $variables['img_element']['#attributes']['height'] = $image_factory->get($fallback_image)
+    ->getHeight();
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'image.html.twig'.
+ */
+function niklan_preprocess_image(array &$variables): void {
+  $variables['attributes']['decoding'] = 'async';
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter() for text_textarea.
+ */
+function niklan_field_widget_text_textarea_form_alter(array &$element, FormStateInterface $form_state, array $context): void {
+  /** @var \Drupal\Core\Field\FieldItemListInterface $items */
+  $items = $context['items'];
+  $field_name = $items->getFieldDefinition()->getName();
+
+  if ($field_name == 'comment_body') {
+    $element['#after_build'][] = '_niklan_remove_text_textarea_format';
+  }
+}
+
+/**
+ * After build callback to remove text_textarea format.
+ */
+function _niklan_remove_text_textarea_format(array $element, FormStateInterface $form_state): array {
+  $is_admin = \Drupal::routeMatch()
+    ->getRouteObject()
+    ->hasOption('_admin_route');
+  if ($element['#type'] == 'text_format' && !$is_admin) {
+    hide($element['format']);
+  }
+
+  if ($element['#type'] == 'textarea') {
+    $element['#description'] = new TranslatableMarkup('Supports <a href="@common_mark_url" target="_blank">CommonMark</a> syntax.', [
+      '@common_mark_url' => 'https://commonmark.org/help/',
+    ]);
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function niklan_comment_view(array &$build, CommentInterface $comment, EntityViewDisplayInterface $display, string $view_mode): void {
+  if ($view_mode == 'teaser') {
+    // Disable threading for teasers.
+    $build['#comment_threaded'] = FALSE;
+    // Reset inner counters which append unneeded '</div>'.
+    $build['#comment_indent_final'] = 0;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for username.html.twig.
+ */
+function niklan_preprocess_username(array &$variables): void {
+  unset($variables['extra']);
+  unset($variables['link_path']);
+  unset($variables['attributes']['rel']);
+  $variables['attributes']['class'][] = 'username';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for comment.html.twig.
+ */
+function niklan_preprocess_comment(array &$variables): void {
+  /** @var \Drupal\comment\CommentInterface $comment */
+  $comment = $variables['comment'];
+
+  $commented_url = $comment->getCommentedEntity()
+    ->toUrl('canonical', ['absolute' => TRUE])
+    ->toString();
+  $comment_anchor = '#comment-' . $comment->id();
+  $variables['commented_entity_url'] = $commented_url;
+  $variables['permalink_url'] = $commented_url . $comment_anchor;
+  $variables['homepage'] = NULL;
+  if (!$comment->get('homepage')->isEmpty()) {
+    $variables['homepage'] = $comment->get('homepage')->getString();
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'paragraph--important.html.twig'.
+ */
+function niklan_preprocess_paragraph__important(array &$variables): void {
+  /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
+  $paragraph = $variables['elements']['#paragraph'];
+  $type = $paragraph->get('field_important_type')->getString();
+  $variables['attributes']['class'][] = 'paragraph-important--' . $type;
+}

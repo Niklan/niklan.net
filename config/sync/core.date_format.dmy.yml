@@ -1,0 +1,8 @@
+uuid: 3d4c1d20-bda5-406d-9f90-e4da3bc8f35d
+langcode: ru
+status: true
+dependencies: {  }
+id: dmy
+label: d.m.Y
+locked: false
+pattern: d.m.Y

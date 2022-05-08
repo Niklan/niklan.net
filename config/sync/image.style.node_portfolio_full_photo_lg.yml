@@ -1,0 +1,15 @@
+uuid: efd59b38-2603-49a3-ad7e-17e3c05315b0
+langcode: ru
+status: true
+dependencies: {  }
+name: node_portfolio_full_photo_lg
+label: 'Node - Portfolio - Full - Photo: LG'
+effects:
+  17098d71-b0cf-452e-8f78-74e0552678d7:
+    uuid: 17098d71-b0cf-452e-8f78-74e0552678d7
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 224
+      height: 224
+      anchor: center-top

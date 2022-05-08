@@ -1,0 +1,13 @@
+uuid: 7a2e041a-3c30-45a7-94ec-4984fff29378
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ydpmSCtxLjO9xqkBxObkeYx0Bf2dkW-d8bB_6Q1Ggjs
+id: node
+label: Content
+tags:
+  title: '[node:title] | [site:name]'
+  description: '[node:summary]'
+  og_site_name: Niklan
+  og_description: '[node:summary]'

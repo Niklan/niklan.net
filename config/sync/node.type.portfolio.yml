@@ -1,0 +1,17 @@
+uuid: ecd19732-c24b-4cb4-bae9-b8a22da2528f
+langcode: ru
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Портфолио
+type: portfolio
+description: ''
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

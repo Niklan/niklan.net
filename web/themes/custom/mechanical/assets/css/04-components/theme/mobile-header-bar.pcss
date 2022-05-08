@@ -1,0 +1,34 @@
+.mobile-header-bar {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  --menu-icon: url('../../../icons/000000/menu.svg');
+}
+
+[data-theme="dark"] .mobile-header-bar {
+  --menu-icon: url('../../../icons/FFFFFF/menu.svg');
+}
+
+.mobile-header-bar__logo-and-name {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-header-bar__logo {
+  margin-right: var(--spacing-md);
+  width: 32px;
+}
+
+.mobile-header-bar__name {
+  font-weight: bold;
+  --link-color: var(--text-color);
+  font-size: var(--font-size-h5);
+}
+
+.mobile-header-bar__menu-button {
+  background-image: var(--menu-icon);
+  width: 32px;
+  height: 32px;
+  background-size: 32px;
+  margin-left: auto;
+}

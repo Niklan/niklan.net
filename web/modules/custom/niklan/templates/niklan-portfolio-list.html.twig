@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Default theme implenentation to display portfolio list.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - items: An array with portfolio items.
+ */
+#}
+<section{{ attributes.addClass('portfolio-list') }}>
+  {% for item in items %}
+    {{ item }}
+  {% endfor %}
+</section>

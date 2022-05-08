@@ -1,0 +1,32 @@
+uuid: 20c3f931-970e-4a9a-998b-bdb3b7c79363
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.field.user.user.user_picture
+  module:
+    - image
+    - user
+_core:
+  default_config_hash: L2mtwGWH_7wDRCMIR4r_Iu_jmvQ10DV1L8ht8iNZ5qY
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  member_for:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  user_picture:
+    type: image
+    label: hidden
+    settings:
+      image_link: content
+      image_style: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden:
+  langcode: true

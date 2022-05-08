@@ -1,0 +1,24 @@
+uuid: 7379996c-3a18-4116-ad30-2979dcec5327
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.portfolio
+  module:
+    - datetime
+id: node.portfolio.field_date
+field_name: field_date
+entity_type: node
+bundle: portfolio
+label: 'Год выполнения'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

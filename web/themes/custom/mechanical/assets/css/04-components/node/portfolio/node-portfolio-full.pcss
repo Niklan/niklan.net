@@ -1,0 +1,40 @@
+.node-portfolio-full .node-portfolio-field-date {
+  margin-bottom: var(--spacing-xs);
+}
+
+.node-portfolio-field-date--full {
+  display: flex;
+  align-items: center;
+}
+
+.node-portfolio-field-date--full::before {
+  content: '';
+  display: block;
+  background-image: url('../../icons/000000/calendar.svg');
+  background-size: 18px;
+  width: 18px;
+  height: 18px;
+  background-position: center;
+  margin-right: var(--spacing-xs);
+}
+
+.node-portfolio-field-media-images {
+  margin-top: var(--spacing-lg);
+}
+
+.node-portfolio-field-media-images__items {
+  display: grid;
+  grid-gap: var(--spacing-md);
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (--md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.node-portfolio-field-media-images .photoswipe {
+  display: block;
+  box-shadow: var(--shadow-xs);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+}

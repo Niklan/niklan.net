@@ -1,0 +1,76 @@
+uuid: c2f277ab-9eeb-4cee-82a8-3aa55fc54a0a
+langcode: ru
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.portfolio.body
+    - field.field.node.portfolio.field_date
+    - field.field.node.portfolio.field_link
+    - field.field.node.portfolio.field_media_images
+    - field.field.node.portfolio.field_portfolio_categories
+    - image.style.big_image
+    - node.type.portfolio
+    - responsive_image.styles.node_portfolio_full_photo_thumb
+  module:
+    - datetime
+    - link
+    - photoswipe
+    - text
+    - user
+id: node.portfolio.full
+targetEntityType: node
+bundle: portfolio
+mode: full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_date:
+    type: datetime_custom
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: 'Y'
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_link:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: nofollow
+      target: _blank
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_media_images:
+    type: photoswipe_responsive_field_formatter
+    label: hidden
+    settings:
+      photoswipe_node_style_first: ''
+      photoswipe_node_style: node_portfolio_full_photo_thumb
+      photoswipe_image_style: big_image
+      photoswipe_reference_image_field: field_media_image
+      photoswipe_caption: title
+      photoswipe_caption_custom: ''
+      photoswipe_view_mode: full
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  estimated_read_time: true
+  extra_field_previous_next: true
+  extra_field_share: true
+  field_portfolio_categories: true
+  langcode: true
+  links: true
+  previous_next: true
+  search_api_excerpt: true

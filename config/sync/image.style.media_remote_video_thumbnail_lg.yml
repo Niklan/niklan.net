@@ -1,0 +1,15 @@
+uuid: 552eceea-bcc3-4a5f-84f2-45f58c6b30a2
+langcode: ru
+status: true
+dependencies: {  }
+name: media_remote_video_thumbnail_lg
+label: 'Media - Remote Video - Thumbnail: LG'
+effects:
+  835d78c0-5a9b-48fa-9a7c-8f69ee4c9315:
+    uuid: 835d78c0-5a9b-48fa-9a7c-8f69ee4c9315
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 608
+      height: 342
+      anchor: center-center

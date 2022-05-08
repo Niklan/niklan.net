@@ -1,0 +1,28 @@
+uuid: 5ea1f62c-9e1c-4edc-ad34-97de91af8024
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_images
+    - media.type.image
+    - node.type.portfolio
+id: node.portfolio.field_media_images
+field_name: field_media_images
+entity_type: node
+bundle: portfolio
+label: Изображения
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present attached media file.
+ *
+ * Available variables:
+ * - uri: The attached file URI.
+ * - filename: The filename.
+ * - filesize: The formatted filesize.
+ * - label: The files media name.
+ */
+#}
+<a href="{{ uri|file_url }}"{{ attributes.addClass('attached-file') }}>
+  {{- label -}}
+  <span class="attached-file__filename"> — {{ filename -}},</span>
+  <span class="attached-file__filesize">{{- filesize -}}</span>
+</a>

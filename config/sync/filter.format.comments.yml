@@ -1,0 +1,50 @@
+uuid: 46c8b79b-9372-447e-a6c3-152a84f4bf16
+langcode: ru
+status: true
+dependencies:
+  module:
+    - niklan
+name: Комментарии
+format: comments
+weight: -10
+filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <pre>'
+      filter_html_help: true
+      filter_html_nofollow: true
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings:
+      filter_url_length: 72
+  niklan_prismjs:
+    id: niklan_prismjs
+    provider: niklan
+    status: true
+    weight: 100
+    settings: {  }
+  niklan_markdown:
+    id: niklan_markdown
+    provider: niklan
+    status: true
+    weight: -10
+    settings: {  }

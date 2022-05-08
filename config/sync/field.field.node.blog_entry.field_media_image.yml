@@ -1,0 +1,28 @@
+uuid: 7abbd7e8-e7bd-4d45-b331-584f9a364fc7
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_media_image
+    - media.type.image
+    - node.type.blog_entry
+id: node.blog_entry.field_media_image
+field_name: field_media_image
+entity_type: node
+bundle: blog_entry
+label: Промо-изображение
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

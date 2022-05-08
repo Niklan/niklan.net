@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display copyrights.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ */
+#}
+<div{{ attributes.addClass('copyright') }}>
+  {% set license_url = 'https://creativecommons.org/licenses/by-sa/4.0/legalcode.ru' %}
+  {% trans %}The content is published under <a href="{{ license_url }}">Creative Commons Attribution CC-BY-SA 4.0</a> license.{% endtrans %}
+
+  © {{ 'now'|date('Y') }} Niklan
+</div>

@@ -1,0 +1,42 @@
+uuid: 22aa7e4a-29c0-424c-bcc8-5681ec73a58b
+langcode: ru
+status: true
+dependencies:
+  config:
+    - image.style.about_photo_lg
+    - image.style.about_photo_md
+    - image.style.about_photo_sm
+    - image.style.about_photo_xl
+    - image.style.about_photo_xs
+  theme:
+    - mechanical
+id: about_photo
+label: 'About photo'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: about_photo_xl
+    breakpoint_id: rejuvenation.xl
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: about_photo_lg
+    breakpoint_id: rejuvenation.lg
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: about_photo_md
+    breakpoint_id: rejuvenation.md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: about_photo_sm
+    breakpoint_id: rejuvenation.sm
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: about_photo_xs
+    breakpoint_id: rejuvenation.xs
+    multiplier: 1x
+breakpoint_group: mechanical
+fallback_image_style: about_photo_xl

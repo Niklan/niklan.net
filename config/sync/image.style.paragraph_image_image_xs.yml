@@ -1,0 +1,15 @@
+uuid: 188e24a3-387e-4dd1-8eb5-092a306d3afa
+langcode: ru
+status: true
+dependencies: {  }
+name: paragraph_image_image_xs
+label: 'Paragraph - Image - Image: XS'
+effects:
+  e507b2bd-3b4e-4e1a-abe4-588b98d30a3b:
+    uuid: e507b2bd-3b4e-4e1a-abe4-588b98d30a3b
+    id: image_scale
+    weight: 1
+    data:
+      width: 543
+      height: null
+      upscale: false

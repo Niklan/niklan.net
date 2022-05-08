@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI
+langcode: ru
+uuid: 07a5fefb-33f6-44a2-9b31-e8e37025fdc7
+name: Niklan
+mail: i@niklan.net
+slogan: 'Блог веб-разработчика'
+page:
+  403: ''
+  404: ''
+  front: /node
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: ru
+mail_notification: ''

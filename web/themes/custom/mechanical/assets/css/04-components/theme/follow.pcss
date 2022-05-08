@@ -1,0 +1,51 @@
+:root {
+  --follow-popup-backgroud: var(--color-white);
+}
+
+[data-theme="dark"] {
+  --follow-popup-backgroud: var(--color-gunmetal);
+}
+
+.follow {
+  position: relative;
+  margin: 0 var(--spacing-md);
+}
+
+.follow-actions {
+  display: grid;
+  grid-gap: var(--spacing-xs);
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.follow__action {
+  height: 2rem;
+  background-color: var(--background-color, inherit);
+  background-image: var(--icon, none);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.follow__action--support {
+  --background-color: var(--color-raisin-black);
+  --icon: url('../../../icons/FFFFFF/coffee.svg');
+}
+
+.follow__action--discord {
+  --background-color: #7289DA;
+  --icon: url('../../../icons/FFFFFF/discord.svg');
+}
+
+.follow__action--telegram {
+  --background-color: #0088cc;
+  --icon: url('../../../icons/FFFFFF/telegram.svg');
+}
+
+.follow__action--youtube {
+  --background-color: #FF0000;
+  --icon: url('../../../icons/FFFFFF/youtube.svg');
+}
+
+.follow__action--rss {
+  --background-color: #ff9800;
+  --icon: url('../../../icons/FFFFFF/rss.svg');
+}

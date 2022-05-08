@@ -1,0 +1,15 @@
+uuid: 967468cd-58b8-449f-8b89-9f7d482eb9be
+langcode: ru
+status: true
+dependencies: {  }
+name: media_remote_video_thumbnail_md
+label: 'Media - Remote Video - Thumbnail: MD'
+effects:
+  e3d34dfd-6be8-4580-912d-89f28b8aae96:
+    uuid: e3d34dfd-6be8-4580-912d-89f28b8aae96
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 736
+      height: 414
+      anchor: center-center

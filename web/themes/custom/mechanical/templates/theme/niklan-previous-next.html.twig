@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Theme override for previous/next links.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - previous_url: (optional) The URL to previous article.
+ * - previous_label: (optional) The label for previous article link.
+ * - next_url: (optional) The URL to next article.
+ * - next_label: (optional) The label for next article.
+ */
+#}
+{{ attach_library('mechanical/component.theme.previous-next') }}
+<div{{ attributes.addClass('previous-next') }}>
+  {% if previous_url and previous_label %}
+  <div class="previous-next__previous">
+    <a href="{{ previous_url }}"
+       class="previous-next__link previous-next__link--previous">
+      <div class="previous-next__content">
+        <span>← {% trans %}Previous{% endtrans %}</span>
+        {{ previous_label }}
+      </div>
+    </a>
+  </div>
+  {% endif %}
+  {% if next_url and next_label %}
+    <div class="previous-next__next">
+      <a href="{{ next_url }}"
+         class="previous-next__link previous-next__link--next">
+        <div class="previous-next__content">
+          <span>{% trans %}Next{% endtrans %} →</span>
+          {{ next_label }}
+        </div>
+      </a>
+    </div>
+  {% endif %}
+</div>

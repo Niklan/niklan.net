@@ -1,0 +1,296 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
+"%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+msgid "Did you like it? Share it with others."
+msgstr "Понравилось? Поделись с другими."
+
+msgid "Support"
+msgstr "Поддержать"
+
+msgid "Niklan — freelance Drupal web-developer"
+msgstr "Niklan — фриланс Drupal веб-разработчик"
+
+msgid "Contact me"
+msgstr "Связаться со мной"
+
+msgid "I'll send a reply to the specified address."
+msgstr "На указанный адрес я отправлю ответ."
+
+msgid "The content is published under <a href=\"@license_url\">CC-BY-SA 4.0</a> license."
+msgstr "Содержимое публикуется на условиях лицензии <a href=\"@license_url\">CC-BY-SA 4.0</a>."
+
+msgid "Follow"
+msgstr "Отслеживать"
+
+msgid "Tags"
+msgstr "Метки"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Contact form"
+msgstr "Форма обратной связи"
+
+msgid "Hire me"
+msgstr "Нанять меня"
+
+msgid "Let's Talk"
+msgstr "Давайте пообщаемся"
+
+msgid "Let's Work Together"
+msgstr "Давайте работать вместе"
+
+msgid "Preview"
+msgstr "Предпросмотр"
+
+msgid "« First"
+msgstr "« Первая"
+
+msgid "‹ Previous"
+msgstr "‹ Назад"
+
+msgid "Next ›"
+msgstr "Вперёд ›"
+
+msgid "Last »"
+msgstr "Последняя »"
+
+msgid "Created"
+msgstr "Дата создания"
+
+msgid "min."
+msgstr "мин."
+
+msgctxt "color scheme"
+msgid "Light"
+msgstr "Светлая"
+
+msgctxt "color scheme"
+msgid "Dark"
+msgstr "Тёмная"
+
+msgctxt "color scheme"
+msgid "Inherit from the system"
+msgstr "Наследовать из системы"
+
+msgid "Show 1 reply"
+msgid_plural "Show @count replies"
+msgstr[0] "Показать 1 ответ"
+msgstr[1] "Показать @count ответа"
+msgstr[2] "Показать @count ответов"
+
+msgid "Find out what publications are being discussed."
+msgstr "Узнайте какие публикации сейчас обсуждаются."
+
+msgid "Wants to discuss in realtime? Join <a href=\"@discord_join_url\">Discord</a> chat."
+msgstr "Хотите обсудить в реальном времени? Вступайте в <a href=\"@discord_join_url\">Discord</a> чат."
+
+msgid "Supports <a href=\"@common_mark_url\" target=\"_blank\">CommonMark</a> syntax."
+msgstr "Поддерживает синтаксис <a href=\"@common_mark_url\" target=\"_blank\">CommonMark</a>."
+
+msgid "Estimated reading time"
+msgstr "Приблизительное время прочтения"
+
+msgid "1 comment"
+msgid_plural "@count comments"
+msgstr[0] "1 комментарий"
+msgstr[1] "@count комментария"
+msgstr[2] "@count комментариев"
+
+msgid "Created time"
+msgstr "Дата создания"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Portfolio"
+msgstr "Портфолио"
+
+msgid "What are we looking for?"
+msgstr "Что будем искать?"
+
+msgid "Search results for «%keys»"
+msgstr "Результаты поиска по запросу «%keys»"
+
+msgid "Enter a search query."
+msgstr "Введите поисковый запрос."
+
+msgid "No results found."
+msgstr "Ничего не найдено."
+
+msgid "Last blog posts"
+msgstr "Последние публикации в блоге"
+
+msgid "All posts"
+msgstr "Все публикации"
+
+msgid "Blog posts"
+msgstr "Публикации в блоге"
+
+msgid "There are no results found or you not entered they keys to search."
+msgstr "По вашему запросу ничего не найдено или вы не ввели что искать."
+
+msgid "@count publication from @date"
+msgid_plural "@count publications from @date"
+msgstr[0] "@count публикация от @date"
+msgstr[1] "@count публикации от @date"
+msgstr[2] "@count публикаций от @date"
+
+msgid "@count publication from @date_start to @date_end"
+msgid_plural "@count publications from @date_start to @date_end"
+msgstr[0] "@count публикация с @date_start по @date_end"
+msgstr[1] "@count публикации с @date_start по @date_end"
+msgstr[2] "@count публикаций с @date_start по @date_end"
+
+msgid "Hi, my name is <strong>Nikita</strong>"
+msgstr "Привет, меня зовут <strong>Никита</strong>"
+
+msgid "I'm a <span>freelance web developer</span>."
+msgstr "Я <span>фриланс веб-разработчик</span>."
+
+msgid "I develop websites on Drupal."
+msgstr "Занимаюсь разработкой сайтов на Drupal."
+
+msgid "Contributing to OpenSource. I write tutorials on my blog, at the same time developing a YouTube channel. Constantly trying to improve and sharpen skills."
+msgstr "Контрибучу в OpenSource. Пишу обучающие материалы в блоге, параллельно развивая YouTube канал. Постоянно стремлюсь улучшить и отточить навыки."
+
+msgid "About me"
+msgstr "О себе"
+
+msgid "I got interested in web development in 2006, when I got into a camp with a computer bias, where there was a group for creating simple HTML pages. I also created <a href=\"@repository_url\" rel=\"nofollow noopener\" target=\"_blank\">first HTML site</a>. Since then, I started to get involved in this direction by making simple websites for myself and trying different CMS."
+msgstr "Веб-разработкой увлёкся в 2006 году, когда попал в лагерь с компьютерным уклоном, где был кружок создания простеньких HTML страничек. Там же создал <a href=\"@repository_url\" rel=\"nofollow noopener\" target=\"_blank\">первый HTML-сайт</a>. С тех пор я начал увлекаться этим направлением делая простенькие сайты для себя и пробуя различные системы."
+
+msgid "In 2011 I started to study Drupal and PHP, and since 2013 I have been doing it professionally. Since then I have been providing web development services remotely from Perm."
+msgstr "В 2011 году начал изучать Drupal и PHP, а с 2013 года заниматься этим на профессиональном уровне. С тех пор удалённо оказываю услуги по веб-разработке из г. Перми."
+
+msgid "I use Drupal exclusively in my work. I think it's better to know one tool well than many and mediocre. I put the work quality on the first place, I'm concerned about the standards, I constantly study the best practices and experiences of other developers, I monitor the trends and changes in the web. I'm constantly engaged in self-study."
+msgstr "В работе использую исключительно Drupal. Считаю, что лучше знать один инструмент хорошо, чем много и посредственно. Ставлю качество исполнения на первое место, трепетно отношусь к стандартам, постоянно изучаю лучшие практики и опыт других разработчиков, слежу за тенденциями и изменениями в вебе. Непрерывно занимаюсь самообучением."
+
+msgid "Successful!"
+msgstr "Успешно!"
+
+msgid "Thank you, your message was successfully sent."
+msgstr "Спасибо, ваше сообщение успешно отправлено."
+
+msgid "This list of projects in which I participated as a full stack developer (backend + frontend), unless otherwise noted. It does not include small projects, projects under NDA and those in which my participation was insignificant."
+msgstr "Здесь перечислены проекты в которых я принимал участие как full stack developer (backend + frontend), если не указано обратного. В нём отсутствуют маленькие проекты, проекты под NDA и те, в которых моё участие было несущественным."
+
+msgid ""
+"In addition to commercial projects, I contribute to OpenSource (<a href=\"@github_url\" rel=\"nofollow noopener\" target=\"_blank\">GitHub</a>, <a href=\"@drupal_url\" rel=\"nofollow noopener\" target=\"_blank\">Drupal.org</a>) and, of course, write a <a href=\"@blog_url\" rel=\"nofollow noopener\" target=\"_blank\">blog</a>. And recently, I also keep a <a href=\"@youtube_url\" "
+"rel=\"nofollow noopener\" target=\"_blank\">YouTube channel</a>."
+msgstr ""
+"Помимо коммерческих проектов контрибучу в OpenSource (<a href=\"@github_url\" rel=\"nofollow noopener\" target=\"_blank\">GitHub</a>, <a href=\"@drupal_url\" rel=\"nofollow noopener\" target=\"_blank\">Drupal.org</a>) и, конечно же, пишу в <a href=\"@blog_url\" rel=\"nofollow noopener\" target=\"_blank\">блог</a>. А с недавних пор, ещё и веду <a href=\"@youtube_url\" rel="
+"\"nofollow noopener\" target=\"_blank\">YouTube-канал</a>."
+
+msgid "Previous"
+msgstr "Предыдущий"
+
+msgid "Next"
+msgstr "Следующий"
+
+msgid "I am interested in long-term cooperation. It is more comfortable for me to work with one client for a long time, so I give priority to such proposals. I have been working with current clients for more than 5 years, therefore I do not always have free time for new projects, but I will find time to consult or advise!"
+msgstr "Я заинтересован в долгосрочном сотрудничестве. Мне комфортнее работать с одним клиентом длительное время, поэтому отдаю приоритет подобным предложениям. С текущими клиентами работаю более 5 лет, ввиду чего, не всегда имею свободное время для новых проектов, но найду время проконсультировать или подсказать!"
+
+msgid "My goal is to do quality."
+msgstr "Моя цель — сделать качественно."
+
+msgid "If the deadline for the project is «yesterday» - I'm not the one you're looking for. I do not create a sites «for a couple of days», and by experience I know that there is no task «there for just a couple of minutes» with your experience. I always try to find the best and most optimal solution to the problem, not the first that comes along, which will put a checkmark «done»."
+msgstr "Если срок сдачи проекта «вчера» — я не тот исполнитель. Я не делаю сайты «за пару дней», и по опыту знаю, что не бывает задач «там всего на пару минут с твоим опытом». Всегда пытаюсь найти самое оптимальное и лучшее решение задачи, а не первое попавшееся, которое позволит поставить галочку «выполнено»."
+
+msgid "<a href=\"@portfolio_url\">Portfolio</a> — commercial projects that I have worked on or continue to work on."
+msgstr "<a href=\"@portfolio_url\">Портфолио</a> — коммерческие проекты над которыми я работал или продолжаю работать."
+
+msgid "<a href=\"@github_url\">GitHub</a> — my contribution to OpenSource."
+msgstr "<a href=\"@github_url\">GitHub</a> — моя контрибуция в OpenSource."
+
+msgid "<a href=\"@drupal_url\">drupal.org</a> — my profile on the official Drupal website."
+msgstr "<a href=\"@drupal_url\">drupal.org</a> — мой профиль на официальном сайте Drupal."
+
+msgctxt "work"
+msgid "Services"
+msgstr "Услуги"
+
+msgid "Website development and support on <strong>Drupal 9</strong>."
+msgstr "Разработка и поддержка сайтов на <strong>Drupal 9</strong>."
+
+msgid "Drupal theming."
+msgstr "Вёрстка для Drupal."
+
+msgid "Consultation on Drupal or an audit of your site."
+msgstr "Консультация по Drupal или аудит вашего сайта."
+
+msgid "How we'll work"
+msgstr "Как будем работать"
+
+msgid "If the amount of work (approximately) exceeds 10 hours:"
+msgstr "Если объём работ (примерно) превышает 10 часов:"
+
+msgid "Discuss the task, ToR (if available)."
+msgstr "Обсуждаем задачу, ТЗ (если имеется)."
+
+msgid "I invoice for 10 or more hours (at your discretion)."
+msgstr "Выставляю счёт на 10 или более часов (по вашему усмотрению)."
+
+msgid "I do the work on this amount of hours."
+msgstr "Выполняю работу на данный объём часов."
+
+msgid "if necessary, on completion i make and send a report on the work done."
+msgstr "Если необходимо, по завершению составляю и высылаю отчёт о проделанной работе."
+
+msgid "If everything is okay, repeat and continue."
+msgstr "Если всё устраивает — повторяем, продолжаем."
+
+msgid "Price"
+msgstr "Стоимость"
+
+msgid "I work with an hourly rate and consider it the best option for both parties."
+msgstr "Я работаю с почасовой оплатой и считаю это самым оптимальным вариантом сотрудничества для обеих сторон."
+
+msgid "1 000 ₽/h"
+msgstr "1 000 ₽/ч"
+
+msgid "Hi. You occasionally ask <em>«How can I support financially?»</em> or ask to add a donate button. Well, if this is about you, you've come to the right place."
+msgstr "Привет. Вы периодически спрашиваете «Как можно поддержать финансово?» или просите добавить кнопку донатов. Штош, если это про вас, вы попали куда нужно."
+
+msgid "A blog is a hobby. Donations will not affect the quality and regularity of the content. I do it when I am in the mood, time and desire."
+msgstr "Блог — это хобби. Пожертвования не повлияют на качество и регулярность контента. Я его делаю тогда, когда есть настроение, время и желание."
+
+msgid "Donations are not a goal or a motivator. Think twice, or better yet, three times before you support."
+msgstr "Пожертвования — не цель и не мотиватор. Подумайте дважды, а лучше трижды, прежде чем поддержать."
+
+msgid "If you haven't changed your mind, you can donate through <a href=\"@bank_url\"><strong>Tinkoff Bank</strong></a>."
+msgstr "Если вы не передумали, вы можете сделать пожертвование через <a href=\"@bank_url\"><strong>Тинькофф Банк</a>."
+
+msgid "You can email me using the form on this page or you can write to me at <a href=\"mailto:@email\"><strong>@email</strong></a>."
+msgstr "Можете написать мне на почту воспользовавшись формой на текущей странице, либо удобным для вас способом на <a href=\"mailto:@email\"><strong>@emails</strong></a>."
+
+msgid "If it is more convenient, write directly on Telegram - <a href=\"@telegram_url\" target=\"_blank\" rel=\"nofollow noopener\">@Niklan</a>. Just ask: no need to write «hello» and wait for my reaction, directly write a question; I do not listen voice messages; I do not answer calls."
+msgstr "Если удобнее, пишите напрямую в Telegram — <a href=\"@telegram_url\" target=\"_blank\" rel=\"nofollow noopener\">@Niklan</a>. Только попрошу: не нужно писать «привет» и ждать моей реакции, сразу пишите вопрос; войсы не слушаю; звонки не беру."
+
+msgid "My other social media pages:"
+msgstr "Мои прочие странички в соц. сетях:"
+
+msgctxt "author"
+msgid "About"
+msgstr "Об авторе"
+
+msgctxt "menu"
+msgid "Contact"
+msgstr "Контакты"
+
+msgid "Read the blog"
+msgstr "Читать блог"
+
+msgid "Welcome to"
+msgstr "Добро пожаловать, на"
+
+msgid "Web Developer Blog"
+msgstr "Блог веб-разработчика"
+
+msgid "This is an author's blog about web development. In my work I use Drupal, so most publications are about Drupal CMS."
+msgstr "Это авторский блог о веб-разработке. В работе использую Drupal поэтому большинство публикацией посвящено этой CMS."

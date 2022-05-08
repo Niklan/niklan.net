@@ -1,0 +1,33 @@
+uuid: 135c3b23-cae2-4cd6-94f2-8d9a20bc820b
+langcode: ru
+status: true
+dependencies:
+  config:
+    - contact.form.contact_form
+    - field.field.contact_message.contact_form.field_email
+    - field.field.contact_message.contact_form.field_fulltext_unformatted
+id: contact_message.contact_form.default
+targetEntityType: contact_message
+bundle: contact_form
+mode: default
+content:
+  field_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_fulltext_unformatted:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  mail: true
+  message: true
+  name: true
+  subject: true

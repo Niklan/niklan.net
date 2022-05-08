@@ -1,0 +1,8 @@
+uuid: 686b1c2b-2abf-438b-a4f0-10c4270d9b03
+langcode: ru
+status: true
+dependencies: {  }
+id: comment_node_blog_entry
+label: 'Запись в блог (поле комментария)'
+target_entity_type_id: node
+description: null

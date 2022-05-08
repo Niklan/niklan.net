@@ -1,0 +1,13 @@
+uuid: 623910da-5f17-482a-871a-5455ce546d36
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: yBqw6UD3j0MM1yoDSVDif7nw4SNdoS2e385nw--3ysk
+id: front
+label: 'Front page'
+tags:
+  title: 'Блог веб-разработчика — Niklan'
+  shortlink: '[site:url]'
+  canonical_url: '[site:url]'
+  description: 'Блог о веб-разработке с использованием Drupal. Обучающие материалы и многое другое.'

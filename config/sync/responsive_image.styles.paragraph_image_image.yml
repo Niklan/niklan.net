@@ -1,0 +1,42 @@
+uuid: 802de465-497d-43c2-bde7-8d5d698c5b7f
+langcode: ru
+status: true
+dependencies:
+  config:
+    - image.style.paragraph_image_image_lg
+    - image.style.paragraph_image_image_md
+    - image.style.paragraph_image_image_sm
+    - image.style.paragraph_image_image_xl
+    - image.style.paragraph_image_image_xs
+  theme:
+    - mechanical
+id: paragraph_image_image
+label: 'Paragraph - Image - Image'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: paragraph_image_image_xl
+    breakpoint_id: rejuvenation.xl
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: paragraph_image_image_lg
+    breakpoint_id: rejuvenation.lg
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: paragraph_image_image_md
+    breakpoint_id: rejuvenation.md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: paragraph_image_image_sm
+    breakpoint_id: rejuvenation.sm
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: paragraph_image_image_xs
+    breakpoint_id: rejuvenation.xs
+    multiplier: 1x
+breakpoint_group: mechanical
+fallback_image_style: paragraph_image_image_xl

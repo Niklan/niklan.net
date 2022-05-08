@@ -1,0 +1,21 @@
+uuid: df9db9b2-cd33-4907-a448-441100ad64b0
+langcode: ru
+status: true
+dependencies:
+  config:
+    - comment.type.comment_node_blog_entry
+    - field.storage.comment.comment_body
+  module:
+    - text
+id: comment.comment_node_blog_entry.comment_body
+field_name: comment_body
+entity_type: comment
+bundle: comment_node_blog_entry
+label: Комментарий
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

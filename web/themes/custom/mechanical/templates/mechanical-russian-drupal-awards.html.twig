@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme implementation to display promo for Russian Drupal Awards.
+ */
+#}
+{{ attach_library('mechanical/component.theme.russian-drupal-awards') }}
+{% set url = 'https://www.russiandrupalawards.ru/?utm_source=niklan.net&utm_medium=content&utm_campaign=russiandrupalawards2022' %}
+<!-- Make Drupal Great Again! -->
+<a href="{{ url }}" target="_blank" rel="nofollow noreferrer" {{ attributes.addClass('russian-drupal-awards') }}>
+  <div class="russian-drupal-awards__logo">
+    {{ source(directory ~ '/assets/images/russian-drupal-awards.svg') }}
+  </div>
+</a>

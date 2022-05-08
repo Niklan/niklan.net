@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display links with share URLs.
+ *
+ * Available variables:
+ * - attritrbutes: The main wrapper element attributes.
+ * - url: The URL to share.
+ * - text: The title of shared content.
+ */
+#}
+{{ attach_library('niklan/share') }}
+{% set links = {
+  'telegram': 'https://telegram.me/share/url?url=' ~ url ~ '&text=' ~ text,
+  'twitter': 'https://twitter.com/intent/tweet?url=' ~ url ~ '&text=' ~ text,
+  'vk': 'https://vk.com/share.php?url=' ~ url ~ '&title=' ~ text,
+  'facebook': 'https://facebook.com/sharer/sharer.php?u=' ~ url,
+  'mail': 'mailto:?subject=' ~ text ~ '&body=' ~ url,
+} %}
+<div{{ attributes.addClass('share') }}>
+  <div class="share__title">❤️ {% trans %}Do you like it? Share it with others.{% endtrans %}</div>
+  <div class="share__links">
+    {# Native JavaScript Share API. #}
+    <button class="share__link share__link--device"
+            aria-label="{{ 'Share'|t }}"
+            data-text="{{ text }}"
+            data-url="{{ url }}"
+            data-niklan-selector="share">
+    </button>
+    {% for modifier, href in links %}
+      <a href="{{ href }}" class="share__link share__link--{{ modifier }}" rel="nofollow noopener" target="_blank"></a>
+    {% endfor %}
+  </div>
+</div>

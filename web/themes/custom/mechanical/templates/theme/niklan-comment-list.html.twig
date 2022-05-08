@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Theme override for present comments list.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - comments: An array with commentes.
+ * - pager: Pager element. NULL if not presented.
+ */
+#}
+{{ attach_library('mechanical/component.theme.comments-list') }}
+{% set discord_join_url = '' %}
+<section{{ attributes.addClass('comments-list') }}>
+  <header class="comments-list__head">
+    <p>{% trans %}Find out what publications are being discussed.{% endtrans %}</p>
+    <p>{% trans %}Wants to discuss in realtime? Join <a href="{{ discord_join_url }}">Discord</a> chat.{% endtrans %}</p>
+  </header>
+  <main class="comments-list__main">
+    <div class="comments-list__items">
+      {% for comment in comments %}
+        <div class="comments-list__item">
+          {{- comment -}}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if pager %}
+      <div class="comments-list__pager">
+        {{- pager -}}
+      </div>
+    {% endif %}
+  </main>
+</section>

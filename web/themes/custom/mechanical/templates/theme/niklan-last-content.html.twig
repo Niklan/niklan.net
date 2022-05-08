@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override for last plog posts.
+ *
+ * Available variables:
+ * - attributes: An attributes.
+ * - items: An array with items to show.
+ * - title: A title for section.
+ * - more_url: (optional) An Url for 'more' of content.
+ * - more_label: (optional) A label for 'more_url'.
+ */
+#}
+{{ attach_library('mechanical/component.theme.last-content') }}
+<section{{ attributes.addClass('last-content') }}>
+  <h2 class="last-content__title">{{- title -}}</h2>
+  <div class="last-content__items">
+    {% for item in items %}
+      <div class="last-content__item">
+        {{- item -}}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if more_url and more_label %}
+    <footer class="last-content__footer">
+      <a href="{{ more_url }}" class="button button--primary last-content__more">{{ more_label }}</a>
+    </footer>
+  {% endif %}
+</section>

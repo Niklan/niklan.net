@@ -1,0 +1,14 @@
+{
+    "name": "niklan/niklan",
+    "type": "drupal-custom-module",
+    "description": "Custom code.",
+    "version": "1.0.0",
+    "keywords": [
+        "Drupal"
+    ],
+    "require": {
+        "scrivo/highlight.php": "^9.0",
+        "ext-dom": "*",
+        "league/commonmark": "^1.5"
+    }
+}

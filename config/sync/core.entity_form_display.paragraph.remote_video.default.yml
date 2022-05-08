@@ -1,0 +1,25 @@
+uuid: 59cc34bf-65f8-4fd0-ad7c-4e20500a65bf
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.remote_video.field_media_remote_video
+    - paragraphs.paragraphs_type.remote_video
+id: paragraph.remote_video.default
+targetEntityType: paragraph
+bundle: remote_video
+mode: default
+content:
+  field_media_remote_video:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

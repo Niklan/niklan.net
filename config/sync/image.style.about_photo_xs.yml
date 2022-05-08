@@ -1,0 +1,15 @@
+uuid: 871070fb-e76c-4e34-93aa-ac40b5f4c369
+langcode: ru
+status: true
+dependencies: {  }
+name: about_photo_xs
+label: 'About photo: XS'
+effects:
+  04530ec9-971f-4b05-a1af-357ca4124456:
+    uuid: 04530ec9-971f-4b05-a1af-357ca4124456
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 200
+      height: 200
+      anchor: center-center

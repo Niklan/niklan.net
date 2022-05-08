@@ -1,0 +1,24 @@
+uuid: 397dc724-51c9-462b-9f66-7c81228488e3
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_body
+    - paragraphs.paragraphs_type.code
+  module:
+    - text
+id: paragraph.code.field_body
+field_name: field_body
+entity_type: paragraph
+bundle: code
+label: Код
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: "```php\r\n\r\n```"
+    format: markdown
+default_value_callback: ''
+settings: {  }
+field_type: text_long

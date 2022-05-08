@@ -1,0 +1,18 @@
+uuid: 8deb3360-4054-4bf8-bddb-730326bec750
+langcode: ru
+status: true
+dependencies:
+  config:
+    - node.type.blog_entry
+id: node.blog_entry.title
+field_name: title
+entity_type: node
+bundle: blog_entry
+label: Заголовок
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

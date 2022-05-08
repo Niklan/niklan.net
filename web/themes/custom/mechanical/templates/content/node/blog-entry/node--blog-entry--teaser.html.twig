@@ -1,0 +1,16 @@
+{% extends 'node.html.twig' %}
+
+{% block node %}
+  <div class="{{ bem(block, 'media') }}">
+    {{- content.field_media_image -}}
+  </div>
+
+  <div class="{{ bem(block, 'content') }}">
+    <h2 class="{{ bem(block, 'title') }}">
+      <a href="{{ url }}">{{ node.label }}</a>
+    </h2>
+
+    {{- content.body -}}
+    {{- content.extra_field_meta_information -}}
+  </div>
+{% endblock %}

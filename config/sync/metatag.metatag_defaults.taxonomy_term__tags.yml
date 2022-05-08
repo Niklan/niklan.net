@@ -1,0 +1,9 @@
+uuid: 19c3c5d6-5473-4104-9409-092940196e2b
+langcode: ru
+status: true
+dependencies: {  }
+id: taxonomy_term__tags
+label: 'Taxonomy term: Теги'
+tags:
+  title: 'Материалы по теме [term:name] — Niklan'
+  description: 'Подборка материалов на тему [term:name].'

@@ -1,0 +1,30 @@
+uuid: 343c2a21-6cf6-42d3-8b3d-f2ccc50aaa3c
+langcode: ru
+status: true
+dependencies:
+  config:
+    - comment.type.comment_node_blog_entry
+    - field.field.comment.comment_node_blog_entry.comment_body
+  module:
+    - text
+id: comment.comment_node_blog_entry.default
+targetEntityType: comment
+bundle: comment_node_blog_entry
+mode: default
+content:
+  author:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  comment_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  subject: true

@@ -1,0 +1,15 @@
+uuid: 23e32d0d-c00b-4448-a35e-fc78873bd94b
+langcode: ru
+status: true
+dependencies: {  }
+name: node_blog_entry_teaser_promo_lg
+label: 'Node - Blog Entry - Teaser - Promo: LG'
+effects:
+  94035440-155d-4149-986e-56b044b08096:
+    uuid: 94035440-155d-4149-986e-56b044b08096
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 200
+      height: 150
+      anchor: center-center

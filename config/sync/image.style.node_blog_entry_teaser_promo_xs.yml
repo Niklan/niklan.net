@@ -1,0 +1,15 @@
+uuid: 797d094b-208f-4b31-9c4c-6cb7b603fee3
+langcode: ru
+status: true
+dependencies: {  }
+name: node_blog_entry_teaser_promo_xs
+label: 'Node - Blog Entry - Teaser - Promo: XS'
+effects:
+  acb8379c-ad84-424e-90c7-e5268b916f34:
+    uuid: acb8379c-ad84-424e-90c7-e5268b916f34
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 543
+      height: 250
+      anchor: center-center

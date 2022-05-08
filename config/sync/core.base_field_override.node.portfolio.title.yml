@@ -1,0 +1,18 @@
+uuid: 4879c58a-0253-4c96-a891-e555c86495eb
+langcode: ru
+status: true
+dependencies:
+  config:
+    - node.type.portfolio
+id: node.portfolio.title
+field_name: title
+entity_type: node
+bundle: portfolio
+label: Название
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

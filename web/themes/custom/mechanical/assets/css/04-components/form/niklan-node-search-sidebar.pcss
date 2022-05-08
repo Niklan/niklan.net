@@ -1,0 +1,42 @@
+:root {
+  --sidebar-search-icon: url('../../../icons/000000/file-search.svg');
+}
+
+[data-theme="dark"] {
+  --sidebar-search-icon: url('../../../icons/FFFFFF/file-search.svg');
+}
+
+.niklan-node-search-sidebar {
+  position: relative;
+}
+
+.niklan-node-search-sidebar__keys {
+  padding-left: 48px;
+  --form-control-border-radius: var(--radius-xs);
+}
+
+.niklan-node-search-sidebar__submit,
+.niklan-node-search-sidebar__submit:hover,
+.niklan-node-search-sidebar__submit:active {
+  --button-background-color: transparent;
+  --button-box-shadow: none;
+  --button-border: unset;
+  --button-border-radius: var(--radius-sm);
+  height: 100%;
+}
+
+.niklan-node-search-sidebar__submit:focus {
+  --button-box-shadow: none;
+  --button-background-color: var(--color-black--o-10);
+  --button-border: unset;
+  --button-border-radius: 0;
+}
+
+.niklan-node-search-sidebar__submit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: var(--sidebar-search-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -1,0 +1,15 @@
+uuid: 6f6c37dd-649b-4ede-b0cc-a86c2498e0cd
+langcode: ru
+status: true
+dependencies: {  }
+name: node_blog_entry_teaser_promo_md
+label: 'Node - Blog Entry - Teaser - Promo: MD'
+effects:
+  1677f4a3-1775-436e-b8fe-0e4cc2678302:
+    uuid: 1677f4a3-1775-436e-b8fe-0e4cc2678302
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 200
+      height: 200
+      anchor: center-center

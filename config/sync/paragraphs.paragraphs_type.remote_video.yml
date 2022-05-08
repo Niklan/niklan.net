@@ -1,0 +1,9 @@
+uuid: 13f400b6-c581-4608-ae83-f30fa3a5539f
+langcode: ru
+status: true
+dependencies: {  }
+id: remote_video
+label: 'Внешнее видео'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

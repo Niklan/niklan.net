@@ -1,0 +1,28 @@
+uuid: df251c99-d33e-43af-891a-61dbe9af8385
+langcode: ru
+status: true
+dependencies:
+  module:
+    - niklan
+    - node
+  theme:
+    - mechanical
+id: toc
+theme: mechanical
+region: sidebar_right
+weight: 0
+provider: null
+plugin: niklan_node_toc
+settings:
+  id: niklan_node_toc
+  label: Содержание
+  label_display: visible
+  provider: niklan
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      blog_entry: blog_entry

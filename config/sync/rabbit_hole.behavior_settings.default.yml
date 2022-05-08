@@ -1,0 +1,12 @@
+uuid: ade69e98-265c-493d-9ea5-966022aa91b1
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: V4kEJzI6kqZ9qVXKGyhOCUkL5K6ab7CL73QbvExeBkU
+id: default
+action: display_page
+allow_override: 1
+redirect: ''
+redirect_code: 0
+redirect_fallback_action: access_denied

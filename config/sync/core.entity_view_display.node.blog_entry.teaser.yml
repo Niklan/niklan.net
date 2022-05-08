@@ -1,0 +1,79 @@
+uuid: 69ed8b6d-0fbf-414c-a4b2-878256e7681f
+langcode: ru
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.blog_entry.body
+    - field.field.node.blog_entry.comment_node_blog_entry
+    - field.field.node.blog_entry.field_content
+    - field.field.node.blog_entry.field_media_attachments
+    - field.field.node.blog_entry.field_media_image
+    - field.field.node.blog_entry.field_tags
+    - node.type.blog_entry
+    - responsive_image.styles.node_blog_entry_teaser_promo
+  module:
+    - niklan
+    - text
+    - user
+id: node.blog_entry.teaser
+targetEntityType: node
+bundle: blog_entry
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  estimated_read_time:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  extra_field_comments_link:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  extra_field_created_time:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  extra_field_estimated_reading_time:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  extra_field_meta_information:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_media_image:
+    type: niklan_responsive_media_thumbnail
+    label: hidden
+    settings:
+      responsive_image_style: node_blog_entry_teaser_promo
+      image_link: content
+      image_limit: '0'
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  comment_node_blog_entry: true
+  extra_field_previous_next: true
+  extra_field_share: true
+  field_content: true
+  field_media_attachments: true
+  field_tags: true
+  follow: true
+  langcode: true
+  links: true
+  previous_next: true
+  search_api_excerpt: true
+  share: true

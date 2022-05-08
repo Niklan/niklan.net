@@ -1,0 +1,8 @@
+uuid: c5d5d21d-3ec3-44be-807e-a1853718d4d1
+langcode: ru
+status: true
+dependencies: {  }
+name: 'Категории портфолио'
+vid: portfolio_categories
+description: ''
+weight: 0

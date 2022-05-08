@@ -1,0 +1,202 @@
+uuid: 8ab7bb27-5e34-40e1-9657-fc1c38b84a28
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - search_api.server.database
+    - core.entity_view_mode.node.search_index
+    - core.entity_view_mode.taxonomy_term.full
+  module:
+    - taxonomy
+    - node
+    - search_api
+id: global_index
+name: 'Global index'
+description: ''
+read_only: false
+field_settings:
+  description:
+    label: Описание
+    datasource_id: 'entity:taxonomy_term'
+    property_path: description
+    type: text
+    dependencies:
+      module:
+        - taxonomy
+  field_tags:
+    label: Теги
+    datasource_id: 'entity:node'
+    property_path: field_tags
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_tags
+  name:
+    label: Название
+    datasource_id: 'entity:taxonomy_term'
+    property_path: name
+    type: string
+    dependencies:
+      module:
+        - taxonomy
+  name_fulltext:
+    label: Название
+    datasource_id: 'entity:taxonomy_term'
+    property_path: name
+    type: text
+    boost: !!float 21
+    dependencies:
+      module:
+        - taxonomy
+  nid:
+    label: ID
+    datasource_id: 'entity:node'
+    property_path: nid
+    type: integer
+    dependencies:
+      module:
+        - node
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    boost: 0.8
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          blog_entry: search_index
+          collection: search_index
+        'entity:taxonomy_term':
+          tags: full
+  tid:
+    label: 'ID термина'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: tid
+    type: integer
+    dependencies:
+      module:
+        - taxonomy
+  title:
+    label: Заголовок
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+  title_fulltext:
+    label: Заголовок
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 21
+    dependencies:
+      module:
+        - node
+  url:
+    label: URI
+    property_path: search_api_url
+    type: string
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - blog_entry
+    languages:
+      default: true
+      selected: {  }
+  'entity:taxonomy_term':
+    bundles:
+      default: false
+      selected:
+        - tags
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_status: {  }
+  entity_type: {  }
+  hierarchy:
+    weights:
+      preprocess_index: -49
+    fields:
+      field_tags: taxonomy_term-parent
+  html_filter:
+    weights:
+      preprocess_index: -50
+      preprocess_query: -49
+    all_fields: true
+    fields:
+      - description
+      - field_tags
+      - name
+      - name_fulltext
+      - rendered_item
+      - title
+      - title_fulltext
+      - url
+    title: true
+    alt: true
+    tags:
+      b: 2
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+  ignorecase:
+    weights:
+      preprocess_index: -48
+      preprocess_query: -48
+    all_fields: true
+    fields:
+      - description
+      - field_tags
+      - name
+      - name_fulltext
+      - rendered_item
+      - title
+      - title_fulltext
+      - url
+  language_with_fallback: {  }
+  rendered_item: {  }
+  transliteration:
+    weights:
+      preprocess_index: -47
+      preprocess_query: -47
+    all_fields: true
+    fields:
+      - description
+      - field_tags
+      - name
+      - name_fulltext
+      - rendered_item
+      - title
+      - title_fulltext
+      - url
+  type_boost:
+    weights:
+      preprocess_index: -41
+    boosts:
+      'entity:node':
+        datasource_boost: !!float 2
+        bundle_boosts:
+          blog_entry: 0.1
+          collection: 0.2
+      'entity:taxonomy_term':
+        datasource_boost: !!float 1
+        bundle_boosts:
+          tags: !!float 0
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  index_directly: true
+  track_changes_in_references: true
+server: database

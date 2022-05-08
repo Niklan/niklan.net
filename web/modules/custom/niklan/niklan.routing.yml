@@ -1,0 +1,88 @@
+niklan.about:
+  path: '/about'
+  defaults:
+    _title: 'Niklan — freelance Drupal web-developer'
+    _controller: '\Drupal\niklan\Controller\StaticPagesController::about'
+  requirements:
+    _access: 'TRUE'
+
+niklan.support:
+  path: '/support'
+  defaults:
+    _title: 'Support'
+    _controller: '\Drupal\niklan\Controller\StaticPagesController::support'
+  requirements:
+    _access: 'TRUE'
+
+niklan.services:
+  path: '/services'
+  defaults:
+    _title: "Let's Work Together"
+    _controller: '\Drupal\niklan\Controller\StaticPagesController::services'
+  requirements:
+    _access: 'TRUE'
+
+niklan.comments:
+  path: '/comments'
+  defaults:
+    _title: 'Comments'
+    _controller: '\Drupal\niklan\Controller\CommentController::list'
+  requirements:
+    _permission: 'access comments'
+
+niklan.admin:
+  path: '/admin/niklan'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::overview'
+    _title: 'Niklan Settings'
+    link_id: 'niklan.admin'
+  requirements:
+    _permission: 'access administration pages'
+
+niklan.about_settings:
+  path: '/admin/niklan/about'
+  defaults:
+    _title: 'About settings'
+    _form: 'Drupal\niklan\Form\AboutSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+niklan.blog_list:
+  path: '/blog'
+  defaults:
+    _title: 'Blog posts'
+    _controller: '\Drupal\niklan\Controller\BlogController::list'
+  requirements:
+    _permission: 'access content'
+
+niklan.portfolio_list:
+  path: '/portfolio'
+  defaults:
+    _title: 'Portfolio'
+    _controller: '\Drupal\niklan\Controller\PortfolioController::list'
+  requirements:
+    _permission: 'access content'
+
+niklan.search_page:
+  path: '/search'
+  defaults:
+    _title: 'Search'
+    _controller: '\Drupal\niklan\Controller\SearchController::build'
+  requirements:
+    _permission: 'access content'
+
+niklan.search_results:
+  path: '/search/{keys}'
+  defaults:
+    _title: 'Search'
+    _controller: '\Drupal\niklan\Controller\SearchController::build'
+  requirements:
+    _permission: 'access content'
+
+niklan.tags:
+  path: '/tags'
+  defaults:
+    _title: 'Tags'
+    _controller: '\Drupal\niklan\Controller\TagController::collection'
+  requirements:
+    _permission: 'access content'

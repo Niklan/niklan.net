@@ -1,0 +1,26 @@
+{% extends 'page.html.twig' %}
+
+{% block main_layout %}
+  {{ page.content_top }}
+  {{ attach_library('mechanical/component.page.frontpage') }}
+  <div class="frontpage">
+    <div class="frontpage-welcome">
+      <div class="frontpage-welcome__content">
+        <div class="frontpage-welcome__welcome">{% trans %}Welcome to{% endtrans %}</div>
+        <h1 class="frontpage-welcome__title">{% trans %}Web Developer Blog{% endtrans %}</h1>
+        <div class="frontpage-welcome__description">
+          <p>Это авторский блог о веб-разработке. В работе использую Drupal поэтому большинство публикацией посвящено этой CMS.</p>
+        </div>
+
+        <div class="frontpage-welcome__actions">
+          <a href="/blog" class="button button--primary">{% trans %}Read the blog{% endtrans %}</a>
+          <a href="/about" class="button">{% trans with {'context': 'author'} %}About{% endtrans %}</a>
+        </div>
+      </div>
+
+      <img src="/themes/custom/mechanical/assets/images/frontpage-illustration.svg" width="712" height="670" loading="lazy" decoding="async" alt="niklan.net frontpage illustration" class="frontpage-welcome__image">
+    </div>
+
+    {{ last_blog_posts }}
+  </div>
+{% endblock %}

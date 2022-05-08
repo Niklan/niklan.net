@@ -1,0 +1,11 @@
+uuid: ac72203c-0435-4e76-a07a-b53a35a884a7
+langcode: ru
+status: true
+dependencies:
+  config:
+    - node.type.portfolio
+id: node.portfolio
+target_entity_type_id: node
+target_bundle: portfolio
+default_langcode: site_default
+language_alterable: false

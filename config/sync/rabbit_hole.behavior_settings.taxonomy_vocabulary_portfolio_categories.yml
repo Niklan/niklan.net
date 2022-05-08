@@ -1,0 +1,14 @@
+uuid: 4415f86b-1f1e-4e1e-81c3-e88fd03eb9ff
+langcode: ru
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.portfolio_categories
+id: taxonomy_vocabulary_portfolio_categories
+entity_type_id: taxonomy_vocabulary
+entity_id: portfolio_categories
+action: page_not_found
+allow_override: 1
+redirect: ''
+redirect_code: 301
+redirect_fallback_action: access_denied

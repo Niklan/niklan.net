@@ -1,0 +1,12 @@
+uuid: 41c3a121-d506-4de3-8c66-9b99a06b4b8a
+langcode: ru
+status: false
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: 6GCOQ-jP2RbdbHA5YWQ6bT8CfGbqrBYKOSC_XY4E3ZM
+id: node.search_result
+label: 'Search result'
+targetEntityType: node
+cache: true

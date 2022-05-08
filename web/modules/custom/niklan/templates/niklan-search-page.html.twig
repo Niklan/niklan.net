@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present search page.
+ *
+ * Available variables:
+ * - attributes: An attributes for main wrapper.
+ * - search_form: The search form.
+ * - results: The search results.
+ * - pager: The pager.
+ */
+#}
+<div{{ attributes.addClass('search-page') }}>
+  <div class="search-page__form">{{ search_form }}</div>
+  {% if results|length %}
+    <div class="search-page__results">{{ results }}</div>
+  {% else %}
+    <div class="search-page__no-results">
+      {% trans %}There are no results found or you not entered they keys to search.{% endtrans %}
+    </div>
+  {% endif %}
+  {% if pager %}
+    <div class="search-page__pager">{{ pager }}</div>
+  {% endif %}
+</div>

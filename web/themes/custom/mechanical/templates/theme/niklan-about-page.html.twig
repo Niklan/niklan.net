@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Theme override for an about page contents.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - photo: (optional) The render element with a photo.
+ *
+ * @see template_preprocess_niklan_about_page()
+ */
+#}
+{{ attach_library('mechanical/component.theme.about-page') }}
+<main{{ attributes.addClass('about-page') }}>
+  <section class="about-welcome">
+    <div class="about-welcome__left">
+      <div class="about-welcome__subtitle">👋 {% trans %}Hi, my name is <strong>Nikita</strong>{% endtrans %}</div>
+      <h1 class="about-welcome__title">{% trans %}I'm a <span>freelance web developer</span>.{% endtrans %}</h1>
+      <div class="about-welcome__description">
+        <p>
+          <mark>{% trans %}I develop websites on Drupal.{% endtrans %}</mark> {% trans %}Contributing to OpenSource. I write tutorials on my blog, at the same time developing a YouTube channel. Constantly trying to improve and sharpen skills.{% endtrans %}
+        </p>
+      </div>
+    </div>
+
+    <div class="about-welcome__right">
+      {% if photo %}
+        <div class="about-welcome__photo">
+          {{ photo }}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <div class="about-me">
+    <div class="about-me__content container">
+      <h2 class="about-me__title">{% trans %}About me{% endtrans %}</h2>
+      <div class="about-me__description">
+        {% set repository_url = 'https://github.com/Niklan/my_first_website' %}
+        <p>
+          {% trans %}
+            I got interested in web development in 2006, when I got into a camp with a computer bias, where there was a group for creating simple HTML pages. I also created <a href="{{ repository_url }}" rel="nofollow noopener" target="_blank">first HTML site</a>. Since then, I started to get involved in this direction by making simple websites for myself and trying different CMS.
+          {% endtrans %}
+        </p>
+        <p>
+          {% trans %}
+            In 2011 I started to study Drupal and PHP, and since 2013 I have been doing it professionally. Since then I have been providing web development services remotely from Perm.
+          {% endtrans %}
+        </p>
+        <p>
+          {% trans %}
+            I use Drupal exclusively in my work. I think it's better to know one tool well than many and mediocre. I put the work quality on the first place, I'm concerned about the standards, I constantly study the best practices and experiences of other developers, I monitor the trends and changes in the web. I'm constantly engaged in self-study.
+          {% endtrans %}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <a href="/services" class="button button--primary about-page__hire">{% trans %}Hire me{% endtrans %}</a>
+</main>

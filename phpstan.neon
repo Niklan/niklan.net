@@ -1,0 +1,16 @@
+parameters:
+  paths:
+    - ./web/modules/custom
+  excludePaths:
+    - *Test.php
+    - *TestBase.php
+  level: 1
+  drupal:
+    # Some tools (e.g. PHPStorm) can execute PHPStan from different directories,
+    # this can lead to problems with Drupal Root detection.
+    # Set this value relative to %rootDir% (vendor/phpstan/phpstan), we always
+    # directs to directory with phpstan.neon (current) file, which is in
+    # Drupal project docroot.
+    drupal_root: %rootDir%/../../../
+includes:
+  - vendor/mglaman/phpstan-drupal/extension.neon

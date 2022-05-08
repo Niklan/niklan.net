@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present tags.
+ *
+ * Available variables:
+ * - attributes: An attributes.
+ * - items: An array with items to show.
+ */
+#}
+<div{{ attributes }}>
+  {% for item in items %}
+    {{- item -}}
+  {% endfor %}
+</div>

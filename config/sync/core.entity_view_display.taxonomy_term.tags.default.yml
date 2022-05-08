@@ -1,0 +1,24 @@
+uuid: 870e445e-e910-4ffb-8d9d-818a06c3d1dd
+langcode: ru
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags
+  module:
+    - text
+id: taxonomy_term.tags.default
+targetEntityType: taxonomy_term
+bundle: tags
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_niklan_taxonomy_tag_statistics: true
+  langcode: true
+  search_api_excerpt: true

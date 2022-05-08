@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Theme override for tags list.
+ *
+ * Available variables:
+ * - attributes: An attributes.
+ * - items: An array with items to show.
+ */
+#}
+{{ attach_library('mechanical/component.theme.tags-page') }}
+<div{{ attributes.addClass('tags-page') }}>
+  {% for item in items %}
+    {{- item -}}
+  {% endfor %}
+</div>

@@ -1,0 +1,22 @@
+uuid: 79112f19-2583-40f0-9a4d-1a7564ba7f6d
+langcode: ru
+status: true
+dependencies:
+  module:
+    - comment
+    - contact
+    - media
+    - system
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Авторизованный пользователь'
+weight: 1
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'view media'

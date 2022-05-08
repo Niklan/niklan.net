@@ -1,0 +1,36 @@
+uuid: 6906e98d-3903-4713-80e0-cb94ff621dcc
+langcode: ru
+status: true
+dependencies:
+  config:
+    - image.style.node_portfolio_full_photo_lg
+    - image.style.node_portfolio_full_photo_md
+    - image.style.node_portfolio_full_photo_sm
+    - image.style.node_portfolio_full_photo_xs
+  theme:
+    - mechanical
+id: node_portfolio_full_photo_thumb
+label: 'Node - Portfolio - Full - Photo - Thumb'
+image_style_mappings:
+  -
+    image_mapping_type: image_style
+    image_mapping: node_portfolio_full_photo_lg
+    breakpoint_id: rejuvenation.lg
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: node_portfolio_full_photo_md
+    breakpoint_id: rejuvenation.md
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: node_portfolio_full_photo_sm
+    breakpoint_id: rejuvenation.sm
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: node_portfolio_full_photo_xs
+    breakpoint_id: rejuvenation.xs
+    multiplier: 1x
+breakpoint_group: mechanical
+fallback_image_style: node_portfolio_full_photo_lg

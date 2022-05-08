@@ -1,0 +1,35 @@
+.form-success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: var(--spacing-lg) 0;
+}
+
+.form-success__icon {
+  width: 8rem;
+  height: 8rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.form-success__icon-path {
+  stroke: var(--color-jade);
+  stroke-dashoffset: 745.74853515625;
+  stroke-dasharray: 745.74853515625;
+  animation: check-icon 2s ease-out forwards;
+  stroke-width: 8px;
+}
+
+.form-success__title {
+  font-weight: bold;
+  font-size: var(--font-size-h4);
+}
+
+@keyframes check-icon {
+  0% {
+    stroke-dashoffset: 745.74853515625;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

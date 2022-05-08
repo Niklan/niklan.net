@@ -1,0 +1,8 @@
+{% extends 'taxonomy-term.html.twig' %}
+
+{% block taxonomy_term %}
+  <a href="{{ url }}" class="{{ bem(block, 'title') }}">{{ name }}</a>
+  <div class="{{ bem(block, 'summary') }}">
+    {{ content.extra_field_niklan_taxonomy_tag_statistics }}
+  </div>
+{% endblock %}

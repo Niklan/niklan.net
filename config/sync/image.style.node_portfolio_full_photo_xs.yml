@@ -1,0 +1,15 @@
+uuid: 2bdf5a14-a1d3-4404-87ae-906297a3fd96
+langcode: ru
+status: true
+dependencies: {  }
+name: node_portfolio_full_photo_xs
+label: 'Node - Portfolio - Full - Photo: XS'
+effects:
+  1ad5b966-32e0-46b7-b390-674a4f62be86:
+    uuid: 1ad5b966-32e0-46b7-b390-674a4f62be86
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 263
+      height: 263
+      anchor: center-top
