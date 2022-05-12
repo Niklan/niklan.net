@@ -23,13 +23,13 @@ prismjs:
     name: MIT
     gpl-compatible: true
   js:
-    assets/js/prism.manual.js: { weight: -1 }
+    assets/js/prism.init.js: { weight: -1 }
     /libraries/prismjs/prism.js: { minfied: true }
 
 share:
   version: VERSION
   js:
-    assets/js/Share.js: { minified: true }
+    assets/js/share.js: { }
   dependencies:
     - core/drupal
     - core/once
@@ -37,7 +37,7 @@ share:
 oembed-video:
   version: VERSION
   js:
-    assets/js/OEmbedVideo.js: { minified: true }
+    assets/js/oembed-video.js: { }
   dependencies:
     - core/drupal
     - core/once
@@ -46,6 +46,6 @@ oembed-video:
 code_line_highlight:
   version: VERSION
   js:
-    assets/js/paragraph-code--highlighted-lines.js: { }
+    assets/js/paragraph.code.highlighted-lines.js: { }
   dependencies:
     - core/drupal

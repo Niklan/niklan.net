@@ -67,11 +67,5 @@ default.services.yml
 # Ignore builded CSS files.
 web/themes/custom/mechanical/assets/**/*.css
 
-# Ignore builded JavaScript files.
-web/themes/custom/mechanical/assets/**/*.js
-!web/themes/custom/mechanical/assets/**/*.es6.js
-web/modules/custom/**/assets/js/**/*.js
-!web/modules/custom/**/assets/js/**/*.es6.js
-
 # Ignore .mo files if someone try to use Poedit
 /translations/*.mo
