@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan_external_content\Unit\Dto;
+namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\niklan_external_content\Dto\SourceFile;
+use Drupal\external_content\Dto\SourceFile;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Validates that source file DTO works as expected.
  *
- * @coversDefaultClass \Drupal\niklan_external_content\Dto\SourceFile
+ * @coversDefaultClass \Drupal\external_content\Dto\SourceFile
  */
 final class SourceFileTest extends UnitTestCase {
 

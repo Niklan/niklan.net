@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Drupal\Tests\niklan\Kernel\Controller;
 
 use Drupal\niklan\Controller\StaticPagesController;
-use Drupal\Tests\niklan\Kernel\NiklanTestBase;
+use Drupal\Tests\niklan\Kernel\NiklanExternalContentTestBase;
 
 /**
  * Provides a test for static pages.
  *
  * @coversDefaultClass \Drupal\niklan\Controller\StaticPagesController
  */
-final class StaticPagesControllerTest extends NiklanTestBase {
+final class StaticPagesControllerExternalContentTest extends NiklanExternalContentTestBase {
 
   /**
    * The controller.

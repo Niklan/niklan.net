@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan_external_content\Annotation;
+namespace Drupal\external_content\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 

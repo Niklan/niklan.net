@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan_external_content\Dto;
+namespace Drupal\external_content\Dto;
 
 /**
  * Represents a collection of source files.
@@ -12,14 +12,14 @@ final class SourceFileCollection implements \Countable, \IteratorAggregate {
   /**
    * The array with source file items.
    *
-   * @var \Drupal\niklan_external_content\Dto\SourceFile[]
+   * @var \Drupal\external_content\Dto\SourceFile[]
    */
   protected array $items = [];
 
   /**
    * Adds a source file into collection.
    *
-   * @param \Drupal\niklan_external_content\Dto\SourceFile $file
+   * @param \Drupal\external_content\Dto\SourceFile $file
    *   The source file.
    */
   public function add(SourceFile $file): void {

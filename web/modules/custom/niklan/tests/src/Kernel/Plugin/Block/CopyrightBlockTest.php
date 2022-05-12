@@ -9,7 +9,7 @@ namespace Drupal\Tests\niklan\Kernel\Plugin\Block;
  *
  * @coversDefaultClass \Drupal\niklan\Plugin\Block\CopyrightBlock
  */
-final class CopyrightBlockTest extends BlockTestBase {
+final class CopyrightBlockTest extends BlockExternalContentTestBase {
 
   /**
    * Tests that block works as expected with default content.

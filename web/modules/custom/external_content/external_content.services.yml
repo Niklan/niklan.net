@@ -1,0 +1,4 @@
+services:
+  plugin.manager.external_content.configuration:
+    class: Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager
+    arguments: ['%app.root%', '@module_handler', '@cache.discovery']

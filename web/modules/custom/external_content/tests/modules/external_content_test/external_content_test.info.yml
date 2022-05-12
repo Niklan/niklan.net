@@ -1,0 +1,5 @@
+name: External content test
+type: module
+description: 'Support module for external content module testing.'
+package: Testing
+version: VERSION

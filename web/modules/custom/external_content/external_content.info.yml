@@ -1,5 +1,5 @@
-name: Niklan - External Content
+name: External Content
 description: 'Provides functionality to build content from external sources.'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9
 package: Custom

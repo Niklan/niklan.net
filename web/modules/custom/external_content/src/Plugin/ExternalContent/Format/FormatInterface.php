@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan_external_content\Plugin\ExternalContent\Format;
+namespace Drupal\external_content\Plugin\ExternalContent\Format;
 
 /**
  * Provides an interface for external content format plugins.

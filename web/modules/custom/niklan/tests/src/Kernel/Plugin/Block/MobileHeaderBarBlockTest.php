@@ -11,7 +11,7 @@ use Drupal\Core\Url;
  *
  * @coversDefaultClass \Drupal\niklan\Plugin\Block\MobileHeaderBarBlock
  */
-final class MobileHeaderBarBlockTest extends BlockTestBase {
+final class MobileHeaderBarBlockTest extends BlockExternalContentTestBase {
 
   /**
    * Tests that block works as expected with default content.

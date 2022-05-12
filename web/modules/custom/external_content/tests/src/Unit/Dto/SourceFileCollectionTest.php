@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan_external_content\Unit\Dto;
+namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\niklan_external_content\Dto\SourceFile;
-use Drupal\niklan_external_content\Dto\SourceFileCollection;
+use Drupal\external_content\Dto\SourceFile;
+use Drupal\external_content\Dto\SourceFileCollection;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Validates that collection properly handles source files.
  *
- * @coversDefaultClass \Drupal\niklan_external_content\Dto\SourceFileCollection
+ * @coversDefaultClass \Drupal\external_content\Dto\SourceFileCollection
  */
 final class SourceFileCollectionTest extends UnitTestCase {
 

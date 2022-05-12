@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\niklan_external_content\Dto;
+namespace Drupal\external_content\Dto;
 
 /**
  * Represents a source file with a content.
