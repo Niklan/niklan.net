@@ -19,7 +19,6 @@ const paths = {
   projectRoot: PROJECT_ROOT,
   theme: {
     css: PROJECT_ROOT + '/web/themes/custom/mechanical/assets/css',
-    js: PROJECT_ROOT + '/web/themes/custom/mechanical/assets/js',
   },
   modules: {
     custom: PROJECT_ROOT + '/web/modules/custom',
