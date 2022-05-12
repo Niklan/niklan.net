@@ -7,16 +7,16 @@ namespace Drupal\Tests\niklan\Kernel\Plugin\ExtraField\Display;
 use Drupal\comment\CommentInterface;
 use Drupal\comment\Entity\Comment;
 use Drupal\comment\Entity\CommentType;
-use Drupal\Tests\niklan\Kernel\Plugin\ExtraField\ExtraFieldExternalContentTestBase;
+use Drupal\Tests\niklan\Kernel\Plugin\ExtraField\ExtraFieldTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\UserInterface;
 
 /**
  * Provides a test for extra field with author name.
  *
- * @coversDefaultClass \Drupal\niklan\Plugin\ExtraField\Display\AuthorName
+ * @coversDefaultClass \Drupal\niklan\Plugin\ExtraField\Display\Comment\AuthorName
  */
-final class AuthorNameTest extends ExtraFieldExternalContentTestBase {
+final class AuthorNameTest extends ExtraFieldTestBase {
 
   use UserCreationTrait;
 

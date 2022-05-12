@@ -11,7 +11,7 @@ use Drupal\Core\Url;
  *
  * @coversDefaultClass \Drupal\niklan\Plugin\Block\FollowLinksBlock
  */
-final class FollowLinksBlockTest extends BlockExternalContentTestBase {
+final class FollowLinksBlockTest extends BlockTestBase {
 
   /**
    * Tests that block works as expected with default content.

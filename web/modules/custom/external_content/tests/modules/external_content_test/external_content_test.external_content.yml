@@ -1,2 +1,7 @@
 test:
   label: Testing
+  scanner:
+    id: test
+    settings:
+      uri: 'public://external-content'
+  format: test

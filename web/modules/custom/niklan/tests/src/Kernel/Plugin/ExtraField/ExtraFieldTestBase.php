@@ -6,12 +6,12 @@ namespace Drupal\Tests\niklan\Kernel\Plugin\ExtraField;
 
 use Drupal\Core\Render\RendererInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayManagerInterface;
-use Drupal\Tests\niklan\Kernel\NiklanExternalContentTestBase;
+use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 
 /**
  * Base class for all extra fields tests for the module.
  */
-abstract class ExtraFieldExternalContentTestBase extends NiklanExternalContentTestBase {
+abstract class ExtraFieldTestBase extends NiklanTestBase {
 
   /**
    * The extra field display plugin manager.

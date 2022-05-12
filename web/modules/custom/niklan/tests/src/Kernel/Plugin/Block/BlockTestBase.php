@@ -6,12 +6,12 @@ namespace Drupal\Tests\niklan\Kernel\Plugin\Block;
 
 use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\Tests\niklan\Kernel\NiklanExternalContentTestBase;
+use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 
 /**
  * Base class for all block tests for the module.
  */
-abstract class BlockExternalContentTestBase extends NiklanExternalContentTestBase {
+abstract class BlockTestBase extends NiklanTestBase {
 
   /**
    * The block plugin manager.
