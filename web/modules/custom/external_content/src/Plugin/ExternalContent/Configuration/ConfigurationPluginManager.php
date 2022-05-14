@@ -59,14 +59,12 @@ final class ConfigurationPluginManager extends DefaultPluginManager {
    * {@inheritdoc}
    */
   public function getDiscovery(): DiscoveryInterface {
-    if ($this->discovery) {
-      return $this->discovery;
+    if (!$this->discovery) {
+      $directories = \array_map(function (Extension $extension) {
+        return $this->root . '/' . $extension->getPath();
+      }, $this->moduleHandler->getModuleList());
+      $this->discovery = new YamlDiscovery('external_content', $directories);
     }
-
-    $directories = \array_map(function (Extension $extension) {
-      return $this->root . '/' . $extension->getPath();
-    }, $this->moduleHandler->getModuleList());
-    $this->discovery = new YamlDiscovery('external_content', $directories);
 
     return $this->discovery;
   }

@@ -7,7 +7,7 @@ namespace Drupal\external_content\Plugin\ExternalContent\Format;
 /**
  * Provides an interface for external content format plugins.
  */
-interface FormatInterface {
+interface MarkupInterface {
 
   /**
    * Perform processing of source content to convert it into HTML.

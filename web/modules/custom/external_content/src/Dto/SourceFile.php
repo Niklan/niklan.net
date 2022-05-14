@@ -8,23 +8,58 @@ namespace Drupal\external_content\Dto;
 final class SourceFile {
 
   /**
-   * The source content path URI.
-   */
-  protected string $realpath;
-
-  /**
-   * The source file information.
-   */
-  protected ?\SplFileInfo $file = NULL;
-
-  /**
-   * Constructs a new SourceContent object.
+   * Constructs a new SourceDocument object.
    *
-   * @param string $realpath
-   *   The content URI path.
+   * @param string $working_dir
+   *   The full (absolute) path to a working dir.
+   * @param string $pathname
+   *   The full (absolute) path to a file and its name.
    */
-  public function __construct(string $realpath) {
-    $this->realpath = $realpath;
+  public function __construct(
+    protected string $working_dir,
+    protected string $pathname,
+  ) {}
+
+  /**
+   * Gets a relative (to working dir) pathname.
+   *
+   * @return string
+   *   The relative pathname.
+   */
+  public function getRelativePathname(): string {
+    $without_working_dir = \str_replace($this->getWorkingDir(), '', $this->getPathname());
+
+    return \ltrim($without_working_dir, \DIRECTORY_SEPARATOR);
+  }
+
+  /**
+   * Gets a working dir where file is found.
+   *
+   * @return string
+   *   The working dir path.
+   */
+  public function getWorkingDir(): string {
+    return $this->working_dir;
+  }
+
+  /**
+   * Gets a file pathname.
+   *
+   * @return string
+   *   The pathname.
+   */
+  public function getPathname(): string {
+    return $this->pathname;
+  }
+
+  /**
+   * Gets a file extension.
+   *
+   * @return string
+   *   The file extension.
+   */
+  public function getExtension(): string {
+    return \pathinfo($this->getPathname(), \PATHINFO_EXTENSION);
   }
 
   /**
@@ -34,21 +69,7 @@ final class SourceFile {
    *   TRUE is readable, FALSE if file is not readable or not exists.
    */
   public function isReadable(): bool {
-    return $this->getFile()->isReadable();
-  }
-
-  /**
-   * Gets file information.
-   *
-   * @return \SplFileInfo
-   *   The file information object.
-   */
-  protected function getFile(): \SplFileInfo {
-    if (!$this->file) {
-      $this->file = new \SplFileInfo($this->realpath);
-    }
-
-    return $this->file;
+    return \is_readable($this->getPathname());
   }
 
   /**
@@ -58,27 +79,7 @@ final class SourceFile {
    *   The file contents.
    */
   public function getContents(): string {
-    return \file_get_contents($this->getRealpath());
-  }
-
-  /**
-   * Gets absolute path to the file.
-   *
-   * @return string
-   *   The URI path to content source.
-   */
-  public function getRealpath(): string {
-    return $this->realpath;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __sleep() {
-    $vars = \get_object_vars($this);
-    // SplFileInfo is not serializable and don't need to be serialized.
-    unset($vars['file']);
-    return \array_keys($vars);
+    return \file_get_contents($this->getPathname());
   }
 
 }

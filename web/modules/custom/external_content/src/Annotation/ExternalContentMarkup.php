@@ -11,7 +11,7 @@ use Drupal\Component\Annotation\Plugin;
  *
  * @Annotation
  */
-final class ExternalContentFormat extends Plugin {
+final class ExternalContentMarkup extends Plugin {
 
   /**
    * The format ID.

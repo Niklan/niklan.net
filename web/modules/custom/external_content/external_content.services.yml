@@ -2,3 +2,9 @@ services:
   plugin.manager.external_content.configuration:
     class: Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager
     arguments: ['%app.root%', '@module_handler', '@cache.discovery']
+
+  external_content.finder.source_file:
+    class: Drupal\external_content\Finder\SourceFileFinder
+
+  external_content.parser.source_file:
+    class: Drupal\external_content\Parser\SourceFileParser

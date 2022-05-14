@@ -19,24 +19,38 @@ final class SourceFileTest extends UnitTestCase {
    * Tests class functionality.
    */
   public function testClass(): void {
-    vfsStream::setup();
-    vfsStream::create([
+    vfsStream::setup(structure: [
       'file.txt' => 'content',
+      'foo' => [
+        'bar' => [
+          'baz.en.txt' => 'baz content',
+        ],
+      ],
     ]);
 
-    $source_file = new SourceFile(vfsStream::url('root/file.txt'));
+    $source_file = new SourceFile(
+      vfsStream::url('root'),
+      vfsStream::url('root/file.txt'),
+    );
 
+    $this->assertEquals('vfs://root', $source_file->getWorkingDir());
+    $this->assertEquals('vfs://root/file.txt', $source_file->getPathname());
+    $this->assertEquals('file.txt', $source_file->getRelativePathname());
+    $this->assertEquals('txt', $source_file->getExtension());
     $this->assertTrue($source_file->isReadable());
     $this->assertEquals('content', $source_file->getContents());
-    $this->assertEquals(vfsStream::url('root/file.txt'), $source_file->getRealpath());
 
-    $serialized = \serialize($source_file);
-    $unserialized = \unserialize($serialized, [
-      'allowed_classes' => [SourceFile::class],
-    ]);
+    $source_file = new SourceFile(
+      vfsStream::url('root'),
+      vfsStream::url('root/foo/bar/baz.en.txt'),
+    );
 
-    // Serialization and unserialization must properly handle SplFileObject.
-    $this->assertTrue($unserialized->isReadable());
+    $this->assertEquals('vfs://root', $source_file->getWorkingDir());
+    $this->assertEquals('vfs://root/foo/bar/baz.en.txt', $source_file->getPathname());
+    $this->assertEquals('foo/bar/baz.en.txt', $source_file->getRelativePathname());
+    $this->assertEquals('txt', $source_file->getExtension());
+    $this->assertTrue($source_file->isReadable());
+    $this->assertEquals('baz content', $source_file->getContents());
   }
 
 }

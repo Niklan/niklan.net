@@ -20,14 +20,19 @@ final class SourceFileCollectionTest extends UnitTestCase {
    * Tests class functionality.
    */
   public function testClass(): void {
-    vfsStream::setup();
-    vfsStream::create([
+    vfsStream::setup(structure: [
       'file-a.txt' => 'content-a',
       'file-b.txt' => 'content-b',
     ]);
 
-    $source_file_a = new SourceFile(vfsStream::url('root/file-a.txt'));
-    $source_file_b = new SourceFile(vfsStream::url('root/file-b.txt'));
+    $source_file_a = new SourceFile(
+      vfsStream::url('root'),
+      vfsStream::url('root/file-a.txt'),
+    );
+    $source_file_b = new SourceFile(
+      vfsStream::url('root'),
+      vfsStream::url('root/file-b.txt'),
+    );
 
     $collection = new SourceFileCollection();
     $this->assertEquals(0, $collection->count());
