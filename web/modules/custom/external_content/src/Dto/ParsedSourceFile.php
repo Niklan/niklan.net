@@ -26,9 +26,9 @@ final class ParsedSourceFile {
    *   The source file content cleaned from FrontMatter.
    */
   public function __construct(
-    protected SourceFile         $file,
+    protected SourceFile $file,
     protected SourceFileMetadata $metadata,
-    protected SourceFileContent  $content,
+    protected SourceFileContent $content,
   ) {}
 
   /**

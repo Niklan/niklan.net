@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\external_content\Unit\Dto;
 
 use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFile;
+use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFileMetadata;
 use Drupal\Tests\UnitTestCase;
 

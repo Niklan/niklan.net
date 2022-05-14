@@ -6,8 +6,8 @@ namespace Drupal\external_content\Parser;
 
 use Drupal\Component\FrontMatter\FrontMatter;
 use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFile;
+use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFileMetadata;
 
 /**
