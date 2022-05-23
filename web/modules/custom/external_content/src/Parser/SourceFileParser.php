@@ -29,10 +29,10 @@ final class SourceFileParser {
    */
   public function parse(SourceFile $source_file): ParsedSourceFile {
     $front_matter = FrontMatter::create($source_file->getContents());
-    $source_params = new SourceFileParams($front_matter->getData());
-    $source_content = new SourceFileContent($front_matter->getContent());
+    $params = new SourceFileParams($front_matter->getData());
+    $raw_content = new SourceFileContent($front_matter->getContent());
 
-    return new ParsedSourceFile($source_file, $source_params, $source_content);
+    return new ParsedSourceFile($source_file, $params, $raw_content);
   }
 
 }

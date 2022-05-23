@@ -10,6 +10,8 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
  * Provides test for external content plugin manager.
+ *
+ * @coversDefaultClass \Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager
  */
 final class ConfigurationPluginManagerTest extends ExternalContentTestBase {
 
