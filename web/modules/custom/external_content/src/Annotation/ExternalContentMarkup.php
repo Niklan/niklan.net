@@ -7,7 +7,7 @@ namespace Drupal\external_content\Annotation;
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines external content format annotation.
+ * Defines external content markup annotation.
  *
  * @Annotation
  */

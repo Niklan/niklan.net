@@ -10,7 +10,7 @@ namespace Drupal\external_content\Dto;
  * The source file should contain contents and meta information for the content.
  * When it extracted, these separate data stored in this value object.
  *
- * This class holds metadata (from Front Matter) and it's content, as well as
+ * This class holds params (from Front Matter) and it's content, as well as
  * source file for references.
  */
 final class ParsedSourceFile {
@@ -20,14 +20,14 @@ final class ParsedSourceFile {
    *
    * @param \Drupal\external_content\Dto\SourceFile $file
    *   The parsed source file.
-   * @param \Drupal\external_content\Dto\SourceFileMetadata $metadata
-   *   The source file content metadata (FrontMatter).
+   * @param \Drupal\external_content\Dto\SourceFileParams $params
+   *   The source file content parameters (FrontMatter).
    * @param \Drupal\external_content\Dto\SourceFileContent $content
    *   The source file content cleaned from FrontMatter.
    */
   public function __construct(
     protected SourceFile $file,
-    protected SourceFileMetadata $metadata,
+    protected SourceFileParams $params,
     protected SourceFileContent $content,
   ) {}
 
@@ -42,13 +42,13 @@ final class ParsedSourceFile {
   }
 
   /**
-   * Gets metadata.
+   * Gets parameters.
    *
-   * @return \Drupal\external_content\Dto\SourceFileMetadata
-   *   The source file metadata.
+   * @return \Drupal\external_content\Dto\SourceFileParams
+   *   The source file parameters.
    */
-  public function getMetadata(): SourceFileMetadata {
-    return $this->metadata;
+  public function getParams(): SourceFileParams {
+    return $this->params;
   }
 
   /**

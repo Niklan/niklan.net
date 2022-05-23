@@ -43,14 +43,14 @@ final class SourceFileParserTest extends UnitTestCase {
     $parsed_file = $parser->parse($file);
 
     $this->assertSame($file, $parsed_file->getFile());
-    $expected_metadata = [
+    $expected_params = [
       'slug' => 'foo',
       'title' => 'Hello, world!',
       'metatags' => [
         'title' => 'Hello!',
       ],
     ];
-    $this->assertEquals($expected_metadata, $parsed_file->getMetadata()->all());
+    $this->assertEquals($expected_params, $parsed_file->getParams()->all());
     $this->assertEquals('The content!', $parsed_file->getContent()->getContent());
   }
 

@@ -7,34 +7,34 @@ namespace Drupal\external_content\Dto;
 use Drupal\Component\Utility\NestedArray;
 
 /**
- * Provides storage for source content metadata.
+ * Provides storage for source content parameters.
  *
- * This metadata parsed from Front Matter and stored in this value object.
+ * These parameters parsed from Front Matter and stored in this value object.
  */
-final class SourceFileMetadata {
+final class SourceFileParams {
 
   /**
-   * Constructs a new SourceMetadataTest object.
+   * Constructs a new SourceFileParamsTest object.
    *
-   * @param array $metadata
-   *   The array with metadata values.
+   * @param array $params
+   *   The array with params values.
    */
   public function __construct(
-    protected array $metadata,
+    protected array $params,
   ) {}
 
   /**
-   * Gets all metadata values.
+   * Gets all params values.
    *
    * @return array
-   *   The metadata values.
+   *   The params values.
    */
   public function all(): array {
-    return $this->metadata;
+    return $this->params;
   }
 
   /**
-   * Checks if metadata value is exists.
+   * Checks if params value is exists.
    *
    * @param string $key
    *   The array key. Supports "depth", see ::getParents().
@@ -43,7 +43,7 @@ final class SourceFileMetadata {
    *   TRUE if keys is existing, FALSE otherwise.
    */
   public function has(string $key): bool {
-    return NestedArray::keyExists($this->metadata, $this->getParents($key));
+    return NestedArray::keyExists($this->params, $this->getParents($key));
   }
 
   /**
@@ -61,17 +61,17 @@ final class SourceFileMetadata {
   }
 
   /**
-   * Gets metadata value.
+   * Gets params value.
    *
    * @param string $key
    *   The array key. Supports "depth", see ::getParents().
    *
    * @return mixed
-   *   The metadata value. Can be NULL if value is actually NULL or doesn't
+   *   The params value. Can be NULL if value is actually NULL or doesn't
    *   exists.
    */
   public function get(string $key): mixed {
-    return NestedArray::getValue($this->metadata, $this->getParents($key));
+    return NestedArray::getValue($this->params, $this->getParents($key));
   }
 
 }

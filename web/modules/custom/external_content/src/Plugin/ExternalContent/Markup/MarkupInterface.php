@@ -18,6 +18,6 @@ interface MarkupInterface {
    * @return string
    *   The content HTML result.
    */
-  public function process(string $content): string;
+  public function convert(string $content): string;
 
 }
