@@ -7,20 +7,30 @@ Flow:
 
 ```mermaid
 graph TB
-  subgraph Configuration
-    A1[*.external_content.yml] --> B1[working_dir URI]
+  subgraph Configure Plugins
+    ConfigurationPluginManager -->|Holds basic configuration infromation, including ID and working dir.| Configuration
   end
-  subgraph Search for files
-    B1 --> SourceFileFinder
-    SourceFileFinder -->|Looking for suitable files and adds them into collection| SourceFileCollection
-    SourceFileCollection -->|Each file value object holds all necessary information about file| SourceFile
+
+  subgraph Markup Plugins
+    MarkupPluginManager --> |Provides plugins to convert specific markup into HTML| MarkupInterface
   end
-  subgraph Parser
+
+  subgraph Markup Converter
+    ChainMarkupConverter --> MarkupPluginManager --> SourceFileContent
+  end
+
+  subgraph Find
+    SourceFileFinder -->|Looking for suitable files and adds them into collection| SourceFile
+    SourceFile -->|Each file value object holds all necessary information about file| SourceFileCollection
+    SourceFileCollection --> SourceFile
+  end
+
+  subgraph Parse
     SourceFile --> SourceFileParser
-    SourceFileParser --> |Extracts Front Matter into value object.| SourceFileParams
-    SourceFileParser --> |Convert raw content into HTML based on file extension and available Markup Plugins| SourceFileContent
-    SourceFileParams --> ParsedSourceFile
-    SourceFileContent --> ParsedSourceFile
-    ParsedSourceFile --> |Add all parsed files into a colletion| ParsedSourceFileCollection
+    SourceFileParser --> ChainMarkupConverter
+    SourceFileParser --> ParsedSourceFile
+    SourceFileParams --> |Contains information from FrontMatter| ParsedSourceFile
+    SourceFileContent --> |Contains converted into HTML content| ParsedSourceFile
+    ParsedSourceFile --> ParsedSourceFileCollection
   end
 ```
