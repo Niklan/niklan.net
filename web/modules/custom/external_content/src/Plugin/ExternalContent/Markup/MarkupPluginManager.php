@@ -14,7 +14,7 @@ use Drupal\Core\Plugin\DefaultPluginManager;
  * Markup - is a content of a file in a specific format. The External Content
  * Markup plugins should convert content from a specific content into HTML.
  */
-final class MarkupPluginManager extends DefaultPluginManager {
+final class MarkupPluginManager extends DefaultPluginManager implements MarkupPluginManagerInterface {
 
   /**
    * {@inheritdoc}

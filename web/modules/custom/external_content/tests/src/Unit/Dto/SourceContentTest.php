@@ -19,7 +19,7 @@ final class SourceContentTest extends UnitTestCase {
    */
   public function testClass(): void {
     $source_content = new SourceFileContent('foo bar');
-    $this->assertEquals('foo bar', $source_content->getContent());
+    $this->assertEquals('foo bar', $source_content->value());
   }
 
 }

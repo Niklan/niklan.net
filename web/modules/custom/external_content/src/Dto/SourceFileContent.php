@@ -25,7 +25,7 @@ final class SourceFileContent {
    * @return string
    *   The content.
    */
-  public function getContent(): string {
+  public function value(): string {
     return $this->content;
   }
 

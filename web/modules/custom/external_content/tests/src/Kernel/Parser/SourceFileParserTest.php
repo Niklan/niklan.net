@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\external_content\Unit\Parser;
+namespace Drupal\Tests\external_content\Kernel\Parser;
 
 use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Parser\SourceFileParser;
-use Drupal\Tests\UnitTestCase;
+use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -14,7 +14,12 @@ use org\bovigo\vfs\vfsStream;
  *
  * @coversDefaultClass \Drupal\external_content\Parser\SourceFileParser
  */
-final class SourceFileParserTest extends UnitTestCase {
+final class SourceFileParserTest extends ExternalContentTestBase {
+
+  /**
+   * The source file parser.
+   */
+  private ?SourceFileParser $parser;
 
   /**
    * Tests parser functionality.
@@ -39,8 +44,7 @@ final class SourceFileParserTest extends UnitTestCase {
       vfsStream::url('root/foo.md'),
     );
 
-    $parser = new SourceFileParser();
-    $parsed_file = $parser->parse($file);
+    $parsed_file = $this->parser->parse($file);
 
     $this->assertSame($file, $parsed_file->getFile());
     $expected_params = [
@@ -51,7 +55,15 @@ final class SourceFileParserTest extends UnitTestCase {
       ],
     ];
     $this->assertEquals($expected_params, $parsed_file->getParams()->all());
-    $this->assertEquals('The content!', $parsed_file->getContent()->getContent());
+    $this->assertEquals('The content!', $parsed_file->getContent()->value());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->parser = $this->container->get('external_content.parser.source_file');
   }
 
 }
