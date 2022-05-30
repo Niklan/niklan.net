@@ -17,4 +17,12 @@ interface ConfigurationInterface {
    */
   public function id(): string;
 
+  /**
+   * Gets a working dir.
+   *
+   * @return string
+   *   The working dir.
+   */
+  public function workingDir(): string;
+
 }

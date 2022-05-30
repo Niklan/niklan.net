@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\Configuration;
 
+use Drupal\migrate\Plugin\Exception\BadPluginDefinitionException;
+
 /**
  * Represents an external content configuration.
+ *
+ * The configuration is an YAML plugin defined in a file *.external_content.yml
+ * and contains:
+ * - id: The configuration ID. The configuration key is an ID.
+ * - working_dir: The local URI where to search for external content.
  */
 final class Configuration implements ConfigurationInterface {
 
@@ -15,13 +22,27 @@ final class Configuration implements ConfigurationInterface {
   protected string $id;
 
   /**
+   * The working directory.
+   */
+  protected string $workingDir;
+
+  /**
    * Constructs a new Configuration object.
    *
    * @param string $plugin_id
    *   The plugin ID.
+   * @param array $plugin_definition
+   *   An array with plugin definition.
+   *
+   * @throws \Drupal\migrate\Plugin\Exception\BadPluginDefinitionException
+   *   Whe some mandatory property is missing.
    */
-  public function __construct(string $plugin_id) {
+  public function __construct(string $plugin_id, array $plugin_definition) {
     $this->id = $plugin_id;
+    if (!\array_key_exists('working_dir', $plugin_definition)) {
+      throw new BadPluginDefinitionException($plugin_id, 'working_dir');
+    }
+    $this->workingDir = $plugin_definition['working_dir'];
   }
 
   /**
@@ -29,6 +50,16 @@ final class Configuration implements ConfigurationInterface {
    */
   public function id(): string {
     return $this->id;
+  }
+
+  /**
+   * Gets a working dir.
+   *
+   * @return string
+   *   The working dir.
+   */
+  public function workingDir(): string {
+    return $this->workingDir;
   }
 
 }

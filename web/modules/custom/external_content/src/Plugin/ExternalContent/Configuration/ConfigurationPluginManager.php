@@ -19,8 +19,7 @@ use Drupal\Core\Plugin\Discovery\YamlDiscovery;
  * External content configuration holds information about specific external
  * content synchronization.
  *
- * The plugin is an YAML file *.external_content.yml contains:
- * - id: (optional) The configuration ID. If not set, key will be used as ID.
+ * @see \Drupal\external_content\Plugin\ExternalContent\Configuration\Configuration
  */
 final class ConfigurationPluginManager extends DefaultPluginManager {
 

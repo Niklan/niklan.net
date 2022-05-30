@@ -6,6 +6,7 @@ namespace Drupal\Tests\external_content\Plugin\ExternalContent\Configuration;
 
 use Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationInterface;
 use Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager;
+use Drupal\migrate\Plugin\Exception\BadPluginDefinitionException;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -32,11 +33,20 @@ final class ConfigurationPluginManagerTest extends ExternalContentTestBase {
    */
   public function testPluginManager(): void {
     $plugin_ids = \array_keys($this->pluginManager->getDefinitions());
-    $this->assertContains('test', $plugin_ids);
+    self::assertContains('test', $plugin_ids);
 
     $instance = $this->pluginManager->createInstance('test');
-    $this->assertInstanceOf(ConfigurationInterface::class, $instance);
-    $this->assertEquals('test', $instance->id());
+    self::assertInstanceOf(ConfigurationInterface::class, $instance);
+    self::assertEquals('test', $instance->id());
+    self::assertEquals('public://external-content', $instance->workingDir());
+  }
+
+  /**
+   * Tests that missing 'working_dir' property throws exception.
+   */
+  public function testWorkingDirIsNotDefined(): void {
+    self::expectException(BadPluginDefinitionException::class);
+    $this->pluginManager->createInstance('working_dir_is_not_defined');
   }
 
   /**
