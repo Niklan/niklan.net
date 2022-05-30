@@ -51,4 +51,15 @@ graph TB
     --> ParsedSourceFileCollection
     --> ExternalContentGrouper
   end
+
+  subgraph ExternalContentFinder TODO
+    ExternalContentFinder --> ConfigurationPluginManager
+    Configuration --> SourceFileFinder
+    SourceFileCollection --> SourceFileParser
+  end
+
+  subgraph Loader Plugins TODO
+    LoaderPluginManager --> |Pass a single ExternalContent with all translations| LoaderPlugin
+    --> LoaderResult
+  end
 ```
