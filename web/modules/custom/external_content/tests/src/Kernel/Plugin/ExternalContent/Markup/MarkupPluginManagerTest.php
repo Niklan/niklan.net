@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Markup;
 
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager;
+use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -44,7 +45,7 @@ final class MarkupPluginManagerTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get('plugin.manager.external_content.markup');
+    $this->pluginManager = $this->container->get(MarkupPluginManagerInterface::class);
   }
 
 }

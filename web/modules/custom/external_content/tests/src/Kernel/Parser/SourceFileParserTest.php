@@ -63,7 +63,7 @@ final class SourceFileParserTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->parser = $this->container->get('external_content.parser.source_file');
+    $this->parser = $this->container->get(SourceFileParser::class);
   }
 
 }

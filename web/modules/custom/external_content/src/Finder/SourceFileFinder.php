@@ -9,23 +9,19 @@ use Drupal\external_content\Dto\SourceFileCollection;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Provides a finder for content source files.
+ * Represents a default source file finder.
  */
-final class SourceFileFinder {
+final class SourceFileFinder implements SourceFileFinderInterface {
 
   /**
    * The list of supported extensions.
+   *
+   * @todo Prepare this list from a Markup plugins.
    */
   protected const SUPPORTED_EXTENSIONS = ['.md', '.markdown'];
 
   /**
-   * Searches for source files.
-   *
-   * @param string $working_dir
-   *   The working dir.
-   *
-   * @return \Drupal\external_content\Dto\SourceFileCollection
-   *   The found file collection.
+   * {@inheritdoc}
    */
   public function find(string $working_dir): SourceFileCollection {
     $patterns = \array_map(static fn($extension) => '*' . $extension, self::SUPPORTED_EXTENSIONS);

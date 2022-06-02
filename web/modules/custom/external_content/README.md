@@ -53,8 +53,8 @@ graph TB
   end
 
   subgraph ExternalContentFinder TODO
-    ExternalContentFinder --> ConfigurationPluginManager
-    Configuration --> SourceFileFinder
+    Configuration --> ExternalContentFinder
+    --> SourceFileFinder
     SourceFileCollection --> SourceFileParser
   end
 

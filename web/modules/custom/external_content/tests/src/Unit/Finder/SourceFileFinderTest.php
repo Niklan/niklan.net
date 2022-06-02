@@ -13,7 +13,7 @@ use org\bovigo\vfs\vfsStream;
  *
  * @coversDefaultClass \Drupal\external_content\Finder\SourceFileFinder
  */
-final class SourceFinderTest extends UnitTestCase {
+final class SourceFileFinderTest extends UnitTestCase {
 
   /**
    * Tests a class instance.

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Markup;
 
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager;
+use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -20,14 +21,6 @@ final class HtmlTest extends ExternalContentTestBase {
   protected ?MarkupPluginManager $pluginManager;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-    $this->pluginManager = $this->container->get('plugin.manager.external_content.markup');
-  }
-
-  /**
    * Tests that plugin works as expected.
    */
   public function testPlugin(): void {
@@ -37,6 +30,14 @@ final class HtmlTest extends ExternalContentTestBase {
     $plugin = $this->pluginManager->createInstance('html');
     $result = $plugin->convert($content);
     $this->assertEquals($content, $result);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->pluginManager = $this->container->get(MarkupPluginManagerInterface::class);
   }
 
 }

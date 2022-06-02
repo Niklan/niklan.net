@@ -1,16 +1,14 @@
 services:
-  plugin.manager.external_content.configuration:
-    class: Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager
+  Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager:
     arguments: ['%app.root%', '@module_handler', '@cache.discovery']
-  plugin.manager.external_content.markup:
-    class: Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager
+  Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager:
     parent: default_plugin_manager
-  external_content.finder.source_file:
-    class: Drupal\external_content\Finder\SourceFileFinder
-  external_content.parser.source_file:
-    class: Drupal\external_content\Parser\SourceFileParser
-    arguments: ['@external_content.converter.chain_markup']
-  external_content.converter.chain_markup:
-    class: Drupal\external_content\Converter\ChainMarkupConverter
-    arguments:
-      - '@plugin.manager.external_content.markup'
+  Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager'
+  Drupal\external_content\Finder\SourceFileFinder:
+  Drupal\external_content\Finder\SourceFileFinderInterface:
+    alias: 'Drupal\external_content\Finder\SourceFileFinder'
+  Drupal\external_content\Parser\SourceFileParser:
+    autowire: true
+  Drupal\external_content\Converter\ChainMarkupConverter:
+    autowire: true

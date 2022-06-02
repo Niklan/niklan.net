@@ -53,7 +53,7 @@ final class PlainTextTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get('plugin.manager.external_content.markup');
+    $this->pluginManager = $this->container->get(MarkupPluginManager::class);
   }
 
 }
