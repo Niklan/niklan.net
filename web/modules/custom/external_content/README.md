@@ -23,9 +23,9 @@ graph TB
     --> ExternalContentCollection
   end
 
-  subgraph Element Parser Plugins TODO
-    ElementParserPluginManager --> |Pass a single HTML element to parser| ElementParserPlugin
-    --> ElementParserResult[A custom ElementInterface instance.]
+  subgraph HTML Parser Plugins TODO
+    HtmlParserPluginManager --> |Pass a single HTML element to parser| HtmlParserPlugin
+    --> HtmlParserResult[A custom ElementInterface instance.]
   end
 
   subgraph Render Plugins TODO
@@ -42,12 +42,12 @@ graph TB
   subgraph Source file parser
     SourceFileParser --> ChainMarkupConverter
     --> MarkupPluginManager
-    ConvertResult --> ChainElementParser
-    --> ElementParserPluginManager
-    ElementParserResult --> SourceFileContent
+    ConvertResult --> ChainHtmlParser
+    --> HtmlParserPluginManager
+    HtmlParserResult --> SourceFileContent
     SourceFileParser --> SourceFileParams
     --> |Contains information from FrontMatter| ParsedSourceFile
-    SourceFileContent --> |Contains converted into HTML content| ParsedSourceFile
+    SourceFileContent --> |Contains collection of parsed content elements| ParsedSourceFile
     --> ParsedSourceFileCollection
     --> ExternalContentGrouper
   end
