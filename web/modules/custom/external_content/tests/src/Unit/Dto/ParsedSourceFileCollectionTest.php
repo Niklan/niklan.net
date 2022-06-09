@@ -40,13 +40,13 @@ final class ParsedSourceFileCollectionTest extends UnitTestCase {
     $parsed_source_file_a = new ParsedSourceFile(
       $source_file_a,
       new SourceFileParams(['id' => 'a']),
-      new SourceFileContent('foo'),
+      new SourceFileContent(),
     );
 
     $parsed_source_file_b = new ParsedSourceFile(
       $source_file_b,
       new SourceFileParams(['id' => 'b']),
-      new SourceFileContent('bar'),
+      new SourceFileContent(),
     );
 
     $collection = new ParsedSourceFileCollection();

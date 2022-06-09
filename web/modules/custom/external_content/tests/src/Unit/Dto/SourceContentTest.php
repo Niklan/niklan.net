@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
+use Drupal\external_content\Dto\ElementBase;
 use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\Tests\UnitTestCase;
 
@@ -18,8 +19,12 @@ final class SourceContentTest extends UnitTestCase {
    * Tests that class works as expected.
    */
   public function testClass(): void {
-    $source_content = new SourceFileContent('foo bar');
-    $this->assertEquals('foo bar', $source_content->value());
+    $element = new class() extends ElementBase {};
+    $source_content = new SourceFileContent();
+    $this->assertEquals(0, $source_content->getElements()->count());
+    $source_content->addElement($element);
+    $this->assertEquals(1, $source_content->getElements()->count());
+    $this->assertSame($element, $source_content->getElements()->offsetGet(0));
   }
 
 }

@@ -8,6 +8,7 @@ use Drupal\Component\FrontMatter\FrontMatter;
 use Drupal\external_content\Converter\ChainMarkupConverter;
 use Drupal\external_content\Dto\ParsedSourceFile;
 use Drupal\external_content\Dto\SourceFile;
+use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFileParams;
 
 /**
@@ -40,12 +41,15 @@ final class SourceFileParser {
   public function parse(SourceFile $source_file): ParsedSourceFile {
     $front_matter = FrontMatter::create($source_file->getContents());
     $params = new SourceFileParams($front_matter->getData());
-    $content = $this->chainMarkupConverter->convert(
-      $source_file->getExtension(),
-      $front_matter->getContent(),
-    );
 
-    return new ParsedSourceFile($source_file, $params, $content);
+    // @todo Parse HTML and provide a proper content variable.
+    // @code
+    // $content = $this->chainMarkupConverter->convert(
+    //   $source_file->getExtension(),
+    //   $front_matter->getContent(),
+    // );
+    // @endcode
+    return new ParsedSourceFile($source_file, $params, new SourceFileContent());
   }
 
 }

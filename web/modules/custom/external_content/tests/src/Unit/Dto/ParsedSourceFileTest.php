@@ -23,7 +23,7 @@ final class ParsedSourceFileTest extends UnitTestCase {
   public function testClass(): void {
     $file = new SourceFile('/home', '/home/foo.txt');
     $params = new SourceFileParams(['foo' => 'bar']);
-    $content = new SourceFileContent('foo bar');
+    $content = new SourceFileContent();
     $parsed_source_file = new ParsedSourceFile($file, $params, $content);
 
     $this->assertSame($file, $parsed_source_file->getFile());

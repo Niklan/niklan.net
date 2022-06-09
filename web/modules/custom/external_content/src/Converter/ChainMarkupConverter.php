@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Converter;
 
-use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface;
 
 /**
@@ -30,11 +29,11 @@ final class ChainMarkupConverter {
    * @param string $raw_content
    *   The raw content.
    *
-   * @return \Drupal\external_content\Dto\SourceFileContent
+   * @return string
    *   The converted into HTML markup. If no suitable converter is found, the
    *   raw content is returned.
    */
-  public function convert(string $identifier, string $raw_content): SourceFileContent {
+  public function convert(string $identifier, string $raw_content): string {
     $result = NULL;
     foreach ($this->markupPluginManager->getDefinitions() as $plugin_id => $definition) {
       if (!\in_array($identifier, $definition['markup_identifiers'])) {
@@ -45,7 +44,7 @@ final class ChainMarkupConverter {
       $result = $plugin->convert($raw_content);
     }
 
-    return $result ? new SourceFileContent($result) : new SourceFileContent($raw_content);
+    return $result ?? $raw_content;
   }
 
 }

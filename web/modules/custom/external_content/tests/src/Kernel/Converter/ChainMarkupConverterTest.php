@@ -33,7 +33,7 @@ final class ChainMarkupConverterTest extends ExternalContentTestBase {
    */
   public function testConverter(string $identifier, string $content, string $expected): void {
     $result = $this->chainMarkupConverter->convert($identifier, $content);
-    self::assertEquals($expected, $result->value());
+    self::assertEquals($expected, $result);
   }
 
   /**

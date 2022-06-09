@@ -5,28 +5,38 @@ declare(strict_types=1);
 namespace Drupal\external_content\Dto;
 
 /**
- * Represents source file unprocessed content (cleaned from FrontMatter).
+ * Represents a parsed and structured source file content.
  */
 final class SourceFileContent {
 
   /**
-   * Constructs a new SourceFileContent object.
+   * The content elements.
    *
-   * @param string $content
-   *   The source content.
+   * @var \Drupal\external_content\Dto\ElementInterface[]
    */
-  public function __construct(
-    protected string $content,
-  ) {}
+  protected array $elements = [];
 
   /**
-   * Gets content.
+   * Adds content element.
    *
-   * @return string
-   *   The content.
+   * @param \Drupal\external_content\Dto\ElementInterface $element
+   *   The content element.
+   *
+   * @return $this
    */
-  public function value(): string {
-    return $this->content;
+  public function addElement(ElementInterface $element): self {
+    $this->elements[] = $element;
+    return $this;
+  }
+
+  /**
+   * Gets elements.
+   *
+   * @return \ArrayIterator
+   *   An array iterator for elements.
+   */
+  public function getElements(): \ArrayIterator {
+    return new \ArrayIterator($this->elements);
   }
 
 }
