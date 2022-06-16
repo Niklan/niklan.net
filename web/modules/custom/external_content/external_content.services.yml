@@ -5,6 +5,10 @@ services:
     parent: default_plugin_manager
   Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface:
     alias: 'Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager'
+  Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManager'
   Drupal\external_content\Finder\SourceFileFinder:
   Drupal\external_content\Finder\SourceFileFinderInterface:
     alias: 'Drupal\external_content\Finder\SourceFileFinder'
