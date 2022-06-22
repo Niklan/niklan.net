@@ -4,10 +4,20 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Dto;
 
+use Drupal\external_content\Parser\ChainHtmlParserInterface;
+
 /**
  * Provides the HTML parser state DTO interface.
  */
 interface HtmlParserStateInterface {
+
+  /**
+   * Gets chain HTML parser.
+   *
+   * @return \Drupal\external_content\Parser\ChainHtmlParserInterface
+   *   The chained HTML parser.
+   */
+  public function getParser(): ChainHtmlParserInterface;
 
   /**
    * Gets source file.
@@ -24,23 +34,5 @@ interface HtmlParserStateInterface {
    *   The source file params.
    */
   public function getSourceFileParams(): SourceFileParams;
-
-  /**
-   * Sets a parent element for currently parsed element.
-   *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
-   *   The element.
-   *
-   * @return $this
-   */
-  public function setParentElement(ElementInterface $element): self;
-
-  /**
-   * Gets a parent element.
-   *
-   * @return \Drupal\external_content\Dto\ElementInterface
-   *   The parent element.
-   */
-  public function getParentElement(): ElementInterface;
 
 }

@@ -14,5 +14,9 @@ services:
     alias: 'Drupal\external_content\Finder\SourceFileFinder'
   Drupal\external_content\Parser\SourceFileParser:
     autowire: true
+  Drupal\external_content\Parser\ChainHtmlParser:
+    autowire: true
+  Drupal\external_content\Parser\ChainHtmlParserInterface:
+    alias: 'Drupal\external_content\Parser\ChainHtmlParser'
   Drupal\external_content\Converter\ChainMarkupConverter:
     autowire: true

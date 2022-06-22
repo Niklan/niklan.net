@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Dto;
 
+use Drupal\external_content\Parser\ChainHtmlParserInterface;
+
 /**
  * Represents a HTML parser state.
  */
 final class HtmlParserState implements HtmlParserStateInterface {
-
-  /**
-   * The parent element.
-   *
-   * @var \Drupal\external_content\Dto\ElementInterface
-   */
-  protected ElementInterface $parentElement;
 
   /**
    * Constructs a new HtmlParserState object.
@@ -23,11 +18,21 @@ final class HtmlParserState implements HtmlParserStateInterface {
    *   The source file.
    * @param \Drupal\external_content\Dto\SourceFileParams $sourceFileParams
    *   The source file params.
+   * @param \Drupal\external_content\Parser\ChainHtmlParserInterface $parser
+   *   The chained HTML parser used with this state.
    */
   public function __construct(
     protected SourceFile $sourceFile,
     protected SourceFileParams $sourceFileParams,
+    protected ChainHtmlParserInterface $parser,
   ) {}
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getParser(): ChainHtmlParserInterface {
+    return $this->parser;
+  }
 
   /**
    * {@inheritdoc}
@@ -41,22 +46,6 @@ final class HtmlParserState implements HtmlParserStateInterface {
    */
   public function getSourceFileParams(): SourceFileParams {
     return $this->sourceFileParams;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getParentElement(): ElementInterface {
-    return $this->parentElement;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setParentElement(ElementInterface $element): HtmlParserStateInterface {
-    $this->parentElement = $element;
-
-    return $this;
   }
 
 }

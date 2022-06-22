@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Drupal\external_content_test\Plugin\ExternalContent\HtmlParser;
 
 use Drupal\external_content\Dto\ElementInterface;
+use Drupal\external_content\Dto\HtmlParserStateInterface;
 use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface;
-use Drupal\external_content_test\Dto\TestElement;
+use Drupal\external_content_test\Dto\FooBarElement;
 
 /**
  * Provides a foo bar HTML parser.
@@ -28,8 +29,17 @@ final class FooBar implements HtmlParserInterface {
   /**
    * {@inheritdoc}
    */
-  public function parse(\DOMNode $node): ElementInterface {
-    return new TestElement($node->nodeValue);
+  public function parse(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ElementInterface {
+    $element = new FooBarElement();
+    if ($node->hasChildNodes()) {
+      foreach ($node->childNodes as $child_node) {
+        $child_element = $html_parser_state->getParser()
+          ->parseElement($child_node, $html_parser_state);
+        $element->addChild($child_element);
+      }
+    }
+
+    return $element;
   }
 
 }
