@@ -23,7 +23,7 @@ graph TB
     --> ExternalContentCollection
   end
 
-  subgraph HTML Parser Plugins TODO
+  subgraph HTML Parser Plugins
     HtmlParserPluginManager --> |Pass a single HTML element to parser| HtmlParserPlugin
     --> HtmlParserResult[A custom ElementInterface instance.]
   end

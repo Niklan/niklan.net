@@ -9,14 +9,14 @@ use Drupal\external_content\Dto\HtmlParserStateInterface;
 use Drupal\external_content\Dto\PlainTextElement;
 
 /**
- * Provides a plaint text parser plugin.
+ * Provides a plain text parser plugin.
  *
  * This plugin will be used when no other suitable plugins found. This plugin
  * make sure that we always have a result from parsers.
  *
  * @ExternalContentHtmlParser(
- *   id = "fallback",
- *   label = @Translation("Fallback"),
+ *   id = "plain_text",
+ *   label = @Translation("Plain text"),
  *   weight = 1000,
  * )
  */
