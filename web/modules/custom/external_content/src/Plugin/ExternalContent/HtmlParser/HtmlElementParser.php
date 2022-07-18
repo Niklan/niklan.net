@@ -34,6 +34,12 @@ final class HtmlElementParser implements HtmlParserInterface {
    */
   public function parse(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ElementInterface {
     $element = new HtmlElement($node->nodeName);
+    if ($node->hasAttributes()) {
+      /** @var \DOMAttr $attribute */
+      foreach ($node->attributes->getIterator() as $attribute) {
+        $element->setAttribute($attribute->name, $attribute->value);
+      }
+    }
     foreach ($node->childNodes as $child) {
       $child = $html_parser_state->getParser()
         ->parseElement($child, $html_parser_state);

@@ -38,7 +38,7 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
     /** @var \Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface $plugin */
     $plugin = $this->pluginManager->createInstance('html_element');
 
-    $html = '<div><p>Hello, world!</p></div>';
+    $html = '<div class="foo-bar" data-test="bar-baz"><p>Hello, world!</p></div>';
 
     $crawler = new Crawler($html);
     $node = $crawler->filter('body')->getNode(0)->firstChild;
@@ -55,10 +55,18 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
     $result = $plugin->parse($node, $parser_state);
     self::assertInstanceOf(HtmlElement::class, $result);
     self::assertEquals('div', $result->getTag());
+    self::assertCount(2, $result->getAttributes());
+    self::assertEquals(['class' => 'foo-bar', 'data-test' => 'bar-baz'], $result->getAttributes());
+    self::assertTrue($result->hasAttribute('class'));
+    self::assertEquals('foo-bar', $result->getAttribute('class'));
+    self::assertTrue($result->hasAttribute('data-test'));
+    self::assertEquals('bar-baz', $result->getAttribute('data-test'));
+
     $p_element = $result->getChildren()->offsetGet(0);
     self::assertInstanceOf(HtmlElement::class, $p_element);
     self::assertEquals('p', $p_element->getTag());
     $text_element = $p_element->getChildren()->offsetGet(0);
+    self::assertEmpty($p_element->getAttributes());
     self::assertInstanceOf(PlainTextElement::class, $text_element);
     self::assertEquals('Hello, world!', $text_element->getContent());
   }
