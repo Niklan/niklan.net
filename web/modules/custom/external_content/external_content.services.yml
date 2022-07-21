@@ -9,6 +9,10 @@ services:
     parent: default_plugin_manager
   Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface:
     alias: 'Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManager'
+  Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManager'
   Drupal\external_content\Finder\SourceFileFinder:
   Drupal\external_content\Finder\SourceFileFinderInterface:
     alias: 'Drupal\external_content\Finder\SourceFileFinder'

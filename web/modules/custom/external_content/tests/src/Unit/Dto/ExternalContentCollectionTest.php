@@ -23,12 +23,16 @@ final class ExternalContentCollectionTest extends UnitTestCase {
 
     self::assertCount(0, $collection);
     self::assertEmpty($collection->getIterator()->getArrayCopy());
+    self::assertFalse($collection->has('test'));
+    self::assertNull($collection->get('test'));
 
     $file = new ExternalContent('test');
     $collection->add($file);
 
     self::assertCount(1, $collection);
     self::assertContains($file, $collection);
+    self::assertTrue($collection->has('test'));
+    self::assertSame($file, $collection->get('test'));
   }
 
 }

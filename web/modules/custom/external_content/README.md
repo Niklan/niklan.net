@@ -21,8 +21,8 @@ This module provides functionality to fetch content from external sources (local
 - **Parsed Source File**: Contains information parsed from Source File. It
   will contain info about Source File, Source File Content and Source File
   Params.
-- (TODO) **Grouper Plugin**: Grouper plugin is responsible for grouping
-  multiple versions of the same content at the single External Content.
+- **Grouper Plugin**: Grouper plugin is responsible for grouping multiple
+  versions of the same content at the single External Content.
 - (TODO) **External Content**: The DTO object contains information about
   specific content and its External Content Translations.
 - (TODO) **Loader Plugin**: Loader plugin is responsible for saving External
@@ -58,6 +58,11 @@ graph TB
     ConfigurationPluginManager --> |Looking for external contet configurations| MODULE.external_content.yml
     -->|Holds basic configuration infromation, including ID and working dir.| Configuration
 ```
+
+### Grouper Plugins
+
+These plugins responsible for grouping multiple parsed source content files into
+a single external content with multiple translations.
 
 ## Workflow
 

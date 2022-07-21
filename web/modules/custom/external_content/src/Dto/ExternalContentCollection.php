@@ -23,7 +23,7 @@ final class ExternalContentCollection implements \Countable, \IteratorAggregate 
    *   The external content.
    */
   public function add(ExternalContent $file): void {
-    $this->items[] = $file;
+    $this->items[$file->id()] = $file;
   }
 
   /**
@@ -38,6 +38,36 @@ final class ExternalContentCollection implements \Countable, \IteratorAggregate 
    */
   public function count(): int {
     return \count($this->items);
+  }
+
+  /**
+   * Gets content by its ID.
+   *
+   * @param string $id
+   *   The content ID.
+   *
+   * @return \Drupal\external_content\Dto\ExternalContent|null
+   *   The content.
+   */
+  public function get(string $id): ?ExternalContent {
+    if (!$this->has($id)) {
+      return NULL;
+    }
+
+    return $this->items[$id];
+  }
+
+  /**
+   * Checks if content presented in collection.
+   *
+   * @param string $id
+   *   The content ID.
+   *
+   * @return bool
+   *   TRUE if content is presented.
+   */
+  public function has(string $id): bool {
+    return \array_key_exists($id, $this->items);
   }
 
 }
