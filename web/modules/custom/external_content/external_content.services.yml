@@ -24,3 +24,11 @@ services:
     alias: 'Drupal\external_content\Parser\ChainHtmlParser'
   Drupal\external_content\Converter\ChainMarkupConverter:
     autowire: true
+  Drupal\external_content\Grouper\ParsedSourceFileGrouperInterface:
+    alias: 'Drupal\external_content\Grouper\ParsedSourceFileGrouper'
+  Drupal\external_content\Grouper\ParsedSourceFileGrouper:
+    autowire: true
+  Drupal\external_content\Finder\ExternalContentFinder:
+    autowire: true
+  Drupal\external_content\Finder\ExternalContentFinderInterface:
+    alias: 'Drupal\external_content\Finder\ExternalContentFinder'

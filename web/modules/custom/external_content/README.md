@@ -112,11 +112,11 @@ graph TB
       --> ParsedSourceFileCollection
     end
 
-    subgraph ParsedSourceFileGrouper TODO
+    subgraph ParsedSourceFileGrouper
       ParsedSourceFileCollection --> ParsedSourceFileGrouper
       ParsedSourceFileGrouper --> GrouperPluginManager
 
-      subgraph Grouper Plugins TODO
+      subgraph Grouper Plugins
         GrouperPluginManager --> |Provides plugins to group parsed content into external content objects. Several files can represent a single content but in multiple languages, this plugins handle it.| GrouperPlugin
         GrouperPlugin --> |Each source file represents a single translation| ExternalContentTranslation
         --> |Multiple source files with the same ID combined into a collection| ExternalContent
