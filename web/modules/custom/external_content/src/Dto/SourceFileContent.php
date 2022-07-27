@@ -7,36 +7,14 @@ namespace Drupal\external_content\Dto;
 /**
  * Represents a parsed and structured source file content.
  */
-final class SourceFileContent {
+final class SourceFileContent extends ElementBase {
 
   /**
-   * The content elements.
-   *
-   * @var \Drupal\external_content\Dto\ElementInterface[]
+   * {@inheritdoc}
    */
-  protected array $elements = [];
-
-  /**
-   * Adds content element.
-   *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
-   *   The content element.
-   *
-   * @return $this
-   */
-  public function addElement(ElementInterface $element): self {
-    $this->elements[] = $element;
+  public function setParent(ElementInterface $element): ElementInterface {
+    // SourceFileContent is a root element that can't have parent.
     return $this;
-  }
-
-  /**
-   * Gets elements.
-   *
-   * @return \ArrayIterator
-   *   An array iterator for elements.
-   */
-  public function getElements(): \ArrayIterator {
-    return new \ArrayIterator($this->elements);
   }
 
 }

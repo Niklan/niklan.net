@@ -63,4 +63,16 @@ interface ElementInterface {
    */
   public function hasChildren(): bool;
 
+  /**
+   * Replaces one element with another.
+   *
+   * @param \Drupal\external_content\Dto\ElementInterface $search
+   *   The element to replace.
+   * @param \Drupal\external_content\Dto\ElementInterface $replace
+   *   The element to replace by.
+   *
+   * @return $this
+   */
+  public function replaceElement(ElementInterface $search, ElementInterface $replace): self;
+
 }
