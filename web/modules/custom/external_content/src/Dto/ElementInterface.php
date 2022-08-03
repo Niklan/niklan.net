@@ -75,4 +75,14 @@ interface ElementInterface {
    */
   public function replaceElement(ElementInterface $search, ElementInterface $replace): self;
 
+  /**
+   * Gets the root element.
+   *
+   * If element doesn't have parent element, that mens it is root element.
+   *
+   * @return \Drupal\external_content\Dto\ElementInterface
+   *   The root element.
+   */
+  public function getRoot(): ElementInterface;
+
 }

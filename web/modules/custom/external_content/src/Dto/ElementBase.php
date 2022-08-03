@@ -48,6 +48,7 @@ abstract class ElementBase implements ElementInterface {
    * {@inheritdoc}
    */
   public function addChild(ElementInterface $element): ElementInterface {
+    $element->setParent($this);
     $this->children[] = $element;
 
     return $this;
@@ -73,6 +74,7 @@ abstract class ElementBase implements ElementInterface {
   public function replaceElement(ElementInterface $search, ElementInterface $replace): self {
     foreach ($this->children as &$child) {
       if ($child === $search) {
+        $replace->setParent($this);
         $child = $replace;
       }
       else {
@@ -82,6 +84,22 @@ abstract class ElementBase implements ElementInterface {
     }
 
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRoot(): ElementInterface {
+    if (!$this->hasParent()) {
+      return $this;
+    }
+
+    $element = $this;
+    while ($element->hasParent()) {
+      $element = $element->getParent();
+    }
+
+    return $element;
   }
 
 }
