@@ -112,9 +112,9 @@ graph TB
       --> ParsedSourceFileCollection
     end
 
-    subgraph ParsedSourceFileGrouper
+    subgraph Parsed Source File Grouper
       ParsedSourceFileCollection --> ParsedSourceFileGrouper
-      ParsedSourceFileGrouper --> GrouperPluginManager
+      --> GrouperPluginManager
 
       subgraph Grouper Plugins
         GrouperPluginManager --> |Provides plugins to group parsed content into external content objects. Several files can represent a single content but in multiple languages, this plugins handle it.| GrouperPlugin

@@ -51,8 +51,8 @@ final class ChainHtmlParserTest extends ExternalContentTestBase {
     );
     $content = $this->chainHtmlParser->parseRoot($html, $parser_state);
 
-    self::assertEquals(1, $content->getElements()->count());
-    $first = $content->getElements()->offsetGet(0);
+    self::assertEquals(1, $content->getChildren()->count());
+    $first = $content->getChildren()->offsetGet(0);
     self::assertInstanceOf(FooBarElement::class, $first);
     self::assertTrue($first->hasChildren());
     $children = $first->getChildren();

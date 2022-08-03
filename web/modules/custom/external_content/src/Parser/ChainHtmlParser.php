@@ -45,7 +45,7 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
     foreach ($crawler->children() as $child) {
       $element = $this->parseElement($child, $html_parser_state);
       if ($element) {
-        $content->addElement($element);
+        $content->addChild($element);
       }
     }
 

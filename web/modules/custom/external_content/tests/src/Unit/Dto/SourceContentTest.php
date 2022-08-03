@@ -21,10 +21,10 @@ final class SourceContentTest extends UnitTestCase {
   public function testClass(): void {
     $element = new class() extends ElementBase {};
     $source_content = new SourceFileContent();
-    $this->assertEquals(0, $source_content->getElements()->count());
-    $source_content->addElement($element);
-    $this->assertEquals(1, $source_content->getElements()->count());
-    $this->assertSame($element, $source_content->getElements()->offsetGet(0));
+    $this->assertEquals(0, $source_content->getChildren()->count());
+    $source_content->addChild($element);
+    $this->assertEquals(1, $source_content->getChildren()->count());
+    $this->assertSame($element, $source_content->getChildren()->offsetGet(0));
   }
 
 }
