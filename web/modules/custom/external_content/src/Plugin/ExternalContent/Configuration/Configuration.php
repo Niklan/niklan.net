@@ -13,6 +13,7 @@ use Drupal\migrate\Plugin\Exception\BadPluginDefinitionException;
  * and contains:
  * - id: The configuration ID. The configuration key is an ID.
  * - working_dir: The local URI where to search for external content.
+ * - grouper: (optional) The external content grouper plugin ID.
  */
 final class Configuration implements ConfigurationInterface {
 
@@ -25,6 +26,11 @@ final class Configuration implements ConfigurationInterface {
    * The working directory.
    */
   protected string $workingDir;
+
+  /**
+   * The external content grouper plugin.
+   */
+  protected string $grouper;
 
   /**
    * Constructs a new Configuration object.
@@ -43,6 +49,7 @@ final class Configuration implements ConfigurationInterface {
       throw new BadPluginDefinitionException($plugin_id, 'working_dir');
     }
     $this->workingDir = $plugin_definition['working_dir'];
+    $this->grouper = $plugin_definition['grouper'] ?? self::DEFAULT_GROUPER_PLUGIN_ID;
   }
 
   /**
@@ -60,6 +67,13 @@ final class Configuration implements ConfigurationInterface {
    */
   public function workingDir(): string {
     return $this->workingDir;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function grouperPluginId(): string {
+    return $this->grouper;
   }
 
 }

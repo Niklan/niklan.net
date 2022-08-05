@@ -10,6 +10,11 @@ namespace Drupal\external_content\Plugin\ExternalContent\Configuration;
 interface ConfigurationInterface {
 
   /**
+   * The external content grouper plugin ID used by default.
+   */
+  public const DEFAULT_GROUPER_PLUGIN_ID = 'params';
+
+  /**
    * Gets a plugin ID.
    *
    * @return string
@@ -24,5 +29,13 @@ interface ConfigurationInterface {
    *   The working dir.
    */
   public function workingDir(): string;
+
+  /**
+   * Gets a grouper plugin ID.
+   *
+   * @return string
+   *   The external content grouper plugin ID.
+   */
+  public function grouperPluginId(): string;
 
 }

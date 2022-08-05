@@ -42,9 +42,10 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
       $parsed_source_files->add($parsed_source_file);
     }
 
-    // @todo Add grouper plugin configuration into external_content.yml and use
-    //   it here.
-    return $this->parsedSourceFileGrouper->group($parsed_source_files);
+    return $this->parsedSourceFileGrouper->group(
+      $parsed_source_files,
+      $configuration->grouperPluginId(),
+    );
   }
 
 }

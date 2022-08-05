@@ -39,6 +39,7 @@ final class ConfigurationPluginManagerTest extends ExternalContentTestBase {
     self::assertInstanceOf(ConfigurationInterface::class, $instance);
     self::assertEquals('test', $instance->id());
     self::assertEquals('public://external-content', $instance->workingDir());
+    self::assertEquals('params', $instance->grouperPluginId());
   }
 
   /**
@@ -47,6 +48,14 @@ final class ConfigurationPluginManagerTest extends ExternalContentTestBase {
   public function testWorkingDirIsNotDefined(): void {
     self::expectException(BadPluginDefinitionException::class);
     $this->pluginManager->createInstance('working_dir_is_not_defined');
+  }
+
+  /**
+   * Tests that grouper plugin can be changed.
+   */
+  public function testGrouperOverride(): void {
+    $instance = $this->pluginManager->createInstance('grouper_plugin');
+    self::assertEquals('foo_bar', $instance->grouperPluginId());
   }
 
   /**

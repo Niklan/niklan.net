@@ -1,5 +1,11 @@
 test:
   label: Testing
   working_dir: 'public://external-content'
+
 working_dir_is_not_defined:
   label: The working dir is required.
+
+grouper_plugin:
+  label: Grouper plugin override
+  working_dir: 'public://external-content'
+  grouper: foo_bar
