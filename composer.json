@@ -92,6 +92,8 @@
                 "libraries-root": "./web/libraries"
             },
             "file-mapping": {
+                "[web-root]/sites/default/settings.all.php": "assets/scaffold/settings.all.php",
+                "[web-root]/sites/default/settings.local.example.php": "assets/scaffold/settings.local.php",
                 "[web-root]/sites/default/settings.php": {
                     "default": "web/core/assets/scaffold/files/default.settings.php",
                     "append": "assets/scaffold/settings-php-additions.txt",
@@ -121,11 +123,6 @@
             "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
             "web/modules/custom/{$name}": ["type:drupal-custom-module"],
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
-        },
-        "patches": {
-            "drupal/core": {
-                "Fix configuration installer with module dependency on theme.": "assets/patch/drupal-3176625-13.patch"
-            }
         }
     },
     "scripts": {

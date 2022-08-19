@@ -26,7 +26,7 @@ display:
         area_text_custom:
           content: 'No front page content has been created yet.<br/>Follow the <a target="_blank" href="https://www.drupal.org/docs/user_guide/en/index.html">User Guide</a> to start building your site.'
         title:
-          title: 'Welcome to [site:name]'
+          title: Welcome!
   feed_1:
     display_title: Feed
   page_1:

@@ -21,6 +21,8 @@ content:
     settings:
       image_link: file
       image_style: paragraph_image_image_xs
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 1
     region: content

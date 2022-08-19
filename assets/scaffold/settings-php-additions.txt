@@ -1,1 +1,8 @@
-$settings['config_sync_directory'] = '../config/sync';
+if (file_exists($app_root . '/' . $site_path . '/settings.all.php')) {
+  include $app_root . '/' . $site_path . '/settings.all.php';
+}
+
+// Add it after 'all' settings to be able to override them.
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}
