@@ -1,12 +1,18 @@
-# Disallow canonical comment pages.
+# Disallow canonical entity pages. This pages either not need to indexed,
+# either having path aliases.
 Disallow: /comment
-Disallow: /comment/*
+Disallow: /node
+Disallow: /taxonomy
+Disallow: /user
 
 # Disallow index.php* pages, because they are indexed as well sometimes.
-Disallow: /index.php*
+Disallow: /index.php
 
-# Disallow weird query params not used by the site.
-# Mostly these weird pages are indexed by Yandex.
-Disallow: /*?q=
-Disallow: /*?do=
-Disallow: /*?c=
+# Disallow all query parameters from being indexed except expected ones.
+# This will filter out a lot of garbage queries from search engines like:
+# from, to, author, c, q, rate, login, amp and tricky ones %BA%CE%E8%7D,
+# %C7%BD%F1%D3%90bM%01, %F3%D1}%0FQ`KR%01, %1Eo%A1_p\\M%01 etc.
+# TL;DR: Flips logic from blocking specific queries to allowing specific ones.
+Disallow: *?
+Disallow: *&
+Allow: *?page=*
