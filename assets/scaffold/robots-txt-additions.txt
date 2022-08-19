@@ -8,6 +8,11 @@ Disallow: /user
 # Disallow index.php* pages, because they are indexed as well sometimes.
 Disallow: /index.php
 
+# Disallow blogs attachments to be indexed. Mostly is garbage for search
+# engines.
+Disallow: /sites/default/files/blog/attachment
+Disallow: /sites/default/files/blog/*/attachments
+
 # Disallow all query parameters from being indexed except expected ones.
 # This will filter out a lot of garbage queries from search engines like:
 # from, to, author, c, q, rate, login, amp and tricky ones %BA%CE%E8%7D,
@@ -15,4 +20,6 @@ Disallow: /index.php
 # TL;DR: Flips logic from blocking specific queries to allowing specific ones.
 Disallow: *?
 Disallow: *&
+# Drupal's specific queries.
 Allow: *?page=*
+Allow: *?itok=*
