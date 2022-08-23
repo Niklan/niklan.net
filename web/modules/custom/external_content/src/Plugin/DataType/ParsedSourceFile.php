@@ -12,7 +12,7 @@ use Drupal\external_content\Dto\ParsedSourceFile as ParsedSourceFileDto;
  *
  * @DataType(
  *   id = "external_content_parsed_source_file",
- *   label = @Translation("Parsed source file")
+ *   label = @Translation("Parsed source file"),
  * )
  */
 final class ParsedSourceFile extends StringData {
@@ -28,8 +28,7 @@ final class ParsedSourceFile extends StringData {
       return NULL;
     }
 
-    // @phpcs:ignore DrupalPractice.FunctionCalls.InsecureUnserialize.InsecureUnserialize
-    return \unserialize($this->value);
+    return $this->value;
   }
 
   /**
@@ -51,7 +50,7 @@ final class ParsedSourceFile extends StringData {
    *   Indicates should parent be notified.
    */
   public function setParsedSourceFile(ParsedSourceFileDto $parsed_source_file, bool $notify = TRUE): void {
-    $this->value = \serialize($parsed_source_file);
+    $this->value = $parsed_source_file;
     // Notify the parent of any changes.
     if ($notify && isset($this->parent)) {
       $this->parent->onChange($this->name);

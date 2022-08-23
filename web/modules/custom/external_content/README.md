@@ -27,14 +27,6 @@ This module provides functionality to fetch content from external sources (local
   specific content and its External Content Translations.
 - (TODO) **Loader Plugin**: Loader plugin is responsible for saving External
   Content into Drupal.
-  - (TODO) **Element Loader Plugin**: Runs first and allows to load element
-    if needed. E.g. this can be used to load images into media entity and
-    replace this element in content by another one with entity reference for
-    later content loading.
-  - (TODO) **Content Loader Plugin**: Runs right after element loader and
-    responsible for loading / updating content itself.
-- (TODO) **Render Plugin**: Render plugin is responsible for rendering
-  Source File Content into HTML markup.
 
 ## Plugin System
 
