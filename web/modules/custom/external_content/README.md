@@ -1,6 +1,8 @@
 # External Content
 
-This module provides functionality to fetch content from external sources (local), process them and then pass it to plugins to do whatever you want with it.
+This module provides functionality to fetch content from external sources (
+local), process them and then pass it to plugins to do whatever you want with
+it.
 
 ## Glossary
 
@@ -57,10 +59,33 @@ graph TB
     -->|Holds basic configuration infromation, including ID and working dir.| Configuration
 ```
 
+### Markup Plugins
+
+Markup plugins are responsible for converting any source files into HTML.
+These plugins have `@ExternalContentMarkup` annotation.
+
+### HTML Parser Plugins
+
+HTML parser plugins are responsible for parsing HTML elements to a specific
+PHP value objects representing a specific piece of content. These plugins
+have `@ExternalContentHtmlParser` annotation.
+
 ### Grouper Plugins
 
-These plugins responsible for grouping multiple parsed source content files into
-a single external content with multiple translations.
+Grouper plugins are responsible for grouping multiple source contents which
+represents a single content but on different languages. These plugins have
+`@ExternalContentGrouper` annotation.
+
+### Loader Plugins
+
+Loader plugins are responsible for CRUD operations for a single piece of
+content. These plugins have `@ExternalContentLoader` annotation.
+
+### Render Plugins
+
+Render plugins are responsible for providing render array for specific piece
+of content which is ready to be rendered. These plugins have
+`@ExternalContentRender` annotation.
 
 ## Workflow
 
@@ -74,7 +99,7 @@ graph TB
     -->|Holds basic configuration infromation, including ID and working dir.| Configuration
   end
 
-  subgraph ExternalContentFinder TODO
+  subgraph ExternalContentFinder
     Configuration --> ExternalContentFinder
     ExternalContentFinder --> SourceFileFinder
 
