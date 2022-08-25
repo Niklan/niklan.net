@@ -29,6 +29,8 @@ it.
   specific content and its External Content Translations.
 - (TODO) **Loader Plugin**: Loader plugin is responsible for saving External
   Content into Drupal.
+- (TODO) **Builder Plugin**: Builder plugin is responsible for building
+  render array from `ExternalContent` structure.
 
 ## Plugin System
 
@@ -81,11 +83,11 @@ represents a single content but on different languages. These plugins have
 Loader plugins are responsible for CRUD operations for a single piece of
 content. These plugins have `@ExternalContentLoader` annotation.
 
-### Render Plugins
+### Builder Plugins
 
-Render plugins are responsible for providing render array for specific piece
+Builder plugins are responsible for providing render array for specific piece
 of content which is ready to be rendered. These plugins have
-`@ExternalContentRender` annotation.
+`@ExternalContentBuilder` annotation.
 
 ## Workflow
 
@@ -99,7 +101,7 @@ graph TB
     -->|Holds basic configuration infromation, including ID and working dir.| Configuration
   end
 
-  subgraph ExternalContentFinder
+  subgraph External Content Finder Group[ExternalContentFinder]
     Configuration --> ExternalContentFinder
     ExternalContentFinder --> SourceFileFinder
 
@@ -153,8 +155,7 @@ graph TB
     --> LoaderResult
   end
 
-  subgraph Render Plugins TODO
-    RenderPluginManager --> |Pass a single ElementInterface instance.| RenderPlugin
-    --> RenderResult[A render array for that element.]
+  subgraph Builder Plugins TODO
+    BuilderPluginManager --> RenderArray[render array]
   end
 ```
