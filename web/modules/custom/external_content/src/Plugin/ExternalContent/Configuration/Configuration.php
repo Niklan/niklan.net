@@ -14,6 +14,8 @@ use Drupal\migrate\Plugin\Exception\BadPluginDefinitionException;
  * - id: The configuration ID. The configuration key is an ID.
  * - working_dir: The local URI where to search for external content.
  * - grouper: (optional) The external content grouper plugin ID.
+ * - loader: The loader plugin ID which will be used for loading external
+ *   content.
  */
 final class Configuration implements ConfigurationInterface {
 

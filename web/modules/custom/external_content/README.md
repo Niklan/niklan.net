@@ -27,7 +27,7 @@ it.
   versions of the same content at the single External Content.
 - **External Content**: The DTO object contains information about
   specific content and its External Content Translations.
-- (TODO) **Loader Plugin**: Loader plugin is responsible for saving External
+- **Loader Plugin**: Loader plugin is responsible for saving External
   Content into Drupal.
 - (TODO) **Builder Plugin**: Builder plugin is responsible for building
   render array from `ExternalContent` structure.
@@ -150,7 +150,7 @@ graph TB
     end
   end
 
-  subgraph Loader Plugins TODO
+  subgraph Loader Plugins
     LoaderPluginManager --> |Pass a single ExternalContent with all translations| LoaderPlugin
     --> LoaderResult
   end

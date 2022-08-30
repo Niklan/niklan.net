@@ -13,6 +13,10 @@ services:
     parent: default_plugin_manager
   Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManagerInterface:
     alias: 'Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManager'
+  Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManager'
   Drupal\external_content\Finder\SourceFileFinder:
   Drupal\external_content\Finder\SourceFileFinderInterface:
     alias: 'Drupal\external_content\Finder\SourceFileFinder'
