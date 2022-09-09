@@ -12,7 +12,7 @@ services:
   Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManager:
     parent: default_plugin_manager
   Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManagerInterface:
-    alias: 'Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManager'
+    alias: 'BuilderPluginManager'
   Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManager:
     parent: default_plugin_manager
   Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManagerInterface:
