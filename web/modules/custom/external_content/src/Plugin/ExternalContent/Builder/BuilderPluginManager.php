@@ -7,7 +7,6 @@ namespace Drupal\external_content\Plugin\ExternalContent\Builder;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
-use Drupal\external_content\Plugin\ExternalContent\Grouper\BuilderPluginManagerInterface;
 
 /**
  * Provides a default plugin manager for grouper plugins.

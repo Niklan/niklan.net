@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Plugin\ExternalContent\Grouper;
+namespace Drupal\external_content\Plugin\ExternalContent\Builder;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 
