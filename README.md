@@ -1,8 +1,8 @@
-<p align="center">
-  <img src="./web/themes/custom/mechanical/logo.svg" alt="Niklan.net" width="64">
-</p>
-
 # Niklan.net
+
+<img src="./web/themes/custom/mechanical/logo.svg" alt="Niklan.net" width="128" align="right">
+
+[![PHPCS](https://github.com/Niklan/niklan.net/actions/workflows/phpcs.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/phpcs.yml) [![PHPStan](https://github.com/Niklan/niklan.net/actions/workflows/phpstan.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/phpstan.yml) [![PHPUnit](https://github.com/Niklan/niklan.net/actions/workflows/phpunit.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/phpunit.yml)
 
 This repository contains source code of my personal blog <https://niklan.net>.
 
