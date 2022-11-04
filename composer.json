@@ -93,10 +93,7 @@
             },
             "file-mapping": {
                 "[web-root]/sites/default/settings.all.php": "assets/scaffold/settings.all.php",
-                "[web-root]/sites/default/settings.local.php": {
-                    "path": "assets/scaffold/settings.local.php",
-                    "overwrite": false
-                },
+                "[web-root]/sites/default/settings.local.example.php": "assets/scaffold/settings.local.php",
                 "[web-root]/sites/default/settings.php": {
                     "path": "web/core/assets/scaffold/files/default.settings.php",
                     "append": "assets/scaffold/settings-php-additions.txt",
