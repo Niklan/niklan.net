@@ -23,4 +23,9 @@ final class ExternalContentBuilder extends Plugin {
    */
   public string $label;
 
+  /**
+   * The plugin weight.
+   */
+  public int $weight = 0;
+
 }

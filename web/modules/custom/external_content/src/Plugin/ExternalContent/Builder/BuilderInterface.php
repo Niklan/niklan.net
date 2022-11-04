@@ -15,6 +15,17 @@ use Drupal\external_content\Dto\ElementInterface;
 interface BuilderInterface {
 
   /**
+   * Determines is plugin is able to build a provided element.
+   *
+   * @param \Drupal\external_content\Dto\ElementInterface $element
+   *   The element to build.
+   *
+   * @return bool
+   *   TRUE if plugin is able to build it, FALSE otherwise.
+   */
+  public static function isApplicable(ElementInterface $element): bool;
+
+  /**
    * Builds a render array for a specific element.
    *
    * The element builder is also responsible for calling build processes on

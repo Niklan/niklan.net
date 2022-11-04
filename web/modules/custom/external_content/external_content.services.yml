@@ -41,3 +41,7 @@ services:
     autowire: true
   Drupal\external_content\Finder\ExternalContentFinderInterface:
     alias: 'Drupal\external_content\Finder\ExternalContentFinder'
+  Drupal\external_content\Builder\ChainRenderArrayBuilder:
+    autowire: true
+  Drupal\external_content\Builder\ChainRenderArrayBuilderInterface:
+    alias: 'Drupal\external_content\Finder\ExternalContentFinder'

@@ -29,8 +29,8 @@ it.
   specific content and its External Content Translations.
 - **Loader Plugin**: Loader plugin is responsible for saving External
   Content into Drupal.
-- (TODO) **Builder Plugin**: Builder plugin is responsible for building
-  render array from `ExternalContent` structure.
+- **Builder Plugin**: Builder plugin is responsible for building render array
+  from `ExternalContent` structure.
 
 ## Plugin System
 
@@ -155,7 +155,7 @@ graph TB
     --> LoaderResult
   end
 
-  subgraph Builder Plugins TODO
+  subgraph Builder Plugins
     BuilderPluginManager --> RenderArray[render array]
   end
 ```
