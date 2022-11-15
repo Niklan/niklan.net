@@ -236,7 +236,7 @@ msgstr "Выставляю счёт на 10 или более часов (по �
 msgid "I do the work on this amount of hours."
 msgstr "Выполняю работу на данный объём часов."
 
-msgid "if necessary, on completion i make and send a report on the work done."
+msgid "If necessary, on completion i make and send a report on the work done."
 msgstr "Если необходимо, по завершению составляю и высылаю отчёт о проделанной работе."
 
 msgid "If everything is okay, repeat and continue."
