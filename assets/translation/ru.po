@@ -87,9 +87,6 @@ msgstr[2] "Показать @count ответов"
 msgid "Find out what publications are being discussed."
 msgstr "Узнайте какие публикации сейчас обсуждаются."
 
-msgid "Wants to discuss in realtime? Join <a href=\"@discord_join_url\">Discord</a> chat."
-msgstr "Хотите обсудить в реальном времени? Вступайте в <a href=\"@discord_join_url\">Discord</a> чат."
-
 msgid "Supports <a href=\"@common_mark_url\" target=\"_blank\">CommonMark</a> syntax."
 msgstr "Поддерживает синтаксис <a href=\"@common_mark_url\" target=\"_blank\">CommonMark</a>."
 

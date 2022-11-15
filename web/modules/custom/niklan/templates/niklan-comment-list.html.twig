@@ -9,11 +9,9 @@
  * - pager: Pager element. NULL if not presented.
  */
 #}
-{% set discord_join_url = '' %}
 <section{{ attributes.addClass('comments-list') }}>
   <header class="comments-list__head">
     <p>{% trans %}Find out what publications are being discussed.{% endtrans %}</p>
-    <p>{% trans %}Wants to discuss in realtime? Join <a href="{{ discord_join_url }}">Discord</a> chat.{% endtrans %}</p>
   </header>
   <main class="comments-list__main">
     <div class="comments-list__items">
