@@ -24,7 +24,6 @@ final class FollowLinksBlockTest extends BlockTestBase {
 
     $this->assertStringContainsString('https://niklan.net/blog.xml', $block_html);
     $this->assertStringContainsString('https://t.me/niklannet', $block_html);
-    $this->assertStringContainsString('https://discord.gg/sc2V8km', $block_html);
     $this->assertStringContainsString('https://youtube.com/c/NiklanNet', $block_html);
     $this->assertStringContainsString(Url::fromRoute('niklan.support')->setAbsolute()->toString(), $block_html);
   }
