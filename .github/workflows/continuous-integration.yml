@@ -21,6 +21,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://niklan.net
     steps:
       - name: 'Create SSH key'
         run: |
@@ -43,23 +46,14 @@ jobs:
       - name: 'Install Composer dependencies'
         run: ssh production "cd $PROJECT_ROOT && $COMPOSER_BIN install --no-dev -o -n"
 
-      - name: 'Apply database updates'
-        run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN updatedb -y --no-cache-clear"
-
-      - name: 'Rebuild cache'
-        run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN cache:rebuild -y"
-
-      - name: 'Synchronize configurations'
-        run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN config:import --diff -y"
-
       - name: 'Build CSS'
         run: ssh production "cd $PROJECT_ROOT && docker compose up node"
 
-      - name: 'Rebuild cache'
-        run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN cache:rebuild -y"
+      - name: 'Deploy'
+        run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN deploy"
 
       - name: 'Clear PHP cache'
-        run: ssh production "cd $PROJECT_ROOT && docker compose restart php"
+        run: ssh production "cd $PROJECT_ROOT && docker compose exec -T php pkill -USR2 php-fpm"
 
       - name: 'Import custom translations'
         run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN locale:import --type=customized --override=all ru ../assets/translation/ru.po"
