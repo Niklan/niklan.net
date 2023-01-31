@@ -19,7 +19,7 @@ final class SourceFileParserTest extends ExternalContentTestBase {
   /**
    * The source file parser.
    */
-  private ?SourceFileParser $parser;
+  protected ?SourceFileParser $parser;
 
   /**
    * Tests parser functionality.

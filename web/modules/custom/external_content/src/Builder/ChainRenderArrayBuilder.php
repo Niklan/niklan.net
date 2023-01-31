@@ -16,7 +16,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   /**
    * An array with available builders.
    */
-  private array $builders = [];
+  protected array $builders = [];
 
   /**
    * Constructs a new ChainRenderArrayBuilder object.
@@ -25,7 +25,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    *   The builder plugin manager.
    */
   public function __construct(
-    private readonly BuilderPluginManagerInterface $builderPluginManager,
+    protected readonly BuilderPluginManagerInterface $builderPluginManager,
   ) {}
 
   /**
@@ -37,7 +37,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    * @return array
    *   The result render array.
    */
-  private function doBuildElement(ElementInterface $element): array {
+  protected function doBuildElement(ElementInterface $element): array {
     // The default value if build is not happened.
     $build = [];
     /** @var \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface $builder */
@@ -86,7 +86,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    * @return array
    *   The result render array.
    */
-  private function buildElement(ElementInterface $element): array {
+  protected function buildElement(ElementInterface $element): array {
     $children = [];
     if ($element->hasChildren()) {
       foreach ($element->getChildren() as $child) {
