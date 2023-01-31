@@ -21,6 +21,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://niklan.net
     steps:
       - name: 'Create SSH key'
         run: |
