@@ -129,7 +129,7 @@
         "phpcs": "vendor/bin/phpcs -ps",
         "phpcbf": "vendor/bin/phpcbf",
         "phpstan": "vendor/bin/phpstan analyse",
-        "phpunit": "sudo -u root -E sudo -u www-data -E vendor/bin/phpunit",
-        "phpunit-coverage": "sudo -u root -E sudo -u www-data -E vendor/bin/phpunit --coverage-text"
+        "d4d-phpunit": "scripts/d4d-php.sh vendor/bin/phpunit",
+        "d4d-phpunit-coverage": "scripts/d4d-php.sh vendor/bin/phpunit --coverage-text"
     }
 }

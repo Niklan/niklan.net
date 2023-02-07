@@ -14,7 +14,7 @@ use Drupal\user\UserInterface;
 /**
  * Provides a test for extra field with author name.
  *
- * @coversDefaultClass \Drupal\niklan\Plugin\ExtraField\Display\AuthorName
+ * @coversDefaultClass \Drupal\niklan\Plugin\ExtraField\Display\Comment\AuthorName
  */
 final class AuthorNameTest extends ExtraFieldTestBase {
 

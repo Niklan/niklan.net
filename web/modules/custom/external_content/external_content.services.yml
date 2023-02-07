@@ -1,0 +1,47 @@
+services:
+  Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManager'
+  Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager:
+    arguments: ['%app.root%', '@module_handler', '@cache.discovery']
+  Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager'
+  Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManager'
+  Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManager'
+  Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManager'
+  Drupal\external_content\Finder\SourceFileFinder:
+    autowire: true
+  Drupal\external_content\Finder\SourceFileFinderInterface:
+    alias: 'Drupal\external_content\Finder\SourceFileFinder'
+  Drupal\external_content\Parser\SourceFileParser:
+    autowire: true
+  Drupal\external_content\Parser\ChainHtmlParser:
+    autowire: true
+  Drupal\external_content\Parser\ChainHtmlParserInterface:
+    alias: 'Drupal\external_content\Parser\ChainHtmlParser'
+  Drupal\external_content\Converter\ChainMarkupConverter:
+    autowire: true
+  Drupal\external_content\Grouper\ParsedSourceFileGrouperInterface:
+    alias: 'Drupal\external_content\Grouper\ParsedSourceFileGrouper'
+  Drupal\external_content\Grouper\ParsedSourceFileGrouper:
+    autowire: true
+  Drupal\external_content\Finder\ExternalContentFinder:
+    autowire: true
+  Drupal\external_content\Finder\ExternalContentFinderInterface:
+    alias: 'Drupal\external_content\Finder\ExternalContentFinder'
+  Drupal\external_content\Builder\ChainRenderArrayBuilder:
+    autowire: true
+  Drupal\external_content\Builder\ChainRenderArrayBuilderInterface:
+    alias: 'Drupal\external_content\Builder\ChainRenderArrayBuilder'

@@ -1,0 +1,5 @@
+name: External Content
+description: 'Provides functionality to build content from external sources.'
+type: module
+core_version_requirement: ^9
+package: Custom
