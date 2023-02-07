@@ -1,0 +1,36 @@
+.comment-teaser {
+  font-size: var(--font-size-sm);
+  scroll-margin-top: var(--spacing-lg);
+}
+
+.comment-teaser__author {
+  font-weight: bold;
+}
+
+.comment-teaser__created {
+  font-size: var(--font-size-xs);
+  margin-left: var(--spacing-xxs);
+  --link-color: var(--color-gray-web);
+}
+
+.comment-teaser__content {
+  --p-margin--y: var(--spacing-xs);
+}
+
+.comment-teaser__footer .links {
+  display: flex;
+  align-items: center;
+  text-transform: lowercase;
+  --link-color: var(--color-roman-silver);
+}
+
+.comment-teaser__footer .links__item:not(:first-child) {
+  margin-left: var(--spacing-md);
+}
+
+.comment-teaser__commented-entity {
+  font-style: italic;
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  --link-color: var(--color-roman-silver);
+}

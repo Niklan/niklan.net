@@ -13,7 +13,6 @@ This repository contains source code of my personal blog <https://niklan.net>.
 - Clone repository `git clone https://github.com/Niklan/niklan.net.git`.
 - Run `composer install`.
 - Create custom `settings.local.php` by `cp web/sites/default/settings.local.example.php web/sites/default/settings.local.php`. Adjust settings if needed.
-- Run `yarn install && yarn run compile`.
 - Open your local domain, e.g.: https://niklan.localhost
 - Follow installation instructions.
 - Make a cup of ☕ or 🍵 and wait until the installation is finished.

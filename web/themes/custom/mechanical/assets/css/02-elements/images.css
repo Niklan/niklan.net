@@ -1,0 +1,12 @@
+/**
+ * The HTML image styles.
+ */
+img {
+  font-style: italic;
+  /* Fixes aspect ratio. */
+  max-width: 100%;
+  /* For ALT attribute. */
+  height: auto;
+  /* Fixes whitespace under images. */
+  vertical-align: middle;
+}

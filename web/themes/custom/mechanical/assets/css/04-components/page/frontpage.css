@@ -1,0 +1,11 @@
+.frontpage .last-content,
+.frontpage .frontpage-welcome {
+  padding: var(--spacing-md)
+}
+
+@media (min-width: 576px) {
+  .frontpage .last-content,
+  .frontpage .frontpage-welcome {
+    padding: var(--spacing-xl)
+  }
+}

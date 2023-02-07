@@ -1,0 +1,11 @@
+.block--toc {
+  position: sticky;
+  top: var(--spacing-md);
+  overflow-y: auto;
+  height: calc(100vh - var(--spacing-xl) - var(--spacing-md));
+}
+
+.block--toc .block__title {
+  font-weight: bold;
+  margin-bottom: var(--spacing-md);
+}

@@ -1,0 +1,40 @@
+.frontpage-welcome {
+  display: grid;
+  grid-gap: var(--spacing-xl)
+}
+
+@media (min-width: 576px) {
+  .frontpage-welcome {
+    grid-template-columns: 2fr 1fr
+  }
+}
+
+.frontpage-welcome__welcome {
+  font-size: var(--font-size-h5);
+}
+
+.frontpage-welcome__title {
+  font-weight: bold;
+}
+
+.frontpage-welcome__content {
+  order: 2
+}
+
+@media (min-width: 576px) {
+  .frontpage-welcome__content {
+    order: initial
+  }
+}
+
+.frontpage-welcome__description {
+  font-size: var(--font-size-h6);
+}
+
+.frontpage-welcome__actions {
+  display: flex;
+}
+
+.frontpage-welcome__actions > :not(:first-child) {
+  margin-left: var(--spacing-md);
+}

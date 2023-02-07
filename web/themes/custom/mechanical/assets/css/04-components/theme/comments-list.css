@@ -1,0 +1,19 @@
+.comments-list {
+
+}
+
+.comments-list__head {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-xl);
+  --p-margin--y: var(--spacing-sm);
+}
+
+.comments-list__item:not(:last-child) {
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comments-list__pager {
+  margin: var(--spacing-xl) 0;
+}

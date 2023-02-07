@@ -1,0 +1,17 @@
+.node-portfolio-teaser {
+  display: flex;
+  align-items: flex-start;
+}
+
+.node-portfolio-teaser__title {
+  font-weight: bold;
+  --link-color: var(--heading-color);
+}
+
+.node-portfolio-teaser .node-portfolio-field-date {
+  flex-shrink: 0;
+}
+
+.node-portfolio-teaser__separator {
+  flex-shrink: 0;
+}

@@ -1,0 +1,14 @@
+.paragraph-heading {
+  scroll-margin-top: var(--spacing-xl);
+}
+
+.paragraph-heading__anchor {
+  font-size: 80%;
+  display: inline-block;
+  visibility: hidden;
+  margin-left: var(--spacing-xs);
+}
+
+.paragraph-heading:hover .paragraph-heading__anchor {
+  visibility: visible;
+}
