@@ -210,6 +210,11 @@ component.theme.form-success:
     theme:
       assets/css/04-components/theme/form-success.css: { }
 
+component.theme.sidebar-search-form:
+  css:
+    theme:
+      assets/css/04-components/theme/sidebar-search-form.css: { }
+
 component.block.page-title:
   css:
     theme:
@@ -264,11 +269,6 @@ component.form.niklan-node-search:
   css:
     theme:
       assets/css/04-components/form/niklan-node-search.css: { }
-
-component.form.niklan-node-search-sidebar:
-  css:
-    theme:
-      assets/css/04-components/form/niklan-node-search-sidebar.css: { }
 
 component.page.frontpage:
   css:

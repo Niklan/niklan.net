@@ -291,3 +291,9 @@ msgstr "Блог веб-разработчика"
 
 msgid "This is an author's blog about web development. In my work I use Drupal, so most publications are about Drupal CMS."
 msgstr "Это авторский блог о веб-разработке. В работе использую Drupal поэтому большинство публикацией посвящено этой CMS."
+
+msgid "Search query"
+msgstr "Поисковый запрос"
+
+msgid "Do search"
+msgstr "Искать"

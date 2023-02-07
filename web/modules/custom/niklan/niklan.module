@@ -171,6 +171,9 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'items' => [],
       ],
     ],
+    'niklan_sidebar_search_form' => [
+      'variables' => [],
+    ],
   ];
 }
 
