@@ -1,7 +1,7 @@
 _core:
   default_config_hash: fP57Sd8RjnZMVH3p_R-Yt0tC8j7Z-BuzGMIp6pmrHAI
 langcode: ru
-smtp_on: false
+smtp_on: true
 smtp_host: localhost
 smtp_hostbackup: ''
 smtp_port: '465'
