@@ -264,7 +264,7 @@ msgid "If you haven't changed your mind, you can donate through <a href=\"@bank_
 msgstr "Если вы не передумали, вы можете сделать пожертвование через <a href=\"@bank_url\"><strong>Тинькофф Банк</a>."
 
 msgid "You can email me using the form on this page or you can write to me at <a href=\"mailto:@email\"><strong>@email</strong></a>."
-msgstr "Можете написать мне на почту воспользовавшись формой на текущей странице, либо удобным для вас способом на <a href=\"mailto:@email\"><strong>@emails</strong></a>."
+msgstr "Можете написать мне на почту воспользовавшись формой на текущей странице, либо удобным для вас способом на <a href=\"mailto:@email\"><strong>@email</strong></a>."
 
 msgid "If it is more convenient, write directly on Telegram - <a href=\"@telegram_url\" target=\"_blank\" rel=\"nofollow noopener\">@Niklan</a>. Just ask: no need to write «hello» and wait for my reaction, directly write a question; I do not listen voice messages; I do not answer calls."
 msgstr "Если удобнее, пишите напрямую в Telegram — <a href=\"@telegram_url\" target=\"_blank\" rel=\"nofollow noopener\">@Niklan</a>. Только попрошу: не нужно писать «привет» и ждать моей реакции, сразу пишите вопрос; войсы не слушаю; звонки не беру."
