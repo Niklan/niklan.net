@@ -129,8 +129,8 @@ msgstr "Все публикации"
 msgid "Blog posts"
 msgstr "Публикации в блоге"
 
-msgid "There are no results found or you not entered they keys to search."
-msgstr "По вашему запросу ничего не найдено или вы не ввели что искать."
+msgid "It appears that there are no results, or you have not entered the keys to search."
+msgstr "Кажется, что результатов нет, или вы не ввели что искать."
 
 msgid "@count publication from @date"
 msgid_plural "@count publications from @date"

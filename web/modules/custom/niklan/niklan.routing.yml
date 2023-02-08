@@ -67,15 +67,8 @@ niklan.search_page:
   path: '/search'
   defaults:
     _title: 'Search'
-    _controller: '\Drupal\niklan\Controller\SearchController::build'
-  requirements:
-    _permission: 'access content'
-
-niklan.search_results:
-  path: '/search/{keys}'
-  defaults:
-    _title: 'Search'
-    _controller: '\Drupal\niklan\Controller\SearchController::build'
+    _controller: '\Drupal\niklan\Controller\SearchController::page'
+    _title_callback: '\Drupal\niklan\Controller\SearchController::pageTitle'
   requirements:
     _permission: 'access content'
 

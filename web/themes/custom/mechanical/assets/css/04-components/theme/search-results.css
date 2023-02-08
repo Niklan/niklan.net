@@ -1,0 +1,9 @@
+.search-results__item:not(:last-child) {
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.search-results__pager {
+  margin-top: var(--spacing-lg);
+}

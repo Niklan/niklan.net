@@ -195,6 +195,11 @@ component.theme.search-page:
     theme:
       assets/css/04-components/theme/search-page.css: { }
 
+component.theme.search-results:
+  css:
+    theme:
+      assets/css/04-components/theme/search-results.css: { }
+
 component.theme.druki:
   css:
     theme:

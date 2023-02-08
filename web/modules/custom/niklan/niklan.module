@@ -15,6 +15,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 
 /**
@@ -147,9 +148,13 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     ],
     'niklan_search_page' => [
       'variables' => [
-        'search_form' => NULL,
+        'header' => NULL,
+        'content' => NULL,
+      ],
+    ],
+    'niklan_search_results' => [
+      'variables' => [
         'results' => [],
-        'pager' => NULL,
       ],
     ],
     'niklan_blog_meta' => [
@@ -384,4 +389,19 @@ function niklan_preprocess_paragraph__important(array &$variables): void {
   $paragraph = $variables['elements']['#paragraph'];
   $type = $paragraph->get('field_important_type')->getString();
   $variables['attributes']['class'][] = 'paragraph-important--' . $type;
+}
+
+/**
+ * Prepares variables for search results.
+ *
+ * Default template: niklan-search-results.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - results: Array with results. It's also allowed to pass instance of
+ *     \Drupal\niklan\Data\ContentEntityResultSet to automatically prepare
+ *     results from it.
+ */
+function template_preprocess_niklan_search_results(array &$variables): void {
+  \Drupal::classResolver(NiklanSearchResultsPreprocess::class)($variables);
 }
