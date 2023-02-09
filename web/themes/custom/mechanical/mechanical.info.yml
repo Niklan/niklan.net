@@ -5,7 +5,7 @@ type: theme
 base theme: glisseo
 description: 'The 2020 theme v2.'
 package: Glisseo
-core_version_requirement: ^9
+core_version_requirement: ^9 || ^10
 
 libraries:
   - mechanical/global.style.generic
