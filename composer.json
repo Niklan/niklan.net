@@ -36,7 +36,7 @@
         "drupal/contact_tools": "^1.0",
         "drupal/core-composer-scaffold": "^9.0.0",
         "drupal/core-recommended": "^9.0.0",
-        "drupal/easy_breadcrumb": "^1.8",
+        "drupal/easy_breadcrumb": "^2.0",
         "drupal/extra_field": "^1.1",
         "drupal/glisseo": "1.x-dev",
         "drupal/google_tag": "^1.0",
