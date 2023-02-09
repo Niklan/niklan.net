@@ -33,7 +33,7 @@
         "drupal/antibot": "^2.0",
         "drupal/contact_emails": "^1.14",
         "drupal/contact_storage": "^1.0@beta",
-        "drupal/contact_tools": "^1.0",
+        "drupal/contact_tools": "^1.2",
         "drupal/core-composer-scaffold": "^9.0.0",
         "drupal/core-recommended": "^9.0.0",
         "drupal/easy_breadcrumb": "^2.0",
