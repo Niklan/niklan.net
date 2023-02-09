@@ -55,10 +55,10 @@
         "drupal/twig_tweak": "^3.0",
         "drupal/upgrade_status": "^4.0@alpha",
         "drush/drush": "^11.0",
-        "niklan/niklan": "^1.0",
-        "weitzman/drupal-test-traits": "^1.5"
+        "niklan/niklan": "^1.0"
     },
     "require-dev": {
+        "weitzman/drupal-test-traits": "^1.5",
         "chi-teck/drupal-coder-extension": "^1.0",
         "drupal/core-dev": "^9.3",
         "mglaman/drupal-check": "^1.3",
