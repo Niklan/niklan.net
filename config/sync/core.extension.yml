@@ -10,7 +10,6 @@ module:
   comment: 0
   config: 0
   contact: 0
-  contact_emails: 0
   contact_storage: 0
   contact_tools: 0
   ctools: 0
