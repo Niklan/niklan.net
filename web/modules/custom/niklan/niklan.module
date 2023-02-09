@@ -15,6 +15,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 
@@ -404,4 +405,11 @@ function niklan_preprocess_paragraph__important(array &$variables): void {
  */
 function template_preprocess_niklan_search_results(array &$variables): void {
   \Drupal::classResolver(NiklanSearchResultsPreprocess::class)($variables);
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function niklan_library_info_alter(array &$libraries, string $extension): void {
+  \Drupal::classResolver(LibraryInfoAlter::class)($libraries, $extension);
 }
