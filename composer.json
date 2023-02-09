@@ -48,7 +48,7 @@
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/redirect": "^1.0@alpha",
         "drupal/search_api": "^1.8",
-        "drupal/simple_sitemap": "^3.0",
+        "drupal/simple_sitemap": "^4.1",
         "drupal/smtp": "^1.0@beta",
         "drupal/taxonomy_custom_controller": "^1.0",
         "drupal/token": "^1.0",
