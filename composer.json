@@ -30,7 +30,7 @@
         "php": ">=8.1",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.6",
-        "drupal/antibot": "^1.2",
+        "drupal/antibot": "^2.0",
         "drupal/contact_emails": "^1.14",
         "drupal/contact_storage": "^1.0@beta",
         "drupal/contact_tools": "^1.0",

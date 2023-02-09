@@ -69,6 +69,8 @@ module:
   token: 0
   toolbar: 0
   twig_tweak: 0
+  update: 0
+  upgrade_status: 0
   user: 0
   menu_link_content: 1
   pathauto: 1
