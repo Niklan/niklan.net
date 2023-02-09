@@ -111,7 +111,7 @@
                 "[libraries-root]/photoswipe/dist/photoswipe.css": "assets/vendor/photoswipe/dist/photoswipe.css",
                 "[libraries-root]/photoswipe/dist/photoswipe.min.js": "assets/vendor/photoswipe/dist/photoswipe.min.js",
                 "[libraries-root]/photoswipe/dist/photoswipe-ui-default.min.js": "assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js",
-                "[libraries-root]/photoswipe/package.json": "assets/vendor/photoswipe/package.json",
+                "[libraries-root]/photoswipe/photoswipe.json": "assets/vendor/photoswipe/photoswipe.json",
                 "[libraries-root]/prismjs/prism.js": "assets/vendor/prismjs/prism.js"
             }
         },
