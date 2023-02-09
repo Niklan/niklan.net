@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31f15bf25ca7e8a8d1e101ea543cffce",
+    "content-hash": "e73f63825054e787bcd600ff56865acc",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2292,27 +2292,30 @@
         },
         {
             "name": "drupal/glisseo",
-            "version": "dev-1.x",
+            "version": "2.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/glisseo.git",
-                "reference": "8d80135349c21a7537021d90bb7b9771cf9630f2"
+                "reference": "2.0.0-rc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/glisseo-2.0.0-rc1.zip",
+                "reference": "2.0.0-rc1",
+                "shasum": "23141082fbf46ebb2eb7011fe4e52305dd8b4194"
             },
             "require": {
-                "drupal/core": "^9",
+                "drupal/core": "^9 || ^10",
                 "drupal/twig_tweak": "^3.0.0@dev"
             },
             "type": "drupal-theme",
             "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-1.0-alpha20+7-dev",
-                    "datestamp": "1649745523",
+                    "version": "2.0.0-rc1",
+                    "datestamp": "1675081731",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -13133,7 +13136,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/contact_storage": 10,
-        "drupal/glisseo": 20,
+        "drupal/glisseo": 5,
         "drupal/rabbit_hole": 10,
         "drupal/redirect": 15,
         "drupal/smtp": 10
