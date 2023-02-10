@@ -26,7 +26,7 @@ This is a repository with a source code of <https://niklan.net> website.
   ```
 - Create custom `settings.local.php` and adjust settings if needed
   ```shell
-  cp web/sites/default/settings.local.example.php web/sites/default/settings.local.php
+  cp web/sites/default/example.settings.local.php web/sites/default/settings.local.php
   ```
 - Create custom `.env.php` file and adjust settings if needed
   ```shell
