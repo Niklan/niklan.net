@@ -1,0 +1,16 @@
+uuid: 817c77a9-05cd-4ae2-9fc6-4b662b05fe45
+langcode: ru
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: eC3j_yyQMsgaoE3EK4lyJ6qRwCOay2nQtK9n7mVnvYQ
+id: user.register_admin_created
+configuration:
+  email_subject:
+    value: 'An administrator created an account for you at [site:name]'
+  email_body:
+    content:
+      value: "[user:name],\r\n\r\nАдминистратор сайта [site:name] создал аккаунт для вас. Сейчас вы можете войти, кликнув на эту ссылку или скопировав её в адресную строку браузера:\r\n\r\n[user:one-time-login-url]\r\n\r\nЭта ссылка только для одноразового входа. Она так же приведёт вас на страницу, где вы сможете изменить свой пароль.\r\n\r\nПосле изменения своего пароля, вы в будущем сможете входить на [site:login-url] используя:\r\n\r\nИмя пользователя: [user:name]\r\nПароль: ваш пароль\r\n\r\n--  Команда [site:name]"
+      format: plain_text

@@ -1,0 +1,18 @@
+uuid: 409d7447-6595-4fa1-98a2-9c386406f226
+langcode: ru
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: UHTbwGbdSCyX2ahr4mXkeXx7pv_RPytuoDSLaPtk1is
+id: user.status_canceled
+configuration:
+  email_subject:
+    value: 'Account details for [user:display-name] at [site:name] (canceled)'
+  email_body:
+    content:
+      value: "[user:display-name],\r\n\r\nВаша учётная запись на сайте «[site:name]» удалена.\r\n\r\n-- Команда сайта «[site:name]»"
+      format: plain_text
+  email_skip_sending:
+    message: 'Notification disabled in settings'

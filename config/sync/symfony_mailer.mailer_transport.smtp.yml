@@ -1,0 +1,18 @@
+uuid: 0aa43704-c21d-4462-a77f-3087ef15f146
+langcode: ru
+status: true
+dependencies: {  }
+id: smtp
+label: SMTP
+plugin: smtp
+configuration:
+  user: ''
+  pass: ''
+  host: example.com
+  port: null
+  query:
+    verify_peer: true
+    local_domain: ''
+    restart_threshold: null
+    restart_threshold_sleep: null
+    ping_threshold: null

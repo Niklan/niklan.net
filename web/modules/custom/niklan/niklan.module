@@ -15,9 +15,11 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\niklan\Hook\SymfonyMailer\ContactFormBuild;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
+use Drupal\symfony_mailer\EmailInterface;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -412,4 +414,11 @@ function template_preprocess_niklan_search_results(array &$variables): void {
  */
 function niklan_library_info_alter(array &$libraries, string $extension): void {
   \Drupal::classResolver(LibraryInfoAlter::class)($libraries, $extension);
+}
+
+/**
+ * Implements hook_mailer_TYPE_PHASE().
+ */
+function niklan_mailer_contact_form_build(EmailInterface $email): void {
+  \Drupal::classResolver(ContactFormBuild::class)($email);
 }

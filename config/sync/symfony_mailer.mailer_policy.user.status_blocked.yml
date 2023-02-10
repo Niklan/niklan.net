@@ -1,0 +1,18 @@
+uuid: 02cdcf53-5bc3-4b68-940b-b345ebe5c578
+langcode: ru
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: PeWhXf4ILMeyyCEQC9r17UfJteCfKaK8xY7EqoAt2MU
+id: user.status_blocked
+configuration:
+  email_subject:
+    value: 'Account details for [user:display-name] at [site:name] (blocked)'
+  email_body:
+    content:
+      value: "[user:name],\r\n\r\nВаш аккаунт на [site:name] заблокирован.\r\n\r\n--  Команда [site:name]"
+      format: plain_text
+  email_skip_sending:
+    message: 'Notification disabled in settings'

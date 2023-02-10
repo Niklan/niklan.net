@@ -1,0 +1,7 @@
+configuration:
+  email_body:
+    content:
+      value: |-
+        <p class="contact-email-intro"><a href="{{ sender_url }}">{{ sender_name }}</a> sent a message using the contact form <a href="{{ form_url }}">{{ form }}</a>.</p>
+        <hr>
+        {{ body }}

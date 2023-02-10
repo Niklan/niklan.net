@@ -50,15 +50,11 @@ $settings['skip_permissions_hardening'] = TRUE;
 $settings['database_cache_max_rows']['default'] = 10_000;
 
 /**
- * Adjust SMTP module settings.
+ * Symfony Mailer module configuration.
  *
- * Configure it to something that can handle SMTP emails. Use Mailhog to
- * intercept emails.
+ * SMTP is a default transport.
  */
-$config['smtp.settings']['smtp_host'] = $_ENV['SMTP_HOST'];
-$config['smtp.settings']['smtp_port'] = $_ENV['SMTP_PORT'];
-$config['smtp.settings']['smtp_protocol'] = 'standard';
-$config['smtp.settings']['smtp_username'] = $_ENV['SMTP_USERNAME'];
-$config['smtp.settings']['smtp_password'] = $_ENV['SMTP_PASSWORD'];
-$config['smtp.settings']['smtp_from'] = 'example@example.com';
-$config['smtp.settings']['smtp_fromname'] = 'John Doe';
+$config['symfony_mailer.mailer_transport.smtp']['configuration']['user'] = $_ENV['SMTP_USER'];
+$config['symfony_mailer.mailer_transport.smtp']['configuration']['pass'] = $_ENV['SMTP_PASS'];
+$config['symfony_mailer.mailer_transport.smtp']['configuration']['host'] = $_ENV['SMTP_HOST'];
+$config['symfony_mailer.mailer_transport.smtp']['configuration']['port'] = $_ENV['SMTP_PORT'];
