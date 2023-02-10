@@ -14,7 +14,6 @@ third_party_settings:
 id: contact_form
 label: 'Контактная форма'
 recipients:
-  - i@niklan.net
   - niklanrus@gmail.com
 reply: ''
 weight: 0

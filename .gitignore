@@ -66,3 +66,7 @@ default.services.yml
 
 # Ignore .mo files if someone try to use Poedit
 /translations/*.mo
+
+# Ignore environment files.
+web/.env.php
+web/.env.example.php

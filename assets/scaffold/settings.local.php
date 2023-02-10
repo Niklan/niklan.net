@@ -144,18 +144,3 @@ $settings['skip_permissions_hardening'] = TRUE;
  * the language or field module.
  */
 $settings['config_exclude_modules'] = ['devel', 'stage_file_proxy'];
-
-/**
- * Adjust SMTP module settings.
- *
- * Configure it to something that can handle SMTP emails. Use Mailhog to
- * intercept emails.
- */
-$config['smtp.settings']['smtp_on'] = TRUE;
-$config['smtp.settings']['smtp_host'] = 'mailhog';
-$config['smtp.settings']['smtp_port'] = 1025;
-$config['smtp.settings']['smtp_protocol'] = 'standard';
-$config['smtp.settings']['smtp_username'] = '';
-$config['smtp.settings']['smtp_password'] = '';
-$config['smtp.settings']['smtp_from'] = 'example@example.com';
-$config['smtp.settings']['smtp_fromname'] = 'John Doe';

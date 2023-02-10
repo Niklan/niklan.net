@@ -1,3 +1,10 @@
+if (file_exists($app_root . '/.env.php')) {
+  include $app_root . '/.env.php';
+}
+else {
+  throw new RuntimeException('You must provide .env.php file to run project.');
+}
+
 if (file_exists($app_root . '/' . $site_path . '/settings.all.php')) {
   include $app_root . '/' . $site_path . '/settings.all.php';
 }
