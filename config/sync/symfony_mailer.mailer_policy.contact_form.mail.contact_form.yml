@@ -6,10 +6,14 @@ dependencies:
     - contact.form.contact_form
 id: contact_form.mail.contact_form
 configuration:
+  email_body:
+    content:
+      value: '{{ body }}'
+      format: email_html
   email_subject:
     value: 'Обратная связь — niklan.net'
   email_to:
     addresses:
       -
-        value: niklanrus@gmail.com
+        value: '<site>'
         display: ''

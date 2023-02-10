@@ -54,7 +54,6 @@
         "drupal/taxonomy_custom_controller": "^1.0",
         "drupal/token": "^1.0",
         "drupal/twig_tweak": "^3.0",
-        "drupal/upgrade_status": "^4.0@alpha",
         "drush/drush": "^11.0",
         "niklan/niklan": "^1.0"
     },
