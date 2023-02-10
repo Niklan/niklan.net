@@ -41,3 +41,9 @@ $_ENV['SMTP_HOST'] = 'mailhog';
 $_ENV['SMTP_PORT'] = '1025';
 $_ENV['SMTP_USERNAME'] = '';
 $_ENV['SMTP_PASSWORD'] = '';
+
+/**
+ * Drupal core specific settings.
+ */
+// See $settings['hash_salt'] for more information.
+$_ENV['HASH_SALT'] = 'put_your_salt_here';
