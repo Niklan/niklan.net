@@ -1,0 +1,59 @@
+.share__title {
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+  color: var(--heading-color);
+}
+
+.share__links {
+  display: flex;
+  align-items: center;
+  margin: calc(var(--spacing-sm) * -1) 0 0 calc(var(--spacing-sm) * -1);
+}
+
+.share__link {
+  display: block;
+  width: 80px;
+  height: 40px;
+  margin: var(--spacing-sm) 0 0 var(--spacing-sm);
+  border-radius: var(--radius-xs);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px;
+  box-shadow: var(--shadow-xs);
+}
+
+.share__link:hover {
+  opacity: 0.8;
+}
+
+.share__link--vk {
+  background-color: #4a76a8;
+  background-image: url('../../../icons/FFFFFF/vk.svg');
+}
+
+.share__link--facebook {
+  background-color: #3b5999;
+  background-image: url('../../../icons/FFFFFF/facebook.svg');
+}
+
+.share__link--twitter {
+  background-color: #1da1f2;
+  background-image: url('../../../icons/FFFFFF/twitter.svg');
+}
+
+.share__link--telegram {
+  background-color: #0088cc;
+  background-image: url('../../../icons/FFFFFF/telegram.svg');
+}
+
+.share__link--mail {
+  background-color: #dc3545;
+  background-image: url('../../../icons/FFFFFF/email-newsletter.svg');
+}
+
+.share__link--device {
+  cursor: pointer;
+  border: none;
+  background-color: #b71c1c;
+  background-image: url('../../../icons/FFFFFF/share-variant.svg');
+}

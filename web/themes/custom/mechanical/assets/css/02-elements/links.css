@@ -1,0 +1,22 @@
+/**
+ * Hyper text links.
+ */
+:root {
+  --link-color: var(--color-egyptian-blue);
+  --link-color--hover: var(--color-denim-blue);
+}
+
+[data-theme="dark"] {
+  --link-color: var(--color-french-sky-blue);
+  --link-color--hover: var(--color-periwinkle-crayola);
+}
+
+a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+a:hover {
+  text-decoration: none;
+  --link-color: var(--link-color--hover);
+}

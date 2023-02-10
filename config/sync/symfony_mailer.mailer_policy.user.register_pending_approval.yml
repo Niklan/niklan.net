@@ -1,0 +1,16 @@
+uuid: 81b1540f-c9d4-48aa-b711-bb974ce707a4
+langcode: ru
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: gdjGWtW1jFD4Z2y7UovfbpF3m3ln7By0xqRc0_6U9Qc
+id: user.register_pending_approval
+configuration:
+  email_subject:
+    value: 'Account details for [user:display-name] at [site:name] (pending admin approval)'
+  email_body:
+    content:
+      value: 'Аккаунт [user:name] созданный на сайте [site:name] ожидает одобрения.'
+      format: plain_text

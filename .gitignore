@@ -64,8 +64,9 @@ default.services.yml
 # Ignore maps for builded files like .css.map, .js.map.
 *.map
 
-# Ignore builded CSS files.
-web/themes/custom/mechanical/assets/**/*.css
-
 # Ignore .mo files if someone try to use Poedit
 /translations/*.mo
+
+# Ignore environment files.
+web/.env.php
+web/.env.example.php

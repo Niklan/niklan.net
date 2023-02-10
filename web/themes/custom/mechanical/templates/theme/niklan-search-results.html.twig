@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display search results.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - results: An array with results.
+ * - pager: The pager for results.
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('mechanical/component.theme.search-results') }}
+<div{{ attributes.addClass('search-results') }}>
+  {% if results is empty %}
+    <div class="search-results__message">
+      {% trans %}It appears that there are no results, or you have not entered the keys to search.{% endtrans %}
+    </div>
+  {% else %}
+    <div class="search-results__items">
+      {% for result in results %}
+        <div class="search-results__item">
+          {{ result }}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if pager %}
+      <div class="search-results__pager">
+        {{ pager }}
+      </div>
+    {% endif %}
+  {% endif %}
+</div>

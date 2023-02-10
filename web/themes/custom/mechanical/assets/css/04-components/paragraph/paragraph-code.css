@@ -1,0 +1,14 @@
+.paragraph-code {
+  margin: var(--p-margin--y) 0;
+  --border-color: var(--color-border);
+}
+
+.paragraph-code .paragraph-code-field-title {
+  font-family: var(--font-monospace);
+  font-size: var(--font-size-xs);
+  font-weight: bold;
+  font-style: italic;
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+  word-break: break-word;
+}

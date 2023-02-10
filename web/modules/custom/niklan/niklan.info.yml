@@ -1,7 +1,7 @@
 name: Niklan
 description: 'My custom code is here!'
 type: module
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 package: Custom
 dependencies:
   - drupal:media
@@ -12,6 +12,3 @@ dependencies:
   - drupal:system
   - drupal:user
   - drupal:search_api
-
-'interface translation project': niklan
-'interface translation server pattern': ../assets/translation/%language.po

@@ -1,0 +1,35 @@
+.comment-full {
+  font-size: var(--font-size-sm);
+  scroll-margin-top: var(--spacing-lg);
+}
+
+.comment-full__author {
+  font-weight: bold;
+}
+
+.comment-full__created {
+  font-size: var(--font-size-xs);
+  margin-left: var(--spacing-xxs);
+  --link-color: var(--color-gray-web);
+}
+
+.comment-full__content {
+  --p-margin--y: var(--spacing-xs);
+}
+
+.comment-full__footer .links {
+  display: flex;
+  align-items: center;
+  text-transform: lowercase;
+  --link-color: var(--color-roman-silver);
+}
+
+.comment-full__footer .links__item:not(:first-child) {
+  margin-left: var(--spacing-md);
+}
+
+.indented {
+  min-width: 300px;
+  padding-left: var(--spacing-md);
+  border-left: 1px solid var(--color-border);
+}

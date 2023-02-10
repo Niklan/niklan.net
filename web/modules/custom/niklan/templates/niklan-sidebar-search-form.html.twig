@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display sidebar search form.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ *
+ * @ingroup themeable
+ */
+#}
+{% do attributes.setAttribute('action', path('niklan.search_page')) %}
+<form{{ attributes.addClass('sidebar-search-form') }}>
+  <input name="q"
+         type="text"
+         aria-label="{{ 'Search query'|t }}"
+         placeholder="{{ 'What are we looking for?'|t }}"
+         class="sidebar-search-form__input">
+  <button type="submit"
+          aria-label="{{ 'Do search'|t }}"
+          class="sidebar-search-form__submit"></button>
+</form>

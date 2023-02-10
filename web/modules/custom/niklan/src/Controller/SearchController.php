@@ -5,235 +5,173 @@ declare(strict_types=1);
 namespace Drupal\niklan\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Pager\PagerManagerInterface;
-use Drupal\Core\Pager\PagerParametersInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\niklan\Data\ContentEntityResultSet;
 use Drupal\niklan\Form\SearchForm;
-use Drupal\search_api\Query\ResultSetInterface;
+use Drupal\niklan\Utility\SearchApiResultItemsHelper;
 use Drupal\search_api\Utility\QueryHelperInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides search page controller.
- *
- * @todo Replace render array markup with theme hook.
  */
 final class SearchController implements ContainerInjectionInterface {
 
   /**
-   * The query helper.
-   */
-  protected QueryHelperInterface $queryHelper;
-
-  /**
-   * The form builder.
-   */
-  protected FormBuilderInterface $formBuilder;
-
-  /**
-   * The index storage.
-   */
-  protected EntityStorageInterface $indexStorage;
-
-  /**
    * The amount of results per page.
    */
-  protected int $limit = 10;
+  protected const RESULT_LIMIT = 10;
 
   /**
-   * The pager manager.
+   * Constructs a new SearchController instance.
+   *
+   * @param \Drupal\search_api\Utility\QueryHelperInterface $searchQueryHelper
+   *   The Search API query helper.
+   * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
+   *   The form builder.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\Core\Pager\PagerManagerInterface $pagerManager
+   *   The pager manager.
    */
-  protected PagerManagerInterface $pagerManager;
-
-  /**
-   * The pager parameters.
-   */
-  protected PagerParametersInterface $pagerParameters;
-
-  /**
-   * The entity type manager.
-   */
-  protected EntityTypeManagerInterface $entityTypeManager;
+  public function __construct(
+    protected QueryHelperInterface $searchQueryHelper,
+    protected FormBuilderInterface $formBuilder,
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected PagerManagerInterface $pagerManager,
+  ) {}
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    $instance = new self();
-    $instance->queryHelper = $container->get('search_api.query_helper');
-    $instance->formBuilder = $container->get('form_builder');
-    $instance->entityTypeManager = $container->get('entity_type.manager');
-    $instance->indexStorage = $instance->entityTypeManager->getStorage('search_api_index');
-    $instance->pagerManager = $container->get('pager.manager');
-    $instance->pagerParameters = $container->get('pager.parameters');
-
-    return $instance;
+  public static function create(ContainerInterface $container): self {
+    return new self(
+      $container->get('search_api.query_helper'),
+      $container->get('form_builder'),
+      $container->get('entity_type.manager'),
+      $container->get('pager.manager'),
+    );
   }
 
   /**
    * Builds a search page.
    *
-   * @param string|null $keys
-   *   The search keys.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
    *
    * @return array
    *   An array with page content.
    */
-  public function build(?string $keys = NULL): array {
-    $keys = $keys ? \urldecode($keys) : $keys;
-    $title = new TranslatableMarkup('Search');
-    if ($keys) {
-      $title = new TranslatableMarkup('Search results for «%keys»', ['%keys' => $keys]);
-    }
+  public function page(Request $request): array {
+    $keys = $request->query->get('q');
 
     return [
-      '#title' => $title,
       '#theme' => 'niklan_search_page',
-      '#search_form' => $this->buildSearchForm($keys),
-      '#results' => $this->buildResults($keys),
-      '#pager' => $this->buildPager(),
+      '#header' => $this->buildPageHeader(),
+      '#content' => $this->buildPageContent($keys),
     ];
   }
 
   /**
-   * Builds a search form.
+   * Builds a search page header.
+   *
+   * @return array
+   *   The header content.
+   */
+  protected function buildPageHeader(): array {
+    return [
+      'search_form' => $this->formBuilder->getForm(SearchForm::class),
+    ];
+  }
+
+  /**
+   * Builds a search page content.
    *
    * @param string|null $keys
    *   The search keys.
    *
    * @return array
-   *   An array with search form.
+   *   The page content.
    */
-  protected function buildSearchForm(?string $keys = NULL): array {
-    $form_state = new FormState();
-    if ($keys) {
-      $form_state->set('default_keys', $keys);
-    }
-
-    return [
-      '#theme_wrappers' => [
-        'container' => [
-          '#attributes' => [
-            'class' => ['search-page__form'],
-          ],
+  public function buildPageContent(?string $keys): array {
+    $build = [
+      '#theme' => 'niklan_search_results',
+      '#cache' => [
+        'tags' => [
+          'search_api_list:global_index',
         ],
       ],
-      'form' => $this->formBuilder->buildForm(SearchForm::class, $form_state),
     ];
-  }
 
-  /**
-   * Builds results.
-   *
-   * @param string|null $keys
-   *   The search keys.
-   *
-   * @return array
-   *   An array with prepared results.
-   */
-  protected function buildResults(?string $keys = NULL): array {
     if (!$keys) {
-      return [];
+      return $build;
     }
-    else {
-      return $this->buildSearchResults($keys);
-    }
-  }
 
-  /**
-   * Builds a search results.
-   *
-   * @param string $keys
-   *   The search keys.
-   *
-   * @return array
-   *   An array with results.
-   */
-  protected function buildSearchResults(string $keys): array {
-    $result_set = $this->doSearch($keys);
-    if ($result_set->getResultCount() == 0) {
-      return [];
+    $search_results = $this->doSearch($keys);
+    if ($search_results->getResultCount() === 0) {
+      return $build;
     }
-    else {
-      return $this->buildResultItems($result_set);
-    }
+
+    $this->pagerManager->createPager(
+      $search_results->getResultCount(),
+      self::RESULT_LIMIT,
+    );
+
+    return $build + ['#results' => $search_results];
   }
 
   /**
    * Search for results.
    *
    * @param string $keys
-   *   The keywords.
+   *   The search keys.
    *
-   * @throws \Drupal\search_api\SearchApiException
+   * @return \Drupal\niklan\Data\ContentEntityResultSet
+   *   The search result IDs.
    */
-  protected function doSearch(string $keys): ResultSetInterface {
-    $offset = $this->pagerParameters->findPage() * $this->limit;
+  protected function doSearch(string $keys): ContentEntityResultSet {
+    $current_page = $this->pagerManager->findPage();
 
-    $index = $this->indexStorage->load('global_index');
-    $query = $this->queryHelper->createQuery($index);
+    $index_storage = $this->entityTypeManager->getStorage('search_api_index');
+    $index = $index_storage->load('global_index');
+
+    $query = $this->searchQueryHelper->createQuery($index);
+    $query->addCondition('search_api_datasource', 'entity:node');
     $query->keys($keys);
-    $query->range($offset, $this->limit);
+    $query->range($current_page * self::RESULT_LIMIT, self::RESULT_LIMIT);
     $query->sort('search_api_relevance', 'DESC');
-    $result_set = $query->execute();
 
-    $this->pagerManager->createPager($result_set->getResultCount(), $this->limit);
+    $result = $query->execute();
 
-    return $result_set;
+    return new ContentEntityResultSet(
+      'node',
+      SearchApiResultItemsHelper::extractEntityIds($result),
+      (int) $result->getResultCount(),
+    );
   }
 
   /**
-   * Builds result items.
+   * Builds a page title.
    *
-   * @return array
-   *   An array with built results.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   The page title.
    */
-  protected function buildResultItems(ResultSetInterface $result_set): array {
-    $items = [];
-    foreach ($result_set->getResultItems() as $item) {
-      $entity = $item->getOriginalObject()->getValue();
-      $view_builder = $this->entityTypeManager->getViewBuilder($entity->getEntityTypeId());
-      $items[] = $view_builder->view($entity, 'search_result');
+  public function pageTitle(Request $request): TranslatableMarkup {
+    $keys = $request->query->get('q');
+
+    $title = new TranslatableMarkup('Search');
+    if ($keys) {
+      $title = new TranslatableMarkup('Search results for «%keys»', ['%keys' => $keys]);
     }
-    return $items;
-  }
 
-  /**
-   * Builds pager element.
-   *
-   * @return array
-   *   The render array with pager.
-   */
-  protected function buildPager(): array {
-    return [
-      '#type' => 'pager',
-      '#quantity' => 4,
-    ];
-  }
-
-  /**
-   * Builds no results.
-   *
-   * @return array
-   *   An arary with element.
-   */
-  protected function buildNoResults(): array {
-    return [
-      '#theme_wrappers' => [
-        'container' => [
-          '#attributes' => [
-            'class' => ['search-page__no-results'],
-          ],
-        ],
-      ],
-      'value' => [
-        '#markup' => new TranslatableMarkup('No results found.'),
-      ],
-    ];
+    return $title;
   }
 
 }

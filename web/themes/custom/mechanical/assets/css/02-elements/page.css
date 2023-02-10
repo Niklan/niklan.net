@@ -1,0 +1,24 @@
+/**
+ * Basic page styles.
+ */
+:root {
+  --page-background: var(--color-baby-powder);
+}
+
+[data-theme="dark"] {
+  --page-background: var(--color-raisin-black);
+}
+
+body {
+  background: var(--page-background);
+}
+
+body.is-navigation-active {
+  overflow: hidden
+}
+
+@media (min-width: 992px) {
+  body.is-navigation-active {
+    overflow: initial
+  }
+}

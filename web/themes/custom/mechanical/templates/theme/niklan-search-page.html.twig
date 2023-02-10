@@ -1,26 +1,27 @@
 {#
 /**
  * @file
- * Theme override for present search page.
+ * Theme override for search page.
  *
  * Available variables:
- * - attributes: An attributes for main wrapper.
- * - search_form: The search form.
- * - results: The search results.
- * - pager: The pager.
+ * - attributes: The main wrapper element attributes.
+ * - header: The page header.
+ * - content: The page content.
+ *
+ * @ingroup themeable
  */
 #}
 {{ attach_library('mechanical/component.theme.search-page') }}
-<div{{ attributes.addClass('search-page') }}>
-  <div class="search-page__form">{{ search_form }}</div>
-  {% if results|length %}
-    <div class="search-page__results">{{ results }}</div>
-  {% else %}
-    <div class="search-page__no-results">
-      {% trans %}There are no results found or you not entered they keys to search.{% endtrans %}
-    </div>
+<section{{ attributes.addClass('search-page') }}>
+  {% if header %}
+    <header class="search-page__header">
+      {{ header }}
+    </header>
   {% endif %}
-  {% if pager %}
-    <div class="search-page__pager">{{ pager }}</div>
+
+  {% if content %}
+    <main class="search-page__content">
+      {{ content }}
+    </main>
   {% endif %}
-</div>
+</section>

@@ -1,0 +1,19 @@
+uuid: 7471766a-767e-4776-b409-0f15da2b89e3
+langcode: ru
+status: true
+dependencies:
+  config:
+    - contact.form.contact_form
+id: contact_form.mail.contact_form
+configuration:
+  email_body:
+    content:
+      value: '{{ body }}'
+      format: email_html
+  email_subject:
+    value: 'Обратная связь — niklan.net'
+  email_to:
+    addresses:
+      -
+        value: '<site>'
+        display: ''

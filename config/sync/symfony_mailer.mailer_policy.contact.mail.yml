@@ -1,0 +1,19 @@
+uuid: 57d4b9f3-2028-4d34-a6b5-0366d435059f
+langcode: ru
+status: true
+dependencies:
+  module:
+    - contact
+_core:
+  default_config_hash: qM-nS_f8vJxvO0QPUg8SYmt3iTXAPcvj94xpXXBznQ4
+id: contact.mail
+configuration:
+  email_body:
+    content:
+      value: |-
+        <p class="contact-email-intro">Hello {{ recipient_name }},<br>
+        <a href="{{ sender_url }}">{{ sender_name }}</a> has sent you a message via your form at {{ site_name }}.
+        If you don't want to receive such emails, you can <a href="{{ recipient_edit_url }}">change your settings</a>.</p>
+        <hr>
+        {{ body }}
+      format: email_html

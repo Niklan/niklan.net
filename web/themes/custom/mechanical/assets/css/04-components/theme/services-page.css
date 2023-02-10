@@ -1,0 +1,14 @@
+.services-page__price {
+  font-size: var(--font-size-h2);
+  font-weight: bold;
+}
+
+.services-page__contact-button {
+  width: 100%;
+  margin-top: var(--spacing-lg);
+}
+
+.services-page__kkt {
+  font-size: 13px;
+  line-height: 1.2;
+}

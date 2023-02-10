@@ -1,0 +1,17 @@
+.main-layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 1fr
+}
+
+@media (min-width: 992px) {
+  .main-layout {
+    grid-template-columns: var(--navigation-width) minmax(0, 800px)
+  }
+}
+
+@media (min-width: 1140px) {
+  .main-layout--sidebar-right {
+    grid-template-columns: var(--navigation-width) minmax(0, 800px) 280px
+  }
+}

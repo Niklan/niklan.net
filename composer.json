@@ -30,15 +30,15 @@
         "php": ">=8.1",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.6",
-        "drupal/antibot": "^1.2",
+        "drupal/antibot": "^2.0",
         "drupal/contact_emails": "^1.14",
         "drupal/contact_storage": "^1.0@beta",
-        "drupal/contact_tools": "^1.0",
+        "drupal/contact_tools": "^1.2",
         "drupal/core-composer-scaffold": "^9.0.0",
         "drupal/core-recommended": "^9.0.0",
-        "drupal/easy_breadcrumb": "^1.8",
-        "drupal/extra_field": "^1.1",
-        "drupal/glisseo": "1.x-dev",
+        "drupal/easy_breadcrumb": "^2.0",
+        "drupal/extra_field": "^2.0",
+        "drupal/glisseo": "^2.0@rc",
         "drupal/google_tag": "^1.0",
         "drupal/imagemagick": "^3.0",
         "drupal/metatag": "^1.1",
@@ -48,16 +48,17 @@
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/redirect": "^1.0@alpha",
         "drupal/search_api": "^1.8",
-        "drupal/simple_sitemap": "^3.0",
+        "drupal/simple_sitemap": "^4.1",
         "drupal/smtp": "^1.0@beta",
+        "drupal/symfony_mailer": "^1.2@beta",
         "drupal/taxonomy_custom_controller": "^1.0",
         "drupal/token": "^1.0",
         "drupal/twig_tweak": "^3.0",
         "drush/drush": "^11.0",
-        "niklan/niklan": "^1.0",
-        "weitzman/drupal-test-traits": "^1.5"
+        "niklan/niklan": "^1.0"
     },
     "require-dev": {
+        "weitzman/drupal-test-traits": "^1.5",
         "chi-teck/drupal-coder-extension": "^1.0",
         "drupal/core-dev": "^9.3",
         "mglaman/drupal-check": "^1.3",
@@ -93,7 +94,7 @@
             },
             "file-mapping": {
                 "[web-root]/sites/default/settings.all.php": "assets/scaffold/settings.all.php",
-                "[web-root]/sites/default/settings.local.example.php": "assets/scaffold/settings.local.php",
+                "[web-root]/sites/default/example.settings.local.php": "assets/scaffold/settings.local.php",
                 "[web-root]/sites/default/settings.php": {
                     "path": "web/core/assets/scaffold/files/default.settings.php",
                     "append": "assets/scaffold/settings-php-additions.txt",
@@ -110,7 +111,7 @@
                 "[libraries-root]/photoswipe/dist/photoswipe.css": "assets/vendor/photoswipe/dist/photoswipe.css",
                 "[libraries-root]/photoswipe/dist/photoswipe.min.js": "assets/vendor/photoswipe/dist/photoswipe.min.js",
                 "[libraries-root]/photoswipe/dist/photoswipe-ui-default.min.js": "assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js",
-                "[libraries-root]/photoswipe/package.json": "assets/vendor/photoswipe/package.json",
+                "[libraries-root]/photoswipe/photoswipe.json": "assets/vendor/photoswipe/photoswipe.json",
                 "[libraries-root]/prismjs/prism.js": "assets/vendor/prismjs/prism.js"
             }
         },
@@ -129,6 +130,8 @@
         "phpcs": "vendor/bin/phpcs -ps",
         "phpcbf": "vendor/bin/phpcbf",
         "phpstan": "vendor/bin/phpstan analyse",
+        "phpunit": "vendor/bin/phpunit",
+        "phpunit-coverage": "vendor/bin/phpunit --coverage-text",
         "d4d-phpunit": "scripts/d4d-php.sh vendor/bin/phpunit",
         "d4d-phpunit-coverage": "scripts/d4d-php.sh vendor/bin/phpunit --coverage-text"
     }

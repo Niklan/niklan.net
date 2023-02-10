@@ -1,0 +1,14 @@
+uuid: a51248e5-a8e4-43f4-8b2f-5347f2998b35
+langcode: ru
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: oPhLVLkgeK3VS3GFB2k9i7bj6B47cTp6wWjnZPSKBY4
+id: symfony_mailer.test
+configuration:
+  email_body:
+    content:
+      value: '<p>Это тестовое письмо с сайта <a href="[site:url]">[site:name]</a>.</p>'
+      format: email_html
+  email_subject:
+    value: 'Тестовая почта от сайта [site:name]'

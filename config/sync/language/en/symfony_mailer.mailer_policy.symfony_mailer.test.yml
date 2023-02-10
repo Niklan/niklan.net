@@ -1,0 +1,6 @@
+configuration:
+  email_body:
+    content:
+      value: '<p>This is a test email from <a href="[site:url]">[site:name]</a>.</p>'
+  email_subject:
+    value: 'Test email from [site:name]'

@@ -1,7 +1,12 @@
 uuid: b5f1d935-8a95-4126-86d2-39b1d678f49d
 langcode: ru
-status: true
-dependencies: {  }
+status: false
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    disabled_form_message: 'Эта контактная форма отключена.'
 _core:
   default_config_hash: 4w1vDIuPlVqNIiynysHZHU-9sBCpx5uiEIPlo4SW1tw
 id: personal
