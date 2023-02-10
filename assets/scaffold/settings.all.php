@@ -54,7 +54,7 @@ $settings['database_cache_max_rows']['default'] = 10_000;
  *
  * SMTP is a default transport.
  */
-$config['symfony_mailer.mailer_transport.smtp']['configuration']['user'] = $_ENV['SMTP_USER'];
-$config['symfony_mailer.mailer_transport.smtp']['configuration']['pass'] = $_ENV['SMTP_PASS'];
+$config['symfony_mailer.mailer_transport.smtp']['configuration']['user'] = $_ENV['SMTP_USERNAME'];
+$config['symfony_mailer.mailer_transport.smtp']['configuration']['pass'] = $_ENV['SMTP_PASSWORD'];
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['host'] = $_ENV['SMTP_HOST'];
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['port'] = $_ENV['SMTP_PORT'];
