@@ -30,9 +30,11 @@ jobs:
           mkdir -p ./web/sites/default
           chmod 777 ./web/sites/default
           cp ./assets/scaffold/.env.php ./web/.env.php
-          cp ./.github/workflows/d4d-phpunit/settings.php ./web/sites/default/settings.php
+#          cp ./.github/workflows/d4d-phpunit/settings.php ./web/sites/default/settings.php
           mkdir -p ./web/sites/simpletest
           chmod 777 ./web/sites/simpletest
+          mkdir -p ./web/sites/default/simpletest
+          chmod 777 ./web/sites/default/simpletest
 
       - name: 'Run docker'
         run: "docker compose up -d"
