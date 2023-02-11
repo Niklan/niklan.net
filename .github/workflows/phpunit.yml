@@ -32,8 +32,8 @@ jobs:
           cp ./assets/scaffold/.env.php ./web/.env.php
           mkdir -p ./web/sites/simpletest
           chmod 777 ./web/sites/simpletest
-          mkdir -p ./web/sites/default/simpletest
-          chmod 777 ./web/sites/default/simpletest
+          mkdir -p ./web/sites/default/files/simpletest
+          chmod 777 ./web/sites/default/files/simpletest
 
       - name: 'Run docker'
         run: "docker compose up -d"
