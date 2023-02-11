@@ -27,13 +27,13 @@ jobs:
         run: |
           cp ./.github/workflows/d4d-phpunit/.env ./.env
           cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
+          cp ./assets/scaffold/.env.php ./web/.env.php
           mkdir -p ./web/sites/default
           chmod 777 ./web/sites/default
-          cp ./assets/scaffold/.env.php ./web/.env.php
+          mkdir -p ./web/sites/default/files
+          chmod 777 ./web/sites/default/files
           mkdir -p ./web/sites/simpletest
           chmod 777 ./web/sites/simpletest
-          mkdir -p ./web/sites/default/files/simpletest
-          chmod 777 ./web/sites/default/files/simpletest
 
       - name: 'Run docker'
         run: "docker compose up -d"
