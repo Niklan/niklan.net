@@ -11,4 +11,4 @@ themes:
 distribution:
   name: Niklan.net
   install:
-    theme: seven
+    theme: claro
