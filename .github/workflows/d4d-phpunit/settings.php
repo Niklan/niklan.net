@@ -768,5 +768,5 @@ $settings['entity_update_batch_size'] = 50;
 #  include $app_root . '/' . $site_path . '/settings.local.php';
 #}
 
-$settings['file_public_path'] = '/mnt/files/public';
-$settings['file_private_path'] = '/mnt/files/private';
+//$settings['file_public_path'] = '/mnt/files/public';
+//$settings['file_private_path'] = '/mnt/files/private';
