@@ -76,7 +76,6 @@ module:
   paragraphs: 11
   niklan_installer: 1000
 theme:
-  stable: 0
   glisseo: 0
   claro: 0
   mechanical: 0

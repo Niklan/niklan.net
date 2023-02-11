@@ -12,5 +12,3 @@ parameters:
     # directs to directory with phpstan.neon (current) file, which is in
     # Drupal project docroot.
     drupal_root: %rootDir%/../../../
-includes:
-  - vendor/mglaman/phpstan-drupal/extension.neon

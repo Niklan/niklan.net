@@ -31,8 +31,10 @@ final class RouteSubscriberTest extends UnitTestCase {
 
     $route_prophecy = $this->prophesize(Route::class);
     $route_prophecy->getDefault(Argument::any())->willReturn(NULL);
-    $route_prophecy->setDefault(Argument::type('string'), Argument::type('string'))->will(static function ($args) use ($route_prophecy): void {
+    $route_prophecy->setDefault(Argument::type('string'), Argument::type('string'))->will(static function ($args) use ($route_prophecy): Route {
       $route_prophecy->getDefault($args[0])->willReturn($args[1]);
+
+      return $route_prophecy->reveal();
     });
     $route = $route_prophecy->reveal();
 

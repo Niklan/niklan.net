@@ -49,6 +49,8 @@ final class ConfigurationPluginManager extends DefaultPluginManager {
     $this->root = $root;
     $this->moduleHandler = $module_handler;
     $this->pluginInterface = ConfigurationInterface::class;
+
+    $this->alterInfo('external_content_configuration_plugins');
     $this->setCacheBackend($cache, 'external_content_configuration_plugins', [
       'external_content_configuration_plugins',
     ]);
