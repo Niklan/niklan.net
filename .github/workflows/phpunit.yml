@@ -29,6 +29,7 @@ jobs:
           cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
           mkdir -p ./web/sites/default
           chmod 777 ./web/sites/default
+          cp ./assets/scaffold/.env.php ./web/.env.php
           cp ./.github/workflows/d4d-phpunit/settings.php ./web/sites/default/settings.php
           mkdir -p ./web/sites/simpletest
           chmod 777 ./web/sites/simpletest
