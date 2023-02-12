@@ -38,6 +38,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->nodeStorage = $container->get('entity_type.manager')
       ->getStorage('node');
+
     return $instance;
   }
 
@@ -86,6 +87,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     $id = \array_shift($articles);
     $node = $this->nodeStorage->load($id);
     \assert($node instanceof NodeInterface);
+
     return $node;
   }
 
@@ -102,6 +104,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     $id = \array_pop($articles);
     $node = $this->nodeStorage->load($id);
     \assert($node instanceof NodeInterface);
+
     return $node;
   }
 
@@ -142,25 +145,21 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    *   The result string.
    */
   protected function buildStatisticsSummary(int $count, array $date_range): string {
-    if ($date_range[0] == $date_range[1]) {
-      return (string) new PluralTranslatableMarkup(
-        $count,
-        '@count publication from @date',
-        '@count publications from @date',
-        ['@date' => $date_range[0]],
-      );
-    }
-    else {
-      return (string) new PluralTranslatableMarkup(
-        $count,
-        '@count publication from @date_start to @date_end',
-        '@count publications from @date_start to @date_end',
-        [
-          '@date_start' => $date_range[0],
-          '@date_end' => $date_range[1],
-        ],
-      );
-    }
+    $without_range = (string) new PluralTranslatableMarkup(
+      $count,
+      '@count publication from @date',
+      '@count publications from @date',
+      ['@date' => $date_range[0]],
+    );
+
+    $with_range = (string) new PluralTranslatableMarkup(
+      $count,
+      '@count publication from @date_start to @date_end',
+      '@count publications from @date_start to @date_end',
+      ['@date_start' => $date_range[0], '@date_end' => $date_range[1]],
+    );
+
+    return $date_range[0] == $date_range[1] ? $without_range : $with_range;
   }
 
 }

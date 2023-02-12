@@ -136,15 +136,12 @@ final class OEmbedVideo extends FormatterBase {
     $responsive_image_style = $this->responsiveImageStyleStorage->load(
       $this->getSetting('responsive_image_style'),
     );
-    if ($responsive_image_style) {
-      $summary[] = new TranslatableMarkup(
+    $summary[] = $responsive_image_style
+      ? new TranslatableMarkup(
         'Responsive image style: @responsive_image_style',
         ['@responsive_image_style' => $responsive_image_style->label()],
-      );
-    }
-    else {
-      $summary[] = new TranslatableMarkup('Select a responsive image style.');
-    }
+      )
+      : new TranslatableMarkup('Select a responsive image style.');
 
     return $summary;
   }
