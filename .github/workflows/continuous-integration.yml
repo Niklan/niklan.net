@@ -14,9 +14,9 @@ env:
   # The App located inside project root. Mainly the product root is the folder
   # with docker-compose.yml.
   PROJECT_ROOT: ${{ secrets.ci_project_root }}
-  COMPOSER_BIN: 'docker compose exec -T php composer'
-  DRUSH_BIN: 'docker compose exec -T php drush'
-  DRUSH_URI: 'https://niklan.net'
+  COMPOSER_BIN: docker compose exec -T php composer
+  DRUSH_BIN: docker compose exec -T php drush
+  DRUSH_URI: https://niklan.net
 
 jobs:
   deploy:
@@ -25,7 +25,7 @@ jobs:
       name: production
       url: https://niklan.net
     steps:
-      - name: 'Create SSH key'
+      - name: Create SSH key
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/id_rsa
@@ -37,20 +37,20 @@ jobs:
             IdentityFile ~/.ssh/id_rsa
             StrictHostKeyChecking no
           END
-      - name: 'Pull changes'
+      - name: Pull changes
         shell: bash
         run: |
           ssh production "cd $APP_ROOT && git fetch && git checkout"
           ssh production "cd $APP_ROOT && git pull origin production"
 
-      - name: 'Install Composer dependencies'
+      - name: Install Composer dependencies
         run: ssh production "cd $PROJECT_ROOT && $COMPOSER_BIN install --no-dev -o -n"
 
-      - name: 'Deploy'
+      - name: Deploy
         run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN deploy"
 
-      - name: 'Clear PHP cache'
+      - name: Clear PHP cache
         run: ssh production "cd $PROJECT_ROOT && docker compose exec -T php pkill -USR2 php-fpm"
 
-      - name: 'Import custom translations'
+      - name: Import custom translations
         run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN locale:import --type=customized --override=all ru ../assets/translation/ru.po"

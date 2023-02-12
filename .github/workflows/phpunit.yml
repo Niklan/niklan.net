@@ -4,26 +4,24 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - 'web/**'
-      - 'tests/**'
+      - web/**
+      - tests/**
   push:
     branches: [ develop ]
     paths:
-      - 'web/**'
-      - 'tests/**'
-
-env:
-  COMPOSER_FLAGS: '--ansi --no-interaction --no-progress --prefer-dist'
+      - web/**
+      - tests/**
+      - .github/workflows/**
 
 jobs:
   run:
-    name: 'PHPUnit'
+    name: PHPUnit
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout'
-        uses: 'actions/checkout@v2'
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: 'Copy files for environment'
+      - name: Copy files for environment
         run: |
           cp ./.github/workflows/d4d-phpunit/.env ./.env
           cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
@@ -35,14 +33,17 @@ jobs:
           mkdir -p ./web/sites/simpletest
           chmod 777 ./web/sites/simpletest
 
-      - name: 'Run docker'
-        run: "docker compose up -d"
+      - name: Run docker
+        run: docker compose up -d
 
-      - name: 'Install site dependencies'
-        run: "docker compose exec -T php composer install"
+      - name: Install site dependencies
+        run: docker compose exec -T php composer install
 
-      - name: 'Install website'
-        run: 'docker compose exec -T php drush site:install niklan_installer'
+      - name: Install website
+        run: docker compose exec -T php drush site:install niklan_installer
 
-      - name: 'Run tests'
-        run: 'docker compose exec -T php composer run d4d-phpunit-coverage'
+      - name: Run tests
+        run: docker compose exec -T php composer run d4d-phpunit-coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
