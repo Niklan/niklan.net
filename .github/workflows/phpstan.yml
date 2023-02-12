@@ -8,10 +8,11 @@ on:
       - tests/**
   push:
     branches: [ develop ]
-    paths:
-      - web/**
-      - tests/**
-      - .github/workflows/**
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .gitignore
+      - scripts/**
 
 env:
   COMPOSER_FLAGS: --ansi --no-interaction --no-progress --prefer-dist
