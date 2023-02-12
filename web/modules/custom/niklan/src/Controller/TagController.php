@@ -72,7 +72,7 @@ final class TagController implements ContainerInjectionInterface {
 
     return [
       '#theme' => 'niklan_tag_list',
-      '#items' => \array_map(fn($term) => $this->termViewBuilder->view($term, 'teaser'), $terms),
+      '#items' => \array_map(fn ($term) => $this->termViewBuilder->view($term, 'teaser'), $terms),
     ];
   }
 

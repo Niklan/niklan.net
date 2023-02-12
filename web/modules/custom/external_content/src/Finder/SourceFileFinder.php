@@ -24,7 +24,7 @@ final class SourceFileFinder implements SourceFileFinderInterface {
    * {@inheritdoc}
    */
   public function find(string $working_dir): SourceFileCollection {
-    $patterns = \array_map(static fn($extension) => '*' . $extension, self::SUPPORTED_EXTENSIONS);
+    $patterns = \array_map(static fn ($extension) => '*' . $extension, self::SUPPORTED_EXTENSIONS);
 
     $finder = new Finder();
     $finder->in($working_dir);
