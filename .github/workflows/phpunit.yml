@@ -11,6 +11,7 @@ on:
     paths:
       - web/**
       - tests/**
+      - .github/workflows/**
 
 jobs:
   run:

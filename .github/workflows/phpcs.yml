@@ -11,6 +11,7 @@ on:
     paths:
       - web/**
       - tests/**
+      - .github/workflows/**
 
 env:
   COMPOSER_FLAGS: --ansi --no-interaction --no-progress --prefer-dist
