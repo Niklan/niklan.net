@@ -18,40 +18,6 @@
     </properties>
   </rule>
 
-  <!-- Remove after merge: https://github.com/Chi-teck/drupal-coder-extension/pull/1 -->
-  <!--  <rule ref="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>-->
-
-  <!-- Remove after merge: https://github.com/Chi-teck/drupal-coder-extension/pull/2 -->
-  <!--  <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration"/>-->
-
-  <!-- Remove after merge: https://github.com/Chi-teck/drupal-coder-extension/pull/3 -->
-  <!--  <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInClosureUse"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.Functions.RequireSingleLineCall">-->
-  <!--    <properties>-->
-  <!--      <property name="maxLineLength" value="80"/>-->
-  <!--    </properties>-->
-  <!--  </rule>-->
-  <!--  <rule ref="SlevomatCodingStandard.Functions.RequireMultiLineCall">-->
-  <!--    <properties>-->
-  <!--      <property name="minLineLength" value="80"/>-->
-  <!--    </properties>-->
-  <!--  </rule>-->
-  <!--  <rule ref="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch"/>-->
-  <!--  <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullSafeObjectOperator"/>-->
-
   <!-- Project specific rules. -->
   <!--  <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>-->
   <!--  <rule ref="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator"/>-->
