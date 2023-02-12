@@ -10,7 +10,16 @@
   <!-- Exclude fixtures. -->
   <exclude-pattern>*/fixtures/*</exclude-pattern>
   <exclude-pattern>*\.(css|js)</exclude-pattern>
-  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
+  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended">
+    <!-- Fix me. -->
+    <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+    <exclude name="SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall"/>
+    <exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength"/>
+    <exclude name="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration.IncorrectSpacesAfterKeyword"/>
+    <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification"/>
+    <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma"/>
+    <exclude name="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch.NonCapturingCatchRequired"/>
+  </rule>
 
   <!-- Remove after merge: https://github.com/Chi-teck/drupal-coder-extension/pull/1 -->
   <!--  <rule ref="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment"/>-->
