@@ -10,12 +10,7 @@
   <!-- Exclude fixtures. -->
   <exclude-pattern>*/fixtures/*</exclude-pattern>
   <exclude-pattern>*\.(css|js)</exclude-pattern>
-  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
-    <!-- Exclude in favor of native typehints. -->
-    <exclude name="Drupal.Commenting.VariableComment.MissingVar"/>
-  </rule>
-  <rule ref="vendor/drupal/coder/coder_sniffer/DrupalPractice"/>
-  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended74"/>
+  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
 
   <!-- Remove after merge: https://github.com/Chi-teck/drupal-coder-extension/pull/1 -->
   <!--  <rule ref="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment"/>-->
