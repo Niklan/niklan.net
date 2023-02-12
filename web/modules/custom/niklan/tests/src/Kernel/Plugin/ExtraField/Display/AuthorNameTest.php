@@ -35,7 +35,9 @@ final class AuthorNameTest extends ExtraFieldTestBase {
    */
   public function testView(): void {
     /** @var \Drupal\extra_field\Plugin\ExtraFieldDisplayInterface $extra_field */
-    $extra_field = $this->extraFieldDisplayManager->createInstance('author_name');
+    $extra_field = $this
+      ->extraFieldDisplayManager
+      ->createInstance('author_name');
     $result = $extra_field->view($this->comment);
     $html = (string) $this->renderer->renderPlain($result);
 

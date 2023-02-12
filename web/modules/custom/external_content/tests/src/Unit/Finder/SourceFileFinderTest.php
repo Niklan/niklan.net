@@ -45,7 +45,10 @@ final class SourceFileFinderTest extends UnitTestCase {
     /** @var \Drupal\external_content\Dto\SourceFile $sixth_file */
     $sixth_file = $source_files->getIterator()->offsetGet(5);
     $this->assertEquals('file with a suffix', $sixth_file->getContents());
-    $this->assertEquals('baz.md/bar.en.md', $sixth_file->getRelativePathname());
+    $this->assertEquals(
+      'baz.md/bar.en.md',
+      $sixth_file->getRelativePathname(),
+    );
 
     $source_files = $finder->find(vfsStream::url('root/foo/bar/baz'));
     $this->assertEquals(2, $source_files->count());

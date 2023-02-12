@@ -36,7 +36,9 @@ abstract class ExtraFieldTestBase extends NiklanTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->extraFieldDisplayManager = $this->container->get('plugin.manager.extra_field_display');
+    $this->extraFieldDisplayManager = $this
+      ->container
+      ->get('plugin.manager.extra_field_display');
     $this->renderer = $this->container->get('renderer');
   }
 

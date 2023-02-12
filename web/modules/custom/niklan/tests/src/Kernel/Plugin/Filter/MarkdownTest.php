@@ -21,9 +21,15 @@ final class MarkdownTest extends FilterTestBase {
     $filter = $this->filterManager->createInstance('niklan_markdown');
 
     $text = '**strong**';
-    $result = $filter->process($text, LanguageInterface::LANGCODE_NOT_SPECIFIED);
+    $result = $filter->process(
+      $text,
+      LanguageInterface::LANGCODE_NOT_SPECIFIED,
+    );
 
-    $this->assertStringContainsString('<strong>strong</strong>', $result->getProcessedText());
+    $this->assertStringContainsString(
+      '<strong>strong</strong>',
+      $result->getProcessedText(),
+    );
   }
 
 }

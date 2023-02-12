@@ -35,7 +35,11 @@ final class CodeLineHighlight extends ParagraphsBehaviorBase {
    */
   public function view(array &$build, Paragraph $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $build['#attached']['library'][] = 'niklan/code_line_highlight';
-    $build['#attributes']['data-highlighted-lines'] = $paragraph->getBehaviorSetting($this->getPluginId(), 'highlighted_lines', '');
+    $build['#attributes']['data-highlighted-lines'] = $paragraph->getBehaviorSetting(
+      $this->getPluginId(),
+      'highlighted_lines',
+      '',
+    );
   }
 
   /**
@@ -45,8 +49,14 @@ final class CodeLineHighlight extends ParagraphsBehaviorBase {
     $form['highlighted_lines'] = [
       '#type' => 'textfield',
       '#title' => $this->t("Highlighted lines"),
-      '#description' => $this->t('Separate line numbers with commas, and range with :.'),
-      '#default_value' => $paragraph->getBehaviorSetting($this->getPluginId(), 'highlighted_lines', ''),
+      '#description' => $this->t(
+        'Separate line numbers with commas, and range with :.',
+      ),
+      '#default_value' => $paragraph->getBehaviorSetting(
+        $this->getPluginId(),
+        'highlighted_lines',
+        '',
+      ),
     ];
 
     return $form;

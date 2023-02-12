@@ -46,7 +46,9 @@ function niklan_form_comment_comment_node_blog_entry_form_after_build(array $for
  */
 function niklan_form_contact_message_contact_form_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   $form['field_email']['widget'][0]['value']['#placeholder'] = 'example@example.com';
-  $form['field_email']['widget'][0]['value']['#description'] = new TranslatableMarkup("I'll send a reply to the specified address.");
+  $form['field_email']['widget'][0]['value']['#description'] = new TranslatableMarkup(
+      "I'll send a reply to the specified address.",
+  );
 }
 
 /**
@@ -212,11 +214,17 @@ function niklan_mail_alter(array &$message): void {
  */
 function niklan_contact_tools_ajax_response_alter(AjaxResponse &$ajax_response, array $form, FormStateInterface $form_state): void {
   if ($form_state->isExecuted()) {
-    $class_name = '.' . Html::getClass($form['#form_id'] . '-contact-tools-processed');
+    $class_name = '.' . Html::getClass(
+      $form['#form_id'] . '-contact-tools-processed',
+    );
+
+    $message = new TranslatableMarkup(
+      'Thank you, your message was successfully sent.',
+    );
     $thanks = [
       '#theme' => 'niklan_form_success',
       '#title' => new TranslatableMarkup('Successful!'),
-      '#message' => new TranslatableMarkup('Thank you, your message was successfully sent.'),
+      '#message' => $message,
     ];
     $ajax_response->addCommand(new ReplaceCommand($class_name, $thanks));
   }
@@ -284,7 +292,9 @@ function niklan_preprocess_responsive_image(array &$variables): void {
   $variables['img_element']['#attributes']['decoding'] = 'async';
 
   /** @var \Drupal\responsive_image\ResponsiveImageStyleInterface $responsive_style */
-  $responsive_style = ResponsiveImageStyle::load($variables['responsive_image_style_id']);
+  $responsive_style = ResponsiveImageStyle::load(
+    $variables['responsive_image_style_id'],
+  );
   if (!$responsive_style) {
     return;
   }
@@ -292,15 +302,19 @@ function niklan_preprocess_responsive_image(array &$variables): void {
   /** @var \Drupal\Core\Image\ImageFactory $image_factory */
   $image_factory = \Drupal::service('image.factory');
   /** @var \Drupal\image\Entity\ImageStyle $fallback_style */
-  $fallback_style = ImageStyle::load($responsive_style->getFallbackImageStyle());
+  $fallback_style = ImageStyle::load(
+    $responsive_style->getFallbackImageStyle(),
+  );
   if (!$fallback_style) {
     return;
   }
   $fallback_image = $fallback_style->buildUri($variables['uri']);
   $image_factory->get($fallback_image);
-  $variables['img_element']['#attributes']['width'] = $image_factory->get($fallback_image)
+  $variables['img_element']['#attributes']['width'] = $image_factory
+    ->get($fallback_image)
     ->getWidth();
-  $variables['img_element']['#attributes']['height'] = $image_factory->get($fallback_image)
+  $variables['img_element']['#attributes']['height'] = $image_factory
+    ->get($fallback_image)
     ->getHeight();
 }
 
@@ -336,9 +350,10 @@ function _niklan_remove_text_textarea_format(array $element, FormStateInterface 
   }
 
   if ($element['#type'] == 'textarea') {
-    $element['#description'] = new TranslatableMarkup('Supports <a href="@common_mark_url" target="_blank">CommonMark</a> syntax.', [
-      '@common_mark_url' => 'https://commonmark.org/help/',
-    ]);
+    $element['#description'] = new TranslatableMarkup(
+      'Supports <a href="@common_mark_url" target="_blank">CommonMark</a> syntax.',
+      ['@common_mark_url' => 'https://commonmark.org/help/'],
+    );
   }
   return $element;
 }

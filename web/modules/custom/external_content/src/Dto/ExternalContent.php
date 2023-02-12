@@ -60,7 +60,9 @@ final class ExternalContent {
    *   The parsed source file.
    */
   public function getTranslation(string $language): ?ParsedSourceFile {
-    return $this->hasTranslation($language) ? $this->translations[$language] : NULL;
+    return $this->hasTranslation($language)
+      ? $this->translations[$language]
+      : NULL;
   }
 
   /**

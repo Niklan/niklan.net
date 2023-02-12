@@ -57,8 +57,16 @@ final class TagStatistics {
    */
   public function getBlogEntryUsage(?int $limit = NULL): array {
     $query = $this->connection->select('taxonomy_term_field_data', 'terms');
-    $query->leftJoin('node__field_tags', 'node_tags', 'node_tags.field_tags_target_id = terms.tid');
-    $query->leftJoin('node_field_data', 'node_data', 'node_data.nid = node_tags.entity_id');
+    $query->leftJoin(
+      'node__field_tags',
+      'node_tags',
+      'node_tags.field_tags_target_id = terms.tid',
+    );
+    $query->leftJoin(
+      'node_field_data',
+      'node_data',
+      'node_data.nid = node_tags.entity_id',
+    );
     $query->condition('terms.vid', 'tags');
     $query->condition('terms.status', '1');
     $query->addExpression('COUNT(node_data.nid)', 'count');

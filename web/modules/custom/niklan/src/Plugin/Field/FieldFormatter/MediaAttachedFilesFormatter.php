@@ -39,7 +39,13 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance = parent::create(
+      $container,
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+    );
+
     $instance->entityTypeManager = $container->get('entity_type.manager');
     return $instance;
   }

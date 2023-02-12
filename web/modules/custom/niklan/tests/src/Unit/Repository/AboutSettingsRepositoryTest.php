@@ -40,22 +40,30 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
 
     $self = $this;
 
-    $key_value_store_prophecy = $this->prophesize(KeyValueStoreInterface::class);
+    $key_value_store_prophecy = $this
+      ->prophesize(KeyValueStoreInterface::class);
 
     $key_value_store_prophecy
       ->get(Argument::any(), Argument::any())
       ->will(static fn ($args): mixed => $self->storeValues[$args[0]] ?? NULL);
 
-    $key_value_store_prophecy->set(Argument::any(), Argument::any())->will(static function ($args) use ($self): void {
-      $self->storeValues[$args[0]] = $args[1];
-    });
+    $key_value_store_prophecy
+      ->set(Argument::any(), Argument::any())
+      ->will(static function ($args) use ($self): void {
+        $self->storeValues[$args[0]] = $args[1];
+      });
 
-    $key_value_store_prophecy->delete(Argument::any())->will(static function ($args) use ($self): void {
-      unset($self->storeValues[$args[0]]);
-    });
+    $key_value_store_prophecy
+      ->delete(Argument::any())
+      ->will(static function ($args) use ($self): void {
+        unset($self->storeValues[$args[0]]);
+      });
 
-    $key_value_factory_prophecy = $this->prophesize(KeyValueFactoryInterface::class);
-    $key_value_factory_prophecy->get(Argument::any())->willReturn($key_value_store_prophecy->reveal());
+    $key_value_factory_prophecy = $this
+      ->prophesize(KeyValueFactoryInterface::class);
+    $key_value_factory_prophecy
+      ->get(Argument::any())
+      ->willReturn($key_value_store_prophecy->reveal());
 
     $this->keyValueFactory = $key_value_factory_prophecy->reveal();
   }
@@ -75,7 +83,10 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
     $this->assertNull($repository->getPhotoMediaId());
 
     $repository->setPhotoResponsiveImageStyleId('image_style_name');
-    $this->assertEquals('image_style_name', $repository->getPhotoResponsiveImageStyleId());
+    $this->assertEquals(
+      'image_style_name',
+      $repository->getPhotoResponsiveImageStyleId(),
+    );
     $repository->setPhotoResponsiveImageStyleId(NULL);
     $this->assertNull($repository->getPhotoResponsiveImageStyleId());
   }

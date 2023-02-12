@@ -93,7 +93,9 @@ final class ParamsTest extends ExternalContentTestBase {
       ->willReturn($default_language->reveal());
 
     $this->container->set('language_manager', $language_manager->reveal());
-    $this->grouperPluginManager = $this->container->get(GrouperPluginManagerInterface::class);
+    $this->grouperPluginManager = $this->container->get(
+      GrouperPluginManagerInterface::class,
+    );
   }
 
 }

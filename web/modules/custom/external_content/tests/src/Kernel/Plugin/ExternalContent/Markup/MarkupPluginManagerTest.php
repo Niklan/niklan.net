@@ -35,7 +35,9 @@ final class MarkupPluginManagerTest extends ExternalContentTestBase {
     $this->assertContains('external_content_test_foo_bar', $plugin_ids);
 
     /** @var \Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface $plugin */
-    $plugin = $this->pluginManager->createInstance('external_content_test_foo_bar');
+    $plugin = $this->pluginManager->createInstance(
+      'external_content_test_foo_bar',
+    );
     $result = $plugin->convert('<p>foo</p>');
     $this->assertEquals('<p>bar</p>', $result);
   }
@@ -45,7 +47,10 @@ final class MarkupPluginManagerTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get(MarkupPluginManagerInterface::class);
+
+    $this->pluginManager = $this->container->get(
+      MarkupPluginManagerInterface::class,
+    );
   }
 
 }

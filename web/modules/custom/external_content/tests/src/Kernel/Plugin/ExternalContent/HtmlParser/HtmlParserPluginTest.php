@@ -71,8 +71,13 @@ final class HtmlParserPluginTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get(HtmlParserPluginManagerInterface::class);
-    $this->chainHtmlParser = $this->container->get(ChainHtmlParserInterface::class);
+
+    $this->pluginManager = $this->container->get(
+      HtmlParserPluginManagerInterface::class,
+    );
+    $this->chainHtmlParser = $this->container->get(
+      ChainHtmlParserInterface::class,
+    );
   }
 
 }

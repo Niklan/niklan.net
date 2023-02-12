@@ -22,12 +22,21 @@ final class PrismJsHighlighterTest extends FilterTestBase {
     $expected_library = 'niklan/code-highlight';
 
     $text = '**strong**';
-    $result = $filter->process($text, LanguageInterface::LANGCODE_NOT_SPECIFIED);
+    $result = $filter->process(
+      $text,
+      LanguageInterface::LANGCODE_NOT_SPECIFIED,
+    );
     $this->assertArrayNotHasKey('library', $result->getAttachments());
 
     $text = '<pre><code><?php echo "Hello, World!";</code></pre>';
-    $result = $filter->process($text, LanguageInterface::LANGCODE_NOT_SPECIFIED);
-    $this->assertContains($expected_library, $result->getAttachments()['library']);
+    $result = $filter->process(
+      $text,
+      LanguageInterface::LANGCODE_NOT_SPECIFIED,
+    );
+    $this->assertContains(
+      $expected_library,
+      $result->getAttachments()['library'],
+    );
   }
 
 }

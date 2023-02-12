@@ -40,9 +40,11 @@ final class AboutSettingsForm extends FormBase {
     $entity_type_manager = $container->get('entity_type.manager');
 
     $instance = new self();
-    $instance->settingsRepository = $container->get('niklan.repository.about_settings');
+    $instance->settingsRepository = $container
+      ->get('niklan.repository.about_settings');
     $instance->mediaStorage = $entity_type_manager->getStorage('media');
-    $instance->responsiveImageStyleStorage = $entity_type_manager->getStorage('responsive_image_style');
+    $instance->responsiveImageStyleStorage = $entity_type_manager
+      ->getStorage('responsive_image_style');
 
     return $instance;
   }
@@ -79,7 +81,9 @@ final class AboutSettingsForm extends FormBase {
         'target_bundles' => ['image'],
       ],
       '#title' => new TranslatableMarkup('Photo'),
-      '#description' => new TranslatableMarkup('Media entity that contains a photo.'),
+      '#description' => new TranslatableMarkup(
+          'Media entity that contains a photo.',
+      ),
       '#default_value' => $default_image,
     ];
 

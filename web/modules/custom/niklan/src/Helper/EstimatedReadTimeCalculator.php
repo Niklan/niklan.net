@@ -36,9 +36,13 @@ class EstimatedReadTimeCalculator {
           if ($paragraph->get('field_body')->isEmpty()) {
             continue 2;
           }
-          $word_count = \str_word_count(\strip_tags($paragraph->get('field_body')->value));
+          $word_count = \str_word_count(
+            \strip_tags($paragraph->get('field_body')->value),
+          );
           // Two time slower because of complexity of texts.
-          $estimated_read_time += \floor($word_count / ($word_per_minute / 2) * 60);
+          $estimated_read_time += \floor(
+            $word_count / ($word_per_minute / 2) * 60,
+          );
           break;
 
         case 'code':
@@ -47,7 +51,9 @@ class EstimatedReadTimeCalculator {
           }
           $word_count = \str_word_count($paragraph->get('field_body')->value);
           // Assumes that code reads two three slower than text.
-          $estimated_read_time += \floor($word_count / ($word_per_minute / 3) * 60);
+          $estimated_read_time += \floor(
+            $word_count / ($word_per_minute / 3) * 60,
+          );
           break;
 
         case 'image':

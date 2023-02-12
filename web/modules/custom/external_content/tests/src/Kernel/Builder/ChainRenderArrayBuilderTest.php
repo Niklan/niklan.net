@@ -34,7 +34,10 @@ final class ChainRenderArrayBuilderTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->chainBuilder = $this->container->get(ChainRenderArrayBuilder::class);
+
+    $this->chainBuilder = $this
+      ->container
+      ->get(ChainRenderArrayBuilder::class);
   }
 
   /**

@@ -27,7 +27,11 @@ final class SourceFile {
    *   The relative pathname.
    */
   public function getRelativePathname(): string {
-    $without_working_dir = \str_replace($this->getWorkingDir(), '', $this->getPathname());
+    $without_working_dir = \str_replace(
+      $this->getWorkingDir(),
+      '',
+      $this->getPathname(),
+    );
 
     return \ltrim($without_working_dir, \DIRECTORY_SEPARATOR);
   }

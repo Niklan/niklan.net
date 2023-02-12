@@ -37,7 +37,8 @@ final class CommentController implements ContainerInjectionInterface {
 
     $instance = new self();
     $instance->commentStorage = $entity_type_manager->getStorage('comment');
-    $instance->commentViewBuilder = $entity_type_manager->getViewBuilder('comment');
+    $instance->commentViewBuilder = $entity_type_manager
+      ->getViewBuilder('comment');
 
     return $instance;
   }

@@ -37,7 +37,10 @@ final class HtmlTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get(MarkupPluginManagerInterface::class);
+
+    $this->pluginManager = $this->container->get(
+      MarkupPluginManagerInterface::class,
+    );
   }
 
 }

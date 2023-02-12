@@ -35,7 +35,9 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
   public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
     // This formatter is only available for entity types that reference
     // media items.
-    return $field_definition->getFieldStorageDefinition()->getSetting('target_type') === 'media';
+    return $field_definition
+      ->getFieldStorageDefinition()
+      ->getSetting('target_type') === 'media';
   }
 
   /**
@@ -103,10 +105,16 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     }
 
     // Add cacheability of the image style setting.
-    if ($this->getSetting('image_link') && ($image_style = $this->responsiveImageStyleStorage->load($responsive_image_style))) {
-      $cache_a = CacheableMetadata::createFromRenderArray($elements);
-      $cache_b = CacheableMetadata::createFromObject($image_style);
-      $cache_a->merge($cache_b)->applyTo($elements);
+    if ($this->getSetting('image_link')) {
+      $image_style = $this
+        ->responsiveImageStyleStorage
+        ->load($responsive_image_style);
+
+      if ($image_style) {
+        $cache_a = CacheableMetadata::createFromRenderArray($elements);
+        $cache_b = CacheableMetadata::createFromObject($image_style);
+        $cache_a->merge($cache_b)->applyTo($elements);
+      }
     }
 
     return $elements;

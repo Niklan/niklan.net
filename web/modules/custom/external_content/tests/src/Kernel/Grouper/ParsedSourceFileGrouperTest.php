@@ -68,7 +68,10 @@ final class ParsedSourceFileGrouperTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->grouper = $this->container->get(ParsedSourceFileGrouperInterface::class);
+
+    $this->grouper = $this->container->get(
+      ParsedSourceFileGrouperInterface::class,
+    );
   }
 
 }

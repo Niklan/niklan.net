@@ -30,7 +30,10 @@ final class SourceFileContentTest extends UnitTestCase {
 
     self::assertEquals(2, $content->getChildren()->count());
     self::assertSame($element_a, $content->getChildren()->offsetGet(0));
-    self::assertSame($element_b, $content->getChildren()->offsetGet(0)->getChildren()->offsetGet(0));
+    self::assertSame(
+      $element_b,
+      $content->getChildren()->offsetGet(0)->getChildren()->offsetGet(0),
+    );
     self::assertSame($element_c, $content->getChildren()->offsetGet(1));
 
     $element_d = new class() extends ElementBase {};
@@ -38,7 +41,10 @@ final class SourceFileContentTest extends UnitTestCase {
 
     self::assertEquals(2, $content->getChildren()->count());
     self::assertSame($element_a, $content->getChildren()->offsetGet(0));
-    self::assertSame($element_d, $content->getChildren()->offsetGet(0)->getChildren()->offsetGet(0));
+    self::assertSame(
+      $element_d,
+      $content->getChildren()->offsetGet(0)->getChildren()->offsetGet(0),
+    );
     self::assertSame($element_c, $content->getChildren()->offsetGet(1));
 
     self::assertSame($content, $element_d->getRoot());

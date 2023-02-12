@@ -63,7 +63,10 @@ final class ConfigurationPluginManagerTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get(ConfigurationPluginManager::class);
+
+    $this->pluginManager = $this->container->get(
+      ConfigurationPluginManager::class,
+    );
   }
 
 }

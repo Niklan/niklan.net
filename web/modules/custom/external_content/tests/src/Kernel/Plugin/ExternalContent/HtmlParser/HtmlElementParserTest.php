@@ -56,7 +56,10 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
     self::assertInstanceOf(HtmlElement::class, $result);
     self::assertEquals('div', $result->getTag());
     self::assertCount(2, $result->getAttributes());
-    self::assertEquals(['class' => 'foo-bar', 'data-test' => 'bar-baz'], $result->getAttributes());
+    self::assertEquals(
+      ['class' => 'foo-bar', 'data-test' => 'bar-baz'],
+      $result->getAttributes(),
+    );
     self::assertTrue($result->hasAttribute('class'));
     self::assertEquals('foo-bar', $result->getAttribute('class'));
     self::assertTrue($result->hasAttribute('data-test'));
@@ -76,8 +79,13 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get(HtmlParserPluginManagerInterface::class);
-    $this->chainHtmlParser = $this->container->get(ChainHtmlParserInterface::class);
+
+    $this->pluginManager = $this->container->get(
+      HtmlParserPluginManagerInterface::class,
+    );
+    $this->chainHtmlParser = $this->container->get(
+      ChainHtmlParserInterface::class,
+    );
   }
 
 }

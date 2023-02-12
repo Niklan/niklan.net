@@ -52,7 +52,9 @@ final class TermPageBuildSubscriber implements EventSubscriberInterface {
     }
 
     /** @var \Drupal\niklan\Controller\TagController $controller */
-    $controller = $this->classResolver->getInstanceFromDefinition(TagController::class);
+    $controller = $this
+      ->classResolver
+      ->getInstanceFromDefinition(TagController::class);
     $event->setBuildArray($controller->page($taxonomy_term));
   }
 

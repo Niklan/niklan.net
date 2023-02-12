@@ -41,8 +41,14 @@ final class SourceFileCollectionTest extends UnitTestCase {
     $collection->add($source_file_b);
     $this->assertEquals(2, $collection->count());
 
-    $this->assertEquals($source_file_a, $collection->getIterator()->offsetGet(0));
-    $this->assertEquals($source_file_b, $collection->getIterator()->offsetGet(1));
+    $this->assertEquals(
+      $source_file_a,
+      $collection->getIterator()->offsetGet(0),
+    );
+    $this->assertEquals(
+      $source_file_b,
+      $collection->getIterator()->offsetGet(1),
+    );
   }
 
 }

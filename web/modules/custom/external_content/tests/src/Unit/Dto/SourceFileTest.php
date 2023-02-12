@@ -46,8 +46,14 @@ final class SourceFileTest extends UnitTestCase {
     );
 
     $this->assertEquals('vfs://root', $source_file->getWorkingDir());
-    $this->assertEquals('vfs://root/foo/bar/baz.en.txt', $source_file->getPathname());
-    $this->assertEquals('foo/bar/baz.en.txt', $source_file->getRelativePathname());
+    $this->assertEquals(
+      'vfs://root/foo/bar/baz.en.txt',
+      $source_file->getPathname(),
+    );
+    $this->assertEquals(
+      'foo/bar/baz.en.txt',
+      $source_file->getRelativePathname(),
+    );
     $this->assertEquals('txt', $source_file->getExtension());
     $this->assertTrue($source_file->isReadable());
     $this->assertEquals('baz content', $source_file->getContents());

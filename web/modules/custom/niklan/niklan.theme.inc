@@ -30,7 +30,9 @@ function template_preprocess_niklan_about_page(array &$variables): void {
 
   /** @var \Drupal\media\MediaInterface $photo_media */
   $photo_media = $media_storage->load($about_settings->getPhotoMediaId());
-  $responsive_image_style = $responsive_image_style_storage->load($about_settings->getPhotoResponsiveImageStyleId());
+  $responsive_image_style = $responsive_image_style_storage->load(
+    $about_settings->getPhotoResponsiveImageStyleId(),
+  );
   $variables['photo'] = NULL;
   if ($photo_media instanceof MediaInterface && $responsive_image_style instanceof ResponsiveImageStyleInterface) {
     $file_id = $photo_media->getSource()->getSourceFieldValue($photo_media);

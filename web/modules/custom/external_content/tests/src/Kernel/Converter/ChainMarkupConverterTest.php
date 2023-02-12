@@ -74,7 +74,10 @@ final class ChainMarkupConverterTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->chainMarkupConverter = $this->container->get(ChainMarkupConverter::class);
+
+    $this->chainMarkupConverter = $this->container->get(
+      ChainMarkupConverter::class,
+    );
   }
 
 }

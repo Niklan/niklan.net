@@ -35,7 +35,9 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
    * {@inheritdoc}
    */
   public function find(Configuration $configuration): ExternalContentCollection {
-    $source_files = $this->sourceFileFinder->find($configuration->workingDir());
+    $source_files = $this->sourceFileFinder->find(
+      $configuration->workingDir(),
+    );
     $parsed_source_files = new ParsedSourceFileCollection();
     foreach ($source_files as $source_file) {
       $parsed_source_file = $this->sourceFileParser->parse($source_file);

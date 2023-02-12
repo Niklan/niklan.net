@@ -36,14 +36,14 @@ final class AboutSettingsFormTest extends NiklanTestBase {
   /**
    * The about settings repository.
    */
-  protected ?AboutSettingsRepositoryInterface $aboutSettingsRepository;
+  protected ?AboutSettingsRepositoryInterface $settings;
 
   /**
    * Tests that form works as expected.
    */
   public function testForm(): void {
-    $this->assertNull($this->aboutSettingsRepository->getPhotoMediaId());
-    $this->assertNull($this->aboutSettingsRepository->getPhotoResponsiveImageStyleId());
+    $this->assertNull($this->settings->getPhotoMediaId());
+    $this->assertNull($this->settings->getPhotoResponsiveImageStyleId());
 
     $form_state = new FormState();
     $form_state->setValues([
@@ -55,12 +55,19 @@ final class AboutSettingsFormTest extends NiklanTestBase {
     $this->formBuilder->submitForm(AboutSettingsForm::class, $form_state);
 
     $this->assertCount(0, $form_state->getErrors());
-    $this->assertEquals('1', $this->aboutSettingsRepository->getPhotoMediaId());
-    $this->assertEquals('foo', $this->aboutSettingsRepository->getPhotoResponsiveImageStyleId());
+    $this->assertEquals('1', $this->settings->getPhotoMediaId());
+    $this
+      ->assertEquals('foo', $this->settings->getPhotoResponsiveImageStyleId());
 
-    $form = $this->formBuilder->buildForm(AboutSettingsForm::class, $form_state);
+    $form = $this
+      ->formBuilder
+      ->buildForm(AboutSettingsForm::class, $form_state);
+
     $photo_media_id_default_value = $form['photo']['media_id']['#default_value'];
-    $this->assertInstanceOf(MediaInterface::class, $photo_media_id_default_value);
+    $this->assertInstanceOf(
+      MediaInterface::class,
+      $photo_media_id_default_value,
+    );
     $this->assertEquals('1', $photo_media_id_default_value->id());
   }
 
@@ -71,7 +78,9 @@ final class AboutSettingsFormTest extends NiklanTestBase {
     parent::setUp();
 
     $this->formBuilder = $this->container->get('form_builder');
-    $this->aboutSettingsRepository = $this->container->get('niklan.repository.about_settings');
+    $this->settings = $this
+      ->container
+      ->get('niklan.repository.about_settings');
 
     $this->createMediaType('image', ['id' => 'image']);
     $file = File::create([

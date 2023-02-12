@@ -103,7 +103,9 @@ final class RenderedParsedSourceFileFormatterTest extends ExternalContentTestBas
     $content = $this->display->build($entity);
     $this->render($content);
 
-    self::assertRaw('<p data-foo="bar">Hello, World! <a href="https://example.com">This is a link</a>');
+    self::assertRaw(
+      '<p data-foo="bar">Hello, World! <a href="https://example.com">This is a link</a>',
+    );
   }
 
 }

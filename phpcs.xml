@@ -10,9 +10,12 @@
   <!-- Exclude fixtures. -->
   <exclude-pattern>*/fixtures/*</exclude-pattern>
   <exclude-pattern>*\.(css|js)</exclude-pattern>
-  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended">
-    <!-- Fix me. -->
-    <exclude name="SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall"/>
+  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
+
+  <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
+    <properties>
+      <property name="lineLengthLimit" value="80"/>
+    </properties>
   </rule>
 
   <!-- Remove after merge: https://github.com/Chi-teck/drupal-coder-extension/pull/1 -->

@@ -247,11 +247,20 @@ function mechanical_preprocess_paragraph__heading(array &$variables): void {
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
 
-  $title = strip_tags($paragraph->get('field_title')->getString(), '<code><strong><em>');
+  $title = strip_tags(
+    $paragraph->get('field_title')->getString(),
+    '<code><strong><em>',
+  );
 
-  $variables['heading_level'] = $paragraph->get('field_heading_level')->getString();
+  $variables['heading_level'] = $paragraph
+    ->get('field_heading_level',)
+    ->getString();
   $variables['title'] = $title;
-  $variables['anchor'] = Anchor::generate($title, 'druki_content_toc_theme', Anchor::REUSE);
+  $variables['anchor'] = Anchor::generate(
+    $title,
+    'druki_content_toc_theme',
+    Anchor::REUSE,
+  );
 
   $variables['bem_modifiers'][] = $variables['heading_level'];
 }

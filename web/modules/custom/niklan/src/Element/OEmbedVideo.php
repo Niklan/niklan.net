@@ -56,10 +56,13 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->oEmbedFetcher = $container->get('media.oembed.resource_fetcher');
     $instance->oEmbedResolver = $container->get('media.oembed.url_resolver');
-    $instance->mediaSettings = $container->get('config.factory')
+    $instance->mediaSettings = $container
+      ->get('config.factory')
       ->get('media.settings');
-    $instance->iFrameUrlHelper = $container->get('media.oembed.iframe_url_helper');
-    $instance->responsiveImageStyleStorage = $container->get('entity_type.manager')
+    $instance->iFrameUrlHelper = $container
+      ->get('media.oembed.iframe_url_helper');
+    $instance->responsiveImageStyleStorage = $container
+      ->get('entity_type.manager')
       ->getStorage('responsive_image_style');
 
     return $instance;
@@ -135,7 +138,9 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       return FALSE;
     }
 
-    $responsive_image_style = $this->responsiveImageStyleStorage->load($element['#preview_responsive_image_style']);
+    $responsive_image_style = $this->responsiveImageStyleStorage->load(
+        $element['#preview_responsive_image_style'],
+    );
     if (!$responsive_image_style) {
       return FALSE;
     }
@@ -242,7 +247,11 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   Video ID, NULL if not found.
    */
   protected function parseYouTubeVideoId(string $url): ?string {
-    \preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'<> ]+)/", $url, $matches);
+    \preg_match(
+        "/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'<> ]+)/",
+        $url,
+        $matches,
+    );
     if (!empty($matches[1])) {
       return $matches[1];
     }

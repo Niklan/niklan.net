@@ -39,7 +39,10 @@ final class HtmlParserPluginManagerTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get(HtmlParserPluginManagerInterface::class);
+
+    $this->pluginManager = $this->container->get(
+      HtmlParserPluginManagerInterface::class,
+    );
   }
 
 }

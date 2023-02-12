@@ -52,7 +52,8 @@ final class TagController implements ContainerInjectionInterface {
 
     $instance = new self();
     $instance->tagStatistics = $container->get('niklan.helper.tag_statistics');
-    $instance->termViewBuilder = $entity_type_manager->getViewBuilder('taxonomy_term');
+    $instance->termViewBuilder = $entity_type_manager
+      ->getViewBuilder('taxonomy_term');
     $instance->termStorage = $entity_type_manager->getStorage('taxonomy_term');
     $instance->nodeStorage = $entity_type_manager->getStorage('node');
     $instance->nodeViewBuilder = $entity_type_manager->getViewBuilder('node');
@@ -72,7 +73,10 @@ final class TagController implements ContainerInjectionInterface {
 
     return [
       '#theme' => 'niklan_tag_list',
-      '#items' => \array_map(fn ($term) => $this->termViewBuilder->view($term, 'teaser'), $terms),
+      '#items' => \array_map(
+        fn ($term) => $this->termViewBuilder->view($term, 'teaser'),
+        $terms,
+      ),
     ];
   }
 

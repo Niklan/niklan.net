@@ -110,7 +110,9 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
    *   The previous to current entity.
    */
   protected function findNext(ContentEntityInterface $entity): ?ContentEntityInterface {
-    $storage = $this->entityTypeManager->getStorage($entity->getEntityTypeId());
+    $storage = $this->entityTypeManager->getStorage(
+        $entity->getEntityTypeId(),
+    );
     $id = $storage->getQuery()
       ->accessCheck(FALSE)
       ->condition('type', $entity->bundle())

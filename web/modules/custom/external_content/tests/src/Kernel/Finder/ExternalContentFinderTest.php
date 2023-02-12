@@ -79,7 +79,9 @@ final class ExternalContentFinderTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->externalContentFinder = $this->container->get(ExternalContentFinderInterface::class);
+    $this->externalContentFinder = $this->container->get(
+        ExternalContentFinderInterface::class,
+    );
   }
 
 }

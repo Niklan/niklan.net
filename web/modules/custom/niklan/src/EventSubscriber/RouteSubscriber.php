@@ -32,7 +32,10 @@ final class RouteSubscriber implements EventSubscriberInterface {
     $collection = $event->getRouteCollection();
     if ($route = $collection->get('contact.site_page')) {
       $route->setDefault('_title', "Let's Talk");
-      $route->setDefault('_controller', '\Drupal\niklan\Controller\StaticPagesController::contact');
+      $route->setDefault(
+        '_controller',
+        '\Drupal\niklan\Controller\StaticPagesController::contact',
+      );
     }
   }
 

@@ -117,8 +117,12 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    *   An array with first and last created dates.
    */
   protected function buildDateRange(NodeInterface $first_article, NodeInterface $last_article): array {
-    $first_created = DrupalDateTime::createFromTimestamp($first_article->getCreatedTime());
-    $last_created = DrupalDateTime::createFromTimestamp($last_article->getCreatedTime());
+    $first_created = DrupalDateTime::createFromTimestamp(
+      $first_article->getCreatedTime(),
+    );
+    $last_created = DrupalDateTime::createFromTimestamp(
+      $last_article->getCreatedTime(),
+    );
 
     return [
       $first_created->format('j F Y'),
@@ -139,15 +143,23 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    */
   protected function buildStatisticsSummary(int $count, array $date_range): string {
     if ($date_range[0] == $date_range[1]) {
-      return (string) new PluralTranslatableMarkup($count, '@count publication from @date', '@count publications from @date', [
-        '@date' => $date_range[0],
-      ]);
+      return (string) new PluralTranslatableMarkup(
+        $count,
+        '@count publication from @date',
+        '@count publications from @date',
+        ['@date' => $date_range[0]],
+      );
     }
     else {
-      return (string) new PluralTranslatableMarkup($count, '@count publication from @date_start to @date_end', '@count publications from @date_start to @date_end', [
-        '@date_start' => $date_range[0],
-        '@date_end' => $date_range[1],
-      ]);
+      return (string) new PluralTranslatableMarkup(
+        $count,
+        '@count publication from @date_start to @date_end',
+        '@count publications from @date_start to @date_end',
+        [
+          '@date_start' => $date_range[0],
+          '@date_end' => $date_range[1],
+        ],
+      );
     }
   }
 

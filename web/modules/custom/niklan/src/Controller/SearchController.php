@@ -168,7 +168,10 @@ final class SearchController implements ContainerInjectionInterface {
 
     $title = new TranslatableMarkup('Search');
     if ($keys) {
-      $title = new TranslatableMarkup('Search results for «%keys»', ['%keys' => $keys]);
+      $title = new TranslatableMarkup(
+        'Search results for «%keys»',
+        ['%keys' => $keys],
+      );
     }
 
     return $title;

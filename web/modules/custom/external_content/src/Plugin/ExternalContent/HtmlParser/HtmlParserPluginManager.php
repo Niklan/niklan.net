@@ -31,7 +31,10 @@ final class HtmlParserPluginManager extends DefaultPluginManager implements Html
     );
 
     $this->alterInfo('external_content_html_parser_info');
-    $this->setCacheBackend($cache_backend, 'external_content_html_parser_plugins');
+    $this->setCacheBackend(
+      $cache_backend,
+      'external_content_html_parser_plugins',
+    );
   }
 
 }
