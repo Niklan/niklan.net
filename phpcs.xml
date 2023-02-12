@@ -12,7 +12,6 @@
   <exclude-pattern>*\.(css|js)</exclude-pattern>
   <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended">
     <!-- Fix me. -->
-    <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
     <exclude name="SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall"/>
     <exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength"/>
   </rule>
