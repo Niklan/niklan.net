@@ -13,7 +13,6 @@
   <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended">
     <!-- Fix me. -->
     <exclude name="SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall"/>
-    <exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength"/>
   </rule>
 
   <!-- Remove after merge: https://github.com/Chi-teck/drupal-coder-extension/pull/1 -->
