@@ -8,10 +8,11 @@ on:
       - tests/**
   push:
     branches: [ develop ]
-    paths:
-      - web/**
-      - tests/**
-      - .github/workflows/**
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .gitignore
+      - scripts/**
 
 jobs:
   run:
@@ -47,3 +48,5 @@ jobs:
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          files: web/sites/default/files/coverage.xml

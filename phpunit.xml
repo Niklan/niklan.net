@@ -14,6 +14,7 @@
       <directory>./web/modules/custom/*/tests</directory>
     </exclude>
   </coverage>
+
   <php>
     <ini name="error_reporting" value="0"/>
     <ini name="memory_limit" value="-1"/>
@@ -23,6 +24,7 @@
     <env name="DTT_SCREENSHOT_REPORT_DIRECTORY" value="/var/www/html/web/sites/simpletest/browser_output"/>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
   </php>
+
   <testsuites>
     <testsuite name="unit">
       <directory>./web/modules/custom/*/tests/src/Unit</directory>
@@ -40,7 +42,19 @@
       <directory>./tests/src/ExistingSite</directory>
     </testsuite>
   </testsuites>
+
   <listeners>
     <listener class="\Drupal\Tests\Listeners\DrupalListener"/>
   </listeners>
+
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory>./web/modules/custom</directory>
+    </include>
+
+    <report>
+      <!-- Write it here, because PHPUnit run under web user has no access to write into other directories. -->
+      <clover outputFile="web/sites/default/files/coverage.xml" />
+    </report>
+  </coverage>
 </phpunit>
