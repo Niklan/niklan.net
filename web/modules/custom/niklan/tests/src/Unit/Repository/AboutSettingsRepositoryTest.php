@@ -40,9 +40,9 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
 
     $key_value_store_prophecy = $this->prophesize(KeyValueStoreInterface::class);
 
-    $key_value_store_prophecy->get(Argument::any(), Argument::any())->will(static function ($args) use ($self): mixed {
-      return $self->storeValues[$args[0]] ?? NULL;
-    });
+    $key_value_store_prophecy
+      ->get(Argument::any(), Argument::any())
+      ->will(static fn ($args): mixed => $self->storeValues[$args[0]] ?? NULL);
 
     $key_value_store_prophecy->set(Argument::any(), Argument::any())->will(static function ($args) use ($self): void {
       $self->storeValues[$args[0]] = $args[1];
