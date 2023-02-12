@@ -31,6 +31,8 @@ final class ExternalContentMarkup extends Plugin {
    * - Plain text: 'txt'
    * - HTML: 'html', 'htm'
    * - Markdown: 'md', 'markdown'
+   *
+   * @var string[]
    */
   public array $markup_identifiers = [];
 

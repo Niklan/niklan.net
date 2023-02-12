@@ -15,6 +15,8 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
 
   /**
    * An array with available builders.
+   *
+   * @var \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface[]
    */
   protected array $builders = [];
 

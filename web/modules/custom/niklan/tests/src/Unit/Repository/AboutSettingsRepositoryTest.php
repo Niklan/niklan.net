@@ -22,6 +22,8 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
 
   /**
    * The array with prophecy store values.
+   *
+   * @var string[]
    */
   protected array $storeValues = [];
 
