@@ -127,7 +127,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);
       $this->oEmbedFetcher->fetchResource($resource_url);
     }
-    catch (ResourceException $exception) {
+    catch (ResourceException) {
       return FALSE;
     }
 
