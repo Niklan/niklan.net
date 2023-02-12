@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\Tests\niklan\Unit\Utility;
 
 use Drupal\niklan\Utility\Anchor;

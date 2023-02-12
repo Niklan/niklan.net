@@ -5,6 +5,8 @@
  * Contains preprocess and process functions for custom templates.
  */
 
+declare(strict_types = 1);
+
 use Drupal\media\MediaInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 

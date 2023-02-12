@@ -5,7 +5,7 @@
  * Place for hooks.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use Drupal\comment\CommentInterface;
 use Drupal\Component\Utility\Html;

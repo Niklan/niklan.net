@@ -8,6 +8,8 @@
  *   suggestion attachments.
  */
 
+declare(strict_types = 1);
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\niklan\Utility\Anchor;
 
