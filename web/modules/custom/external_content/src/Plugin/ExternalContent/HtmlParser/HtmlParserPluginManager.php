@@ -27,7 +27,7 @@ final class HtmlParserPluginManager extends DefaultPluginManager implements Html
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface',
-      '\Drupal\external_content\Annotation\ExternalContentHtmlParser'
+      '\Drupal\external_content\Annotation\ExternalContentHtmlParser',
     );
 
     $this->alterInfo('external_content_html_parser_info');

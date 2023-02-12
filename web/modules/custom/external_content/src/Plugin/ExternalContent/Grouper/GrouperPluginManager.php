@@ -22,7 +22,7 @@ final class GrouperPluginManager extends DefaultPluginManager implements Grouper
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperInterface',
-      '\Drupal\external_content\Annotation\ExternalContentGrouper'
+      '\Drupal\external_content\Annotation\ExternalContentGrouper',
     );
 
     $this->alterInfo('external_content_grouper_info');

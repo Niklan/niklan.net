@@ -25,7 +25,7 @@ final class MarkupPluginManager extends DefaultPluginManager implements MarkupPl
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface',
-      '\Drupal\external_content\Annotation\ExternalContentMarkup'
+      '\Drupal\external_content\Annotation\ExternalContentMarkup',
     );
 
     $this->alterInfo('external_content_markup_info');

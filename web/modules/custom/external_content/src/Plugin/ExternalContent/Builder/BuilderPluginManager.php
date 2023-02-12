@@ -22,7 +22,7 @@ final class BuilderPluginManager extends DefaultPluginManager implements Builder
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface',
-      '\Drupal\external_content\Annotation\ExternalContentBuilder'
+      '\Drupal\external_content\Annotation\ExternalContentBuilder',
     );
 
     $this->alterInfo('external_content_builder_info');

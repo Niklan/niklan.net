@@ -22,7 +22,7 @@ final class LoaderPluginManager extends DefaultPluginManager implements LoaderPl
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface',
-      '\Drupal\external_content\Annotation\ExternalContentLoader'
+      '\Drupal\external_content\Annotation\ExternalContentLoader',
     );
 
     $this->alterInfo('external_content_loader_info');
