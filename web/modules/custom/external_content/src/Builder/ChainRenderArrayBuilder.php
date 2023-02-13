@@ -66,7 +66,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    * Instantiates builder plugins.
    */
   protected function initBuilders(): void {
-    if (!empty($this->builders)) {
+    if (\count($this->builders)) {
       return;
     }
     $definitions = $this->builderPluginManager->getDefinitions();

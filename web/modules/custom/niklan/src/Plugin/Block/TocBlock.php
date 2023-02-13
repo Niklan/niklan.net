@@ -60,7 +60,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $toc_builder = new TocBuilder();
     $links = $toc_builder->getTree($node->get('field_content'));
 
-    if (empty($links)) {
+    if (!$links) {
       return $build;
     }
 

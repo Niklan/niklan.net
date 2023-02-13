@@ -83,7 +83,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     $media_items = $this->getEntitiesToView($items, $langcode);
 
     // Early opt-out if the field is empty.
-    if (empty($media_items)) {
+    if (!$media_items) {
       return $elements;
     }
 

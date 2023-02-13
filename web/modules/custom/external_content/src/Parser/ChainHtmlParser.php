@@ -56,14 +56,15 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
    * Instantiates HTML parsers.
    */
   protected function initParsers(): void {
-    if (!empty($this->parsers)) {
+    if (\count($this->parsers)) {
       return;
     }
     $definitions = $this->htmlParserPluginManager->getDefinitions();
     \uasort($definitions, [SortArray::class, 'sortByWeightElement']);
 
     foreach (\array_keys($definitions) as $parser_id) {
-      $this->parsers[$parser_id] = $this->htmlParserPluginManager
+      $this->parsers[$parser_id] = $this
+        ->htmlParserPluginManager
         ->createInstance($parser_id);
     }
   }

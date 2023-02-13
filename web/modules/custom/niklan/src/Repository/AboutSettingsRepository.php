@@ -41,6 +41,7 @@ final class AboutSettingsRepository implements AboutSettingsRepositoryInterface 
     $id
       ? $this->store->set('photo_media_id', $id)
       : $this->store->delete('photo_media_id');
+
     return $this;
   }
 
@@ -56,9 +57,10 @@ final class AboutSettingsRepository implements AboutSettingsRepositoryInterface 
    */
   public function setPhotoResponsiveImageStyleId(?string $id): AboutSettingsRepositoryInterface {
     // Consider an empty string as NULL.
-    !empty($id)
+    $id
       ? $this->store->set('photo_responsive_image_style', $id)
       : $this->store->delete('photo_responsive_image_style');
+
     return $this;
   }
 

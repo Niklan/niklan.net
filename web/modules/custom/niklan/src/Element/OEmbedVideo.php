@@ -122,7 +122,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
     }
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
-    if (empty($video_url)) {
+    if (!$video_url) {
       return FALSE;
     }
 
@@ -134,12 +134,12 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       return FALSE;
     }
 
-    if (empty($element['#preview_responsive_image_style'])) {
+    if (!$element['#preview_responsive_image_style']) {
       return FALSE;
     }
 
     $responsive_image_style = $this->responsiveImageStyleStorage->load(
-        $element['#preview_responsive_image_style'],
+      $element['#preview_responsive_image_style'],
     );
     if (!$responsive_image_style) {
       return FALSE;
@@ -252,7 +252,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
         $url,
         $matches,
     );
-    if (!empty($matches[1])) {
+    if (isset($matches[1])) {
       return $matches[1];
     }
 

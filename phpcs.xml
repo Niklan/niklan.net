@@ -20,9 +20,9 @@
 
   <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty"/>
 
   <!-- Project specific rules. -->
-  <!--  <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty"/>-->
   <!--  <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>-->
   <!--  <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>-->
   <!--  <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>-->

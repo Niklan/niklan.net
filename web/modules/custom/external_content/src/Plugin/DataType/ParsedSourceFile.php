@@ -24,7 +24,7 @@ final class ParsedSourceFile extends StringData {
    *   The content document object.
    */
   public function getParsedSourceFile(): ?ParsedSourceFileDto {
-    if (empty($this->value)) {
+    if (!$this->value) {
       return NULL;
     }
 

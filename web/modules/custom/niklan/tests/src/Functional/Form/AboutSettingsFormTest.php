@@ -56,8 +56,10 @@ final class AboutSettingsFormTest extends NiklanTestBase {
 
     $this->assertCount(0, $form_state->getErrors());
     $this->assertEquals('1', $this->settings->getPhotoMediaId());
-    $this
-      ->assertEquals('foo', $this->settings->getPhotoResponsiveImageStyleId());
+    $this->assertEquals(
+      'foo',
+      $this->settings->getPhotoResponsiveImageStyleId(),
+    );
 
     $form = $this
       ->formBuilder

@@ -87,7 +87,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
 
     $items = $this->prepareResults();
     // Do not render element if not blog posts found.
-    if (empty($items)) {
+    if (!$items) {
       return [];
     }
 
@@ -108,7 +108,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
   protected function prepareResults(): array {
     $results = [];
     $ids = $this->findResults();
-    if (empty($ids)) {
+    if (!$ids) {
       return $results;
     }
 

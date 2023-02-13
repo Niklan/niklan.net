@@ -81,6 +81,7 @@ final class CommentController implements ContainerInjectionInterface {
       // Render separately to create flat array.
       $items[] = $this->commentViewBuilder->view($comment, 'teaser');
     }
+
     return $items;
   }
 
@@ -92,7 +93,8 @@ final class CommentController implements ContainerInjectionInterface {
    */
   protected function load(): array {
     $ids = $this->getEntityIds();
-    return empty($ids) ? [] : $this->commentStorage->loadMultiple($ids);
+
+    return $ids ? $this->commentStorage->loadMultiple($ids) : [];
   }
 
   /**
