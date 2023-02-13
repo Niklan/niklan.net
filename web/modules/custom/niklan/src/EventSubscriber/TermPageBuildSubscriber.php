@@ -47,7 +47,7 @@ final class TermPageBuildSubscriber implements EventSubscriberInterface {
    */
   public function onTermPageBuild(TermPageBuildEvent $event): void {
     $taxonomy_term = $event->getTaxonomyTerm();
-    if ($taxonomy_term->bundle() != 'tags') {
+    if ($taxonomy_term->bundle() !== 'tags') {
       return;
     }
 

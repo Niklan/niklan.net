@@ -27,7 +27,7 @@ final class CodeLineHighlight extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public static function isApplicable(ParagraphsType $paragraphs_type): bool {
-    return $paragraphs_type->id() == 'code';
+    return $paragraphs_type->id() === 'code';
   }
 
   /**

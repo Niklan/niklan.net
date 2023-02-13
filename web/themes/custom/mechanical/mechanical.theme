@@ -125,11 +125,11 @@ function mechanical_preprocess_field(array &$variables): void {
 
   $library_bundles = $dynamic_libraries[$entity_type];
   foreach ($library_bundles as $library_bundle => $library_fields) {
-    if ($library_bundle != $bundle && $library_bundle != '*') {
+    if ($library_bundle !== $bundle && $library_bundle !== '*') {
       continue;
     }
     foreach ($library_fields as $library_field => $field_libraries) {
-      if ($library_field != $field_name) {
+      if ($library_field !== $field_name) {
         continue;
       }
       foreach ($field_libraries as $library) {
@@ -158,11 +158,11 @@ function mechanical_preprocess_comment(array &$variables): void {
   $bundle = $comment->bundle();
   $view_mode = $variables['elements']['#view_mode'];
   foreach ($dynamic_libraries as $libraries_bundle => $bundle_view_modes) {
-    if ($libraries_bundle != '*' && $libraries_bundle != $bundle) {
+    if ($libraries_bundle !== '*' && $libraries_bundle !== $bundle) {
       continue;
     }
     foreach ($bundle_view_modes as $libraries_view_mode => $libraries) {
-      if ($libraries_view_mode != '*' && $libraries_view_mode != $view_mode) {
+      if ($libraries_view_mode !== '*' && $libraries_view_mode !== $view_mode) {
         continue;
       }
       foreach ($libraries as $library) {
@@ -188,7 +188,7 @@ function mechanical_preprocess_paragraph(array &$variables): void {
   $paragraph = $variables['paragraph'];
   $bundle = $paragraph->bundle();
   foreach ($dynamic_libraries as $bundle_to_attach => $libraries) {
-    if ($bundle_to_attach != $bundle) {
+    if ($bundle_to_attach !== $bundle) {
       continue;
     }
     foreach ($libraries as $library) {
@@ -222,11 +222,11 @@ function mechanical_preprocess_node(array &$variables): void {
   $bundle = $node->bundle();
   $view_mode = $variables['elements']['#view_mode'];
   foreach ($dynamic_libraries as $libraries_bundle => $bundle_view_modes) {
-    if ($libraries_bundle != '*' && $libraries_bundle != $bundle) {
+    if ($libraries_bundle !== '*' && $libraries_bundle !== $bundle) {
       continue;
     }
     foreach ($bundle_view_modes as $libraries_view_mode => $libraries) {
-      if ($libraries_view_mode != '*' && $libraries_view_mode != $view_mode) {
+      if ($libraries_view_mode !== '*' && $libraries_view_mode !== $view_mode) {
         continue;
       }
       foreach ($libraries as $library) {

@@ -230,7 +230,7 @@ function niklan_toolbar(): array {
   ];
 
   $route_match = Drupal::routeMatch();
-  if ($route_match->getRouteName() != 'entity.node.canonical') {
+  if ($route_match->getRouteName() !== 'entity.node.canonical') {
     return $items;
   }
 
@@ -326,11 +326,11 @@ function _niklan_remove_text_textarea_format(array $element, FormStateInterface 
   $is_admin = \Drupal::routeMatch()
     ->getRouteObject()
     ->hasOption('_admin_route');
-  if ($element['#type'] == 'text_format' && !$is_admin) {
+  if ($element['#type'] === 'text_format' && !$is_admin) {
     hide($element['format']);
   }
 
-  if ($element['#type'] == 'textarea') {
+  if ($element['#type'] === 'textarea') {
     $element['#description'] = new TranslatableMarkup(
       'Supports <a href="@common_mark_url" target="_blank">CommonMark</a> syntax.',
       ['@common_mark_url' => 'https://commonmark.org/help/'],

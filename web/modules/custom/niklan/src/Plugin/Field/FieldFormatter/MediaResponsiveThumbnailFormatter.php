@@ -138,7 +138,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     $url = NULL;
     $image_link_setting = $this->getSetting('image_link');
     // Check if the formatter involves a link.
-    if ($image_link_setting == 'content') {
+    if ($image_link_setting === 'content') {
       if (!$entity->isNew()) {
         $url = $entity->toUrl();
       }

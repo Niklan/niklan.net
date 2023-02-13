@@ -24,7 +24,7 @@ final class TocBuilder {
    */
   public function getTree(EntityReferenceFieldItemListInterface $items): array {
     $headings = $items->filter(
-      static fn ($item) => $item->entity->bundle() == 'heading',
+      static fn ($item) => $item->entity->bundle() === 'heading',
     );
 
     if ($headings->isEmpty()) {

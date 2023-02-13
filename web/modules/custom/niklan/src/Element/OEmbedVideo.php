@@ -207,7 +207,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   The oEmbed resource.
    */
   protected function buildIframeUrl(string $url, Resource $resource): Url {
-    if ($resource->getProvider()->getName() == 'YouTube') {
+    if ($resource->getProvider()->getName() === 'YouTube') {
       // Default controller 'media.oembed_iframe' is not used because YouTube
       // oembed provider returns iframe markup without allowing us to add
       // special query parameters like autoplay. Also, YouTube doesn't return

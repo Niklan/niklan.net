@@ -54,9 +54,11 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
-    $target_type = $field_definition->getFieldStorageDefinition()
+    $target_type = $field_definition
+      ->getFieldStorageDefinition()
       ->getSetting('target_type');
-    return $target_type == 'media';
+
+    return $target_type === 'media';
   }
 
   /**

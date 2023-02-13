@@ -62,7 +62,7 @@ final class Anchor {
     while (!$anchor_generated) {
       $key = "{$duplicate_mode}:{$id}:{$anchor}:{$iteration}";
       if (!isset($anchor_static[$key])) {
-        if ($iteration > 0 && $duplicate_mode == self::COUNTER) {
+        if ($iteration > 0 && $duplicate_mode === self::COUNTER) {
           $anchor .= '-' . $iteration;
         }
 

@@ -159,7 +159,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
       ['@date_start' => $date_range[0], '@date_end' => $date_range[1]],
     );
 
-    return $date_range[0] == $date_range[1] ? $without_range : $with_range;
+    return $date_range[0] === $date_range[1] ? $without_range : $with_range;
   }
 
 }
