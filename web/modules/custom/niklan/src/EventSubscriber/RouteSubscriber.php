@@ -30,13 +30,16 @@ final class RouteSubscriber implements EventSubscriberInterface {
    */
   public function onAlterRoutes(RouteBuildEvent $event): void {
     $collection = $event->getRouteCollection();
-    if ($route = $collection->get('contact.site_page')) {
-      $route->setDefault('_title', "Let's Talk");
-      $route->setDefault(
-        '_controller',
-        '\Drupal\niklan\Controller\StaticPagesController::contact',
-      );
+    $route = $collection->get('contact.site_page');
+    if (!$route) {
+      return;
     }
+
+    $route->setDefault('_title', "Let's Talk");
+    $route->setDefault(
+      '_controller',
+      '\Drupal\niklan\Controller\StaticPagesController::contact',
+    );
   }
 
 }

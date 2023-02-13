@@ -44,9 +44,10 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
     $crawler = $crawler->filter('body');
     foreach ($crawler->children() as $child) {
       $element = $this->parseElement($child, $html_parser_state);
-      if ($element) {
-        $content->addChild($element);
+      if (!$element) {
+        continue;
       }
+      $content->addChild($element);
     }
 
     return $content;
@@ -72,7 +73,7 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
   /**
    * {@inheritdoc}
    */
-  public function parseElement(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ElementInterface {
+  public function parseElement(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ?ElementInterface {
     // Make sure parsers instantiated even here, because this method can be
     // called before or without ::parseRoot() on DOM element directly. This most
     // likely happens only for testing.

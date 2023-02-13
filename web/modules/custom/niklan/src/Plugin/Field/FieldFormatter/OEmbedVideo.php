@@ -102,9 +102,11 @@ final class OEmbedVideo extends FormatterBase {
 
     $responsive_image_options = [];
     foreach ($this->responsiveImageStyleStorage->loadMultiple() as $machine_name => $responsive_image_style) {
-      if ($responsive_image_style->hasImageStyleMappings()) {
-        $responsive_image_options[$machine_name] = $responsive_image_style->label();
+      if (!$responsive_image_style->hasImageStyleMappings()) {
+        continue;
       }
+
+      $responsive_image_options[$machine_name] = $responsive_image_style->label();
     }
 
     $element['responsive_image_style'] = [

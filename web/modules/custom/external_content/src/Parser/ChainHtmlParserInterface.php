@@ -34,11 +34,11 @@ interface ChainHtmlParserInterface {
    * @param \DOMNode $node
    *   The dom element to parse.
    * @param \Drupal\external_content\Dto\HtmlParserStateInterface $html_parser_state
-   *   THe current HTML parser state.
+   *   The current HTML parser state.
    *
-   * @return \Drupal\external_content\Dto\ElementInterface
+   * @return \Drupal\external_content\Dto\ElementInterface|null
    *   The result element.
    */
-  public function parseElement(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ElementInterface;
+  public function parseElement(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ?ElementInterface;
 
 }

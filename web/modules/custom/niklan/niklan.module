@@ -15,7 +15,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\niklan\Hook\SymfonyMailer\ContactFormBuild;
+use Drupal\niklan\Hook\SymfonyMailer\ContactFormEmailBuild;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
@@ -188,46 +188,25 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
 }
 
 /**
- * Implements hook_mail_alter().
- */
-function niklan_mail_alter(array &$message): void {
-  if (isset($message['id']) && $message['id'] == 'contact_page_mail') {
-    /** @var \Drupal\contact\Entity\Message $contact_message */
-    $contact_message = $message['params']['contact_message'];
-    $contact_form = $contact_message->bundle();
-
-    switch ($contact_form) {
-      case 'contact_form':
-        // @todo Set 'from' from email address filled out by user.
-        // $email = $contact_message->field_email->value;
-        // $message['from'] = $email;
-        break;
-    }
-  }
-}
-
-/**
  * Implements hook_contact_tools_ajax_response_alter().
  *
  * Allows modules to alter AJAX response handled by the module. You can fully
  * alter, remove and add new commands to response.
  */
 function niklan_contact_tools_ajax_response_alter(AjaxResponse &$ajax_response, array $form, FormStateInterface $form_state): void {
-  if ($form_state->isExecuted()) {
-    $class_name = '.' . Html::getClass(
-      $form['#form_id'] . '-contact-tools-processed',
-    );
-
-    $message = new TranslatableMarkup(
-      'Thank you, your message was successfully sent.',
-    );
-    $thanks = [
-      '#theme' => 'niklan_form_success',
-      '#title' => new TranslatableMarkup('Successful!'),
-      '#message' => $message,
-    ];
-    $ajax_response->addCommand(new ReplaceCommand($class_name, $thanks));
+  if (!$form_state->isExecuted()) {
+    return;
   }
+
+  $class_name = '.' . Html::getClass($form['#form_id'] . '-contact-tools-processed');
+
+  $message = new TranslatableMarkup('Thank you, your message was successfully sent.');
+  $thanks = [
+    '#theme' => 'niklan_form_success',
+    '#title' => new TranslatableMarkup('Successful!'),
+    '#message' => $message,
+  ];
+  $ajax_response->addCommand(new ReplaceCommand($class_name, $thanks));
 }
 
 /**
@@ -333,9 +312,11 @@ function niklan_field_widget_text_textarea_form_alter(array &$element, FormState
   $items = $context['items'];
   $field_name = $items->getFieldDefinition()->getName();
 
-  if ($field_name == 'comment_body') {
-    $element['#after_build'][] = '_niklan_remove_text_textarea_format';
+  if ($field_name !== 'comment_body') {
+    return;
   }
+
+  $element['#after_build'][] = '_niklan_remove_text_textarea_format';
 }
 
 /**
@@ -362,12 +343,14 @@ function _niklan_remove_text_textarea_format(array $element, FormStateInterface 
  * Implements hook_ENTITY_TYPE_view().
  */
 function niklan_comment_view(array &$build, CommentInterface $comment, EntityViewDisplayInterface $display, string $view_mode): void {
-  if ($view_mode == 'teaser') {
-    // Disable threading for teasers.
-    $build['#comment_threaded'] = FALSE;
-    // Reset inner counters which append unneeded '</div>'.
-    $build['#comment_indent_final'] = 0;
+  if ($view_mode !== 'teaser') {
+    return;
   }
+
+  // Disable threading for teasers.
+  $build['#comment_threaded'] = FALSE;
+  // Reset inner counters which append unneeded '</div>'.
+  $build['#comment_indent_final'] = 0;
 }
 
 /**
@@ -394,9 +377,11 @@ function niklan_preprocess_comment(array &$variables): void {
   $variables['commented_entity_url'] = $commented_url;
   $variables['permalink_url'] = $commented_url . $comment_anchor;
   $variables['homepage'] = NULL;
-  if (!$comment->get('homepage')->isEmpty()) {
-    $variables['homepage'] = $comment->get('homepage')->getString();
+  if ($comment->get('homepage')->isEmpty()) {
+    return;
   }
+
+  $variables['homepage'] = $comment->get('homepage')->getString();
 }
 
 /**
@@ -435,5 +420,5 @@ function niklan_library_info_alter(array &$libraries, string $extension): void {
  * Implements hook_mailer_TYPE_PHASE().
  */
 function niklan_mailer_contact_form_build(EmailInterface $email): void {
-  \Drupal::classResolver(ContactFormBuild::class)($email);
+  \Drupal::classResolver(ContactFormEmailBuild::class)($email);
 }

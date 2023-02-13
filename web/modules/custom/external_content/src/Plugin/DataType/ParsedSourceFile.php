@@ -52,9 +52,11 @@ final class ParsedSourceFile extends StringData {
   public function setParsedSourceFile(ParsedSourceFileDto $parsed_source_file, bool $notify = TRUE): void {
     $this->value = $parsed_source_file;
     // Notify the parent of any changes.
-    if ($notify && isset($this->parent)) {
-      $this->parent->onChange($this->name);
+    if (!$notify || !isset($this->parent)) {
+      return;
     }
+
+    $this->parent->onChange($this->name);
   }
 
 }

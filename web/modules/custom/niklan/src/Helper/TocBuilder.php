@@ -122,15 +122,16 @@ final class TocBuilder {
     $tree = [];
 
     foreach ($links as $link) {
-      if ($link['parent_id'] == $parent_id) {
-        $children = $this->buildTree($links, $link['id']);
-
-        if ($children) {
-          $link['children'] = $children;
-        }
-
-        $tree[] = $link;
+      if ($link['parent_id'] !== $parent_id) {
+        continue;
       }
+
+      $children = $this->buildTree($links, $link['id']);
+      if ($children) {
+        $link['children'] = $children;
+      }
+
+      $tree[] = $link;
     }
 
     return $tree;

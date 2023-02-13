@@ -36,13 +36,15 @@ function template_preprocess_niklan_about_page(array &$variables): void {
     $about_settings->getPhotoResponsiveImageStyleId(),
   );
   $variables['photo'] = NULL;
-  if ($photo_media instanceof MediaInterface && $responsive_image_style instanceof ResponsiveImageStyleInterface) {
-    $file_id = $photo_media->getSource()->getSourceFieldValue($photo_media);
-    $file = $file_storage->load($file_id);
-    $variables['photo'] = [
-      '#type' => 'responsive_image',
-      '#responsive_image_style_id' => $responsive_image_style->id(),
-      '#uri' => $file->getFileUri(),
-    ];
+  if (!$photo_media instanceof MediaInterface || !$responsive_image_style instanceof ResponsiveImageStyleInterface) {
+    return;
   }
+
+  $file_id = $photo_media->getSource()->getSourceFieldValue($photo_media);
+  $file = $file_storage->load($file_id);
+  $variables['photo'] = [
+    '#type' => 'responsive_image',
+    '#responsive_image_style_id' => $responsive_image_style->id(),
+    '#uri' => $file->getFileUri(),
+  ];
 }
