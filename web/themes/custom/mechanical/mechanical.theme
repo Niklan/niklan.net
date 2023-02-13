@@ -1,5 +1,8 @@
 <?php
 
+// phpcs:ignoreFile
+// Theme will be reworked soon, no point to do heavy refactoring.
+
 /**
  * @file
  * Custom hooks and functions special for theme.

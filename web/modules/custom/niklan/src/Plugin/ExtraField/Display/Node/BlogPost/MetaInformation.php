@@ -108,9 +108,9 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
       $estimated_minutes = $cached->data;
     }
     else {
-      $estimated_minutes = EstimatedReadTimeCalculator::calculate(
-        $this->getEntity()->get('field_content'),
-      );
+      $calculator = new EstimatedReadTimeCalculator();
+      $estimated_minutes = $calculator
+        ->calculate($this->getEntity()->get('field_content'));
       $this->cache->set($cid, $estimated_minutes);
     }
 

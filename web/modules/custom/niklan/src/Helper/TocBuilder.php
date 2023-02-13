@@ -101,7 +101,7 @@ final class TocBuilder {
     return [
       'id' => $internal_id,
       'text' => $title,
-      'anchor' => Anchor::generate($title, 'toc', Anchor::REUSE),
+      'anchor' => Anchor::generate($title, Anchor::REUSE),
       'level' => $heading_level_int,
       'parent_id' => $parent_id,
     ];

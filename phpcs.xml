@@ -12,19 +12,16 @@
   <exclude-pattern>*\.(css|js)</exclude-pattern>
   <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
 
+  <!-- Project specific rules. -->
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
     <properties>
       <property name="lineLengthLimit" value="80"/>
     </properties>
   </rule>
-
   <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
   <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
-
-  <!-- Project specific rules. -->
-  <!--  <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>-->
-  <!--  -->
+  <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>
 </ruleset>

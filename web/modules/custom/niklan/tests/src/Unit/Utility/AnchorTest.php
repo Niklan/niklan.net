@@ -19,8 +19,6 @@ final class AnchorTest extends UnitTestCase {
    *
    * @param string $text
    *   A text to process.
-   * @param string $id
-   *   An anchor ID.
    * @param int $duplicate_mode
    *   A duplication mode.
    * @param string $expected
@@ -29,8 +27,8 @@ final class AnchorTest extends UnitTestCase {
    * @dataProvider anchorProvider
    * @covers ::generate
    */
-  public function testGenerator(string $text, string $id, int $duplicate_mode, string $expected): void {
-    $actual = Anchor::generate($text, $id, $duplicate_mode);
+  public function testGenerator(string $text, int $duplicate_mode, string $expected): void {
+    $actual = Anchor::generate($text, $duplicate_mode);
     $this->assertSame($expected, $actual);
   }
 
@@ -42,12 +40,12 @@ final class AnchorTest extends UnitTestCase {
    */
   public function anchorProvider(): array {
     return [
-      'reusable for "test"' => ['test', 'default', Anchor::REUSE, 'test'],
-      'reusable for "test" 1' => ['test', 'default', Anchor::REUSE, 'test'],
-      'reusable for "test2"' => ['test2', 'default', Anchor::REUSE, 'test2'],
-      'counter for "test"' => ['test', 'counter', Anchor::COUNTER, 'test'],
-      'counter for "test" 1' => ['test', 'counter', Anchor::COUNTER, 'test-1'],
-      'counter for "test2"' => ['test2', 'counter', Anchor::COUNTER, 'test2'],
+      'reusable for "test"' => ['test', Anchor::REUSE, 'test'],
+      'reusable for "test" 1' => ['test', Anchor::REUSE, 'test'],
+      'reusable for "test2"' => ['test2', Anchor::REUSE, 'test2'],
+      'counter for "test"' => ['test', Anchor::COUNTER, 'test'],
+      'counter for "test" 1' => ['test', Anchor::COUNTER, 'test-1'],
+      'counter for "test2"' => ['test2', Anchor::COUNTER, 'test2'],
     ];
   }
 

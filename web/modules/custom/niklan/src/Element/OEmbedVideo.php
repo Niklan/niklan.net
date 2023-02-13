@@ -126,14 +126,45 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       return FALSE;
     }
 
+    // There is no need to continued if resource didn't respond for some reason.
+    if (!$this->validateResource($video_url)) {
+      return FALSE;
+    }
+
+    return $this->validateResponsiveImageStyle($element);
+  }
+
+  /**
+   * Validates resource availability.
+   *
+   * @param string $video_url
+   *   The video URL.
+   *
+   * @return bool
+   *   TRUE if resource if available, FALSE otherwise.
+   */
+  protected function validateResource(string $video_url): bool {
     try {
       $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);
       $this->oEmbedFetcher->fetchResource($resource_url);
+
+      return TRUE;
     }
     catch (ResourceException) {
       return FALSE;
     }
+  }
 
+  /**
+   * Validates responsive image style.
+   *
+   * @param array $element
+   *   The render element.
+   *
+   * @return bool
+   *   TRUE if responsive image is valid, FALSE otherwise.
+   */
+  protected function validateResponsiveImageStyle(array $element): bool {
     if (!$element['#preview_responsive_image_style']) {
       return FALSE;
     }
@@ -141,10 +172,12 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
     $responsive_image_style = $this->responsiveImageStyleStorage->load(
       $element['#preview_responsive_image_style'],
     );
+
     if (!$responsive_image_style) {
       return FALSE;
     }
 
+    // Make sure this image style has mapping, without it is useless.
     return $responsive_image_style->hasImageStyleMappings();
   }
 
@@ -248,9 +281,9 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    */
   protected function parseYouTubeVideoId(string $url): ?string {
     \preg_match(
-        "/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'<> ]+)/",
-        $url,
-        $matches,
+      "/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'<> ]+)/",
+      $url,
+      $matches,
     );
     if (isset($matches[1])) {
       return $matches[1];
