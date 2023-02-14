@@ -18,9 +18,7 @@
       <property name="lineLengthLimit" value="80"/>
     </properties>
   </rule>
-  <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator"/>
-  <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
   <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
   <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>

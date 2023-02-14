@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Plugin\Field\FieldType;
 

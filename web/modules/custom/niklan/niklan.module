@@ -1,11 +1,4 @@
-<?php
-
-/**
- * @file
- * Place for hooks.
- */
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 use Drupal\comment\CommentInterface;
 use Drupal\Component\Utility\Html;

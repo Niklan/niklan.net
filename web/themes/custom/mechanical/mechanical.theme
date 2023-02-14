@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 // phpcs:ignoreFile
 // Theme will be reworked soon, no point to do heavy refactoring.
@@ -10,8 +10,6 @@
  * @todo Consider to try use TWIG with extends + attach_library for theme
  *   suggestion attachments.
  */
-
-declare(strict_types = 1);
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\niklan\Utility\Anchor;
