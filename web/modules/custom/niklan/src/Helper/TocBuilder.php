@@ -64,28 +64,13 @@ final class TocBuilder {
     $title = $paragraph->get('field_title')->getString();
     $heading_level = $paragraph->get('field_heading_level')->getString();
 
-    switch ($heading_level) {
-      case 'h2':
-      default:
-        $heading_level_int = 2;
-        break;
-
-      case 'h3':
-        $heading_level_int = 3;
-        break;
-
-      case 'h4':
-        $heading_level_int = 4;
-        break;
-
-      case 'h5':
-        $heading_level_int = 5;
-        break;
-
-      case 'h6':
-        $heading_level_int = 6;
-        break;
-    }
+    $heading_level_int = match ($heading_level) {
+      default => 2,
+      'h3' => 3,
+      'h4' => 4,
+      'h5' => 5,
+      'h6' => 6,
+    };
 
     foreach (\array_reverse($links) as $link) {
       if ($link['level'] < $heading_level_int) {

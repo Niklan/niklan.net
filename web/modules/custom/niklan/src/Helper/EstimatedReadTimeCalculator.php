@@ -53,7 +53,7 @@ final class EstimatedReadTimeCalculator {
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph entity.
    *
-   * @return int|float The estimated read time.
+   * @return int|float
    *   The estimated read time.
    */
   protected function calculateTextParagraph(ParagraphInterface $paragraph): int|float {
@@ -74,7 +74,7 @@ final class EstimatedReadTimeCalculator {
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph entity.
    *
-   * @return int|float The estimated read time.
+   * @return int|float
    *   The estimated read time.
    */
   protected function calculateCodeParagraph(ParagraphInterface $paragraph): int|float {
