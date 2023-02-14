@@ -5,11 +5,10 @@
   <arg name="extensions" value="php,module,inc,install,theme"/>
   <file>./web/modules/custom</file>
   <file>./web/themes/custom</file>
-  <!-- Exclude vendors. -->
-  <exclude-pattern>./web/themes/custom/mechanical/node_modules</exclude-pattern>
   <!-- Exclude fixtures. -->
   <exclude-pattern>*/fixtures/*</exclude-pattern>
   <exclude-pattern>*\.(css|js)</exclude-pattern>
+  <!-- Base ruleset. -->
   <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
 
   <!-- Project specific rules. -->
@@ -18,8 +17,27 @@
       <property name="lineLengthLimit" value="80"/>
     </properties>
   </rule>
-  <rule ref="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
   <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
   <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>
+  <rule ref="SlevomatCodingStandard.Classes.PropertyDeclaration">
+    <properties>
+      <property name="checkPromoted" value="true"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.Classes.PropertySpacing">
+    <properties>
+      <property name="minLinesCountBeforeWithComment" value="1"/>
+      <property name="maxLinesCountBeforeWithComment" value="1"/>
+      <property name="minLinesCountBeforeWithoutComment" value="1"/>
+      <property name="maxLinesCountBeforeWithoutComment" value="1"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.Classes.RequireAbstractOrFinal"/>
+  <rule ref="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion"/>
+  <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration"/>
+  <rule ref="SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration"/>
+  <rule ref="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode"/>
+  <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
+  <rule ref="SlevomatCodingStandard.Commenting.RequireOneLineDocComment"/>
 </ruleset>

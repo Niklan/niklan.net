@@ -5,6 +5,7 @@ namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
@@ -76,8 +77,9 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
+    \assert($items instanceof EntityReferenceFieldItemListInterface);
+
     $elements = [];
-    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $items */
     $media_items = $this->getEntitiesToView($items, $langcode);
 
     // Early opt-out if the field is empty.
@@ -86,7 +88,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     }
 
     $responsive_image_style = $this->getSetting('responsive_image_style');
-    /** @var \Drupal\media\MediaInterface[] $media_items */
+    /** @var \Drupal\media\MediaInterface[] $media */
     foreach ($media_items as $delta => $media) {
       $cache_tags = [];
       $cache_tags = Cache::mergeTags($cache_tags, $media->getCacheTags());
