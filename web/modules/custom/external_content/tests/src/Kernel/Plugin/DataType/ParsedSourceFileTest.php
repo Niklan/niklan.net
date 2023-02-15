@@ -7,6 +7,7 @@ use Drupal\external_content\Dto\ParsedSourceFile;
 use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Plugin\DataType\ParsedSourceFile as ParsedSourceFileDataType;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -29,7 +30,7 @@ final class ParsedSourceFileTest extends ExternalContentTestBase {
       'external_content_parsed_source_file',
     );
     $typed_data = $this->typedDataManager->create($definition);
-    \assert($typed_data instanceof \Drupal\external_content\Plugin\DataType\ParsedSourceFile);
+    \assert($typed_data instanceof ParsedSourceFileDataType);
     self::assertNull($typed_data->getParsedSourceFile());
 
     $typed_data->setValue('foo-bar');
