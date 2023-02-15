@@ -52,7 +52,9 @@ composer phpcs
 
 ### PHPStan
 
-PHPStan is configured in [phpstan.neon](phpstan.neon). It uses [mglaman/phpstan-drupal](https://github.com/mglaman/phpstan-drupal) on top of default ones. Currently, it is on level 1, because level 2 requires changes in Drupal core directly.
+![PHPStan level](https://img.shields.io/badge/PHPStan-level%203-brightgreen.svg?style=flat)
+
+PHPStan is configured in [phpstan.neon](phpstan.neon). It uses [mglaman/phpstan-drupal](https://github.com/mglaman/phpstan-drupal) on top of default ones.
 
 **Run PHPStan:**
 
