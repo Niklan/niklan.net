@@ -23,7 +23,6 @@ final class AnchorTest extends UnitTestCase {
    *   An expected result.
    *
    * @dataProvider anchorProvider
-   * @covers ::generate
    */
   public function testGenerator(string $text, int $duplicate_mode, string $expected): void {
     $actual = Anchor::generate($text, $duplicate_mode);

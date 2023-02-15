@@ -52,7 +52,7 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
       $this->chainHtmlParser,
     );
     $result = $plugin->parse($node, $parser_state);
-    \assert($result instanceof FooBarElement);
+    \assert($result instanceof HtmlElement);
     self::assertInstanceOf(HtmlElement::class, $result);
     self::assertEquals('div', $result->getTag());
     self::assertCount(2, $result->getAttributes());
