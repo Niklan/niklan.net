@@ -74,6 +74,7 @@ final class TocBuilder {
     foreach (\array_reverse($links) as $link) {
       if ($link['level'] < $heading_level_int) {
         $parent_id = $link['id'];
+
         break;
       }
     }

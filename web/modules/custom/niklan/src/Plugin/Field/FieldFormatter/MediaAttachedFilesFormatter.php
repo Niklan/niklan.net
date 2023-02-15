@@ -45,6 +45,7 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
     );
 
     $instance->entityTypeManager = $container->get('entity_type.manager');
+
     return $instance;
   }
 

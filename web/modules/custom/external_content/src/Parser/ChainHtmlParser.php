@@ -87,6 +87,7 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
     foreach ($this->parsers as $parser) {
       if ($parser::isApplicable($node)) {
         $element = $parser->parse($node, $html_parser_state);
+
         break;
       }
     }

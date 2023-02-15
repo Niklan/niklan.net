@@ -64,6 +64,7 @@ final class Anchor {
 
       if (\array_key_exists($key, self::$cache)) {
         $iteration++;
+
         continue;
       }
 

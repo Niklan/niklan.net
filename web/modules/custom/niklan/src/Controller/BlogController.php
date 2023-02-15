@@ -86,6 +86,7 @@ final class BlogController implements ContainerInjectionInterface {
    */
   protected function load(): array {
     $ids = $this->getEntityIds();
+
     return $this->nodeStorage->loadMultiple($ids);
   }
 

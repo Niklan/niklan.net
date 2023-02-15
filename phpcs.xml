@@ -43,4 +43,5 @@
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
 </ruleset>

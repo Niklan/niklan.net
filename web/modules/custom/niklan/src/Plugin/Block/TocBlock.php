@@ -41,6 +41,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
     $instance->renderer = $container->get('renderer');
+
     return $instance;
   }
 

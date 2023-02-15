@@ -45,6 +45,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
     foreach ($this->builders as $builder) {
       if ($builder::isApplicable($element)) {
         $build = $builder->build($element);
+
         break;
       }
     }

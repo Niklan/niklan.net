@@ -41,6 +41,7 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->cache = $container->get('cache.data');
+
     return $instance;
   }
 

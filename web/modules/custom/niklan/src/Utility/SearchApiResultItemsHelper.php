@@ -23,6 +23,7 @@ final class SearchApiResultItemsHelper {
     return \array_map(static function (ItemInterface $result_item) {
       [, $source_info] = \explode('/', $result_item->getId());
       [$source_id] = \explode(':', $source_info);
+
       return $source_id;
     }, $result_set->getResultItems());
   }

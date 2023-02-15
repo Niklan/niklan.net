@@ -50,6 +50,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
+
     return $instance;
   }
 
