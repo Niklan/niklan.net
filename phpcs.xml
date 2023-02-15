@@ -42,4 +42,5 @@
   <rule ref="SlevomatCodingStandard.Commenting.RequireOneLineDocComment"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
 </ruleset>
