@@ -58,6 +58,7 @@ final class Anchor {
    */
   protected static function generateWithCounter(string $anchor): string {
     $iteration = 0;
+
     while (TRUE) {
       $key = "$anchor:$iteration";
 

@@ -41,4 +41,5 @@
   <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
   <rule ref="SlevomatCodingStandard.Commenting.RequireOneLineDocComment"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing"/>
 </ruleset>

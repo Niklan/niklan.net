@@ -32,6 +32,7 @@ final class SourceFileFinder implements SourceFileFinderInterface {
     $finder = new Finder();
     $finder->in($working_dir);
     $finder->name($patterns);
+
     if ($finder->hasResults()) {
       $this->addToCollection($finder, $source_files, $working_dir);
     }

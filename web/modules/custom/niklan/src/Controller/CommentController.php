@@ -74,6 +74,7 @@ final class CommentController implements ContainerInjectionInterface {
    */
   protected function prepareResults(): array {
     $items = [];
+
     /** @var \Drupal\comment\CommentInterface $comment */
     foreach ($this->load() as $comment) {
       // Render separately to create flat array.

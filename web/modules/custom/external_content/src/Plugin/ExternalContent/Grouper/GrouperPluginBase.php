@@ -17,6 +17,7 @@ abstract class GrouperPluginBase extends PluginBase implements GrouperInterface 
    */
   public function group(ParsedSourceFileCollection $parsed_files): ExternalContentCollection {
     $collection = new ExternalContentCollection();
+
     foreach ($parsed_files as $parsed_file) {
       if (!$this->isApplicable($parsed_file)) {
         continue;

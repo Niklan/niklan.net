@@ -111,6 +111,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    */
   protected function validateElement(array $element): bool {
     $media = $element['#media'];
+
     if (!$media instanceof MediaInterface) {
       return FALSE;
     }
@@ -120,6 +121,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
     }
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
+
     if (!$video_url) {
       return FALSE;
     }
@@ -260,6 +262,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       ]);
 
       $domain = $this->mediaSettings->get('iframe_domain');
+
       if ($domain) {
         $url->setOption('base_url', $domain);
       }
@@ -283,6 +286,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       $url,
       $matches,
     );
+
     if (isset($matches[1])) {
       return $matches[1];
     }

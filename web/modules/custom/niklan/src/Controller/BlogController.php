@@ -70,9 +70,11 @@ final class BlogController implements ContainerInjectionInterface {
    */
   protected function getItems(): array {
     $items = [];
+
     foreach ($this->load() as $node) {
       $items[] = $this->nodeViewBuilder->view($node, 'teaser');
     }
+
     return $items;
   }
 

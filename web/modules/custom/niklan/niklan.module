@@ -223,6 +223,7 @@ function niklan_toolbar(): array {
   ];
 
   $route_match = Drupal::routeMatch();
+
   if ($route_match->getRouteName() !== 'entity.node.canonical') {
     return $items;
   }
@@ -230,6 +231,7 @@ function niklan_toolbar(): array {
   $node = $route_match->getParameter('node');
   $language = Drupal::languageManager()->getCurrentLanguage();
   $url = $node->toUrl('edit-form', ['language' => $language]);
+
   if (!$url->access()) {
     return $items;
   }
@@ -267,6 +269,7 @@ function niklan_preprocess_responsive_image(array &$variables): void {
   $responsive_style = ResponsiveImageStyle::load(
     $variables['responsive_image_style_id'],
   );
+
   if (!$responsive_style) {
     return;
   }
@@ -277,9 +280,11 @@ function niklan_preprocess_responsive_image(array &$variables): void {
   $fallback_style = ImageStyle::load(
     $responsive_style->getFallbackImageStyle(),
   );
+
   if (!$fallback_style) {
     return;
   }
+
   $fallback_image = $fallback_style->buildUri($variables['uri']);
   $image_factory->get($fallback_image);
   $variables['img_element']['#attributes']['width'] = $image_factory
@@ -319,6 +324,7 @@ function _niklan_remove_text_textarea_format(array $element, FormStateInterface 
   $is_admin = \Drupal::routeMatch()
     ->getRouteObject()
     ->hasOption('_admin_route');
+
   if ($element['#type'] === 'text_format' && !$is_admin) {
     hide($element['format']);
   }
@@ -329,6 +335,7 @@ function _niklan_remove_text_textarea_format(array $element, FormStateInterface 
       ['@common_mark_url' => 'https://commonmark.org/help/'],
     );
   }
+
   return $element;
 }
 
@@ -370,6 +377,7 @@ function niklan_preprocess_comment(array &$variables): void {
   $variables['commented_entity_url'] = $commented_url;
   $variables['permalink_url'] = $commented_url . $comment_anchor;
   $variables['homepage'] = NULL;
+
   if ($comment->get('homepage')->isEmpty()) {
     return;
   }

@@ -93,6 +93,7 @@ abstract class ElementBase implements ElementInterface {
     }
 
     $element = $this;
+
     while ($element->hasParent()) {
       $element = $element->getParent();
     }

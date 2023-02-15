@@ -74,6 +74,7 @@ final class OEmbedVideo extends FormatterBase {
     }
 
     $media_type = MediaType::load($field_definition->getTargetBundle());
+
     if ($media_type) {
       $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
 
@@ -99,6 +100,7 @@ final class OEmbedVideo extends FormatterBase {
     $element = parent::settingsForm($form, $form_state);
 
     $responsive_image_options = [];
+
     foreach ($this->responsiveImageStyleStorage->loadMultiple() as $machine_name => $responsive_image_style) {
       if (!$responsive_image_style->hasImageStyleMappings()) {
         continue;

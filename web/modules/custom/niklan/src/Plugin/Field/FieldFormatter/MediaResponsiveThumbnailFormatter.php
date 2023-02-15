@@ -66,6 +66,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     ];
     // Display this setting only if image is linked.
     $image_link_setting = $this->getSetting('image_link');
+
     if (isset($link_types[$image_link_setting])) {
       $summary[] = $link_types[$image_link_setting];
     }
@@ -88,6 +89,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     }
 
     $responsive_image_style = $this->getSetting('responsive_image_style');
+
     /** @var \Drupal\media\MediaInterface[] $media */
     foreach ($media_items as $delta => $media) {
       $cache_tags = [];
@@ -137,6 +139,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
   protected function getMediaThumbnailUrl(MediaInterface $media, EntityInterface $entity): ?Url {
     $url = NULL;
     $image_link_setting = $this->getSetting('image_link');
+
     // Check if the formatter involves a link.
     if ($image_link_setting === 'content') {
       if (!$entity->isNew()) {
@@ -146,6 +149,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     elseif ($image_link_setting === 'media') {
       $url = $media->toUrl();
     }
+
     return $url;
   }
 

@@ -33,10 +33,12 @@ final class ChainMarkupConverter {
    */
   public function convert(string $identifier, string $raw_content): string {
     $result = NULL;
+
     foreach ($this->markupPluginManager->getDefinitions() as $plugin_id => $definition) {
       if (!\in_array($identifier, $definition['markup_identifiers'])) {
         continue;
       }
+
       /** @var \Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface $plugin */
       $plugin = $this->markupPluginManager->createInstance($plugin_id);
       $result = $plugin->convert($raw_content);

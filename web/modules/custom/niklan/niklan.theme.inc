@@ -18,6 +18,7 @@ use Drupal\responsive_image\ResponsiveImageStyleInterface;
  */
 function template_preprocess_niklan_about_page(array &$variables): void {
   $about_settings = \Drupal::service('niklan.repository.about_settings');
+
   if (!$about_settings->getPhotoMediaId()) {
     return;
   }
@@ -34,6 +35,7 @@ function template_preprocess_niklan_about_page(array &$variables): void {
     $about_settings->getPhotoResponsiveImageStyleId(),
   );
   $variables['photo'] = NULL;
+
   if (!$photo_media instanceof MediaInterface || !$responsive_image_style instanceof ResponsiveImageStyleInterface) {
     return;
   }

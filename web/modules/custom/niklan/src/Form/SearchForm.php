@@ -135,6 +135,7 @@ final class SearchForm extends FormBase {
    */
   public function buildResultsUrl(FormStateInterface $form_state): Url {
     $url_options = [];
+
     // Only add if value is provided to avoid empty ?q= in URL.
     if ($form_state->getValue('query')) {
       $url_options['query']['q'] = $form_state->getValue('query');

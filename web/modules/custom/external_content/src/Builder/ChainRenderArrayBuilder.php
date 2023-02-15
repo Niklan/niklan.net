@@ -40,6 +40,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   protected function doBuildElement(ElementInterface $element): array {
     // The default value if build is not happened.
     $build = [];
+
     /** @var \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface $builder */
     foreach ($this->builders as $builder) {
       if ($builder::isApplicable($element)) {
@@ -67,6 +68,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
     if (\count($this->builders)) {
       return;
     }
+
     $definitions = $this->builderPluginManager->getDefinitions();
     \uasort($definitions, [SortArray::class, 'sortByWeightElement']);
 
@@ -88,6 +90,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    */
   protected function buildElement(ElementInterface $element): array {
     $children = [];
+
     if ($element->hasChildren()) {
       foreach ($element->getChildren() as $child) {
         $children[] = $this->buildElement($child);

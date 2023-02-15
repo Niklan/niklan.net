@@ -67,12 +67,15 @@ final class AboutSettingsForm extends FormBase {
 
     $default_image = NULL;
     $photo_media_id = $this->settingsRepository->getPhotoMediaId();
+
     if ($photo_media_id) {
       $image_media = $this->mediaStorage->load($photo_media_id);
+
       if ($image_media instanceof MediaInterface) {
         $default_image = $image_media;
       }
     }
+
     $form['photo']['media_id'] = [
       '#type' => 'entity_autocomplete',
       '#target_type' => 'media',
@@ -113,9 +116,11 @@ final class AboutSettingsForm extends FormBase {
   protected function getResponsiveImageStyleOptions(): array {
     $responsive_image_styles = $this->responsiveImageStyleStorage->loadMultiple();
     $responsive_image_style_options = [];
+
     foreach ($responsive_image_styles as $responsive_image_style) {
       $responsive_image_style_options[$responsive_image_style->id()] = $responsive_image_style->label();
     }
+
     return $responsive_image_style_options;
   }
 

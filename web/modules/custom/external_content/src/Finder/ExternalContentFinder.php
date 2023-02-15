@@ -37,6 +37,7 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
       $configuration->workingDir(),
     );
     $parsed_source_files = new ParsedSourceFileCollection();
+
     foreach ($source_files as $source_file) {
       $parsed_source_file = $this->sourceFileParser->parse($source_file);
       $parsed_source_files->add($parsed_source_file);

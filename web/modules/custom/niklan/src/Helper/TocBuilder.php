@@ -30,6 +30,7 @@ final class TocBuilder {
     }
 
     $links = [];
+
     foreach ($headings as $item) {
       /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
       $paragraph = $item->entity;
@@ -110,6 +111,7 @@ final class TocBuilder {
       }
 
       $children = $this->buildTree($links, $link['id']);
+
       if ($children) {
         $link['children'] = $children;
       }

@@ -110,6 +110,7 @@ final class SearchController implements ContainerInjectionInterface {
     }
 
     $search_results = $this->doSearch($keys);
+
     if ($search_results->getResultCount() === 0) {
       return $build;
     }
@@ -165,6 +166,7 @@ final class SearchController implements ContainerInjectionInterface {
     $keys = $request->query->get('q');
 
     $title = new TranslatableMarkup('Search');
+
     if ($keys) {
       $title = new TranslatableMarkup(
         'Search results for «%keys»',

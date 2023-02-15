@@ -45,6 +45,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    */
   public function view(ContentEntityInterface $entity): array {
     $articles = $this->findArticles();
+
     if (!$articles) {
       return [];
     }

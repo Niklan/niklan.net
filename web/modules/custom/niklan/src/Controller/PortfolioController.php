@@ -54,9 +54,11 @@ final class PortfolioController implements ContainerInjectionInterface {
    */
   protected function buildItems(): array {
     $items = [];
+
     foreach ($this->load() as $item) {
       $items[] = $this->nodeViewBuilder->view($item, 'teaser');
     }
+
     return $items;
   }
 

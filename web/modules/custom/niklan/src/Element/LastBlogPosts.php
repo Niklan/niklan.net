@@ -84,6 +84,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
     $this->viewMode = $element['#view_mode'];
 
     $items = $this->prepareResults();
+
     // Do not render element if not blog posts found.
     if (!$items) {
       return [];
@@ -106,11 +107,13 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
   protected function prepareResults(): array {
     $results = [];
     $ids = $this->findResults();
+
     if (!$ids) {
       return $results;
     }
 
     $entities = $this->getNodeStorage()->loadMultiple($ids);
+
     foreach ($entities as $entity) {
       $results[] = $this->getNodeViewBuilder()->view($entity, $this->viewMode);
     }
@@ -150,6 +153,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
     if (!isset($this->nodeStorage)) {
       $this->nodeStorage = $this->entityTypeManager->getStorage('node');
     }
+
     return $this->nodeStorage;
   }
 
@@ -163,6 +167,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
     if (!isset($this->nodeViewBuilder)) {
       $this->nodeViewBuilder = $this->entityTypeManager->getViewBuilder('node');
     }
+
     return $this->nodeViewBuilder;
   }
 

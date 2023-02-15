@@ -109,9 +109,11 @@ final class TagController implements ContainerInjectionInterface {
    */
   protected function getBlogPosts(TermInterface $term): array {
     $items = [];
+
     foreach ($this->loadBlogPosts($term) as $node) {
       $items[] = $this->nodeViewBuilder->view($node, 'teaser');
     }
+
     return $items;
   }
 

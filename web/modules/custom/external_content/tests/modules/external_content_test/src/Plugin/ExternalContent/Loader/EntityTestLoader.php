@@ -61,9 +61,11 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
     $parameters = $translation->getParams();
 
     $entity = $this->prepareDestinationEntity($external_content->id());
+
     if ($parameters->has('title')) {
       $entity->setName($parameters->get('title'));
     }
+
     $entity->set('external_content', $external_content);
     $entity->save();
   }

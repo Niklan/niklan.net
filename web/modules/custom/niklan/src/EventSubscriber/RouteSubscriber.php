@@ -29,6 +29,7 @@ final class RouteSubscriber implements EventSubscriberInterface {
   public function onAlterRoutes(RouteBuildEvent $event): void {
     $collection = $event->getRouteCollection();
     $route = $collection->get('contact.site_page');
+
     if (!$route) {
       return;
     }

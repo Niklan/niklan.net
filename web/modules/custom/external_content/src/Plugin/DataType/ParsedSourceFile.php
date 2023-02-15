@@ -36,6 +36,7 @@ final class ParsedSourceFile extends StringData {
     if (!$value instanceof ParsedSourceFileDto) {
       return;
     }
+
     $this->setParsedSourceFile($value, $notify);
   }
 
@@ -49,6 +50,7 @@ final class ParsedSourceFile extends StringData {
    */
   public function setParsedSourceFile(ParsedSourceFileDto $parsed_source_file, bool $notify = TRUE): void {
     $this->value = $parsed_source_file;
+
     // Notify the parent of any changes.
     if (!$notify || !isset($this->parent)) {
       return;

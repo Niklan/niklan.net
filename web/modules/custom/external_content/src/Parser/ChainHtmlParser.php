@@ -40,11 +40,14 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
     $content = new SourceFileContent();
     $crawler = new Crawler($html);
     $crawler = $crawler->filter('body');
+
     foreach ($crawler->children() as $child) {
       $element = $this->parseElement($child, $html_parser_state);
+
       if (!$element) {
         continue;
       }
+
       $content->addChild($element);
     }
 
@@ -58,6 +61,7 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
     if (\count($this->parsers)) {
       return;
     }
+
     $definitions = $this->htmlParserPluginManager->getDefinitions();
     \uasort($definitions, [SortArray::class, 'sortByWeightElement']);
 
@@ -79,6 +83,7 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
 
     // This is done for PHPStan that requires explicit return outside foreach.
     $element = NULL;
+
     foreach ($this->parsers as $parser) {
       if ($parser::isApplicable($node)) {
         $element = $parser->parse($node, $html_parser_state);

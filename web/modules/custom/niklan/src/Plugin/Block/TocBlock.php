@@ -50,9 +50,11 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
   public function build(): array {
     $build = [];
     $node = $this->routeMatch->getParameter('node');
+
     if (!$node instanceof NodeInterface) {
       return [];
     }
+
     $this->renderer->addCacheableDependency($build, $node);
 
     $toc_builder = new TocBuilder();

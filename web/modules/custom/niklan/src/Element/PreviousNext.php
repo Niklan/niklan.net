@@ -60,6 +60,7 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
     $cache->addCacheableDependency($entity);
 
     $previous_entity = $this->findPrevious($entity);
+
     if ($previous_entity) {
       $element['#previous_url'] = $previous_entity->toUrl()->toString();
       $element['#previous_label'] = $previous_entity->label();
@@ -67,6 +68,7 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
     }
 
     $next_entity = $this->findNext($entity);
+
     if ($next_entity) {
       $element['#next_url'] = $next_entity->toUrl()->toString();
       $element['#next_label'] = $next_entity->label();
