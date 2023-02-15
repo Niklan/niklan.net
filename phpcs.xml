@@ -44,4 +44,7 @@
   <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
+  <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
 </ruleset>
