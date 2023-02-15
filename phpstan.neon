@@ -7,7 +7,7 @@ parameters:
   excludePaths:
     - *Test.php
     - *TestBase.php
-  level: 2
+  level: 3
   drupal:
     # Some tools (e.g. PHPStorm) can execute PHPStan from different directories,
     # this can lead to problems with Drupal Root detection.

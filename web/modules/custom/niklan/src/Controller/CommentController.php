@@ -4,8 +4,8 @@ namespace Drupal\niklan\Controller;
 
 use Drupal\comment\CommentInterface;
 use Drupal\comment\CommentStorageInterface;
-use Drupal\comment\CommentViewBuilder;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,7 +26,7 @@ final class CommentController implements ContainerInjectionInterface {
   /**
    * The comment view builder.
    */
-  protected CommentViewBuilder $commentViewBuilder;
+  protected EntityViewBuilderInterface $commentViewBuilder;
 
   /**
    * {@inheritdoc}

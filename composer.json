@@ -129,7 +129,7 @@
         "phpcs": "vendor/bin/phpcs -ps",
         "phpcbf": "vendor/bin/phpcbf -p",
         "phpstan": "vendor/bin/phpstan analyse",
-        "phpstan-baseline": "vendor/bin/phpstan --b",
+        "phpstan-baseline": "vendor/bin/phpstan -b",
         "phpunit": "vendor/bin/phpunit",
         "phpunit-coverage": "vendor/bin/phpunit --coverage-text",
         "d4d-phpunit": "scripts/d4d-php.sh vendor/bin/phpunit",

@@ -2,7 +2,8 @@
 
 namespace Drupal\external_content_test\Plugin\ExternalContent\Loader;
 
-use Drupal\Core\Entity\ContentEntityStorageInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\external_content\Dto\ExternalContent;
@@ -23,7 +24,7 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
   /**
    * The entity test storage.
    */
-  protected ContentEntityStorageInterface $entityTestStorage;
+  protected EntityStorageInterface $entityTestStorage;
 
   /**
    * {@inheritdoc}
@@ -62,6 +63,10 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
 
     $entity = $this->prepareDestinationEntity($external_content->id());
 
+    if (!$entity instanceof EntityTest) {
+      return;
+    }
+
     if ($parameters->has('title')) {
       $entity->setName($parameters->get('title'));
     }
@@ -75,8 +80,11 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
    *
    * @param string $external_id
    *   The external ID.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   *   The testing entity. NULL if error occurs while loading.
    */
-  protected function prepareDestinationEntity(string $external_id): EntityTest {
+  protected function prepareDestinationEntity(string $external_id): ?EntityInterface {
     $ids = $this
       ->entityTestStorage
       ->getQuery()

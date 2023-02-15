@@ -4,6 +4,7 @@ namespace Drupal\niklan\Element;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element\RenderElement;
@@ -84,13 +85,13 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
   /**
    * Looking for previously published article.
    *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The current entity.
    *
-   * @return \Drupal\Core\Entity\ContentEntityInterface|null
+   * @return \Drupal\Core\Entity\EntityInterface|null
    *   The previous to current entity.
    */
-  protected function findPrevious(ContentEntityInterface $entity): ?ContentEntityInterface {
+  protected function findPrevious(EntityInterface $entity): ?EntityInterface {
     if (!\method_exists($entity, 'getCreatedTime')) {
       return NULL;
     }
@@ -110,13 +111,13 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
   /**
    * Looking for next published article.
    *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The current entity.
    *
-   * @return \Drupal\Core\Entity\ContentEntityInterface|null
+   * @return \Drupal\Core\Entity\EntityInterface|null
    *   The previous to current entity.
    */
-  protected function findNext(ContentEntityInterface $entity): ?ContentEntityInterface {
+  protected function findNext(EntityInterface $entity): ?EntityInterface {
     if (!\method_exists($entity, 'getCreatedTime')) {
       return NULL;
     }
