@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Parser;
 
@@ -42,11 +40,15 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
     $content = new SourceFileContent();
     $crawler = new Crawler($html);
     $crawler = $crawler->filter('body');
+
     foreach ($crawler->children() as $child) {
       $element = $this->parseElement($child, $html_parser_state);
-      if ($element) {
-        $content->addChild($element);
+
+      if (!$element) {
+        continue;
       }
+
+      $content->addChild($element);
     }
 
     return $content;
@@ -56,14 +58,16 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
    * Instantiates HTML parsers.
    */
   protected function initParsers(): void {
-    if (!empty($this->parsers)) {
+    if (\count($this->parsers)) {
       return;
     }
+
     $definitions = $this->htmlParserPluginManager->getDefinitions();
     \uasort($definitions, [SortArray::class, 'sortByWeightElement']);
 
     foreach (\array_keys($definitions) as $parser_id) {
-      $this->parsers[$parser_id] = $this->htmlParserPluginManager
+      $this->parsers[$parser_id] = $this
+        ->htmlParserPluginManager
         ->createInstance($parser_id);
     }
   }
@@ -71,7 +75,7 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
   /**
    * {@inheritdoc}
    */
-  public function parseElement(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ElementInterface {
+  public function parseElement(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ?ElementInterface {
     // Make sure parsers instantiated even here, because this method can be
     // called before or without ::parseRoot() on DOM element directly. This most
     // likely happens only for testing.
@@ -79,9 +83,11 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
 
     // This is done for PHPStan that requires explicit return outside foreach.
     $element = NULL;
+
     foreach ($this->parsers as $parser) {
       if ($parser::isApplicable($node)) {
         $element = $parser->parse($node, $html_parser_state);
+
         break;
       }
     }

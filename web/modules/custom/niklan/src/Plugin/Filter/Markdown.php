@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Plugin\Filter;
 
@@ -26,6 +24,7 @@ final class Markdown extends FilterBase {
   public function process($text, $langcode): FilterProcessResult {
     $converter = new CommonMarkConverter();
     $text = $converter->convertToHtml($text);
+
     return new FilterProcessResult($text);
   }
 

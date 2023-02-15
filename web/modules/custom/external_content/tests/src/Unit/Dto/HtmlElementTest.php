@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
@@ -33,7 +31,10 @@ final class HtmlElementTest extends UnitTestCase {
 
     $element_2 = new HtmlElement('div', ['data-test' => 'foo-bar']);
     self::assertNotEmpty($element_2->getAttributes());
-    self::assertEquals(['data-test' => 'foo-bar'], $element_2->getAttributes());
+    self::assertEquals(
+      ['data-test' => 'foo-bar'],
+      $element_2->getAttributes(),
+    );
     self::assertEquals('foo-bar', $element_2->getAttribute('data-test'));
   }
 

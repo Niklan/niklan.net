@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\Markup;
 
@@ -25,7 +23,7 @@ final class MarkupPluginManager extends DefaultPluginManager implements MarkupPl
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface',
-      '\Drupal\external_content\Annotation\ExternalContentMarkup'
+      '\Drupal\external_content\Annotation\ExternalContentMarkup',
     );
 
     $this->alterInfo('external_content_markup_info');

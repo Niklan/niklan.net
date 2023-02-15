@@ -56,11 +56,11 @@
         "niklan/niklan": "^1.0"
     },
     "require-dev": {
-        "weitzman/drupal-test-traits": "^2.0",
-        "chi-teck/drupal-coder-extension": "^1.0",
+        "chi-teck/drupal-coder-extension": "2.x",
         "drupal/core-dev": "^10.0",
         "mglaman/drupal-check": "^1.3",
-        "phpspec/prophecy-phpunit": "^2.0"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "weitzman/drupal-test-traits": "^2.0"
     },
     "autoload-dev": {
         "psr-4": {
@@ -127,7 +127,7 @@
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs -ps",
-        "phpcbf": "vendor/bin/phpcbf",
+        "phpcbf": "vendor/bin/phpcbf -p",
         "phpstan": "vendor/bin/phpstan analyse",
         "phpunit": "vendor/bin/phpunit",
         "phpunit-coverage": "vendor/bin/phpunit --coverage-text",

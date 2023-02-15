@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\Loader;
 
@@ -22,7 +20,7 @@ final class LoaderPluginManager extends DefaultPluginManager implements LoaderPl
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface',
-      '\Drupal\external_content\Annotation\ExternalContentLoader'
+      '\Drupal\external_content\Annotation\ExternalContentLoader',
     );
 
     $this->alterInfo('external_content_loader_info');

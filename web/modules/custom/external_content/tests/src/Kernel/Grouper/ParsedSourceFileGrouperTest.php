@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Grouper;
 
@@ -68,7 +66,10 @@ final class ParsedSourceFileGrouperTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->grouper = $this->container->get(ParsedSourceFileGrouperInterface::class);
+
+    $this->grouper = $this->container->get(
+      ParsedSourceFileGrouperInterface::class,
+    );
   }
 
 }

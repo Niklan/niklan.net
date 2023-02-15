@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\niklan\Unit\EventSubscriber;
 
@@ -31,11 +29,13 @@ final class RouteSubscriberTest extends UnitTestCase {
 
     $route_prophecy = $this->prophesize(Route::class);
     $route_prophecy->getDefault(Argument::any())->willReturn(NULL);
-    $route_prophecy->setDefault(Argument::type('string'), Argument::type('string'))->will(static function ($args) use ($route_prophecy): Route {
-      $route_prophecy->getDefault($args[0])->willReturn($args[1]);
+    $route_prophecy
+      ->setDefault(Argument::type('string'), Argument::type('string'))
+      ->will(static function ($args) use ($route_prophecy): Route {
+        $route_prophecy->getDefault($args[0])->willReturn($args[1]);
 
-      return $route_prophecy->reveal();
-    });
+        return $route_prophecy->reveal();
+      });
     $route = $route_prophecy->reveal();
 
     $route_collection = $this->prophesize(RouteCollection::class);
@@ -47,7 +47,10 @@ final class RouteSubscriberTest extends UnitTestCase {
     $route_subscriber = new RouteSubscriber();
     $route_subscriber->onAlterRoutes($event->reveal());
 
-    $this->assertEquals('\Drupal\niklan\Controller\StaticPagesController::contact', $route->getDefault('_controller'));
+    $this->assertEquals(
+      '\Drupal\niklan\Controller\StaticPagesController::contact',
+      $route->getDefault('_controller'),
+    );
   }
 
 }

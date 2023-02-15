@@ -1,9 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Grouper;
 
+use Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperInterface;
 use Drupal\external_content\Dto\ExternalContentCollection;
 use Drupal\external_content\Dto\ParsedSourceFileCollection;
 use Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManagerInterface;
@@ -27,8 +26,8 @@ final class ParsedSourceFileGrouper implements ParsedSourceFileGrouperInterface 
    * {@inheritdoc}
    */
   public function group(ParsedSourceFileCollection $parsed_source_files, string $grouper_id = 'params'): ExternalContentCollection {
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperInterface $plugin */
     $plugin = $this->grouperPluginManager->createInstance($grouper_id);
+    \assert($plugin instanceof GrouperInterface);
 
     return $plugin->group($parsed_source_files);
   }

@@ -1,9 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Builder;
 
+use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface;
 use Drupal\Component\Utility\SortArray;
 use Drupal\external_content\Dto\ElementInterface;
 use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManagerInterface;
@@ -15,6 +14,8 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
 
   /**
    * An array with available builders.
+   *
+   * @var \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface[]
    */
   protected array $builders = [];
 
@@ -40,10 +41,13 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   protected function doBuildElement(ElementInterface $element): array {
     // The default value if build is not happened.
     $build = [];
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface $builder */
+
     foreach ($this->builders as $builder) {
+      \assert($builder instanceof BuilderInterface);
+
       if ($builder::isApplicable($element)) {
         $build = $builder->build($element);
+
         break;
       }
     }
@@ -64,9 +68,10 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    * Instantiates builder plugins.
    */
   protected function initBuilders(): void {
-    if (!empty($this->builders)) {
+    if (\count($this->builders)) {
       return;
     }
+
     $definitions = $this->builderPluginManager->getDefinitions();
     \uasort($definitions, [SortArray::class, 'sortByWeightElement']);
 
@@ -88,6 +93,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    */
   protected function buildElement(ElementInterface $element): array {
     $children = [];
+
     if ($element->hasChildren()) {
       foreach ($element->getChildren() as $child) {
         $children[] = $this->buildElement($child);

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Form;
 
@@ -40,9 +38,11 @@ final class AboutSettingsForm extends FormBase {
     $entity_type_manager = $container->get('entity_type.manager');
 
     $instance = new self();
-    $instance->settingsRepository = $container->get('niklan.repository.about_settings');
+    $instance->settingsRepository = $container
+      ->get('niklan.repository.about_settings');
     $instance->mediaStorage = $entity_type_manager->getStorage('media');
-    $instance->responsiveImageStyleStorage = $entity_type_manager->getStorage('responsive_image_style');
+    $instance->responsiveImageStyleStorage = $entity_type_manager
+      ->getStorage('responsive_image_style');
 
     return $instance;
   }
@@ -66,12 +66,16 @@ final class AboutSettingsForm extends FormBase {
     ];
 
     $default_image = NULL;
-    if ($photo_media_id = $this->settingsRepository->getPhotoMediaId()) {
+    $photo_media_id = $this->settingsRepository->getPhotoMediaId();
+
+    if ($photo_media_id) {
       $image_media = $this->mediaStorage->load($photo_media_id);
+
       if ($image_media instanceof MediaInterface) {
         $default_image = $image_media;
       }
     }
+
     $form['photo']['media_id'] = [
       '#type' => 'entity_autocomplete',
       '#target_type' => 'media',
@@ -79,7 +83,9 @@ final class AboutSettingsForm extends FormBase {
         'target_bundles' => ['image'],
       ],
       '#title' => new TranslatableMarkup('Photo'),
-      '#description' => new TranslatableMarkup('Media entity that contains a photo.'),
+      '#description' => new TranslatableMarkup(
+          'Media entity that contains a photo.',
+      ),
       '#default_value' => $default_image,
     ];
 
@@ -110,9 +116,11 @@ final class AboutSettingsForm extends FormBase {
   protected function getResponsiveImageStyleOptions(): array {
     $responsive_image_styles = $this->responsiveImageStyleStorage->loadMultiple();
     $responsive_image_style_options = [];
+
     foreach ($responsive_image_styles as $responsive_image_style) {
       $responsive_image_style_options[$responsive_image_style->id()] = $responsive_image_style->label();
     }
+
     return $responsive_image_style_options;
   }
 

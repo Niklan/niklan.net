@@ -1,9 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Grouper;
 
+use Drupal\external_content\Plugin\ExternalContent\Grouper\Params;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\external_content\Dto\ExternalContent;
@@ -55,8 +54,8 @@ final class ParamsTest extends ExternalContentTestBase {
     $file_collection->add($file_b);
     $file_collection->add($file_c);
 
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Grouper\Params $plugin */
     $plugin = $this->grouperPluginManager->createInstance('params');
+    \assert($plugin instanceof Params);
     $external_content_collection = $plugin->group($file_collection);
 
     self::assertCount(2, $external_content_collection);
@@ -93,7 +92,9 @@ final class ParamsTest extends ExternalContentTestBase {
       ->willReturn($default_language->reveal());
 
     $this->container->set('language_manager', $language_manager->reveal());
-    $this->grouperPluginManager = $this->container->get(GrouperPluginManagerInterface::class);
+    $this->grouperPluginManager = $this->container->get(
+      GrouperPluginManagerInterface::class,
+    );
   }
 
 }

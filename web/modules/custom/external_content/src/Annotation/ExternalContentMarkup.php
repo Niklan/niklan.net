@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Annotation;
 
@@ -31,6 +29,8 @@ final class ExternalContentMarkup extends Plugin {
    * - Plain text: 'txt'
    * - HTML: 'html', 'htm'
    * - Markdown: 'md', 'markdown'
+   *
+   * @var string[]
    */
   public array $markup_identifiers = [];
 

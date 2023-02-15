@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Plugin\paragraphs\Behavior;
 
@@ -27,7 +25,7 @@ final class CodeLineHighlight extends ParagraphsBehaviorBase {
    * {@inheritdoc}
    */
   public static function isApplicable(ParagraphsType $paragraphs_type): bool {
-    return $paragraphs_type->id() == 'code';
+    return $paragraphs_type->id() === 'code';
   }
 
   /**
@@ -35,7 +33,11 @@ final class CodeLineHighlight extends ParagraphsBehaviorBase {
    */
   public function view(array &$build, Paragraph $paragraph, EntityViewDisplayInterface $display, $view_mode): void {
     $build['#attached']['library'][] = 'niklan/code_line_highlight';
-    $build['#attributes']['data-highlighted-lines'] = $paragraph->getBehaviorSetting($this->getPluginId(), 'highlighted_lines', '');
+    $build['#attributes']['data-highlighted-lines'] = $paragraph->getBehaviorSetting(
+      $this->getPluginId(),
+      'highlighted_lines',
+      '',
+    );
   }
 
   /**
@@ -45,8 +47,14 @@ final class CodeLineHighlight extends ParagraphsBehaviorBase {
     $form['highlighted_lines'] = [
       '#type' => 'textfield',
       '#title' => $this->t("Highlighted lines"),
-      '#description' => $this->t('Separate line numbers with commas, and range with :.'),
-      '#default_value' => $paragraph->getBehaviorSetting($this->getPluginId(), 'highlighted_lines', ''),
+      '#description' => $this->t(
+        'Separate line numbers with commas, and range with :.',
+      ),
+      '#default_value' => $paragraph->getBehaviorSetting(
+        $this->getPluginId(),
+        'highlighted_lines',
+        '',
+      ),
     ];
 
     return $form;

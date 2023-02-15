@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\Grouper;
 
@@ -18,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Matter).
  *
  * Example:
+ *
  * @code
  * ---
  * id: foo-bar
@@ -66,12 +65,22 @@ final class Params extends GrouperPluginBase implements ContainerFactoryPluginIn
     $params = $parsed_file->getParams();
     $id = $params->get('id');
     // If language is not provided, use sites default.
-    $language = $params->get('language') ?? $this->languageManager->getDefaultLanguage()->getId();
+    $language = $params->get('language') ?? $this->getDefaultLanguageId();
 
     $external_content = $collection->get($id) ?? new ExternalContent($id);
     $external_content->addTranslation($language, $parsed_file);
 
     $collection->add($external_content);
+  }
+
+  /**
+   * Gets sites default language ID.
+   *
+   * @return string
+   *   The language ID.
+   */
+  public function getDefaultLanguageId(): string {
+    return $this->languageManager->getDefaultLanguage()->getId();
   }
 
 }

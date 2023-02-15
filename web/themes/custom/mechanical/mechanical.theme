@@ -1,4 +1,7 @@
-<?php
+<?php declare(strict_types = 1);
+
+// phpcs:ignoreFile
+// Theme will be reworked soon, no point to do heavy refactoring.
 
 /**
  * @file
@@ -36,10 +39,12 @@ function mechanical_preprocess(array &$variables): void {
   ];
 
   $theme_hook_original = $variables['theme_hook_original'];
-  if (array_key_exists($theme_hook_original, $dynamic_libraries)) {
-    foreach ($dynamic_libraries[$theme_hook_original] as $library) {
-      $variables['#attached']['library'][] = $library;
-    }
+  if (!array_key_exists($theme_hook_original, $dynamic_libraries)) {
+    return;
+  }
+
+  foreach ($dynamic_libraries[$theme_hook_original] as $library) {
+    $variables['#attached']['library'][] = $library;
   }
 }
 
@@ -55,10 +60,12 @@ function mechanical_preprocess_region(array &$variables): void {
   ];
 
   $region = $variables['region'];
-  if (array_key_exists($region, $dynamic_libraries)) {
-    foreach ($dynamic_libraries[$region] as $library) {
-      $variables['#attached']['library'][] = $library;
-    }
+  if (!array_key_exists($region, $dynamic_libraries)) {
+    return;
+  }
+
+  foreach ($dynamic_libraries[$region] as $library) {
+    $variables['#attached']['library'][] = $library;
   }
 }
 
@@ -75,10 +82,12 @@ function mechanical_preprocess_block(array &$variables): void {
   ];
 
   $block_id = $variables['block_id'];
-  if (array_key_exists($block_id, $dynamic_libraries)) {
-    foreach ($dynamic_libraries[$block_id] as $library) {
-      $variables['#attached']['library'][] = $library;
-    }
+  if (!array_key_exists($block_id, $dynamic_libraries)) {
+    return;
+  }
+
+  foreach ($dynamic_libraries[$block_id] as $library) {
+    $variables['#attached']['library'][] = $library;
   }
 }
 
@@ -111,19 +120,21 @@ function mechanical_preprocess_field(array &$variables): void {
   $entity_type = $variables['entity_type'];
   $bundle = $variables['bundle'];
   $field_name = $variables['field_name'];
-  if (array_key_exists($entity_type, $dynamic_libraries)) {
-    $library_bundles = $dynamic_libraries[$entity_type];
-    foreach ($library_bundles as $library_bundle => $library_fields) {
-      if ($library_bundle != $bundle && $library_bundle != '*') {
+  if (!array_key_exists($entity_type, $dynamic_libraries)) {
+    return;
+  }
+
+  $library_bundles = $dynamic_libraries[$entity_type];
+  foreach ($library_bundles as $library_bundle => $library_fields) {
+    if ($library_bundle !== $bundle && $library_bundle !== '*') {
+      continue;
+    }
+    foreach ($library_fields as $library_field => $field_libraries) {
+      if ($library_field !== $field_name) {
         continue;
       }
-      foreach ($library_fields as $library_field => $field_libraries) {
-        if ($library_field != $field_name) {
-          continue;
-        }
-        foreach ($field_libraries as $library) {
-          $variables['#attached']['library'][] = $library;
-        }
+      foreach ($field_libraries as $library) {
+        $variables['#attached']['library'][] = $library;
       }
     }
   }
@@ -148,11 +159,11 @@ function mechanical_preprocess_comment(array &$variables): void {
   $bundle = $comment->bundle();
   $view_mode = $variables['elements']['#view_mode'];
   foreach ($dynamic_libraries as $libraries_bundle => $bundle_view_modes) {
-    if ($libraries_bundle != '*' && $libraries_bundle != $bundle) {
+    if ($libraries_bundle !== '*' && $libraries_bundle !== $bundle) {
       continue;
     }
     foreach ($bundle_view_modes as $libraries_view_mode => $libraries) {
-      if ($libraries_view_mode != '*' && $libraries_view_mode != $view_mode) {
+      if ($libraries_view_mode !== '*' && $libraries_view_mode !== $view_mode) {
         continue;
       }
       foreach ($libraries as $library) {
@@ -178,7 +189,7 @@ function mechanical_preprocess_paragraph(array &$variables): void {
   $paragraph = $variables['paragraph'];
   $bundle = $paragraph->bundle();
   foreach ($dynamic_libraries as $bundle_to_attach => $libraries) {
-    if ($bundle_to_attach != $bundle) {
+    if ($bundle_to_attach !== $bundle) {
       continue;
     }
     foreach ($libraries as $library) {
@@ -212,11 +223,11 @@ function mechanical_preprocess_node(array &$variables): void {
   $bundle = $node->bundle();
   $view_mode = $variables['elements']['#view_mode'];
   foreach ($dynamic_libraries as $libraries_bundle => $bundle_view_modes) {
-    if ($libraries_bundle != '*' && $libraries_bundle != $bundle) {
+    if ($libraries_bundle !== '*' && $libraries_bundle !== $bundle) {
       continue;
     }
     foreach ($bundle_view_modes as $libraries_view_mode => $libraries) {
-      if ($libraries_view_mode != '*' && $libraries_view_mode != $view_mode) {
+      if ($libraries_view_mode !== '*' && $libraries_view_mode !== $view_mode) {
         continue;
       }
       foreach ($libraries as $library) {
@@ -247,11 +258,20 @@ function mechanical_preprocess_paragraph__heading(array &$variables): void {
   /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
   $paragraph = $variables['paragraph'];
 
-  $title = strip_tags($paragraph->get('field_title')->getString(), '<code><strong><em>');
+  $title = strip_tags(
+    $paragraph->get('field_title')->getString(),
+    '<code><strong><em>',
+  );
 
-  $variables['heading_level'] = $paragraph->get('field_heading_level')->getString();
+  $variables['heading_level'] = $paragraph
+    ->get('field_heading_level',)
+    ->getString();
   $variables['title'] = $title;
-  $variables['anchor'] = Anchor::generate($title, 'druki_content_toc_theme', Anchor::REUSE);
+  $variables['anchor'] = Anchor::generate(
+    $title,
+    'druki_content_toc_theme',
+    Anchor::REUSE,
+  );
 
   $variables['bem_modifiers'][] = $variables['heading_level'];
 }

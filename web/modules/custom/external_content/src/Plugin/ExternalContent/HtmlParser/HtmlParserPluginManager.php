@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\HtmlParser;
 
@@ -27,11 +25,14 @@ final class HtmlParserPluginManager extends DefaultPluginManager implements Html
       $namespaces,
       $module_handler,
       '\Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface',
-      '\Drupal\external_content\Annotation\ExternalContentHtmlParser'
+      '\Drupal\external_content\Annotation\ExternalContentHtmlParser',
     );
 
     $this->alterInfo('external_content_html_parser_info');
-    $this->setCacheBackend($cache_backend, 'external_content_html_parser_plugins');
+    $this->setCacheBackend(
+      $cache_backend,
+      'external_content_html_parser_plugins',
+    );
   }
 
 }

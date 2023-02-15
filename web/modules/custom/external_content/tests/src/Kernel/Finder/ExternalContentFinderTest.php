@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
@@ -79,7 +77,9 @@ final class ExternalContentFinderTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->externalContentFinder = $this->container->get(ExternalContentFinderInterface::class);
+    $this->externalContentFinder = $this->container->get(
+        ExternalContentFinderInterface::class,
+    );
   }
 
 }

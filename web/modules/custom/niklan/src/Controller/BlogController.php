@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Controller;
 
@@ -72,9 +70,11 @@ final class BlogController implements ContainerInjectionInterface {
    */
   protected function getItems(): array {
     $items = [];
+
     foreach ($this->load() as $node) {
       $items[] = $this->nodeViewBuilder->view($node, 'teaser');
     }
+
     return $items;
   }
 
@@ -86,6 +86,7 @@ final class BlogController implements ContainerInjectionInterface {
    */
   protected function load(): array {
     $ids = $this->getEntityIds();
+
     return $this->nodeStorage->loadMultiple($ids);
   }
 

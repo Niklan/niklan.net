@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Plugin\Field\FieldType;
 
@@ -103,7 +101,9 @@ final class RenderedParsedSourceFileFormatterTest extends ExternalContentTestBas
     $content = $this->display->build($entity);
     $this->render($content);
 
-    self::assertRaw('<p data-foo="bar">Hello, World! <a href="https://example.com">This is a link</a>');
+    self::assertRaw(
+      '<p data-foo="bar">Hello, World! <a href="https://example.com">This is a link</a>',
+    );
   }
 
 }

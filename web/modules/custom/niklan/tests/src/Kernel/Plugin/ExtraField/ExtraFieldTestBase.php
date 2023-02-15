@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\ExtraField;
 
@@ -36,7 +34,9 @@ abstract class ExtraFieldTestBase extends NiklanTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->extraFieldDisplayManager = $this->container->get('plugin.manager.extra_field_display');
+    $this->extraFieldDisplayManager = $this
+      ->container
+      ->get('plugin.manager.extra_field_display');
     $this->renderer = $this->container->get('renderer');
   }
 

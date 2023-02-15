@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\Configuration;
 
@@ -47,9 +45,11 @@ final class Configuration implements ConfigurationInterface {
    */
   public function __construct(string $plugin_id, array $plugin_definition) {
     $this->id = $plugin_id;
+
     if (!\array_key_exists('working_dir', $plugin_definition)) {
       throw new BadPluginDefinitionException($plugin_id, 'working_dir');
     }
+
     $this->workingDir = $plugin_definition['working_dir'];
     $this->grouper = $plugin_definition['grouper'] ?? self::DEFAULT_GROUPER_PLUGIN_ID;
   }

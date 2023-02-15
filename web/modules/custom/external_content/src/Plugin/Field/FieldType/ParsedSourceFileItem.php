@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\Field\FieldType;
 
@@ -27,7 +25,8 @@ final class ParsedSourceFileItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
-    $properties['value'] = DataDefinition::create('external_content_parsed_source_file')
+    $data_type = 'external_content_parsed_source_file';
+    $properties['value'] = DataDefinition::create($data_type)
       ->setLabel((string) new TranslatableMarkup('Parsed source file'))
       ->setRequired(TRUE);
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d94115e1a5a9f34965fd78280ca5cefa",
+    "content-hash": "56d942984b23019ee776e89933a057ca",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8137,24 +8137,24 @@
         },
         {
             "name": "chi-teck/drupal-coder-extension",
-            "version": "1.3.0",
+            "version": "2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Chi-teck/drupal-coder-extension.git",
-                "reference": "e4ef0a2428ab05a2bc29e21fbdebd1592b5226e3"
+                "reference": "445424fb3803768109c2a16231eff3ac8a0d6bf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/e4ef0a2428ab05a2bc29e21fbdebd1592b5226e3",
-                "reference": "e4ef0a2428ab05a2bc29e21fbdebd1592b5226e3",
+                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/445424fb3803768109c2a16231eff3ac8a0d6bf9",
+                "reference": "445424fb3803768109c2a16231eff3ac8a0d6bf9",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.3",
-                "slevomat/coding-standard": "^7.0.18 || ^8.0"
+                "drupal/coder": "^8.3",
+                "php": ">=8.1",
+                "slevomat/coding-standard": "^8.8"
             },
             "suggest": {
-                "drupal/coder": "",
                 "squizlabs/php_codesniffer": ""
             },
             "type": "library",
@@ -8165,9 +8165,9 @@
             "description": "An extension of Drupal coding standards.",
             "support": {
                 "issues": "https://github.com/Chi-teck/drupal-coder-extension/issues",
-                "source": "https://github.com/Chi-teck/drupal-coder-extension/tree/1.3.0"
+                "source": "https://github.com/Chi-teck/drupal-coder-extension/tree/2.x"
             },
-            "time": "2022-09-18T07:54:14+00:00"
+            "time": "2023-02-14T15:06:58+00:00"
         },
         {
             "name": "composer/ca-bundle",

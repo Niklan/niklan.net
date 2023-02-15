@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Dto;
 
@@ -95,6 +93,7 @@ abstract class ElementBase implements ElementInterface {
     }
 
     $element = $this;
+
     while ($element->hasParent()) {
       $element = $element->getParent();
     }

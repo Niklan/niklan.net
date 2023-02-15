@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Plugin\DataType;
 
@@ -9,6 +7,7 @@ use Drupal\external_content\Dto\ParsedSourceFile;
 use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Plugin\DataType\ParsedSourceFile as ParsedSourceFileDataType;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -27,9 +26,11 @@ final class ParsedSourceFileTest extends ExternalContentTestBase {
    * Tests that data type works as expected.
    */
   public function testDataType(): void {
-    $definition = $this->typedDataManager->createDataDefinition('external_content_parsed_source_file');
-    /** @var \Drupal\external_content\Plugin\DataType\ParsedSourceFile $typed_data */
+    $definition = $this->typedDataManager->createDataDefinition(
+      'external_content_parsed_source_file',
+    );
     $typed_data = $this->typedDataManager->create($definition);
+    \assert($typed_data instanceof ParsedSourceFileDataType);
     self::assertNull($typed_data->getParsedSourceFile());
 
     $typed_data->setValue('foo-bar');
@@ -41,7 +42,10 @@ final class ParsedSourceFileTest extends ExternalContentTestBase {
       new SourceFileContent(),
     );
     $typed_data->setValue($parsed_source_file);
-    self::assertEquals($parsed_source_file, $typed_data->getParsedSourceFile());
+    self::assertEquals(
+      $parsed_source_file,
+      $typed_data->getParsedSourceFile(),
+    );
   }
 
   /**
@@ -49,6 +53,7 @@ final class ParsedSourceFileTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+
     $this->typedDataManager = $this->container->get('typed_data_manager');
   }
 

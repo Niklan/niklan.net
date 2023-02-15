@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Plugin\ExtraField\Display\Node\BlogPost;
 
@@ -43,6 +41,7 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->cache = $container->get('cache.data');
+
     return $instance;
   }
 
@@ -104,13 +103,15 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
    */
   protected function getEstimatedReadTime(): int {
     $cid = __METHOD__ . ':' . $this->getEntity()->id();
-    if ($cached = $this->cache->get($cid)) {
-      $estimated_minutes = $cached->data;
+    $cache = $this->cache->get($cid);
+
+    if ($cache) {
+      $estimated_minutes = $cache->data;
     }
     else {
-      $estimated_minutes = EstimatedReadTimeCalculator::calculate(
-        $this->getEntity()->get('field_content'),
-      );
+      $calculator = new EstimatedReadTimeCalculator();
+      $estimated_minutes = $calculator
+        ->calculate($this->getEntity()->get('field_content'));
       $this->cache->set($cid, $estimated_minutes);
     }
 

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Plugin\Filter;
 
@@ -33,6 +31,7 @@ final class PrismJsHighlighter extends FilterBase {
    */
   public function process($text, $langcode): FilterProcessResult {
     $result = new FilterProcessResult($text);
+
     if (!$this->isContainCode($text)) {
       return $result;
     }

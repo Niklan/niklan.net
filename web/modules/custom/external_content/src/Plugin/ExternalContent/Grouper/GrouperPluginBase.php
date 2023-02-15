@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\Grouper;
 
@@ -19,10 +17,13 @@ abstract class GrouperPluginBase extends PluginBase implements GrouperInterface 
    */
   public function group(ParsedSourceFileCollection $parsed_files): ExternalContentCollection {
     $collection = new ExternalContentCollection();
+
     foreach ($parsed_files as $parsed_file) {
-      if ($this->isApplicable($parsed_file)) {
-        $this->doGroup($parsed_file, $collection);
+      if (!$this->isApplicable($parsed_file)) {
+        continue;
       }
+
+      $this->doGroup($parsed_file, $collection);
     }
 
     return $collection;

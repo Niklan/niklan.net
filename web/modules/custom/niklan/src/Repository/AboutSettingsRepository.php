@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Repository;
 
@@ -38,7 +36,10 @@ final class AboutSettingsRepository implements AboutSettingsRepositoryInterface 
    * {@inheritdoc}
    */
   public function setPhotoMediaId(?string $id): AboutSettingsRepositoryInterface {
-    $id ? $this->store->set('photo_media_id', $id) : $this->store->delete('photo_media_id');
+    $id
+      ? $this->store->set('photo_media_id', $id)
+      : $this->store->delete('photo_media_id');
+
     return $this;
   }
 
@@ -54,7 +55,10 @@ final class AboutSettingsRepository implements AboutSettingsRepositoryInterface 
    */
   public function setPhotoResponsiveImageStyleId(?string $id): AboutSettingsRepositoryInterface {
     // Consider an empty string as NULL.
-    !empty($id) ? $this->store->set('photo_responsive_image_style', $id) : $this->store->delete('photo_responsive_image_style');
+    $id
+      ? $this->store->set('photo_responsive_image_style', $id)
+      : $this->store->delete('photo_responsive_image_style');
+
     return $this;
   }
 

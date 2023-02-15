@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Element;
 
@@ -56,10 +54,13 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->oEmbedFetcher = $container->get('media.oembed.resource_fetcher');
     $instance->oEmbedResolver = $container->get('media.oembed.url_resolver');
-    $instance->mediaSettings = $container->get('config.factory')
+    $instance->mediaSettings = $container
+      ->get('config.factory')
       ->get('media.settings');
-    $instance->iFrameUrlHelper = $container->get('media.oembed.iframe_url_helper');
-    $instance->responsiveImageStyleStorage = $container->get('entity_type.manager')
+    $instance->iFrameUrlHelper = $container
+      ->get('media.oembed.iframe_url_helper');
+    $instance->responsiveImageStyleStorage = $container
+      ->get('entity_type.manager')
       ->getStorage('responsive_image_style');
 
     return $instance;
@@ -110,6 +111,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    */
   protected function validateElement(array $element): bool {
     $media = $element['#media'];
+
     if (!$media instanceof MediaInterface) {
       return FALSE;
     }
@@ -119,27 +121,63 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
     }
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
-    if (empty($video_url)) {
+
+    if (!$video_url) {
       return FALSE;
     }
 
+    // There is no need to continued if resource didn't respond for some reason.
+    if (!$this->validateResource($video_url)) {
+      return FALSE;
+    }
+
+    return $this->validateResponsiveImageStyle($element);
+  }
+
+  /**
+   * Validates resource availability.
+   *
+   * @param string $video_url
+   *   The video URL.
+   *
+   * @return bool
+   *   TRUE if resource if available, FALSE otherwise.
+   */
+  protected function validateResource(string $video_url): bool {
     try {
       $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);
       $this->oEmbedFetcher->fetchResource($resource_url);
+
+      return TRUE;
     }
-    catch (ResourceException $exception) {
+    catch (ResourceException) {
+      return FALSE;
+    }
+  }
+
+  /**
+   * Validates responsive image style.
+   *
+   * @param array $element
+   *   The render element.
+   *
+   * @return bool
+   *   TRUE if responsive image is valid, FALSE otherwise.
+   */
+  protected function validateResponsiveImageStyle(array $element): bool {
+    if (!$element['#preview_responsive_image_style']) {
       return FALSE;
     }
 
-    if (empty($element['#preview_responsive_image_style'])) {
-      return FALSE;
-    }
+    $responsive_image_style = $this->responsiveImageStyleStorage->load(
+      $element['#preview_responsive_image_style'],
+    );
 
-    $responsive_image_style = $this->responsiveImageStyleStorage->load($element['#preview_responsive_image_style']);
     if (!$responsive_image_style) {
       return FALSE;
     }
 
+    // Make sure this image style has mapping, without it is useless.
     return $responsive_image_style->hasImageStyleMappings();
   }
 
@@ -153,8 +191,8 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   An array with preview element.
    */
   protected function buildPreview(array $element): array {
-    /** @var \Drupal\media\MediaInterface $media */
     $media = $element['#media'];
+    \assert($media instanceof MediaInterface);
 
     return [
       '#theme' => 'responsive_image_formatter',
@@ -177,8 +215,8 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   An array with content element.
    */
   protected function buildContent(array $element): array {
-    /** @var \Drupal\media\MediaInterface $media */
     $media = $element['#media'];
+    \assert($media instanceof MediaInterface);
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
     $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);
@@ -202,7 +240,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   The oEmbed resource.
    */
   protected function buildIframeUrl(string $url, Resource $resource): Url {
-    if ($resource->getProvider()->getName() == 'YouTube') {
+    if ($resource->getProvider()->getName() === 'YouTube') {
       // Default controller 'media.oembed_iframe' is not used because YouTube
       // oembed provider returns iframe markup without allowing us to add
       // special query parameters like autoplay. Also, YouTube doesn't return
@@ -224,6 +262,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       ]);
 
       $domain = $this->mediaSettings->get('iframe_domain');
+
       if ($domain) {
         $url->setOption('base_url', $domain);
       }
@@ -242,8 +281,13 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   Video ID, NULL if not found.
    */
   protected function parseYouTubeVideoId(string $url): ?string {
-    \preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'<> ]+)/", $url, $matches);
-    if (!empty($matches[1])) {
+    \preg_match(
+      "/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'<> ]+)/",
+      $url,
+      $matches,
+    );
+
+    if (isset($matches[1])) {
       return $matches[1];
     }
 

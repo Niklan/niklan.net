@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content_test\Plugin\ExternalContent\HtmlParser;
 
@@ -31,6 +29,7 @@ final class FooBar implements HtmlParserInterface {
    */
   public function parse(\DOMNode $node, HtmlParserStateInterface $html_parser_state): ElementInterface {
     $element = new FooBarElement();
+
     if ($node->hasChildNodes()) {
       foreach ($node->childNodes as $child_node) {
         $child_element = $html_parser_state->getParser()

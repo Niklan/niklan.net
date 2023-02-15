@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Element;
 
@@ -56,18 +54,22 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
    *   The updated element.
    */
   public function prepareLinks(array $element): array {
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $element['#entity'];
+    \assert($entity instanceof ContentEntityInterface);
     $cache = new CacheableMetadata();
     $cache->addCacheableDependency($entity);
 
-    if ($previous_entity = $this->findPrevious($entity)) {
+    $previous_entity = $this->findPrevious($entity);
+
+    if ($previous_entity) {
       $element['#previous_url'] = $previous_entity->toUrl()->toString();
       $element['#previous_label'] = $previous_entity->label();
       $cache->addCacheableDependency($previous_entity);
     }
 
-    if ($next_entity = $this->findNext($entity)) {
+    $next_entity = $this->findNext($entity);
+
+    if ($next_entity) {
       $element['#next_url'] = $next_entity->toUrl()->toString();
       $element['#next_label'] = $next_entity->label();
       $cache->addCacheableDependency($next_entity);
@@ -110,7 +112,9 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
    *   The previous to current entity.
    */
   protected function findNext(ContentEntityInterface $entity): ?ContentEntityInterface {
-    $storage = $this->entityTypeManager->getStorage($entity->getEntityTypeId());
+    $storage = $this->entityTypeManager->getStorage(
+        $entity->getEntityTypeId(),
+    );
     $id = $storage->getQuery()
       ->accessCheck(FALSE)
       ->condition('type', $entity->bundle())

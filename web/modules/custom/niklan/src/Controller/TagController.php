@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Controller;
 
@@ -52,7 +50,8 @@ final class TagController implements ContainerInjectionInterface {
 
     $instance = new self();
     $instance->tagStatistics = $container->get('niklan.helper.tag_statistics');
-    $instance->termViewBuilder = $entity_type_manager->getViewBuilder('taxonomy_term');
+    $instance->termViewBuilder = $entity_type_manager
+      ->getViewBuilder('taxonomy_term');
     $instance->termStorage = $entity_type_manager->getStorage('taxonomy_term');
     $instance->nodeStorage = $entity_type_manager->getStorage('node');
     $instance->nodeViewBuilder = $entity_type_manager->getViewBuilder('node');
@@ -72,7 +71,10 @@ final class TagController implements ContainerInjectionInterface {
 
     return [
       '#theme' => 'niklan_tag_list',
-      '#items' => \array_map(fn($term) => $this->termViewBuilder->view($term, 'teaser'), $terms),
+      '#items' => \array_map(
+        fn ($term) => $this->termViewBuilder->view($term, 'teaser'),
+        $terms,
+      ),
     ];
   }
 
@@ -107,9 +109,11 @@ final class TagController implements ContainerInjectionInterface {
    */
   protected function getBlogPosts(TermInterface $term): array {
     $items = [];
+
     foreach ($this->loadBlogPosts($term) as $node) {
       $items[] = $this->nodeViewBuilder->view($node, 'teaser');
     }
+
     return $items;
   }
 

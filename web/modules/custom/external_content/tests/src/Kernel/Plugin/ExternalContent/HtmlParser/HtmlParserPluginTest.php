@@ -1,9 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\HtmlParser;
 
+use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface;
 use Drupal\external_content\Dto\HtmlParserState;
 use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Dto\SourceFileParams;
@@ -42,8 +41,8 @@ final class HtmlParserPluginTest extends ExternalContentTestBase {
    * Tests that simple plugin for a single non nested element working properly.
    */
   public function testSimplePlugin(): void {
-    /** @var \Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface $plugin */
     $plugin = $this->pluginManager->createInstance('foo_bar');
+    \assert($plugin instanceof HtmlParserInterface);
 
     $html = '<foo-bar>Content inside the element.</foo-bar>';
     $crawler = new Crawler($html);
@@ -57,8 +56,8 @@ final class HtmlParserPluginTest extends ExternalContentTestBase {
       $source_file_params,
       $this->chainHtmlParser,
     );
-    /** @var \Drupal\external_content_test\Dto\FooBarElement $result */
     $result = $plugin->parse($node, $parser_state);
+    \assert($result instanceof FooBarElement);
     self::assertInstanceOf(FooBarElement::class, $result);
     self::assertStringContainsString(
       'Content inside the element.',
@@ -71,8 +70,13 @@ final class HtmlParserPluginTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->pluginManager = $this->container->get(HtmlParserPluginManagerInterface::class);
-    $this->chainHtmlParser = $this->container->get(ChainHtmlParserInterface::class);
+
+    $this->pluginManager = $this->container->get(
+      HtmlParserPluginManagerInterface::class,
+    );
+    $this->chainHtmlParser = $this->container->get(
+      ChainHtmlParserInterface::class,
+    );
   }
 
 }

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
@@ -34,7 +32,10 @@ final class ChainRenderArrayBuilderTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->chainBuilder = $this->container->get(ChainRenderArrayBuilder::class);
+
+    $this->chainBuilder = $this
+      ->container
+      ->get(ChainRenderArrayBuilder::class);
   }
 
   /**

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content_test\Plugin\ExternalContent\Loader;
 
@@ -63,9 +61,11 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
     $parameters = $translation->getParams();
 
     $entity = $this->prepareDestinationEntity($external_content->id());
+
     if ($parameters->has('title')) {
       $entity->setName($parameters->get('title'));
     }
+
     $entity->set('external_content', $external_content);
     $entity->save();
   }
@@ -89,8 +89,8 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
       return $this->entityTestStorage->load(\reset($ids));
     }
 
-    /** @var \Drupal\entity_test\Entity\EntityTest $entity */
     $entity = $this->entityTestStorage->create();
+    \assert($entity instanceof EntityTest);
     $entity->set('external_id', $external_id);
 
     return $entity;

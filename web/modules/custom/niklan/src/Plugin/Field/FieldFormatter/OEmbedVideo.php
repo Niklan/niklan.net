@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
@@ -51,8 +49,15 @@ final class OEmbedVideo extends FormatterBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->responsiveImageStyleStorage = $container->get('entity_type.manager')
+    $instance = parent::create(
+      $container,
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+    );
+
+    $instance->responsiveImageStyleStorage = $container
+      ->get('entity_type.manager')
       ->getStorage('responsive_image_style');
     $instance->linkGenerator = $container->get('link_generator');
     $instance->currentUser = $container->get('current_user');
@@ -68,8 +73,9 @@ final class OEmbedVideo extends FormatterBase {
       return FALSE;
     }
 
-    $media_type = $field_definition->getTargetBundle();
-    if ($media_type = MediaType::load($media_type)) {
+    $media_type = MediaType::load($field_definition->getTargetBundle());
+
+    if ($media_type) {
       $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
 
       return $media_type->getSource() instanceof OEmbedInterface && $is_video;
@@ -94,10 +100,13 @@ final class OEmbedVideo extends FormatterBase {
     $element = parent::settingsForm($form, $form_state);
 
     $responsive_image_options = [];
+
     foreach ($this->responsiveImageStyleStorage->loadMultiple() as $machine_name => $responsive_image_style) {
-      if ($responsive_image_style->hasImageStyleMappings()) {
-        $responsive_image_options[$machine_name] = $responsive_image_style->label();
+      if (!$responsive_image_style->hasImageStyleMappings()) {
+        continue;
       }
+
+      $responsive_image_options[$machine_name] = $responsive_image_style->label();
     }
 
     $element['responsive_image_style'] = [
@@ -107,8 +116,13 @@ final class OEmbedVideo extends FormatterBase {
       '#required' => TRUE,
       '#options' => $responsive_image_options,
       '#description' => [
-        '#markup' => $this->linkGenerator->generate(new TranslatableMarkup('Configure Responsive Image Styles'), new Url('entity.responsive_image_style.collection')),
-        '#access' => $this->currentUser->hasPermission('administer responsive image styles'),
+        '#markup' => $this->linkGenerator->generate(
+          new TranslatableMarkup('Configure Responsive Image Styles'),
+          new Url('entity.responsive_image_style.collection'),
+        ),
+        '#access' => $this->currentUser->hasPermission(
+          'administer responsive image styles',
+        ),
       ],
     ];
 
@@ -121,13 +135,15 @@ final class OEmbedVideo extends FormatterBase {
   public function settingsSummary(): array {
     $summary = [];
 
-    $responsive_image_style = $this->responsiveImageStyleStorage->load($this->getSetting('responsive_image_style'));
-    if ($responsive_image_style) {
-      $summary[] = new TranslatableMarkup('Responsive image style: @responsive_image_style', ['@responsive_image_style' => $responsive_image_style->label()]);
-    }
-    else {
-      $summary[] = new TranslatableMarkup('Select a responsive image style.');
-    }
+    $responsive_image_style = $this->responsiveImageStyleStorage->load(
+      $this->getSetting('responsive_image_style'),
+    );
+    $summary[] = $responsive_image_style
+      ? new TranslatableMarkup(
+        'Responsive image style: @responsive_image_style',
+        ['@responsive_image_style' => $responsive_image_style->label()],
+      )
+      : new TranslatableMarkup('Select a responsive image style.');
 
     return $summary;
   }
@@ -142,7 +158,9 @@ final class OEmbedVideo extends FormatterBase {
       $elements[$delta] = [
         '#type' => 'niklan_oembed_video',
         '#media' => $item->getEntity(),
-        '#preview_responsive_image_style' => $this->getSetting('responsive_image_style'),
+        '#preview_responsive_image_style' => $this->getSetting(
+          'responsive_image_style',
+        ),
       ];
     }
 

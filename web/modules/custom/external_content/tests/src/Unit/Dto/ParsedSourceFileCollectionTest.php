@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
@@ -56,8 +54,14 @@ final class ParsedSourceFileCollectionTest extends UnitTestCase {
     $collection->add($parsed_source_file_b);
     $this->assertEquals(2, $collection->count());
 
-    $this->assertEquals($parsed_source_file_a, $collection->getIterator()->offsetGet(0));
-    $this->assertEquals($parsed_source_file_b, $collection->getIterator()->offsetGet(1));
+    $this->assertEquals(
+      $parsed_source_file_a,
+      $collection->getIterator()->offsetGet(0),
+    );
+    $this->assertEquals(
+      $parsed_source_file_b,
+      $collection->getIterator()->offsetGet(1),
+    );
   }
 
 }

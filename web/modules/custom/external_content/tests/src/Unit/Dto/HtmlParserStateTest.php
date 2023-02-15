@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
@@ -26,14 +24,22 @@ final class HtmlParserStateTest extends UnitTestCase {
   public function testObject(): void {
     $source_file = new SourceFile('', '');
     $source_file_params = new SourceFileParams([]);
-    $parser = $this->prophesize(ChainHtmlParserInterface::class)
+    $parser = $this
+      ->prophesize(ChainHtmlParserInterface::class)
       ->reveal();
 
-    $parser_state = new HtmlParserState($source_file, $source_file_params, $parser);
+    $parser_state = new HtmlParserState(
+      $source_file,
+      $source_file_params,
+      $parser,
+    );
 
     self::assertSame($parser, $parser_state->getParser());
     self::assertSame($source_file, $parser_state->getSourceFile());
-    self::assertSame($source_file_params, $parser_state->getSourceFileParams());
+    self::assertSame(
+      $source_file_params,
+      $parser_state->getSourceFileParams(),
+    );
   }
 
 }

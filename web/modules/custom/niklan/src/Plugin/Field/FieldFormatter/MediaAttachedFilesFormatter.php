@@ -1,9 +1,9 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
+use Drupal\file\FileInterface;
+use Drupal\media\MediaInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -39,8 +39,15 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+    $instance = parent::create(
+      $container,
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+    );
+
     $instance->entityTypeManager = $container->get('entity_type.manager');
+
     return $instance;
   }
 
@@ -48,9 +55,11 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
-    $target_type = $field_definition->getFieldStorageDefinition()
+    $target_type = $field_definition
+      ->getFieldStorageDefinition()
       ->getSetting('target_type');
-    return $target_type == 'media';
+
+    return $target_type === 'media';
   }
 
   /**
@@ -60,11 +69,11 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
     $element = [];
 
     foreach ($items as $item) {
-      /** @var \Drupal\media\MediaInterface $media */
       $media = $item->entity;
+      \assert($media instanceof MediaInterface);
       $file_id = $media->getSource()->getSourceFieldValue($media);
-      /** @var \Drupal\file\FileInterface $file */
       $file = $this->getFileStorage()->load($file_id);
+      \assert($file instanceof FileInterface);
 
       $element[] = [
         '#theme' => 'niklan_media_attached_file',

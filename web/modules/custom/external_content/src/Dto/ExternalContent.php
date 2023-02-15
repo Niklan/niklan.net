@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Dto;
 
@@ -60,7 +58,9 @@ final class ExternalContent {
    *   The parsed source file.
    */
   public function getTranslation(string $language): ?ParsedSourceFile {
-    return $this->hasTranslation($language) ? $this->translations[$language] : NULL;
+    return $this->hasTranslation($language)
+      ? $this->translations[$language]
+      : NULL;
   }
 
   /**

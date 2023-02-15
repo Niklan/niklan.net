@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Element;
 
@@ -52,6 +50,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
+
     return $instance;
   }
 
@@ -86,8 +85,9 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
     $this->viewMode = $element['#view_mode'];
 
     $items = $this->prepareResults();
+
     // Do not render element if not blog posts found.
-    if (empty($items)) {
+    if (!$items) {
       return [];
     }
 
@@ -108,11 +108,13 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
   protected function prepareResults(): array {
     $results = [];
     $ids = $this->findResults();
-    if (empty($ids)) {
+
+    if (!$ids) {
       return $results;
     }
 
     $entities = $this->getNodeStorage()->loadMultiple($ids);
+
     foreach ($entities as $entity) {
       $results[] = $this->getNodeViewBuilder()->view($entity, $this->viewMode);
     }
@@ -152,6 +154,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
     if (!isset($this->nodeStorage)) {
       $this->nodeStorage = $this->entityTypeManager->getStorage('node');
     }
+
     return $this->nodeStorage;
   }
 
@@ -165,6 +168,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
     if (!isset($this->nodeViewBuilder)) {
       $this->nodeViewBuilder = $this->entityTypeManager->getViewBuilder('node');
     }
+
     return $this->nodeViewBuilder;
   }
 

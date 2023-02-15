@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Plugin\Block;
 
@@ -43,6 +41,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
     $instance->renderer = $container->get('renderer');
+
     return $instance;
   }
 
@@ -52,15 +51,17 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
   public function build(): array {
     $build = [];
     $node = $this->routeMatch->getParameter('node');
+
     if (!$node instanceof NodeInterface) {
       return [];
     }
+
     $this->renderer->addCacheableDependency($build, $node);
 
     $toc_builder = new TocBuilder();
     $links = $toc_builder->getTree($node->get('field_content'));
 
-    if (empty($links)) {
+    if (!$links) {
       return $build;
     }
 

@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
@@ -57,13 +55,19 @@ final class ChainHtmlParserTest extends ExternalContentTestBase {
     self::assertTrue($first->hasChildren());
     $children = $first->getChildren();
     self::assertInstanceOf(PlainTextElement::class, $children->offsetGet(0));
-    self::assertStringContainsString('Foo', $children->offsetGet(0)->getContent());
+    self::assertStringContainsString(
+      'Foo',
+      $children->offsetGet(0)->getContent(),
+    );
     self::assertInstanceOf(FooBarElement::class, $children->offsetGet(1));
     $children_first_child = $children->offsetGet(1)
       ->getChildren()
       ->offsetGet(0);
     self::assertInstanceOf(PlainTextElement::class, $children_first_child);
-    self::assertStringContainsString('Bar', $children_first_child->getContent());
+    self::assertStringContainsString(
+        'Bar',
+        $children_first_child->getContent(),
+    );
   }
 
   /**
@@ -71,7 +75,10 @@ final class ChainHtmlParserTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->chainHtmlParser = $this->container->get(ChainHtmlParserInterface::class);
+
+    $this->chainHtmlParser = $this->container->get(
+      ChainHtmlParserInterface::class,
+    );
   }
 
 }

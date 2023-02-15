@@ -1,15 +1,14 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Hook\SymfonyMailer;
 
+use Drupal\contact\Entity\Message;
 use Drupal\symfony_mailer\EmailInterface;
 
 /**
  * Provides additional 'contact_form' build processing.
  */
-final class ContactFormBuild {
+final class ContactFormEmailBuild {
 
   /**
    * Implements hook_mailer_TYPE_PHASE().
@@ -33,11 +32,14 @@ final class ContactFormBuild {
       return;
     }
 
-    /** @var \Drupal\contact\Entity\Message $contact_message */
     $contact_message = $email->getParam('contact_message');
-    if ($contact_message->hasField('field_email') && !$contact_message->get('field_email')->isEmpty()) {
-      $email->setReplyTo($contact_message->get('field_email')->getString());
+    \assert($contact_message instanceof Message);
+
+    if (!$contact_message->hasField('field_email') || $contact_message->get('field_email')->isEmpty()) {
+      return;
     }
+
+    $email->setReplyTo($contact_message->get('field_email')->getString());
   }
 
 }

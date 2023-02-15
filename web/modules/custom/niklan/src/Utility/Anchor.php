@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Utility;
 
@@ -10,6 +8,11 @@ use Drupal\Component\Transliteration\PhpTransliteration;
  * Class Text with simple string utility.
  */
 final class Anchor {
+
+  /**
+   * The cache of generated anchors.
+   */
+  protected static array $cache = [];
 
   /**
    * Indicated incremental anchors.
@@ -26,14 +29,7 @@ final class Anchor {
    *
    * @param string $text
    *   The string to generate anchor from.
-   * @param string $id
-   *   The string ID for static caching during a single request. This helps
-   *   generate unique anchors for the provided ID. When you generate anchors
-   *   for entity headings, you expect anchor for "Title" will be "title" for
-   *   each individual entity, but there is a change that one entity can contain
-   *   two "Title" headings, so first will have anchor "title", second "title-1"
-   *   and so on.
-   * @param int $duplicate_mode
+   * @param int $mode
    *   The mode used when anchor for provided text and id is already exists.
    *   Available values:
    *   - COUNTER: Each new anchor will have suffix "-N".
@@ -42,11 +38,50 @@ final class Anchor {
    * @return string
    *   The anchor string.
    */
-  public static function generate(string $text, string $id = 'default', int $duplicate_mode = self::COUNTER): string {
-    $anchor_generated = FALSE;
+  public static function generate(string $text, int $mode = self::COUNTER): string {
+    $anchor = self::prepareAnchor($text);
+
+    return match ($mode) {
+      self::REUSE => $anchor,
+      self::COUNTER => self::generateWithCounter($anchor),
+    };
+  }
+
+  /**
+   * Generates anchor with counter mode.
+   *
+   * @param string $anchor
+   *   The processed anchor.
+   *
+   * @return string
+   *   The anchor with counter suffix if needed.
+   */
+  protected static function generateWithCounter(string $anchor): string {
     $iteration = 0;
 
-    // Main processing for anchors.
+    while (TRUE) {
+      $key = "$anchor:$iteration";
+
+      if (\array_key_exists($key, self::$cache)) {
+        $iteration++;
+
+        continue;
+      }
+
+      return self::$cache[$key] = $iteration ? "$anchor-$iteration" : $anchor;
+    }
+  }
+
+  /**
+   * Prepares anchor string.
+   *
+   * @param string $text
+   *   The text from which to create an anchor.
+   *
+   * @return string
+   *   The processed anchor.
+   */
+  protected static function prepareAnchor(string $text): string {
     $transliteration = new PhpTransliteration();
     $anchor = $transliteration->transliterate($text);
     $anchor = \strtolower($anchor);
@@ -55,25 +90,9 @@ final class Anchor {
     $anchor = \preg_replace("/[\s_]/", '-', $anchor);
     // Remove everything else. Only alphabet, numbers and dash is allowed.
     $anchor = \preg_replace("/[^0-9a-z-]/", '', $anchor);
+
     // Replace multiple dashes with single. F.e. "Title with - dash".
-    $anchor = \preg_replace('/-{2,}/', '-', $anchor);
-
-    static $anchor_static = [];
-    while (!$anchor_generated) {
-      $key = "{$duplicate_mode}:{$id}:{$anchor}:{$iteration}";
-      if (!isset($anchor_static[$key])) {
-        if ($iteration > 0 && $duplicate_mode == self::COUNTER) {
-          $anchor .= '-' . $iteration;
-        }
-
-        $anchor_static[$key] = $anchor;
-        $anchor_generated = TRUE;
-      }
-
-      $iteration++;
-    }
-
-    return $anchor;
+    return \preg_replace('/-{2,}/', '-', $anchor);
   }
 
 }

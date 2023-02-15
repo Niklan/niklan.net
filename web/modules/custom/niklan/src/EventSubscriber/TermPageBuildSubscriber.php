@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\EventSubscriber;
 
@@ -47,12 +45,15 @@ final class TermPageBuildSubscriber implements EventSubscriberInterface {
    */
   public function onTermPageBuild(TermPageBuildEvent $event): void {
     $taxonomy_term = $event->getTaxonomyTerm();
-    if ($taxonomy_term->bundle() != 'tags') {
+
+    if ($taxonomy_term->bundle() !== 'tags') {
       return;
     }
 
-    /** @var \Drupal\niklan\Controller\TagController $controller */
-    $controller = $this->classResolver->getInstanceFromDefinition(TagController::class);
+    $controller = $this
+      ->classResolver
+      ->getInstanceFromDefinition(TagController::class);
+    \assert($controller instanceof TagController);
     $event->setBuildArray($controller->page($taxonomy_term));
   }
 

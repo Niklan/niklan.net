@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\ExternalContent\Configuration;
 
@@ -61,9 +59,10 @@ final class ConfigurationPluginManager extends DefaultPluginManager {
    */
   public function getDiscovery(): DiscoveryInterface {
     if (!$this->discovery) {
-      $directories = \array_map(function (Extension $extension) {
-        return $this->root . '/' . $extension->getPath();
-      }, $this->moduleHandler->getModuleList());
+      $directories = \array_map(
+        fn (Extension $extension) => $this->root . '/' . $extension->getPath(),
+        $this->moduleHandler->getModuleList(),
+      );
       $this->discovery = new YamlDiscovery('external_content', $directories);
     }
 

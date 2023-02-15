@@ -1,15 +1,21 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Helper;
 
 use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
+use Drupal\paragraphs\ParagraphInterface;
 
 /**
  * Provides calculator for estimated read time for paragraphs.
  */
-class EstimatedReadTimeCalculator {
+final class EstimatedReadTimeCalculator {
+
+  /**
+   * The expected read speed in words per minute.
+   *
+   * @see https://en.wikipedia.org/wiki/Words_per_minute
+   */
+  protected int $wordsPerMinute = 143;
 
   /**
    * Calculates estimated read time for provided paragraph list.
@@ -20,41 +26,16 @@ class EstimatedReadTimeCalculator {
    * @return int
    *   The estimated read time in minutes.
    */
-  public static function calculate(EntityReferenceRevisionsFieldItemList $items): int {
-    // Average word per minute reading for cyrillic.
-    // @see https://en.wikipedia.org/wiki/Words_per_minute
-    // Get lower value for Cyrillic because content need to bee comprehend.
-    $word_per_minute = 143;
+  public function calculate(EntityReferenceRevisionsFieldItemList $items): int {
     $estimated_read_time = 0;
 
     foreach ($items->referencedEntities() as $paragraph) {
-      switch ($paragraph->bundle()) {
-        case 'text':
-          // @todo When moving out of paragraphs, find this broken ones and
-          //   check they are really broken. At this point didn't see any
-          //   data los with them, they are comes from nowhere.
-          if ($paragraph->get('field_body')->isEmpty()) {
-            continue 2;
-          }
-          $word_count = \str_word_count(\strip_tags($paragraph->get('field_body')->value));
-          // Two time slower because of complexity of texts.
-          $estimated_read_time += \floor($word_count / ($word_per_minute / 2) * 60);
-          break;
-
-        case 'code':
-          if ($paragraph->get('field_body')->isEmpty()) {
-            continue 2;
-          }
-          $word_count = \str_word_count($paragraph->get('field_body')->value);
-          // Assumes that code reads two three slower than text.
-          $estimated_read_time += \floor($word_count / ($word_per_minute / 3) * 60);
-          break;
-
-        case 'image':
-          // 10 seconds for image.
-          $estimated_read_time += 10;
-          break;
-      }
+      $estimated_read_time += match ($paragraph->bundle()) {
+        default => 0,
+        'text' => $this->calculateTextParagraph($paragraph),
+        'code' => $this->calculateCodeParagraph($paragraph),
+        'image' => 10,
+      };
     }
 
     if ($estimated_read_time > 60) {
@@ -62,6 +43,63 @@ class EstimatedReadTimeCalculator {
     }
 
     return 0;
+  }
+
+  /**
+   * Calculates read time for 'text' paragraph.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   *
+   * @return int|float
+   *   The estimated read time.
+   */
+  protected function calculateTextParagraph(ParagraphInterface $paragraph): int|float {
+    if ($paragraph->get('field_body')->isEmpty()) {
+      return 0;
+    }
+
+    $content = $paragraph->get('field_body')->first()->getString();
+    $content = \strip_tags($content);
+    $words_count = \str_word_count($content);
+
+    return $this->calculateEstimatedReadTime($words_count, 2);
+  }
+
+  /**
+   * Calculates read time for 'code' paragraph.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   *
+   * @return int|float
+   *   The estimated read time.
+   */
+  protected function calculateCodeParagraph(ParagraphInterface $paragraph): int|float {
+    if ($paragraph->get('field_body')->isEmpty()) {
+      return 0;
+    }
+
+    $content = $paragraph->get('field_body')->first()->getString();
+    $words_count = \str_word_count($content);
+
+    return $this->calculateEstimatedReadTime($words_count, 3);
+  }
+
+  /**
+   * Calculates estimated read time on words count.
+   *
+   * @param int $words_count
+   *   The words count.
+   * @param int|float $multiplier
+   *   The speed read multiplier. 2 - means that read time for that part is
+   *   expected to be two times slower that usual text.
+   *
+   * @return int|float
+   *   The estimated read time in seconds.
+   */
+  protected function calculateEstimatedReadTime(int $words_count, int|float $multiplier = 1): int|float {
+    return \floor($words_count * $multiplier / $this->wordsPerMinute * 60);
   }
 
 }

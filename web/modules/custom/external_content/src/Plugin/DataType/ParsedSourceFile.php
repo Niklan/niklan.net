@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Plugin\DataType;
 
@@ -24,7 +22,7 @@ final class ParsedSourceFile extends StringData {
    *   The content document object.
    */
   public function getParsedSourceFile(): ?ParsedSourceFileDto {
-    if (empty($this->value)) {
+    if (!$this->value) {
       return NULL;
     }
 
@@ -38,6 +36,7 @@ final class ParsedSourceFile extends StringData {
     if (!$value instanceof ParsedSourceFileDto) {
       return;
     }
+
     $this->setParsedSourceFile($value, $notify);
   }
 
@@ -51,10 +50,13 @@ final class ParsedSourceFile extends StringData {
    */
   public function setParsedSourceFile(ParsedSourceFileDto $parsed_source_file, bool $notify = TRUE): void {
     $this->value = $parsed_source_file;
+
     // Notify the parent of any changes.
-    if ($notify && isset($this->parent)) {
-      $this->parent->onChange($this->name);
+    if (!$notify || !isset($this->parent)) {
+      return;
     }
+
+    $this->parent->onChange($this->name);
   }
 
 }

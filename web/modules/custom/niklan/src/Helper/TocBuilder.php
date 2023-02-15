@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Helper;
 
@@ -23,18 +21,19 @@ final class TocBuilder {
    *   The array with tree of headings.
    */
   public function getTree(EntityReferenceFieldItemListInterface $items): array {
-    $headings = $items->filter(static function ($item) {
-      return $item->entity->bundle() == 'heading';
-    });
+    $headings = $items->filter(
+      static fn ($item) => $item->entity->bundle() === 'heading',
+    );
 
     if ($headings->isEmpty()) {
       return [];
     }
 
     $links = [];
+
     foreach ($headings as $item) {
-      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
       $paragraph = $item->entity;
+      \assert($paragraph instanceof ParagraphInterface);
       $links[] = $this->prepareLink($paragraph, $links);
     }
 
@@ -64,32 +63,18 @@ final class TocBuilder {
     $title = $paragraph->get('field_title')->getString();
     $heading_level = $paragraph->get('field_heading_level')->getString();
 
-    switch ($heading_level) {
-      case 'h2':
-      default:
-        $heading_level_int = 2;
-        break;
-
-      case 'h3':
-        $heading_level_int = 3;
-        break;
-
-      case 'h4':
-        $heading_level_int = 4;
-        break;
-
-      case 'h5':
-        $heading_level_int = 5;
-        break;
-
-      case 'h6':
-        $heading_level_int = 6;
-        break;
-    }
+    $heading_level_int = match ($heading_level) {
+      default => 2,
+      'h3' => 3,
+      'h4' => 4,
+      'h5' => 5,
+      'h6' => 6,
+    };
 
     foreach (\array_reverse($links) as $link) {
       if ($link['level'] < $heading_level_int) {
         $parent_id = $link['id'];
+
         break;
       }
     }
@@ -101,7 +86,7 @@ final class TocBuilder {
     return [
       'id' => $internal_id,
       'text' => $title,
-      'anchor' => Anchor::generate($title, 'toc', Anchor::REUSE),
+      'anchor' => Anchor::generate($title, Anchor::REUSE),
       'level' => $heading_level_int,
       'parent_id' => $parent_id,
     ];
@@ -122,15 +107,17 @@ final class TocBuilder {
     $tree = [];
 
     foreach ($links as $link) {
-      if ($link['parent_id'] == $parent_id) {
-        $children = $this->buildTree($links, $link['id']);
-
-        if ($children) {
-          $link['children'] = $children;
-        }
-
-        $tree[] = $link;
+      if ($link['parent_id'] !== $parent_id) {
+        continue;
       }
+
+      $children = $this->buildTree($links, $link['id']);
+
+      if ($children) {
+        $link['children'] = $children;
+      }
+
+      $tree[] = $link;
     }
 
     return $tree;
