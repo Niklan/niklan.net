@@ -66,7 +66,8 @@ final class AboutSettingsForm extends FormBase {
     ];
 
     $default_image = NULL;
-    if ($photo_media_id = $this->settingsRepository->getPhotoMediaId()) {
+    $photo_media_id = $this->settingsRepository->getPhotoMediaId();
+    if ($photo_media_id) {
       $image_media = $this->mediaStorage->load($photo_media_id);
       if ($image_media instanceof MediaInterface) {
         $default_image = $image_media;

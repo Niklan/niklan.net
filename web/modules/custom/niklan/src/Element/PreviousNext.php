@@ -59,13 +59,15 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
     $cache = new CacheableMetadata();
     $cache->addCacheableDependency($entity);
 
-    if ($previous_entity = $this->findPrevious($entity)) {
+    $previous_entity = $this->findPrevious($entity);
+    if ($previous_entity) {
       $element['#previous_url'] = $previous_entity->toUrl()->toString();
       $element['#previous_label'] = $previous_entity->label();
       $cache->addCacheableDependency($previous_entity);
     }
 
-    if ($next_entity = $this->findNext($entity)) {
+    $next_entity = $this->findNext($entity);
+    if ($next_entity) {
       $element['#next_url'] = $next_entity->toUrl()->toString();
       $element['#next_label'] = $next_entity->label();
       $cache->addCacheableDependency($next_entity);
