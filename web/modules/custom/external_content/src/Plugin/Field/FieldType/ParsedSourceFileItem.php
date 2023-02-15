@@ -7,6 +7,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\external_content\Dto\ParsedSourceFile;
+use Drupal\external_content\Plugin\DataType\ParsedSourceFile as ParsedSourceFileDataType;
 
 /**
  * Defines the 'external_content_parsed_source_file' field type.
@@ -40,7 +41,10 @@ final class ParsedSourceFileItem extends FieldItemBase {
    *   The parsed source file.
    */
   public function getParsedSourceFile(): ?ParsedSourceFile {
-    return $this->get('value')->getParsedSourceFile();
+    $value = $this->get('value');
+    \assert($value instanceof ParsedSourceFileDataType);
+
+    return $value->getParsedSourceFile();
   }
 
   /**

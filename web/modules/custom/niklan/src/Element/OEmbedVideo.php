@@ -13,6 +13,7 @@ use Drupal\media\OEmbed\Resource;
 use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
+use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -173,7 +174,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       $element['#preview_responsive_image_style'],
     );
 
-    if (!$responsive_image_style) {
+    if (!$responsive_image_style instanceof ResponsiveImageStyleInterface) {
       return FALSE;
     }
 

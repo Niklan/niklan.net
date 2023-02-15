@@ -1,10 +1,13 @@
+includes:
+  - phpstan-baseline.neon
+
 parameters:
   paths:
     - ./web/modules/custom
   excludePaths:
     - *Test.php
     - *TestBase.php
-  level: 1
+  level: 2
   drupal:
     # Some tools (e.g. PHPStorm) can execute PHPStan from different directories,
     # this can lead to problems with Drupal Root detection.

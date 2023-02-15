@@ -9,6 +9,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
+use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -49,9 +50,11 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
    * {@inheritdoc}
    */
   public function view(ContentEntityInterface $entity): array {
+    \assert($entity instanceof NodeInterface);
+
     return [
       '#theme' => 'niklan_blog_meta',
-      '#created' => $this->getCreatedDate(),
+      '#created' => $this->getCreatedDate($entity),
       '#comment_count' => $this->getCommentCount(),
       '#comments_url' => $this->getCommentsUrl(),
       '#estimated_read_time' => $this->getEstimatedReadTime(),
@@ -61,14 +64,14 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
   /**
    * Builds created element.
    *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node entity.
+   *
    * @return string
    *   The created date.
    */
-  protected function getCreatedDate(): string {
-    return $this->dateFormatter->format(
-      $this->getEntity()->getCreatedTime(),
-      'dmy',
-    );
+  protected function getCreatedDate(NodeInterface $node): string {
+    return $this->dateFormatter->format($node->getCreatedTime(), 'dmy');
   }
 
   /**

@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\media\Entity\MediaType;
 use Drupal\media\Plugin\media\Source\OEmbedInterface;
+use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -102,6 +103,8 @@ final class OEmbedVideo extends FormatterBase {
     $responsive_image_options = [];
 
     foreach ($this->responsiveImageStyleStorage->loadMultiple() as $machine_name => $responsive_image_style) {
+      \assert($responsive_image_style instanceof ResponsiveImageStyleInterface);
+
       if (!$responsive_image_style->hasImageStyleMappings()) {
         continue;
       }
