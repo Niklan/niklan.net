@@ -2,6 +2,8 @@
 
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
+use Drupal\file\FileInterface;
+use Drupal\media\MediaInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -67,11 +69,11 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
     $element = [];
 
     foreach ($items as $item) {
-      /** @var \Drupal\media\MediaInterface $media */
       $media = $item->entity;
+      \assert($media instanceof MediaInterface);
       $file_id = $media->getSource()->getSourceFieldValue($media);
-      /** @var \Drupal\file\FileInterface $file */
       $file = $this->getFileStorage()->load($file_id);
+      \assert($file instanceof FileInterface);
 
       $element[] = [
         '#theme' => 'niklan_media_attached_file',

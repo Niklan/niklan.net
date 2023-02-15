@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\Filter;
 
+use Drupal\filter\Plugin\FilterInterface;
 use Drupal\Core\Language\LanguageInterface;
 
 /**
@@ -15,8 +16,8 @@ final class MarkdownTest extends FilterTestBase {
    * Tests that filter works as expected.
    */
   public function testFilter(): void {
-    /** @var \Drupal\filter\Plugin\FilterInterface $filter */
     $filter = $this->filterManager->createInstance('niklan_markdown');
+    \assert($filter instanceof FilterInterface);
 
     $text = '**strong**';
     $result = $filter->process(

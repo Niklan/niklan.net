@@ -32,8 +32,8 @@ final class TocBuilder {
     $links = [];
 
     foreach ($headings as $item) {
-      /** @var \Drupal\paragraphs\ParagraphInterface $paragraph */
       $paragraph = $item->entity;
+      \assert($paragraph instanceof ParagraphInterface);
       $links[] = $this->prepareLink($paragraph, $links);
     }
 

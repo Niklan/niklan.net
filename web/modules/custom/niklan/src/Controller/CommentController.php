@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Controller;
 
+use Drupal\comment\CommentInterface;
 use Drupal\comment\CommentStorageInterface;
 use Drupal\comment\CommentViewBuilder;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
@@ -75,8 +76,8 @@ final class CommentController implements ContainerInjectionInterface {
   protected function prepareResults(): array {
     $items = [];
 
-    /** @var \Drupal\comment\CommentInterface $comment */
     foreach ($this->load() as $comment) {
+      \assert($comment instanceof CommentInterface);
       // Render separately to create flat array.
       $items[] = $this->commentViewBuilder->view($comment, 'teaser');
     }

@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Markup;
 
+use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager;
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
@@ -24,8 +25,8 @@ final class HtmlTest extends ExternalContentTestBase {
   public function testPlugin(): void {
     $content = '<p>Hello, world!</p>';
 
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface $plugin */
     $plugin = $this->pluginManager->createInstance('html');
+    \assert($plugin instanceof MarkupInterface);
     $result = $plugin->convert($content);
     $this->assertEquals($content, $result);
   }

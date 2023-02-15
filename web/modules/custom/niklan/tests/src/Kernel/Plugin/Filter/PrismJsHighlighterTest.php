@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\Filter;
 
+use Drupal\filter\Plugin\FilterInterface;
 use Drupal\Core\Language\LanguageInterface;
 
 /**
@@ -15,8 +16,8 @@ final class PrismJsHighlighterTest extends FilterTestBase {
    * Tests that filter works as expected.
    */
   public function testFilter(): void {
-    /** @var \Drupal\filter\Plugin\FilterInterface $filter */
     $filter = $this->filterManager->createInstance('niklan_prismjs');
+    \assert($filter instanceof FilterInterface);
     $expected_library = 'niklan/code-highlight';
 
     $text = '**strong**';

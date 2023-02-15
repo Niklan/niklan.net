@@ -28,8 +28,8 @@ final class ParsedSourceFileTest extends ExternalContentTestBase {
     $definition = $this->typedDataManager->createDataDefinition(
       'external_content_parsed_source_file',
     );
-    /** @var \Drupal\external_content\Plugin\DataType\ParsedSourceFile $typed_data */
     $typed_data = $this->typedDataManager->create($definition);
+    \assert($typed_data instanceof \Drupal\external_content\Plugin\DataType\ParsedSourceFile);
     self::assertNull($typed_data->getParsedSourceFile());
 
     $typed_data->setValue('foo-bar');

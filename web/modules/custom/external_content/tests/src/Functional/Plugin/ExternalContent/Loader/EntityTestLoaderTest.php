@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Functional\Plugin\ExternalContent\Loader;
 
+use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\external_content\Dto\ExternalContent;
 use Drupal\external_content\Dto\ExternalContentCollection;
@@ -107,11 +108,11 @@ final class EntityTestLoaderTest extends ExternalContentTestBase {
       ->execute();
     self::assertEquals(0, $count);
 
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface $loader_instance */
     $loader_instance = $this
       ->container
       ->get(LoaderPluginManagerInterface::class)
       ->createInstance('entity_test_loader');
+    \assert($loader_instance instanceof LoaderInterface);
     $loader_instance->load($collection);
 
     $count = $this

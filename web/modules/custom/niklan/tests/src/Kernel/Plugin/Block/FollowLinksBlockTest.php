@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\Block;
 
+use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Url;
 
 /**
@@ -15,10 +16,10 @@ final class FollowLinksBlockTest extends BlockTestBase {
    * Tests that block works as expected with default content.
    */
   public function testBlock(): void {
-    /** @var \Drupal\Core\Block\BlockPluginInterface $block_instance */
     $block_instance = $this
       ->blockManager
       ->createInstance('niklan_follow_links');
+    \assert($block_instance instanceof BlockPluginInterface);
     $block_result = $block_instance->build();
     $block_html = (string) $this->renderer->renderRoot($block_result);
 

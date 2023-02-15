@@ -5,6 +5,7 @@
  * Contains preprocess and process functions for custom templates.
  */
 
+use Drupal\media\MediaStorage;
 use Drupal\media\MediaInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 
@@ -23,14 +24,14 @@ function template_preprocess_niklan_about_page(array &$variables): void {
     return;
   }
 
-  /** @var \Drupal\media\MediaStorage $media_storage */
   $media_storage = Drupal::entityTypeManager()->getStorage('media');
+  \assert($media_storage instanceof MediaStorage);
   $responsive_image_style_storage = Drupal::entityTypeManager()
     ->getStorage('responsive_image_style');
   $file_storage = Drupal::entityTypeManager()->getStorage('file');
 
-  /** @var \Drupal\media\MediaInterface $photo_media */
   $photo_media = $media_storage->load($about_settings->getPhotoMediaId());
+  \assert($photo_media instanceof MediaInterface);
   $responsive_image_style = $responsive_image_style_storage->load(
     $about_settings->getPhotoResponsiveImageStyleId(),
   );

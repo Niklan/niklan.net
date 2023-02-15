@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+declare(strict_types = 1);
+
 namespace Drupal\Tests\niklan\Kernel\Plugin\Block;
 
 /**
@@ -13,8 +15,8 @@ final class CopyrightBlockTest extends BlockTestBase {
    * Tests that block works as expected with default content.
    */
   public function testBlock(): void {
-    /** @var \Drupal\Core\Block\BlockPluginInterface $block_instance */
     $block_instance = $this->blockManager->createInstance('niklan_copyright');
+    \assert($block_instance instanceof BlockPluginInterface);
     $block_result = $block_instance->build();
     $block_html = (string) $this->renderer->renderRoot($block_result);
 

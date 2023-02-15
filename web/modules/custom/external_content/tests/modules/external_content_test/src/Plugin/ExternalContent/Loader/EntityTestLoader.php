@@ -89,8 +89,8 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
       return $this->entityTestStorage->load(\reset($ids));
     }
 
-    /** @var \Drupal\entity_test\Entity\EntityTest $entity */
     $entity = $this->entityTestStorage->create();
+    \assert($entity instanceof EntityTest);
     $entity->set('external_id', $external_id);
 
     return $entity;

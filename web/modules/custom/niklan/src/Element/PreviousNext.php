@@ -54,8 +54,8 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
    *   The updated element.
    */
   public function prepareLinks(array $element): array {
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $element['#entity'];
+    \assert($entity instanceof ContentEntityInterface);
     $cache = new CacheableMetadata();
     $cache->addCacheableDependency($entity);
 

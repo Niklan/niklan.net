@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Finder;
 
+use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Finder\SourceFileFinder;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
@@ -40,8 +41,8 @@ final class SourceFileFinderTest extends UnitTestCase {
     $source_files = $finder->find(vfsStream::url('root'));
     $this->assertEquals(6, $source_files->count());
 
-    /** @var \Drupal\external_content\Dto\SourceFile $sixth_file */
     $sixth_file = $source_files->getIterator()->offsetGet(5);
+    \assert($sixth_file instanceof SourceFile);
     $this->assertEquals('file with a suffix', $sixth_file->getContents());
     $this->assertEquals(
       'baz.md/bar.en.md',

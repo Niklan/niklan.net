@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\HtmlParser;
 
+use Drupal\external_content_test\Dto\FooBarElement;
+use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface;
 use Drupal\external_content\Dto\HtmlElement;
 use Drupal\external_content\Dto\HtmlParserState;
 use Drupal\external_content\Dto\PlainTextElement;
@@ -33,8 +35,8 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
    * Tests that simple plugin for a single non nested element working properly.
    */
   public function testSimplePlugin(): void {
-    /** @var \Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface $plugin */
     $plugin = $this->pluginManager->createInstance('html_element');
+    \assert($plugin instanceof HtmlParserInterface);
 
     $html = '<div class="foo-bar" data-test="bar-baz"><p>Hello, world!</p></div>';
 
@@ -49,8 +51,8 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
       $source_file_params,
       $this->chainHtmlParser,
     );
-    /** @var \Drupal\external_content_test\Dto\FooBarElement $result */
     $result = $plugin->parse($node, $parser_state);
+    \assert($result instanceof FooBarElement);
     self::assertInstanceOf(HtmlElement::class, $result);
     self::assertEquals('div', $result->getTag());
     self::assertCount(2, $result->getAttributes());

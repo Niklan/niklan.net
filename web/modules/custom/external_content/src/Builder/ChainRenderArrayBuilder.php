@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\Builder;
 
+use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface;
 use Drupal\Component\Utility\SortArray;
 use Drupal\external_content\Dto\ElementInterface;
 use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManagerInterface;
@@ -41,8 +42,9 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
     // The default value if build is not happened.
     $build = [];
 
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface $builder */
     foreach ($this->builders as $builder) {
+      \assert($builder instanceof BuilderInterface);
+
       if ($builder::isApplicable($element)) {
         $build = $builder->build($element);
 

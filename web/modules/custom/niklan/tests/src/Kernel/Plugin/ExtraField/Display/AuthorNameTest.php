@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\ExtraField\Display;
 
+use Drupal\extra_field\Plugin\ExtraFieldDisplayInterface;
 use Drupal\comment\CommentInterface;
 use Drupal\comment\Entity\Comment;
 use Drupal\comment\Entity\CommentType;
@@ -32,10 +33,10 @@ final class AuthorNameTest extends ExtraFieldTestBase {
    * Tests that extra field results contains expected value.
    */
   public function testView(): void {
-    /** @var \Drupal\extra_field\Plugin\ExtraFieldDisplayInterface $extra_field */
     $extra_field = $this
       ->extraFieldDisplayManager
       ->createInstance('author_name');
+    \assert($extra_field instanceof ExtraFieldDisplayInterface);
     $result = $extra_field->view($this->comment);
     $html = (string) $this->renderer->renderPlain($result);
 

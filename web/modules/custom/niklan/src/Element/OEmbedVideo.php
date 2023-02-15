@@ -191,8 +191,8 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   An array with preview element.
    */
   protected function buildPreview(array $element): array {
-    /** @var \Drupal\media\MediaInterface $media */
     $media = $element['#media'];
+    \assert($media instanceof MediaInterface);
 
     return [
       '#theme' => 'responsive_image_formatter',
@@ -215,8 +215,8 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *   An array with content element.
    */
   protected function buildContent(array $element): array {
-    /** @var \Drupal\media\MediaInterface $media */
     $media = $element['#media'];
+    \assert($media instanceof MediaInterface);
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
     $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);

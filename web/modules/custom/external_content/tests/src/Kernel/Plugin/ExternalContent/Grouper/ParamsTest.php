@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Grouper;
 
+use Drupal\external_content\Plugin\ExternalContent\Grouper\Params;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\external_content\Dto\ExternalContent;
@@ -53,8 +54,8 @@ final class ParamsTest extends ExternalContentTestBase {
     $file_collection->add($file_b);
     $file_collection->add($file_c);
 
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Grouper\Params $plugin */
     $plugin = $this->grouperPluginManager->createInstance('params');
+    \assert($plugin instanceof Params);
     $external_content_collection = $plugin->group($file_collection);
 
     self::assertCount(2, $external_content_collection);

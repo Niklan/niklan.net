@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Markup;
 
+use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -40,8 +41,8 @@ final class PlainTextTest extends ExternalContentTestBase {
 
     HTML;
 
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface $plugin */
     $plugin = $this->pluginManager->createInstance('plain_text');
+    \assert($plugin instanceof MarkupInterface);
     $result = $plugin->convert($content);
     $this->assertEquals($expected, $result);
   }

@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Hook\SymfonyMailer;
 
+use Drupal\contact\Entity\Message;
 use Drupal\symfony_mailer\EmailInterface;
 
 /**
@@ -31,8 +32,8 @@ final class ContactFormEmailBuild {
       return;
     }
 
-    /** @var \Drupal\contact\Entity\Message $contact_message */
     $contact_message = $email->getParam('contact_message');
+    \assert($contact_message instanceof Message);
 
     if (!$contact_message->hasField('field_email') || $contact_message->get('field_email')->isEmpty()) {
       return;

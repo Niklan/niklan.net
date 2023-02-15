@@ -47,4 +47,7 @@
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
   <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
+  <rule ref="SlevomatCodingStandard.Operators.SpreadOperatorSpacing"/>
+  <rule ref="SlevomatCodingStandard.PHP.ReferenceSpacing"/>
+  <rule ref="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
 </ruleset>

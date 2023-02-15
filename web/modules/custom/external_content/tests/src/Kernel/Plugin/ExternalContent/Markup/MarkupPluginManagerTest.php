@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Markup;
 
+use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager;
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
@@ -32,10 +33,10 @@ final class MarkupPluginManagerTest extends ExternalContentTestBase {
     $plugin_ids = \array_keys($this->pluginManager->getDefinitions());
     $this->assertContains('external_content_test_foo_bar', $plugin_ids);
 
-    /** @var \Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface $plugin */
     $plugin = $this->pluginManager->createInstance(
       'external_content_test_foo_bar',
     );
+    \assert($plugin instanceof MarkupInterface);
     $result = $plugin->convert('<p>foo</p>');
     $this->assertEquals('<p>bar</p>', $result);
   }

@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\Converter;
 
+use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
 use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface;
 
 /**
@@ -39,8 +40,8 @@ final class ChainMarkupConverter {
         continue;
       }
 
-      /** @var \Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface $plugin */
       $plugin = $this->markupPluginManager->createInstance($plugin_id);
+      \assert($plugin instanceof MarkupInterface);
       $result = $plugin->convert($raw_content);
     }
 
