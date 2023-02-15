@@ -52,32 +52,14 @@ final class ConfigurationPluginManager extends DefaultPluginManager {
     $this->setCacheBackend($cache, 'external_content_configuration_plugins', [
       'external_content_configuration_plugins',
     ]);
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getDiscovery(): DiscoveryInterface {
-    if (!$this->discovery) {
-      $directories = \array_map(
-        fn (Extension $extension) => $this->root . '/' . $extension->getPath(),
-        $this->moduleHandler->getModuleList(),
-      );
-      $this->discovery = new YamlDiscovery('external_content', $directories);
-    }
+    $directories = \array_map(
+      fn (Extension $extension) => $this->root . '/' . $extension->getPath(),
+      $this->moduleHandler->getModuleList(),
+    );
+    $this->discovery = new YamlDiscovery('external_content', $directories);
 
-    return $this->discovery;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getFactory(): FactoryInterface {
-    if (!$this->factory) {
-      $this->factory = new ReflectionFactory($this, $this->pluginInterface);
-    }
-
-    return $this->factory;
+    $this->factory = new ReflectionFactory($this, $this->pluginInterface);
   }
 
 }

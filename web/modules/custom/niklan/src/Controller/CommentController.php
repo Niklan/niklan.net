@@ -108,11 +108,8 @@ final class CommentController implements ContainerInjectionInterface {
     $query
       ->condition('comment_type', 'comment_node_blog_entry')
       ->condition('status', 1)
-      ->sort('created', 'DESC');
-
-    if (self::LIMIT) {
-      $query->pager(self::LIMIT);
-    }
+      ->sort('created', 'DESC')
+      ->pager(self::LIMIT);
 
     return $query->execute();
   }

@@ -273,9 +273,8 @@ function niklan_preprocess_responsive_image(array &$variables): void {
   $responsive_style = ResponsiveImageStyle::load(
     $variables['responsive_image_style_id'],
   );
-  \assert($responsive_style instanceof ResponsiveImageStyleInterface);
 
-  if (!$responsive_style) {
+  if (!$responsive_style instanceof ResponsiveImageStyleInterface) {
     return;
   }
 
@@ -284,9 +283,8 @@ function niklan_preprocess_responsive_image(array &$variables): void {
   $fallback_style = ImageStyle::load(
     $responsive_style->getFallbackImageStyle(),
   );
-  \assert($fallback_style instanceof ImageStyle);
 
-  if (!$fallback_style) {
+  if (!$fallback_style instanceof ImageStyle) {
     return;
   }
 

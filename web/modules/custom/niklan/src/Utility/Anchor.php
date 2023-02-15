@@ -42,7 +42,7 @@ final class Anchor {
     $anchor = self::prepareAnchor($text);
 
     return match ($mode) {
-      self::REUSE => $anchor,
+      default => $anchor,
       self::COUNTER => self::generateWithCounter($anchor),
     };
   }
