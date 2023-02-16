@@ -7,6 +7,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
+use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
 use Drupal\node\NodeInterface;
@@ -112,9 +113,10 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
       $estimated_minutes = $cache->data;
     }
     else {
+      $content = $this->getEntity()->get('field_content');
+      \assert($content instanceof EntityReferenceRevisionsFieldItemList);
       $calculator = new EstimatedReadTimeCalculator();
-      $estimated_minutes = $calculator
-        ->calculate($this->getEntity()->get('field_content'));
+      $estimated_minutes = $calculator->calculate($content);
       $this->cache->set($cid, $estimated_minutes);
     }
 

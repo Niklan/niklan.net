@@ -52,7 +52,7 @@ composer phpcs
 
 ### PHPStan
 
-![PHPStan level](https://img.shields.io/badge/PHPStan-level%204-brightgreen.svg?style=flat)
+![PHPStan level](https://img.shields.io/badge/PHPStan-level%205-brightgreen.svg?style=flat)
 
 PHPStan is configured in [phpstan.neon](phpstan.neon). It uses [mglaman/phpstan-drupal](https://github.com/mglaman/phpstan-drupal) on top of default ones.
 

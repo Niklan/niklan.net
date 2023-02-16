@@ -30,6 +30,7 @@ final class EstimatedReadTimeCalculator {
     $estimated_read_time = 0;
 
     foreach ($items->referencedEntities() as $paragraph) {
+      \assert($paragraph instanceof ParagraphInterface);
       $estimated_read_time += match ($paragraph->bundle()) {
         default => 0,
         'text' => $this->calculateTextParagraph($paragraph),
