@@ -3,7 +3,7 @@
 namespace Drupal\niklan\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\niklan\Data\ContentEntityResultSet;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -64,7 +64,7 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
     $view_builder = $this->entityTypeManager->getViewBuilder($entity_type_id);
 
     return \array_map(
-      static fn (ContentEntityInterface $entity) => $view_builder->view(
+      static fn (EntityInterface $entity) => $view_builder->view(
         $entity,
         'search_result',
       ),

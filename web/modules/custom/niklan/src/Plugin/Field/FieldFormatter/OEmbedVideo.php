@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\media\Entity\MediaType;
 use Drupal\media\Plugin\media\Source\OEmbedInterface;
+use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -102,6 +103,8 @@ final class OEmbedVideo extends FormatterBase {
     $responsive_image_options = [];
 
     foreach ($this->responsiveImageStyleStorage->loadMultiple() as $machine_name => $responsive_image_style) {
+      \assert($responsive_image_style instanceof ResponsiveImageStyleInterface);
+
       if (!$responsive_image_style->hasImageStyleMappings()) {
         continue;
       }
@@ -135,15 +138,19 @@ final class OEmbedVideo extends FormatterBase {
   public function settingsSummary(): array {
     $summary = [];
 
-    $responsive_image_style = $this->responsiveImageStyleStorage->load(
-      $this->getSetting('responsive_image_style'),
-    );
-    $summary[] = $responsive_image_style
-      ? new TranslatableMarkup(
+    $responsive_image_style = $this
+      ->responsiveImageStyleStorage
+      ->load($this->getSetting('responsive_image_style'));
+
+    if ($responsive_image_style) {
+      $summary[] = (string) new TranslatableMarkup(
         'Responsive image style: @responsive_image_style',
         ['@responsive_image_style' => $responsive_image_style->label()],
-      )
-      : new TranslatableMarkup('Select a responsive image style.');
+      );
+    }
+    else {
+      $summary[] = (string) new TranslatableMarkup('Select a responsive image style.');
+    }
 
     return $summary;
   }

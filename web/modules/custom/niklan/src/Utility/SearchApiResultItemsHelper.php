@@ -13,10 +13,10 @@ final class SearchApiResultItemsHelper {
   /**
    * Extract entity ID's from result set.
    *
-   * @param \Drupal\search_api\Query\ResultSetInterface $result_set
+   * @param \Drupal\search_api\Query\ResultSetInterface<\Drupal\search_api\Item\ItemInterface> $result_set
    *   The result set.
    *
-   * @return array
+   * @return string[]
    *   An array with entity IDs.
    */
   public static function extractEntityIds(ResultSetInterface $result_set): array {

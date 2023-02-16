@@ -3,10 +3,10 @@
 namespace Drupal\niklan\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\NodeStorageInterface;
-use Drupal\node\NodeViewBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,7 +27,7 @@ final class BlogController implements ContainerInjectionInterface {
   /**
    * The node view builder.
    */
-  protected NodeViewBuilder $nodeViewBuilder;
+  protected EntityViewBuilderInterface $nodeViewBuilder;
 
   /**
    * The amount of articles per page.

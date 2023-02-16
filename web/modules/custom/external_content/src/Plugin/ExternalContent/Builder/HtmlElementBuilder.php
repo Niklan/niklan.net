@@ -26,7 +26,9 @@ final class HtmlElementBuilder implements BuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(HtmlElement|ElementInterface $element): array {
+  public function build(ElementInterface $element): array {
+    \assert($element instanceof HtmlElement);
+
     return [
       '#type' => 'html_tag',
       '#tag' => $element->getTag(),

@@ -11,6 +11,8 @@ final class Anchor {
 
   /**
    * The cache of generated anchors.
+   *
+   * @var array<string>
    */
   protected static array $cache = [];
 
@@ -42,7 +44,7 @@ final class Anchor {
     $anchor = self::prepareAnchor($text);
 
     return match ($mode) {
-      self::REUSE => $anchor,
+      default => $anchor,
       self::COUNTER => self::generateWithCounter($anchor),
     };
   }

@@ -90,8 +90,9 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
 
     $responsive_image_style = $this->getSetting('responsive_image_style');
 
-    /** @var \Drupal\media\MediaInterface[] $media */
     foreach ($media_items as $delta => $media) {
+      \assert($media instanceof MediaInterface);
+
       $cache_tags = [];
       $cache_tags = Cache::mergeTags($cache_tags, $media->getCacheTags());
       $elements[$delta] = [

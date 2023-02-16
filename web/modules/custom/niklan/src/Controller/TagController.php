@@ -7,7 +7,6 @@ use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\niklan\Helper\TagStatistics;
 use Drupal\node\NodeInterface;
 use Drupal\node\NodeStorageInterface;
-use Drupal\node\NodeViewBuilder;
 use Drupal\taxonomy\TermInterface;
 use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -40,7 +39,7 @@ final class TagController implements ContainerInjectionInterface {
   /**
    * The node view builder.
    */
-  protected NodeViewBuilder $nodeViewBuilder;
+  protected EntityViewBuilderInterface $nodeViewBuilder;
 
   /**
    * {@inheritdoc}

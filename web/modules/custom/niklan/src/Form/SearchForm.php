@@ -115,7 +115,7 @@ final class SearchForm extends FormBase {
 
     $response = new AjaxResponse();
     $response->addCommand(new HistoryReplaceStateCommand($url));
-    $response->addCommand(new HtmlCommand('h1', $page_title));
+    $response->addCommand(new HtmlCommand('h1', (string) $page_title));
     $response->addCommand(new ReplaceCommand(
       '.search-results',
       $search_results,

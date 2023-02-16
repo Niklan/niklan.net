@@ -3,13 +3,13 @@
 namespace Drupal\niklan\Element;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\node\NodeStorageInterface;
-use Drupal\node\NodeViewBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,7 +27,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
   /**
    * The node view builder.
    */
-  protected NodeViewBuilder $nodeViewBuilder;
+  protected EntityViewBuilderInterface $nodeViewBuilder;
 
   /**
    * The entity type manager.
@@ -161,10 +161,10 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
   /**
    * Gets node view builder.
    *
-   * @return \Drupal\node\NodeViewBuilder
+   * @return \Drupal\Core\Entity\EntityViewBuilderInterface
    *   The node view builder.
    */
-  protected function getNodeViewBuilder(): NodeViewBuilder {
+  protected function getNodeViewBuilder(): EntityViewBuilderInterface {
     if (!isset($this->nodeViewBuilder)) {
       $this->nodeViewBuilder = $this->entityTypeManager->getViewBuilder('node');
     }

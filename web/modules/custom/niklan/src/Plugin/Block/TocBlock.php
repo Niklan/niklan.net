@@ -7,6 +7,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\niklan\Helper\TocBuilder;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -58,8 +59,11 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
 
     $this->renderer->addCacheableDependency($build, $node);
 
+    $content = $node->get('field_content');
+    \assert($content instanceof EntityReferenceRevisionsFieldItemList);
+
     $toc_builder = new TocBuilder();
-    $links = $toc_builder->getTree($node->get('field_content'));
+    $links = $toc_builder->getTree($content);
 
     if (!$links) {
       return $build;
