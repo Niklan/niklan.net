@@ -94,10 +94,14 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   protected function buildElement(ElementInterface $element): array {
     $children = [];
 
-    if ($element->hasChildren()) {
-      foreach ($element->getChildren() as $child) {
-        $children[] = $this->buildElement($child);
+    foreach ($element->getChildren() as $child) {
+      $child_result = $this->buildElement($child);
+
+      if (!$child_result) {
+        continue;
       }
+
+      $children[] = $child_result;
     }
 
     $build = $this->doBuildElement($element);
