@@ -2,8 +2,6 @@
 
 namespace Drupal\external_content\Plugin\ExternalContent\Configuration;
 
-use Drupal\Component\Plugin\Discovery\DiscoveryInterface;
-use Drupal\Component\Plugin\Factory\FactoryInterface;
 use Drupal\Component\Plugin\Factory\ReflectionFactory;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\Extension;

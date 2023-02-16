@@ -8141,12 +8141,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Chi-teck/drupal-coder-extension.git",
-                "reference": "445424fb3803768109c2a16231eff3ac8a0d6bf9"
+                "reference": "6a420fac19878f1faa321988d30e9ba243d15c0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/445424fb3803768109c2a16231eff3ac8a0d6bf9",
-                "reference": "445424fb3803768109c2a16231eff3ac8a0d6bf9",
+                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/6a420fac19878f1faa321988d30e9ba243d15c0f",
+                "reference": "6a420fac19878f1faa321988d30e9ba243d15c0f",
                 "shasum": ""
             },
             "require": {
@@ -8167,7 +8167,7 @@
                 "issues": "https://github.com/Chi-teck/drupal-coder-extension/issues",
                 "source": "https://github.com/Chi-teck/drupal-coder-extension/tree/2.x"
             },
-            "time": "2023-02-14T15:06:58+00:00"
+            "time": "2023-02-16T14:57:31+00:00"
         },
         {
             "name": "composer/ca-bundle",
