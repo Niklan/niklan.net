@@ -11,6 +11,8 @@ final class Anchor {
 
   /**
    * The cache of generated anchors.
+   *
+   * @var array<string>
    */
   protected static array $cache = [];
 

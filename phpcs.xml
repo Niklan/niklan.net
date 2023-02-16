@@ -11,6 +11,12 @@
   <!-- Base ruleset. -->
   <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
 
+  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+    <!-- Not supporting param iterable types. Covered by PHPStan. -->
+    <exclude name="Drupal.Commenting.FunctionComment.IncorrectParamVarName"/>
+    <exclude name="Drupal.Commenting.VariableComment.IncorrectVarType"/>
+  </rule>
+
   <!-- Project specific rules. -->
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
