@@ -10,7 +10,7 @@ use Drupal\external_content\Dto\ParsedSourceFileCollection;
 /**
  * Provides a base implementation for grouping content.
  */
-abstract class GrouperPluginBase extends PluginBase implements GrouperInterface {
+abstract class GrouperPlugin extends PluginBase implements GrouperInterface {
 
   /**
    * {@inheritdoc}

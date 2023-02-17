@@ -5,7 +5,7 @@ namespace Drupal\external_content\Dto;
 /**
  * Represents a simple HTML element.
  */
-final class HtmlElement extends ElementBase {
+final class HtmlElement extends Element {
 
   /**
    * Constructs a new HtmlElementParser object.

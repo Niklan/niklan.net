@@ -5,7 +5,7 @@ namespace Drupal\external_content\Dto;
 /**
  * Provides an abstract implementation for content block.
  */
-abstract class ElementBase implements ElementInterface {
+abstract class Element implements ElementInterface {
 
   /**
    * The parent element.

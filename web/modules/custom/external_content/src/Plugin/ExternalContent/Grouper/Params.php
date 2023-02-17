@@ -34,7 +34,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   label = @Translation("Params"),
  * )
  */
-final class Params extends GrouperPluginBase implements ContainerFactoryPluginInterface {
+final class Params extends GrouperPlugin implements ContainerFactoryPluginInterface {
 
   /**
    * The language manager.

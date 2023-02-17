@@ -6,9 +6,12 @@ use Drupal\external_content\Dto\HtmlParserState;
 use Drupal\external_content\Dto\PlainTextElement;
 use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Parser\ChainHtmlParser;
 use Drupal\external_content\Parser\ChainHtmlParserInterface;
+use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface;
 use Drupal\external_content_test\Dto\FooBarElement;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Provides test for default chained HTML parser.
@@ -16,6 +19,8 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * @coversDefaultClass \Drupal\external_content\Parser\ChainHtmlParser
  */
 final class ChainHtmlParserTest extends ExternalContentTestBase {
+
+  use ProphecyTrait;
 
   /**
    * {@inheritdoc}
@@ -60,14 +65,34 @@ final class ChainHtmlParserTest extends ExternalContentTestBase {
       $children->offsetGet(0)->getContent(),
     );
     self::assertInstanceOf(FooBarElement::class, $children->offsetGet(1));
-    $children_first_child = $children->offsetGet(1)
+    $children_first_child = $children
+      ->offsetGet(1)
       ->getChildren()
       ->offsetGet(0);
     self::assertInstanceOf(PlainTextElement::class, $children_first_child);
     self::assertStringContainsString(
-        'Bar',
-        $children_first_child->getContent(),
+      'Bar',
+      $children_first_child->getContent(),
     );
+  }
+
+  /**
+   * Tests that parser works properly if no parsers provided.
+   */
+  public function testWithoutParsers(): void {
+    $plugin_manager = $this
+      ->prophesize(HtmlParserPluginManagerInterface::class);
+    $plugin_manager->getDefinitions()->willReturn([]);
+
+    $chain_html_parser = new ChainHtmlParser($plugin_manager->reveal());
+    $parser_state = new HtmlParserState(
+      new SourceFile('', ''),
+      new SourceFileParams([]),
+      $chain_html_parser,
+    );
+
+    $result = $chain_html_parser->parseRoot('<b>Hello</b>', $parser_state);
+    self::assertEquals(0, $result->getChildren()->count());
   }
 
   /**
