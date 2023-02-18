@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="web/core/tests/bootstrap.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="web/core/tests/bootstrap.php"
+         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
          colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
-         failOnWarning="true"
-         cacheResult="false">
-  <coverage>
-    <include>
-      <directory>./web/modules/custom</directory>
-    </include>
-    <exclude>
-      <directory>./web/modules/custom/*/tests</directory>
-    </exclude>
-  </coverage>
-
+         cacheResultFile="web/sites/default/files/.phpunit.result.cache"
+         failOnWarning="true">
   <php>
     <ini name="error_reporting" value="0"/>
     <ini name="memory_limit" value="-1"/>
@@ -51,10 +45,13 @@
     <include>
       <directory>./web/modules/custom</directory>
     </include>
+    <exclude>
+      <directory>./web/modules/custom/*/tests</directory>
+    </exclude>
 
     <report>
       <!-- Write it here, because PHPUnit run under web user has no access to write into other directories. -->
-      <clover outputFile="web/sites/default/files/coverage.xml" />
+      <clover outputFile="web/sites/default/files/coverage.xml"/>
     </report>
   </coverage>
 </phpunit>

@@ -145,7 +145,6 @@ final class SearchController implements ContainerInjectionInterface {
     $query->sort('search_api_relevance', 'DESC');
 
     $result = $query->execute();
-    \dump($result->getResultItems());
 
     return new ContentEntityResultSet(
       'node',

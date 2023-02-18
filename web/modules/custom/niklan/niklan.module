@@ -45,7 +45,7 @@ function niklan_form_comment_comment_node_blog_entry_form_after_build(array $for
 function niklan_form_contact_message_contact_form_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   $form['field_email']['widget'][0]['value']['#placeholder'] = 'example@example.com';
   $form['field_email']['widget'][0]['value']['#description'] = new TranslatableMarkup(
-      "I'll send a reply to the specified address.",
+    "I'll send a reply to the specified address.",
   );
 }
 
