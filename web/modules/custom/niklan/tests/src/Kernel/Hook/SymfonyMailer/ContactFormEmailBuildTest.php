@@ -36,7 +36,10 @@ final class ContactFormEmailBuildTest extends NiklanTestBase {
     $implementation = new ContactFormEmailBuild();
     $implementation($email->reveal());
 
-    $calls = $email->findProphecyMethodCalls('setReplyTo', new ArgumentsWildcard([new AnyValuesToken()]),);
+    $calls = $email->findProphecyMethodCalls(
+      'setReplyTo',
+      new ArgumentsWildcard([new AnyValuesToken()]),
+    );
     self::assertCount(0, $calls);
   }
 
@@ -63,16 +66,24 @@ final class ContactFormEmailBuildTest extends NiklanTestBase {
     }
 
     $contact_message = $this->prophesize(MessageInterface::class);
-    $contact_message->hasField(Argument::exact('field_email'))->willReturn(TRUE);
-    $contact_message->get(Argument::exact('field_email'))->willReturn($field_email->reveal());
+    $contact_message
+      ->hasField(Argument::exact('field_email'))
+      ->willReturn(TRUE);
+    $contact_message
+      ->get(Argument::exact('field_email'))
+      ->willReturn($field_email->reveal());
 
     $email = $this->prophesize(EmailInterface::class);
     $email->getSubType()->willReturn($subtype);
     $email->getReplyTo()->willReturn([]);
-    $email->setReplyTo(Argument::any())->will(static function (array $args) use ($email): void {
-      $email->getReplyTo()->willReturn([$args[0]]);
-    });
-    $email->getParam(Argument::exact('contact_message'))->willReturn($contact_message->reveal());
+    $email
+      ->setReplyTo(Argument::any())
+      ->will(static function (array $args) use ($email): void {
+        $email->getReplyTo()->willReturn([$args[0]]);
+      });
+    $email
+      ->getParam(Argument::exact('contact_message'))
+      ->willReturn($contact_message->reveal());
 
     return $email;
   }
@@ -86,7 +97,10 @@ final class ContactFormEmailBuildTest extends NiklanTestBase {
     $implementation = new ContactFormEmailBuild();
     $implementation($email->reveal());
 
-    $calls = $email->findProphecyMethodCalls('setReplyTo', new ArgumentsWildcard([new AnyValuesToken()]),);
+    $calls = $email->findProphecyMethodCalls(
+      'setReplyTo',
+      new ArgumentsWildcard([new AnyValuesToken()]),
+    );
     self::assertCount(0, $calls);
   }
 

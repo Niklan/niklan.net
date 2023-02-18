@@ -7,7 +7,7 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
-         cacheResultFile="web/sites/default/files/.phpunit.result.cache"
+         cacheResult="false"
          failOnWarning="true">
   <php>
     <ini name="error_reporting" value="0"/>

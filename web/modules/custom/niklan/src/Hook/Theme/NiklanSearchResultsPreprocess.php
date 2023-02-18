@@ -40,10 +40,11 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
   public function __invoke(array &$variables): void {
     $results = $variables['results'];
 
-    if ($results instanceof ContentEntityResultSet) {
-      $variables['results'] = $this->buildResults($results);
+    if (!$results instanceof ContentEntityResultSet) {
+      return;
     }
 
+    $variables['results'] = $this->buildResults($results);
     $variables['pager'] = [
       '#type' => 'pager',
     ];
