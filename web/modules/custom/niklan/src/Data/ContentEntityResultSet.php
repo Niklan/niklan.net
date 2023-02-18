@@ -17,7 +17,11 @@ final class ContentEntityResultSet implements \IteratorAggregate, \Countable {
    * @param int $resultCount
    *   The total amount of results associated with this result set.
    */
-  public function __construct(protected string $entityTypeId, protected array $entityIds, protected int $resultCount,) {}
+  public function __construct(
+    protected string $entityTypeId,
+    protected array $entityIds,
+    protected int $resultCount,
+  ) {}
 
   /**
    * Gets entity type ID.
@@ -33,7 +37,7 @@ final class ContentEntityResultSet implements \IteratorAggregate, \Countable {
    * Gets result product IDs.
    *
    * @return array
-   *   An array with product IDs.
+   *   An array with entity IDs.
    */
   public function getIds(): array {
     return $this->entityIds;
