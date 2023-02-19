@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Provides search page controller.
  */
-final class SearchController implements ContainerInjectionInterface {
+final class SearchController implements SearchControllerInterface, ContainerInjectionInterface {
 
   /**
    * The amount of results per page.
@@ -56,13 +56,7 @@ final class SearchController implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds a search page.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request.
-   *
-   * @return array
-   *   An array with page content.
+   * {@inheritdoc}
    */
   public function page(Request $request): array {
     $keys = $request->query->get('q');
@@ -87,13 +81,7 @@ final class SearchController implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds a search page content.
-   *
-   * @param string|null $keys
-   *   The search keys.
-   *
-   * @return array
-   *   The page content.
+   * {@inheritdoc}
    */
   public function buildPageContent(?string $keys): array {
     $build = [
@@ -154,15 +142,9 @@ final class SearchController implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds a page title.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request.
-   *
-   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
-   *   The page title.
+   * {@inheritdoc}
    */
-  public function pageTitle(Request $request): TranslatableMarkup {
+  public function pageTitle(Request $request): string {
     $keys = $request->query->get('q');
 
     $title = new TranslatableMarkup('Search');
@@ -174,7 +156,7 @@ final class SearchController implements ContainerInjectionInterface {
       );
     }
 
-    return $title;
+    return (string) $title;
   }
 
 }
