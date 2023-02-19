@@ -14,8 +14,10 @@ abstract class NiklanTestBase extends KernelTestBase {
    */
   protected static $modules = [
     'niklan',
+    'node',
     'media',
     'file',
+    'field',
     'image',
     'responsive_image',
     'comment',

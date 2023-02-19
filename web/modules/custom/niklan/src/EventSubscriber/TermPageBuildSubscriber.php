@@ -4,6 +4,7 @@ namespace Drupal\niklan\EventSubscriber;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\niklan\Controller\TagController;
+use Drupal\niklan\Controller\TagControllerInterface;
 use Drupal\taxonomy_custom_controller\Event\TaxonomyCustomControllerEvents;
 use Drupal\taxonomy_custom_controller\Event\TermPageBuildEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -14,19 +15,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class TermPageBuildSubscriber implements EventSubscriberInterface {
 
   /**
-   * The class resolver.
-   */
-  protected ClassResolverInterface $classResolver;
-
-  /**
    * Constructs a new TermPageBuildSubscriber object.
    *
-   * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $class_resolver
+   * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $classResolver
    *   The class resolver.
    */
-  public function __construct(ClassResolverInterface $class_resolver) {
-    $this->classResolver = $class_resolver;
-  }
+  public function __construct(
+    protected ClassResolverInterface $classResolver,
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -53,7 +49,7 @@ final class TermPageBuildSubscriber implements EventSubscriberInterface {
     $controller = $this
       ->classResolver
       ->getInstanceFromDefinition(TagController::class);
-    \assert($controller instanceof TagController);
+    \assert($controller instanceof TagControllerInterface);
     $event->setBuildArray($controller->page($taxonomy_term));
   }
 

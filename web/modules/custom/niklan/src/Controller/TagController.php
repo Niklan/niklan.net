@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Provides controller for tags.
  */
-final class TagController implements ContainerInjectionInterface {
+final class TagController implements TagControllerInterface, ContainerInjectionInterface {
 
   /**
    * The tag statistics helper.
@@ -59,10 +59,7 @@ final class TagController implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds page with all tags.
-   *
-   * @return array
-   *   An array with page content.
+   * {@inheritdoc}
    */
   public function collection(): array {
     $tag_ids = \array_keys($this->tagStatistics->getBlogEntryUsage());
@@ -78,13 +75,7 @@ final class TagController implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds a single tag page.
-   *
-   * @param \Drupal\taxonomy\TermInterface $term
-   *   The tag entity.
-   *
-   * @return array
-   *   An array with page contents.
+   * {@inheritdoc}
    */
   public function page(TermInterface $term): array {
     return [

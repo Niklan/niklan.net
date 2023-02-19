@@ -59,15 +59,19 @@ final class LibraryInfoAlterTest extends NiklanTestBase {
   public function testAlterDrupalAjax(): void {
     $libraries = [
       'drupal.ajax' => [
+        'js' => [],
+      ],
+    ];
+
+    $this->libraryInfoAlter->__invoke($libraries, 'core');
+
+    $expected_libraries = [
+      'drupal.ajax' => [
         'js' => [
           '/modules/custom/niklan/assets/js/command.ajax.js' => [],
         ],
       ],
     ];
-    $expected_libraries = $libraries;
-
-    $this->libraryInfoAlter->__invoke($libraries, 'core');
-
     self::assertEquals($expected_libraries, $libraries);
   }
 
