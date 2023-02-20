@@ -24,6 +24,7 @@ abstract class NiklanTestBase extends KernelTestBase {
     'system',
     'user',
     'block',
+    'taxonomy',
   ];
 
   /**

@@ -3,9 +3,6 @@
 namespace Drupal\niklan\Helper;
 
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\node\NodeStorageInterface;
-use Drupal\taxonomy\TermStorageInterface;
 
 /**
  * Provides class for statistics of tags.
@@ -13,36 +10,14 @@ use Drupal\taxonomy\TermStorageInterface;
 final class TagStatistics {
 
   /**
-   * The term storage.
-   */
-  protected TermStorageInterface $termStorage;
-
-  /**
-   * The node storage.
-   */
-  protected NodeStorageInterface $nodeStorage;
-
-  /**
-   * The database connection.
-   */
-  protected Connection $connection;
-
-  /**
    * Constructs a new TagStatistics object.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, Connection $connection) {
-    $this->termStorage = $entity_type_manager->getStorage('taxonomy_term');
-    $this->nodeStorage = $entity_type_manager->getStorage('node');
-    $this->connection = $connection;
-  }
+  public function __construct(
+    protected Connection $connection,
+  ) {}
 
   /**
    * Gets most used tags from blog entries.

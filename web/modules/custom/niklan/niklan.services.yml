@@ -10,7 +10,7 @@ services:
 
   niklan.helper.tag_statistics:
     class: Drupal\niklan\Helper\TagStatistics
-    arguments: ['@entity_type.manager', '@database']
+    arguments: ['@database']
 
   niklan.event_subscriber.term_page_build:
     class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
