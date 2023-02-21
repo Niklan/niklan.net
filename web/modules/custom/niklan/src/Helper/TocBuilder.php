@@ -21,19 +21,15 @@ final class TocBuilder {
    *   The array with tree of headings.
    */
   public function getTree(EntityReferenceFieldItemListInterface $items): array {
-    $headings = $items->filter(
-      static fn ($item) => $item->entity->bundle() === 'heading',
-    );
+    $headings = $this->getHeadings($items);
 
-    if ($headings->isEmpty()) {
+    if (!\count($headings)) {
       return [];
     }
 
     $links = [];
 
-    foreach ($headings as $item) {
-      $paragraph = $item->entity;
-      \assert($paragraph instanceof ParagraphInterface);
+    foreach ($headings as $paragraph) {
       $links[] = $this->prepareLink($paragraph, $links);
     }
 
@@ -89,6 +85,7 @@ final class TocBuilder {
       'anchor' => Anchor::generate($title, Anchor::REUSE),
       'level' => $heading_level_int,
       'parent_id' => $parent_id,
+      'children' => [],
     ];
   }
 
@@ -121,6 +118,33 @@ final class TocBuilder {
     }
 
     return $tree;
+  }
+
+  /**
+   * Gets headings from the item list.
+   *
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $items
+   *   The entity reference list.
+   *
+   * @return \Drupal\paragraphs\ParagraphInterface[]
+   *   An array with paragraphs.
+   */
+  protected function getHeadings(EntityReferenceFieldItemListInterface $items): array {
+    $headings = [];
+
+    foreach ($items->referencedEntities() as $entity) {
+      if (!$entity instanceof ParagraphInterface) {
+        continue;
+      }
+
+      if ($entity->bundle() !== 'heading') {
+        continue;
+      }
+
+      $headings[] = $entity;
+    }
+
+    return $headings;
   }
 
 }
