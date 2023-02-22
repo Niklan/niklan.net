@@ -26,18 +26,6 @@ final class NiklanSearchResultsPreprocessTest extends NiklanTestBase {
   protected NiklanSearchResultsPreprocess $implementation;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->implementation = NiklanSearchResultsPreprocess::create($this->container);
-
-    $this->installEntitySchema('user');
-    $this->installEntitySchema('node');
-  }
-
-  /**
    * Tests implementation when no search results provided.
    */
   public function testNoResultsProvided(): void {
@@ -82,6 +70,18 @@ final class NiklanSearchResultsPreprocessTest extends NiklanTestBase {
       $variables['results'][$node_id]['#view_mode'],
     );
     self::assertArrayHasKey('pager', $variables);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->implementation = NiklanSearchResultsPreprocess::create($this->container);
+
+    $this->installEntitySchema('user');
+    $this->installEntitySchema('node');
   }
 
 }
