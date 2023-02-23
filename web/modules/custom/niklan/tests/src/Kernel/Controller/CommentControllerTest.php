@@ -32,9 +32,9 @@ final class CommentControllerTest extends NiklanTestBase {
     $result = $controller->list();
     $this->render($result);
 
-    $this->assertCount(1, $this->cssSelect('.comments-list'));
-    $this->assertCount(0, $this->cssSelect('.comments-list__items'));
-    $this->assertCount(0, $this->cssSelect('.comments-list article'));
+    self::assertCount(1, $this->cssSelect('.comments-list'));
+    self::assertCount(0, $this->cssSelect('.comments-list__items'));
+    self::assertCount(0, $this->cssSelect('.comments-list article'));
   }
 
   /**
@@ -47,9 +47,9 @@ final class CommentControllerTest extends NiklanTestBase {
     $result = $controller->list();
     $this->render($result);
 
-    $this->assertCount(1, $this->cssSelect('.comments-list'));
-    $this->assertCount(1, $this->cssSelect('.comments-list__items'));
-    $this->assertCount(1, $this->cssSelect('.comments-list article'));
+    self::assertCount(1, $this->cssSelect('.comments-list'));
+    self::assertCount(1, $this->cssSelect('.comments-list__items'));
+    self::assertCount(1, $this->cssSelect('.comments-list article'));
   }
 
 }

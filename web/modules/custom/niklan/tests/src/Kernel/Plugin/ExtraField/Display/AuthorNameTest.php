@@ -40,7 +40,7 @@ final class AuthorNameTest extends ExtraFieldTestBase {
     $result = $extra_field->view($this->comment);
     $html = (string) $this->renderer->renderPlain($result);
 
-    $this->assertStringContainsString($this->author->getAccountName(), $html);
+    self::assertStringContainsString($this->author->getAccountName(), $html);
   }
 
   /**

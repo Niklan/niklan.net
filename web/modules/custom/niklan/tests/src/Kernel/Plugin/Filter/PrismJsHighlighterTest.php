@@ -25,14 +25,14 @@ final class PrismJsHighlighterTest extends FilterTestBase {
       $text,
       LanguageInterface::LANGCODE_NOT_SPECIFIED,
     );
-    $this->assertArrayNotHasKey('library', $result->getAttachments());
+    self::assertArrayNotHasKey('library', $result->getAttachments());
 
     $text = '<pre><code><?php echo "Hello, World!";</code></pre>';
     $result = $filter->process(
       $text,
       LanguageInterface::LANGCODE_NOT_SPECIFIED,
     );
-    $this->assertContains(
+    self::assertContains(
       $expected_library,
       $result->getAttachments()['library'],
     );

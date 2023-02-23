@@ -23,12 +23,12 @@ final class MobileHeaderBarBlockTest extends BlockTestBase {
     $block_result = $block_instance->build();
     $block_html = (string) $this->renderer->renderRoot($block_result);
 
-    $this->assertStringContainsString('Site logo', $block_html);
-    $this->assertStringContainsString(
+    self::assertStringContainsString('Site logo', $block_html);
+    self::assertStringContainsString(
       Url::fromRoute('<front>')->setAbsolute()->toString(),
       $block_html,
     );
-    $this->assertStringContainsString(
+    self::assertStringContainsString(
       'js-navigation-mobile-toggle',
       $block_html,
     );

@@ -56,7 +56,10 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
    */
   public function prepareLinks(array $element): array {
     $entity = $element['#entity'];
-    \assert($entity instanceof ContentEntityInterface);
+
+    if (!$entity instanceof ContentEntityInterface) {
+      return [];
+    }
 
     $cache = new CacheableMetadata();
     $cache->addCacheableDependency($entity);

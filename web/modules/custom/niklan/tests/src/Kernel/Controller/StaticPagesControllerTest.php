@@ -24,7 +24,7 @@ final class StaticPagesControllerTest extends NiklanTestBase {
    */
   public function testAbout(): void {
     $result = $this->controller->about();
-    $this->assertEquals(['#theme' => 'niklan_about_page'], $result);
+    self::assertEquals(['#theme' => 'niklan_about_page'], $result);
   }
 
   /**
@@ -34,7 +34,7 @@ final class StaticPagesControllerTest extends NiklanTestBase {
    */
   public function testSupport(): void {
     $result = $this->controller->support();
-    $this->assertEquals(['#theme' => 'niklan_support_page'], $result);
+    self::assertEquals(['#theme' => 'niklan_support_page'], $result);
   }
 
   /**
@@ -44,7 +44,7 @@ final class StaticPagesControllerTest extends NiklanTestBase {
    */
   public function testServices(): void {
     $result = $this->controller->services();
-    $this->assertEquals(['#theme' => 'niklan_services_page'], $result);
+    self::assertEquals(['#theme' => 'niklan_services_page'], $result);
   }
 
   /**
@@ -54,7 +54,7 @@ final class StaticPagesControllerTest extends NiklanTestBase {
    */
   public function testContact(): void {
     $result = $this->controller->contact();
-    $this->assertEquals(['#theme' => 'niklan_contact_page'], $result);
+    self::assertEquals(['#theme' => 'niklan_contact_page'], $result);
   }
 
   /**

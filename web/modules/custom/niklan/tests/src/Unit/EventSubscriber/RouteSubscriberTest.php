@@ -25,7 +25,7 @@ final class RouteSubscriberTest extends UnitTestCase {
    */
   public function testContactRouteAlter(): void {
     $subscribed_events = RouteSubscriber::getSubscribedEvents();
-    $this->assertArrayHasKey(RoutingEvents::ALTER, $subscribed_events);
+    self::assertArrayHasKey(RoutingEvents::ALTER, $subscribed_events);
 
     $route_prophecy = $this->prophesize(Route::class);
     $route_prophecy->getDefault(Argument::any())->willReturn(NULL);
@@ -47,7 +47,7 @@ final class RouteSubscriberTest extends UnitTestCase {
     $route_subscriber = new RouteSubscriber();
     $route_subscriber->onAlterRoutes($event->reveal());
 
-    $this->assertEquals(
+    self::assertEquals(
       '\Drupal\niklan\Controller\StaticPagesController::contact',
       $route->getDefault('_controller'),
     );

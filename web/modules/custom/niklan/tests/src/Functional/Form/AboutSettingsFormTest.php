@@ -40,8 +40,8 @@ final class AboutSettingsFormTest extends NiklanTestBase {
    * Tests that form works as expected.
    */
   public function testForm(): void {
-    $this->assertNull($this->settings->getPhotoMediaId());
-    $this->assertNull($this->settings->getPhotoResponsiveImageStyleId());
+    self::assertNull($this->settings->getPhotoMediaId());
+    self::assertNull($this->settings->getPhotoResponsiveImageStyleId());
 
     $form_state = new FormState();
     $form_state->setValues([
@@ -52,9 +52,9 @@ final class AboutSettingsFormTest extends NiklanTestBase {
     ]);
     $this->formBuilder->submitForm(AboutSettingsForm::class, $form_state);
 
-    $this->assertCount(0, $form_state->getErrors());
-    $this->assertEquals('1', $this->settings->getPhotoMediaId());
-    $this->assertEquals(
+    self::assertCount(0, $form_state->getErrors());
+    self::assertEquals('1', $this->settings->getPhotoMediaId());
+    self::assertEquals(
       'foo',
       $this->settings->getPhotoResponsiveImageStyleId(),
     );
@@ -64,11 +64,11 @@ final class AboutSettingsFormTest extends NiklanTestBase {
       ->buildForm(AboutSettingsForm::class, $form_state);
 
     $photo_media_id_default_value = $form['photo']['media_id']['#default_value'];
-    $this->assertInstanceOf(
+    self::assertInstanceOf(
       MediaInterface::class,
       $photo_media_id_default_value,
     );
-    $this->assertEquals('1', $photo_media_id_default_value->id());
+    self::assertEquals('1', $photo_media_id_default_value->id());
   }
 
   /**

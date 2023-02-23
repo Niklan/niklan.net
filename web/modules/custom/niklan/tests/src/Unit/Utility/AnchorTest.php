@@ -26,7 +26,7 @@ final class AnchorTest extends UnitTestCase {
    */
   public function testGenerator(string $text, int $duplicate_mode, string $expected): void {
     $actual = Anchor::generate($text, $duplicate_mode);
-    $this->assertSame($expected, $actual);
+    self::assertSame($expected, $actual);
   }
 
   /**

@@ -23,16 +23,16 @@ final class FollowLinksBlockTest extends BlockTestBase {
     $block_result = $block_instance->build();
     $block_html = (string) $this->renderer->renderRoot($block_result);
 
-    $this->assertStringContainsString(
+    self::assertStringContainsString(
       'https://niklan.net/blog.xml',
       $block_html,
     );
-    $this->assertStringContainsString('https://t.me/niklannet', $block_html);
-    $this->assertStringContainsString(
+    self::assertStringContainsString('https://t.me/niklannet', $block_html);
+    self::assertStringContainsString(
       'https://youtube.com/c/NiklanNet',
       $block_html,
     );
-    $this->assertStringContainsString(
+    self::assertStringContainsString(
       Url::fromRoute('niklan.support')->setAbsolute()->toString(),
       $block_html,
     );

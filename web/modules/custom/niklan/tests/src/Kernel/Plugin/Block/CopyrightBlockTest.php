@@ -20,9 +20,9 @@ final class CopyrightBlockTest extends BlockTestBase {
     $block_result = $block_instance->build();
     $block_html = (string) $this->renderer->renderRoot($block_result);
 
-    $this->assertStringContainsString('CC-BY-SA 4.0', $block_html);
-    $this->assertStringContainsString('©', $block_html);
-    $this->assertStringContainsString('Niklan', $block_html);
+    self::assertStringContainsString('CC-BY-SA 4.0', $block_html);
+    self::assertStringContainsString('©', $block_html);
+    self::assertStringContainsString('Niklan', $block_html);
   }
 
 }
