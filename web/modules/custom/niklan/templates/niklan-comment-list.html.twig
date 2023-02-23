@@ -14,18 +14,21 @@
     <p>{% trans %}Find out what publications are being discussed.{% endtrans %}</p>
   </header>
   <main class="comments-list__main">
-    <div class="comments-list__items">
-      {% for comment in comments %}
-        <div class="comments-list__item">
-          {{- comment -}}
-        </div>
-      {% endfor %}
-    </div>
-
-    {% if pager %}
-      <div class="comments-list__pager">
-        {{- pager -}}
+    {% if not comments is empty %}
+      <div class="comments-list__items">
+        {% for comment in comments %}
+          <div class="comments-list__item">
+            {{- comment -}}
+          </div>
+        {% endfor %}
       </div>
+
+
+      {% if pager %}
+        <div class="comments-list__pager">
+          {{- pager -}}
+        </div>
+      {% endif %}
     {% endif %}
   </main>
 </section>

@@ -373,7 +373,13 @@ function niklan_preprocess_comment(array &$variables): void {
   $comment = $variables['comment'];
   \assert($comment instanceof CommentInterface);
 
-  $commented_url = $comment->getCommentedEntity()
+  $commented_entity = $comment->getCommentedEntity();
+
+  if (!$commented_entity) {
+    return;
+  }
+
+  $commented_url = $commented_entity
     ->toUrl('canonical', ['absolute' => TRUE])
     ->toString();
   $comment_anchor = '#comment-' . $comment->id();
