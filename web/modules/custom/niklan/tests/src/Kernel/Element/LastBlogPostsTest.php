@@ -10,7 +10,7 @@ use Drupal\Tests\niklan\Traits\BlogEntryTrait;
  *
  * @coversDefaultClass \Drupal\niklan\Element\LastBlogPosts
  */
-final class LastBlogPostsTests extends NiklanTestBase {
+final class LastBlogPostsTest extends NiklanTestBase {
 
   use BlogEntryTrait;
 

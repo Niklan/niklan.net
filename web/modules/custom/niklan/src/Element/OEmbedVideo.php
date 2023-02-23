@@ -127,7 +127,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       return FALSE;
     }
 
-    // There is no need to continued if resource didn't respond for some reason.
+    // There is no need to continue if resource didn't respond for some reason.
     if (!$this->validateResource($video_url)) {
       return FALSE;
     }
