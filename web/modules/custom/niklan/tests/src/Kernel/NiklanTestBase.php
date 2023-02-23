@@ -25,6 +25,8 @@ abstract class NiklanTestBase extends KernelTestBase {
     'user',
     'block',
     'taxonomy',
+    'text',
+    'filter',
     'search_api',
   ];
 

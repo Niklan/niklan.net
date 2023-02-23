@@ -4,8 +4,8 @@ namespace Drupal\Tests\niklan\Kernel;
 
 use Drupal\niklan\Helper\TagStatistics;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\Tests\niklan\Traits\BlogEntryTrait;
+use Drupal\Tests\niklan\Traits\TagsTrait;
 
 /**
  * Provides a test for tag statistics helper.
@@ -13,6 +13,7 @@ use Drupal\Tests\niklan\Traits\BlogEntryTrait;
 final class TagStatisticsTest extends NiklanTestBase {
 
   use BlogEntryTrait;
+  use TagsTrait;
 
   /**
    * {@inheritdoc}
@@ -115,25 +116,13 @@ final class TagStatisticsTest extends NiklanTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
+
     $this->setUpBlogEntry();
+    $this->setUpTagsVocabulary();
 
     $this->tagStatistics = $this
       ->container
       ->get('niklan.helper.tag_statistics');
-
-    $this->installEntitySchema('taxonomy_term');
-    $this->installEntitySchema('taxonomy_vocabulary');
-
-    Vocabulary::create(['vid' => 'tags']);
-    Term::create([
-      'vid' => 'tags',
-      'name' => 'Tag A',
-    ]);
-
-    Term::create([
-      'vid' => 'tags',
-      'name' => 'Tag B',
-    ]);
   }
 
 }

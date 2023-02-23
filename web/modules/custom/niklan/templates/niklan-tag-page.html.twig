@@ -10,11 +10,13 @@
  */
 #}
 <div{{ attributes.addClass('tag-page') }}>
-  <div class="tag-page__items">
-    {% for item in items %}
-      {{- item -}}
-    {% endfor %}
-  </div>
+  {% if not items is empty %}
+    <div class="tag-page__items">
+      {% for item in items %}
+        {{- item -}}
+      {% endfor %}
+    </div>
+  {% endif %}
 
   {% if pager %}
     <div class="tag-page__pager">

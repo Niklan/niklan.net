@@ -7,7 +7,7 @@ use Drupal\Core\Database\Connection;
 /**
  * Provides class for statistics of tags.
  */
-final class TagStatistics {
+final class TagStatistics implements TagStatisticsInterface {
 
   /**
    * Constructs a new TagStatistics object.
@@ -20,13 +20,7 @@ final class TagStatistics {
   ) {}
 
   /**
-   * Gets most used tags from blog entries.
-   *
-   * @param int|null $limit
-   *   The maximum amount of entries to fetch.
-   *
-   * @return \stdClass[]
-   *   An array with term results.
+   * {@inheritdoc}
    */
   public function getBlogEntryUsage(?int $limit = NULL): array {
     $query = $this->connection->select('taxonomy_term_field_data', 'terms');
