@@ -2,7 +2,8 @@
 
 namespace Drupal\Tests\niklan\Hook\Theme;
 
-use Drupal\niklan\Data\ContentEntityResultSet;
+use Drupal\niklan\Data\EntitySearchResult;
+use Drupal\niklan\Data\EntitySearchResults;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
@@ -54,21 +55,19 @@ final class NiklanSearchResultsPreprocessTest extends NiklanTestBase {
       'name' => 'Basic page',
     ])->save();
 
-    $node_id = Node::create([
+    Node::create([
       'type' => 'page',
       'title' => 'Foo bar',
     ])->save();
 
-    $result_set = new ContentEntityResultSet('node', [$node_id], 1);
+    $result_item = new EntitySearchResult('node', 1, 'ru');
+    $result_set = new EntitySearchResults([$result_item], 1);
     $variables = ['results' => $result_set];
     $this->implementation->__invoke($variables);
 
     self::assertCount(1, $variables['results']);
-    self::assertArrayHasKey('#node', $variables['results'][$node_id]);
-    self::assertEquals(
-      'search_result',
-      $variables['results'][$node_id]['#view_mode'],
-    );
+    self::assertArrayHasKey('#node', $variables['results'][0]);
+    self::assertEquals('search_result', $variables['results'][0]['#view_mode']);
     self::assertArrayHasKey('pager', $variables);
   }
 

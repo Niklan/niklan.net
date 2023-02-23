@@ -17,3 +17,13 @@ services:
     arguments: [ '@class_resolver' ]
     tags:
       - { name: event_subscriber }
+
+  niklan.search.search_api:
+    abstract: true
+    arguments:
+      - '@search_api.query_helper'
+      - '@entity_type.manager'
+
+  niklan.search.global:
+    parent: niklan.search.search_api
+    class: Drupal\niklan\Search\GlobalSearch

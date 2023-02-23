@@ -3,9 +3,9 @@
 namespace Drupal\niklan\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Data\ContentEntityResultSet;
+use Drupal\niklan\Data\EntitySearchResult;
+use Drupal\niklan\Data\EntitySearchResults;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -40,7 +40,7 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
   public function __invoke(array &$variables): void {
     $results = $variables['results'];
 
-    if (!$results instanceof ContentEntityResultSet) {
+    if (!$results instanceof EntitySearchResults) {
       return;
     }
 
@@ -53,24 +53,50 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
   /**
    * Builds search results.
    *
-   * @param \Drupal\niklan\Data\ContentEntityResultSet $results
+   * @param \Drupal\niklan\Data\EntitySearchResults $results
    *   The search result set.
    *
    * @return array
    *   An array with search results.
    */
-  private function buildResults(ContentEntityResultSet $results): array {
-    $entity_type_id = $results->getEntityTypeId();
-    $storage = $this->entityTypeManager->getStorage($entity_type_id);
-    $view_builder = $this->entityTypeManager->getViewBuilder($entity_type_id);
+  protected function buildResults(EntitySearchResults $results): array {
+    $this->warmUpResults($results);
 
-    return \array_map(
-      static fn (EntityInterface $entity) => $view_builder->view(
-        $entity,
-        'search_result',
-      ),
-      $storage->loadMultiple($results->getIds()),
+    return \array_map([$this, 'buildResult'], $results->getItems());
+  }
+
+  /**
+   * Builds a single result.
+   *
+   * @param \Drupal\niklan\Data\EntitySearchResult $result
+   *   The entity search result.
+   *
+   * @return array
+   *   A render array with result.
+   */
+  protected function buildResult(EntitySearchResult $result): array {
+    $storage = $this->entityTypeManager->getStorage($result->getEntityTypeId());
+    $view_builder = $this->entityTypeManager->getViewBuilder(
+      $result->getEntityTypeId(),
     );
+    $entity = $storage->load($result->getEntityId());
+
+    return $view_builder->view($entity, 'search_result');
+  }
+
+  /**
+   * Warms up result entities.
+   *
+   * @param \Drupal\niklan\Data\EntitySearchResults $results
+   *   The search results.
+   */
+  protected function warmUpResults(EntitySearchResults $results): void {
+    foreach ($results->getEntityIds() as $entity_type_id => $entity_ids) {
+      $this
+        ->entityTypeManager
+        ->getStorage($entity_type_id)
+        ->loadMultiple($entity_ids);
+    }
   }
 
 }
