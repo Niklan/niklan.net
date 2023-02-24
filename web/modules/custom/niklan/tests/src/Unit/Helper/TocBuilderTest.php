@@ -2,11 +2,11 @@
 
 namespace Drupal\Tests\niklan\Unit\Helper;
 
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\niklan\Helper\TocBuilder;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\Tests\niklan\Traits\ParagraphHeadingTrait;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -15,6 +15,8 @@ use Drupal\Tests\UnitTestCase;
  * @coversDefaultClass \Drupal\niklan\Helper\TocBuilder
  */
 final class TocBuilderTest extends UnitTestCase {
+
+  use ParagraphHeadingTrait;
 
   /**
    * Prepares prophecy for entity reference field.
@@ -81,35 +83,6 @@ final class TocBuilderTest extends UnitTestCase {
     $tree = $builder->getTree($items);
 
     self::assertEquals([], $tree);
-  }
-
-  /**
-   * Builds prophecy with heading paragraph.
-   *
-   * @param string $title
-   *   The paragraph title.
-   * @param string $heading_level
-   *   The paragraph heading level.
-   *
-   * @return \Drupal\paragraphs\ParagraphInterface
-   *   The paragraph revealed prophecy.
-   */
-  protected function prepareHeadingParagraph(string $title, string $heading_level): ParagraphInterface {
-    $paragraph = $this->prophesize(ParagraphInterface::class);
-    $paragraph->bundle()->willReturn('heading');
-
-    $field_title_items = $this->prophesize(FieldItemListInterface::class);
-    $field_title_items->getString()->willReturn($title);
-    $paragraph->get('field_title')->willReturn($field_title_items->reveal());
-
-    $field_heading_level_items = $this
-      ->prophesize(FieldItemListInterface::class);
-    $field_heading_level_items->getString()->willReturn($heading_level);
-    $paragraph
-      ->get('field_heading_level')
-      ->willReturn($field_heading_level_items->reveal());
-
-    return $paragraph->reveal();
   }
 
   /**

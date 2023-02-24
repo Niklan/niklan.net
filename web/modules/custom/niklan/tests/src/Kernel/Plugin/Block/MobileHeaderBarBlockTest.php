@@ -20,18 +20,12 @@ final class MobileHeaderBarBlockTest extends BlockTestBase {
       ->blockManager
       ->createInstance('niklan_mobile_header_bar');
     \assert($block_instance instanceof BlockPluginInterface);
-    $block_result = $block_instance->build();
-    $block_html = (string) $this->renderer->renderRoot($block_result);
+    $build = $block_instance->build();
+    $this->render($build);
 
-    self::assertStringContainsString('Site logo', $block_html);
-    self::assertStringContainsString(
-      Url::fromRoute('<front>')->setAbsolute()->toString(),
-      $block_html,
-    );
-    self::assertStringContainsString(
-      'js-navigation-mobile-toggle',
-      $block_html,
-    );
+    self::assertRaw('Site logo');
+    self::assertRaw(Url::fromRoute('<front>')->setAbsolute()->toString());
+    self::assertCount(1, $this->cssSelect('.js-navigation-mobile-toggle'));
   }
 
 }

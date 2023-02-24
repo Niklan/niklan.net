@@ -17,12 +17,12 @@ final class CopyrightBlockTest extends BlockTestBase {
   public function testBlock(): void {
     $block_instance = $this->blockManager->createInstance('niklan_copyright');
     \assert($block_instance instanceof BlockPluginInterface);
-    $block_result = $block_instance->build();
-    $block_html = (string) $this->renderer->renderRoot($block_result);
+    $build = $block_instance->build();
+    $this->render($build);
 
-    self::assertStringContainsString('CC-BY-SA 4.0', $block_html);
-    self::assertStringContainsString('©', $block_html);
-    self::assertStringContainsString('Niklan', $block_html);
+    self::assertRaw('CC-BY-SA 4.0');
+    self::assertRaw('©');
+    self::assertRaw('Niklan');
   }
 
 }

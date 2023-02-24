@@ -3,7 +3,6 @@
 namespace Drupal\Tests\niklan\Kernel\Plugin\Block;
 
 use Drupal\Core\Block\BlockManagerInterface;
-use Drupal\Core\Render\RendererInterface;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 
 /**
@@ -14,12 +13,7 @@ abstract class BlockTestBase extends NiklanTestBase {
   /**
    * The block plugin manager.
    */
-  protected ?BlockManagerInterface $blockManager;
-
-  /**
-   * The renderer.
-   */
-  protected ?RendererInterface $renderer;
+  protected BlockManagerInterface $blockManager;
 
   /**
    * {@inheritdoc}
@@ -28,7 +22,6 @@ abstract class BlockTestBase extends NiklanTestBase {
     parent::setUp();
 
     $this->blockManager = $this->container->get('plugin.manager.block');
-    $this->renderer = $this->container->get('renderer');
   }
 
 }

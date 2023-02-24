@@ -20,22 +20,13 @@ final class FollowLinksBlockTest extends BlockTestBase {
       ->blockManager
       ->createInstance('niklan_follow_links');
     \assert($block_instance instanceof BlockPluginInterface);
-    $block_result = $block_instance->build();
-    $block_html = (string) $this->renderer->renderRoot($block_result);
+    $build = $block_instance->build();
+    $this->render($build);
 
-    self::assertStringContainsString(
-      'https://niklan.net/blog.xml',
-      $block_html,
-    );
-    self::assertStringContainsString('https://t.me/niklannet', $block_html);
-    self::assertStringContainsString(
-      'https://youtube.com/c/NiklanNet',
-      $block_html,
-    );
-    self::assertStringContainsString(
-      Url::fromRoute('niklan.support')->setAbsolute()->toString(),
-      $block_html,
-    );
+    self::assertRaw('https://niklan.net/blog.xml');
+    self::assertRaw('https://t.me/niklannet');
+    self::assertRaw('https://youtube.com/c/NiklanNet');
+    self::assertRaw(Url::fromRoute('niklan.support')->getInternalPath());
   }
 
 }
