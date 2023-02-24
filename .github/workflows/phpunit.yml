@@ -40,9 +40,6 @@ jobs:
       - name: Install site dependencies
         run: docker compose exec -T php composer install
 
-      - name: Install website
-        run: docker compose exec -T php drush site:install niklan_installer
-
       - name: Run tests
         run: docker compose exec -T php composer run d4d-phpunit-coverage
 
