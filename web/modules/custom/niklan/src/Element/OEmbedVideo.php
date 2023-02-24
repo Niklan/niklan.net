@@ -2,7 +2,7 @@
 
 namespace Drupal\niklan\Element;
 
-use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element\RenderElement;
@@ -34,9 +34,9 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
   protected UrlResolverInterface $oEmbedResolver;
 
   /**
-   * The media settings.
+   * The config factory.
    */
-  protected ImmutableConfig $mediaSettings;
+  protected ConfigFactoryInterface $configFactory;
 
   /**
    * The media iframe Url helper.
@@ -55,9 +55,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->oEmbedFetcher = $container->get('media.oembed.resource_fetcher');
     $instance->oEmbedResolver = $container->get('media.oembed.url_resolver');
-    $instance->mediaSettings = $container
-      ->get('config.factory')
-      ->get('media.settings');
+    $instance->configFactory = $container->get('config.factory');
     $instance->iFrameUrlHelper = $container
       ->get('media.oembed.iframe_url_helper');
     $instance->responsiveImageStyleStorage = $container
@@ -235,18 +233,18 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
   /**
    * Builds iframe URL.
    *
-   * @param string $url
+   * @param string $video_url
    *   The remote video URL.
    * @param \Drupal\media\OEmbed\Resource $resource
    *   The oEmbed resource.
    */
-  protected function buildIframeUrl(string $url, Resource $resource): Url {
+  protected function buildIframeUrl(string $video_url, Resource $resource): Url {
     if ($resource->getProvider()->getName() === 'YouTube') {
       // Default controller 'media.oembed_iframe' is not used because YouTube
       // oembed provider returns iframe markup without allowing us to add
       // special query parameters like autoplay. Also, YouTube doesn't return
       // URL for that iframe.
-      $video_id = $this->parseYouTubeVideoId($url);
+      $video_id = $this->parseYouTubeVideoId($video_url);
       $url = Url::fromUri("https://www.youtube.com/embed/{$video_id}", [
         'query' => [
           'autoplay' => 1,
@@ -254,15 +252,14 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       ]);
     }
     else {
-      // Use default behavior as fallback for Vimeo and other providers.
       $url = Url::fromRoute('media.oembed_iframe', [], [
         'query' => [
-          'url' => $url,
-          'hash' => $this->iFrameUrlHelper->getHash($url, 0, 0),
+          'url' => $video_url,
+          'hash' => $this->iFrameUrlHelper->getHash($video_url, 0, 0),
         ],
       ]);
 
-      $domain = $this->mediaSettings->get('iframe_domain');
+      $domain = $this->configFactory->get('media.settings')->get('iframe_domain');
 
       if ($domain) {
         $url->setOption('base_url', $domain);
@@ -288,11 +285,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
       $matches,
     );
 
-    if (isset($matches[1])) {
-      return $matches[1];
-    }
-
-    return NULL;
+    return $matches[1];
   }
 
   /**

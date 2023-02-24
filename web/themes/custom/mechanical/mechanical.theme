@@ -269,7 +269,6 @@ function mechanical_preprocess_paragraph__heading(array &$variables): void {
   $variables['title'] = $title;
   $variables['anchor'] = Anchor::generate(
     $title,
-    'druki_content_toc_theme',
     Anchor::REUSE,
   );
 

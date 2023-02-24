@@ -13,6 +13,7 @@ abstract class NiklanTestBase extends KernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'breakpoint',
     'niklan',
     'node',
     'media',
