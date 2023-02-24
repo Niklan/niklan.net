@@ -8137,16 +8137,16 @@
         },
         {
             "name": "chi-teck/drupal-coder-extension",
-            "version": "2.0.0-alpha1",
+            "version": "2.0.0-alpha2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Chi-teck/drupal-coder-extension.git",
-                "reference": "1caad2892a36c3c349761d897e7c46a719324e25"
+                "reference": "5259bbb681b2985f4ac8f749ba58f92b2d5695a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/1caad2892a36c3c349761d897e7c46a719324e25",
-                "reference": "1caad2892a36c3c349761d897e7c46a719324e25",
+                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/5259bbb681b2985f4ac8f749ba58f92b2d5695a8",
+                "reference": "5259bbb681b2985f4ac8f749ba58f92b2d5695a8",
                 "shasum": ""
             },
             "require": {
@@ -8165,9 +8165,9 @@
             "description": "An extension of Drupal coding standards.",
             "support": {
                 "issues": "https://github.com/Chi-teck/drupal-coder-extension/issues",
-                "source": "https://github.com/Chi-teck/drupal-coder-extension/tree/2.0.0-alpha1"
+                "source": "https://github.com/Chi-teck/drupal-coder-extension/tree/2.0.0-alpha2"
             },
-            "time": "2023-02-23T04:38:31+00:00"
+            "time": "2023-02-24T07:41:48+00:00"
         },
         {
             "name": "composer/ca-bundle",
