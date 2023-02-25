@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\ExtraField;
 
-use Drupal\Core\Render\RendererInterface;
+use Drupal\extra_field\Plugin\ExtraFieldDisplayInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayManagerInterface;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 
@@ -15,11 +15,6 @@ abstract class ExtraFieldTestBase extends NiklanTestBase {
    * The extra field display plugin manager.
    */
   protected ?ExtraFieldDisplayManagerInterface $extraFieldDisplayManager;
-
-  /**
-   * The renderer.
-   */
-  protected ?RendererInterface $renderer;
 
   /**
    * {@inheritdoc}
@@ -37,7 +32,23 @@ abstract class ExtraFieldTestBase extends NiklanTestBase {
     $this->extraFieldDisplayManager = $this
       ->container
       ->get('plugin.manager.extra_field_display');
-    $this->renderer = $this->container->get('renderer');
+  }
+
+  /**
+   * Creates an instance for extra field display.
+   *
+   * @param string $plugin_id
+   *   The plugin ID.
+   * @param array $configuration
+   *   The plugin configuration.
+   *
+   * @return \Drupal\extra_field\Plugin\ExtraFieldDisplayInterface
+   *   The plugin instance.
+   */
+  protected function createExtraFieldDisplayInstance(string $plugin_id, array $configuration = []): ExtraFieldDisplayInterface {
+    return $this
+      ->extraFieldDisplayManager
+      ->createInstance($plugin_id, $configuration);
   }
 
 }
