@@ -73,6 +73,12 @@ The project is uses PHPUnit for testing its codebase.
 
 PHPUnit is extended with [weitzman/drupal-test-traits](https://gitlab.com/weitzman/drupal-test-traits) for some «existing site» testing.
 
+Copy settings for PHPUnit and adjust if needed:
+
+```shell
+cp phpunit.xml.dist phpunit.xml
+```
+
 **Run PHPUnit:**
 
 ```shell
