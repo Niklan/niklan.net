@@ -37,8 +37,11 @@ jobs:
           mkdir -p ./web/sites/simpletest
           chmod 777 ./web/sites/simpletest
 
-      - name: Run docker
+      - name: Build PHP container
         run: docker compose up -d --no-deps --build php
+
+      - name: Run docker
+        run: docker compose up -d
 
       - name: Install site dependencies
         run: docker compose exec -T php composer install
