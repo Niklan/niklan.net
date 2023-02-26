@@ -24,6 +24,7 @@ jobs:
 
       - name: Copy files for environment
         run: |
+          cp ./phpunit.xml.dist ./phpunit.xml
           cp ./.github/workflows/d4d-phpunit/.env ./.env
           cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
           cp ./assets/scaffold/.env.php ./web/.env.php
@@ -41,7 +42,7 @@ jobs:
         run: docker compose exec -T php composer install
 
       - name: Run tests
-        run: docker compose exec -T php composer run d4d-phpunit-coverage
+        run: docker compose exec -T php composer run phpunit-coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
