@@ -18,7 +18,7 @@ trait BlogEntryTrait {
   /**
    * Set up blog entry and everything related to it.
    */
-  protected function setUpBlogEntry(): void {
+  protected function setUpBlogEntry(): NodeType {
     $this->installEntitySchema('user');
     $this->installEntitySchema('node');
 
@@ -27,10 +27,21 @@ trait BlogEntryTrait {
       'pattern' => 'D, m/d/Y - H:i',
     ])->save();
 
-    NodeType::create([
+    return $this->createBlogEntryType();
+  }
+
+  /**
+   * Creates a not type 'blog_entry'.
+   *
+   * @return \Drupal\node\Entity\NodeType
+   *   The node type.
+   */
+  protected function createBlogEntryType(): NodeType {
+    $node_type = NodeType::create([
       'type' => 'blog_entry',
       'name' => 'Blog post',
-    ])->save();
+    ]);
+    self::assertEquals(\SAVED_NEW, $node_type->save(), 'Blog entry node type was created.');
 
     $field_tags_storage = FieldStorageConfig::create([
       'field_name' => 'field_tags',
@@ -48,6 +59,8 @@ trait BlogEntryTrait {
       'bundle' => 'blog_entry',
       'label' => 'Tags',
     ])->save();
+
+    return $node_type;
   }
 
   /**

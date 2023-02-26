@@ -29,6 +29,7 @@ abstract class NiklanTestBase extends KernelTestBase {
     'text',
     'filter',
     'search_api',
+    'twig_tweak',
   ];
 
   /**

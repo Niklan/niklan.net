@@ -2,14 +2,14 @@
 
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
-use Drupal\file\FileInterface;
-use Drupal\media\MediaInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\file\FileStorageInterface;
+use Drupal\file\FileInterface;
+use Drupal\media\MediaInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,11 +29,6 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
    * The entity type manager service.
    */
   protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
-   * The file storage.
-   */
-  protected ?FileStorageInterface $fileStorage;
 
   /**
    * {@inheritdoc}
@@ -69,10 +64,13 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
     $element = [];
 
     foreach ($items as $item) {
-      $media = $item->entity;
+      \assert($item instanceof EntityReferenceItem);
+
+      $media = $item->get('entity')->getValue();
       \assert($media instanceof MediaInterface);
+
       $file_id = $media->getSource()->getSourceFieldValue($media);
-      $file = $this->getFileStorage()->load($file_id);
+      $file = $this->entityTypeManager->getStorage('file')->load($file_id);
       \assert($file instanceof FileInterface);
 
       $element[] = [
@@ -85,23 +83,6 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
     }
 
     return $element;
-  }
-
-  /**
-   * Gets file storage.
-   *
-   * @return \Drupal\file\FileStorageInterface
-   *   The file storage.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  protected function getFileStorage(): FileStorageInterface {
-    if (!isset($this->fileStorage)) {
-      $this->fileStorage = $this->entityTypeManager->getStorage('file');
-    }
-
-    return $this->fileStorage;
   }
 
 }
