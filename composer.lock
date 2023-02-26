@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "56d942984b23019ee776e89933a057ca",
+    "content-hash": "5a2fc1edc986e8a5c31c767802685cd3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8137,16 +8137,16 @@
         },
         {
             "name": "chi-teck/drupal-coder-extension",
-            "version": "2.x-dev",
+            "version": "2.0.0-alpha2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Chi-teck/drupal-coder-extension.git",
-                "reference": "6a420fac19878f1faa321988d30e9ba243d15c0f"
+                "reference": "5259bbb681b2985f4ac8f749ba58f92b2d5695a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/6a420fac19878f1faa321988d30e9ba243d15c0f",
-                "reference": "6a420fac19878f1faa321988d30e9ba243d15c0f",
+                "url": "https://api.github.com/repos/Chi-teck/drupal-coder-extension/zipball/5259bbb681b2985f4ac8f749ba58f92b2d5695a8",
+                "reference": "5259bbb681b2985f4ac8f749ba58f92b2d5695a8",
                 "shasum": ""
             },
             "require": {
@@ -8165,9 +8165,9 @@
             "description": "An extension of Drupal coding standards.",
             "support": {
                 "issues": "https://github.com/Chi-teck/drupal-coder-extension/issues",
-                "source": "https://github.com/Chi-teck/drupal-coder-extension/tree/2.x"
+                "source": "https://github.com/Chi-teck/drupal-coder-extension/tree/2.0.0-alpha2"
             },
-            "time": "2023-02-16T14:57:31+00:00"
+            "time": "2023-02-24T07:41:48+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -12401,66 +12401,17 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
-        },
-        {
-            "name": "weitzman/drupal-test-traits",
-            "version": "2.0.1",
-            "source": {
-                "type": "git",
-                "url": "git@gitlab.com:weitzman/drupal-test-traits.git",
-                "reference": "63c674f8437d62dec3ea3785616a1fd44bf94c3b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/weitzman%2Fdrupal-test-traits/repository/archive.zip?sha=63c674f8437d62dec3ea3785616a1fd44bf94c3b",
-                "reference": "63c674f8437d62dec3ea3785616a1fd44bf94c3b",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "installer-paths": {
-                    "web/core": [
-                        "type:drupal-core"
-                    ]
-                },
-                "drupal-scaffold": {
-                    "locations": {
-                        "web-root": "web/"
-                    },
-                    "file-mapping": {
-                        "[project-root]/.editorconfig": false,
-                        "[project-root]/.gitattributes": false,
-                        "[project-root]/.gitignore": false
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "weitzman\\DrupalTestTraits\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Moshe Weitzman",
-                    "email": "weitzman@tejasa.com"
-                }
-            ],
-            "description": "Traits for testing Drupal sites that have user content (versus unpopulated sites).",
-            "time": "2022-12-14T18:51:18+00:00"
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "drupal/contact_storage": 10,
         "drupal/glisseo": 5,
         "drupal/rabbit_hole": 10,
         "drupal/redirect": 15,
-        "drupal/symfony_mailer": 10
+        "drupal/symfony_mailer": 10,
+        "chi-teck/drupal-coder-extension": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

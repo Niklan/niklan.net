@@ -21,5 +21,6 @@
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
   <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>
 </ruleset>

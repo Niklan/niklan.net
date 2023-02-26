@@ -8,7 +8,7 @@
  * - items: An array with items to show.
  */
 #}
-<div{{ attributes }}>
+<div{{ attributes.addClass('tag-list') }}>
   {% for item in items %}
     {{- item -}}
   {% endfor %}

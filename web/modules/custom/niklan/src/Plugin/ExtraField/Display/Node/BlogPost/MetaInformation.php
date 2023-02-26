@@ -2,7 +2,6 @@
 
 namespace Drupal\niklan\Plugin\ExtraField\Display\Node\BlogPost;
 
-use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -32,17 +31,11 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
   protected DateFormatterInterface $dateFormatter;
 
   /**
-   * The data cache bin.
-   */
-  protected CacheBackendInterface $cache;
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->dateFormatter = $container->get('date.formatter');
-    $instance->cache = $container->get('cache.data');
 
     return $instance;
   }
@@ -82,7 +75,8 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
    *   The number of comments added.
    */
   protected function getCommentCount(): int {
-    return (int) $this->getEntity()
+    return (int) $this
+      ->getEntity()
       ->get('comment_node_blog_entry')
       ->first()
       ->get('comment_count')
@@ -106,21 +100,11 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
    *   The number of minutes.
    */
   protected function getEstimatedReadTime(): int {
-    $cid = __METHOD__ . ':' . $this->getEntity()->id();
-    $cache = $this->cache->get($cid);
+    $content = $this->getEntity()->get('field_content');
+    \assert($content instanceof EntityReferenceRevisionsFieldItemList);
+    $calculator = new EstimatedReadTimeCalculator();
 
-    if ($cache) {
-      $estimated_minutes = $cache->data;
-    }
-    else {
-      $content = $this->getEntity()->get('field_content');
-      \assert($content instanceof EntityReferenceRevisionsFieldItemList);
-      $calculator = new EstimatedReadTimeCalculator();
-      $estimated_minutes = $calculator->calculate($content);
-      $this->cache->set($cid, $estimated_minutes);
-    }
-
-    return $estimated_minutes;
+    return $calculator->calculate($content);
   }
 
 }

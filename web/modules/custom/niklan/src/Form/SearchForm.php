@@ -22,18 +22,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class SearchForm extends FormBase {
 
   /**
-   * The class resolver.
+   * Constructs a new SearchForm instance.
+   *
+   * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $classResolver
+   *   The class resolver.
    */
-  protected ClassResolverInterface $classResolver;
+  public function __construct(
+    protected ClassResolverInterface $classResolver,
+  ) {}
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): self {
-    $instance = parent::create($container);
-    $instance->classResolver = $container->get('class_resolver');
-
-    return $instance;
+    return new self(
+      $container->get('class_resolver'),
+    );
   }
 
   /**
@@ -86,11 +90,10 @@ final class SearchForm extends FormBase {
     $search_query = $form_state->getValue('query');
     $current_request = $this->getRequest();
 
-    if ($form_state->getValue('query')) {
+    $current_request->query->remove('q');
+
+    if ($search_query) {
       $current_request->query->set('q', $search_query);
-    }
-    else {
-      $current_request->query->remove('q');
     }
 
     // When search query is changed, page number should be reset.

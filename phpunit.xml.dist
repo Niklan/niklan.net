@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="web/core/tests/bootstrap.php"
+         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
+         colors="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         cacheResult="false"
+         failOnWarning="true">
+  <php>
+    <ini name="error_reporting" value="0"/>
+    <ini name="memory_limit" value="-1"/>
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+    <!--<env name="SIMPLETEST_BASE_URL" value="http://nginx"/>-->
+    <!--<env name="SIMPLETEST_DB" value="sqlite://localhost//mnt/tmpfs/test.sqlite"/>-->
+    <!--<env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["&#45;&#45;disable-gpu","&#45;&#45;headless"]}}, "http://chrome:9515"]'/>-->
+  </php>
+
+  <testsuites>
+    <testsuite name="unit">
+      <directory>./web/modules/custom/*/tests/src/Unit</directory>
+    </testsuite>
+    <testsuite name="kernel">
+      <directory>./web/modules/custom/*/tests/src/Kernel</directory>
+    </testsuite>
+    <testsuite name="functional">
+      <directory>./web/modules/custom/*/tests/src/Functional</directory>
+    </testsuite>
+    <testsuite name="functional-javascript">
+      <directory>./web/modules/custom/*/tests/src/FunctionalJavascript</directory>
+    </testsuite>
+  </testsuites>
+
+  <listeners>
+    <listener class="\Drupal\Tests\Listeners\DrupalListener"/>
+  </listeners>
+
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory>./web/modules/custom</directory>
+    </include>
+    <exclude>
+      <directory>./web/modules/custom/*/tests</directory>
+    </exclude>
+
+    <report>
+      <!-- Write it here, because PHPUnit run under web user has no access to write into other directories. -->
+      <clover outputFile="web/sites/default/files/coverage.xml"/>
+    </report>
+  </coverage>
+</phpunit>

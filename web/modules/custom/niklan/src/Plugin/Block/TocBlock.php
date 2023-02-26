@@ -4,8 +4,8 @@ namespace Drupal\niklan\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\niklan\Helper\TocBuilder;
@@ -31,17 +31,11 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
   protected RouteMatchInterface $routeMatch;
 
   /**
-   * The renderer.
-   */
-  protected RendererInterface $renderer;
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
-    $instance->renderer = $container->get('renderer');
 
     return $instance;
   }
@@ -57,7 +51,8 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
       return [];
     }
 
-    $this->renderer->addCacheableDependency($build, $node);
+    $cacheable_metadata = new CacheableMetadata();
+    $cacheable_metadata->addCacheableDependency($node);
 
     $content = $node->get('field_content');
     \assert($content instanceof EntityReferenceRevisionsFieldItemList);
@@ -66,6 +61,8 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $links = $toc_builder->getTree($content);
 
     if (!$links) {
+      $cacheable_metadata->applyTo($build);
+
       return $build;
     }
 
@@ -73,6 +70,8 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
       '#theme' => 'niklan_toc',
       '#links' => $links,
     ];
+
+    $cacheable_metadata->applyTo($build);
 
     return $build;
   }

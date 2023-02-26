@@ -40,13 +40,11 @@ jobs:
       - name: Install site dependencies
         run: docker compose exec -T php composer install
 
-      - name: Install website
-        run: docker compose exec -T php drush site:install niklan_installer
-
       - name: Run tests
         run: docker compose exec -T php composer run d4d-phpunit-coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: web/sites/default/files/coverage.xml

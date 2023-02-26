@@ -72,21 +72,21 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
   public function testRepository(): void {
     $repository = new AboutSettingsRepository($this->keyValueFactory);
 
-    $this->assertNull($repository->getPhotoMediaId());
-    $this->assertNull($repository->getPhotoResponsiveImageStyleId());
+    self::assertNull($repository->getPhotoMediaId());
+    self::assertNull($repository->getPhotoResponsiveImageStyleId());
 
     $repository->setPhotoMediaId('123');
-    $this->assertEquals('123', $repository->getPhotoMediaId());
+    self::assertEquals('123', $repository->getPhotoMediaId());
     $repository->setPhotoMediaId(NULL);
-    $this->assertNull($repository->getPhotoMediaId());
+    self::assertNull($repository->getPhotoMediaId());
 
     $repository->setPhotoResponsiveImageStyleId('image_style_name');
-    $this->assertEquals(
+    self::assertEquals(
       'image_style_name',
       $repository->getPhotoResponsiveImageStyleId(),
     );
     $repository->setPhotoResponsiveImageStyleId(NULL);
-    $this->assertNull($repository->getPhotoResponsiveImageStyleId());
+    self::assertNull($repository->getPhotoResponsiveImageStyleId());
   }
 
 }

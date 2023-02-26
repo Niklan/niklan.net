@@ -25,7 +25,7 @@ final class MarkdownTest extends FilterTestBase {
       LanguageInterface::LANGCODE_NOT_SPECIFIED,
     );
 
-    $this->assertStringContainsString(
+    self::assertStringContainsString(
       '<strong>strong</strong>',
       $result->getProcessedText(),
     );

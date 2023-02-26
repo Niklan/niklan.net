@@ -52,6 +52,7 @@ index.php
 robots.txt
 update.php
 web.config
+phpunit.xml
 
 # Ignore scaffold files provided by drupal:scaffold.
 .gitattributes

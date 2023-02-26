@@ -3,10 +3,9 @@
 namespace Drupal\niklan\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityViewBuilderInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\NodeInterface;
-use Drupal\node\NodeStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -15,37 +14,31 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class BlogController implements ContainerInjectionInterface {
 
   /**
-   * The renderer.
-   */
-  protected RendererInterface $renderer;
-
-  /**
-   * The node storage.
-   */
-  protected NodeStorageInterface $nodeStorage;
-
-  /**
-   * The node view builder.
-   */
-  protected EntityViewBuilderInterface $nodeViewBuilder;
-
-  /**
    * The amount of articles per page.
    */
   protected int $limit = 10;
 
   /**
+   * Constructs a new BlogController instance.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   */
+  public function __construct(
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected RendererInterface $renderer,
+  ) {}
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): self {
-    $entity_type_manager = $container->get('entity_type.manager');
-
-    $instance = new self();
-    $instance->nodeStorage = $entity_type_manager->getStorage('node');
-    $instance->nodeViewBuilder = $entity_type_manager->getViewBuilder('node');
-    $instance->renderer = $container->get('renderer');
-
-    return $instance;
+    return new self(
+      $container->get('entity_type.manager'),
+      $container->get('renderer'),
+    );
   }
 
   /**
@@ -72,7 +65,10 @@ final class BlogController implements ContainerInjectionInterface {
     $items = [];
 
     foreach ($this->load() as $node) {
-      $items[] = $this->nodeViewBuilder->view($node, 'teaser');
+      $items[] = $this
+        ->entityTypeManager
+        ->getViewBuilder('node')
+        ->view($node, 'teaser');
     }
 
     return $items;
@@ -87,7 +83,7 @@ final class BlogController implements ContainerInjectionInterface {
   protected function load(): array {
     $ids = $this->getEntityIds();
 
-    return $this->nodeStorage->loadMultiple($ids);
+    return $this->entityTypeManager->getStorage('node')->loadMultiple($ids);
   }
 
   /**
@@ -97,8 +93,11 @@ final class BlogController implements ContainerInjectionInterface {
    *   The list of ids.
    */
   protected function getEntityIds(): array {
-    $query = $this->nodeStorage->getQuery()->accessCheck(FALSE);
-    $query
+    $query = $this
+      ->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
+      ->accessCheck(FALSE)
       ->condition('type', 'blog_entry')
       ->condition('status', NodeInterface::PUBLISHED)
       ->sort('created', 'DESC');

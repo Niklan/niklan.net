@@ -7,17 +7,16 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Data\ContentEntityResultSet;
+use Drupal\niklan\Data\SearchParams;
 use Drupal\niklan\Form\SearchForm;
-use Drupal\niklan\Utility\SearchApiResultItemsHelper;
-use Drupal\search_api\Utility\QueryHelperInterface;
+use Drupal\niklan\Search\EntitySearchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Provides search page controller.
  */
-final class SearchController implements ContainerInjectionInterface {
+final class SearchController implements SearchControllerInterface, ContainerInjectionInterface {
 
   /**
    * The amount of results per page.
@@ -27,8 +26,8 @@ final class SearchController implements ContainerInjectionInterface {
   /**
    * Constructs a new SearchController instance.
    *
-   * @param \Drupal\search_api\Utility\QueryHelperInterface $searchQueryHelper
-   *   The Search API query helper.
+   * @param \Drupal\niklan\Search\EntitySearchInterface $entitySearch
+   *   The entity search.
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   The form builder.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -37,7 +36,7 @@ final class SearchController implements ContainerInjectionInterface {
    *   The pager manager.
    */
   public function __construct(
-    protected QueryHelperInterface $searchQueryHelper,
+    protected EntitySearchInterface $entitySearch,
     protected FormBuilderInterface $formBuilder,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected PagerManagerInterface $pagerManager,
@@ -48,7 +47,7 @@ final class SearchController implements ContainerInjectionInterface {
    */
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('search_api.query_helper'),
+      $container->get('niklan.search.global'),
       $container->get('form_builder'),
       $container->get('entity_type.manager'),
       $container->get('pager.manager'),
@@ -56,13 +55,7 @@ final class SearchController implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds a search page.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request.
-   *
-   * @return array
-   *   An array with page content.
+   * {@inheritdoc}
    */
   public function page(Request $request): array {
     $keys = $request->query->get('q');
@@ -87,13 +80,7 @@ final class SearchController implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds a search page content.
-   *
-   * @param string|null $keys
-   *   The search keys.
-   *
-   * @return array
-   *   The page content.
+   * {@inheritdoc}
    */
   public function buildPageContent(?string $keys): array {
     $build = [
@@ -109,14 +96,19 @@ final class SearchController implements ContainerInjectionInterface {
       return $build;
     }
 
-    $search_results = $this->doSearch($keys);
+    $search_params = new SearchParams(
+      $keys,
+      self::RESULT_LIMIT,
+      $this->pagerManager->findPage() * self::RESULT_LIMIT,
+    );
+    $search_results = $this->entitySearch->search($search_params);
 
-    if ($search_results->getResultCount() === 0) {
+    if ($search_results->getTotalResultsCount() === 0) {
       return $build;
     }
 
     $this->pagerManager->createPager(
-      $search_results->getResultCount(),
+      $search_results->getTotalResultsCount(),
       self::RESULT_LIMIT,
     );
 
@@ -124,45 +116,9 @@ final class SearchController implements ContainerInjectionInterface {
   }
 
   /**
-   * Search for results.
-   *
-   * @param string $keys
-   *   The search keys.
-   *
-   * @return \Drupal\niklan\Data\ContentEntityResultSet
-   *   The search result IDs.
+   * {@inheritdoc}
    */
-  protected function doSearch(string $keys): ContentEntityResultSet {
-    $current_page = $this->pagerManager->findPage();
-
-    $index_storage = $this->entityTypeManager->getStorage('search_api_index');
-    $index = $index_storage->load('global_index');
-
-    $query = $this->searchQueryHelper->createQuery($index);
-    $query->addCondition('search_api_datasource', 'entity:node');
-    $query->keys($keys);
-    $query->range($current_page * self::RESULT_LIMIT, self::RESULT_LIMIT);
-    $query->sort('search_api_relevance', 'DESC');
-
-    $result = $query->execute();
-
-    return new ContentEntityResultSet(
-      'node',
-      SearchApiResultItemsHelper::extractEntityIds($result),
-      (int) $result->getResultCount(),
-    );
-  }
-
-  /**
-   * Builds a page title.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request.
-   *
-   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
-   *   The page title.
-   */
-  public function pageTitle(Request $request): TranslatableMarkup {
+  public function pageTitle(Request $request): string {
     $keys = $request->query->get('q');
 
     $title = new TranslatableMarkup('Search');
@@ -174,7 +130,7 @@ final class SearchController implements ContainerInjectionInterface {
       );
     }
 
-    return $title;
+    return (string) $title;
   }
 
 }

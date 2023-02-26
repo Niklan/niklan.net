@@ -13,15 +13,23 @@ abstract class NiklanTestBase extends KernelTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
+    'breakpoint',
     'niklan',
+    'node',
     'media',
     'file',
+    'field',
     'image',
     'responsive_image',
     'comment',
     'system',
     'user',
     'block',
+    'taxonomy',
+    'text',
+    'filter',
+    'search_api',
+    'twig_tweak',
   ];
 
   /**

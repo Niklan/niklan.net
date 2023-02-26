@@ -5,7 +5,7 @@ namespace Drupal\external_content\Dto;
 /**
  * Represents a parsed and structured source file content.
  */
-final class SourceFileContent extends ElementBase {
+final class SourceFileContent extends Element {
 
   /**
    * {@inheritdoc}

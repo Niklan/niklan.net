@@ -4,11 +4,11 @@ namespace Drupal\niklan\Plugin\ExtraField\Display\Term\Tag;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\node\NodeInterface;
-use Drupal\node\NodeStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,17 +25,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class Statistics extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The node storage.
+   * The entity type manager.
    */
-  protected NodeStorageInterface $nodeStorage;
+  protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
-    $instance->nodeStorage = $container->get('entity_type.manager')
-      ->getStorage('node');
+    $instance->entityTypeManager = $container->get('entity_type.manager');
 
     return $instance;
   }
@@ -63,7 +62,9 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    * Finds articles for that tag.
    */
   protected function findArticles(): array {
-    return $this->nodeStorage
+    return $this
+      ->entityTypeManager
+      ->getStorage('node')
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('type', 'blog_entry')
@@ -84,7 +85,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    */
   protected function loadFirstArticle(array $articles): NodeInterface {
     $id = \array_shift($articles);
-    $node = $this->nodeStorage->load($id);
+    $node = $this->entityTypeManager->getStorage('node')->load($id);
     \assert($node instanceof NodeInterface);
 
     return $node;
@@ -101,7 +102,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    */
   protected function loadLastArticle(array $articles): NodeInterface {
     $id = \array_pop($articles);
-    $node = $this->nodeStorage->load($id);
+    $node = $this->entityTypeManager->getStorage('node')->load($id);
     \assert($node instanceof NodeInterface);
 
     return $node;

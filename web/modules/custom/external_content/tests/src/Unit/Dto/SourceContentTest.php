@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\ElementBase;
+use Drupal\external_content\Dto\Element;
 use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\Tests\UnitTestCase;
 
@@ -17,7 +17,7 @@ final class SourceContentTest extends UnitTestCase {
    * Tests that class works as expected.
    */
   public function testClass(): void {
-    $element = new class() extends ElementBase {};
+    $element = new class() extends Element {};
     $source_content = new SourceFileContent();
     $this->assertEquals(0, $source_content->getChildren()->count());
     $source_content->addChild($element);

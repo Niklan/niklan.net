@@ -3,88 +3,62 @@
 namespace Drupal\niklan\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityViewBuilderInterface;
-use Drupal\niklan\Helper\TagStatistics;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\niklan\Helper\TagStatisticsInterface;
 use Drupal\node\NodeInterface;
-use Drupal\node\NodeStorageInterface;
 use Drupal\taxonomy\TermInterface;
-use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides controller for tags.
  */
-final class TagController implements ContainerInjectionInterface {
+final class TagController implements TagControllerInterface, ContainerInjectionInterface {
 
   /**
-   * The tag statistics helper.
+   * Constructs a new TagController instance.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Drupal\niklan\Helper\TagStatisticsInterface $tagStatistics
+   *   The tag statistics.
    */
-  protected TagStatistics $tagStatistics;
-
-  /**
-   * The term view builder.
-   */
-  protected EntityViewBuilderInterface $termViewBuilder;
-
-  /**
-   * The term storage.
-   */
-  protected TermStorageInterface $termStorage;
-
-  /**
-   * The node storage.
-   */
-  protected NodeStorageInterface $nodeStorage;
-
-  /**
-   * The node view builder.
-   */
-  protected EntityViewBuilderInterface $nodeViewBuilder;
+  public function __construct(
+    protected EntityTypeManagerInterface $entityTypeManager,
+    protected TagStatisticsInterface $tagStatistics,
+  ) {}
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): self {
-    $entity_type_manager = $container->get('entity_type.manager');
-
-    $instance = new self();
-    $instance->tagStatistics = $container->get('niklan.helper.tag_statistics');
-    $instance->termViewBuilder = $entity_type_manager
-      ->getViewBuilder('taxonomy_term');
-    $instance->termStorage = $entity_type_manager->getStorage('taxonomy_term');
-    $instance->nodeStorage = $entity_type_manager->getStorage('node');
-    $instance->nodeViewBuilder = $entity_type_manager->getViewBuilder('node');
-
-    return $instance;
+    return new self(
+      $container->get('entity_type.manager'),
+      $container->get('niklan.helper.tag_statistics'),
+    );
   }
 
   /**
-   * Builds page with all tags.
-   *
-   * @return array
-   *   An array with page content.
+   * {@inheritdoc}
    */
   public function collection(): array {
     $tag_ids = \array_keys($this->tagStatistics->getBlogEntryUsage());
-    $terms = $this->termStorage->loadMultiple($tag_ids);
+    $terms = $this
+      ->entityTypeManager
+      ->getStorage('taxonomy_term')
+      ->loadMultiple($tag_ids);
+    $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
 
     return [
       '#theme' => 'niklan_tag_list',
       '#items' => \array_map(
-        fn ($term) => $this->termViewBuilder->view($term, 'teaser'),
+        static fn ($term) => $view_builder->view($term, 'teaser'),
         $terms,
       ),
     ];
   }
 
   /**
-   * Builds a single tag page.
-   *
-   * @param \Drupal\taxonomy\TermInterface $term
-   *   The tag entity.
-   *
-   * @return array
-   *   An array with page contents.
+   * {@inheritdoc}
    */
   public function page(TermInterface $term): array {
     return [
@@ -107,26 +81,13 @@ final class TagController implements ContainerInjectionInterface {
    *   An array with blog post render arrays.
    */
   protected function getBlogPosts(TermInterface $term): array {
-    $items = [];
+    $storage = $this->entityTypeManager->getStorage('node');
+    $view_builder = $this->entityTypeManager->getViewBuilder('node');
 
-    foreach ($this->loadBlogPosts($term) as $node) {
-      $items[] = $this->nodeViewBuilder->view($node, 'teaser');
-    }
-
-    return $items;
-  }
-
-  /**
-   * Loads blog entries.
-   *
-   * @param \Drupal\taxonomy\TermInterface $term
-   *   The category term.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface[]
-   *   The entities.
-   */
-  protected function loadBlogPosts(TermInterface $term): array {
-    return $this->nodeStorage->loadMultiple($this->getBlogPostIds($term));
+    return \array_map(
+      static fn (NodeInterface $node): array => $view_builder->view($node, 'teaser'),
+      $storage->loadMultiple($this->getBlogPostIds($term)),
+    );
   }
 
   /**
@@ -139,8 +100,14 @@ final class TagController implements ContainerInjectionInterface {
    *   The blog entry ids.
    */
   protected function getBlogPostIds(TermInterface $term): array|int {
-    $query = $this->nodeStorage->getQuery()->accessCheck(FALSE);
-    $query->condition('type', 'blog_entry')
+    $query = $this
+      ->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
+      ->accessCheck(FALSE);
+
+    $query
+      ->condition('type', 'blog_entry')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('field_tags', $term->id())
       ->pager()

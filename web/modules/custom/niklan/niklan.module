@@ -45,7 +45,7 @@ function niklan_form_comment_comment_node_blog_entry_form_after_build(array $for
 function niklan_form_contact_message_contact_form_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   $form['field_email']['widget'][0]['value']['#placeholder'] = 'example@example.com';
   $form['field_email']['widget'][0]['value']['#description'] = new TranslatableMarkup(
-      "I'll send a reply to the specified address.",
+    "I'll send a reply to the specified address.",
   );
 }
 
@@ -373,7 +373,13 @@ function niklan_preprocess_comment(array &$variables): void {
   $comment = $variables['comment'];
   \assert($comment instanceof CommentInterface);
 
-  $commented_url = $comment->getCommentedEntity()
+  $commented_entity = $comment->getCommentedEntity();
+
+  if (!$commented_entity) {
+    return;
+  }
+
+  $commented_url = $commented_entity
     ->toUrl('canonical', ['absolute' => TRUE])
     ->toString();
   $comment_anchor = '#comment-' . $comment->id();
@@ -406,7 +412,7 @@ function niklan_preprocess_paragraph__important(array &$variables): void {
  * @param array $variables
  *   An associative array containing:
  *   - results: Array with results. It's also allowed to pass instance of
- *     \Drupal\niklan\Data\ContentEntityResultSet to automatically prepare
+ *     \Drupal\niklan\Data\EntitySearchResults to automatically prepare
  *     results from it.
  */
 function template_preprocess_niklan_search_results(array &$variables): void {

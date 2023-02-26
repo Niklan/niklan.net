@@ -12,6 +12,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\media\Entity\MediaType;
+use Drupal\media\MediaTypeInterface;
 use Drupal\media\Plugin\media\Source\OEmbedInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -22,11 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @FieldFormatter(
  *   id = "niklan_media_remote_video_optimized",
  *   label = @Translation("oEmbed video optimized responsive"),
- *   field_types = {
- *     "link",
- *     "string",
- *     "string_long",
- *   },
+ *   field_types = {"string"},
  * )
  */
 final class OEmbedVideo extends FormatterBase {
@@ -76,13 +73,14 @@ final class OEmbedVideo extends FormatterBase {
 
     $media_type = MediaType::load($field_definition->getTargetBundle());
 
-    if ($media_type) {
-      $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
-
-      return $media_type->getSource() instanceof OEmbedInterface && $is_video;
+    if (!$media_type instanceof MediaTypeInterface) {
+      return FALSE;
     }
 
-    return FALSE;
+    $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
+    $is_oembed = $media_type->getSource() instanceof OEmbedInterface;
+
+    return $is_oembed && $is_video;
   }
 
   /**

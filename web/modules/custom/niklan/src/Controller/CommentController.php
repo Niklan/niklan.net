@@ -3,9 +3,8 @@
 namespace Drupal\niklan\Controller;
 
 use Drupal\comment\CommentInterface;
-use Drupal\comment\CommentStorageInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityViewBuilderInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,27 +18,22 @@ final class CommentController implements ContainerInjectionInterface {
   protected const LIMIT = 10;
 
   /**
-   * The comment storage.
+   * Constructs a new CommentController instance.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    */
-  protected CommentStorageInterface $commentStorage;
-
-  /**
-   * The comment view builder.
-   */
-  protected EntityViewBuilderInterface $commentViewBuilder;
+  public function __construct(
+    protected EntityTypeManagerInterface $entityTypeManager,
+  ) {}
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container): self {
-    $entity_type_manager = $container->get('entity_type.manager');
-
-    $instance = new self();
-    $instance->commentStorage = $entity_type_manager->getStorage('comment');
-    $instance->commentViewBuilder = $entity_type_manager
-      ->getViewBuilder('comment');
-
-    return $instance;
+    return new self(
+      $container->get('entity_type.manager'),
+    );
   }
 
   /**
@@ -57,12 +51,7 @@ final class CommentController implements ContainerInjectionInterface {
         '#quantity' => 3,
       ],
       '#cache' => [
-        'tags' => [
-          'comment_list',
-        ],
-        'context' => [
-          'url.query_args.pagers:0',
-        ],
+        'tags' => ['comment_list'],
       ],
     ];
   }
@@ -75,11 +64,11 @@ final class CommentController implements ContainerInjectionInterface {
    */
   protected function prepareResults(): array {
     $items = [];
+    $view_builder = $this->entityTypeManager->getViewBuilder('comment');
 
     foreach ($this->load() as $comment) {
       \assert($comment instanceof CommentInterface);
-      // Render separately to create flat array.
-      $items[] = $this->commentViewBuilder->view($comment, 'teaser');
+      $items[] = $view_builder->view($comment, 'teaser');
     }
 
     return $items;
@@ -94,7 +83,9 @@ final class CommentController implements ContainerInjectionInterface {
   protected function load(): array {
     $ids = $this->getEntityIds();
 
-    return $ids ? $this->commentStorage->loadMultiple($ids) : [];
+    return $ids
+      ? $this->entityTypeManager->getStorage('comment')->loadMultiple($ids)
+      : [];
   }
 
   /**
@@ -104,7 +95,12 @@ final class CommentController implements ContainerInjectionInterface {
    *   An array of comment IDs.
    */
   protected function getEntityIds(): array {
-    $query = $this->commentStorage->getQuery()->accessCheck(FALSE);
+    $query = $this
+      ->entityTypeManager
+      ->getStorage('comment')
+      ->getQuery()
+      ->accessCheck(FALSE);
+
     $query
       ->condition('comment_type', 'comment_node_blog_entry')
       ->condition('status', 1)

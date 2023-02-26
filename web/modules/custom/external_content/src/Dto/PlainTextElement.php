@@ -5,7 +5,7 @@ namespace Drupal\external_content\Dto;
 /**
  * Represents a plain text.
  */
-final class PlainTextElement extends ElementBase {
+final class PlainTextElement extends Element {
 
   /**
    * Constructs a new PlainTextElement object.

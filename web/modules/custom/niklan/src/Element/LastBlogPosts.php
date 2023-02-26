@@ -3,13 +3,11 @@
 namespace Drupal\niklan\Element;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
-use Drupal\node\NodeStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -18,16 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @RenderElement("niklan_last_blog_posts")
  */
 final class LastBlogPosts extends RenderElement implements ContainerFactoryPluginInterface {
-
-  /**
-   * The node storage.
-   */
-  protected NodeStorageInterface $nodeStorage;
-
-  /**
-   * The node view builder.
-   */
-  protected EntityViewBuilderInterface $nodeViewBuilder;
 
   /**
    * The entity type manager.
@@ -86,7 +74,7 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
 
     $items = $this->prepareResults();
 
-    // Do not render element if not blog posts found.
+    // Do not render element if no blog posts found.
     if (!$items) {
       return [];
     }
@@ -101,9 +89,6 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
    *
    * @return array
    *   An array with items to render. Empty if nothing found.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function prepareResults(): array {
     $results = [];
@@ -113,10 +98,12 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
       return $results;
     }
 
-    $entities = $this->getNodeStorage()->loadMultiple($ids);
+    $storage = $this->entityTypeManager->getStorage('node');
+    $view_builder = $this->entityTypeManager->getViewBuilder('node');
+    $entities = $storage->loadMultiple($ids);
 
     foreach ($entities as $entity) {
-      $results[] = $this->getNodeViewBuilder()->view($entity, $this->viewMode);
+      $results[] = $view_builder->view($entity, $this->viewMode);
     }
 
     return $results;
@@ -132,44 +119,19 @@ final class LastBlogPosts extends RenderElement implements ContainerFactoryPlugi
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   protected function findResults(): array {
-    $query = $this->getNodeStorage()->getQuery()->accessCheck(FALSE);
-    $query->condition('type', 'blog_entry')
+    $query = $this
+      ->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
+      ->accessCheck(FALSE);
+
+    $query
+      ->condition('type', 'blog_entry')
       ->condition('status', NodeInterface::PUBLISHED)
       ->sort('created', 'DESC')
       ->range(0, $this->limit);
 
     return $query->execute();
-  }
-
-  /**
-   * Gets node storage.
-   *
-   * @return \Drupal\node\NodeStorageInterface
-   *   The node storage.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  protected function getNodeStorage(): NodeStorageInterface {
-    if (!isset($this->nodeStorage)) {
-      $this->nodeStorage = $this->entityTypeManager->getStorage('node');
-    }
-
-    return $this->nodeStorage;
-  }
-
-  /**
-   * Gets node view builder.
-   *
-   * @return \Drupal\Core\Entity\EntityViewBuilderInterface
-   *   The node view builder.
-   */
-  protected function getNodeViewBuilder(): EntityViewBuilderInterface {
-    if (!isset($this->nodeViewBuilder)) {
-      $this->nodeViewBuilder = $this->entityTypeManager->getViewBuilder('node');
-    }
-
-    return $this->nodeViewBuilder;
   }
 
 }

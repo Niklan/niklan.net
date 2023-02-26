@@ -17,3 +17,22 @@ block.settings.niklan_search:
 filter_settings.niklan_markdown:
   type: filter
   label: 'Markdown filter'
+
+field.formatter.settings.niklan_responsive_media_thumbnail:
+  type: mapping
+  label: 'Responsive media thumbnail formatter settings'
+  mapping:
+    image_link:
+      type: string
+      label: 'Link for image'
+    responsive_image_style:
+      type: string
+      label: 'The responsive image style ID'
+
+field.formatter.settings.niklan_media_remote_video_optimized:
+  type: mapping
+  label: 'Optimized remote video formatter'
+  mapping:
+    responsive_image_style:
+      type: string
+      label: 'The responsive image style ID'
