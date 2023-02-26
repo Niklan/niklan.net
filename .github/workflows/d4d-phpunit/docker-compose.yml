@@ -1,16 +1,6 @@
 version: "3.7"
 
 services:
-  mariadb:
-    image: wodby/mariadb:$MARIADB_TAG
-    container_name: "${PROJECT_NAME}_mariadb"
-    stop_grace_period: 30s
-    environment:
-      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
-      MYSQL_DATABASE: $DB_NAME
-      MYSQL_USER: $DB_USER
-      MYSQL_PASSWORD: $DB_PASSWORD
-
   php:
     image: wodby/drupal-php:$PHP_TAG
     container_name: "${PROJECT_NAME}_php"
@@ -35,6 +25,7 @@ services:
       SIMPLETEST_DB: "sqlite://localhost//mnt/tmpfs/test.sqlite"
       MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'
       # docker compose up -d --no-deps --build php
+      # This will allow to run tests without 'sudo'.
       PHP_FPM_USER: wodby
       PHP_FPM_GROUP: wodby
     volumes:
