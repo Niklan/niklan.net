@@ -28,13 +28,19 @@ services:
       DB_PASSWORD: $DB_PASSWORD
       DB_NAME: $DB_NAME
       DB_DRIVER: $DB_DRIVER
-      SIMPLETEST_BASE_URL: "http://nginx"
-      SIMPLETEST_DB: "${DB_DRIVER}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}#tests_"
-      MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'
       PHP_PCOV_ENABLED: 1
       PHP_PCOV_DIRECTORY: /var/www/html/web/modules/custom
+      # PHPUnit Drupal testing configurations
+      SIMPLETEST_BASE_URL: "http://nginx"
+      SIMPLETEST_DB: "sqlite://localhost//mnt/tmpfs/test.sqlite"
+      MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'
+      # docker compose up -d --no-deps --build php
+      PHP_FPM_USER: wodby
+      PHP_FPM_GROUP: wodby
     volumes:
       - ./:/var/www/html:cached
+    tmpfs:
+      - /mnt/tmpfs
 
   nginx:
     image: wodby/nginx:$NGINX_TAG

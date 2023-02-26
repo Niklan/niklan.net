@@ -35,7 +35,7 @@ jobs:
           chmod 777 ./web/sites/simpletest
 
       - name: Run docker
-        run: docker compose up -d
+        run: docker compose up -d --no-deps --build php
 
       - name: Install site dependencies
         run: docker compose exec -T php composer install
