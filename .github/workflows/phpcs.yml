@@ -3,9 +3,11 @@ name: PHPCS
 on:
   workflow_dispatch:
   pull_request:
-    paths:
-      - web/**
-      - tests/**
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .gitignore
+      - scripts/**
   push:
     branches: [ develop ]
     paths-ignore:

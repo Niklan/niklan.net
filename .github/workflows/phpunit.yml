@@ -3,9 +3,11 @@ name: PHPUnit
 on:
   workflow_dispatch:
   pull_request:
-    paths:
-      - web/**
-      - tests/**
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .gitignore
+      - scripts/**
   push:
     branches: [ develop ]
     paths-ignore:
@@ -24,6 +26,7 @@ jobs:
 
       - name: Copy files for environment
         run: |
+          cp ./phpunit.xml.dist ./phpunit.xml
           cp ./.github/workflows/d4d-phpunit/.env ./.env
           cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
           cp ./assets/scaffold/.env.php ./web/.env.php
@@ -34,6 +37,9 @@ jobs:
           mkdir -p ./web/sites/simpletest
           chmod 777 ./web/sites/simpletest
 
+      - name: Build PHP container
+        run: docker compose up -d --no-deps --build php
+
       - name: Run docker
         run: docker compose up -d
 
@@ -41,7 +47,7 @@ jobs:
         run: docker compose exec -T php composer install
 
       - name: Run tests
-        run: docker compose exec -T php composer run d4d-phpunit-coverage
+        run: docker compose exec -T php composer run phpunit-coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

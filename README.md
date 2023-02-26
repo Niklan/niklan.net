@@ -71,8 +71,6 @@ The project is uses PHPUnit for testing its codebase.
 
 ### PHPUnit
 
-PHPUnit is extended with [weitzman/drupal-test-traits](https://gitlab.com/weitzman/drupal-test-traits) for some «existing site» testing.
-
 Copy settings for PHPUnit and adjust if needed:
 
 ```shell
@@ -83,12 +81,6 @@ cp phpunit.xml.dist phpunit.xml
 
 ```shell
 composer phpunit
-```
-
-**Run PHPUnit from Docker 4 Drupal containers:** (see [d4d-php.sh](scripts/d4d-php.sh) for explanation)
-
-```shell
-composer d4d-phpunit
 ```
 
 ## Contribution
