@@ -28,3 +28,11 @@ field.formatter.settings.niklan_responsive_media_thumbnail:
     responsive_image_style:
       type: string
       label: 'The responsive image style ID'
+
+field.formatter.settings.niklan_media_remote_video_optimized:
+  type: mapping
+  label: 'Optimized remote video formatter'
+  mapping:
+    responsive_image_style:
+      type: string
+      label: 'The responsive image style ID'
