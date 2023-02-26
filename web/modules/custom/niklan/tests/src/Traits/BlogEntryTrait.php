@@ -21,6 +21,7 @@ trait BlogEntryTrait {
   protected function setUpBlogEntry(): NodeType {
     $this->installEntitySchema('user');
     $this->installEntitySchema('node');
+    $this->installSchema('node', ['node_access']);
 
     DateFormat::create([
       'id' => 'fallback',
