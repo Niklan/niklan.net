@@ -52,7 +52,6 @@ index.php
 robots.txt
 update.php
 web.config
-phpunit.xml
 
 # Ignore scaffold files provided by drupal:scaffold.
 .gitattributes
@@ -71,3 +70,8 @@ default.services.yml
 # Ignore environment files.
 web/.env.php
 web/.env.example.php
+
+# Quality tools local configs.
+phpunit.xml
+phpcs.xml
+phpstan.neon

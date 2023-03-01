@@ -47,6 +47,12 @@ The project uses PHPCS and PHPStan for checkin quality of the code and code-styl
 
 PHPCS is configured in [phpcs.xml](phpcs.xml). It uses Drupal PHPCS rules with additional one from [chi-teck/drupal-coder-extension](https://github.com/Chi-teck/drupal-coder-extension) package for modern PHP syntax improvements.
 
+Copy PHPCS settings:
+
+```shell
+cp phpcs.xml.dist phpcs.xml
+```
+
 **Run PHPCS:**
 
 ```shell
@@ -59,17 +65,21 @@ composer phpcs
 
 PHPStan is configured in [phpstan.neon](phpstan.neon). It uses [mglaman/phpstan-drupal](https://github.com/mglaman/phpstan-drupal) on top of default ones.
 
+Copy PHPStan settings:
+
+```shell
+cp phpstan.neon.dist phpstan.neon
+```
+
 **Run PHPStan:**
 
 ```shell
 composer phpstan
 ```
 
-## Testing
-
-The project is uses PHPUnit for testing its codebase.
-
 ### PHPUnit
+
+PHPUnit is used for unit-testing of the project.
 
 Copy settings for PHPUnit and adjust if needed:
 
