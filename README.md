@@ -2,9 +2,7 @@
 
 <img src="./web/themes/custom/mechanical/logo.svg" alt="Niklan.net" width="128" align="right">
 
-[![PHPCS](https://github.com/Niklan/niklan.net/actions/workflows/phpcs.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/phpcs.yml)
-[![PHPStan](https://github.com/Niklan/niklan.net/actions/workflows/phpstan.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/phpstan.yml)
-[![PHPUnit](https://github.com/Niklan/niklan.net/actions/workflows/phpunit.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/phpunit.yml)
+[![Quality Tools](https://github.com/Niklan/niklan.net/actions/workflows/quality-tools.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/quality-tools.yml)
 [![Code coverage](https://codecov.io/gh/Niklan/niklan.net/branch/develop/graph/badge.svg)](https://codecov.io/gh/Niklan/niklan.net/)
 
 This is a repository with a source code of <https://niklan.net> website.
