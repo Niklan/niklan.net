@@ -18,6 +18,7 @@ on:
       - scripts/**
 
 env:
+  PHP_VERSION: 8.1
   COMPOSER_FLAGS: --ansi --no-interaction --no-progress --prefer-dist
 
 jobs:
@@ -25,10 +26,6 @@ jobs:
   phpcs:
     name: PHPCS
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-version:
-          - 8.1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -39,10 +36,10 @@ jobs:
           coverage: none
           extensions: intl, zip, intl, zip, date, dom, filter, gd, hash, json, pcre, pdf, session, simplexml, spl, tokenizer, xml
           ini-values: memory_limit=-1
-          php-version: ${{ matrix.php-version }}
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: Install Composer dependencies
-        run: composer install $COMPOSER_FLAGS
+        run: composer install ${{ env.COMPOSER_FLAGS }}
 
       - name: Prepare PHPCS config
         run: cp phpcs.xml.dist phpcs.xml
@@ -54,10 +51,6 @@ jobs:
   phpstan:
     name: PHPStan
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-version:
-          - 8.1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -68,10 +61,10 @@ jobs:
           coverage: none
           extensions: intl, zip, intl, zip, date, dom, filter, gd, hash, json, pcre, pdf, session, simplexml, spl, tokenizer, xml
           ini-values: memory_limit=-1
-          php-version: ${{ matrix.php-version }}
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: Install Composer dependencies
-        run: composer install $COMPOSER_FLAGS
+        run: composer install ${{ env.COMPOSER_FLAGS }}
 
       - name: Prepare PHPStan config
         run: cp phpstan.neon.dist phpstan.neon
