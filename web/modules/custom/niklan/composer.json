@@ -9,6 +9,6 @@
     "require": {
         "scrivo/highlight.php": "^9.0",
         "ext-dom": "*",
-        "league/commonmark": "^1.5"
+        "league/commonmark": "^2.0"
     }
 }
