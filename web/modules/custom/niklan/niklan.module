@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use Drupal\niklan\Hook\Toolbar\DevelopmentWarningToolbar;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Image\ImageFactory;
@@ -218,46 +219,9 @@ function niklan_preprocess_toolbar(array &$variables): void {
  * Implements hook_toolbar().
  */
 function niklan_toolbar(): array {
-  $items['node_edit_link'] = [
-    '#cache' => [
-      'contexts' => [
-        'user.permissions',
-        'url',
-      ],
-    ],
-  ];
-
-  $route_match = Drupal::routeMatch();
-
-  if ($route_match->getRouteName() !== 'entity.node.canonical') {
-    return $items;
-  }
-
-  $node = $route_match->getParameter('node');
-  $language = Drupal::languageManager()->getCurrentLanguage();
-  $url = $node->toUrl('edit-form', ['language' => $language]);
-
-  if (!$url->access()) {
-    return $items;
-  }
-
-  $items['node_edit_link'] += [
-    '#type' => 'toolbar_item',
-    '#weight' => 500,
-    'tab' => [
-      '#type' => 'link',
-      '#title' => new TranslatableMarkup('Edit'),
-      '#url' => $url,
-      '#attributes' => [
-        'class' => ['toolbar-icon', 'toolbar-icon-edit'],
-      ],
-    ],
-    '#wrapper_attributes' => [
-      'class' => ['example-toolbar-tab'],
-    ],
-  ];
-
-  return $items;
+  return array_merge(
+    Drupal::classResolver(DevelopmentWarningToolbar::class)(),
+  );
 }
 
 /**
