@@ -23,9 +23,9 @@ final class Markdown extends FilterBase {
    */
   public function process($text, $langcode): FilterProcessResult {
     $converter = new CommonMarkConverter();
-    $text = $converter->convertToHtml($text);
+    $rendered_content = $converter->convert($text);
 
-    return new FilterProcessResult($text);
+    return new FilterProcessResult($rendered_content->getContent());
   }
 
 }
