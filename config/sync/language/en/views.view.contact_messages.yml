@@ -29,7 +29,7 @@ display:
           label: Subject
           separator: ', '
         name:
-          label: 'Sender''s name'
+          label: "Sender's name"
           separator: ', '
         contact_form_label:
           label: 'Contact form'

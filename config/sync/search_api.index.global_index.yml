@@ -45,7 +45,7 @@ field_settings:
     datasource_id: 'entity:taxonomy_term'
     property_path: name
     type: text
-    boost: !!float 21
+    boost: 21.0
     dependencies:
       module:
         - taxonomy
@@ -92,7 +92,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: text
-    boost: !!float 21
+    boost: 21.0
     dependencies:
       module:
         - node
@@ -184,14 +184,14 @@ processor_settings:
       preprocess_index: -41
     boosts:
       'entity:node':
-        datasource_boost: !!float 2
+        datasource_boost: 2.0
         bundle_boosts:
           blog_entry: 0.1
           collection: 0.2
       'entity:taxonomy_term':
-        datasource_boost: !!float 1
+        datasource_boost: 1.0
         bundle_boosts:
-          tags: !!float 0
+          tags: 0.0
 tracker_settings:
   default:
     indexing_order: fifo

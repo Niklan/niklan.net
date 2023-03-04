@@ -3,12 +3,10 @@ _core:
 langcode: ru
 module:
   antibot: 0
-  automated_cron: 0
   block: 0
   block_content: 0
   breakpoint: 0
   comment: 0
-  config: 0
   contact: 0
   contact_storage: 0
   contact_tools: 0
@@ -57,7 +55,6 @@ module:
   search_api: 0
   search_api_db: 0
   serialization: 0
-  shortcut: 0
   simple_sitemap: 0
   sophron: 0
   symfony_mailer: 0

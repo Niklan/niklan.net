@@ -1,10 +1,10 @@
-label: 'Who''s new'
+label: "Who's new"
 description: 'Shows a list of the newest user accounts on the site.'
 display:
   default:
     display_title: Default
     display_options:
-      title: 'Who''s new'
+      title: "Who's new"
       exposed_form:
         options:
           submit_button: Apply
@@ -13,8 +13,8 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
   block_1:
-    display_title: 'Who''s new'
+    display_title: "Who's new"
     display_options:
       display_description: 'A list of new users'
-      block_description: 'Who''s new'
+      block_description: "Who's new"
       block_category: User

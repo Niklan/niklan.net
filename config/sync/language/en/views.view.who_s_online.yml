@@ -1,10 +1,10 @@
-label: 'Who''s online block'
+label: "Who's online block"
 description: 'Shows the user names of the most recently active users, and the total number of active users.'
 display:
   default:
     display_title: Default
     display_options:
-      title: 'Who''s online'
+      title: "Who's online"
       exposed_form:
         options:
           submit_button: Apply
@@ -24,7 +24,7 @@ display:
         result:
           content: 'There are currently @total users online.'
   who_s_online_block:
-    display_title: 'Who''s online'
+    display_title: "Who's online"
     display_options:
       display_description: 'A list of users that are currently logged in.'
-      block_description: 'Who''s online'
+      block_description: "Who's online"

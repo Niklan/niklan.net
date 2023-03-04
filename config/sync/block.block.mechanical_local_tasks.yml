@@ -25,4 +25,4 @@ visibility:
   request_path:
     id: request_path
     negate: true
-    pages: '/node/*'
+    pages: "/node/*\r\n/user/*\r\n/taxonomy/term/*"
