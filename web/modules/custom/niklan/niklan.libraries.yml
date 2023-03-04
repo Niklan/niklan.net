@@ -54,3 +54,8 @@ development-warning.toolbar:
   css:
     theme:
       assets/css/development-warning.toolbar.css: { }
+
+content-editing.toolbar:
+  css:
+    theme:
+      assets/css/content-editing.toolbar.css: { }

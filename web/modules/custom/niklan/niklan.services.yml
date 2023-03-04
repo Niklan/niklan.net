@@ -27,3 +27,7 @@ services:
   niklan.search.global:
     parent: niklan.search.search_api
     class: Drupal\niklan\Search\GlobalSearch
+
+  niklan.builder.content_editing_toolbar_links:
+    class: Drupal\niklan\Builder\ContentEditingToolbarLinksBuilder
+    arguments: ['@plugin.manager.menu.local_task', '@current_route_match']

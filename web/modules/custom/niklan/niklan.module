@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\niklan\Hook\Toolbar\DevelopmentWarningToolbar;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -221,6 +222,7 @@ function niklan_preprocess_toolbar(array &$variables): void {
 function niklan_toolbar(): array {
   return array_merge(
     Drupal::classResolver(DevelopmentWarningToolbar::class)(),
+    Drupal::classResolver(ContentEditingToolbar::class)(),
   );
 }
 
