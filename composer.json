@@ -130,6 +130,7 @@
         "phpstan": "vendor/bin/phpstan analyse",
         "phpstan-baseline": "vendor/bin/phpstan -b",
         "phpunit": "vendor/bin/phpunit",
-        "phpunit-coverage": "vendor/bin/phpunit --coverage-text"
+        "phpunit-coverage": "vendor/bin/phpunit --coverage-text",
+        "locale-import": "vendor/bin/drush locale:import --type=customized --override=all ru ../assets/translation/ru.po"
     }
 }
