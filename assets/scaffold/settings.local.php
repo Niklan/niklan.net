@@ -176,6 +176,10 @@ $databases['default']['default'] = [
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
+  'init_commands' => [
+    // @see https://www.drupal.org/docs/system-requirements/setting-the-mysql-transaction-isolation-level
+    'isolation_level' => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
+  ],
 ];
 
 /**
