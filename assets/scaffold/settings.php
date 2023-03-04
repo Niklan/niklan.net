@@ -814,18 +814,14 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 
-if (file_exists($app_root . '/.env.php')) {
-  include $app_root . '/.env.php';
-}
-else {
-  throw new RuntimeException('You must provide .env.php file to run project.');
-}
-
 if (file_exists($app_root . '/' . $site_path . '/settings.all.php')) {
   include $app_root . '/' . $site_path . '/settings.all.php';
 }
 
-// Add it after 'all' settings to be able to override them.
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
   include $app_root . '/' . $site_path . '/settings.local.php';
+}
+
+if (file_exists($app_root . '/' . $site_path . '/settings.live.php')) {
+  include $app_root . '/' . $site_path . '/settings.live.php';
 }
