@@ -83,8 +83,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Copy docker files
+      - name: Copy files for environment
         run: |
+          cp ./phpunit.xml.dist ./phpunit.xml
+          mkdir -p ./web/sites/default
+          cp ./assets/scaffold/settings.local.php ./web/sites/default/settings.local.php
           cp ./.github/workflows/d4d-phpunit/.env ./.env
           cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
 
@@ -96,11 +99,6 @@ jobs:
 
       - name: Install site dependencies
         run: docker compose exec -T php composer install
-
-      - name: Copy project environment files
-        run: |
-          cp ./phpunit.xml.dist ./phpunit.xml
-          cp ./web/sites/default/example.settings.local.php ./web/sites/default/settings.local.php
 
       - name: Run tests
         run: docker compose exec -T php composer run phpunit-coverage
