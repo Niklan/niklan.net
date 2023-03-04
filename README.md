@@ -29,10 +29,6 @@ This is a repository with a source code of <https://niklan.net> website.
   ```shell
   cp web/sites/default/example.settings.local.php web/sites/default/settings.local.php
   ```
-- Create custom `.env.php` file and adjust settings if needed
-  ```shell
-  cp web/.env.example.php web/.env.php
-  ```
 - Open your local domain, e.g.: https://niklan.localhost
 - Follow installation instructions.
 - Make a cup of ☕ or 🍵 and wait until the installation is finished.
