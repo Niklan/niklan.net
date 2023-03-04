@@ -24,7 +24,7 @@ prismjs:
     gpl-compatible: true
   js:
     assets/js/prism.init.js: { weight: -1 }
-    /libraries/prismjs/prism.js: { minfied: true }
+    /libraries/prismjs/prism.js: {minified: true }
 
 share:
   version: VERSION
@@ -49,3 +49,13 @@ code_line_highlight:
     assets/js/paragraph.code.highlighted-lines.js: { }
   dependencies:
     - core/drupal
+
+development-warning.toolbar:
+  css:
+    theme:
+      assets/css/development-warning.toolbar.css: { }
+
+content-editing.toolbar:
+  css:
+    theme:
+      assets/css/content-editing.toolbar.css: { }

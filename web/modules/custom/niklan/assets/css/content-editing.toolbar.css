@@ -1,0 +1,27 @@
+.toolbar-bar .toolbar-icon-content-editing::before {
+  background-image: url(../icons/bebebe/edit_document_FILL1_wght400_GRAD0_opsz48.svg);
+}
+
+.toolbar-bar .toolbar-icon-content-editing.is-active::before {
+  background-image: url(../icons/ffffff/edit_document_FILL1_wght400_GRAD0_opsz48.svg);
+}
+
+.toolbar-icon--entity-route-type-canonical::before {
+  background-image: url(../icons/787878/visibility_FILL1_wght400_GRAD0_opsz48.svg);
+}
+
+.toolbar-icon--entity-route-type-edit-form::before {
+  background-image: url(../icons/787878/edit_note_FILL1_wght400_GRAD0_opsz48.svg);
+}
+
+.toolbar-icon--entity-route-type-delete-form::before {
+  background-image: url(../icons/787878/delete_FILL1_wght400_GRAD0_opsz48.svg);
+}
+
+.toolbar-icon--entity-route-type-version-history::before {
+  background-image: url(../icons/787878/alt_route_FILL0_wght400_GRAD0_opsz48.svg);
+}
+
+.toolbar-menu.links .links__item + .links__item {
+  border-left: 1px solid #ddd;
+}

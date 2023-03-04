@@ -1,0 +1,44 @@
+/**
+ * @file
+ * Styling for toolbar warning message.
+ */
+.toolbar-warning {
+  overflow: hidden;
+  margin: 0.4em 0;
+  padding: 0.5em 2em 0.5em 2.3333em;
+  text-indent: -1000px;
+  background: url(../../../../../core/misc/icons/e29700/warning.svg) no-repeat center center transparent;
+  background-size: auto 20px;
+  user-select: none;
+  text-transform: uppercase;
+}
+
+.toolbar-warning:hover {
+  color: #e29700;
+}
+
+.toolbar-bar {
+  background-color: #333 !important;
+  background-image: url('../icons/ffffff/devel-symbolic.svg');
+  background-repeat: repeat-x;
+}
+
+@media only screen and (min-width: 40em) {
+  .toolbar-warning {
+    padding-right: 1em; /* LTR */
+    text-decoration: none;
+    text-indent: 0;
+    color: #e29700;
+    border: 1px solid #e29700;
+    border-radius: 4px;
+    background-color: #333333;
+    background-position: 0.5em center; /* LTR */
+    background-size: auto 18px;
+    font-weight: bold;
+  }
+  [dir="rtl"] .toolbar-warning {
+    padding-right: 2em;
+    padding-left: 1em;
+    background-position: right 0.5em center;
+  }
+}

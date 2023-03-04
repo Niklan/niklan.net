@@ -47,3 +47,8 @@ $_ENV['SMTP_PASSWORD'] = '';
  */
 // See $settings['hash_salt'] for more information.
 $_ENV['HASH_SALT'] = 'put_your_salt_here';
+
+/**
+ * Project specific settings.
+ */
+$_ENV['SHOW_DEVELOPMENT_WARNING'] = TRUE;

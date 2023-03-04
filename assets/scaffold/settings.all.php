@@ -77,3 +77,8 @@ $config['symfony_mailer.mailer_transport.smtp']['configuration']['user'] = $_ENV
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['pass'] = $_ENV['SMTP_PASSWORD'];
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['host'] = $_ENV['SMTP_HOST'];
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['port'] = $_ENV['SMTP_PORT'];
+
+/**
+ * Shows a warning in toolbar that reminds about development version.
+ */
+$settings['niklan_development_warning'] = $_ENV['SHOW_DEVELOPMENT_WARNING'];
