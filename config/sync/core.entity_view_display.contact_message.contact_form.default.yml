@@ -11,18 +11,38 @@ targetEntityType: contact_message
 bundle: contact_form
 mode: default
 content:
-  field_fulltext_unformatted:
+  mail:
     type: basic_string
-    label: hidden
+    label: above
     settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  message:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  subject:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
   field_email: true
+  field_fulltext_unformatted: true
   langcode: true
-  mail: true
-  message: true
-  name: true
   search_api_excerpt: true
-  subject: true

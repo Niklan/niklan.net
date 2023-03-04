@@ -297,3 +297,6 @@ msgstr "Поисковый запрос"
 
 msgid "Do search"
 msgstr "Искать"
+
+msgid "Subject"
+msgstr "Тема"

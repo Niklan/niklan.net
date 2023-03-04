@@ -10,8 +10,6 @@ configuration:
     content:
       value: '{{ body }}'
       format: email_html
-  email_subject:
-    value: 'Обратная связь — niklan.net'
   email_to:
     addresses:
       -
