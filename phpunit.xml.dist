@@ -39,10 +39,13 @@
 
   <coverage processUncoveredFiles="true">
     <include>
-      <directory>./web/modules/custom</directory>
+      <directory>./web/modules/custom/*/src</directory>
     </include>
+
     <exclude>
       <directory>./web/modules/custom/*/tests</directory>
+      <!-- There is no reason for test for one-time use code. -->
+      <directory>./web/modules/custom/*/src/Hook/Deploy</directory>
     </exclude>
 
     <report>

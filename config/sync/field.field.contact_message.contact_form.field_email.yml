@@ -9,7 +9,7 @@ id: contact_message.contact_form.field_email
 field_name: field_email
 entity_type: contact_message
 bundle: contact_form
-label: Email
+label: 'Email (удалить)'
 description: ''
 required: true
 translatable: false

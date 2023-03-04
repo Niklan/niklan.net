@@ -9,7 +9,7 @@ id: contact_message.contact_form.field_fulltext_unformatted
 field_name: field_fulltext_unformatted
 entity_type: contact_message
 bundle: contact_form
-label: Сообщение
+label: 'Сообщение (удалить)'
 description: ''
 required: true
 translatable: false
