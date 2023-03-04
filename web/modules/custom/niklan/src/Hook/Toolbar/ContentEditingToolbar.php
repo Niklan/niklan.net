@@ -3,7 +3,7 @@
 namespace Drupal\niklan\Hook\Toolbar;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Routing\CurrentRouteMatch;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,7 +21,7 @@ final class ContentEditingToolbar implements ContainerInjectionInterface {
   /**
    * The current route match.
    */
-  protected CurrentRouteMatch $routeMatch;
+  protected RouteMatchInterface $routeMatch;
 
   /**
    * {@inheritdoc}

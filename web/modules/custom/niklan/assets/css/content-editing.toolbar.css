@@ -6,19 +6,19 @@
   background-image: url(../icons/ffffff/edit_document_FILL1_wght400_GRAD0_opsz48.svg);
 }
 
-.toolbar-icon--entity-route-id-canonical::before {
+.toolbar-icon--entity-route-type-canonical::before {
   background-image: url(../icons/787878/visibility_FILL1_wght400_GRAD0_opsz48.svg);
 }
 
-.toolbar-icon--entity-route-id-edit-form::before {
+.toolbar-icon--entity-route-type-edit-form::before {
   background-image: url(../icons/787878/edit_note_FILL1_wght400_GRAD0_opsz48.svg);
 }
 
-.toolbar-icon--entity-route-id-delete-form::before {
+.toolbar-icon--entity-route-type-delete-form::before {
   background-image: url(../icons/787878/delete_FILL1_wght400_GRAD0_opsz48.svg);
 }
 
-.toolbar-icon--entity-route-id-version-history::before {
+.toolbar-icon--entity-route-type-version-history::before {
   background-image: url(../icons/787878/alt_route_FILL0_wght400_GRAD0_opsz48.svg);
 }
 

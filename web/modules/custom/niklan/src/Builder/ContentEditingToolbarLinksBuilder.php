@@ -6,7 +6,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Menu\LocalTaskManagerInterface;
-use Drupal\Core\Routing\CurrentRouteMatch;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\Core\Url;
 
@@ -20,12 +20,12 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
    *
    * @param \Drupal\Core\Menu\LocalTaskManagerInterface $localTaskManager
    *   The local task manager.
-   * @param \Drupal\Core\Routing\CurrentRouteMatch $routeMatch
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The current route match.
    */
   public function __construct(
     protected LocalTaskManagerInterface $localTaskManager,
-    protected CurrentRouteMatch $routeMatch,
+    protected RouteMatchInterface $routeMatch,
   ) {}
 
   /**
@@ -42,7 +42,10 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
    *   An array with menu.
    */
   public function buildLinks(): array {
-    $local_tasks = $this->localTaskManager->getLocalTasks($this->routeMatch->getRouteName());
+    $local_tasks = $this->localTaskManager->getLocalTasks(
+      $this->routeMatch->getRouteName(),
+    );
+
     $links = \array_map(function (array $tab): array {
       $url = $tab['#link']['url'];
       \assert($url instanceof Url);
@@ -57,6 +60,7 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
         'weight' => $tab['#weight'],
       ];
     }, $local_tasks['tabs']);
+
     \uasort($links, [SortArray::class, 'sortByWeightElement']);
 
     $build = [
@@ -89,14 +93,14 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
     ];
 
     $route_name = $url->getRouteName();
-    $classes[] = 'toolbar-icon--' . Html::getClass(\str_replace('.', '-', $route_name));
+    $classes[] = 'toolbar-icon--route-name-' . Html::getClass(\str_replace('.', '-', $route_name));
 
     // If route is entity one, provide universal route classes.
     if (\stristr($route_name, 'entity.')) {
       [, $entity_type_id, $route_id] = \explode('.', $route_name);
       $classes[] = 'toolbar-icon--' . Html::getClass('entity-route');
       $classes[] = 'toolbar-icon--' . Html::getClass('entity-type-id-' . $entity_type_id);
-      $classes[] = 'toolbar-icon--' . Html::getClass('entity-route-id-' . $route_id);
+      $classes[] = 'toolbar-icon--' . Html::getClass('entity-route-type-' . $route_id);
     }
 
     return $classes;
