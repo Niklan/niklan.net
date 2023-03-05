@@ -87,7 +87,7 @@ display:
           entity_type: contact_message
           entity_field: subject
           plugin_id: field
-          label: Subject
+          label: Тема
           exclude: false
           alter:
             alter_text: false

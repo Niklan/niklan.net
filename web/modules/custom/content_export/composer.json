@@ -1,0 +1,12 @@
+{
+    "name": "niklan/content_export",
+    "type": "drupal-drush",
+    "version": "1.0.0",
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^11"
+            }
+        }
+    }
+}

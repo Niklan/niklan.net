@@ -53,6 +53,7 @@
         "drupal/token": "^1.0",
         "drupal/twig_tweak": "^3.0",
         "drush/drush": "^11.0",
+        "niklan/content_export": "^1.0",
         "niklan/niklan": "^1.0"
     },
     "require-dev": {
