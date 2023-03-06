@@ -46,6 +46,8 @@
       <directory>./web/modules/custom/*/tests</directory>
       <!-- There is no reason for test for one-time use code. -->
       <directory>./web/modules/custom/*/src/Hook/Deploy</directory>
+      <!-- Exclude temporary module from coverage results. -->
+      <directory>./web/modules/custom/content_export</directory>
     </exclude>
 
     <report>
