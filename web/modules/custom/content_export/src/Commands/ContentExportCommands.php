@@ -2,7 +2,8 @@
 
 namespace Drupal\content_export\Commands;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\content_export\Data\ExportState;
+use Drupal\content_export\Exporter\ContentExporter;
 use Drush\Commands\DrushCommands;
 
 /**
@@ -13,11 +14,11 @@ final class ContentExportCommands extends DrushCommands {
   /**
    * Constructs a new ContentExportCommands instance.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager.
+   * @param \Drupal\content_export\Exporter\ContentExporter $exporter
+   *   The content exporter.
    */
   public function __construct(
-    protected EntityTypeManagerInterface $entityTypeManager,
+    protected ContentExporter $exporter,
   ) {}
 
   /**
@@ -26,7 +27,8 @@ final class ContentExportCommands extends DrushCommands {
    * @command niklan:content_export
    */
   public function contentExport(string $output_dir): void {
-    // @todo Implement logic.
+    $state = new ExportState($this->output(), $output_dir);
+    $this->exporter->export($state);
   }
 
 }
