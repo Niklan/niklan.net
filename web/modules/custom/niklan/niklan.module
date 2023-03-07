@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\niklan\Hook\Toolbar\DevelopmentWarningToolbar;
 use Drupal\paragraphs\ParagraphInterface;
@@ -388,4 +389,11 @@ function template_preprocess_niklan_search_results(array &$variables): void {
  */
 function niklan_library_info_alter(array &$libraries, string $extension): void {
   \Drupal::classResolver(LibraryInfoAlter::class)($libraries, $extension);
+}
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function niklan_entity_bundle_info_alter(array &$bundles): void {
+  \Drupal::classResolver(BundleInfoAlter::class)($bundles);
 }
