@@ -4,8 +4,3 @@ services:
     arguments: ['@content_export.exporter.content']
     tags:
       - { name: drush.command }
-
-  content_export.exporter.content:
-    class: Drupal\content_export\Exporter\ContentExporter
-    arguments:
-      - '@file_system'

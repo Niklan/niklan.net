@@ -16,9 +16,12 @@ final class ContentExporter {
    *
    * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system.
+   * @param \Drupal\content_export\Exporter\BlogEntryExporter $blogEntryExporter
+   *   The blog entry exporter.
    */
   public function __construct(
     protected FileSystemInterface $fileSystem,
+    protected BlogEntryExporter $blogEntryExporter,
   ) {}
 
   /**
@@ -34,6 +37,7 @@ final class ContentExporter {
     $state->getOutput()->write($message, TRUE);
 
     $this->prepareDestinationDirectory($state);
+    $this->exportBlogEntries($state);
   }
 
   /**
@@ -60,6 +64,17 @@ final class ContentExporter {
       '@dir' => $state->getDestination(),
     ]);
     $state->getOutput()->write($message, TRUE);
+  }
+
+  /**
+   * Exports blog entry contents.
+   *
+   * @param \Drupal\content_export\Data\ExportState $state
+   *   The export state.
+   */
+  protected function exportBlogEntries(ExportState $state): void {
+    $state->getOutput()->write('Starting export blog entries.', TRUE);
+    $this->blogEntryExporter->exportMultiple($state);
   }
 
 }

@@ -1,0 +1,12 @@
+services:
+  content_export.exporter.content:
+    class: Drupal\content_export\Exporter\ContentExporter
+    arguments:
+      - '@file_system'
+      - '@content_export.exporter.blog_entry'
+
+  content_export.exporter.blog_entry:
+    class: Drupal\content_export\Exporter\BlogEntryExporter
+    arguments:
+      - '@entity_type.manager'
+      - '@entity.memory_cache'
