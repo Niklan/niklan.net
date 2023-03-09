@@ -27,4 +27,19 @@ final class FrontMatter {
     return $this->values;
   }
 
+  /**
+   * Gets the specific value.
+   *
+   * @param string $key
+   *   The value key.
+   * @param mixed|NULL $default
+   *   The default value if it's missing by key.
+   *
+   * @return mixed
+   *   The result.
+   */
+  public function getValue(string $key, mixed $default = NULL): mixed {
+    return $this->values[$key] ?? $default;
+  }
+
 }

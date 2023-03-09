@@ -3,6 +3,8 @@
 namespace Drupal\content_export\Exporter;
 
 use Drupal\content_export\Data\ExportState;
+use Drupal\content_export\Extractor\BlogEntryExtractor;
+use Drupal\content_export\Writer\BlogEntryWriter;
 use Drupal\Core\Cache\MemoryCache\MemoryCacheInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Site\Settings;
@@ -21,10 +23,16 @@ final class BlogEntryExporter {
    *   The entity type manager.
    * @param \Drupal\Core\Cache\MemoryCache\MemoryCacheInterface $entityMemoryCache
    *   The entity memory cache.
+   * @param \Drupal\content_export\Extractor\BlogEntryExtractor $extractor
+   *   The blog entry extractor.
+   * @param \Drupal\content_export\Writer\BlogEntryWriter $writer
+   *   The blog entry writer.
    */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected MemoryCacheInterface $entityMemoryCache,
+    protected BlogEntryExtractor $extractor,
+    protected BlogEntryWriter $writer,
   ) {}
 
   /**
@@ -36,7 +44,8 @@ final class BlogEntryExporter {
    *   The export state.
    */
   public function export(BlogEntryInterface $blog_entry, ExportState $state): void {
-    // @todo Add functionality here.
+    $blog_entry_export = $this->extractor->extract($blog_entry);
+    $this->writer->write($blog_entry_export, $state);
   }
 
   /**

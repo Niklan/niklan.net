@@ -17,4 +17,14 @@ final class BlogEntryExport {
     protected FrontMatter $frontMatter,
   ) {}
 
+  /**
+   * Gets Front Matter.
+   *
+   * @return \Drupal\content_export\Data\FrontMatter
+   *   The Front Matter.
+   */
+  public function getFrontMatter(): FrontMatter {
+    return $this->frontMatter;
+  }
+
 }

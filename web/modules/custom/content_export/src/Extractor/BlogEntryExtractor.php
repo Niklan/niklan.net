@@ -3,13 +3,22 @@
 namespace Drupal\content_export\Extractor;
 
 use Drupal\content_export\Data\BlogEntryExport;
-use Drupal\content_export\Data\FrontMatter;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 
 /**
  * Provides a 'blog_entry' extractor.
  */
 final class BlogEntryExtractor {
+
+  /**
+   * Constructs a new BlogEntryExtractor instance.
+   *
+   * @param \Drupal\content_export\Extractor\BlogEntryFrontMatterExtractor $frontMatterExtractor
+   *   The Front Matter extractor.
+   */
+  public function __construct(
+    protected BlogEntryFrontMatterExtractor $frontMatterExtractor,
+  ) {}
 
   /**
    * Extracts a single blog entry.
@@ -21,8 +30,9 @@ final class BlogEntryExtractor {
    *   The blog entry export.
    */
   public function extract(BlogEntryInterface $blog_entry): BlogEntryExport {
-    // @todo Provide an actual logic.
-    return new BlogEntryExport(new FrontMatter());
+    $front_matter = $this->frontMatterExtractor->extract($blog_entry);
+
+    return new BlogEntryExport($front_matter);
   }
 
 }

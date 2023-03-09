@@ -23,6 +23,7 @@ web/sites/development.services.yml
 # Ignore paths that contain user-generated content.
 web/sites/*/files
 web/sites/*/private
+/private
 
 # Ignore SimpleTest multi-site environment.
 web/sites/simpletest
