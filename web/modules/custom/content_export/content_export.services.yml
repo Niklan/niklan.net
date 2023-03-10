@@ -25,3 +25,14 @@ services:
     class: Drupal\content_export\Writer\BlogEntryWriter
     arguments:
       - '@file_system'
+      - '@content_export.manager.markdown_builder'
+
+  content_export.manager.markdown_builder:
+    class: Drupal\content_export\Manager\MarkdownBuilderManager
+    tags:
+      - { name: service_collector, tag: content_export.markdown_builder, call: addBuilder }
+
+  content_export.builder.front_matter_markdown:
+    class: Drupal\content_export\Builder\FrontMatterMarkdownBuilder
+    tags:
+      - { name: content_export.markdown_builder }

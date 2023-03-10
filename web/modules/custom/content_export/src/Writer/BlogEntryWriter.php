@@ -4,6 +4,7 @@ namespace Drupal\content_export\Writer;
 
 use Drupal\content_export\Data\BlogEntryExport;
 use Drupal\content_export\Data\ExportState;
+use Drupal\content_export\Manager\MarkdownBuilderManager;
 use Drupal\Core\File\FileSystemInterface;
 
 /**
@@ -16,9 +17,12 @@ final class BlogEntryWriter {
    *
    * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system.
+   * @param \Drupal\content_export\Manager\MarkdownBuilderManager $markdownBuilderManager
+   *   The Markdown builder manager.
    */
   public function __construct(
     protected FileSystemInterface $fileSystem,
+    protected MarkdownBuilderManager $markdownBuilderManager,
   ) {}
 
   /**
@@ -70,11 +74,31 @@ final class BlogEntryWriter {
   private function writeMarkdown(string $destination_dir, BlogEntryExport $export, ExportState $state): void {
     $langcode = $export->getFrontMatter()->getValue('language');
     $destination_file = "$destination_dir/index.$langcode.md";
+
+    $content_parts = [];
+    $content_parts[] = $this->buildFrontMatter($export, $state);
+    // Always end file with a blank line.
+    $content_parts[] = \PHP_EOL;
+
     $this->fileSystem->saveData(
-      '@todo content',
+      \implode(\PHP_EOL, $content_parts),
       $destination_file,
       FileSystemInterface::EXISTS_REPLACE,
     );
+  }
+
+  /**
+   * Builds a Front Matter contents.
+   *
+   * @param \Drupal\content_export\Data\BlogEntryExport $export
+   *   The export data.
+   * @param \Drupal\content_export\Data\ExportState $state
+   *   The export state.
+   */
+  protected function buildFrontMatter(BlogEntryExport $export, ExportState $state): string {
+    $front_matter = $export->getFrontMatter();
+
+    return $this->markdownBuilderManager->buildMarkdown($front_matter);
   }
 
 }

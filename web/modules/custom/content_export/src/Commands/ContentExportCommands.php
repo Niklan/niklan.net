@@ -26,7 +26,7 @@ final class ContentExportCommands extends DrushCommands {
    *
    * @command niklan:content_export
    */
-  public function contentExport(string $output_dir): void {
+  public function contentExport(string $output_dir = 'private://content'): void {
     $state = new ExportState($this->output(), $output_dir);
     $this->exporter->export($state);
   }

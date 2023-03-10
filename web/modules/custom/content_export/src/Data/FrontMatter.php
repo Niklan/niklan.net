@@ -2,10 +2,12 @@
 
 namespace Drupal\content_export\Data;
 
+use Drupal\content_export\Contract\MarkdownSourceInterface;
+
 /**
  * Provides a data object for Front Matter.
  */
-final class FrontMatter {
+final class FrontMatter implements MarkdownSourceInterface {
 
   /**
    * Constructs a new FrontMatter instance.
@@ -40,6 +42,13 @@ final class FrontMatter {
    */
   public function getValue(string $key, mixed $default = NULL): mixed {
     return $this->values[$key] ?? $default;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMarkdownSource(): mixed {
+    return $this->getValues();
   }
 
 }
