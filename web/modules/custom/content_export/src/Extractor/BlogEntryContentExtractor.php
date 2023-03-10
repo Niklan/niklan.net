@@ -4,6 +4,7 @@ namespace Drupal\content_export\Extractor;
 
 use Drupal\content_export\Data\Content;
 use Drupal\content_export\Data\HeadingContent;
+use Drupal\content_export\Data\TextContent;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\paragraphs\ParagraphInterface;
 
@@ -34,7 +35,7 @@ final class BlogEntryContentExtractor {
         // @todo remote_video
         // @todo image
         // @todo code
-        // @todo text
+        'text' => $this->extractText($paragraph, $content),
         'heading' => $this->extractHeading($paragraph, $content),
       };
     }
@@ -61,6 +62,23 @@ final class BlogEntryContentExtractor {
     $heading = $paragraph->get('field_title')->getString();
 
     $content->addContent(new HeadingContent($level, $heading));
+  }
+
+  /**
+   * Extracts text.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   * @param \Drupal\content_export\Data\Content $content
+   *   The content collection.
+   */
+  protected function extractText(ParagraphInterface $paragraph, Content $content): void {
+    if ($paragraph->get('field_body')->isEmpty()) {
+      return;
+    }
+
+    $value = $paragraph->get('field_body')->first()->get('value')->getValue();
+    $content->addContent(new TextContent($value));
   }
 
 }

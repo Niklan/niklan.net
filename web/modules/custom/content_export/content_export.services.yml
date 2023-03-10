@@ -45,3 +45,8 @@ services:
     class: Drupal\content_export\Builder\HeadingMarkdownBuilder
     tags:
       - { name: content_export.markdown_builder }
+
+  content_export.builder.text_markdown:
+    class: Drupal\content_export\Builder\TextMarkdownBuilder
+    tags:
+      - { name: content_export.markdown_builder }
