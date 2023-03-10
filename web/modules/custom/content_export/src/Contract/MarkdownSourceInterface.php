@@ -7,12 +7,4 @@ namespace Drupal\content_export\Contract;
  */
 interface MarkdownSourceInterface {
 
-  /**
-   * Gets source for Markdown.
-   *
-   * @return mixed
-   *   The source value.
-   */
-  public function getMarkdownSource(): mixed;
-
 }

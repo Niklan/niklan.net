@@ -42,6 +42,14 @@ final class BlogEntryFrontMatterExtractor {
       ),
     ];
 
+    if (!$blog_entry->get('body')->isEmpty()) {
+      $values['description'] = $blog_entry
+        ->get('body')
+        ->first()
+        ->get('value')
+        ->getValue();
+    }
+
     return new FrontMatter($values);
   }
 

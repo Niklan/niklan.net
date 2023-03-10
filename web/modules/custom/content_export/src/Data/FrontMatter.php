@@ -44,11 +44,4 @@ final class FrontMatter implements MarkdownSourceInterface {
     return $this->values[$key] ?? $default;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getMarkdownSource(): mixed {
-    return $this->getValues();
-  }
-
 }

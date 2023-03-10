@@ -2,6 +2,7 @@
 
 namespace Drupal\content_export\Writer;
 
+use Drupal\content_export\Contract\MarkdownSourceInterface;
 use Drupal\content_export\Data\BlogEntryExport;
 use Drupal\content_export\Data\ExportState;
 use Drupal\content_export\Manager\MarkdownBuilderManager;
@@ -77,11 +78,14 @@ final class BlogEntryWriter {
 
     $content_parts = [];
     $content_parts[] = $this->buildFrontMatter($export, $state);
-    // Always end file with a blank line.
-    $content_parts[] = \PHP_EOL;
+    $this->buildContent($export, $state, $content_parts);
+
+    $content = \implode(\PHP_EOL . \PHP_EOL, $content_parts);
+    // Make sure content have empty line at the end.
+    $content .= \PHP_EOL;
 
     $this->fileSystem->saveData(
-      \implode(\PHP_EOL, $content_parts),
+      $content,
       $destination_file,
       FileSystemInterface::EXISTS_REPLACE,
     );
@@ -99,6 +103,25 @@ final class BlogEntryWriter {
     $front_matter = $export->getFrontMatter();
 
     return $this->markdownBuilderManager->buildMarkdown($front_matter);
+  }
+
+  /**
+   * Builds content.
+   *
+   * @param \Drupal\content_export\Data\BlogEntryExport $export
+   *   The export data.
+   * @param \Drupal\content_export\Data\ExportState $state
+   *   The state data.
+   * @param array $content_parts
+   *   An array with content parts.
+   */
+  protected function buildContent(BlogEntryExport $export, ExportState $state, array &$content_parts): void {
+    $content = $export->getContent();
+
+    foreach ($content as $item) {
+      \assert($item instanceof MarkdownSourceInterface);
+      $content_parts[] = $this->markdownBuilderManager->buildMarkdown($item);
+    }
   }
 
 }

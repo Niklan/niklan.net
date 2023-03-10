@@ -15,9 +15,12 @@ final class BlogEntryExtractor {
    *
    * @param \Drupal\content_export\Extractor\BlogEntryFrontMatterExtractor $frontMatterExtractor
    *   The Front Matter extractor.
+   * @param \Drupal\content_export\Extractor\BlogEntryContentExtractor $contentExtractor
+   *   The content extractor.
    */
   public function __construct(
     protected BlogEntryFrontMatterExtractor $frontMatterExtractor,
+    protected BlogEntryContentExtractor $contentExtractor,
   ) {}
 
   /**
@@ -31,8 +34,9 @@ final class BlogEntryExtractor {
    */
   public function extract(BlogEntryInterface $blog_entry): BlogEntryExport {
     $front_matter = $this->frontMatterExtractor->extract($blog_entry);
+    $content = $this->contentExtractor->extract($blog_entry);
 
-    return new BlogEntryExport($front_matter);
+    return new BlogEntryExport($front_matter, $content);
   }
 
 }
