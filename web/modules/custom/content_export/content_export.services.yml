@@ -50,3 +50,10 @@ services:
     class: Drupal\content_export\Builder\TextMarkdownBuilder
     tags:
       - { name: content_export.markdown_builder }
+
+  content_export.builder.aside:
+    class: Drupal\content_export\Builder\AsideMarkdownBuilder
+    arguments:
+      - '@content_export.manager.markdown_builder'
+    tags:
+      - { name: content_export.markdown_builder }

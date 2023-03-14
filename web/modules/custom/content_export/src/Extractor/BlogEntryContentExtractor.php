@@ -4,6 +4,7 @@ namespace Drupal\content_export\Extractor;
 
 use Drupal\content_export\Data\Content;
 use Drupal\content_export\Data\HeadingContent;
+use Drupal\content_export\Data\ImportantContent;
 use Drupal\content_export\Data\TextContent;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\paragraphs\ParagraphInterface;
@@ -25,12 +26,29 @@ final class BlogEntryContentExtractor {
   public function extract(BlogEntryInterface $blog_entry): Content {
     $content = new Content();
 
-    foreach ($blog_entry->get('field_content')->referencedEntities() as $paragraph) {
+    $this->extractFromParagraphs(
+      $blog_entry->get('field_content')->referencedEntities(),
+      $content,
+    );
+
+    return $content;
+  }
+
+  /**
+   * Extracts content from paragraphs.
+   *
+   * @param array $paragraphs
+   *   An array with paragraphs.
+   * @param \Drupal\content_export\Data\Content $content
+   *   The content.
+   */
+  protected function extractFromParagraphs(array $paragraphs, Content $content): void {
+    foreach ($paragraphs as $paragraph) {
       \assert($paragraph instanceof ParagraphInterface);
 
       match ($paragraph->bundle()) {
         default => NULL,
-        // @todo important
+        'important' => $this->extractImportant($paragraph, $content),
         // @todo video
         // @todo remote_video
         // @todo image
@@ -39,8 +57,6 @@ final class BlogEntryContentExtractor {
         'heading' => $this->extractHeading($paragraph, $content),
       };
     }
-
-    return $content;
   }
 
   /**
@@ -79,6 +95,25 @@ final class BlogEntryContentExtractor {
 
     $value = $paragraph->get('field_body')->first()->get('value')->getValue();
     $content->addContent(new TextContent($value));
+  }
+
+  /**
+   * Extracts important paragraph.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   * @param \Drupal\content_export\Data\Content $content
+   *   The content.
+   */
+  protected function extractImportant(ParagraphInterface $paragraph, Content $content): void {
+    $child_content = new Content();
+    $this->extractFromParagraphs(
+      $paragraph->get('field_paragraphs')->referencedEntities(),
+      $child_content,
+    );
+    $type = $paragraph->get('field_important_type')->getString();
+
+    $content->addContent(new ImportantContent($type, $child_content));
   }
 
 }
