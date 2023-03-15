@@ -40,6 +40,7 @@ final class BlogEntryFrontMatterExtractor {
       'updated' => $updated->format(
         DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
       ),
+      'needs_manual_review' => TRUE,
     ];
 
     if (!$blog_entry->get('body')->isEmpty()) {

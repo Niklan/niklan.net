@@ -2,7 +2,9 @@
 
 namespace Drupal\content_export\Extractor;
 
+use Drupal\content_export\Data\CodeContent;
 use Drupal\content_export\Data\Content;
+use Drupal\content_export\Data\FrontMatter;
 use Drupal\content_export\Data\HeadingContent;
 use Drupal\content_export\Data\ImportantContent;
 use Drupal\content_export\Data\TextContent;
@@ -52,7 +54,7 @@ final class BlogEntryContentExtractor {
         // @todo video
         // @todo remote_video
         // @todo image
-        // @todo code
+        'code' => $this->extractCode($paragraph, $content),
         'text' => $this->extractText($paragraph, $content),
         'heading' => $this->extractHeading($paragraph, $content),
       };
@@ -60,24 +62,53 @@ final class BlogEntryContentExtractor {
   }
 
   /**
-   * Extracts heading.
+   * Extracts important paragraph.
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph entity.
    * @param \Drupal\content_export\Data\Content $content
-   *   The content collection.
+   *   The content.
    */
-  protected function extractHeading(ParagraphInterface $paragraph, Content $content): void {
-    $level = match($paragraph->get('field_heading_level')->getString()) {
-      default => 2,
-      'h3' => 3,
-      'h4' => 4,
-      'h5' => 5,
-      'h6' => 6,
-    };
-    $heading = $paragraph->get('field_title')->getString();
+  protected function extractImportant(ParagraphInterface $paragraph, Content $content): void {
+    $child_content = new Content();
+    $this->extractFromParagraphs(
+      $paragraph->get('field_paragraphs')->referencedEntities(),
+      $child_content,
+    );
+    $type = $paragraph->get('field_important_type')->getString();
 
-    $content->addContent(new HeadingContent($level, $heading));
+    $content->addContent(new ImportantContent($type, $child_content));
+  }
+
+  /**
+   * Extracts code paragraph.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   * @param \Drupal\content_export\Data\Content $content
+   *   The content.
+   */
+  protected function extractCode(ParagraphInterface $paragraph, Content $content): void {
+    $code = $paragraph->get('field_body')->first()->get('value')->getValue();
+    $front_matter_values = [];
+
+    $highlighted_lines = $paragraph->getBehaviorSetting(
+      'niklan_paragraphs_code_line_highlight',
+      'highlighted_lines',
+    );
+
+    if ($highlighted_lines) {
+      $front_matter_values['highlight-lines'] = $highlighted_lines;
+    }
+
+    if (!$paragraph->get('field_title')->isEmpty()) {
+      $front_matter_values['header'] = $paragraph
+        ->get('field_title')
+        ->getString();
+    }
+
+    $code_content = new CodeContent($code, new FrontMatter($front_matter_values));
+    $content->addContent($code_content);
   }
 
   /**
@@ -98,22 +129,24 @@ final class BlogEntryContentExtractor {
   }
 
   /**
-   * Extracts important paragraph.
+   * Extracts heading.
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph entity.
    * @param \Drupal\content_export\Data\Content $content
-   *   The content.
+   *   The content collection.
    */
-  protected function extractImportant(ParagraphInterface $paragraph, Content $content): void {
-    $child_content = new Content();
-    $this->extractFromParagraphs(
-      $paragraph->get('field_paragraphs')->referencedEntities(),
-      $child_content,
-    );
-    $type = $paragraph->get('field_important_type')->getString();
+  protected function extractHeading(ParagraphInterface $paragraph, Content $content): void {
+    $level = match ($paragraph->get('field_heading_level')->getString()) {
+      default => 2,
+      'h3' => 3,
+      'h4' => 4,
+      'h5' => 5,
+      'h6' => 6,
+    };
+    $heading = $paragraph->get('field_title')->getString();
 
-    $content->addContent(new ImportantContent($type, $child_content));
+    $content->addContent(new HeadingContent($level, $heading));
   }
 
 }

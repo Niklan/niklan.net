@@ -57,3 +57,10 @@ services:
       - '@content_export.manager.markdown_builder'
     tags:
       - { name: content_export.markdown_builder }
+
+  content_export.builder.code:
+    class: Drupal\content_export\Builder\CodeMarkdownBuilder
+    arguments:
+      - '@content_export.manager.markdown_builder'
+    tags:
+      - { name: content_export.markdown_builder }
