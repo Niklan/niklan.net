@@ -5,22 +5,11 @@ namespace Drupal\content_export\Builder;
 use Drupal\content_export\Contract\MarkdownBuilderInterface;
 use Drupal\content_export\Contract\MarkdownSourceInterface;
 use Drupal\content_export\Data\CodeContent;
-use Drupal\content_export\Manager\MarkdownBuilderManager;
 
 /**
  * Provides a Markdown builder for code block.
  */
 final class CodeMarkdownBuilder implements MarkdownBuilderInterface {
-
-  /**
-   * Constructs a new CodeMarkdownBuilder instance.
-   *
-   * @param \Drupal\content_export\Manager\MarkdownBuilderManager $markdownBuilderManager
-   *   The Markdown builder manager.
-   */
-  public function __construct(
-    protected MarkdownBuilderManager $markdownBuilderManager,
-  ) {}
 
   /**
    * {@inheritdoc}
@@ -41,13 +30,19 @@ final class CodeMarkdownBuilder implements MarkdownBuilderInterface {
       return $source->getCode();
     }
 
-    $front_matter_markdown = $this->markdownBuilderManager->buildMarkdown(
-      $source->getFrontMatter(),
-    );
-
+    // Embed front matter as JSON:
+    // @code
+    // ```php {"header": "example.php"}
+    // echo 'Hello';
+    // ```
+    // @encode
     $code_parts = \explode(\PHP_EOL, $source->getCode());
     $first_line = \array_shift($code_parts);
-    \array_unshift($code_parts, $front_matter_markdown);
+    $first_line = \trim($first_line);
+    $first_line .= ' ' . \json_encode(
+      $source->getFrontMatter()->getValues(),
+      \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES,
+    );
     \array_unshift($code_parts, $first_line);
 
     return \implode(\PHP_EOL, $code_parts);

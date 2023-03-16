@@ -45,15 +45,13 @@ final class AsideMarkdownBuilder implements MarkdownBuilderInterface {
     }
 
     $markdown_parts = [];
-    $markdown_parts[] = '<Aside type="' . $source->getType() . '">';
-    $markdown_parts[] = \PHP_EOL;
-    $markdown_parts[] = \PHP_EOL;
-    $markdown_parts[] = \implode(\PHP_EOL, $inner_content_parts);
-    $markdown_parts[] = \PHP_EOL;
-    $markdown_parts[] = \PHP_EOL;
-    $markdown_parts[] = '</Aside>';
+    $markdown_parts[] = '> {"type": "' . $source->getType() . '"}';
 
-    return \implode('', $markdown_parts);
+    foreach ($inner_content_parts as $inner_content_part) {
+      $markdown_parts[] = '> ' . $inner_content_part;
+    }
+
+    return \implode(\PHP_EOL, $markdown_parts);
   }
 
 }

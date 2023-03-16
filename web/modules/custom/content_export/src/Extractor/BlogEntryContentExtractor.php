@@ -52,7 +52,7 @@ final class BlogEntryContentExtractor {
         default => NULL,
         'important' => $this->extractImportant($paragraph, $content),
         // @todo video
-        // @todo remote_video
+        'remote_video' => $this->extractRemoteVideo($paragraph, $content),
         // @todo image
         'code' => $this->extractCode($paragraph, $content),
         'text' => $this->extractText($paragraph, $content),
@@ -98,7 +98,7 @@ final class BlogEntryContentExtractor {
     );
 
     if ($highlighted_lines) {
-      $front_matter_values['highlight-lines'] = $highlighted_lines;
+      $front_matter_values['highlight_lines'] = $highlighted_lines;
     }
 
     if (!$paragraph->get('field_title')->isEmpty()) {
@@ -147,6 +147,18 @@ final class BlogEntryContentExtractor {
     $heading = $paragraph->get('field_title')->getString();
 
     $content->addContent(new HeadingContent($level, $heading));
+  }
+
+  /**
+   * Extracts remote video.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   * @param \Drupal\content_export\Data\Content $content
+   *   The content.
+   */
+  protected function extractRemoteVideo(ParagraphInterface $paragraph, Content $content): void {
+    // @todo Provide logic.
   }
 
 }
