@@ -62,3 +62,8 @@ services:
     class: Drupal\content_export\Builder\CodeMarkdownBuilder
     tags:
       - { name: content_export.markdown_builder }
+
+  content_export.builder.embed:
+    class: Drupal\content_export\Builder\EmbedMarkdownBuilder
+    tags:
+      - { name: content_export.markdown_builder }

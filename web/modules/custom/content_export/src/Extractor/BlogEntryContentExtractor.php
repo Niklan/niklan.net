@@ -4,10 +4,12 @@ namespace Drupal\content_export\Extractor;
 
 use Drupal\content_export\Data\CodeContent;
 use Drupal\content_export\Data\Content;
+use Drupal\content_export\Data\EmbedContent;
 use Drupal\content_export\Data\FrontMatter;
 use Drupal\content_export\Data\HeadingContent;
 use Drupal\content_export\Data\ImportantContent;
 use Drupal\content_export\Data\TextContent;
+use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\paragraphs\ParagraphInterface;
 
@@ -158,7 +160,20 @@ final class BlogEntryContentExtractor {
    *   The content.
    */
   protected function extractRemoteVideo(ParagraphInterface $paragraph, Content $content): void {
-    // @todo Provide logic.
+    if ($paragraph->get('field_media_remote_video')->isEmpty()) {
+      return;
+    }
+
+    $media = $paragraph
+      ->get('field_media_remote_video')
+      ->first()
+      ->get('entity')
+      ->getValue();
+    \assert($media instanceof MediaInterface);
+
+    $embed_url = $media->getSource()->getSourceFieldValue($media);
+
+    $content->addContent(new EmbedContent($embed_url));
   }
 
 }
