@@ -7,6 +7,7 @@ use Drupal\content_export\Data\Content;
 use Drupal\content_export\Data\EmbedContent;
 use Drupal\content_export\Data\FrontMatter;
 use Drupal\content_export\Data\HeadingContent;
+use Drupal\content_export\Data\ImageContent;
 use Drupal\content_export\Data\ImportantContent;
 use Drupal\content_export\Data\TextContent;
 use Drupal\media\MediaInterface;
@@ -55,7 +56,7 @@ final class BlogEntryContentExtractor {
         'important' => $this->extractImportant($paragraph, $content),
         // @todo video
         'remote_video' => $this->extractRemoteVideo($paragraph, $content),
-        // @todo image
+        'image' => $this->extractImage($paragraph, $content),
         'code' => $this->extractCode($paragraph, $content),
         'text' => $this->extractText($paragraph, $content),
         'heading' => $this->extractHeading($paragraph, $content),
@@ -174,6 +175,31 @@ final class BlogEntryContentExtractor {
     $embed_url = $media->getSource()->getSourceFieldValue($media);
 
     $content->addContent(new EmbedContent($embed_url));
+  }
+
+  /**
+   * Extracts an image.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   * @param \Drupal\content_export\Data\Content $content
+   *   The content.
+   */
+  protected function extractImage(ParagraphInterface $paragraph, Content $content): void {
+    if ($paragraph->get('field_media_image')->isEmpty()) {
+      return;
+    }
+
+    $media = $paragraph
+      ->get('field_media_image')
+      ->first()
+      ->get('entity')
+      ->getValue();
+    \assert($media instanceof MediaInterface);
+
+    $image_uri = $media->getSource()->getMetadata($media, 'thumbnail_uri');
+
+    $content->addContent(new ImageContent($image_uri, $media->label()));
   }
 
 }
