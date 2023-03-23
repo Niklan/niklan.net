@@ -10,6 +10,8 @@ use Drupal\content_export\Data\HeadingContent;
 use Drupal\content_export\Data\ImageContent;
 use Drupal\content_export\Data\ImportantContent;
 use Drupal\content_export\Data\TextContent;
+use Drupal\content_export\Data\VideoContent;
+use Drupal\file\FileInterface;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\paragraphs\ParagraphInterface;
@@ -54,7 +56,7 @@ final class BlogEntryContentExtractor {
       match ($paragraph->bundle()) {
         default => NULL,
         'important' => $this->extractImportant($paragraph, $content),
-        // @todo video
+        'video' => $this->extractVideo($paragraph, $content),
         'remote_video' => $this->extractRemoteVideo($paragraph, $content),
         'image' => $this->extractImage($paragraph, $content),
         'code' => $this->extractCode($paragraph, $content),
@@ -200,6 +202,33 @@ final class BlogEntryContentExtractor {
     $image_uri = $media->getSource()->getMetadata($media, 'thumbnail_uri');
 
     $content->addContent(new ImageContent($image_uri, $media->label()));
+  }
+
+  /**
+   * Extracts a video.
+   *
+   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
+   *   The paragraph entity.
+   * @param \Drupal\content_export\Data\Content $content
+   *   The content.
+   */
+  protected function extractVideo(ParagraphInterface $paragraph, Content $content): void {
+    if ($paragraph->get('field_media_video')->isEmpty()) {
+      return;
+    }
+
+    $media = $paragraph
+      ->get('field_media_video')
+      ->first()
+      ->get('entity')
+      ->getValue();
+    \assert($media instanceof MediaInterface);
+
+    $source_field = $media->getSource()->getConfiguration()['source_field'];
+    $file = $media->get($source_field)->first()->get('entity')->getValue();
+    \assert($file instanceof FileInterface);
+
+    $content->addContent(new VideoContent($file->getFileUri(), $media->label()));
   }
 
 }

@@ -72,3 +72,8 @@ services:
     class: Drupal\content_export\Builder\ImageMarkdownBuilder
     tags:
       - { name: content_export.markdown_builder }
+
+  content_export.builder.video:
+    class: Drupal\content_export\Builder\VideoMarkdownBuilder
+    tags:
+      - { name: content_export.markdown_builder }
