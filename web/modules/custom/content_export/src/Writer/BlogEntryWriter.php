@@ -5,6 +5,8 @@ namespace Drupal\content_export\Writer;
 use Drupal\content_export\Contract\MarkdownSourceInterface;
 use Drupal\content_export\Data\BlogEntryExport;
 use Drupal\content_export\Data\ExportState;
+use Drupal\content_export\Data\MarkdownBuilderState;
+use Drupal\content_export\Data\WriterState;
 use Drupal\content_export\Manager\MarkdownBuilderManager;
 use Drupal\Core\File\FileSystemInterface;
 
@@ -31,12 +33,18 @@ final class BlogEntryWriter {
    *
    * @param \Drupal\content_export\Data\BlogEntryExport $export
    *   The export data.
-   * @param \Drupal\content_export\Data\ExportState $state
+   * @param \Drupal\content_export\Data\ExportState $export_state
    *   The export state.
    */
-  public function write(BlogEntryExport $export, ExportState $state): void {
-    $destination_dir = $this->prepareDestinationDirectory($export, $state);
-    $this->writeMarkdown($destination_dir, $export, $state);
+  public function write(BlogEntryExport $export, ExportState $export_state): void {
+    $destination_dir = $this->prepareDestinationDirectory($export, $export_state);
+    $writer_state = new WriterState(
+      $destination_dir,
+      $export_state,
+      new MarkdownBuilderState(),
+    );
+    $this->writeMarkdown($export, $writer_state);
+    // @todo Write files tracked in MarkdownBuilderState.
   }
 
   /**
@@ -53,28 +61,26 @@ final class BlogEntryWriter {
   protected function prepareDestinationDirectory(BlogEntryExport $export, ExportState $state): string {
     $base_uri = $state->getDestination();
     $id = $export->getFrontMatter()->getValue('id');
-    $destination_dir = "$base_uri/blog/$id";
+    $working_dir = "$base_uri/blog/$id";
     $this->fileSystem->prepareDirectory(
-      $destination_dir,
+      $working_dir,
       FileSystemInterface::CREATE_DIRECTORY,
     );
 
-    return $destination_dir;
+    return $working_dir;
   }
 
   /**
    * Writes markdown content.
    *
-   * @param string $destination_dir
-   *   The destination directory.
    * @param \Drupal\content_export\Data\BlogEntryExport $export
    *   The export data.
-   * @param \Drupal\content_export\Data\ExportState $state
+   * @param \Drupal\content_export\Data\WriterState $state
    *   The export state.
    */
-  private function writeMarkdown(string $destination_dir, BlogEntryExport $export, ExportState $state): void {
+  private function writeMarkdown(BlogEntryExport $export, WriterState $state): void {
     $langcode = $export->getFrontMatter()->getValue('language');
-    $destination_file = "$destination_dir/index.$langcode.md";
+    $destination_file = "{$state->getWorkingDir()}/index.$langcode.md";
 
     $content_parts = [];
     $content_parts[] = $this->buildFrontMatter($export, $state);
@@ -96,13 +102,21 @@ final class BlogEntryWriter {
    *
    * @param \Drupal\content_export\Data\BlogEntryExport $export
    *   The export data.
-   * @param \Drupal\content_export\Data\ExportState $state
+   * @param \Drupal\content_export\Data\WriterState $state
    *   The export state.
+   *
+   * @return string
+   *   The front matter result.
+   *
+   * @throws \Exception
    */
-  protected function buildFrontMatter(BlogEntryExport $export, ExportState $state): string {
+  protected function buildFrontMatter(BlogEntryExport $export, WriterState $state): string {
     $front_matter = $export->getFrontMatter();
 
-    return $this->markdownBuilderManager->buildMarkdown($front_matter);
+    return $this->markdownBuilderManager->buildMarkdown(
+      $front_matter,
+      $state->getMarkdownBuilderState(),
+    );
   }
 
   /**
@@ -110,17 +124,22 @@ final class BlogEntryWriter {
    *
    * @param \Drupal\content_export\Data\BlogEntryExport $export
    *   The export data.
-   * @param \Drupal\content_export\Data\ExportState $state
+   * @param \Drupal\content_export\Data\WriterState $state
    *   The state data.
    * @param array $content_parts
    *   An array with content parts.
+   *
+   * @throws \Exception
    */
-  protected function buildContent(BlogEntryExport $export, ExportState $state, array &$content_parts): void {
+  protected function buildContent(BlogEntryExport $export, WriterState $state, array &$content_parts): void {
     $content = $export->getContent();
 
     foreach ($content as $item) {
       \assert($item instanceof MarkdownSourceInterface);
-      $content_parts[] = $this->markdownBuilderManager->buildMarkdown($item);
+      $content_parts[] = $this->markdownBuilderManager->buildMarkdown(
+        $item,
+        $state->getMarkdownBuilderState(),
+      );
     }
   }
 

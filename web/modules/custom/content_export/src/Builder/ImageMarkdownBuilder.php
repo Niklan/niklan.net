@@ -5,6 +5,7 @@ namespace Drupal\content_export\Builder;
 use Drupal\content_export\Contract\MarkdownBuilderInterface;
 use Drupal\content_export\Contract\MarkdownSourceInterface;
 use Drupal\content_export\Data\ImageContent;
+use Drupal\content_export\Data\MarkdownBuilderState;
 
 /**
  * Provides a Markdown builder for image.
@@ -21,11 +22,10 @@ final class ImageMarkdownBuilder implements MarkdownBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(MarkdownSourceInterface $source): string {
+  public function build(MarkdownSourceInterface $source, MarkdownBuilderState $state): string {
     \assert($source instanceof ImageContent);
+    $state->trackFileUri($source->getUri());
 
-    // @todo Replace URI with relative path and store it somewhere. Most likely
-    //   it require to add new parameters - BuildContext and store them there.
     return "![{$source->getAlt()}]({$source->getUri()})";
   }
 

@@ -2,6 +2,8 @@
 
 namespace Drupal\content_export\Contract;
 
+use Drupal\content_export\Data\MarkdownBuilderState;
+
 /**
  * Defines an interface for Markdown builders.
  */
@@ -23,10 +25,12 @@ interface MarkdownBuilderInterface {
    *
    * @param \Drupal\content_export\Contract\MarkdownSourceInterface $source
    *   The Markdown source.
+   * @param \Drupal\content_export\Data\MarkdownBuilderState $state
+   *   The export state.
    *
    * @return string
    *   The Markdown content.
    */
-  public function build(MarkdownSourceInterface $source): string;
+  public function build(MarkdownSourceInterface $source, MarkdownBuilderState $state): string;
 
 }

@@ -5,6 +5,7 @@ namespace Drupal\content_export\Builder;
 use Drupal\content_export\Contract\MarkdownBuilderInterface;
 use Drupal\content_export\Contract\MarkdownSourceInterface;
 use Drupal\content_export\Data\CodeContent;
+use Drupal\content_export\Data\MarkdownBuilderState;
 
 /**
  * Provides a Markdown builder for code block.
@@ -21,7 +22,7 @@ final class CodeMarkdownBuilder implements MarkdownBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(MarkdownSourceInterface $source): string {
+  public function build(MarkdownSourceInterface $source, MarkdownBuilderState $state): string {
     \assert($source instanceof CodeContent);
 
     if (\count($source->getFrontMatter()->getValues()) === 0) {

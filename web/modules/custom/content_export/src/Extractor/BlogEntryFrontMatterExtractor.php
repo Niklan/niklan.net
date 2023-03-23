@@ -51,6 +51,7 @@ final class BlogEntryFrontMatterExtractor {
         ->getValue();
     }
 
+    // @todo Fetch promo image & attachments. Add their URIs in FrontMatter.
     return new FrontMatter($values);
   }
 

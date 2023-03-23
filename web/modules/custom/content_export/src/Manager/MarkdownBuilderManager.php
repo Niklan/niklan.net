@@ -4,6 +4,7 @@ namespace Drupal\content_export\Manager;
 
 use Drupal\content_export\Contract\MarkdownBuilderInterface;
 use Drupal\content_export\Contract\MarkdownSourceInterface;
+use Drupal\content_export\Data\MarkdownBuilderState;
 
 /**
  * Provides a Markdown builder manager.
@@ -32,13 +33,15 @@ final class MarkdownBuilderManager {
    *
    * @param \Drupal\content_export\Contract\MarkdownSourceInterface $source
    *   The source data.
+   * @param \Drupal\content_export\Data\MarkdownBuilderState $state
+   *   The export state.
    *
    * @return string
    *   The Markdown content.
    *
    * @throws \Exception
    */
-  public function buildMarkdown(MarkdownSourceInterface $source): string {
+  public function buildMarkdown(MarkdownSourceInterface $source, MarkdownBuilderState $state): string {
     $builder = $this->getBuilderBySource($source);
 
     if (!$builder) {
@@ -47,7 +50,7 @@ final class MarkdownBuilderManager {
       throw new \Exception($message);
     }
 
-    return $builder->build($source);
+    return $builder->build($source, $state);
   }
 
   /**

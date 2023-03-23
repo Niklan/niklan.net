@@ -5,6 +5,7 @@ namespace Drupal\content_export\Builder;
 use Drupal\content_export\Contract\MarkdownBuilderInterface;
 use Drupal\content_export\Contract\MarkdownSourceInterface;
 use Drupal\content_export\Data\ImportantContent;
+use Drupal\content_export\Data\MarkdownBuilderState;
 use Drupal\content_export\Manager\MarkdownBuilderManager;
 
 /**
@@ -32,7 +33,7 @@ final class AsideMarkdownBuilder implements MarkdownBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(MarkdownSourceInterface $source): string {
+  public function build(MarkdownSourceInterface $source, MarkdownBuilderState $state): string {
     \assert($source instanceof ImportantContent);
 
     $inner_content_parts = [];
@@ -41,7 +42,7 @@ final class AsideMarkdownBuilder implements MarkdownBuilderInterface {
       \assert($item instanceof MarkdownSourceInterface);
       $inner_content_parts[] = $this
         ->markdownBuilderManager
-        ->buildMarkdown($item);
+        ->buildMarkdown($item, $state);
     }
 
     $markdown_parts = [];

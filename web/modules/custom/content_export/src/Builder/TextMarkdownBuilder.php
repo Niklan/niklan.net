@@ -4,6 +4,7 @@ namespace Drupal\content_export\Builder;
 
 use Drupal\content_export\Contract\MarkdownBuilderInterface;
 use Drupal\content_export\Contract\MarkdownSourceInterface;
+use Drupal\content_export\Data\MarkdownBuilderState;
 use Drupal\content_export\Data\TextContent;
 
 /**
@@ -21,7 +22,7 @@ final class TextMarkdownBuilder implements MarkdownBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(MarkdownSourceInterface $source): string {
+  public function build(MarkdownSourceInterface $source, MarkdownBuilderState $state): string {
     \assert($source instanceof TextContent);
 
     return $source->getText();
