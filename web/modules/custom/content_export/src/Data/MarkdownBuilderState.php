@@ -13,6 +13,11 @@ final class MarkdownBuilderState {
   protected array $fileUris = [];
 
   /**
+   * The current Markdown content.
+   */
+  protected string $content = '';
+
+  /**
    * Tracks file URI.
    *
    * @param string $uri
@@ -36,6 +41,30 @@ final class MarkdownBuilderState {
    */
   public function getTrackedFileUris(): array {
     return $this->fileUris;
+  }
+
+  /**
+   * Sets current content.
+   *
+   * @param string $content
+   *   The current content.
+   *
+   * @return $this
+   */
+  public function setCurrentContent(string $content): self {
+    $this->content = $content;
+
+    return $this;
+  }
+
+  /**
+   * Gets the current content.
+   *
+   * @return string
+   *   The content.
+   */
+  public function getCurrentContent(): string {
+    return $this->content;
   }
 
 }

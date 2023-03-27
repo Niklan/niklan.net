@@ -30,6 +30,7 @@ services:
     arguments:
       - '@file_system'
       - '@content_export.manager.markdown_builder'
+      - '@file.mime_type.guesser'
 
   content_export.manager.markdown_builder:
     class: Drupal\content_export\Manager\MarkdownBuilderManager

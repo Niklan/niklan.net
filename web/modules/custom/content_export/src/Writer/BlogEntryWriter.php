@@ -9,6 +9,7 @@ use Drupal\content_export\Data\MarkdownBuilderState;
 use Drupal\content_export\Data\WriterState;
 use Drupal\content_export\Manager\MarkdownBuilderManager;
 use Drupal\Core\File\FileSystemInterface;
+use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 /**
  * Provides a writer for 'blog_entry' content type.
@@ -22,10 +23,13 @@ final class BlogEntryWriter {
    *   The file system.
    * @param \Drupal\content_export\Manager\MarkdownBuilderManager $markdownBuilderManager
    *   The Markdown builder manager.
+   * @param \Symfony\Component\Mime\MimeTypeGuesserInterface $mimeTypeGuesser
+   *   The MIME-type guesser.
    */
   public function __construct(
     protected FileSystemInterface $fileSystem,
     protected MarkdownBuilderManager $markdownBuilderManager,
+    protected MimeTypeGuesserInterface $mimeTypeGuesser,
   ) {}
 
   /**
@@ -43,8 +47,11 @@ final class BlogEntryWriter {
       $export_state,
       new MarkdownBuilderState(),
     );
+    $this->buildMarkdown($export, $writer_state);
+    $this->writeFiles($export, $writer_state);
+    // Make sure Markdown writes at the very end, because other processes maybe
+    // want to process content as well.
     $this->writeMarkdown($export, $writer_state);
-    // @todo Write files tracked in MarkdownBuilderState.
   }
 
   /**
@@ -78,10 +85,7 @@ final class BlogEntryWriter {
    * @param \Drupal\content_export\Data\WriterState $state
    *   The export state.
    */
-  private function writeMarkdown(BlogEntryExport $export, WriterState $state): void {
-    $langcode = $export->getFrontMatter()->getValue('language');
-    $destination_file = "{$state->getWorkingDir()}/index.$langcode.md";
-
+  private function buildMarkdown(BlogEntryExport $export, WriterState $state): void {
     $content_parts = [];
     $content_parts[] = $this->buildFrontMatter($export, $state);
     $this->buildContent($export, $state, $content_parts);
@@ -90,8 +94,23 @@ final class BlogEntryWriter {
     // Make sure content have empty line at the end.
     $content .= \PHP_EOL;
 
+    $state->getMarkdownBuilderState()->setCurrentContent($content);
+  }
+
+  /**
+   * Writes markdown content.
+   *
+   * @param \Drupal\content_export\Data\BlogEntryExport $export
+   *   The export data.
+   * @param \Drupal\content_export\Data\WriterState $state
+   *   The export state.
+   */
+  private function writeMarkdown(BlogEntryExport $export, WriterState $state): void {
+    $langcode = $export->getFrontMatter()->getValue('language');
+    $destination_file = "{$state->getWorkingDir()}/index.$langcode.md";
+
     $this->fileSystem->saveData(
-      $content,
+      $state->getMarkdownBuilderState()->getCurrentContent(),
       $destination_file,
       FileSystemInterface::EXISTS_REPLACE,
     );
@@ -140,6 +159,55 @@ final class BlogEntryWriter {
         $item,
         $state->getMarkdownBuilderState(),
       );
+    }
+  }
+
+  /**
+   * Writes files files for the blog entry.
+   *
+   * @param \Drupal\content_export\Data\BlogEntryExport $export
+   *   The export.
+   * @param \Drupal\content_export\Data\WriterState $writer_state
+   *   The writer state.
+   */
+  protected function writeFiles(BlogEntryExport $export, WriterState $writer_state): void {
+    $builder_state = $writer_state->getMarkdownBuilderState();
+
+    foreach ($builder_state->getTrackedFileUris() as $tracked_file_uri) {
+      $subdir = match ($this->mimeTypeGuesser->guessMimeType($tracked_file_uri)) {
+        default => '_fixme',
+        'image/jpeg', 'image/png' => 'image',
+        'video/mp4' => 'video',
+      };
+      $destination_filename = \basename($tracked_file_uri);
+      $destination_path = $writer_state->getWorkingDir() . '/' . $subdir;
+      $this->fileSystem->prepareDirectory(
+        $destination_path,
+        FileSystemInterface::CREATE_DIRECTORY,
+      );
+      $destination_uri = "$destination_path/$destination_filename";
+      $this->fileSystem->copy(
+        $tracked_file_uri,
+        $destination_uri,
+        FileSystemInterface::EXISTS_REPLACE,
+      );
+
+      $relative_destination = \str_replace(
+        $writer_state->getWorkingDir(),
+        '',
+        $destination_uri,
+      );
+      // Replace spaces with HTML encoded value.
+      $relative_destination = \str_replace(' ', '%20', $relative_destination);
+      // Remove leading slash, because URI in Markdown relative to file.
+      $relative_destination = \substr($relative_destination, 1);
+      $markdown = $builder_state->getCurrentContent();
+      $markdown = \str_replace(
+        $tracked_file_uri,
+        $relative_destination,
+        $markdown,
+      );
+      $builder_state->setCurrentContent($markdown);
     }
   }
 
