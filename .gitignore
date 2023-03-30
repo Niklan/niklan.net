@@ -23,6 +23,7 @@ web/sites/development.services.yml
 # Ignore paths that contain user-generated content.
 web/sites/*/files
 web/sites/*/private
+/private
 
 # Ignore SimpleTest multi-site environment.
 web/sites/simpletest
@@ -75,3 +76,6 @@ web/.env.example.php
 phpunit.xml
 phpcs.xml
 phpstan.neon
+
+# Drush contrib commands shouldn't be in repo.
+drush/Commands/contrib
