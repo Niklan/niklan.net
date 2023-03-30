@@ -83,6 +83,7 @@ final class BlogEntryExporter {
     }
 
     $progress->finish();
+    $state->getOutput()->write(\PHP_EOL);
   }
 
   /**

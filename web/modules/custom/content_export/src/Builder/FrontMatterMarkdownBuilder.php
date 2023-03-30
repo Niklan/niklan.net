@@ -26,13 +26,23 @@ final class FrontMatterMarkdownBuilder implements MarkdownBuilderInterface {
   public function build(MarkdownSourceInterface $source, MarkdownBuilderState $state): string {
     \assert($source instanceof FrontMatter);
 
+    $values = $source->getValues();
+
     $markdown = '---';
     $markdown .= \PHP_EOL;
-    $markdown .= Yaml::encode($source->getValues());
+    $markdown .= Yaml::encode($values);
     $markdown .= '---';
 
-    // @todo Extract file URIs from promo image & attachments and add them into
-    //   MarkdownState.
+    if (\array_key_exists('attachments', $values)) {
+      foreach ($values['attachments'] as $attachment) {
+        $state->trackFileUri($attachment['path']);
+      }
+    }
+
+    if (\array_key_exists('promo', $values)) {
+      $state->trackFileUri($values['promo']);
+    }
+
     return $markdown;
   }
 

@@ -178,6 +178,7 @@ final class BlogEntryWriter {
         default => '_fixme',
         'image/jpeg', 'image/png' => 'image',
         'video/mp4' => 'video',
+        'application/zip', 'application/gzip', 'text/plain', 'application/x-tar', 'text/csv', 'image/svg+xml' => 'attachment',
       };
       $destination_filename = \basename($tracked_file_uri);
       $destination_path = $writer_state->getWorkingDir() . '/' . $subdir;

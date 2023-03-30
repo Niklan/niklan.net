@@ -52,6 +52,7 @@ final class ContentExporter {
         '@dir' => $state->getDestination(),
       ]);
       $state->getOutput()->write($message, TRUE);
+      $this->fileSystem->deleteRecursive($state->getDestination());
     }
 
     $destination = $state->getDestination();
