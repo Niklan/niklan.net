@@ -12,12 +12,12 @@ interface ElementInterface {
   /**
    * Sets parent element if current is child.
    *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
+   * @param self $element
    *   The parent element.
    *
    * @return $this
    */
-  public function setParent(ElementInterface $element): self;
+  public function setParent(self $element): self;
 
   /**
    * Checks a current element for a parent.
@@ -30,20 +30,20 @@ interface ElementInterface {
   /**
    * Gets parent element.
    *
-   * @return \Drupal\external_content\Dto\ElementInterface|null
+   * @return self|null
    *   The parent element.
    */
-  public function getParent(): ?ElementInterface;
+  public function getParent(): ?self;
 
   /**
    * Adds child element.
    *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
+   * @param self $element
    *   The child element.
    *
    * @return $this
    */
-  public function addChild(ElementInterface $element): self;
+  public function addChild(self $element): self;
 
   /**
    * Gets children elements.
@@ -64,23 +64,23 @@ interface ElementInterface {
   /**
    * Replaces one element with another.
    *
-   * @param \Drupal\external_content\Dto\ElementInterface $search
+   * @param self $search
    *   The element to replace.
-   * @param \Drupal\external_content\Dto\ElementInterface $replace
+   * @param self $replace
    *   The element to replace by.
    *
    * @return $this
    */
-  public function replaceElement(ElementInterface $search, ElementInterface $replace): self;
+  public function replaceElement(self $search, self $replace): self;
 
   /**
    * Gets the root element.
    *
    * If element doesn't have parent element, that mens it is root element.
    *
-   * @return \Drupal\external_content\Dto\ElementInterface
+   * @return self
    *   The root element.
    */
-  public function getRoot(): ElementInterface;
+  public function getRoot(): self;
 
 }
