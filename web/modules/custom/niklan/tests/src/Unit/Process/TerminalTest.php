@@ -27,7 +27,7 @@ final class TerminalTest extends UnitTestCase {
 
     $terminal = new Terminal($file_system->reveal());
     $result = $terminal->createProcess(['pwd']);
-    $this->assertInstanceOf(Process::class, $result);
+    self::assertInstanceOf(Process::class, $result);
   }
 
 }

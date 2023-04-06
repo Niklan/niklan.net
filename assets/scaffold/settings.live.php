@@ -53,3 +53,11 @@ $config['symfony_mailer.mailer_transport.smtp']['configuration']['user'] = NULL;
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['pass'] = NULL;
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['host'] = NULL;
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['port'] = NULL;
+
+/**
+ * Allows to override path to Git binary file.
+ *
+ * By default, it uses 'git' and allow OS to resolve binary. In some cases
+ * (Windows), it should be explicitly set.
+ */
+# $settings['niklan_git_binary'] = 'git';

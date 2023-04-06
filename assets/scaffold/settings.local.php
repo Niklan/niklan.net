@@ -200,3 +200,11 @@ $config['symfony_mailer.mailer_transport.smtp']['configuration']['port'] = '1025
  * Shows a warning in toolbar that reminds about development version.
  */
 $settings['niklan_development_warning'] = TRUE;
+
+/**
+ * Allows to override path to Git binary file.
+ *
+ * By default, it uses 'git' and allow OS to resolve binary. In some cases
+ * (Windows), it should be explicitly set.
+ */
+# $settings['niklan_git_binary'] = 'git';

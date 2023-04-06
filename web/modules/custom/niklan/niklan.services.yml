@@ -32,6 +32,10 @@ services:
     class: Drupal\niklan\Builder\ContentEditingToolbarLinksBuilder
     arguments: ['@plugin.manager.menu.local_task', '@current_route_match']
 
-  niklan.terminal:
+  niklan.process.terminal:
     class: Drupal\niklan\Process\Terminal
     arguments: ['@file_system']
+
+  niklan.process.git:
+    class: Drupal\niklan\Process\Git
+    arguments: ['@niklan.process.terminal']
