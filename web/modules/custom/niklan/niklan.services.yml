@@ -31,3 +31,7 @@ services:
   niklan.builder.content_editing_toolbar_links:
     class: Drupal\niklan\Builder\ContentEditingToolbarLinksBuilder
     arguments: ['@plugin.manager.menu.local_task', '@current_route_match']
+
+  niklan.terminal:
+    class: Drupal\niklan\Process\Terminal
+    arguments: ['@file_system']
