@@ -18,19 +18,14 @@ use Symfony\Component\Process\Process;
 final class Terminal implements TerminalInterface {
 
   /**
-   * The file system.
-   */
-  protected FileSystemInterface $fileSystem;
-
-  /**
    * Constructs a new Terminal object.
    *
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
    *   The file system.
    */
-  public function __construct(FileSystemInterface $file_system) {
-    $this->fileSystem = $file_system;
-  }
+  public function __construct(
+    protected FileSystemInterface $fileSystem,
+  ) {}
 
   /**
    * {@inheritdoc}

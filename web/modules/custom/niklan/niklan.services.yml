@@ -39,3 +39,13 @@ services:
   niklan.process.git:
     class: Drupal\niklan\Process\Git
     arguments: ['@niklan.process.terminal']
+
+  keyvalue.niklan.content_sync_settings:
+    class: Drupal\Core\KeyValueStore\KeyValueStoreInterface
+    factory: ['@keyvalue', 'get']
+    arguments: ['niklan.content_sync_settings']
+
+  niklan.repository.content_sync_settings:
+    class: Drupal\niklan\Repository\ContentSyncSettingsRepository
+    arguments:
+      - '@keyvalue.niklan.content_sync_settings'

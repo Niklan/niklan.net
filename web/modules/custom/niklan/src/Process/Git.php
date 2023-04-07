@@ -11,24 +11,26 @@ use Symfony\Component\Process\Process;
 final class Git implements GitInterface {
 
   /**
-   * The terminal process.
-   */
-  protected TerminalInterface $terminal;
-
-  /**
-   * The git binary path.
-   */
-  protected string $gitBinary;
-
-  /**
    * Constructs a new Git object.
    *
    * @param \Drupal\niklan\Process\TerminalInterface $terminal
    *   The terminal process.
+   * @param string $gitBinary
+   *   The git binary.
    */
-  public function __construct(TerminalInterface $terminal) {
-    $this->terminal = $terminal;
-    $this->gitBinary = Settings::get('niklan_git_binary', 'git');
+  public function __construct(
+    protected TerminalInterface $terminal,
+    protected string $gitBinary = 'git',
+  ) {}
+
+  /**
+   * Gets Git binary path.
+   *
+   * @return string
+   *   The path to binary.
+   */
+  protected function getGitBin(): string {
+    return Settings::get('niklan_git_binary', $this->gitBinary);
   }
 
   /**
@@ -36,7 +38,7 @@ final class Git implements GitInterface {
    */
   public function pull(string $directory): Process {
     // @see https://stackoverflow.com/a/62653400/4751623
-    $command = [$this->gitBinary, 'pull', '--ff-only'];
+    $command = [$this->getGitBin(), 'pull', '--ff-only'];
 
     return $this->terminal->createProcess($command, $directory);
   }
@@ -45,7 +47,7 @@ final class Git implements GitInterface {
    * {@inheritdoc}
    */
   public function getLastCommitId(string $directory): Process {
-    $command = [$this->gitBinary, 'log', '--format="%H"', '-n 1'];
+    $command = [$this->getGitBin(), 'log', '--format="%H"', '-n 1'];
 
     return $this->terminal->createProcess($command, $directory);
   }
@@ -55,7 +57,7 @@ final class Git implements GitInterface {
    */
   public function getFileLastCommitId(string $directory, string $filepath): Process {
     $command = [
-      $this->gitBinary,
+      $this->getGitBin(),
       'log',
       '--format="%H"',
       '-n 1',
