@@ -17,6 +17,13 @@ niklan.about_settings:
   parent: niklan.admin_general
   weight: 10
 
+niklan.content_sync_settings:
+  title: 'Content synchronization'
+  description: 'Allows to configure content synchronization and track current status.'
+  route_name: niklan.content_sync_settings
+  parent: niklan.admin_general
+  weight: 20
+
 niklan.frontpage:
   title: Home
   route_name: <front>

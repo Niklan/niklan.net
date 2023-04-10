@@ -25,11 +25,6 @@ final class SearchFormTest extends NiklanTestBase {
   protected FormBuilderInterface $formBuilder;
 
   /**
-   * The class resolver.
-   */
-  protected ClassResolverInterface $classResolver;
-
-  /**
    * The request stack.
    */
   protected RequestStack $requestStack;
@@ -41,7 +36,6 @@ final class SearchFormTest extends NiklanTestBase {
     parent::setUp();
 
     $this->formBuilder = $this->container->get('form_builder');
-    $this->classResolver = $this->container->get('class_resolver');
     $this->requestStack = $this->container->get('request_stack');
   }
 

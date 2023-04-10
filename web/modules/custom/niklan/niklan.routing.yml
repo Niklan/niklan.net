@@ -47,6 +47,14 @@ niklan.about_settings:
   requirements:
     _permission: 'administer site configuration'
 
+niklan.content_sync_settings:
+  path: '/admin/niklan/content-sync'
+  defaults:
+    _title: 'Content synchronization settings'
+    _form: '\Drupal\niklan\Form\ContentSyncSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
 niklan.blog_list:
   path: '/blog'
   defaults:
