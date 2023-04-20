@@ -2,18 +2,18 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\ParsedSourceFileCollection;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\ParsedSourceFileCollection;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileContent;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Validates that collection properly handles parsed source files.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\ParsedSourceFileCollection
+ * @coversDefaultClass \Drupal\external_content\Data\ParsedSourceFileCollection
  */
 final class ParsedSourceFileCollectionTest extends UnitTestCase {
 

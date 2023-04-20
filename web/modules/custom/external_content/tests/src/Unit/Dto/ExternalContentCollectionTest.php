@@ -2,14 +2,14 @@
 
 namespace Drupal\Test\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\ExternalContent;
-use Drupal\external_content\Dto\ExternalContentCollection;
+use Drupal\external_content\Data\ExternalContent;
+use Drupal\external_content\Data\ExternalContentCollection;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a test for external content collection.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\ExternalContentCollection
+ * @coversDefaultClass \Drupal\external_content\Data\ExternalContentCollection
  */
 final class ExternalContentCollectionTest extends UnitTestCase {
 

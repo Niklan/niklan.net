@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
-use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
+use Drupal\external_content\Contract\MarkupPluginInterface;
 
 /**
  * Defines external content markup annotation.
@@ -39,6 +39,6 @@ final class ExternalContentMarkup extends Plugin {
    *
    * Plugin with higher weight will be used, others will be ignored.
    */
-  public int $weight = MarkupInterface::DEFAULT_WEIGHT;
+  public int $weight = MarkupPluginInterface::DEFAULT_WEIGHT;
 
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Dto;
+namespace Drupal\external_content\Data;
 
 /**
  * Represents a collection of external content items.
@@ -10,14 +10,14 @@ final class ExternalContentCollection implements \Countable, \IteratorAggregate 
   /**
    * The array with parsed source file items.
    *
-   * @var \Drupal\external_content\Dto\ExternalContent[]
+   * @var \Drupal\external_content\Data\ExternalContent[]
    */
   protected array $items = [];
 
   /**
    * Adds a parsed source file into collection.
    *
-   * @param \Drupal\external_content\Dto\ExternalContent $file
+   * @param \Drupal\external_content\Data\ExternalContent $file
    *   The external content.
    */
   public function add(ExternalContent $file): void {
@@ -44,7 +44,7 @@ final class ExternalContentCollection implements \Countable, \IteratorAggregate 
    * @param string $id
    *   The content ID.
    *
-   * @return \Drupal\external_content\Dto\ExternalContent|null
+   * @return \Drupal\external_content\Data\ExternalContent|null
    *   The content.
    */
   public function get(string $id): ?ExternalContent {

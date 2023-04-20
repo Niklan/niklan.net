@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Plugin\ExternalContent\Markup;
+namespace Drupal\external_content\Contract;
 
 /**
  * Provides an interface for external content markup plugins.
  */
-interface MarkupInterface {
+interface MarkupPluginInterface {
 
   /**
    * The default markup plugin weight.

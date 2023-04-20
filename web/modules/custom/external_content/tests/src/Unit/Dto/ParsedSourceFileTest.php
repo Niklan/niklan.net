@@ -2,16 +2,16 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileContent;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Validates that parsed source file value object works as expected.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\ParsedSourceFile
+ * @coversDefaultClass \Drupal\external_content\Data\ParsedSourceFile
  */
 final class ParsedSourceFileTest extends UnitTestCase {
 

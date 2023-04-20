@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Plugin\ExternalContent\Loader;
+namespace Drupal\external_content\Contract;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 

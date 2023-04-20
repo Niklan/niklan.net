@@ -4,10 +4,10 @@ namespace Drupal\Tests\external_content\Kernel\Plugin\DataType;
 
 use Drupal\Core\TypedData\TraversableTypedDataInterface;
 use Drupal\Core\TypedData\TypedDataManagerInterface;
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileContent;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\external_content\Plugin\DataType\ParsedSourceFile as ParsedSourceFileDataType;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Prophecy\Argument;

@@ -1,8 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Dto;
+namespace Drupal\external_content\Data;
 
-use Drupal\external_content\Parser\ChainHtmlParserInterface;
+use Drupal\external_content\Contract\ChainHtmlParserInterface;
+use Drupal\external_content\Contract\HtmlParserStateInterface;
 
 /**
  * Represents a HTML parser state.
@@ -12,11 +13,11 @@ final class HtmlParserState implements HtmlParserStateInterface {
   /**
    * Constructs a new HtmlParserState object.
    *
-   * @param \Drupal\external_content\Dto\SourceFile $sourceFile
+   * @param \Drupal\external_content\Data\SourceFile $sourceFile
    *   The source file.
-   * @param \Drupal\external_content\Dto\SourceFileParams $sourceFileParams
+   * @param \Drupal\external_content\Data\SourceFileParams $sourceFileParams
    *   The source file params.
-   * @param \Drupal\external_content\Parser\ChainHtmlParserInterface $parser
+   * @param \Drupal\external_content\Contract\ChainHtmlParserInterface $parser
    *   The chained HTML parser used with this state.
    */
   public function __construct(

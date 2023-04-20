@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Plugin\ExternalContent\Markup;
 
 use Drupal\Core\Plugin\PluginBase;
+use Drupal\external_content\Contract\MarkupPluginInterface;
 
 /**
  * Represents a simple plain text without markup.
@@ -13,7 +14,7 @@ use Drupal\Core\Plugin\PluginBase;
  *   markup_identifiers = {"txt"},
  * )
  */
-final class PlainText extends PluginBase implements MarkupInterface {
+final class PlainText extends PluginBase implements MarkupPluginInterface {
 
   /**
    * {@inheritdoc}

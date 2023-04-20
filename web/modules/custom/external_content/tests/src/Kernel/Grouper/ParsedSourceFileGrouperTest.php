@@ -3,13 +3,13 @@
 namespace Drupal\Tests\external_content\Kernel\Grouper;
 
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\ParsedSourceFileCollection;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Dto\SourceFileParams;
-use Drupal\external_content\Grouper\ParsedSourceFileGrouperInterface;
+use Drupal\external_content\Contract\ParsedSourceFileGrouperInterface;
+use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\ParsedSourceFileCollection;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileContent;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**

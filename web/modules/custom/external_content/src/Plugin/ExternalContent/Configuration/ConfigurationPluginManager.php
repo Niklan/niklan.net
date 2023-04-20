@@ -7,6 +7,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
 
 /**
@@ -16,6 +17,8 @@ use Drupal\Core\Plugin\Discovery\YamlDiscovery;
  * content synchronization.
  *
  * @see \Drupal\external_content\Plugin\ExternalContent\Configuration\Configuration
+ *
+ * @todo Replace by source plugin system.
  */
 final class ConfigurationPluginManager extends DefaultPluginManager {
 
@@ -55,7 +58,10 @@ final class ConfigurationPluginManager extends DefaultPluginManager {
       fn (Extension $extension) => $this->root . '/' . $extension->getPath(),
       $this->moduleHandler->getModuleList(),
     );
-    $this->discovery = new YamlDiscovery('external_content', $directories);
+
+    $discovery = new YamlDiscovery('external_content', $directories);
+    $discovery = new ContainerDerivativeDiscoveryDecorator($discovery);
+    $this->discovery = $discovery;
 
     $this->factory = new ReflectionFactory($this, $this->pluginInterface);
   }

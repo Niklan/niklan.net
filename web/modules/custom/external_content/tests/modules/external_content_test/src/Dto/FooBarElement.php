@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content_test\Dto;
 
-use Drupal\external_content\Dto\Element;
+use Drupal\external_content\Data\Element;
 
 /**
  * Represents a testing element for HTML parser.

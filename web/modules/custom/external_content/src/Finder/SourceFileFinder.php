@@ -2,8 +2,9 @@
 
 namespace Drupal\external_content\Finder;
 
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileCollection;
+use Drupal\external_content\Contract\SourceFileFinderInterface;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileCollection;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -45,7 +46,7 @@ final class SourceFileFinder implements SourceFileFinderInterface {
    *
    * @param \Symfony\Component\Finder\Finder $finder
    *   The finder with results.
-   * @param \Drupal\external_content\Dto\SourceFileCollection $source_files
+   * @param \Drupal\external_content\Data\SourceFileCollection $source_files
    *   The source files collection.
    * @param string $working_dir
    *   The working dir.

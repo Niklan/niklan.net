@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Finder;
 
-use Drupal\external_content\Dto\SourceFile;
+use Drupal\external_content\Data\SourceFile;
 use Drupal\external_content\Finder\SourceFileFinder;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;

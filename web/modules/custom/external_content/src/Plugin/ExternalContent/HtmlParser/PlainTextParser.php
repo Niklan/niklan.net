@@ -3,9 +3,10 @@
 namespace Drupal\external_content\Plugin\ExternalContent\HtmlParser;
 
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\external_content\Dto\ElementInterface;
-use Drupal\external_content\Dto\HtmlParserStateInterface;
-use Drupal\external_content\Dto\PlainTextElement;
+use Drupal\external_content\Contract\ElementInterface;
+use Drupal\external_content\Contract\HtmlParserPluginInterface;
+use Drupal\external_content\Contract\HtmlParserStateInterface;
+use Drupal\external_content\Data\PlainTextElement;
 
 /**
  * Provides a plain text parser plugin.
@@ -19,7 +20,7 @@ use Drupal\external_content\Dto\PlainTextElement;
  *   weight = 1000,
  * )
  */
-final class PlainTextParser extends PluginBase implements HtmlParserInterface {
+final class PlainTextParser extends PluginBase implements HtmlParserPluginInterface {
 
   /**
    * {@inheritdoc}

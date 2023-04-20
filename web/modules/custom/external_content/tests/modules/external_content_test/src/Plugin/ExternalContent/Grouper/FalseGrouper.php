@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content_test\Plugin\ExternalContent\Grouper;
 
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Dto\ParsedSourceFile;
+use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\ParsedSourceFile;
 use Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPlugin;
 
 /**

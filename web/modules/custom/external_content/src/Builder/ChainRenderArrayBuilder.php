@@ -2,10 +2,11 @@
 
 namespace Drupal\external_content\Builder;
 
-use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface;
 use Drupal\Component\Utility\SortArray;
-use Drupal\external_content\Dto\ElementInterface;
-use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManagerInterface;
+use Drupal\external_content\Contract\BuilderPluginInterface;
+use Drupal\external_content\Contract\BuilderPluginManagerInterface;
+use Drupal\external_content\Contract\ChainRenderArrayBuilderInterface;
+use Drupal\external_content\Contract\ElementInterface;
 
 /**
  * Provides a chained render array builder.
@@ -15,14 +16,14 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   /**
    * An array with available builders.
    *
-   * @var \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface[]
+   * @var \Drupal\external_content\Contract\BuilderPluginInterface[]
    */
   protected array $builders = [];
 
   /**
    * Constructs a new ChainRenderArrayBuilder object.
    *
-   * @param \Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManagerInterface $builderPluginManager
+   * @param \Drupal\external_content\Contract\BuilderPluginManagerInterface $builderPluginManager
    *   The builder plugin manager.
    */
   public function __construct(
@@ -32,7 +33,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   /**
    * Tries to build a single element render array.
    *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
+   * @param \Drupal\external_content\Contract\ElementInterface $element
    *   The element to build.
    *
    * @return array
@@ -43,7 +44,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
     $build = [];
 
     foreach ($this->builders as $builder) {
-      \assert($builder instanceof BuilderInterface);
+      \assert($builder instanceof BuilderPluginInterface);
 
       if ($builder::isApplicable($element)) {
         $build = $builder->build($element);
@@ -85,7 +86,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   /**
    * Builds a single element and taking into account it's children.
    *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
+   * @param \Drupal\external_content\Contract\ElementInterface $element
    *   The element to build.
    *
    * @return array

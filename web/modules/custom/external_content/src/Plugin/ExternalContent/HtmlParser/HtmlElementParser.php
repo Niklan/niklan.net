@@ -2,9 +2,10 @@
 
 namespace Drupal\external_content\Plugin\ExternalContent\HtmlParser;
 
-use Drupal\external_content\Dto\ElementInterface;
-use Drupal\external_content\Dto\HtmlElement;
-use Drupal\external_content\Dto\HtmlParserStateInterface;
+use Drupal\external_content\Contract\ElementInterface;
+use Drupal\external_content\Contract\HtmlParserPluginInterface;
+use Drupal\external_content\Contract\HtmlParserStateInterface;
+use Drupal\external_content\Data\HtmlElement;
 
 /**
  * Provides a common HTML element parser plugin.
@@ -18,7 +19,7 @@ use Drupal\external_content\Dto\HtmlParserStateInterface;
  *   weight = 900,
  * )
  */
-final class HtmlElementParser implements HtmlParserInterface {
+final class HtmlElementParser implements HtmlParserPluginInterface {
 
   /**
    * {@inheritdoc}

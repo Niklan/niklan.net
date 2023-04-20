@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Dto;
+namespace Drupal\external_content\Data;
 
 /**
  * Represents parsed source file.
@@ -16,11 +16,11 @@ final class ParsedSourceFile {
   /**
    * Constructs a new SourceDocument object.
    *
-   * @param \Drupal\external_content\Dto\SourceFile $file
+   * @param \Drupal\external_content\Data\SourceFile $file
    *   The parsed source file.
-   * @param \Drupal\external_content\Dto\SourceFileParams $params
+   * @param \Drupal\external_content\Data\SourceFileParams $params
    *   The source file content parameters (FrontMatter).
-   * @param \Drupal\external_content\Dto\SourceFileContent $content
+   * @param \Drupal\external_content\Data\SourceFileContent $content
    *   The source file content cleaned from FrontMatter.
    */
   public function __construct(
@@ -32,7 +32,7 @@ final class ParsedSourceFile {
   /**
    * Gets source file.
    *
-   * @return \Drupal\external_content\Dto\SourceFile
+   * @return \Drupal\external_content\Data\SourceFile
    *   The source file.
    */
   public function getFile(): SourceFile {
@@ -42,7 +42,7 @@ final class ParsedSourceFile {
   /**
    * Gets parameters.
    *
-   * @return \Drupal\external_content\Dto\SourceFileParams
+   * @return \Drupal\external_content\Data\SourceFileParams
    *   The source file parameters.
    */
   public function getParams(): SourceFileParams {
@@ -52,7 +52,7 @@ final class ParsedSourceFile {
   /**
    * Gets content.
    *
-   * @return \Drupal\external_content\Dto\SourceFileContent
+   * @return \Drupal\external_content\Data\SourceFileContent
    *   The source file content.
    */
   public function getContent(): SourceFileContent {

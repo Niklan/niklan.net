@@ -5,6 +5,7 @@ namespace Drupal\external_content\Plugin\ExternalContent\Loader;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\external_content\Contract\LoaderPluginManagerInterface;
 
 /**
  * Provides a default plugin manager for loader plugins.
@@ -19,7 +20,7 @@ final class LoaderPluginManager extends DefaultPluginManager implements LoaderPl
       'Plugin/ExternalContent/Loader',
       $namespaces,
       $module_handler,
-      '\Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface',
+      '\Drupal\external_content\Contract\LoaderPluginInterface',
       '\Drupal\external_content\Annotation\ExternalContentLoader',
     );
 

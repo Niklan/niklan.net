@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Finder;
+namespace Drupal\external_content\Contract;
 
-use Drupal\external_content\Dto\SourceFileCollection;
+use Drupal\external_content\Data\SourceFileCollection;
 
 /**
  * Provides a finder for content source files.
@@ -15,7 +15,7 @@ interface SourceFileFinderInterface {
    * @param string $working_dir
    *   The working dir.
    *
-   * @return \Drupal\external_content\Dto\SourceFileCollection
+   * @return \Drupal\external_content\Data\SourceFileCollection
    *   The found file collection.
    */
   public function find(string $working_dir): SourceFileCollection;

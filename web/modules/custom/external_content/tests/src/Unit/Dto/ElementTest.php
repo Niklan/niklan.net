@@ -8,7 +8,7 @@ use Drupal\Tests\UnitTestCase;
 /**
  * Provides a test for base element.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\Element
+ * @coversDefaultClass \Drupal\external_content\Data\Element
  */
 final class ElementTest extends UnitTestCase {
 

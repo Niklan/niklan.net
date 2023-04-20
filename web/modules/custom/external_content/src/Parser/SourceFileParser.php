@@ -3,11 +3,12 @@
 namespace Drupal\external_content\Parser;
 
 use Drupal\Component\FrontMatter\FrontMatter;
+use Drupal\external_content\Contract\ChainHtmlParserInterface;
 use Drupal\external_content\Converter\ChainMarkupConverter;
-use Drupal\external_content\Dto\HtmlParserState;
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Data\HtmlParserState;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileParams;
 
 /**
  * Component for parsing source file contents.
@@ -22,7 +23,7 @@ final class SourceFileParser {
    *
    * @param \Drupal\external_content\Converter\ChainMarkupConverter $chainMarkupConverter
    *   The chain markup converter.
-   * @param \Drupal\external_content\Parser\ChainHtmlParserInterface $chainHtmlParser
+   * @param \Drupal\external_content\Contract\ChainHtmlParserInterface $chainHtmlParser
    *   The chain HTML parser.
    */
   public function __construct(
@@ -33,10 +34,10 @@ final class SourceFileParser {
   /**
    * Parse source file contents.
    *
-   * @param \Drupal\external_content\Dto\SourceFile $source_file
+   * @param \Drupal\external_content\Data\SourceFile $source_file
    *   The source file.
    *
-   * @return \Drupal\external_content\Dto\ParsedSourceFile
+   * @return \Drupal\external_content\Data\ParsedSourceFile
    *   The parsed source file.
    */
   public function parse(SourceFile $source_file): ParsedSourceFile {

@@ -1,6 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Dto;
+namespace Drupal\external_content\Data;
+
+use Drupal\external_content\Contract\ElementInterface;
 
 /**
  * Provides an abstract implementation for content block.
@@ -15,7 +17,7 @@ abstract class Element implements ElementInterface {
   /**
    * An array with children.
    *
-   * @var \Drupal\external_content\Dto\ElementInterface[]
+   * @var \Drupal\external_content\Contract\ElementInterface[]
    */
   protected array $children = [];
 

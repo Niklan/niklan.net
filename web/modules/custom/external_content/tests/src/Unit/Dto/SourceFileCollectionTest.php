@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileCollection;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileCollection;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Validates that collection properly handles source files.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\SourceFileCollection
+ * @coversDefaultClass \Drupal\external_content\Data\SourceFileCollection
  */
 final class SourceFileCollectionTest extends UnitTestCase {
 

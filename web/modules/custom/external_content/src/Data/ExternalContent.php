@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Dto;
+namespace Drupal\external_content\Data;
 
 /**
  * Represents a single content in a different languages.
@@ -10,7 +10,7 @@ final class ExternalContent {
   /**
    * The content translations.
    *
-   * @var \Drupal\external_content\Dto\ParsedSourceFile[]
+   * @var \Drupal\external_content\Data\ParsedSourceFile[]
    */
   protected array $translations = [];
 
@@ -37,7 +37,7 @@ final class ExternalContent {
    *
    * @param string $language
    *   The content langcode.
-   * @param \Drupal\external_content\Dto\ParsedSourceFile $file
+   * @param \Drupal\external_content\Data\ParsedSourceFile $file
    *   The file with content and metadata.
    *
    * @return $this
@@ -54,7 +54,7 @@ final class ExternalContent {
    * @param string $language
    *   The langcode.
    *
-   * @return \Drupal\external_content\Dto\ParsedSourceFile|null
+   * @return \Drupal\external_content\Data\ParsedSourceFile|null
    *   The parsed source file.
    */
   public function getTranslation(string $language): ?ParsedSourceFile {

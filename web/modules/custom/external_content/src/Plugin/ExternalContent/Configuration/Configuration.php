@@ -14,6 +14,8 @@ use Drupal\migrate\Plugin\Exception\BadPluginDefinitionException;
  * - grouper: (optional) The external content grouper plugin ID.
  * - loader: The loader plugin ID which will be used for loading external
  *   content.
+ *
+ * @todo Replace by source plugin system.
  */
 final class Configuration implements ConfigurationInterface {
 

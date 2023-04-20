@@ -3,10 +3,11 @@
 namespace Drupal\external_content\Parser;
 
 use Drupal\Component\Utility\SortArray;
-use Drupal\external_content\Dto\ElementInterface;
-use Drupal\external_content\Dto\HtmlParserStateInterface;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface;
+use Drupal\external_content\Contract\ChainHtmlParserInterface;
+use Drupal\external_content\Contract\ElementInterface;
+use Drupal\external_content\Contract\HtmlParserPluginManagerInterface;
+use Drupal\external_content\Contract\HtmlParserStateInterface;
+use Drupal\external_content\Data\SourceFileContent;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -17,14 +18,14 @@ final class ChainHtmlParser implements ChainHtmlParserInterface {
   /**
    * The array with instantiated HTML parsers.
    *
-   * @var \Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface[]
+   * @var \Drupal\external_content\Contract\HtmlParserPluginInterface[]
    */
   protected array $parsers = [];
 
   /**
    * Constructs a new ChainHtmlParser object.
    *
-   * @param \Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface $htmlParserPluginManager
+   * @param \Drupal\external_content\Contract\HtmlParserPluginManagerInterface $htmlParserPluginManager
    *   The HTML parser plugin manager.
    */
   public function __construct(

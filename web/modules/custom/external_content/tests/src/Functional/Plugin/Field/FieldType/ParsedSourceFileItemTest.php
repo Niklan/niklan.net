@@ -3,10 +3,10 @@
 namespace Drupal\Tests\external_content\Functional\Plugin\Field\FieldType;
 
 use Drupal\entity_test\Entity\EntityTest;
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileContent;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\external_content\Functional\ExternalContentTestBase;

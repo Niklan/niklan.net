@@ -2,17 +2,17 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\HtmlParserState;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileParams;
-use Drupal\external_content\Parser\ChainHtmlParserInterface;
+use Drupal\external_content\Contract\ChainHtmlParserInterface;
+use Drupal\external_content\Data\HtmlParserState;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\Tests\UnitTestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Provides an HTML parser state.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\HtmlParserState
+ * @coversDefaultClass \Drupal\external_content\Data\HtmlParserState
  */
 final class HtmlParserStateTest extends UnitTestCase {
 

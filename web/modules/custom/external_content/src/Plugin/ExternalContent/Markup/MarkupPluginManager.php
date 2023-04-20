@@ -5,6 +5,7 @@ namespace Drupal\external_content\Plugin\ExternalContent\Markup;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\external_content\Contract\MarkupPluginManagerInterface;
 
 /**
  * Provides a default plugin manager for external content markup types.
@@ -22,7 +23,7 @@ final class MarkupPluginManager extends DefaultPluginManager implements MarkupPl
       'Plugin/ExternalContent/Markup',
       $namespaces,
       $module_handler,
-      '\Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface',
+      '\Drupal\external_content\Contract\MarkupPluginInterface',
       '\Drupal\external_content\Annotation\ExternalContentMarkup',
     );
 

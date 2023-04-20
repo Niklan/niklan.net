@@ -5,6 +5,7 @@ namespace Drupal\external_content\Plugin\ExternalContent\Grouper;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\external_content\Contract\GrouperPluginManagerInterface;
 
 /**
  * Provides a default plugin manager for grouper plugins.
@@ -19,7 +20,7 @@ final class GrouperPluginManager extends DefaultPluginManager implements Grouper
       'Plugin/ExternalContent/Grouper',
       $namespaces,
       $module_handler,
-      '\Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperInterface',
+      '\Drupal\external_content\Contract\GrouperPluginInterface',
       '\Drupal\external_content\Annotation\ExternalContentGrouper',
     );
 

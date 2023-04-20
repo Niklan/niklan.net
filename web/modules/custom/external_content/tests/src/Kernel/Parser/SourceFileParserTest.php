@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
-use Drupal\external_content\Dto\SourceFile;
+use Drupal\external_content\Data\SourceFile;
 use Drupal\external_content\Parser\SourceFileParser;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;

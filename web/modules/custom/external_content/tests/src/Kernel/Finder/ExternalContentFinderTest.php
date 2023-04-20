@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Finder\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\ExternalContentFinderInterface;
+use Drupal\external_content\Data\ExternalContentCollection;
 use Drupal\external_content\Plugin\ExternalContent\Configuration\Configuration;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;

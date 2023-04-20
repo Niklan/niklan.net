@@ -2,13 +2,13 @@
 
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
-use Drupal\external_content\Dto\HtmlParserState;
-use Drupal\external_content\Dto\PlainTextElement;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Contract\ChainHtmlParserInterface;
+use Drupal\external_content\Contract\HtmlParserPluginManagerInterface;
+use Drupal\external_content\Data\HtmlParserState;
+use Drupal\external_content\Data\PlainTextElement;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\external_content\Parser\ChainHtmlParser;
-use Drupal\external_content\Parser\ChainHtmlParserInterface;
-use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface;
 use Drupal\external_content_test\Dto\FooBarElement;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Prophecy\PhpUnit\ProphecyTrait;

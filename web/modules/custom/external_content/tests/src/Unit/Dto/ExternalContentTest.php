@@ -2,17 +2,17 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\ExternalContent;
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Data\ExternalContent;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileContent;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a test for external content DTO.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\ExternalContent
+ * @coversDefaultClass \Drupal\external_content\Data\ExternalContent
  */
 final class ExternalContentTest extends UnitTestCase {
 

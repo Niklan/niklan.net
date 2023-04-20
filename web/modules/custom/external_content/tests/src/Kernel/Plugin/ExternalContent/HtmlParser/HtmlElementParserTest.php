@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\HtmlParser;
 
-use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface;
-use Drupal\external_content\Dto\HtmlElement;
-use Drupal\external_content\Dto\HtmlParserState;
-use Drupal\external_content\Dto\PlainTextElement;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileParams;
-use Drupal\external_content\Parser\ChainHtmlParserInterface;
-use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface;
+use Drupal\external_content\Contract\ChainHtmlParserInterface;
+use Drupal\external_content\Contract\HtmlParserPluginInterface;
+use Drupal\external_content\Contract\HtmlParserPluginManagerInterface;
+use Drupal\external_content\Data\HtmlElement;
+use Drupal\external_content\Data\HtmlParserState;
+use Drupal\external_content\Data\PlainTextElement;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -35,7 +35,7 @@ final class HtmlElementParserTest extends ExternalContentTestBase {
    */
   public function testSimplePlugin(): void {
     $plugin = $this->pluginManager->createInstance('html_element');
-    \assert($plugin instanceof HtmlParserInterface);
+    \assert($plugin instanceof HtmlParserPluginInterface);
 
     $html = '<div class="foo-bar" data-test="bar-baz"><p>Hello, world!</p></div>';
 

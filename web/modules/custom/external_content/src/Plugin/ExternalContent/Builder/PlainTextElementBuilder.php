@@ -2,8 +2,9 @@
 
 namespace Drupal\external_content\Plugin\ExternalContent\Builder;
 
-use Drupal\external_content\Dto\ElementInterface;
-use Drupal\external_content\Dto\PlainTextElement;
+use Drupal\external_content\Contract\BuilderPluginInterface;
+use Drupal\external_content\Contract\ElementInterface;
+use Drupal\external_content\Data\PlainTextElement;
 
 /**
  * Provides a builder for plain text.
@@ -14,7 +15,7 @@ use Drupal\external_content\Dto\PlainTextElement;
  *   weight = 1000,
  * )
  */
-final class PlainTextElementBuilder implements BuilderInterface {
+final class PlainTextElementBuilder implements BuilderPluginInterface {
 
   /**
    * {@inheritdoc}

@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\SourceFile;
+use Drupal\external_content\Data\SourceFile;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Validates that source file DTO works as expected.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\SourceFile
+ * @coversDefaultClass \Drupal\external_content\Data\SourceFile
  */
 final class SourceFileTest extends UnitTestCase {
 

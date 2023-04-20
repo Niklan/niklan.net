@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\external_content\Functional\Plugin\ExternalContent\Loader;
 
-use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
-use Drupal\external_content\Dto\ExternalContent;
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\SourceFile;
-use Drupal\external_content\Dto\SourceFileContent;
-use Drupal\external_content\Dto\SourceFileParams;
-use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManagerInterface;
+use Drupal\external_content\Contract\LoaderPluginInterface;
+use Drupal\external_content\Contract\LoaderPluginManagerInterface;
+use Drupal\external_content\Data\ExternalContent;
+use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\SourceFile;
+use Drupal\external_content\Data\SourceFileContent;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Tests\external_content\Functional\ExternalContentTestBase;
@@ -18,7 +18,7 @@ use Drupal\Tests\external_content\Functional\ExternalContentTestBase;
 /**
  * Provides test for 'entity_test_loader' loader plugin.
  *
- * @coversDefaultClass \Drupal\external_content_test\Plugin\ExternalContent\Loader\EntityTestLoader
+ * @coversDefaultClass \Drupal\external_content_test\Plugin\ExternalContent\Loader\EntityTestLoaderPlugin
  */
 final class EntityTestLoaderTest extends ExternalContentTestBase {
 
@@ -112,7 +112,7 @@ final class EntityTestLoaderTest extends ExternalContentTestBase {
       ->container
       ->get(LoaderPluginManagerInterface::class)
       ->createInstance('entity_test_loader');
-    \assert($loader_instance instanceof LoaderInterface);
+    \assert($loader_instance instanceof LoaderPluginInterface);
     $loader_instance->load($collection);
 
     $count = $this

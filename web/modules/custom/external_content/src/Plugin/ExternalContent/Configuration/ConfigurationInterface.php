@@ -4,6 +4,8 @@ namespace Drupal\external_content\Plugin\ExternalContent\Configuration;
 
 /**
  * Provides an interface for external content settings.
+ *
+ * @todo Replace by source plugin system.
  */
 interface ConfigurationInterface {
 

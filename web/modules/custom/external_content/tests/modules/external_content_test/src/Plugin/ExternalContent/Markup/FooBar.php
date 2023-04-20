@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content_test\Plugin\ExternalContent\Markup;
 
-use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
+use Drupal\external_content\Contract\MarkupPluginInterface;
 
 /**
  * Provides fake markup which replaces "foo" by "bar" HTML.
@@ -13,7 +13,7 @@ use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
  *   markup_identifiers = {"foo"},
  * )
  */
-final class FooBar implements MarkupInterface {
+final class FooBar implements MarkupPluginInterface {
 
   /**
    * {@inheritdoc}

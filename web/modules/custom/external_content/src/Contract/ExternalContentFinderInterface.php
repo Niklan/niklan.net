@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Finder;
+namespace Drupal\external_content\Contract;
 
-use Drupal\external_content\Dto\ExternalContentCollection;
+use Drupal\external_content\Data\ExternalContentCollection;
 use Drupal\external_content\Plugin\ExternalContent\Configuration\Configuration;
 
 /**
@@ -28,7 +28,7 @@ interface ExternalContentFinderInterface {
    * @param \Drupal\external_content\Plugin\ExternalContent\Configuration\Configuration $configuration
    *   The external content configuration.
    *
-   * @return \Drupal\external_content\Dto\ExternalContentCollection
+   * @return \Drupal\external_content\Data\ExternalContentCollection
    *   The found external content.
    */
   public function find(Configuration $configuration): ExternalContentCollection;

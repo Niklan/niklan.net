@@ -2,13 +2,13 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Data\SourceFileParams;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Validates that source params value object works as expected.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\SourceFileParams
+ * @coversDefaultClass \Drupal\external_content\Data\SourceFileParams
  */
 final class SourceFileParamsTest extends UnitTestCase {
 

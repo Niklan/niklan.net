@@ -4,9 +4,9 @@ namespace Drupal\external_content\Plugin\ExternalContent\Grouper;
 
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\external_content\Dto\ExternalContent;
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Dto\ParsedSourceFile;
+use Drupal\external_content\Data\ExternalContent;
+use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\ParsedSourceFile;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

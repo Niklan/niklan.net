@@ -1,6 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Dto;
+namespace Drupal\external_content\Data;
+
+use Drupal\external_content\Contract\ElementInterface;
 
 /**
  * Represents a parsed and structured source file content.

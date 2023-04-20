@@ -6,9 +6,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\entity_test\Entity\EntityTest;
-use Drupal\external_content\Dto\ExternalContent;
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface;
+use Drupal\external_content\Contract\LoaderPluginInterface;
+use Drupal\external_content\Data\ExternalContent;
+use Drupal\external_content\Data\ExternalContentCollection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   label = @Translation("Entity test loader"),
  * )
  */
-final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginInterface {
+final class EntityTestLoader implements LoaderPluginInterface, ContainerFactoryPluginInterface {
 
   /**
    * The entity test storage.
@@ -50,7 +50,7 @@ final class EntityTestLoader implements LoaderInterface, ContainerFactoryPluginI
   /**
    * Loads a single external content.
    *
-   * @param \Drupal\external_content\Dto\ExternalContent $external_content
+   * @param \Drupal\external_content\Data\ExternalContent $external_content
    *   The external content item.
    */
   protected function loadExternalContent(ExternalContent $external_content): void {

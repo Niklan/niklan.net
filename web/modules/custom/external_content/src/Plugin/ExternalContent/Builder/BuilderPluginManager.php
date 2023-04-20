@@ -5,6 +5,7 @@ namespace Drupal\external_content\Plugin\ExternalContent\Builder;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\external_content\Contract\BuilderPluginManagerInterface;
 
 /**
  * Provides a default plugin manager for grouper plugins.
@@ -19,7 +20,7 @@ final class BuilderPluginManager extends DefaultPluginManager implements Builder
       'Plugin/ExternalContent/Builder',
       $namespaces,
       $module_handler,
-      '\Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface',
+      '\Drupal\external_content\Contract\BuilderPluginInterface',
       '\Drupal\external_content\Annotation\ExternalContentBuilder',
     );
 

@@ -3,10 +3,10 @@
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
 use Drupal\external_content\Builder\ChainRenderArrayBuilder;
-use Drupal\external_content\Builder\ChainRenderArrayBuilderInterface;
-use Drupal\external_content\Dto\HtmlElement;
-use Drupal\external_content\Dto\PlainTextElement;
-use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManagerInterface;
+use Drupal\external_content\Contract\BuilderPluginManagerInterface;
+use Drupal\external_content\Contract\ChainRenderArrayBuilderInterface;
+use Drupal\external_content\Data\HtmlElement;
+use Drupal\external_content\Data\PlainTextElement;
 use Drupal\external_content\Plugin\ExternalContent\Builder\HtmlElementBuilder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Prophecy\Argument;

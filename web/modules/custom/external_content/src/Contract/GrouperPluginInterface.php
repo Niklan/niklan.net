@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Plugin\ExternalContent\Grouper;
+namespace Drupal\external_content\Contract;
 
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Dto\ParsedSourceFileCollection;
+use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\ParsedSourceFileCollection;
 
 /**
  * Provides a grouper plugin interface.
@@ -21,15 +21,15 @@ use Drupal\external_content\Dto\ParsedSourceFileCollection;
  * them into single 'external content' content with multiple translations (en,
  * ru).
  */
-interface GrouperInterface {
+interface GrouperPluginInterface {
 
   /**
    * Groups parsed files into content collections.
    *
-   * @param \Drupal\external_content\Dto\ParsedSourceFileCollection $parsed_files
+   * @param \Drupal\external_content\Data\ParsedSourceFileCollection $parsed_files
    *   A collection of parsed files.
    *
-   * @return \Drupal\external_content\Dto\ExternalContentCollection
+   * @return \Drupal\external_content\Data\ExternalContentCollection
    *   A collection with grouped content.
    */
   public function group(ParsedSourceFileCollection $parsed_files): ExternalContentCollection;

@@ -2,9 +2,11 @@
 
 namespace Drupal\external_content\Finder;
 
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Dto\ParsedSourceFileCollection;
-use Drupal\external_content\Grouper\ParsedSourceFileGrouperInterface;
+use Drupal\external_content\Contract\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\ParsedSourceFileGrouperInterface;
+use Drupal\external_content\Contract\SourceFileFinderInterface;
+use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\ParsedSourceFileCollection;
 use Drupal\external_content\Parser\SourceFileParser;
 use Drupal\external_content\Plugin\ExternalContent\Configuration\Configuration;
 
@@ -16,11 +18,11 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
   /**
    * Constructs a new ExternalContentFinderTest object.
    *
-   * @param \Drupal\external_content\Finder\SourceFileFinderInterface $sourceFileFinder
+   * @param \Drupal\external_content\Contract\SourceFileFinderInterface $sourceFileFinder
    *   The source file finder.
    * @param \Drupal\external_content\Parser\SourceFileParser $sourceFileParser
    *   The source file parser.
-   * @param \Drupal\external_content\Grouper\ParsedSourceFileGrouperInterface $parsedSourceFileGrouper
+   * @param \Drupal\external_content\Contract\ParsedSourceFileGrouperInterface $parsedSourceFileGrouper
    *   The parsed source file grouper.
    */
   public function __construct(

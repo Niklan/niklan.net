@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Plugin\ExternalContent\Markup;
 
 use Drupal\Core\Plugin\PluginBase;
+use Drupal\external_content\Contract\MarkupPluginInterface;
 
 /**
  * Represents a raw HTML markup.
@@ -13,7 +14,7 @@ use Drupal\Core\Plugin\PluginBase;
  *   markup_identifiers = {"html", "htm"},
  * )
  */
-final class Html extends PluginBase implements MarkupInterface {
+final class Html extends PluginBase implements MarkupPluginInterface {
 
   /**
    * {@inheritdoc}

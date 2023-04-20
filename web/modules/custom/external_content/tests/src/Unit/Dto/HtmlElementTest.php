@@ -2,13 +2,13 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\HtmlElement;
+use Drupal\external_content\Data\HtmlElement;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a test for HTML element DTO.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\HtmlElement
+ * @coversDefaultClass \Drupal\external_content\Data\HtmlElement
  */
 final class HtmlElementTest extends UnitTestCase {
 

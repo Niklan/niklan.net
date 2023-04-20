@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Unit\Dto;
 
-use Drupal\external_content\Dto\Element;
-use Drupal\external_content\Dto\SourceFileContent;
+use Drupal\external_content\Data\Element;
+use Drupal\external_content\Data\SourceFileContent;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Validates that source content value object works as expected.
  *
- * @coversDefaultClass \Drupal\external_content\Dto\SourceFileContent
+ * @coversDefaultClass \Drupal\external_content\Data\SourceFileContent
  */
 final class SourceContentTest extends UnitTestCase {
 

@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Plugin\DataType;
 
 use Drupal\Core\TypedData\Plugin\DataType\StringData;
-use Drupal\external_content\Dto\ParsedSourceFile as ParsedSourceFileDto;
+use Drupal\external_content\Data\ParsedSourceFile as ParsedSourceFileDto;
 
 /**
  * Provides parsed source file typed data.
@@ -18,7 +18,7 @@ final class ParsedSourceFile extends StringData {
   /**
    * Gets parsed source file.
    *
-   * @return \Drupal\external_content\Dto\ParsedSourceFile|null
+   * @return \Drupal\external_content\Data\ParsedSourceFile|null
    *   The content document object.
    */
   public function getParsedSourceFile(): ?ParsedSourceFileDto {
@@ -43,7 +43,7 @@ final class ParsedSourceFile extends StringData {
   /**
    * Sets parsed source file value.
    *
-   * @param \Drupal\external_content\Dto\ParsedSourceFile $parsed_source_file
+   * @param \Drupal\external_content\Data\ParsedSourceFile $parsed_source_file
    *   The parsed source file.
    * @param bool $notify
    *   Indicates should parent be notified.

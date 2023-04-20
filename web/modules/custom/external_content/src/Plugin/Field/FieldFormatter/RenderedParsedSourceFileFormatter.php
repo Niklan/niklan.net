@@ -4,7 +4,7 @@ namespace Drupal\external_content\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\external_content\Builder\ChainRenderArrayBuilderInterface;
+use Drupal\external_content\Contract\ChainRenderArrayBuilderInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ParsedSourceFileItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -47,7 +47,7 @@ final class RenderedParsedSourceFileFormatter extends FormatterBase {
   /**
    * Sets chained render array builder.
    *
-   * @param \Drupal\external_content\Builder\ChainRenderArrayBuilderInterface $builder
+   * @param \Drupal\external_content\Contract\ChainRenderArrayBuilderInterface $builder
    *   The builder.
    *
    * @return $this

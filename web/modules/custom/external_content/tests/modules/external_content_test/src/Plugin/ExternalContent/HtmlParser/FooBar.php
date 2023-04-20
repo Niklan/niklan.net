@@ -2,9 +2,9 @@
 
 namespace Drupal\external_content_test\Plugin\ExternalContent\HtmlParser;
 
-use Drupal\external_content\Dto\ElementInterface;
-use Drupal\external_content\Dto\HtmlParserStateInterface;
-use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface;
+use Drupal\external_content\Contract\ElementInterface;
+use Drupal\external_content\Contract\HtmlParserPluginInterface;
+use Drupal\external_content\Contract\HtmlParserStateInterface;
 use Drupal\external_content_test\Dto\FooBarElement;
 
 /**
@@ -15,7 +15,7 @@ use Drupal\external_content_test\Dto\FooBarElement;
  *   label = @Translation("Foo Bar"),
  * )
  */
-final class FooBar implements HtmlParserInterface {
+final class FooBar implements HtmlParserPluginInterface {
 
   /**
    * {@inheritdoc}

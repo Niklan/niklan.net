@@ -1,8 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Plugin\ExternalContent\Builder;
-
-use Drupal\external_content\Dto\ElementInterface;
+namespace Drupal\external_content\Contract;
 
 /**
  * Provides a builder plugin interface.
@@ -10,12 +8,12 @@ use Drupal\external_content\Dto\ElementInterface;
  * Builder plugins is responsible for builder Drupal render array that will be
  * used to display a parsed external content.
  */
-interface BuilderInterface {
+interface BuilderPluginInterface {
 
   /**
    * Determines is plugin is able to build a provided element.
    *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
+   * @param \Drupal\external_content\Contract\ElementInterface $element
    *   The element to build.
    *
    * @return bool
@@ -29,7 +27,7 @@ interface BuilderInterface {
    * The element builder is also responsible for calling build processes on
    * children elements.
    *
-   * @param \Drupal\external_content\Dto\ElementInterface $element
+   * @param \Drupal\external_content\Contract\ElementInterface $element
    *   The element to build.
    *
    * @return array

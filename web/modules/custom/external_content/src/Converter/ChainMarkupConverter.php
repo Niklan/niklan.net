@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content\Converter;
 
-use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupInterface;
-use Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface;
+use Drupal\external_content\Contract\MarkupPluginInterface;
+use Drupal\external_content\Contract\MarkupPluginManagerInterface;
 
 /**
  * Provides converter from raw content markup into HTML.
@@ -13,7 +13,7 @@ final class ChainMarkupConverter {
   /**
    * Constructs a new ChainMarkupConverter object.
    *
-   * @param \Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManagerInterface $markupPluginManager
+   * @param \Drupal\external_content\Contract\MarkupPluginManagerInterface $markupPluginManager
    *   The markup plugin manager.
    */
   public function __construct(
@@ -41,7 +41,7 @@ final class ChainMarkupConverter {
       }
 
       $plugin = $this->markupPluginManager->createInstance($plugin_id);
-      \assert($plugin instanceof MarkupInterface);
+      \assert($plugin instanceof MarkupPluginInterface);
       $result = $plugin->convert($raw_content);
     }
 

@@ -5,6 +5,7 @@ namespace Drupal\external_content\Plugin\ExternalContent\HtmlParser;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\external_content\Contract\HtmlParserPluginManagerInterface;
 
 /**
  * Provides a default plugin manager for HTML element parser plugins.
@@ -24,7 +25,7 @@ final class HtmlParserPluginManager extends DefaultPluginManager implements Html
       'Plugin/ExternalContent/HtmlParser',
       $namespaces,
       $module_handler,
-      '\Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface',
+      '\Drupal\external_content\Contract\HtmlParserPluginInterface',
       '\Drupal\external_content\Annotation\ExternalContentHtmlParser',
     );
 

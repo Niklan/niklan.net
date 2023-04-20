@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\HtmlParser;
 
-use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface;
+use Drupal\external_content\Contract\HtmlParserPluginManagerInterface;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**

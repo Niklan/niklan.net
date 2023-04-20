@@ -2,8 +2,9 @@
 
 namespace Drupal\external_content\Plugin\ExternalContent\Builder;
 
-use Drupal\external_content\Dto\ElementInterface;
-use Drupal\external_content\Dto\HtmlElement;
+use Drupal\external_content\Contract\BuilderPluginInterface;
+use Drupal\external_content\Contract\ElementInterface;
+use Drupal\external_content\Data\HtmlElement;
 
 /**
  * Provides a common HTML element builder.
@@ -14,7 +15,7 @@ use Drupal\external_content\Dto\HtmlElement;
  *   weight = 1000,
  * )
  */
-final class HtmlElementBuilder implements BuilderInterface {
+final class HtmlElementBuilder implements BuilderPluginInterface {
 
   /**
    * {@inheritdoc}

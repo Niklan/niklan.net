@@ -3,14 +3,15 @@
 namespace Drupal\external_content\Plugin\ExternalContent\Grouper;
 
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\external_content\Dto\ExternalContentCollection;
-use Drupal\external_content\Dto\ParsedSourceFile;
-use Drupal\external_content\Dto\ParsedSourceFileCollection;
+use Drupal\external_content\Contract\GrouperPluginInterface;
+use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\ParsedSourceFile;
+use Drupal\external_content\Data\ParsedSourceFileCollection;
 
 /**
  * Provides a base implementation for grouping content.
  */
-abstract class GrouperPlugin extends PluginBase implements GrouperInterface {
+abstract class GrouperPlugin extends PluginBase implements GrouperPluginInterface {
 
   /**
    * {@inheritdoc}
@@ -32,7 +33,7 @@ abstract class GrouperPlugin extends PluginBase implements GrouperInterface {
   /**
    * Checks is parsed file can be processed by current grouper.
    *
-   * @param \Drupal\external_content\Dto\ParsedSourceFile $parsed_file
+   * @param \Drupal\external_content\Data\ParsedSourceFile $parsed_file
    *   The parsed source file.
    *
    * @return bool
@@ -43,9 +44,9 @@ abstract class GrouperPlugin extends PluginBase implements GrouperInterface {
   /**
    * Groups a file.
    *
-   * @param \Drupal\external_content\Dto\ParsedSourceFile $parsed_file
+   * @param \Drupal\external_content\Data\ParsedSourceFile $parsed_file
    *   The parsed source file.
-   * @param \Drupal\external_content\Dto\ExternalContentCollection $collection
+   * @param \Drupal\external_content\Data\ExternalContentCollection $collection
    *   The external content collection.
    */
   abstract protected function doGroup(ParsedSourceFile $parsed_file, ExternalContentCollection $collection): void;
