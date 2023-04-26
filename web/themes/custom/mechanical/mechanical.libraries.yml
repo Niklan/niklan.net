@@ -205,6 +205,11 @@ component.theme.druki:
     theme:
       assets/css/04-components/theme/druki.css: { }
 
+component.theme.russian-drupal-awards:
+  css:
+    theme:
+      assets/css/04-components/theme/russian-drupal-awards.css: { }
+
 component.theme.oembed-video:
   css:
     theme:
