@@ -285,6 +285,13 @@ function mechanical_preprocess_page(array &$variables): void {
       'keys' => ['mechanical', 'navigation', 'druki'],
     ],
   ];
+
+  $variables['russian_drupal_awards'] = [
+    '#theme' => 'mechanical_russian_drupal_awards',
+    '#cache' => [
+      'keys' => ['mechanical', 'russia_drupal_awards'],
+    ],
+  ];
 }
 
 /**
@@ -308,6 +315,9 @@ function mechanical_theme(): array {
       'variables' => [],
     ],
     'mechanical_navigation_druki' => [
+      'variables' => [],
+    ],
+    'mechanical_russian_drupal_awards' => [
       'variables' => [],
     ],
   ];
