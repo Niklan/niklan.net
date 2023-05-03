@@ -1,13 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Plugin\ExternalContent\Configuration;
+namespace Drupal\external_content\Contract;
 
 /**
- * Provides an interface for external content settings.
- *
- * @todo Replace by source plugin system.
+ * Provides an interface for source plugins.
  */
-interface ConfigurationInterface {
+interface SourcePluginInterface {
 
   /**
    * The external content grouper plugin ID used by default.

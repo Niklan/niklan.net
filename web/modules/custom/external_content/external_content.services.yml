@@ -3,8 +3,6 @@ services:
     parent: default_plugin_manager
   Drupal\external_content\Contract\BuilderPluginManagerInterface:
     alias: 'Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManager'
-  Drupal\external_content\Plugin\ExternalContent\Configuration\ConfigurationPluginManager:
-    arguments: ['%app.root%', '@module_handler', '@cache.discovery']
   Drupal\external_content\Plugin\ExternalContent\Markup\MarkupPluginManager:
     parent: default_plugin_manager
   Drupal\external_content\Contract\MarkupPluginManagerInterface:
@@ -45,3 +43,7 @@ services:
     autowire: true
   Drupal\external_content\Contract\ChainRenderArrayBuilderInterface:
     alias: 'Drupal\external_content\Builder\ChainRenderArrayBuilder'
+  Drupal\external_content\Plugin\ExternalContent\Source\SourcePluginManager:
+    parent: default_plugin_manager
+  Drupal\external_content\Contract\SourcePluginManagerInterface:
+    alias: 'Drupal\external_content\Plugin\ExternalContent\Source\SourcePluginManager'

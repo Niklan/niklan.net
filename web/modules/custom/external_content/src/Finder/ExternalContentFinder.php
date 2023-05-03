@@ -5,10 +5,10 @@ namespace Drupal\external_content\Finder;
 use Drupal\external_content\Contract\ExternalContentFinderInterface;
 use Drupal\external_content\Contract\ParsedSourceFileGrouperInterface;
 use Drupal\external_content\Contract\SourceFileFinderInterface;
+use Drupal\external_content\Contract\SourcePluginInterface;
 use Drupal\external_content\Data\ExternalContentCollection;
 use Drupal\external_content\Data\ParsedSourceFileCollection;
 use Drupal\external_content\Parser\SourceFileParser;
-use Drupal\external_content\Plugin\ExternalContent\Configuration\Configuration;
 
 /**
  * Provides default implementation for external content finder.
@@ -34,10 +34,8 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
   /**
    * {@inheritdoc}
    */
-  public function find(Configuration $configuration): ExternalContentCollection {
-    $source_files = $this->sourceFileFinder->find(
-      $configuration->workingDir(),
-    );
+  public function find(SourcePluginInterface $source): ExternalContentCollection {
+    $source_files = $this->sourceFileFinder->find($source->workingDir());
     $parsed_source_files = new ParsedSourceFileCollection();
 
     foreach ($source_files as $source_file) {
@@ -47,7 +45,7 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
 
     return $this->parsedSourceFileGrouper->group(
       $parsed_source_files,
-      $configuration->grouperPluginId(),
+      $source->grouperPluginId(),
     );
   }
 
