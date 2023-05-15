@@ -2,6 +2,8 @@
 
 namespace Drupal\external_content\Contract;
 
+use Drupal\external_content\Data\SourceConfiguration;
+
 /**
  * Provides an interface for source plugins.
  */
@@ -35,5 +37,13 @@ interface SourcePluginInterface {
    *   The external content grouper plugin ID.
    */
   public function grouperPluginId(): string;
+
+  /**
+   * Builds a source configuration DTO from the plugin.
+   *
+   * @return \Drupal\external_content\Data\SourceConfiguration
+   *   The configuration instance.
+   */
+  public function toConfiguration(): SourceConfiguration;
 
 }

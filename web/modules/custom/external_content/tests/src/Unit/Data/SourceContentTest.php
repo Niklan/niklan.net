@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Unit\Dto;
+namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\Element;
 use Drupal\external_content\Data\SourceFileContent;
