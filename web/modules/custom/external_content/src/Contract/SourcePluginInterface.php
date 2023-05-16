@@ -15,14 +15,6 @@ interface SourcePluginInterface {
   public const DEFAULT_GROUPER_PLUGIN_ID = 'params';
 
   /**
-   * Gets a plugin ID.
-   *
-   * @return string
-   *   The plugin ID.
-   */
-  public function id(): string;
-
-  /**
    * Gets a working dir.
    *
    * @return string

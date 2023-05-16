@@ -22,7 +22,7 @@ final class SourceConfiguration {
   public function __construct(
     protected string $workingDir,
     protected string $groupingPluginId,
-    protected ?string $sourcePluginId,
+    protected ?string $sourcePluginId = NULL,
   ) {}
 
   /**

@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Contract;
 
 use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Data\SourceConfiguration;
 
 /**
  * Provides an external content finder.
@@ -24,12 +25,12 @@ interface ExternalContentFinderInterface {
   /**
    * Finds external content.
    *
-   * @param \Drupal\external_content\Contract\SourcePluginInterface $source
+   * @param \Drupal\external_content\Data\SourceConfiguration $source
    *   The external content source.
    *
    * @return \Drupal\external_content\Data\ExternalContentCollection
    *   The found external content.
    */
-  public function find(SourcePluginInterface $source): ExternalContentCollection;
+  public function find(SourceConfiguration $source): ExternalContentCollection;
 
 }

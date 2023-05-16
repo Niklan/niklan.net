@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\extern_content\Plugin\ExternalContent\Source;
+namespace Drupal\external_content\Plugin\ExternalContent\Source;
 
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\external_content\Contract\SourcePluginInterface;
@@ -25,7 +25,7 @@ abstract class SourcePlugin extends PluginBase implements SourcePluginInterface 
     return new SourceConfiguration(
       $this->workingDir(),
       $this->grouperPluginId(),
-      $this->id(),
+      $this->getPluginId(),
     );
   }
 
