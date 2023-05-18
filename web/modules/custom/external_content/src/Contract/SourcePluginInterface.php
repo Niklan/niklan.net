@@ -38,4 +38,14 @@ interface SourcePluginInterface {
    */
   public function toConfiguration(): SourceConfiguration;
 
+  /**
+   * Determines is this plugin available now or not.
+   *
+   * This can be helpful in cases when working dir is dynamic or can be unset.
+   *
+   * @return bool
+   *   TRUE if plugin can be used, FALSE otherwise.
+   */
+  public function isActive(): bool;
+
 }

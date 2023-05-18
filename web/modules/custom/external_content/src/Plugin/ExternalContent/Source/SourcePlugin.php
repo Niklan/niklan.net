@@ -14,6 +14,17 @@ abstract class SourcePlugin extends PluginBase implements SourcePluginInterface 
   /**
    * {@inheritdoc}
    */
+  public function toConfiguration(): SourceConfiguration {
+    return new SourceConfiguration(
+      $this->workingDir(),
+      $this->grouperPluginId(),
+      $this->getPluginId(),
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function grouperPluginId(): string {
     return self::DEFAULT_GROUPER_PLUGIN_ID;
   }
@@ -21,12 +32,8 @@ abstract class SourcePlugin extends PluginBase implements SourcePluginInterface 
   /**
    * {@inheritdoc}
    */
-  public function toConfiguration(): SourceConfiguration {
-    return new SourceConfiguration(
-      $this->workingDir(),
-      $this->grouperPluginId(),
-      $this->getPluginId(),
-    );
+  public function isActive(): bool {
+    return TRUE;
   }
 
 }

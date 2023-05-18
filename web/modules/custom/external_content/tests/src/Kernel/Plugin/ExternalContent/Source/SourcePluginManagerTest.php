@@ -34,12 +34,13 @@ final class SourcePluginManagerTest extends ExternalContentTestBase {
     self::assertInstanceOf(SourcePluginInterface::class, $instance);
     self::assertEquals('foo', $instance->getPluginId());
     self::assertEquals('public://foo', $instance->workingDir());
-    self::assertEquals('false', $instance->grouperPluginId());
+    self::assertEquals('params', $instance->grouperPluginId());
+    self::assertTrue($instance->isActive());
 
     $configuration = $instance->toConfiguration();
 
     self::assertEquals('public://foo', $configuration->getWorkingDir());
-    self::assertEquals('false', $configuration->getGroupingPluginId());
+    self::assertEquals('params', $configuration->getGroupingPluginId());
     self::assertEquals('foo', $configuration->getSourcePluginId());
   }
 

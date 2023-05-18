@@ -20,11 +20,4 @@ final class FooSource extends SourcePlugin {
     return 'public://foo';
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function grouperPluginId(): string {
-    return 'false';
-  }
-
 }
