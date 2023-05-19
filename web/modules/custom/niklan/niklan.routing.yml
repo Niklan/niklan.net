@@ -87,3 +87,14 @@ niklan.tags:
     _controller: '\Drupal\niklan\Controller\TagController::collection'
   requirements:
     _permission: 'access content'
+
+niklan.webhook.content_sync:
+  path: '/api/webhook/content-sync'
+  defaults:
+    _title: 'Content Sync Webhook'
+    _controller: '\Drupal\niklan\Controller\ContentSyncWebhookController::handle'
+  requirements:
+    # @todo Replace by a custom access check.
+    _access: 'TRUE'
+  methods:
+    - POST

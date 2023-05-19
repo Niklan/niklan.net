@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ExternalContentSource(
  *   id = "content",
  * )
+ *
+ * @ingroup content_sync
  */
 final class ContentSource extends SourcePlugin implements ContainerFactoryPluginInterface {
 
