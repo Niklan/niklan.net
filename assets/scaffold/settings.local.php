@@ -208,3 +208,11 @@ $settings['niklan_development_warning'] = TRUE;
  * (Windows), it should be explicitly set.
  */
 # $settings['niklan_git_binary'] = 'git';
+
+/**
+ * The GitHub secret token.
+ *
+ * This token used by GitHub to signature requests for Webhooks. In project, it
+ * used to validate signature for such requests.
+ */
+# $settings['niklan_github_secret_token'] = 'foo-bar';
