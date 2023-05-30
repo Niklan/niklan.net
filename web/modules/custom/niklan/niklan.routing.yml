@@ -94,7 +94,6 @@ niklan.webhook.content_sync:
     _title: 'Content Sync Webhook'
     _controller: '\Drupal\niklan\Controller\ContentSyncWebhookController::handle'
   requirements:
-    # @todo Replace by a custom access check.
-    _access: 'TRUE'
+    _niklan_github_signature: 'TRUE'
   methods:
     - POST

@@ -49,3 +49,8 @@ services:
     class: Drupal\niklan\Repository\ContentSyncSettingsRepository
     arguments:
       - '@keyvalue.niklan.content_sync_settings'
+
+  access_check.niklan.github_signature:
+    class: Drupal\niklan\Access\GitHubSignatureAccessCheck
+    tags:
+      - { name: access_check, applies_to: _niklan_github_signature }
