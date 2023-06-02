@@ -54,3 +54,9 @@ services:
     class: Drupal\niklan\Access\GitHubSignatureAccessCheck
     tags:
       - { name: access_check, applies_to: _niklan_github_signature }
+
+  niklan.manager.content_sync:
+    class: Drupal\niklan\Manager\ContentSyncManager
+    arguments:
+      - 'Drupal\external_content\Contract\SourcePluginManagerInterface'
+      - '@event_dispatcher'

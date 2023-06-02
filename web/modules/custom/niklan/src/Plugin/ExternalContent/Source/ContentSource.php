@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Plugin\ExternalContent;
+namespace Drupal\niklan\Plugin\ExternalContent\Source;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\external_content\Plugin\ExternalContent\Source\SourcePlugin;
