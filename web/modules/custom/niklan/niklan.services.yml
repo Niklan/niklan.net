@@ -57,6 +57,10 @@ services:
 
   niklan.manager.content_sync:
     class: Drupal\niklan\Manager\ContentSyncManager
+    autowire: true
+
+  niklan.queue.content_sync:
+    class: Drupal\niklan\Queue\ContentSyncQueue
+    autowire: true
     arguments:
-      - 'Drupal\external_content\Contract\SourcePluginManagerInterface'
-      - '@event_dispatcher'
+      $queueFactory: '@queue'

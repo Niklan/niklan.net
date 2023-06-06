@@ -4,8 +4,6 @@ namespace Drupal\niklan\Manager;
 
 use Drupal\external_content\Contract\SourcePluginInterface;
 use Drupal\external_content\Contract\SourcePluginManagerInterface;
-use Drupal\niklan\Event\ContentSyncEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Provides content synchronization manager.
@@ -19,12 +17,9 @@ final class ContentSyncManager {
    *
    * @param \Drupal\external_content\Contract\SourcePluginManagerInterface $sourcePluginManager
    *   The source plugin manager.
-   * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $eventDispatcher
-   *   The event dispatcher.
    */
   public function __construct(
     protected SourcePluginManagerInterface $sourcePluginManager,
-    protected EventDispatcherInterface $eventDispatcher,
   ) {}
 
   /**
@@ -43,10 +38,6 @@ final class ContentSyncManager {
     if (!$source_plugin->isActive()) {
       return FALSE;
     }
-
-    $configuration = $source_plugin->toConfiguration();
-    $sync_event = new ContentSyncEvent($configuration);
-    $this->eventDispatcher->dispatch($sync_event);
 
     return TRUE;
   }
