@@ -6,9 +6,8 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\entity_test\Entity\EntityTest;
-use Drupal\external_content\Contract\LoaderPluginInterface;
 use Drupal\external_content\Data\ExternalContent;
-use Drupal\external_content\Data\ExternalContentCollection;
+use Drupal\external_content\Plugin\ExternalContent\LoaderPlugin;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   label = @Translation("Entity test loader"),
  * )
  */
-final class EntityTestLoader implements LoaderPluginInterface, ContainerFactoryPluginInterface {
+final class EntityTestLoader extends LoaderPlugin implements ContainerFactoryPluginInterface {
 
   /**
    * The entity test storage.
@@ -41,19 +40,7 @@ final class EntityTestLoader implements LoaderPluginInterface, ContainerFactoryP
   /**
    * {@inheritdoc}
    */
-  public function load(ExternalContentCollection $external_content_collection): void {
-    foreach ($external_content_collection as $external_content) {
-      $this->loadExternalContent($external_content);
-    }
-  }
-
-  /**
-   * Loads a single external content.
-   *
-   * @param \Drupal\external_content\Data\ExternalContent $external_content
-   *   The external content item.
-   */
-  protected function loadExternalContent(ExternalContent $external_content): void {
+  public function load(ExternalContent $external_content): void {
     if (!$external_content->hasTranslation('en')) {
       return;
     }

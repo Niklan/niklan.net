@@ -113,7 +113,7 @@ final class EntityTestLoaderTest extends ExternalContentTestBase {
       ->get(LoaderPluginManagerInterface::class)
       ->createInstance('entity_test_loader');
     \assert($loader_instance instanceof LoaderPluginInterface);
-    $loader_instance->load($collection);
+    $loader_instance->loadMultiple($collection);
 
     $count = $this
       ->entityTestStorage
@@ -154,7 +154,7 @@ final class EntityTestLoaderTest extends ExternalContentTestBase {
     ));
     $collection = new ExternalContentCollection();
     $collection->add($external_content_a);
-    $loader_instance->load($collection);
+    $loader_instance->loadMultiple($collection);
     $entity_a = $this->entityTestStorage->load(\reset($entity_a_id));
     self::assertEquals('The updated foo title', $entity_a->getName());
   }
