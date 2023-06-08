@@ -7,4 +7,20 @@ namespace Drupal\niklan\Entity\Node;
  */
 final class BlogEntry extends Node implements BlogEntryInterface {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function setExternalId(string $external_id): BlogEntryInterface {
+    $this->set('external_id', $external_id);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getExternalId(): string {
+    return $this->get('external_id')->getString();
+  }
+
 }

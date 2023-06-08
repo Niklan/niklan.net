@@ -216,3 +216,8 @@ $settings['niklan_development_warning'] = TRUE;
  * used to validate signature for such requests.
  */
 # $settings['niklan_github_secret_token'] = 'foo-bar';
+
+/**
+ * Disable default 'field_' prefix and allow to use all 32 chars for names.
+ */
+$config['field_ui.settings']['field_prefix'] = '';

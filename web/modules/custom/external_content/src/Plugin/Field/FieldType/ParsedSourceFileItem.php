@@ -16,7 +16,6 @@ use Drupal\external_content\Plugin\DataType\ParsedSourceFile as ParsedSourceFile
  *   id = "external_content_parsed_source_file",
  *   label = @Translation("Parsed source file"),
  *   category = @Translation("External Content"),
- *   no_ui = TRUE,
  *   default_formatter = "external_content_rendered_parsed_source_file",
  * )
  */
