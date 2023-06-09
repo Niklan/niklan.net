@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\external_content\Data\ExternalContent;
-use Drupal\external_content\Plugin\ExternalContent\LoaderPlugin;
+use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPlugin;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

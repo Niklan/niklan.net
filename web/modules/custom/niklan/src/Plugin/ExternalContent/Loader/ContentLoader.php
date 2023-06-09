@@ -3,7 +3,7 @@
 namespace Drupal\niklan\Plugin\ExternalContent\Loader;
 
 use Drupal\external_content\Data\ExternalContent;
-use Drupal\external_content\Plugin\ExternalContent\LoaderPlugin;
+use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPlugin;
 
 /**
  * Provides a loader for 'blog_entry' entity.

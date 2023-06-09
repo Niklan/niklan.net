@@ -13,7 +13,7 @@ use Drupal\external_content\Data\SourceConfiguration;
  *
  * @ingroup content_sync
  */
-final class ContentSyncQueue {
+final class ContentSyncQueueManager {
 
   /**
    * The queue name.
@@ -21,7 +21,7 @@ final class ContentSyncQueue {
   protected const QUEUE_NAME = 'content_sync';
 
   /**
-   * Constructs a new ContentSyncQueue instance.
+   * Constructs a new ContentSyncQueueManager instance.
    *
    * @param \Drupal\Core\Queue\QueueFactory $queueFactory
    *   The queue factory.
