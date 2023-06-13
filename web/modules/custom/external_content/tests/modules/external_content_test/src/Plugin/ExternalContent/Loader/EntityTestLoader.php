@@ -29,7 +29,7 @@ final class EntityTestLoader extends LoaderPlugin implements ContainerFactoryPlu
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    $instance = new self();
+    $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->entityTestStorage = $container
       ->get('entity_type.manager')
       ->getStorage('entity_test');

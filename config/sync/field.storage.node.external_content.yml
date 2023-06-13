@@ -1,0 +1,19 @@
+uuid: a7e2ffb9-0eae-4900-947f-5e49cea6ebd6
+langcode: ru
+status: true
+dependencies:
+  module:
+    - external_content
+    - node
+id: node.external_content
+field_name: external_content
+entity_type: node
+type: external_content_parsed_source_file
+settings: {  }
+module: external_content
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

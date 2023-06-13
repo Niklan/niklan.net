@@ -7,6 +7,8 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
+    - field.field.node.blog_entry.external_content
+    - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
@@ -15,6 +17,7 @@ dependencies:
   module:
     - comment
     - entity_reference_revisions
+    - external_content
     - niklan
     - text
     - user
@@ -28,7 +31,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   comment_node_blog_entry:
     type: comment_default
@@ -37,12 +40,19 @@ content:
       view_mode: full
       pager_id: 0
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   estimated_read_time:
     settings: {  }
     third_party_settings: {  }
     weight: 6
+    region: content
+  external_content:
+    type: external_content_rendered_parsed_source_file
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
     region: content
   extra_field_created_time:
     settings: {  }
@@ -57,17 +67,17 @@ content:
   extra_field_meta_information:
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   extra_field_previous_next:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   extra_field_share:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
@@ -76,14 +86,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_media_attachments:
     type: niklan_attached_files
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   field_tags:
     type: entity_reference_label
@@ -91,7 +101,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   previous_next:
     settings: {  }
@@ -104,6 +114,7 @@ content:
     weight: 12
     region: content
 hidden:
+  external_id: true
   extra_field_comments_link: true
   field_media_image: true
   follow: true

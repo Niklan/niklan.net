@@ -2,13 +2,14 @@
 
 namespace Drupal\external_content\Plugin\ExternalContent\Loader;
 
+use Drupal\Core\Plugin\PluginBase;
 use Drupal\external_content\Contract\LoaderPluginInterface;
 use Drupal\external_content\Data\ExternalContentCollection;
 
 /**
  * Provides a basic implementation for a loader plugin.
  */
-abstract class LoaderPlugin implements LoaderPluginInterface {
+abstract class LoaderPlugin extends PluginBase implements LoaderPluginInterface {
 
   /**
    * {@inheritdoc}

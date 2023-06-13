@@ -1,0 +1,21 @@
+uuid: 093b466b-a990-4761-88cd-179b26f7ad3a
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.external_content
+    - node.type.blog_entry
+  module:
+    - external_content
+id: node.blog_entry.external_content
+field_name: external_content
+entity_type: node
+bundle: blog_entry
+label: 'Внешнее содержимое'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: external_content_parsed_source_file

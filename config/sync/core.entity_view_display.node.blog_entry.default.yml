@@ -6,6 +6,8 @@ dependencies:
     - core.entity_view_display.comment.comment_node_blog_entry.default
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
+    - field.field.node.blog_entry.external_content
+    - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
@@ -14,6 +16,7 @@ dependencies:
   module:
     - comment
     - entity_reference_revisions
+    - external_content
     - text
     - user
 id: node.blog_entry.default
@@ -41,6 +44,21 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
+    region: content
+  external_content:
+    type: external_content_rendered_parsed_source_file
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  external_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 13
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
