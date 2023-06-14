@@ -50,7 +50,6 @@ final class ContentLoader extends LoaderPlugin implements ContainerFactoryPlugin
     $parsed_content = $external_content->getTranslation('ru');
 
     $this->syncFrontMatter($content, $parsed_content->getParams());
-    // @todo Create Markup plugin for Markdown syntax of the content.
     $content->setExternalContent($parsed_content);
 
     $content->save();
@@ -87,6 +86,9 @@ final class ContentLoader extends LoaderPlugin implements ContainerFactoryPlugin
     // If not found, create a new one.
     $content = $node_storage->create(['type' => 'blog_entry']);
     \assert($content instanceof BlogEntryInterface);
+    // Make new content unpublished by default. It will require manual check and
+    // publication.
+    $content->setUnpublished();
     $content->setExternalId($external_id);
 
     return $content;

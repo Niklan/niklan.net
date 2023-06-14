@@ -42,7 +42,8 @@ final class HtmlElementParser implements HtmlParserPluginInterface {
     }
 
     foreach ($node->childNodes as $child) {
-      $child = $html_parser_state->getParser()
+      $child = $html_parser_state
+        ->getParser()
         ->parseElement($child, $html_parser_state);
       $element->addChild($child);
     }

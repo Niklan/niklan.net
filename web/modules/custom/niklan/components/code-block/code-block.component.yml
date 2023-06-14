@@ -1,0 +1,32 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json
+name: Code Block
+description: The HTML element to display highlighted code.
+props:
+  type: object
+  required:
+    - code
+  properties:
+    heading:
+      type: string
+      title: Heading
+      description: The title for code block.
+      examples:
+        - src/Foo/Bar.php
+        - Example code
+    highlighted_lines:
+      type: array
+      items:
+        type: string
+      title: Highlighted lines
+      description: The array with lines to highlight.
+      examples:
+        - [1,3,10]
+        - ['1:10', '15:20', 25]
+    code:
+      type: string
+      title: Code
+      description: The code to display.
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - niklan/prismjs

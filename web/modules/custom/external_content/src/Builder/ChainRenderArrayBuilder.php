@@ -35,11 +35,13 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    *
    * @param \Drupal\external_content\Contract\ElementInterface $element
    *   The element to build.
+   * @param array $children
+   *   An array with children built elements.
    *
    * @return array
    *   The result render array.
    */
-  protected function doBuildElement(ElementInterface $element): array {
+  protected function buildSingle(ElementInterface $element, array $children): array {
     // The default value if build is not happened.
     $build = [];
 
@@ -47,7 +49,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
       \assert($builder instanceof BuilderPluginInterface);
 
       if ($builder::isApplicable($element)) {
-        $build = $builder->build($element);
+        $build = $builder->build($element, $children);
 
         break;
       }
@@ -62,7 +64,7 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   public function build(ElementInterface $element): array {
     $this->initBuilders();
 
-    return $this->buildElement($element);
+    return $this->buildWithChildren($element, []);
   }
 
   /**
@@ -84,29 +86,32 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   }
 
   /**
-   * Builds a single element and taking into account it's children.
+   * Builds a single element and taking into account its children.
    *
    * @param \Drupal\external_content\Contract\ElementInterface $element
    *   The element to build.
+   * @param array $children
+   *   An array with children built elements.
    *
    * @return array
    *   The result render array.
    */
-  protected function buildElement(ElementInterface $element): array {
-    $children = [];
+  protected function buildWithChildren(ElementInterface $element, array $children): array {
+    $current_children = [];
 
     foreach ($element->getChildren() as $child) {
-      $child_result = $this->buildElement($child);
+      $child_result = $this->buildWithChildren($child, $children);
 
       if (!$child_result) {
         continue;
       }
 
-      $children[] = $child_result;
+      $current_children[] = $child_result;
     }
 
-    $build = $this->doBuildElement($element);
+    $build = $this->buildSingle($element, $current_children);
 
+    // @todo Fix it.
     return \array_merge($build, $children);
   }
 

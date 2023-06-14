@@ -29,6 +29,8 @@ interface BuilderPluginInterface {
    *
    * @param \Drupal\external_content\Contract\ElementInterface $element
    *   The element to build.
+   * @param array $children
+   *   An array with children built elements.
    *
    * @return array
    *   A renderable array result for provided element.
@@ -36,6 +38,6 @@ interface BuilderPluginInterface {
    * @todo Add BuilderState param and DTO with additional data like builder
    *   plugin, external content, etc.
    */
-  public function build(ElementInterface $element): array;
+  public function build(ElementInterface $element, array $children): array;
 
 }

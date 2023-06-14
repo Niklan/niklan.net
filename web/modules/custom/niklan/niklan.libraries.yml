@@ -9,13 +9,6 @@ mobile-sidebar:
   js:
     assets/js/mobile-sidebar.js: { }
 
-code-highlight:
-  js:
-    assets/js/code-highlight.js: { }
-  dependencies:
-    - core/drupal
-    - niklan/prismjs
-
 prismjs:
   remote: https://prismjs.com/
   version: 1.15

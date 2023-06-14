@@ -5,11 +5,9 @@ dependencies:
   config:
     - field.storage.node.field_tags
     - search_api.server.database
-    - core.entity_view_mode.node.search_index
-    - core.entity_view_mode.taxonomy_term.full
   module:
-    - taxonomy
     - node
+    - taxonomy
     - search_api
 id: global_index
 name: 'Global index'
@@ -57,20 +55,6 @@ field_settings:
     dependencies:
       module:
         - node
-  rendered_item:
-    label: 'Rendered HTML output'
-    property_path: rendered_item
-    type: text
-    boost: 0.8
-    configuration:
-      roles:
-        anonymous: anonymous
-      view_mode:
-        'entity:node':
-          blog_entry: search_index
-          collection: search_index
-        'entity:taxonomy_term':
-          tags: full
   tid:
     label: 'ID термина'
     datasource_id: 'entity:taxonomy_term'
@@ -137,7 +121,6 @@ processor_settings:
       - field_tags
       - name
       - name_fulltext
-      - rendered_item
       - title
       - title_fulltext
       - url
@@ -159,7 +142,6 @@ processor_settings:
       - field_tags
       - name
       - name_fulltext
-      - rendered_item
       - title
       - title_fulltext
       - url
@@ -175,7 +157,6 @@ processor_settings:
       - field_tags
       - name
       - name_fulltext
-      - rendered_item
       - title
       - title_fulltext
       - url

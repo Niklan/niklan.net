@@ -46,6 +46,7 @@
         "drupal/photoswipe": "^3.0",
         "drupal/rabbit_hole": "^1.0@beta",
         "drupal/redirect": "^1.0@alpha",
+        "drupal/sdc": "^2.0@alpha",
         "drupal/search_api": "^1.8",
         "drupal/simple_sitemap": "^4.1",
         "drupal/symfony_mailer": "^1.2@beta",

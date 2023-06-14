@@ -23,6 +23,8 @@ use Drupal\filter\Plugin\FilterBase;
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
  *   weight = 100,
  * )
+ *
+ * @deprecated Remove it.
  */
 final class PrismJsHighlighter extends FilterBase {
 
@@ -35,10 +37,6 @@ final class PrismJsHighlighter extends FilterBase {
     if (!$this->isContainCode($text)) {
       return $result;
     }
-
-    $result->addAttachments([
-      'library' => ['niklan/code-highlight'],
-    ]);
 
     return $result;
   }

@@ -53,6 +53,7 @@ module:
   redirect_404: 0
   responsive_image: 0
   rh_taxonomy: 0
+  sdc: 0
   search_api: 0
   search_api_db: 0
   serialization: 0

@@ -17,6 +17,7 @@ use Drupal\external_content\Plugin\DataType\ParsedSourceFile as ParsedSourceFile
  *   label = @Translation("Parsed source file"),
  *   category = @Translation("External Content"),
  *   default_formatter = "external_content_rendered_parsed_source_file",
+ *   list_class = "\Drupal\external_content\Field\ParsedSourceFileItemList",
  * )
  */
 final class ParsedSourceFileItem extends FieldItemBase {

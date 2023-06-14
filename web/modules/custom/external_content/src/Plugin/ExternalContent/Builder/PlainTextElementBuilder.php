@@ -27,7 +27,7 @@ final class PlainTextElementBuilder implements BuilderPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(ElementInterface $element): array {
+  public function build(ElementInterface $element, array $children): array {
     \assert($element instanceof PlainTextElement);
 
     return [
