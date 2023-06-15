@@ -7,6 +7,7 @@ use Drupal\external_content\Contract\BuilderPluginManagerInterface;
 use Drupal\external_content\Contract\ChainRenderArrayBuilderInterface;
 use Drupal\external_content\Data\HtmlElement;
 use Drupal\external_content\Data\PlainTextElement;
+use Drupal\external_content\Data\SourceFileContent;
 use Drupal\external_content\Plugin\ExternalContent\Builder\HtmlElementBuilder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Prophecy\Argument;
@@ -46,36 +47,53 @@ final class ChainRenderArrayBuilderTest extends ExternalContentTestBase {
     //   Hello, World! <a href="https://example.com">This is a link</a> inside a
     //   paragraph.
     // </p>
+    // <p>Foo, Bar!</p>
     // @endcode
-    $paragraph = new HtmlElement('p', ['data-foo' => 'bar']);
-    $paragraph->addChild(new PlainTextElement('Hello, World! '));
+    $paragraph_a = new HtmlElement('p', ['data-foo' => 'bar']);
+    $paragraph_a->addChild(new PlainTextElement('Hello, World! '));
     $link = new HtmlElement('a', ['href' => 'https://example.com']);
     $link->addChild(new PlainTextElement('This is a link'));
-    $paragraph->addChild($link);
-    $paragraph->addChild(new PlainTextElement(' inside a paragraph.'));
+    $paragraph_a->addChild($link);
+    $paragraph_a->addChild(new PlainTextElement(' inside a paragraph.'));
 
-    $build = $this->chainBuilder->build($paragraph);
+    $paragraph_b = new HtmlElement('p');
+    $paragraph_b->addChild(new PlainTextElement('Foo, Bar!'));
+
+    $content = new SourceFileContent();
+    $content->addChild($paragraph_a);
+    $content->addChild($paragraph_b);
+
+    $build = $this->chainBuilder->build($content);
     $expected = [
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#attributes' => [
-        'data-foo' => 'bar',
-      ],
       0 => [
-        '#markup' => 'Hello, World! ',
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#attributes' => [
+          'data-foo' => 'bar',
+        ],
+        0 => [
+          '#markup' => 'Hello, World! ',
+        ],
+        1 => [
+          '#type' => 'html_tag',
+          '#tag' => 'a',
+          '#attributes' => [
+            'href' => 'https://example.com',
+          ],
+          0 => [
+            '#markup' => 'This is a link',
+          ],
+        ],
+        2 => [
+          '#markup' => ' inside a paragraph.',
+        ],
       ],
       1 => [
         '#type' => 'html_tag',
-        '#tag' => 'a',
-        '#attributes' => [
-          'href' => 'https://example.com',
-        ],
+        '#tag' => 'p',
         0 => [
-          '#markup' => 'This is a link',
+          '#markup' => 'Foo, Bar!',
         ],
-      ],
-      2 => [
-        '#markup' => ' inside a paragraph.',
       ],
     ];
 

@@ -1,2 +1,20 @@
-foo bar
-{{ dd() }}
+{% set pre_attributes = create_attribute() %}
+{% if language %}
+  {% set pre_attributes = pre_attributes.addClass('language-' ~ language) %}
+{% endif %}
+
+<section{{ attributes.addClass('code-block') }}>
+  {% if heading %}
+    <header class="code-block__header">
+      <h6 class="code-block__title">{{ heading }}</h6>
+    </header>
+  {% endif %}
+
+  <main class="code-block__main">
+    <pre{{ pre_attributes }}>
+      {% block code %}
+        {{ code }}
+      {% endblock %}
+    </pre>
+  </main>
+</section>

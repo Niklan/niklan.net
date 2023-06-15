@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Plugin\ExternalContent\Builder;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\external_content\Contract\BuilderPluginInterface;
 use Drupal\external_content\Contract\ElementInterface;
 use Drupal\external_content\Data\HtmlElement;
@@ -33,11 +34,25 @@ final class FencedCodeBuilder implements BuilderPluginInterface {
   public function build(ElementInterface $element, array $children): array {
     \assert($element instanceof HtmlElement);
 
+    $props = [];
+
+    if ($element->getAttribute('data-language')) {
+      $props['language'] = $element->getAttribute('data-language');
+    }
+
+    if ($element->getAttribute('data-info')) {
+      $info = Json::decode($element->getAttribute('data-info'));
+
+      if (\array_key_exists('header', $info)) {
+        $props['heading'] = $info['header'];
+      }
+    }
+
     return [
       '#type' => 'component',
       '#component' => 'niklan:code-block',
-      '#props' => [
-        'heading' => 'testttt',
+      '#props' => $props,
+      '#slots' => [
         'code' => $children,
       ],
     ];

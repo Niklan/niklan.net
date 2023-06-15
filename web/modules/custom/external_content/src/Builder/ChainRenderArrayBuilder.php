@@ -41,21 +41,18 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    * @return array
    *   The result render array.
    */
-  protected function buildSingle(ElementInterface $element, array $children): array {
-    // The default value if build is not happened.
-    $build = [];
-
+  protected function doBuild(ElementInterface $element, array $children): array {
     foreach ($this->builders as $builder) {
       \assert($builder instanceof BuilderPluginInterface);
 
       if ($builder::isApplicable($element)) {
-        $build = $builder->build($element, $children);
-
-        break;
+        return $builder->build($element, $children);
       }
     }
 
-    return $build;
+    // If build didn't happen, just return children. Most likely it's a root
+    // collection like SourceFileContent.
+    return $children;
   }
 
   /**
@@ -64,7 +61,9 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
   public function build(ElementInterface $element): array {
     $this->initBuilders();
 
-    return $this->buildWithChildren($element, []);
+    $children = $this->buildRecursive($element, []);
+
+    return $this->doBuild($element, $children);
   }
 
   /**
@@ -96,23 +95,14 @@ final class ChainRenderArrayBuilder implements ChainRenderArrayBuilderInterface 
    * @return array
    *   The result render array.
    */
-  protected function buildWithChildren(ElementInterface $element, array $children): array {
-    $current_children = [];
+  protected function buildRecursive(ElementInterface $element, array $children): array {
+    $children_build = [];
 
     foreach ($element->getChildren() as $child) {
-      $child_result = $this->buildWithChildren($child, $children);
-
-      if (!$child_result) {
-        continue;
-      }
-
-      $current_children[] = $child_result;
+      $children_build[] = $this->buildRecursive($child, $children);
     }
 
-    $build = $this->buildSingle($element, $current_children);
-
-    // @todo Fix it.
-    return \array_merge($build, $children);
+    return $this->doBuild($element, $children_build);
   }
 
 }

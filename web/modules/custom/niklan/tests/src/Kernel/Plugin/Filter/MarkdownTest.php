@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\Filter;
 
-use Drupal\filter\Plugin\FilterInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\filter\Plugin\FilterInterface;
 
 /**
  * Provides a test for markdown filter.

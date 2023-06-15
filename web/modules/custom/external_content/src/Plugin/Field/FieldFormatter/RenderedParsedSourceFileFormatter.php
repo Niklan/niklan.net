@@ -71,8 +71,6 @@ final class RenderedParsedSourceFileFormatter extends FormatterBase {
       $elements[$delta] = $this->chainRenderArrayBuilder->build($content);
     }
 
-    \dump($elements);
-
     return $elements;
   }
 

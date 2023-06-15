@@ -1,10 +1,12 @@
-$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json
+$schema: https://git.drupalcode.org/project/sdc/-/raw/1.x/src/metadata.schema.json
 name: Code Block
 description: The HTML element to display highlighted code.
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - niklan/prismjs
 props:
   type: object
-  required:
-    - code
   properties:
     heading:
       type: string
@@ -13,6 +15,14 @@ props:
       examples:
         - src/Foo/Bar.php
         - Example code
+    language:
+      type: string
+      title: The code language.
+      description: The code block manually defined language.
+      examples:
+        - php
+        - html
+        - css
     highlighted_lines:
       type: array
       items:
@@ -20,13 +30,11 @@ props:
       title: Highlighted lines
       description: The array with lines to highlight.
       examples:
-        - [1,3,10]
-        - ['1:10', '15:20', 25]
-    code:
-      type: string
-      title: Code
-      description: The code to display.
-libraryOverrides:
-  dependencies:
-    - core/drupal
-    - niklan/prismjs
+        - ['1', '3', '10']
+        - ['1:10', '15:20', '25']
+slots:
+  code:
+    title: Code
+    description: The code to display.
+    examples:
+      - <code>echo "Hello, world!";</code>

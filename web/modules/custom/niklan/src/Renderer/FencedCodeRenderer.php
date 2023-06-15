@@ -33,7 +33,7 @@ final class FencedCodeRenderer implements NodeRendererInterface, XmlNodeRenderer
 
     if (\count($info_words)) {
       if ($info_words[0] !== '') {
-        $attrs->append('class', "language-{$info_words[0]}");
+        $attrs->set('data-language', $info_words[0]);
       }
 
       // The additional information expected as JSON after language.
