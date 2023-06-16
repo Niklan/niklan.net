@@ -36,16 +36,15 @@ final class FencedCodeBuilder implements BuilderPluginInterface {
 
     $props = [];
 
-    if ($element->getAttribute('data-language')) {
+    if ($element->hasAttribute('data-language')) {
       $props['language'] = $element->getAttribute('data-language');
     }
 
-    if ($element->getAttribute('data-info')) {
+    if ($element->hasAttribute('data-info')) {
       $info = Json::decode($element->getAttribute('data-info'));
 
-      if (\array_key_exists('header', $info)) {
-        $props['heading'] = $info['header'];
-      }
+      $props['heading'] = $info['header'] ?? NULL;
+      $props['highlighted_lines'] = $info['highlighted_lines'] ?? NULL;
     }
 
     return [

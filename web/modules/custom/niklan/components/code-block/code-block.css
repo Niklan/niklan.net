@@ -1,0 +1,12 @@
+.code-block code {
+  position: relative;
+}
+
+.code-block__highlighted {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: #9e9e9e21;
+  user-select: none;
+  pointer-events: none;
+}

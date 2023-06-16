@@ -103,7 +103,7 @@ final class BlogEntryContentExtractor {
     );
 
     if ($highlighted_lines) {
-      $front_matter_values['highlight_lines'] = $highlighted_lines;
+      $front_matter_values['highlighted_lines'] = $highlighted_lines;
     }
 
     if (!$paragraph->get('field_title')->isEmpty()) {

@@ -17,7 +17,7 @@ prismjs:
     gpl-compatible: true
   js:
     assets/js/prism.init.js: { weight: -1 }
-    /libraries/prismjs/prism.js: {minified: true }
+    /libraries/prismjs/prism.js: { minified: true }
 
 share:
   version: VERSION

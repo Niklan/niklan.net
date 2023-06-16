@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\niklan\CommonMark\NiklanMarkdownExtension;
+use Drupal\niklan\CommonMark\Extension\NiklanMarkdownExtension;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\MarkdownConverter;
@@ -12,9 +12,7 @@ $environment->addExtension(new NiklanMarkdownExtension());
 $converter = new MarkdownConverter($environment);
 
 $test = <<<'Markdown'
-```php {"highlight_lines":"34:37,42:48","header":"core/lib/Drupal/Core/PathProcessor/PathProcessorAlias.php"}
-echo "Hello World!";
-```
+![](https://www.youtube.com/watch?v=Y1I7zGn6F-w)
 Markdown;
 
 $result = $converter->convert($test);

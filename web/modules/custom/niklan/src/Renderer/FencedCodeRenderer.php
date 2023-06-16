@@ -24,21 +24,22 @@ final class FencedCodeRenderer implements NodeRendererInterface, XmlNodeRenderer
     \assert($node instanceof FencedCode);
 
     $attrs = $node->data->getData('attributes');
-    // Info words comes right after fence.
+    // Info comes right after fence.
     // @code
     // ```php foo
     //    ^^^^^^^
     // @endcode
-    $info_words = $node->getInfoWords();
+    $info_parts = [];
+    \preg_match('/^(.+)\s?({.+})?/', $node->getInfo() ?? '', $info_parts);
 
-    if (\count($info_words)) {
-      if ($info_words[0] !== '') {
-        $attrs->set('data-language', $info_words[0]);
+    if (\count($info_parts)) {
+      if ($info_parts[1] !== '') {
+        $attrs->set('data-language', \rtrim($info_parts[1]));
       }
 
       // The additional information expected as JSON after language.
-      if (\array_key_exists(1, $info_words) && \stristr($info_words[1], '{')) {
-        $attrs->set('data-info', $info_words[1]);
+      if (\array_key_exists(2, $info_parts) && \stristr($info_parts[2], '{')) {
+        $attrs->set('data-info', $info_parts[2]);
       }
     }
 

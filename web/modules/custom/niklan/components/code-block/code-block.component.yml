@@ -4,6 +4,7 @@ description: The HTML element to display highlighted code.
 libraryOverrides:
   dependencies:
     - core/drupal
+    - core/once
     - niklan/prismjs
 props:
   type: object
@@ -24,14 +25,14 @@ props:
         - html
         - css
     highlighted_lines:
-      type: array
-      items:
-        type: string
+      type: string
       title: Highlighted lines
-      description: The array with lines to highlight.
+      description: >
+        The array with lines to highlight separated by comma. For range
+        highlight separate start and end range numbers by semicolon.
       examples:
-        - ['1', '3', '10']
-        - ['1:10', '15:20', '25']
+        - '1,3,10'
+        - '1,10:15,20,25:30'
 slots:
   code:
     title: Code
