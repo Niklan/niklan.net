@@ -55,8 +55,8 @@ services:
     tags:
       - { name: access_check, applies_to: _niklan_github_signature }
 
-  niklan.manager.content_sync:
-    class: Drupal\niklan\Manager\ContentSyncManager
+  niklan.sync.content:
+    class: Drupal\niklan\Sync\ContentSyncManager
     autowire: true
 
   niklan.queue.content_sync_manager:

@@ -3,6 +3,7 @@
 namespace Drupal\niklan\Hook\Entity;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\niklan\Entity\File\File;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\Portfolio;
 
@@ -31,6 +32,9 @@ final class BundleInfoAlter {
       'node' => [
         'blog_entry' => ['class' => BlogEntry::class],
         'portfolio' => ['class' => Portfolio::class],
+      ],
+      'file' => [
+        'file' => ['class' => File::class],
       ],
     ];
 

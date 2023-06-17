@@ -1,10 +1,10 @@
 <?php
 
 use Drupal\Component\Utility\Timer;
-use Drupal\niklan\Manager\ContentSyncManager;
+use Drupal\niklan\Sync\ContentSyncManager;
 
 Timer::start('q');
-$queue = \Drupal::service('niklan.manager.content_sync');
+$queue = \Drupal::service('niklan.sync.content');
 \assert($queue instanceof ContentSyncManager);
 $queue->synchronize();
 Timer::stop('q');

@@ -5,11 +5,13 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\niklan\Hook\Entity\BaseFieldInfo;
 use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
@@ -396,4 +398,11 @@ function niklan_library_info_alter(array &$libraries, string $extension): void {
  */
 function niklan_entity_bundle_info_alter(array &$bundles): void {
   \Drupal::classResolver(BundleInfoAlter::class)($bundles);
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function niklan_entity_base_field_info(EntityTypeInterface $entity_type): array {
+  return \Drupal::classResolver(BaseFieldInfo::class)($entity_type);
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Manager;
+namespace Drupal\niklan\Sync;
 
 use Drupal\external_content\Contract\SourcePluginInterface;
 use Drupal\external_content\Contract\SourcePluginManagerInterface;

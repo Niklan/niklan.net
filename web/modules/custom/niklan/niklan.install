@@ -1,0 +1,15 @@
+<?php declare(strict_types = 1);
+
+/**
+ * @file
+ * Main file for installation and uninstall process.
+ */
+
+use Drupal\niklan\Hook\Update\Update10001;
+
+/**
+ * Provides a checksum field for file entity.
+ */
+function niklan_update_10001(array &$sandbox): string {
+  return \Drupal::classResolver(Update10001::class)($sandbox);
+}

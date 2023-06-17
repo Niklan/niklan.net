@@ -2,7 +2,7 @@
 
 namespace Drupal\niklan\CommonMark\Extension;
 
-use Drupal\niklan\Renderer\FencedCodeRenderer;
+use Drupal\niklan\CommonMark\Renderer\FencedCodeRenderer;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
