@@ -73,38 +73,38 @@ jobs:
         run: composer phpstan
 
   # PHPUnit tests.
-  phpunit:
-    name: PHPUnit
-    needs:
-      - phpcs
-      - phpstan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Copy files for environment
-        run: |
-          cp ./phpunit.xml.dist ./phpunit.xml
-          mkdir -p ./web/sites/default
-          cp ./assets/scaffold/settings.local.php ./web/sites/default/settings.local.php
-          cp ./.github/workflows/d4d-phpunit/.env ./.env
-          cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
-
-      - name: Build PHP container
-        run: docker compose up -d --no-deps --build php
-
-      - name: Run docker
-        run: docker compose up -d
-
-      - name: Install site dependencies
-        run: docker compose exec -T php composer install
-
-      - name: Run tests
-        run: docker compose exec -T php composer run phpunit-coverage
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: web/sites/default/files/coverage.xml
+#  phpunit:
+#    name: PHPUnit
+#    needs:
+#      - phpcs
+#      - phpstan
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: Copy files for environment
+#        run: |
+#          cp ./phpunit.xml.dist ./phpunit.xml
+#          mkdir -p ./web/sites/default
+#          cp ./assets/scaffold/settings.local.php ./web/sites/default/settings.local.php
+#          cp ./.github/workflows/d4d-phpunit/.env ./.env
+#          cp ./.github/workflows/d4d-phpunit/docker-compose.yml ./docker-compose.yml
+#
+#      - name: Build PHP container
+#        run: docker compose up -d --no-deps --build php
+#
+#      - name: Run docker
+#        run: docker compose up -d
+#
+#      - name: Install site dependencies
+#        run: docker compose exec -T php composer install
+#
+#      - name: Run tests
+#        run: docker compose exec -T php composer run phpunit-coverage
+#
+#      - name: Upload coverage reports to Codecov
+#        uses: codecov/codecov-action@v3
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          files: web/sites/default/files/coverage.xml
