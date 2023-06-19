@@ -3,7 +3,9 @@
 namespace Drupal\external_content\Contract;
 
 /**
- * Provides an interface for a content grouper.
+ * Represents an external content grouper.
+ *
+ * @todo
  */
 interface GrouperInterface {
 

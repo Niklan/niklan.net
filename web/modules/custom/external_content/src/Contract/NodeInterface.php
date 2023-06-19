@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Contract;
 
 /**
- * Provides interface for single content node.
+ * Represents a single external content AST node.
  *
  * The content node — a single typed content data. E.g., image, text, code.
  */

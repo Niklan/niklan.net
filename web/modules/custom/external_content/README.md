@@ -6,7 +6,7 @@ it.
 
 ## Pipeline
 
-1. Find
-2. Convert markup into HTML
-3. Parse HTML
-4. Group same content variations
+1. [x] Find
+2. [ ] Convert markup into HTML
+3. [ ] Parse HTML
+4. [ ] Group same content variations

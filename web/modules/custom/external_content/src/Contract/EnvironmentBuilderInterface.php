@@ -3,23 +3,56 @@
 namespace Drupal\external_content\Contract;
 
 /**
- * Provides an interface for environment builder.
+ * Represents an interface for environment builder.
  */
 interface EnvironmentBuilderInterface {
 
-  public function addHtmlParser(HtmlParserInterface $parser): self;
-
-  public function addGrouper(GrouperInterface $grouper): self;
-
-  public function addMarkupConverter(MarkupConverterInterface $converter): self;
-
-  public function addMarkupConverterPreprocessor(MarkupConverterPreprocessorInterface $preprocessor): self;
-
-  public function addMarkupConverterPostprocessor(MarkupConverterPostprocessorInterface $postprocessor): self;
+  /**
+   * Adds an HTML parser into environment.
+   *
+   * @param string $class
+   *   The FQN of HTML parser.
+   * @param int $priority
+   *   The priority of the parser.
+   *
+   * @return $this
+   */
+  public function addHtmlParser(string $class, int $priority = 0): self;
 
   /**
+   * Adds a content grouper into environment.
    *
+   * @param string $class
+   *   The FQN of content grouper.
+   * @param int $priority
+   *   The priority of the grouper.
+   *
+   * @return $this
    */
-  public function addFinder(FinderInterface $finder): self;
+  public function addGrouper(string $class, int $priority = 0): self;
+
+  /**
+   * Adds a markup converter into environment.
+   *
+   * @param string $class
+   *   The FQN of markup converter.
+   * @param int $priority
+   *   The priority of the markup converter.
+   *
+   * @return $this
+   */
+  public function addMarkupConverter(string $class, int $priority = 0): self;
+
+  /**
+   * Adds a finder into environment.
+   *
+   * @param string $class
+   *   The FQN of a finder.
+   * @param int $priority
+   *   The priority of the finder.
+   *
+   * @return $this
+   */
+  public function addFinder(string $class, int $priority = 0): self;
 
 }

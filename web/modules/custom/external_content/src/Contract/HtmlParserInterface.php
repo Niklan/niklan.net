@@ -3,10 +3,13 @@
 namespace Drupal\external_content\Contract;
 
 /**
- * Provides an interface for HTML parser.
+ * Represents an external content HTML parser.
  */
 interface HtmlParserInterface {
 
+  /**
+   * @todo
+   */
   public function parse(\DOMNode $node): void;
 
 }

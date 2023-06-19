@@ -3,45 +3,51 @@
 namespace Drupal\external_content\Contract;
 
 use Drupal\external_content\Data\Configuration;
+use Drupal\external_content\Data\PrioritizedList;
 
 /**
- * Provides an interface for External Content environment.
+ * Represents an external content environment.
  */
 interface EnvironmentInterface {
 
   /**
    * Gets the HTML parsers.
    *
-   * @return iterable
+   * @return \Drupal\external_content\Data\PrioritizedList
+   *   The list of HTML parsers.
    */
-  public function getHtmlParsers(): iterable;
+  public function getHtmlParsers(): PrioritizedList;
 
   /**
    * Gets the content groupers.
    *
-   * @return iterable
+   * @return \Drupal\external_content\Data\PrioritizedList
+   *   The list of content groupers.
    */
-  public function getGroupers(): iterable;
+  public function getGroupers(): PrioritizedList;
 
   /**
    * Gets the markup converters.
    *
-   * @return iterable
+   * @return \Drupal\external_content\Data\PrioritizedList
+   *   The list of markup converters.
    */
-  public function getMarkupConverters(): iterable;
-
-  public function getMarkupConverterPreprocessors(): iterable;
-
-  public function getMarkupConverterPostprocessors(): iterable;
+  public function getMarkupConverters(): PrioritizedList;
 
   /**
+   * Gets the configuration.
    *
+   * @return \Drupal\external_content\Data\Configuration
+   *   The environment configuration.
    */
   public function getConfiguration(): Configuration;
 
   /**
-   * @return iterable<\Drupal\external_content\Contract\FinderInterface>
+   * Gets the finders.
+   *
+   * @return \Drupal\external_content\Data\PrioritizedList
+   *   The list of finders.
    */
-  public function getFinders(): iterable;
+  public function getFinders(): PrioritizedList;
 
 }

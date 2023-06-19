@@ -1,18 +1,23 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Unit\Finder;
+namespace Drupal\Tests\external_content\Kernel\Finder;
 
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Finder\MarkdownFinder;
-use Drupal\Tests\UnitTestCase;
+use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;
 
 /**
+ * Provides a test for Markdown finder.
+ *
  * @covers \Drupal\external_content\Finder\MarkdownFinder
  */
-final class MarkdownFinderTest extends UnitTestCase {
+final class MarkdownFinderTest extends ExternalContentTestBase {
 
+  /**
+   * Test markdown finder.
+   */
   public function testFind(): void {
     vfsStream::setup(structure: [
       'directory_a' => [

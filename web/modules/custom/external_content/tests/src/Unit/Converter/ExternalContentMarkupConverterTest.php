@@ -3,8 +3,8 @@
 namespace Drupal\Tests\external_content\Unit\Converter;
 
 use Drupal\external_content\Contract\MarkupConverterInterface;
-use Drupal\external_content\Contract\MarkupConverterPostprocessorInterface;
-use Drupal\external_content\Contract\MarkupConverterPreprocessorInterface;
+use Drupal\external_content\Contract\MarkupPostConverterProcessorInterface;
+use Drupal\external_content\Contract\MarkupPreConverterProcessorInterface;
 use Drupal\external_content\Converter\ExternalContentMarkupConverter;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFile;
@@ -25,9 +25,9 @@ final class ExternalContentMarkupConverterTest extends UnitTestCase {
     ]);
 
     $environment = new Environment(new Configuration());
-    $environment->addMarkupConverterPreprocessor(new FooPreprocessor());
+    $environment->addMarkupConverterPreprocessor(new FooProcessorPre());
     $environment->addMarkupConverter(new FakeMarkupConverter());
-    $environment->addMarkupConverterPostprocessor(new BarPostprocessor());
+    $environment->addMarkupConverterPostprocessor(new BarProcessorPost());
 
     $file = new ExternalContentFile(
       vfsStream::url('root'),
@@ -89,7 +89,7 @@ final class FakeMarkupConverter implements MarkupConverterInterface {
 
 
 
-final class FooPreprocessor implements MarkupConverterPreprocessorInterface {
+final class FooProcessorPre implements MarkupPreConverterProcessorInterface {
 
   /**
    *
@@ -115,7 +115,7 @@ final class FooPreprocessor implements MarkupConverterPreprocessorInterface {
 
 
 
-final class BarPostprocessor implements MarkupConverterPostprocessorInterface {
+final class BarProcessorPost implements MarkupPostConverterProcessorInterface {
 
   /**
    *

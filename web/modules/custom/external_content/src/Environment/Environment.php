@@ -8,90 +8,122 @@ use Drupal\external_content\Contract\FinderInterface;
 use Drupal\external_content\Contract\GrouperInterface;
 use Drupal\external_content\Contract\HtmlParserInterface;
 use Drupal\external_content\Contract\MarkupConverterInterface;
-use Drupal\external_content\Contract\MarkupConverterPostprocessorInterface;
-use Drupal\external_content\Contract\MarkupConverterPreprocessorInterface;
 use Drupal\external_content\Data\Configuration;
+use Drupal\external_content\Data\PrioritizedList;
 
+/**
+ * Provides an environment for a specific external content processing.
+ */
 final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface {
 
-  protected array $htmlParsers = [];
+  /**
+   * The list of HTML parsers.
+   */
+  protected PrioritizedList $htmlParsers;
 
-  protected array $groupers = [];
+  /**
+   * The list of content groupers.
+   */
+  protected PrioritizedList $groupers;
 
-  protected array $markupConverters = [];
+  /**
+   * The list of markup converters.
+   */
+  protected PrioritizedList $markupConverters;
 
-  protected array $markupConverterPreprocessors = [];
+  /**
+   * The list of finders.
+   */
+  protected PrioritizedList $finders;
 
-  protected array $markupConverterPostprocessors = [];
-
-  protected array $finders = [];
-
+  /**
+   * Constructs a new Environment instance.
+   *
+   * @param \Drupal\external_content\Data\Configuration $configuration
+   *   The environment configuration.
+   */
   public function __construct(
     protected Configuration $configuration,
-  ) {}
+  ) {
+    $this->htmlParsers = new PrioritizedList();
+    $this->groupers = new PrioritizedList();
+    $this->markupConverters = new PrioritizedList();
+    $this->finders = new PrioritizedList();
+  }
 
-  public function addHtmlParser(HtmlParserInterface $parser): EnvironmentBuilderInterface {
-    $this->htmlParsers[] = $parser;
+  /**
+   * {@inheritdoc}
+   */
+  public function addHtmlParser(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, HtmlParserInterface::class));
+    $this->htmlParsers->add($class, $priority);
 
     return $this;
   }
 
-  public function addGrouper(GrouperInterface $grouper): EnvironmentBuilderInterface {
-    $this->groupers[] = $grouper;
+  /**
+   * {@inheritdoc}
+   */
+  public function addGrouper(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, GrouperInterface::class));
+    $this->groupers->add($class, $priority);
 
     return $this;
   }
 
-  public function addMarkupConverter(MarkupConverterInterface $converter): EnvironmentBuilderInterface {
-    $this->markupConverters[] = $converter;
+  /**
+   * {@inheritdoc}
+   */
+  public function addMarkupConverter(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, MarkupConverterInterface::class));
+    $this->markupConverters->add($class, $priority);
 
     return $this;
   }
 
-  public function getHtmlParsers(): iterable {
+  /**
+   * {@inheritdoc}
+   */
+  public function getHtmlParsers(): PrioritizedList {
     return $this->htmlParsers;
   }
 
-  public function getGroupers(): iterable {
+  /**
+   * {@inheritdoc}
+   */
+  public function getGroupers(): PrioritizedList {
     return $this->groupers;
   }
 
-  public function getMarkupConverters(): iterable {
+  /**
+   * {@inheritdoc}
+   */
+  public function getMarkupConverters(): PrioritizedList {
     return $this->markupConverters;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getConfiguration(): Configuration {
     return $this->configuration;
   }
 
-  public function addFinder(FinderInterface $finder): EnvironmentBuilderInterface {
-    $this->finders[] = $finder;
+  /**
+   * {@inheritdoc}
+   */
+  public function addFinder(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, FinderInterface::class));
+    $this->finders->add($class, $priority);
 
     return $this;
   }
 
-  public function getFinders(): iterable {
+  /**
+   * {@inheritdoc}
+   */
+  public function getFinders(): PrioritizedList {
     return $this->finders;
-  }
-
-  public function addMarkupConverterPreprocessor(MarkupConverterPreprocessorInterface $preprocessor): EnvironmentBuilderInterface {
-    $this->markupConverterPreprocessors[] = $preprocessor;
-
-    return $this;
-  }
-
-  public function getMarkupConverterPreprocessors(): iterable {
-    return $this->markupConverterPreprocessors;
-  }
-
-  public function addMarkupConverterPostprocessor(MarkupConverterPostprocessorInterface $postprocessor): EnvironmentBuilderInterface {
-    $this->markupConverterPostprocessors[] = $postprocessor;
-
-    return $this;
-  }
-
-  public function getMarkupConverterPostprocessors(): iterable {
-    return $this->markupConverterPostprocessors;
   }
 
 }
