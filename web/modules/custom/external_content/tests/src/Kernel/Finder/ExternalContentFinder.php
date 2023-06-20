@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
-use Drupal\external_content\Contract\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\Finder\ExternalContentFinderInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\Finder\FooFinder;

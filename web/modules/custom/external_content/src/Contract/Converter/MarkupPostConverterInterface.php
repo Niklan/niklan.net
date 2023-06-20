@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Contract;
+namespace Drupal\external_content\Contract\Converter;
 
 use Drupal\external_content\Data\ExternalContentHtml;
 
@@ -9,17 +9,14 @@ use Drupal\external_content\Data\ExternalContentHtml;
  *
  * @todo
  */
-interface MarkupPostConverterProcessorInterface {
+interface MarkupPostConverterInterface {
 
   /**
    * Process an external content after main markup convert is completed.
    *
    * @param \Drupal\external_content\Data\ExternalContentHtml $result
    *   The external content.
-   *
-   * @return \Drupal\external_content\Data\ExternalContentHtml
-   *   The external content.
    */
-  public function postprocess(ExternalContentHtml $result): ExternalContentHtml;
+  public function postConvert(ExternalContentHtml $result): void;
 
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Contract;
+namespace Drupal\external_content\Contract\Converter;
 
 use Drupal\external_content\Data\ExternalContentHtml;
 
@@ -14,10 +14,7 @@ interface MarkupConverterInterface {
    *
    * @param \Drupal\external_content\Data\ExternalContentHtml $result
    *   The current content.
-   *
-   * @return \Drupal\external_content\Data\ExternalContentHtml
-   *   The converted result.
    */
-  public function convert(ExternalContentHtml $result): ExternalContentHtml;
+  public function convert(ExternalContentHtml $result): void;
 
 }

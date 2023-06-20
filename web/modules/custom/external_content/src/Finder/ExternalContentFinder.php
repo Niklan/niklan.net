@@ -2,11 +2,11 @@
 
 namespace Drupal\external_content\Finder;
 
-use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\external_content\Contract\EnvironmentInterface;
-use Drupal\external_content\Contract\ExternalContentFinderInterface;
-use Drupal\external_content\Contract\FinderInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Finder\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\ExternalContentFileCollection;
+use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
 
 /**
  * Provides an external content finder.
@@ -19,18 +19,13 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
   protected EnvironmentInterface $environment;
 
   /**
-   * The array with finder instances.
-   */
-  protected array $finderInstances = [];
-
-  /**
    * Constructs a new ExternalContentFinder instance.
    *
-   * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $classResolver
+   * @param \Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
    *   The class resolver.
    */
   public function __construct(
-    protected ClassResolverInterface $classResolver,
+    protected EnvironmentAwareClassResolverInterface $classResolver,
   ) {}
 
   /**
@@ -40,35 +35,14 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
     $collection = new ExternalContentFileCollection();
 
     foreach ($this->environment->getFinders() as $finder) {
-      $instance = $this->getFinderInstance($finder);
-      $finder_collection = $instance->find($this->environment);
+      $instance = $this
+        ->classResolver
+        ->getInstance($finder, FinderInterface::class, $this->getEnvironment());
+      $finder_collection = $instance->find();
       $collection->merge($finder_collection);
     }
 
     return $collection;
-  }
-
-  /**
-   * Gets the finder instance.
-   *
-   * @param string $finder
-   *   The finder class.
-   *
-   * @return \Drupal\external_content\Contract\FinderInterface
-   *   The finder instance.
-   */
-  protected function getFinderInstance(string $finder): FinderInterface {
-    if (\array_key_exists($finder, $this->finderInstances)) {
-      return $this->finderInstances[$finder];
-    }
-
-    $instance = $this
-      ->classResolver
-      ->getInstanceFromDefinition($finder);
-    \assert($instance instanceof FinderInterface);
-    $this->finderInstances[$finder] = $instance;
-
-    return $instance;
   }
 
   /**
@@ -81,10 +55,8 @@ final class ExternalContentFinder implements ExternalContentFinderInterface {
   /**
    * {@inheritdoc}
    */
-  public function setEnvironment(EnvironmentInterface $environment): self {
+  public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
-
-    return $this;
   }
 
 }

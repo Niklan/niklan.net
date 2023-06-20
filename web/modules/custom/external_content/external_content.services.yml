@@ -1,14 +1,21 @@
 services:
-  Drupal\external_content\Contract\ExternalContentMarkupConverterInterface:
+  Drupal\external_content\Contract\Converter\ExternalContentMarkupConverterInterface:
     alias: 'Drupal\external_content\Converter\ExternalContentMarkupConverter'
     public: false
 
   Drupal\external_content\Converter\ExternalContentMarkupConverter:
     autowire: true
 
-  Drupal\external_content\Contract\ExternalContentFinderInterface:
+  Drupal\external_content\Contract\Finder\ExternalContentFinderInterface:
     alias: 'Drupal\external_content\Finder\ExternalContentFinder'
     public: false
 
   Drupal\external_content\Finder\ExternalContentFinder:
+    autowire: true
+
+  Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface:
+    alias: 'Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver'
+    public: false
+
+  Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver:
     autowire: true

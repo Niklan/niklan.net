@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Contract;
+namespace Drupal\external_content\Contract\Environment;
 
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\PrioritizedList;
@@ -33,6 +33,22 @@ interface EnvironmentInterface {
    *   The list of markup converters.
    */
   public function getMarkupConverters(): PrioritizedList;
+
+  /**
+   * Gets the markup pre-converters.
+   *
+   * @return \Drupal\external_content\Data\PrioritizedList
+   *   The list of markup pre-converters.
+   */
+  public function getMarkupPreConverters(): PrioritizedList;
+
+  /**
+   * Gets the markup post-converters.
+   *
+   * @return \Drupal\external_content\Data\PrioritizedList
+   *   The list of markup post-converters.
+   */
+  public function getMarkupPostConverters(): PrioritizedList;
 
   /**
    * Gets the configuration.

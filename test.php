@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\external_content\Contract\ExternalContentMarkupConverterInterface;
+use Drupal\external_content\Contract\Converter\ExternalContentMarkupConverterInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 

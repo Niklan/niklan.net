@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Contract;
+namespace Drupal\external_content\Contract\Node;
 
 /**
  * Represents a single external content AST node.

@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Node;
 
-use Drupal\external_content\Contract\NodeInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
 
 /**
  * Provides an abstract implementation for content block.
@@ -17,7 +17,7 @@ abstract class Node implements NodeInterface {
   /**
    * An array with children.
    *
-   * @var \Drupal\external_content\Contract\NodeInterface[]
+   * @var \Drupal\external_content\Contract\Node\NodeInterface[]
    */
   protected array $children = [];
 

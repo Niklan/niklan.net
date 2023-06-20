@@ -2,12 +2,14 @@
 
 namespace Drupal\external_content\Environment;
 
-use Drupal\external_content\Contract\EnvironmentBuilderInterface;
-use Drupal\external_content\Contract\EnvironmentInterface;
-use Drupal\external_content\Contract\FinderInterface;
-use Drupal\external_content\Contract\GrouperInterface;
-use Drupal\external_content\Contract\HtmlParserInterface;
-use Drupal\external_content\Contract\MarkupConverterInterface;
+use Drupal\external_content\Contract\Converter\MarkupConverterInterface;
+use Drupal\external_content\Contract\Converter\MarkupPostConverterInterface;
+use Drupal\external_content\Contract\Converter\MarkupPreConverterInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentBuilderInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Grouper\GrouperInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\PrioritizedList;
 
@@ -32,6 +34,16 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   protected PrioritizedList $markupConverters;
 
   /**
+   * The list of markup pre-converters.
+   */
+  protected PrioritizedList $markupPreConverters;
+
+  /**
+   * The list of markup post-converters.
+   */
+  protected PrioritizedList $markupPostConverters;
+
+  /**
    * The list of finders.
    */
   protected PrioritizedList $finders;
@@ -48,6 +60,8 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->htmlParsers = new PrioritizedList();
     $this->groupers = new PrioritizedList();
     $this->markupConverters = new PrioritizedList();
+    $this->markupPreConverters = new PrioritizedList();
+    $this->markupPostConverters = new PrioritizedList();
     $this->finders = new PrioritizedList();
   }
 
@@ -124,6 +138,40 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    */
   public function getFinders(): PrioritizedList {
     return $this->finders;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addMarkupPreConverter(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, MarkupPreConverterInterface::class));
+    $this->markupPreConverters->add($class, $priority);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addMarkupPostConverter(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, MarkupPostConverterInterface::class));
+    $this->markupPostConverters->add($class, $priority);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMarkupPreConverters(): PrioritizedList {
+    return $this->markupPreConverters;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMarkupPostConverters(): PrioritizedList {
+    return $this->markupPostConverters;
   }
 
 }

@@ -51,9 +51,10 @@ final class MarkdownFinderTest extends ExternalContentTestBase {
         ],
       ],
     ]);
-    $environment = new Environment($configuration);
+
     $markdown_finder = new MarkdownFinder();
-    $files = $markdown_finder->find($environment);
+    $markdown_finder->setEnvironment(new Environment($configuration));
+    $files = $markdown_finder->find();
 
     self::assertCount(7, $files);
   }

@@ -2,8 +2,9 @@
 
 namespace Drupal\external_content\Finder;
 
-use Drupal\external_content\Contract\EnvironmentInterface;
-use Drupal\external_content\Contract\FinderInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\Exception\InvalidConfigurationException;
@@ -13,7 +14,7 @@ use Symfony\Component\Finder\Finder;
 /**
  * Provides a Markdown finder.
  */
-final class MarkdownFinder implements FinderInterface {
+final class MarkdownFinder implements FinderInterface, EnvironmentAwareInterface {
 
   /**
    * The Markdown files extensions.
@@ -21,13 +22,18 @@ final class MarkdownFinder implements FinderInterface {
   protected const EXTENSIONS = ['md', 'markdown'];
 
   /**
+   * The environment.
+   */
+  protected EnvironmentInterface $environment;
+
+  /**
    * {@inheritdoc}
    */
-  public function find(EnvironmentInterface $environment): ExternalContentFileCollection {
-    $this->validate($environment);
+  public function find(): ExternalContentFileCollection {
+    $this->validate();
 
     $files = new ExternalContentFileCollection();
-    $configuration = $environment->getConfiguration();
+    $configuration = $this->getEnvironment()->getConfiguration();
     $settings = $configuration->get('markdown_finder');
     $patterns = \array_map(
       static fn ($extension) => '*.' . $extension,
@@ -63,8 +69,11 @@ final class MarkdownFinder implements FinderInterface {
     return $files;
   }
 
-  protected function validate(EnvironmentInterface $environment): void {
-    $configuration = $environment->getConfiguration();
+  /**
+   * Validates configuration for the finder.
+   */
+  protected function validate(): void {
+    $configuration = $this->getEnvironment()->getConfiguration();
 
     if (!$configuration->exists('markdown_finder')) {
       $message = \sprintf(
@@ -93,6 +102,20 @@ final class MarkdownFinder implements FinderInterface {
 
       throw new InvalidConfigurationException($message);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEnvironment(): EnvironmentInterface {
+    return $this->environment;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
   }
 
 }
