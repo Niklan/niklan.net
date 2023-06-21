@@ -270,7 +270,7 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
   }
 
   /**
-   * Parse YouTube video ID from the URL.
+   * Parser YouTube video ID from the URL.
    *
    * @param string $url
    *   The video URL.

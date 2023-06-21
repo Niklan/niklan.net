@@ -19,3 +19,10 @@ services:
 
   Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver:
     autowire: true
+
+  Drupal\external_content\Contract\Parser\ExternalContentHtmlParserInterface:
+    alias: 'Drupal\external_content\Parser\ExternalContentHtmlParser'
+    public: false
+
+  Drupal\external_content\Parser\ExternalContentHtmlParser:
+    autowire: true

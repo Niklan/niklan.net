@@ -2,6 +2,8 @@
 
 namespace Drupal\external_content\Contract\Parser;
 
+use Drupal\external_content\Data\HtmlParserResult;
+
 /**
  * Represents an external content HTML parser.
  */
@@ -10,6 +12,6 @@ interface HtmlParserInterface {
   /**
    * @todo
    */
-  public function parse(\DOMNode $node): void;
+  public function parse(\DOMNode $node): HtmlParserResult;
 
 }

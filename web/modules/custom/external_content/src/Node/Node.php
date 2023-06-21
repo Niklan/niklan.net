@@ -24,9 +24,9 @@ abstract class Node implements NodeInterface {
   /**
    * {@inheritdoc}
    */
-  public function addChild(NodeInterface $element): NodeInterface {
-    $element->setParent($this);
-    $this->children[] = $element;
+  public function addChild(NodeInterface $node): NodeInterface {
+    $node->setParent($this);
+    $this->children[] = $node;
 
     return $this;
   }
@@ -71,13 +71,13 @@ abstract class Node implements NodeInterface {
       return $this;
     }
 
-    $element = $this;
+    $node = $this;
 
-    while ($element->hasParent()) {
-      $element = $element->getParent();
+    while ($node->hasParent()) {
+      $node = $node->getParent();
     }
 
-    return $element;
+    return $node;
   }
 
   /**
@@ -97,8 +97,8 @@ abstract class Node implements NodeInterface {
   /**
    * {@inheritdoc}
    */
-  public function setParent(NodeInterface $element): NodeInterface {
-    $this->parent = $element;
+  public function setParent(NodeInterface $node): NodeInterface {
+    $this->parent = $node;
 
     return $this;
   }

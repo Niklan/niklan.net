@@ -25,7 +25,7 @@
     },
 
     /**
-     * Parse line to new array.
+     * Parser line to new array.
      *
      * Handle range of lines to be correctly parsed.
      */
@@ -54,7 +54,7 @@
     },
 
     /**
-     * Parse total lines in element.
+     * Parser total lines in element.
      */
     parseLinesTotal: function (paragraph) {
       let codeElement = paragraph.querySelector('pre code');

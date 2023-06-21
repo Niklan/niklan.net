@@ -88,7 +88,7 @@
   }
 
   /**
-   * Parse highlight lines.
+   * Parser highlight lines.
    *
    * @param highlightLines
    *   The highlighted lines.

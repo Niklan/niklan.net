@@ -38,7 +38,7 @@ final class PrioritizedList implements \IteratorAggregate {
       return $this->sorted;
     }
 
-    \ksort($this->list);
+    \krsort($this->list);
     $sorted = [];
 
     foreach ($this->list as $priority_list) {
