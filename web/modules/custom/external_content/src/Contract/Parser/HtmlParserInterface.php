@@ -10,7 +10,13 @@ use Drupal\external_content\Data\HtmlParserResult;
 interface HtmlParserInterface {
 
   /**
-   * @todo
+   * Parse a single element.
+   *
+   * @param \DOMNode $node
+   *   The DOM element to parse.
+   *
+   * @return \Drupal\external_content\Data\HtmlParserResult
+   *   The result of parse.
    */
   public function parse(\DOMNode $node): HtmlParserResult;
 

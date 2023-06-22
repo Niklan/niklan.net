@@ -6,8 +6,6 @@ use Drupal\external_content\Data\ExternalContentHtml;
 
 /**
  * Represents an external content markup converter postprocessor.
- *
- * @todo
  */
 interface MarkupPostConverterInterface {
 

@@ -13,13 +13,13 @@ $env = new Environment(new Configuration());
 $env->addHtmlParser(PlainTextParser::class, 100);
 $env->addHtmlParser(HtmlElementParser::class);
 
-$content = <<<EOT
+$content = <<<'HTML'
 <p>Hello, World!</p>
 
 <p>Ho about some <strong>and <em>italic</em></strong> content.</p>
 
 <p>Or maybe some <a href="#">link</a>.</p>
-EOT;
+HTML;
 
 $html = new ExternalContentHtml(new ExternalContentFile('foo', 'bart'), $content);
 

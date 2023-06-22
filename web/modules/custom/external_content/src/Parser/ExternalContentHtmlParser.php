@@ -36,7 +36,7 @@ final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterf
    * {@inheritdoc}
    */
   public function parse(ExternalContentHtml $html): ExternalContentDocument {
-    $document = new ExternalContentDocument();
+    $document = new ExternalContentDocument($html->getFile());
 
     $crawler = new Crawler($html->getContent());
     $crawler = $crawler->filter('body');
@@ -47,6 +47,14 @@ final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterf
     return $document;
   }
 
+  /**
+   * Parse children of provided element.
+   *
+   * @param \DOMNode $element
+   *   The element to parse.
+   * @param \Drupal\external_content\Contract\Node\NodeInterface $parent
+   *   The parent where parsed element goes as children.
+   */
   protected function parseChildren(\DOMNode $element, NodeInterface $parent): void {
     foreach ($element->childNodes as $node) {
       $result = $this->parseNode($node);
@@ -66,6 +74,15 @@ final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterf
     }
   }
 
+  /**
+   * Parse a single node.
+   *
+   * @param \DOMNode $node
+   *   The element to parse.
+   *
+   * @return \Drupal\external_content\Data\HtmlParserResult
+   *   The parser result.
+   */
   protected function parseNode(\DOMNode $node): HtmlParserResult {
     foreach ($this->environment->getHtmlParsers() as $parser) {
       $instance = $this->classResolver->getInstance(

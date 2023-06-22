@@ -38,6 +38,14 @@ final class ExternalContentFileCollection implements \Countable, \IteratorAggreg
     return \count($this->items);
   }
 
+  /**
+   * Merge provided collection into current one.
+   *
+   * @param \Drupal\external_content\Data\ExternalContentFileCollection $collection
+   *   The collection to merge from.
+   *
+   * @return $this
+   */
   public function merge(self $collection): self {
     foreach ($collection as $item) {
       \assert($item instanceof ExternalContentFile);

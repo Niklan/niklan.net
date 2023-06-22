@@ -3,15 +3,22 @@
 namespace Drupal\external_content\Data;
 
 /**
- *
+ * Represents a single external content with HTML.
  */
-
 final class ExternalContentHtml {
 
-  protected array $data = [];
+  /**
+   * The additional data.
+   */
+  protected Data $data;
 
   /**
+   * Constructs a new ExternalContentHtml instance.
    *
+   * @param \Drupal\external_content\Data\ExternalContentFile $file
+   *   The external content file.
+   * @param string $content
+   *   The content.
    */
   public function __construct(
     protected ExternalContentFile $file,
@@ -19,14 +26,22 @@ final class ExternalContentHtml {
   ) {}
 
   /**
+   * Gets the external content file.
    *
+   * @return \Drupal\external_content\Data\ExternalContentFile
+   *   The external content fle.
    */
-  public function getExternalContentFile(): ExternalContentFile {
+  public function getFile(): ExternalContentFile {
     return $this->file;
   }
 
   /**
+   * Sets the content.
    *
+   * @param string $content
+   *   The content.
+   *
+   * @return $this
    */
   public function setContent(string $content): self {
     $this->content = $content;
@@ -35,37 +50,13 @@ final class ExternalContentHtml {
   }
 
   /**
+   * Gets the content.
    *
+   * @return string
+   *   The content.
    */
   public function getContent(): string {
     return $this->content;
-  }
-
-  /**
-   *
-   */
-  public function setData(string $key, mixed $value): self {
-    $this->data[$key] = $value;
-
-    return $this;
-  }
-
-  /**
-   *
-   */
-  public function hasData(string $key): bool {
-    return \array_key_exists($key, $this->data);
-  }
-
-  /**
-   *
-   */
-  public function getData(string $key): mixed {
-    if (!$this->hasData($key)) {
-      return NULL;
-    }
-
-    return $this->data[$key];
   }
 
 }

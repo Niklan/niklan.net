@@ -10,5 +10,7 @@ it.
 
 1. [x] Find
 2. [x] Convert markup into HTML
-3. [ ] Parse HTML
-4. [ ] Group same content variations
+3. [x] Parse HTML
+4. [ ] Bundle multiple variants of the same content.
+5. [ ] Render array builder
+6. [ ] Loader

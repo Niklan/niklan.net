@@ -8,6 +8,11 @@ namespace Drupal\external_content\Data;
 final class ExternalContentFile {
 
   /**
+   * The additional data associated with a file.
+   */
+  protected Data $data;
+
+  /**
    * Constructs a new SourceDocument object.
    *
    * @param string $workingDir
@@ -18,7 +23,9 @@ final class ExternalContentFile {
   public function __construct(
     protected string $workingDir,
     protected string $pathname,
-  ) {}
+  ) {
+    $this->data = new Data();
+  }
 
   /**
    * Gets a relative (to working dir) pathname.
@@ -84,6 +91,16 @@ final class ExternalContentFile {
    */
   public function getContents(): string {
     return \file_get_contents($this->getPathname());
+  }
+
+  /**
+   * Gets the additional data associated with a file.
+   *
+   * @return \Drupal\external_content\Data\Data
+   *   The data storage.
+   */
+  public function getData(): Data {
+    return $this->data;
   }
 
 }

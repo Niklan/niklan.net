@@ -17,7 +17,10 @@ final class FrontMatterExtractor implements MarkupPreConverterInterface {
   public function preConvert(ExternalContentHtml $result): void {
     $content = $result->getContent();
     $front_matter = FrontMatter::create($content);
-    $result->setData('front_matter', $front_matter->getData());
+    $result->getFile()->getData()->set(
+      'front_matter',
+      $front_matter->getData(),
+    );
     $result->setContent($front_matter->getContent());
   }
 
