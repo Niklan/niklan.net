@@ -58,9 +58,6 @@ final class HtmlParserResult {
 
   /**
    * Checks for replacement element.
-   *
-   * @return bool
-   *   TRUE if there is a replacement, FALSE otherwise.
    */
   public function hasReplacement(): bool {
     return isset($this->replacement);
@@ -68,9 +65,6 @@ final class HtmlParserResult {
 
   /**
    * Gets the replacement.
-   *
-   * @return \Drupal\external_content\Contract\Node\NodeInterface|null
-   *   The replacement.
    */
   public function getReplacement(): ?NodeInterface {
     return $this->replacement;
@@ -78,9 +72,6 @@ final class HtmlParserResult {
 
   /**
    * Checks should parse continue or not.
-   *
-   * @return bool
-   *   TRUE if should continue, FALSE otherwise.
    */
   public function shouldContinue(): bool {
     return $this->continue;

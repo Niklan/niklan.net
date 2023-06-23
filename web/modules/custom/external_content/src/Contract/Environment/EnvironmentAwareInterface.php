@@ -17,9 +17,6 @@ interface EnvironmentAwareInterface {
 
   /**
    * Gets the environment.
-   *
-   * @return \Drupal\external_content\Contract\Environment\EnvironmentInterface
-   *   The environment instance.
    */
   public function getEnvironment(): EnvironmentInterface;
 

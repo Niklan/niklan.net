@@ -18,9 +18,6 @@ interface EnvironmentAwareClassResolverInterface {
    *   A FQN of expected class instance.
    * @param \Drupal\external_content\Contract\Environment\EnvironmentInterface $environment
    *   An environment for instantiated class.
-   *
-   * @return object
-   *   The instantiated class.
    */
   public function getInstance(string $definition, string $expected_instance_of, EnvironmentInterface $environment): object;
 

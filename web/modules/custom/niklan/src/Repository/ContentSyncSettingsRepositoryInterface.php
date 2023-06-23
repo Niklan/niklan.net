@@ -19,9 +19,6 @@ interface ContentSyncSettingsRepositoryInterface {
 
   /**
    * Gets working dir.
-   *
-   * @return string|null
-   *   The URI for working dir.
    */
   public function getWorkingDir(): ?string;
 

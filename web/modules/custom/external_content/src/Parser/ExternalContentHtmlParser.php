@@ -79,9 +79,6 @@ final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterf
    *
    * @param \DOMNode $node
    *   The element to parse.
-   *
-   * @return \Drupal\external_content\Data\HtmlParserResult
-   *   The parser result.
    */
   protected function parseNode(\DOMNode $node): HtmlParserResult {
     foreach ($this->environment->getHtmlParsers() as $parser) {

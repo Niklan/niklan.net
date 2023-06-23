@@ -14,8 +14,6 @@ interface EnvironmentBuilderInterface {
    *   The FQN of HTML parser.
    * @param int $priority
    *   The priority of the parser.
-   *
-   * @return $this
    */
   public function addHtmlParser(string $class, int $priority = 0): self;
 
@@ -26,8 +24,6 @@ interface EnvironmentBuilderInterface {
    *   The FQN of content grouper.
    * @param int $priority
    *   The priority of the grouper.
-   *
-   * @return $this
    */
   public function addGrouper(string $class, int $priority = 0): self;
 
@@ -38,8 +34,6 @@ interface EnvironmentBuilderInterface {
    *   The FQN of markup converter.
    * @param int $priority
    *   The priority of the markup converter.
-   *
-   * @return $this
    */
   public function addMarkupConverter(string $class, int $priority = 0): self;
 
@@ -50,8 +44,6 @@ interface EnvironmentBuilderInterface {
    *   The FQN of markup pre-converter.
    * @param int $priority
    *   The priority of the markup pre-converter.
-   *
-   * @return $this
    */
   public function addMarkupPreConverter(string $class, int $priority = 0): self;
 
@@ -62,8 +54,6 @@ interface EnvironmentBuilderInterface {
    *   The FQN of markup post-converter.
    * @param int $priority
    *   The priority of the markup post-converter.
-   *
-   * @return $this
    */
   public function addMarkupPostConverter(string $class, int $priority = 0): self;
 
@@ -74,8 +64,6 @@ interface EnvironmentBuilderInterface {
    *   The FQN of a finder.
    * @param int $priority
    *   The priority of the finder.
-   *
-   * @return $this
    */
   public function addFinder(string $class, int $priority = 0): self;
 

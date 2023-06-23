@@ -16,9 +16,6 @@ interface ExternalContentHtmlParserInterface extends EnvironmentAwareInterface {
    *
    * @param \Drupal\external_content\Data\ExternalContentHtml $html
    *   The external content HTML.
-   *
-   * @return \Drupal\external_content\Node\ExternalContentDocument
-   *   The external content document AST.
    */
   public function parse(ExternalContentHtml $html): ExternalContentDocument;
 

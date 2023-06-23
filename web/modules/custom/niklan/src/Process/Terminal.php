@@ -47,9 +47,6 @@ final class Terminal implements TerminalInterface {
    *
    * @param string $directory
    *   The directory.
-   *
-   * @return string
-   *   The realpath.
    */
   protected function realpath(string $directory): string {
     $realpath = $this->fileSystem->realpath($directory);

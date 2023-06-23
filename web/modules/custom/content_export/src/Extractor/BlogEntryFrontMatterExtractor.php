@@ -20,9 +20,6 @@ final class BlogEntryFrontMatterExtractor {
    *
    * @param \Drupal\niklan\Entity\Node\BlogEntryInterface $blog_entry
    *   The blog entry entity.
-   *
-   * @return \Drupal\content_export\Data\FrontMatter
-   *   The Front Matter.
    */
   public function extract(BlogEntryInterface $blog_entry): FrontMatter {
     $created = DrupalDateTime::createFromTimestamp(

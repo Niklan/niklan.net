@@ -38,8 +38,6 @@ final class ContentSyncQueueManager {
    *
    * @param \Drupal\external_content\Data\SourceConfiguration $configuration
    *   The source content configuration.
-   *
-   * @return $this
    */
   public function buildQueue(SourceConfiguration $configuration): self {
     $this->clearQueue();
@@ -58,8 +56,6 @@ final class ContentSyncQueueManager {
 
   /**
    * Clears the queue items.
-   *
-   * @return $this
    */
   public function clearQueue(): self {
     $this->getQueue()->deleteQueue();
@@ -69,9 +65,6 @@ final class ContentSyncQueueManager {
 
   /**
    * Gets the queue instance.
-   *
-   * @return \Drupal\Core\Queue\QueueInterface
-   *   The queue instance.
    */
   public function getQueue(): QueueInterface {
     return $this->queueFactory->get(self::QUEUE_NAME);

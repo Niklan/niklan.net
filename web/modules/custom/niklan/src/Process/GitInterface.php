@@ -14,9 +14,6 @@ interface GitInterface {
    *
    * @param string $directory
    *   The working repository directory.
-   *
-   * @return \Symfony\Component\Process\Process
-   *   The created process.
    */
   public function pull(string $directory): Process;
 
@@ -25,9 +22,6 @@ interface GitInterface {
    *
    * @param string $directory
    *   The working repository directory.
-   *
-   * @return \Symfony\Component\Process\Process
-   *   The created process.
    */
   public function getLastCommitId(string $directory): Process;
 
@@ -38,9 +32,6 @@ interface GitInterface {
    *   The working repository directory.
    * @param string $filepath
    *   The relative filepath.
-   *
-   * @return \Symfony\Component\Process\Process
-   *   The crated process.
    */
   public function getFileLastCommitId(string $directory, string $filepath): Process;
 

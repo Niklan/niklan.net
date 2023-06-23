@@ -24,9 +24,6 @@ final class ImportantContent implements MarkdownSourceInterface {
 
   /**
    * Gets type.
-   *
-   * @return string
-   *   The type.
    */
   public function getType(): string {
     return $this->type;
@@ -34,9 +31,6 @@ final class ImportantContent implements MarkdownSourceInterface {
 
   /**
    * Gets inner content.
-   *
-   * @return \Drupal\content_export\Data\Content
-   *   The content.
    */
   public function getContent(): Content {
     return $this->content;

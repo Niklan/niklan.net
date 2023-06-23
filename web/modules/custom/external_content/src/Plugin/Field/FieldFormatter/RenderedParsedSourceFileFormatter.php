@@ -49,8 +49,6 @@ final class RenderedParsedSourceFileFormatter extends FormatterBase {
    *
    * @param \Drupal\external_content\Contract\ChainRenderArrayBuilderInterface $builder
    *   The builder.
-   *
-   * @return $this
    */
   public function setChainRenderArrayBuilder(ChainRenderArrayBuilderInterface $builder): self {
     $this->chainRenderArrayBuilder = $builder;

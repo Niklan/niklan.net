@@ -14,9 +14,6 @@ interface HtmlParserInterface {
    *
    * @param \DOMNode $node
    *   The DOM element to parse.
-   *
-   * @return \Drupal\external_content\Data\HtmlParserResult
-   *   The result of parse.
    */
   public function parse(\DOMNode $node): HtmlParserResult;
 

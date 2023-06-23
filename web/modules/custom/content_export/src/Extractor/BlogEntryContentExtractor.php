@@ -26,9 +26,6 @@ final class BlogEntryContentExtractor {
    *
    * @param \Drupal\niklan\Entity\Node\BlogEntryInterface $blog_entry
    *   The blog entry entity.
-   *
-   * @return \Drupal\content_export\Data\Content
-   *   The content.
    */
   public function extract(BlogEntryInterface $blog_entry): Content {
     $content = new Content();

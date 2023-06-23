@@ -29,9 +29,6 @@ final class ExternalContentFile {
 
   /**
    * Gets a relative (to working dir) pathname.
-   *
-   * @return string
-   *   The relative pathname.
    */
   public function getRelativePathname(): string {
     $without_working_dir = \str_replace(
@@ -45,9 +42,6 @@ final class ExternalContentFile {
 
   /**
    * Gets a working dir where file is found.
-   *
-   * @return string
-   *   The working dir path.
    */
   public function getWorkingDir(): string {
     return $this->workingDir;
@@ -55,9 +49,6 @@ final class ExternalContentFile {
 
   /**
    * Gets a file pathname.
-   *
-   * @return string
-   *   The pathname.
    */
   public function getPathname(): string {
     return $this->pathname;
@@ -65,9 +56,6 @@ final class ExternalContentFile {
 
   /**
    * Gets a file extension.
-   *
-   * @return string
-   *   The file extension.
    */
   public function getExtension(): string {
     return \pathinfo($this->getPathname(), \PATHINFO_EXTENSION);
@@ -75,9 +63,6 @@ final class ExternalContentFile {
 
   /**
    * Checks is files is readable.
-   *
-   * @return bool
-   *   TRUE is readable, FALSE if file is not readable or not exists.
    */
   public function isReadable(): bool {
     return \is_readable($this->getPathname());
@@ -85,9 +70,6 @@ final class ExternalContentFile {
 
   /**
    * Gets file contents.
-   *
-   * @return string
-   *   The file contents.
    */
   public function getContents(): string {
     return \file_get_contents($this->getPathname());
@@ -95,9 +77,6 @@ final class ExternalContentFile {
 
   /**
    * Gets the additional data associated with a file.
-   *
-   * @return \Drupal\external_content\Data\Data
-   *   The data storage.
    */
   public function getData(): Data {
     return $this->data;

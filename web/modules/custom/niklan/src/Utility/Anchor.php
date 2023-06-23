@@ -36,9 +36,6 @@ final class Anchor {
    *   Available values:
    *   - COUNTER: Each new anchor will have suffix "-N".
    *   - REUSE: Will return already generated anchor.
-   *
-   * @return string
-   *   The anchor string.
    */
   public static function generate(string $text, int $mode = self::COUNTER): string {
     $anchor = self::prepareAnchor($text);
@@ -54,9 +51,6 @@ final class Anchor {
    *
    * @param string $anchor
    *   The processed anchor.
-   *
-   * @return string
-   *   The anchor with counter suffix if needed.
    */
   protected static function generateWithCounter(string $anchor): string {
     $iteration = 0;
@@ -79,9 +73,6 @@ final class Anchor {
    *
    * @param string $text
    *   The text from which to create an anchor.
-   *
-   * @return string
-   *   The processed anchor.
    */
   protected static function prepareAnchor(string $text): string {
     $transliteration = new PhpTransliteration();

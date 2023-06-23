@@ -24,9 +24,6 @@ final class CodeContent implements MarkdownSourceInterface {
 
   /**
    * Gets the code.
-   *
-   * @return string
-   *   The Markdown code.
    */
   public function getCode(): string {
     return $this->code;
@@ -34,9 +31,6 @@ final class CodeContent implements MarkdownSourceInterface {
 
   /**
    * Gets Front Matter.
-   *
-   * @return \Drupal\content_export\Data\FrontMatter
-   *   The Front Matter.
    */
   public function getFrontMatter(): FrontMatter {
     return $this->frontMatter;

@@ -22,9 +22,6 @@ final class Configuration {
    *
    * @param string $key
    *   The key.
-   *
-   * @return mixed
-   *   The value, if exists.
    */
   public function get(string $key): mixed {
     if (!$this->exists($key)) {
@@ -39,9 +36,6 @@ final class Configuration {
    *
    * @param string $key
    *   The configuration key.
-   *
-   * @return bool
-   *   TRUE if value exists, FALSE if not.
    */
   public function exists(string $key): bool {
     return \array_key_exists($key, $this->configuration);

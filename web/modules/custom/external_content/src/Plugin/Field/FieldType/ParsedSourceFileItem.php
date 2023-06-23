@@ -36,9 +36,6 @@ final class ParsedSourceFileItem extends FieldItemBase {
 
   /**
    * Gets parsed source file.
-   *
-   * @return \Drupal\external_content\Data\ParsedSourceFile|null
-   *   The parsed source file.
    */
   public function getParsedSourceFile(): ?ParsedSourceFile {
     $value = $this->get('value');

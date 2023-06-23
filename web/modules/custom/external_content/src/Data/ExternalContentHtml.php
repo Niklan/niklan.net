@@ -27,9 +27,6 @@ final class ExternalContentHtml {
 
   /**
    * Gets the external content file.
-   *
-   * @return \Drupal\external_content\Data\ExternalContentFile
-   *   The external content fle.
    */
   public function getFile(): ExternalContentFile {
     return $this->file;
@@ -40,8 +37,6 @@ final class ExternalContentHtml {
    *
    * @param string $content
    *   The content.
-   *
-   * @return $this
    */
   public function setContent(string $content): self {
     $this->content = $content;
@@ -51,9 +46,6 @@ final class ExternalContentHtml {
 
   /**
    * Gets the content.
-   *
-   * @return string
-   *   The content.
    */
   public function getContent(): string {
     return $this->content;

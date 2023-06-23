@@ -24,8 +24,6 @@ final class Data {
    *   The data key.
    * @param mixed $value
    *   The value to store.
-   *
-   * @return $this
    */
   public function set(string $key, mixed $value): self {
     $this->data[$key] = $value;
@@ -38,9 +36,6 @@ final class Data {
    *
    * @param string $key
    *   The data key.
-   *
-   * @return mixed
-   *   The data value.
    */
   public function get(string $key): mixed {
     if ($this->has($key)) {
@@ -55,9 +50,6 @@ final class Data {
    *
    * @param string $key
    *   The data key.
-   *
-   * @return bool
-   *   TRUE if data has a value by key, FALSE otherwise.
    */
   public function has(string $key): bool {
     return \array_key_exists($key, $this->data);

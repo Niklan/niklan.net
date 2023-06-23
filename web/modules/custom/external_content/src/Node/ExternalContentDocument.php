@@ -22,9 +22,6 @@ final class ExternalContentDocument extends Node {
 
   /**
    * Gets the file.
-   *
-   * @return \Drupal\external_content\Data\ExternalContentFile
-   *   The external file.
    */
   public function getFile(): ExternalContentFile {
     return $this->file;

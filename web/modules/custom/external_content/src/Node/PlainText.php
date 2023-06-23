@@ -19,9 +19,6 @@ final class PlainText extends Node {
 
   /**
    * Gets content.
-   *
-   * @return string
-   *   The text content.
    */
   public function getContent(): string {
     return $this->text;

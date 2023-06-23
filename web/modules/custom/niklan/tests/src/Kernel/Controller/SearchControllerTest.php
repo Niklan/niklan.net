@@ -121,9 +121,6 @@ final class SearchControllerTest extends NiklanTestBase {
    *
    * @param \Drupal\niklan\Data\EntitySearchResults $results
    *   The entity search results.
-   *
-   * @return \Drupal\niklan\Search\EntitySearchInterface
-   *   The revealed entity search.
    */
   protected function buildEntitySearch(EntitySearchResults $results): EntitySearchInterface {
     $entity_search = $this->prophesize(EntitySearchInterface::class);

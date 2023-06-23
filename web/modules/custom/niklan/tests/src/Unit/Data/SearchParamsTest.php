@@ -27,9 +27,6 @@ final class SearchParamsTest extends UnitTestCase {
 
   /**
    * Provides data for testing.
-   *
-   * @return \Generator
-   *   The data.
    */
   public function dataProvider(): \Generator {
     yield 'without keys' => [NULL, 10];

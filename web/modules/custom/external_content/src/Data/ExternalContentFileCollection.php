@@ -43,8 +43,6 @@ final class ExternalContentFileCollection implements \Countable, \IteratorAggreg
    *
    * @param \Drupal\external_content\Data\ExternalContentFileCollection $collection
    *   The collection to merge from.
-   *
-   * @return $this
    */
   public function merge(self $collection): self {
     foreach ($collection as $item) {

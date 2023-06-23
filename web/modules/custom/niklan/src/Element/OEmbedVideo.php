@@ -104,9 +104,6 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *
    * @param array $element
    *   An array with element.
-   *
-   * @return bool
-   *   TRUE if element is valid.
    */
   protected function validateElement(array $element): bool {
     $media = $element['#media'];
@@ -138,9 +135,6 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *
    * @param string $video_url
    *   The video URL.
-   *
-   * @return bool
-   *   TRUE if resource if available, FALSE otherwise.
    */
   protected function validateResource(string $video_url): bool {
     try {
@@ -159,9 +153,6 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *
    * @param array $element
    *   The render element.
-   *
-   * @return bool
-   *   TRUE if responsive image is valid, FALSE otherwise.
    */
   protected function validateResponsiveImageStyle(array $element): bool {
     if (!$element['#preview_responsive_image_style']) {
@@ -274,9 +265,6 @@ final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginI
    *
    * @param string $url
    *   The video URL.
-   *
-   * @return string|null
-   *   Video ID, NULL if not found.
    */
   protected function parseYouTubeVideoId(string $url): ?string {
     \preg_match(

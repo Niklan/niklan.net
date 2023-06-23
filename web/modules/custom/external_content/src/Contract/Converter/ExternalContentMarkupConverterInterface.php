@@ -16,9 +16,6 @@ interface ExternalContentMarkupConverterInterface extends EnvironmentAwareInterf
    *
    * @param \Drupal\external_content\Data\ExternalContentFile $file
    *   The external content file.
-   *
-   * @return \Drupal\external_content\Data\ExternalContentHtml
-   *   The external content HTML.
    */
   public function convert(ExternalContentFile $file): ExternalContentHtml;
 

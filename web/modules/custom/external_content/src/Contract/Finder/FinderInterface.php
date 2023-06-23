@@ -11,9 +11,6 @@ interface FinderInterface {
 
   /**
    * Finds an external content files.
-   *
-   * @return \Drupal\external_content\Data\ExternalContentFileCollection
-   *   The external content files.
    */
   public function find(): ExternalContentFileCollection;
 

@@ -131,10 +131,6 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity that the field belongs to.
    *
-   * @return \Drupal\Core\Url|null
-   *   The URL object for the media item or null if we don't want to add
-   *   a link.
-   *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   protected function getMediaThumbnailUrl(MediaInterface $media, EntityInterface $entity): ?Url {

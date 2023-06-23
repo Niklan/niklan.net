@@ -14,24 +14,16 @@ interface NodeInterface {
    *
    * @param self $node
    *   The parent node.
-   *
-   * @return $this
    */
   public function setParent(self $node): self;
 
   /**
    * Checks a current node for a parent.
-   *
-   * @return bool
-   *   TRUE if has a parent, FALSE otherwise.
    */
   public function hasParent(): bool;
 
   /**
    * Gets parent node.
-   *
-   * @return self|null
-   *   The parent node.
    */
   public function getParent(): ?self;
 
@@ -40,24 +32,16 @@ interface NodeInterface {
    *
    * @param self $node
    *   The child node.
-   *
-   * @return $this
    */
   public function addChild(self $node): self;
 
   /**
    * Gets children nodes.
-   *
-   * @return \ArrayIterator
-   *   An array with children.
    */
   public function getChildren(): \ArrayIterator;
 
   /**
    * Checks is a current node has children.
-   *
-   * @return bool
-   *   TRUE if node have children.
    */
   public function hasChildren(): bool;
 
@@ -68,8 +52,6 @@ interface NodeInterface {
    *   The node to replace.
    * @param self $replace
    *   The node to replace by.
-   *
-   * @return $this
    */
   public function replaceNode(self $search, self $replace): self;
 
@@ -77,9 +59,6 @@ interface NodeInterface {
    * Gets the root node.
    *
    * If node doesn't have parent node, that mens it is root node.
-   *
-   * @return self
-   *   The root node.
    */
   public function getRoot(): self;
 

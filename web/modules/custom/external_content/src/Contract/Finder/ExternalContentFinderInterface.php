@@ -12,9 +12,6 @@ interface ExternalContentFinderInterface extends EnvironmentAwareInterface {
 
   /**
    * Finds an external content files.
-   *
-   * @return \Drupal\external_content\Data\ExternalContentFileCollection
-   *   The list external content files.
    */
   public function find(): ExternalContentFileCollection;
 

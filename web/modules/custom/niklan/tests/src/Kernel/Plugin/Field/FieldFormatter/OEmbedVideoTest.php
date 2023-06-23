@@ -131,9 +131,6 @@ final class OEmbedVideoTest extends NiklanTestBase {
 
   /**
    * Provides settings summary data for testing.
-   *
-   * @return \Generator
-   *   The testing data.
    */
   public function settingsSummaryDataProvider(): \Generator {
     yield [NULL, NULL, 'Select a responsive image style.'];
@@ -190,9 +187,6 @@ final class OEmbedVideoTest extends NiklanTestBase {
 
   /**
    * Gets formatter instance.
-   *
-   * @return \Drupal\niklan\Plugin\Field\FieldFormatter\OEmbedVideo
-   *   The formatter instance.
    */
   protected function getFormatterInstance(): OEmbedVideo {
     $field_definitions = $this

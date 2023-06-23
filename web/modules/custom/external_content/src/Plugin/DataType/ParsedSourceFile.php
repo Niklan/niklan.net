@@ -17,9 +17,6 @@ final class ParsedSourceFile extends StringData {
 
   /**
    * Gets parsed source file.
-   *
-   * @return \Drupal\external_content\Data\ParsedSourceFile|null
-   *   The content document object.
    */
   public function getParsedSourceFile(): ?ParsedSourceFileDto {
     if (!$this->value) {

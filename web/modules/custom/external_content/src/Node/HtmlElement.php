@@ -22,9 +22,6 @@ final class HtmlElement extends Node {
 
   /**
    * Gets tag name.
-   *
-   * @return string
-   *   The HTML tag name.
    */
   public function getTag(): string {
     return $this->tag;
@@ -35,8 +32,6 @@ final class HtmlElement extends Node {
    *
    * @param array $attributes
    *   An array with element attributes keyed by attribute name.
-   *
-   * @return $this
    */
   public function setAttributes(array $attributes): self {
     $this->attributes = $attributes;
@@ -61,8 +56,6 @@ final class HtmlElement extends Node {
    *   The attribute name.
    * @param string $value
    *   The attribute value.
-   *
-   * @return $this
    */
   public function setAttribute(string $name, string $value): self {
     $this->attributes[$name] = $value;
@@ -75,9 +68,6 @@ final class HtmlElement extends Node {
    *
    * @param string $name
    *   The attribute name.
-   *
-   * @return string|null
-   *   The attribute value if exists.
    */
   public function getAttribute(string $name): ?string {
     return $this->hasAttribute($name) ? $this->attributes[$name] : NULL;
@@ -88,9 +78,6 @@ final class HtmlElement extends Node {
    *
    * @param string $name
    *   The attribute name.
-   *
-   * @return bool
-   *   TRUE if attribute is exists on element, FALSE otherwise.
    */
   public function hasAttribute(string $name): bool {
     return \array_key_exists($name, $this->attributes);

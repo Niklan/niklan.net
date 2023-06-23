@@ -114,9 +114,6 @@ final class OEmbedVideoTest extends NiklanTestBase {
    *
    * @param string $resource_url
    *   The resource URL,.
-   *
-   * @return \Drupal\media\MediaInterface
-   *   The media entity.
    */
   protected function buildOembedVideoMedia(string $resource_url): MediaInterface {
     $source = $this->prophesize(MediaSourceInterface::class);
