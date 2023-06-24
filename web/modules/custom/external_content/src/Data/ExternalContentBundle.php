@@ -10,18 +10,15 @@ use Drupal\external_content\Node\ExternalContentDocument;
 final class ExternalContentBundle {
 
   /**
-   * The array with bundled items.
-   *
-   * Example:
-   *
-   * @code:
-   * $items[$reason][$reason_id] = $document;
-   * @endcode
+   * The array with bundled documents.
    */
-  protected array $items = [];
+  protected array $documents = [];
 
-  public function add(string $reason, string $reason_id, ExternalContentDocument $document): self {
-    $this->items[$reason][$reason_id] = $document;
+  /**
+   * Adds the document into bundle.
+   */
+  public function add(ExternalContentDocument $document): self {
+    $this->documents[] = $document;
 
     return $this;
   }
