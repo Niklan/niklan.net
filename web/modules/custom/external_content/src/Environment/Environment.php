@@ -2,13 +2,13 @@
 
 namespace Drupal\external_content\Environment;
 
+use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Converter\MarkupConverterInterface;
 use Drupal\external_content\Contract\Converter\MarkupPostConverterInterface;
 use Drupal\external_content\Contract\Converter\MarkupPreConverterInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
-use Drupal\external_content\Contract\Grouper\GrouperInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\PrioritizedList;
@@ -24,9 +24,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   protected PrioritizedList $htmlParsers;
 
   /**
-   * The list of content groupers.
+   * The list of content bundlers.
    */
-  protected PrioritizedList $groupers;
+  protected PrioritizedList $bundlers;
 
   /**
    * The list of markup converters.
@@ -58,7 +58,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     protected Configuration $configuration,
   ) {
     $this->htmlParsers = new PrioritizedList();
-    $this->groupers = new PrioritizedList();
+    $this->bundlers = new PrioritizedList();
     $this->markupConverters = new PrioritizedList();
     $this->markupPreConverters = new PrioritizedList();
     $this->markupPostConverters = new PrioritizedList();
@@ -78,9 +78,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addGrouper(string $class, int $priority = 0): EnvironmentBuilderInterface {
-    \assert(\is_subclass_of($class, GrouperInterface::class));
-    $this->groupers->add($class, $priority);
+  public function addBundler(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, BundlerInterface::class));
+    $this->bundlers->add($class, $priority);
 
     return $this;
   }
@@ -105,8 +105,8 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getGroupers(): PrioritizedList {
-    return $this->groupers;
+  public function getBundlers(): PrioritizedList {
+    return $this->bundlers;
   }
 
   /**

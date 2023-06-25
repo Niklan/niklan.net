@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Data;
 
@@ -53,7 +53,7 @@ final class Attributes {
    * Removes assigned attribute.
    */
   public function removeAttribute(string $attribute): self {
-    \unset($this->attributes[$attribute]);
+    unset($this->attributes[$attribute]);
 
     return $this;
   }

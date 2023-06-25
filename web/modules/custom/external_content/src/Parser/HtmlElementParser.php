@@ -20,7 +20,9 @@ final class HtmlElementParser implements HtmlParserInterface {
     if ($node->hasAttributes()) {
       foreach ($node->attributes->getIterator() as $attribute) {
         \assert($attribute instanceof \DOMAttr);
-        $element->setAttribute($attribute->name, $attribute->value);
+        $element
+          ->getAttributes()
+          ->setAttribute($attribute->name, $attribute->value);
       }
     }
 

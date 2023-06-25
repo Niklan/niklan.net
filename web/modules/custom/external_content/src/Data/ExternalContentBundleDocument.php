@@ -21,9 +21,11 @@ final class ExternalContentBundleDocument {
     protected ExternalContentDocument $document,
     protected ?Attributes $attributes = NULL,
   ) {
-    if (!$this->attributes) {
-      $this->attributes = new Attributes();
+    if ($this->attributes) {
+      return;
     }
+
+    $this->attributes = new Attributes();
   }
 
   /**

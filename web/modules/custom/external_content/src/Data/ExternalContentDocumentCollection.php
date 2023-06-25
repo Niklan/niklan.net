@@ -29,7 +29,7 @@ final class ExternalContentDocumentCollection implements \Countable, \IteratorAg
   /**
    * {@inheritdoc}
    */
-  public function getIterator(): \Traversable {
+  public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->items);
   }
 

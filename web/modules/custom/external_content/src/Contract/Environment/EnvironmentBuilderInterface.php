@@ -18,14 +18,14 @@ interface EnvironmentBuilderInterface {
   public function addHtmlParser(string $class, int $priority = 0): self;
 
   /**
-   * Adds a content grouper into environment.
+   * Adds a content bundler into environment.
    *
    * @param string $class
-   *   The FQN of content grouper.
+   *   The FQN of content bundler.
    * @param int $priority
-   *   The priority of the grouper.
+   *   The priority of the bundler.
    */
-  public function addGrouper(string $class, int $priority = 0): self;
+  public function addBundler(string $class, int $priority = 0): self;
 
   /**
    * Adds a markup converter into environment.

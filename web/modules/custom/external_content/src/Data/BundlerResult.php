@@ -17,7 +17,7 @@ abstract class BundlerResult implements BundlerResultInterface {
    * @param \Drupal\external_content\Data\Attributes $attributes
    *   The document attributes.
    */
-  public static function match(string $id, Attributes $attributes): BundlerResultIdentified {
+  public static function identified(string $id, Attributes $attributes): BundlerResultIdentified {
     return new BundlerResultIdentified($id, $attributes);
   }
 

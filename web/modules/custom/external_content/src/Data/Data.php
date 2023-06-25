@@ -38,7 +38,7 @@ final class Data {
    *   The data key.
    */
   public function get(string $key): mixed {
-    if ($this->has($key)) {
+    if (!$this->has($key)) {
       return NULL;
     }
 

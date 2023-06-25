@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Converter;
+namespace Drupal\external_content_test\Converter;
 
 use Drupal\Component\FrontMatter\FrontMatter;
 use Drupal\external_content\Contract\Converter\MarkupPreConverterInterface;

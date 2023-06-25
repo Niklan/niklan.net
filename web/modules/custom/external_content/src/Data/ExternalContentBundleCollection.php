@@ -3,10 +3,39 @@
 namespace Drupal\external_content\Data;
 
 /**
- *
+ * Represents a collection of external content bundles.
  */
+final class ExternalContentBundleCollection implements \Countable, \IteratorAggregate {
 
-final class ExternalContentBundleCollection {
+  /**
+   * The array with external content bundle items.
+   */
+  protected array $items = [];
 
-  // @todo Implement it.
+  /**
+   * Adds an external content bundle into collection.
+   *
+   * @param \Drupal\external_content\Data\ExternalContentBundle $bundle
+   *   The external content bundle.
+   */
+  public function add(ExternalContentBundle $bundle): self {
+    $this->items[] = $bundle;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIterator(): \ArrayIterator {
+    return new \ArrayIterator($this->items);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function count(): int {
+    return \count($this->items);
+  }
+
 }

@@ -16,9 +16,9 @@ interface EnvironmentInterface {
   public function getHtmlParsers(): PrioritizedList;
 
   /**
-   * Gets the content groupers.
+   * Gets the content bundlers.
    */
-  public function getGroupers(): PrioritizedList;
+  public function getBundlers(): PrioritizedList;
 
   /**
    * Gets the markup converters.
