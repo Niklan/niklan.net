@@ -5,16 +5,16 @@ namespace Drupal\external_content\Contract\Bundler;
 /**
  * Represents a bundler compare result.
  */
-interface BundlerCompareResultInterface {
+interface BundlerResultInterface {
 
   /**
    * Indicates whether the compared documents should be merged.
    */
-  public function isMatch(): bool;
+  public function isIdentified(): bool;
 
   /**
    * Indicates whether the compared documents shouldn't be merged.
    */
-  public function isNotMatch(): bool;
+  public function isUnidentified(): bool;
 
 }

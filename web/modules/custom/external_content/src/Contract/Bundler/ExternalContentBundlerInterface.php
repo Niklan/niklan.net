@@ -5,7 +5,6 @@ namespace Drupal\external_content\Contract\Bundler;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Data\ExternalContentBundleCollection;
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
-use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
  * Represents an external content bundler.
@@ -13,7 +12,10 @@ use Drupal\external_content\Node\ExternalContentDocument;
 interface ExternalContentBundlerInterface extends EnvironmentAwareInterface {
 
   /**
-   * Identifies document withing environment.
+   * Provides a bundle information for a single document.
+   *
+   * Document should be identified and optionally, provide some additional
+   * attributes for that particular file document.
    *
    * The same identity can be used by multiple documents within environment.
    * This is the main characteristic that used for bundle multiple documents.
@@ -41,11 +43,6 @@ interface ExternalContentBundlerInterface extends EnvironmentAwareInterface {
    * In that scenario, later on, you will be able to get all variants of the
    * same content for different purposes, for example, all russian versions or
    * all Drupal 10 versions based on attributes.
-   */
-  public function identify(ExternalContentDocument $document): string;
-
-  /**
-   * Bundles external documents.
    *
    * @param \Drupal\external_content\Data\ExternalContentDocumentCollection $document_collection
    *   The collections of documents.
