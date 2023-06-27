@@ -6,6 +6,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\ExternalContentHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
@@ -35,8 +36,10 @@ final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterf
   /**
    * {@inheritdoc}
    */
-  public function parse(ExternalContentHtml $html): ExternalContentDocument {
-    $document = new ExternalContentDocument($html->getFile());
+  public function parse(ExternalContentFile $file): ExternalContentDocument {
+    $html = new ExternalContentHtml($file, $file->getContents());
+    // @todo pre parse.
+    $document = new ExternalContentDocument($file);
 
     $crawler = new Crawler($html->getContent());
     $crawler = $crawler->filter('body');
@@ -44,6 +47,7 @@ final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterf
 
     $this->parseChildren($body_node, $document);
 
+    // @todo post parse.
     return $document;
   }
 

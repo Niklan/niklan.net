@@ -21,21 +21,6 @@ interface EnvironmentInterface {
   public function getBundlers(): PrioritizedList;
 
   /**
-   * Gets the markup converters.
-   */
-  public function getMarkupConverters(): PrioritizedList;
-
-  /**
-   * Gets the markup pre-converters.
-   */
-  public function getMarkupPreConverters(): PrioritizedList;
-
-  /**
-   * Gets the markup post-converters.
-   */
-  public function getMarkupPostConverters(): PrioritizedList;
-
-  /**
    * Gets the configuration.
    */
   public function getConfiguration(): Configuration;
