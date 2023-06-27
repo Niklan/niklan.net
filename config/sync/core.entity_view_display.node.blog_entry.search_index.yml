@@ -7,7 +7,6 @@ dependencies:
     - core.entity_view_mode.node.search_index
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
-    - field.field.node.blog_entry.external_content
     - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
@@ -81,7 +80,6 @@ content:
     weight: 3
     region: content
 hidden:
-  external_content: true
   external_id: true
   extra_field_comments_link: true
   extra_field_created_time: true

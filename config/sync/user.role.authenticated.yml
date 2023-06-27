@@ -5,6 +5,7 @@ dependencies:
   module:
     - comment
     - contact
+    - file
     - media
     - system
 _core:
@@ -17,6 +18,7 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
+  - 'delete own files'
   - 'post comments'
   - 'skip comment approval'
   - 'view media'

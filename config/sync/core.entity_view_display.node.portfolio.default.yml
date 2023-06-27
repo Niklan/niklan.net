@@ -71,5 +71,8 @@ content:
     region: content
 hidden:
   estimated_read_time: true
+  extra_field_previous_next: true
+  extra_field_share: true
   langcode: true
   previous_next: true
+  search_api_excerpt: true
