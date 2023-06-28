@@ -37,4 +37,14 @@ interface EnvironmentBuilderInterface {
    */
   public function addFinder(string $class, int $priority = 0): self;
 
+  /**
+   * Adds a builder into environment.
+   *
+   * @param string $class
+   *   The FQN of a builder.
+   * @param int $priority
+   *   The priority of the finder.
+   */
+  public function addBuilder(string $class, int $priority = 0): self;
+
 }

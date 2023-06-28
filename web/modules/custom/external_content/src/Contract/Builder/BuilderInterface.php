@@ -12,6 +12,6 @@ interface BuilderInterface {
   /**
    * Builds a single document node.
    */
-  public function build(NodeInterface $node): BuilderResultInterface;
+  public function build(NodeInterface $node, array $children): BuilderResultInterface;
 
 }

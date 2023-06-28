@@ -26,3 +26,10 @@ services:
 
   Drupal\external_content\Bundler\ExternalContentBundler:
     autowire: true
+
+  Drupal\external_content\Contract\Builder\ExternalContentRenderArrayBuilderInterface:
+    alias: 'Drupal\external_content\Builder\ExternalContentRenderArrayBuilder'
+    public: false
+
+  Drupal\external_content\Builder\ExternalContentRenderArrayBuilder:
+    autowire: true

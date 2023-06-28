@@ -30,4 +30,9 @@ interface EnvironmentInterface {
    */
   public function getFinders(): PrioritizedList;
 
+  /**
+   * Gets the builders.
+   */
+  public function getBuilders(): PrioritizedList;
+
 }

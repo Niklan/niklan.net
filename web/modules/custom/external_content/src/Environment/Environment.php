@@ -37,6 +37,11 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   protected PrioritizedList $eventListeners;
 
   /**
+   * The list of builders.
+   */
+  protected PrioritizedList $builders;
+
+  /**
    * Constructs a new Environment instance.
    *
    * @param \Drupal\external_content\Data\Configuration $configuration
@@ -116,6 +121,22 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->eventListeners->add(new EventListener($class, $listener), $priority);
 
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addBuilder(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    $this->builders->add($class, $priority);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBuilders(): PrioritizedList {
+    return $this->builders;
   }
 
 }
