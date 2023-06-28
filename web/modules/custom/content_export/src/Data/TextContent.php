@@ -21,9 +21,6 @@ final class TextContent implements MarkdownSourceInterface {
 
   /**
    * Gets the text.
-   *
-   * @return string
-   *   The text value.
    */
   public function getText(): string {
     return $this->text;

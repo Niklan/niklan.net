@@ -22,9 +22,6 @@ final class GitHubSignatureAccessCheck implements AccessInterface {
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The current request.
-   *
-   * @return \Drupal\Core\Access\AccessResultInterface
-   *   The access result.
    */
   public function access(Request $request): AccessResultInterface {
     $signature = $request->headers->get('X-Hub-Signature-256');

@@ -25,9 +25,6 @@ final class SearchParams {
 
   /**
    * Gets the search keys.
-   *
-   * @return string|null
-   *   The search keys if provided, NULL otherwise.
    */
   public function getKeys(): ?string {
     return $this->keys;
@@ -35,9 +32,6 @@ final class SearchParams {
 
   /**
    * Gets search result limit.
-   *
-   * @return int
-   *   The results limit.
    */
   public function getLimit(): int {
     return $this->limit;
@@ -45,9 +39,6 @@ final class SearchParams {
 
   /**
    * Gets search result offset.
-   *
-   * @return int
-   *   The results offset.
    */
   public function getOffset(): int {
     return $this->offset;

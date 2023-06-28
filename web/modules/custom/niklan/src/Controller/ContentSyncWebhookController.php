@@ -13,9 +13,6 @@ final class ContentSyncWebhookController {
 
   /**
    * Handles webhook content sync trigger.
-   *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
-   *   The response.
    */
   public function handle(): JsonResponse {
     // @todo Add event and trigger it here.

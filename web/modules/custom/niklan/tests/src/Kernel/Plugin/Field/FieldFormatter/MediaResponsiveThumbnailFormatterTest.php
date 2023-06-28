@@ -152,9 +152,6 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
 
   /**
    * Gets formatter instance.
-   *
-   * @return \Drupal\niklan\Plugin\Field\FieldFormatter\MediaResponsiveThumbnailFormatter
-   *   The formatter instance.
    */
   protected function getFormatterInstance(): MediaResponsiveThumbnailFormatter {
     $field_definitions = $this
@@ -215,9 +212,6 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
 
   /**
    * Provides settings summary data for testing.
-   *
-   * @return \Generator
-   *   The testing data.
    */
   public function settingsSummaryDataProvider(): \Generator {
     yield [NULL, NULL, 'Select a responsive image style.'];

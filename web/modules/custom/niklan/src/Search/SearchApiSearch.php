@@ -44,9 +44,6 @@ abstract class SearchApiSearch implements CacheableDependencyInterface {
 
   /**
    * Gets a Search API index.
-   *
-   * @return string
-   *   The index ID.
    */
   abstract protected function getIndexId(): string;
 
@@ -59,9 +56,6 @@ abstract class SearchApiSearch implements CacheableDependencyInterface {
 
   /**
    * Builds base query.
-   *
-   * @return \Drupal\search_api\Query\QueryInterface
-   *   The query instance.
    */
   protected function getQuery(): QueryInterface {
     $index_storage = $this->entityTypeManager->getStorage('search_api_index');

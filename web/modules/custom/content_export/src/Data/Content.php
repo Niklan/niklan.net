@@ -21,8 +21,6 @@ final class Content implements \IteratorAggregate {
    *
    * @param \Drupal\content_export\Contract\MarkdownSourceInterface $content
    *   The content instance.
-   *
-   * @return $this
    */
   public function addContent(MarkdownSourceInterface $content): self {
     $this->items[] = $content;

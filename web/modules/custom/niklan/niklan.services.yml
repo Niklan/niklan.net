@@ -55,15 +55,15 @@ services:
     tags:
       - { name: access_check, applies_to: _niklan_github_signature }
 
-  niklan.sync.content:
-    class: Drupal\niklan\Sync\ContentSyncManager
-    autowire: true
+#  niklan.sync.content:
+#    class: Drupal\niklan\Sync\ContentSyncManager
+#    autowire: true
 
-  niklan.queue.content_sync_manager:
-    class: Drupal\niklan\Queue\ContentSyncQueueManager
-    autowire: true
-    arguments:
-      $queueFactory: '@queue'
+#  niklan.queue.content_sync_manager:
+#    class: Drupal\niklan\Queue\ContentSyncQueueManager
+#    autowire: true
+#    arguments:
+#      $queueFactory: '@queue'
 
-  Drupal\niklan\Queue\ContentSyncQueueManager:
-    alias: niklan.queue.content_sync_manager
+#  Drupal\niklan\Queue\ContentSyncQueueManager:
+#    alias: niklan.queue.content_sync_manager

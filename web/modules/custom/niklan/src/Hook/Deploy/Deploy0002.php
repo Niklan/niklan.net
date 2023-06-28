@@ -74,9 +74,6 @@ final class Deploy0002 implements ContainerInjectionInterface {
 
   /**
    * Builds a default query for update.
-   *
-   * @return \Drupal\Core\Entity\Query\QueryInterface
-   *   The query instance.
    */
   protected function getQuery(): QueryInterface {
     return $this

@@ -14,16 +14,11 @@ interface BlogEntryInterface extends NodeInterface {
    *
    * @param string $external_id
    *   The external ID.
-   *
-   * @return $this
    */
   public function setExternalId(string $external_id): self;
 
   /**
    * Gets the external ID.
-   *
-   * @return string
-   *   The external ID.
    */
   public function getExternalId(): string;
 
@@ -32,8 +27,6 @@ interface BlogEntryInterface extends NodeInterface {
    *
    * @param \Drupal\external_content\Data\ParsedSourceFile $parsed_source_file
    *   The parsed source file.
-   *
-   * @return $this
    */
   public function setExternalContent(ParsedSourceFile $parsed_source_file): self;
 

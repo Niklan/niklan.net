@@ -82,9 +82,6 @@ final class SearchForm extends FormBase {
    *   The form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
-   *
-   * @return \Drupal\Core\Ajax\AjaxResponse
-   *   The AJAX response.
    */
   public function onAjax(array $form, FormStateInterface $form_state): AjaxResponse {
     $search_query = $form_state->getValue('query');
@@ -132,9 +129,6 @@ final class SearchForm extends FormBase {
    *
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
-   *
-   * @return \Drupal\Core\Url
-   *   The URL with results.
    */
   public function buildResultsUrl(FormStateInterface $form_state): Url {
     $url_options = [];

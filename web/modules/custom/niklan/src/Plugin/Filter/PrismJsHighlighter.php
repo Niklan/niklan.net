@@ -20,7 +20,7 @@ use Drupal\filter\Plugin\FilterBase;
  * @Filter(
  *   id = "niklan_prismjs",
  *   title = @Translation("Prism.js"),
- *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
+ *   type = \Drupal\niklan\Plugin\Filter\Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
  *   weight = 100,
  * )
  *
@@ -48,9 +48,6 @@ final class PrismJsHighlighter extends FilterBase {
    *
    * @param string $text
    *   A text to check.
-   *
-   * @return bool
-   *   TRUE if <pre> usage found, FALSE if not.
    */
   protected function isContainCode(string $text): bool {
     return (bool) \stristr($text, '<pre');

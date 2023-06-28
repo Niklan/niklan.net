@@ -28,9 +28,6 @@ final class ContentSyncManager {
 
   /**
    * Requests content synchronization.
-   *
-   * @return bool
-   *   TRUE if synchronization requested, FALSE if something is wrong.
    */
   public function synchronize(): bool {
     $source_plugin = $this->sourcePluginManager->createInstance('content');

@@ -11,9 +11,6 @@ interface FileInterface extends CoreFileInterface {
 
   /**
    * Gets the file checksum.
-   *
-   * @return string|null
-   *   The file checksum. NULL if file doesn't exist.
    */
   public function getChecksum(): ?string;
 

@@ -25,9 +25,6 @@ interface TerminalInterface {
    *    input.
    * @param float|null $timeout
    *   The timeout in seconds or null to disable.
-   *
-   * @return \Symfony\Component\Process\Process
-   *   The process instance.
    */
   public function createProcess(array $command, ?string $cwd = NULL, ?array $env = NULL, mixed $input = NULL, ?float $timeout = 60): Process;
 

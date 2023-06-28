@@ -2,51 +2,61 @@
 
 namespace Drupal\external_content\Finder;
 
-use Drupal\external_content\Contract\ExternalContentFinderInterface;
-use Drupal\external_content\Contract\ParsedSourceFileGrouperInterface;
-use Drupal\external_content\Contract\SourceFileFinderInterface;
-use Drupal\external_content\Data\ExternalContentCollection;
-use Drupal\external_content\Data\ParsedSourceFileCollection;
-use Drupal\external_content\Data\SourceConfiguration;
-use Drupal\external_content\Parser\SourceFileParser;
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Finder\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Data\ExternalContentFileCollection;
+use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
 
 /**
- * Provides default implementation for external content finder.
+ * Provides an external content finder.
  */
 final class ExternalContentFinder implements ExternalContentFinderInterface {
 
   /**
-   * Constructs a new ExternalContentFinderTest object.
+   * The environment.
+   */
+  protected EnvironmentInterface $environment;
+
+  /**
+   * Constructs a new ExternalContentFinder instance.
    *
-   * @param \Drupal\external_content\Contract\SourceFileFinderInterface $sourceFileFinder
-   *   The source file finder.
-   * @param \Drupal\external_content\Parser\SourceFileParser $sourceFileParser
-   *   The source file parser.
-   * @param \Drupal\external_content\Contract\ParsedSourceFileGrouperInterface $parsedSourceFileGrouper
-   *   The parsed source file grouper.
+   * @param \Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
+   *   The class resolver.
    */
   public function __construct(
-    protected SourceFileFinderInterface $sourceFileFinder,
-    protected SourceFileParser $sourceFileParser,
-    protected ParsedSourceFileGrouperInterface $parsedSourceFileGrouper,
+    protected EnvironmentAwareClassResolverInterface $classResolver,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function find(SourceConfiguration $source): ExternalContentCollection {
-    $source_files = $this->sourceFileFinder->find($source->getWorkingDir());
-    $parsed_source_files = new ParsedSourceFileCollection();
+  public function find(): ExternalContentFileCollection {
+    $collection = new ExternalContentFileCollection();
 
-    foreach ($source_files as $source_file) {
-      $parsed_source_file = $this->sourceFileParser->parse($source_file);
-      $parsed_source_files->add($parsed_source_file);
+    foreach ($this->environment->getFinders() as $finder) {
+      $instance = $this
+        ->classResolver
+        ->getInstance($finder, FinderInterface::class, $this->getEnvironment());
+      $finder_collection = $instance->find();
+      $collection->merge($finder_collection);
     }
 
-    return $this->parsedSourceFileGrouper->group(
-      $parsed_source_files,
-      $source->getGroupingPluginId(),
-    );
+    return $collection;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEnvironment(): EnvironmentInterface {
+    return $this->environment;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
   }
 
 }

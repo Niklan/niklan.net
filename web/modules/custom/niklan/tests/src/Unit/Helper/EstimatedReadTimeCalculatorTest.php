@@ -45,9 +45,6 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
    *
    * @param array $paragraphs
    *   An array with paragraph items.
-   *
-   * @return \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList
-   *   The revealed prophecy.
    */
   protected function prepareFieldItemList(array $paragraphs = []): EntityReferenceRevisionsFieldItemList {
     $items = $this->prophesize(EntityReferenceRevisionsFieldItemList::class);

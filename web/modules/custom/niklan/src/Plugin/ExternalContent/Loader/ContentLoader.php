@@ -60,9 +60,6 @@ final class ContentLoader extends LoaderPlugin implements ContainerFactoryPlugin
    *
    * @param string $external_id
    *   The external content ID.
-   *
-   * @return \Drupal\niklan\Entity\Node\BlogEntryInterface
-   *   The created/existing content entity.
    */
   protected function prepareContent(string $external_id): BlogEntryInterface {
     $node_storage = $this->entityTypeManager->getStorage('node');

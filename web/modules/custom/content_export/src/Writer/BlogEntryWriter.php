@@ -61,9 +61,6 @@ final class BlogEntryWriter {
    *   The export data.
    * @param \Drupal\content_export\Data\ExportState $state
    *   The export state.
-   *
-   * @return string
-   *   The destination URI.
    */
   protected function prepareDestinationDirectory(BlogEntryExport $export, ExportState $state): string {
     $base_uri = $state->getDestination();
@@ -123,9 +120,6 @@ final class BlogEntryWriter {
    *   The export data.
    * @param \Drupal\content_export\Data\WriterState $state
    *   The export state.
-   *
-   * @return string
-   *   The front matter result.
    *
    * @throws \Exception
    */

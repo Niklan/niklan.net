@@ -25,9 +25,6 @@ final class Git implements GitInterface {
 
   /**
    * Gets Git binary path.
-   *
-   * @return string
-   *   The path to binary.
    */
   protected function getGitBin(): string {
     return Settings::get('niklan_git_binary', $this->gitBinary);

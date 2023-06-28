@@ -2,75 +2,45 @@
 
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
-use Drupal\external_content\Contract\ExternalContentFinderInterface;
-use Drupal\external_content\Data\ExternalContentCollection;
-use Drupal\external_content\Data\SourceConfiguration;
+use Drupal\external_content\Contract\Finder\ExternalContentFinderInterface;
+use Drupal\external_content\Data\Configuration;
+use Drupal\external_content\Environment\Environment;
+use Drupal\external_content_test\Finder\FooFinder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
-use org\bovigo\vfs\vfsStream;
 
 /**
- * Provides test for external content finder.
+ * Provides an external content finder test.
  *
- * @coversDefaultClass \Drupal\external_content\Finder\ExternalContentFinder
+ * @covers \Drupal\external_content\Finder\ExternalContentFinder
  */
 final class ExternalContentFinderTest extends ExternalContentTestBase {
 
   /**
    * The external content finder.
    */
-  protected ?ExternalContentFinderInterface $externalContentFinder;
+  protected ExternalContentFinderInterface $finder;
 
   /**
-   * Tests that find works as expected.
+   * Tests how it works without any finder.
    */
-  public function testFind(): void {
-    vfsStream::setup(structure: [
-      'foo' => [
-        'bar' => [
-          'baz' => [
-            'foo.en.md' => <<<'Markdown'
-            ---
-            id: foo
-            language: en
-            ---
+  public function testEmptyFinder(): void {
+    $environment = new Environment(new Configuration());
+    $this->finder->setEnvironment($environment);
+    $result = $this->finder->find();
 
-            Hello, world!
-            Markdown,
-            'foo.ru.markdown' => <<<'Markdown'
-            ---
-            id: foo
-            language: ru
-            ---
+    self::assertCount(0, $result);
+  }
 
-            Hello, world!
-            Markdown,
-          ],
-          'bar.md' => <<<'Markdown'
-          ---
-          id: bar
-          language: en
-          ---
+  /**
+   * Tests how it works with a foo finder.
+   */
+  public function testFooFinder(): void {
+    $environment = new Environment(new Configuration());
+    $environment->addFinder(FooFinder::class);
+    $this->finder->setEnvironment($environment);
+    $result = $this->finder->find();
 
-          Hello, world!
-          Markdown,
-        ],
-      ],
-    ]);
-
-    $configuration = new SourceConfiguration(
-      vfsStream::url('root'),
-      'params',
-    );
-
-    $result = $this->externalContentFinder->find($configuration);
-    self::assertInstanceOf(ExternalContentCollection::class, $result);
-    self::assertCount(2, $result);
-    self::assertTrue($result->has('foo'));
-    self::assertTrue($result->has('bar'));
-
-    $foo = $result->get('foo');
-    self::assertTrue($foo->hasTranslation('en'));
-    self::assertTrue($foo->hasTranslation('ru'));
+    self::assertCount(1, $result);
   }
 
   /**
@@ -78,9 +48,10 @@ final class ExternalContentFinderTest extends ExternalContentTestBase {
    */
   protected function setUp(): void {
     parent::setUp();
-    $this->externalContentFinder = $this->container->get(
-        ExternalContentFinderInterface::class,
-    );
+
+    $this->finder = $this
+      ->container
+      ->get(ExternalContentFinderInterface::class);
   }
 
 }
