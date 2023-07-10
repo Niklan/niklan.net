@@ -16,6 +16,7 @@ use org\bovigo\vfs\vfsStream;
  * Provides an external markup converter tests.
  *
  * @covers \Drupal\external_content\Converter\ExternalContentMarkupConverter
+ * @group external_content
  */
 final class ExternalContentMarkupConverterTest extends ExternalContentTestBase {
 

@@ -12,6 +12,7 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * Provides an external content finder test.
  *
  * @covers \Drupal\external_content\Finder\ExternalContentFinder
+ * @group external_content
  */
 final class ExternalContentFinderTest extends ExternalContentTestBase {
 

@@ -6,6 +6,8 @@ use Drupal\Tests\BrowserTestBase;
 
 /**
  * Defines a base class for all functional tests.
+ *
+ * @group external_content
  */
 abstract class ExternalContentTestBase extends BrowserTestBase {
 

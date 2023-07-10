@@ -13,6 +13,7 @@ use Drupal\Tests\token\Kernel\UnitTest;
  * Provides an external content bundle test.
  *
  * @covers \Drupal\external_content\Data\ExternalContentBundle
+ * @group external_content
  */
 final class ExternalContentBundleTest extends UnitTest {
 

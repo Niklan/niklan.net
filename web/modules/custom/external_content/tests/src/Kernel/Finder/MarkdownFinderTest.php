@@ -12,6 +12,7 @@ use org\bovigo\vfs\vfsStream;
  * Provides a test for Markdown finder.
  *
  * @covers \Drupal\external_content\Finder\MarkdownFinder
+ * @group external_content
  */
 final class MarkdownFinderTest extends ExternalContentTestBase {
 

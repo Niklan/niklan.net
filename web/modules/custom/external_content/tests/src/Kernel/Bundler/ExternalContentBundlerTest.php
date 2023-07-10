@@ -17,6 +17,7 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * Provides a test for external content bundler.
  *
  * @covers \Drupal\external_content\Bundler\ExternalContentBundler
+ * @group external_content
  */
 final class ExternalContentBundlerTest extends ExternalContentTestBase {
 
