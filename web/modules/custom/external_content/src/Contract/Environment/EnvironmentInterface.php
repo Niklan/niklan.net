@@ -4,11 +4,13 @@ namespace Drupal\external_content\Contract\Environment;
 
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\PrioritizedList;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\ListenerProviderInterface;
 
 /**
  * Represents an external content environment.
  */
-interface EnvironmentInterface {
+interface EnvironmentInterface extends EventDispatcherInterface, ListenerProviderInterface {
 
   /**
    * Gets the HTML parsers.

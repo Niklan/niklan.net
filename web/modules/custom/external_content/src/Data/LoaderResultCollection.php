@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Data;
 
@@ -45,7 +45,7 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
     $result = new self();
     \array_walk(
       $items,
-      fn (LoaderResultInterface $item) => $result->addResult($item),
+      static fn (LoaderResultInterface $item) => $result->addResult($item),
     );
 
     return $result;
@@ -55,7 +55,7 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
    * Gets all successful result items.
    */
   public function getSuccessful(): self {
-    $callback = fn (LoaderResultInterface $item) => $item->isSuccess();
+    $callback = static fn (LoaderResultInterface $item) => $item->isSuccess();
 
     return $this->filter($callback);
   }

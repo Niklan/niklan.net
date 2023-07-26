@@ -2,14 +2,16 @@
 
 namespace Drupal\external_content\Environment;
 
+use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
-use Drupal\external_content\Contract\Environment\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\EventListener;
 use Drupal\external_content\Data\PrioritizedList;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\StoppableEventInterface;
 
 /**
  * Provides an environment for a specific external content processing.
@@ -40,6 +42,11 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * The list of builders.
    */
   protected PrioritizedList $builders;
+
+  /**
+   * The event dispatcher.
+   */
+  protected ?EventDispatcherInterface $eventDispatcher = NULL;
 
   /**
    * Constructs a new Environment instance.
@@ -117,8 +124,17 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addEventListener(string $class, string $listener, int $priority = 0): EnvironmentBuilderInterface {
-    $this->eventListeners->add(new EventListener($class, $listener), $priority);
+  public function addEventListener(string $event_class, string $listener, int $priority = 0): EnvironmentBuilderInterface {
+    $this->eventListeners->add(new EventListener($event_class, $listener), $priority);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEventDispatcher(EventDispatcherInterface $event_dispatcher): self {
+    $this->eventDispatcher = $event_dispatcher;
 
     return $this;
   }
@@ -137,6 +153,43 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    */
   public function getBuilders(): PrioritizedList {
     return $this->builders;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function dispatch(object $event): object {
+    if ($this->eventDispatcher) {
+      return $this->eventDispatcher->dispatch($event);
+    }
+
+    foreach ($this->getListenersForEvent($event) as $event_listener) {
+      if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
+        return $event;
+      }
+
+      $event_listener($event);
+    }
+
+    return $event;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getListenersForEvent(object $event): iterable {
+    foreach ($this->eventListeners as $event_listener) {
+      \assert($event_listener instanceof EventListener);
+
+      if (!\is_a($event, $event_listener->getEvent())) {
+        continue;
+      }
+
+      yield static fn (object $event) => \call_user_func(
+        $event_listener->getListener(),
+        $event,
+      );
+    }
   }
 
 }
