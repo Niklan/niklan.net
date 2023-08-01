@@ -48,6 +48,8 @@
       <directory>./web/modules/custom/*/src/Hook/Deploy</directory>
       <!-- Exclude temporary module from coverage results. -->
       <directory>./web/modules/custom/content_export</directory>
+      <!-- Temporary exclude it for easier testing of external content. -->
+      <directory>./web/modules/custom/niklan</directory>
     </exclude>
 
     <report>

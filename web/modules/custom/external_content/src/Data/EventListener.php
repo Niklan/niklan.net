@@ -8,17 +8,26 @@ namespace Drupal\external_content\Data;
 final class EventListener {
 
   /**
+   * The event listener.
+   *
+   * @var callable
+   */
+  protected $listener;
+
+  /**
    * Constructs a new EventListener instance.
    *
    * @param string $event
    *   The FQN of listened event.
-   * @param string $listener
+   * @param callable $listener
    *   The FQN of listener.
    */
   public function __construct(
     protected string $event,
-    protected string $listener,
-  ) {}
+    callable $listener,
+  ) {
+    $this->listener = $listener;
+  }
 
   /**
    * Gets FQN of the event.
@@ -28,9 +37,9 @@ final class EventListener {
   }
 
   /**
-   * Gets FQN of the event listener.
+   * Gets the event callable.
    */
-  public function getListener(): string {
+  public function getListener(): callable {
     return $this->listener;
   }
 

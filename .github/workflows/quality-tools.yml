@@ -22,55 +22,55 @@ env:
   COMPOSER_FLAGS: --ansi --no-interaction --no-progress --prefer-dist
 
 jobs:
-#  # PHPCS checks.
-#  phpcs:
-#    name: PHPCS
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Install PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          coverage: none
-#          extensions: intl, zip, intl, zip, date, dom, filter, gd, hash, json, pcre, pdf, session, simplexml, spl, tokenizer, xml
-#          ini-values: memory_limit=-1
-#          php-version: ${{ env.PHP_VERSION }}
-#
-#      - name: Install Composer dependencies
-#        run: composer install ${{ env.COMPOSER_FLAGS }}
-#
-#      - name: Prepare PHPCS config
-#        run: cp phpcs.xml.dist phpcs.xml
-#
-#      - name: PHPCS Analyse
-#        run: composer phpcs
-#
-#  # PHPStan checks.
-#  phpstan:
-#    name: PHPStan
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Install PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          coverage: none
-#          extensions: intl, zip, intl, zip, date, dom, filter, gd, hash, json, pcre, pdf, session, simplexml, spl, tokenizer, xml
-#          ini-values: memory_limit=-1
-#          php-version: ${{ env.PHP_VERSION }}
-#
-#      - name: Install Composer dependencies
-#        run: composer install ${{ env.COMPOSER_FLAGS }}
-#
-#      - name: Prepare PHPStan config
-#        run: cp phpstan.neon.dist phpstan.neon
-#
-#      - name: PHPCS Analyse
-#        run: composer phpstan
+  # PHPCS checks.
+  phpcs:
+    name: PHPCS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: intl, zip, intl, zip, date, dom, filter, gd, hash, json, pcre, pdf, session, simplexml, spl, tokenizer, xml
+          ini-values: memory_limit=-1
+          php-version: ${{ env.PHP_VERSION }}
+
+      - name: Install Composer dependencies
+        run: composer install ${{ env.COMPOSER_FLAGS }}
+
+      - name: Prepare PHPCS config
+        run: cp phpcs.xml.dist phpcs.xml
+
+      - name: PHPCS Analyse
+        run: composer phpcs
+
+  # PHPStan checks.
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: intl, zip, intl, zip, date, dom, filter, gd, hash, json, pcre, pdf, session, simplexml, spl, tokenizer, xml
+          ini-values: memory_limit=-1
+          php-version: ${{ env.PHP_VERSION }}
+
+      - name: Install Composer dependencies
+        run: composer install ${{ env.COMPOSER_FLAGS }}
+
+      - name: Prepare PHPStan config
+        run: cp phpstan.neon.dist phpstan.neon
+
+      - name: PHPCS Analyse
+        run: composer phpstan
 
   # PHPUnit tests.
 #  phpunit:

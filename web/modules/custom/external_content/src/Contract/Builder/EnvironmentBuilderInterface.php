@@ -54,14 +54,14 @@ interface EnvironmentBuilderInterface {
    *
    * @param string $event_class
    *   The FQN of the event class to subscribe to.
-   * @param string $listener
+   * @param callable $listener
    *   The listener to execute.
    * @param int $priority
    *   The priority of listener.
    *
    * @return $this
    */
-  public function addEventListener(string $event_class, string $listener, int $priority = 0): self;
+  public function addEventListener(string $event_class, callable $listener, int $priority = 0): self;
 
   /**
    * Sets the event dispatcher for environment.

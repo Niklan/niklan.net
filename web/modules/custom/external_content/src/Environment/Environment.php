@@ -124,7 +124,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addEventListener(string $event_class, string $listener, int $priority = 0): EnvironmentBuilderInterface {
+  public function addEventListener(string $event_class, callable $listener, int $priority = 0): EnvironmentBuilderInterface {
     $this->eventListeners->add(new EventListener($event_class, $listener), $priority);
 
     return $this;
@@ -177,7 +177,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getListenersForEvent(object $event): iterable {
+  public function getListenersForEvent(object $event): \Generator {
     foreach ($this->eventListeners as $event_listener) {
       \assert($event_listener instanceof EventListener);
 

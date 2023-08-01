@@ -3,9 +3,6 @@
 namespace Drupal\niklan\Plugin\ExternalContent\Builder;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\external_content\Contract\BuilderPluginInterface;
-use Drupal\external_content\Contract\ElementInterface;
-use Drupal\external_content\Data\HtmlElement;
 
 /**
  * Provides a fenced code builder.

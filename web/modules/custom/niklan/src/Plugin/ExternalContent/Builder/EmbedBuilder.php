@@ -2,10 +2,6 @@
 
 namespace Drupal\niklan\Plugin\ExternalContent\Builder;
 
-use Drupal\external_content\Contract\BuilderPluginInterface;
-use Drupal\external_content\Contract\ElementInterface;
-use Drupal\external_content\Data\HtmlElement;
-
 /**
  * Provides an embed builder.
  *

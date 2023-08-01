@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\CommonMark\Renderer;
 
+use Dflydev\DotAccessData\DataInterface;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
@@ -24,25 +25,7 @@ final class FencedCodeRenderer implements NodeRendererInterface, XmlNodeRenderer
     \assert($node instanceof FencedCode);
 
     $attrs = $node->data->getData('attributes');
-    // Info comes right after fence.
-    // @code
-    // ```php foo
-    //    ^^^^^^^
-    // @endcode
-    $info_parts = [];
-    \preg_match('/^(.+)\s?({.+})?/', $node->getInfo() ?? '', $info_parts);
-
-    if (\count($info_parts)) {
-      if ($info_parts[1] !== '') {
-        $attrs->set('data-language', \rtrim($info_parts[1]));
-      }
-
-      // The additional information expected as JSON after language.
-      if (\array_key_exists(2, $info_parts) && \stristr($info_parts[2], '{')) {
-        $attrs->set('data-info', $info_parts[2]);
-      }
-    }
-
+    $this->parseCodeInformation($node, $attrs);
     $content = Xml::escape($node->getLiteral());
     $code = new HtmlElement('code', [], $content);
 
@@ -69,6 +52,34 @@ final class FencedCodeRenderer implements NodeRendererInterface, XmlNodeRenderer
     }
 
     return ['info' => $info];
+  }
+
+  /**
+   * Parses additional code information.
+   */
+  protected function parseCodeInformation(FencedCode $node, DataInterface $attrs): void {
+    // Info comes right after fence.
+    // @code
+    // ```php foo
+    //    ^^^^^^^
+    // @endcode
+    $info_parts = [];
+    \preg_match('/^(.+)\s?({.+})?/', $node->getInfo() ?? '', $info_parts);
+
+    if (\count($info_parts) === 0) {
+      return;
+    }
+
+    if ($info_parts[1] !== '') {
+      $attrs->set('data-language', \rtrim($info_parts[1]));
+    }
+
+    // The additional information expected as JSON after language.
+    if (!\array_key_exists(2, $info_parts) || !\stristr($info_parts[2], '{')) {
+      return;
+    }
+
+    $attrs->set('data-info', $info_parts[2]);
   }
 
 }
