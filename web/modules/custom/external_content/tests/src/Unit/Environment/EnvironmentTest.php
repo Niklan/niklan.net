@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Unit\Environment;
 
@@ -26,7 +26,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     self::assertFalse($environment->getListenersForEvent($event)->valid());
 
     $listener_called = FALSE;
-    $listener = static function () use (&$listener_called) {
+    $listener = static function () use (&$listener_called): void {
       $listener_called = TRUE;
     };
 

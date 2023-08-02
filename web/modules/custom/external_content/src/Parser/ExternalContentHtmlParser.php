@@ -10,6 +10,8 @@ use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
+use Drupal\external_content\Event\HtmlPostParseEvent;
+use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -38,16 +40,19 @@ final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterf
    */
   public function parse(ExternalContentFile $file): ExternalContentDocument {
     $html = new ExternalContentHtml($file, $file->getContents());
-    // @todo pre parse.
-    $document = new ExternalContentDocument($file);
 
+    $event = new HtmlPreParseEvent($html);
+    $this->getEnvironment()->dispatch($event);
+
+    $document = new ExternalContentDocument($file);
     $crawler = new Crawler($html->getContent());
     $crawler = $crawler->filter('body');
     $body_node = $crawler->getNode(0);
-
     $this->parseChildren($body_node, $document);
 
-    // @todo post parse.
+    $event = new HtmlPostParseEvent($document);
+    $this->getEnvironment()->dispatch($event);
+
     return $document;
   }
 
