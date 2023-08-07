@@ -36,8 +36,30 @@ final class ExternalContentRenderArrayBuilder implements ExternalContentRenderAr
    */
   public function build(ExternalContentDocument $document): BuilderResultRenderArrayInterface {
     $children = $this->buildRecursive($document, []);
+    $build = $this->buildNode($document, $children);
+    // Since this is root build, it will always have only one array element.
+    // This doesn't make any sense, so it is reset to an actual children build.
+    //
+    // E.g. before:
+    // @code
+    // $build = [
+    //   0 => [
+    //     0 => ['#markup' => 'foo'],
+    //     1 => ['#markup' => 'bar'],
+    //   ],
+    // ];
+    // @endcode
+    //
+    // By doing reset we flatten it to:
+    // @code
+    // $build = [
+    //   0 => ['#markup' => 'foo'],
+    //   1 => ['#markup' => 'bar'],
+    // ];
+    // @endcode
+    $build = \reset($build);
 
-    return BuilderResult::renderArray($this->buildNode($document, $children));
+    return BuilderResult::renderArray($build);
   }
 
   /**
@@ -47,7 +69,7 @@ final class ExternalContentRenderArrayBuilder implements ExternalContentRenderAr
     $children_build = [];
 
     foreach ($node->getChildren() as $child) {
-      $children_build = $this->buildRecursive($child, $children);
+      $children_build[] = $this->buildRecursive($child, $children);
     }
 
     return $this->buildNode($node, $children_build);
@@ -56,7 +78,7 @@ final class ExternalContentRenderArrayBuilder implements ExternalContentRenderAr
   /**
    * Builds a single node.
    */
-  public function buildNode(NodeInterface $node, array $children): array {
+  protected function buildNode(NodeInterface $node, array $children): array {
     foreach ($this->environment->getBuilders() as $builder) {
       $instance = $this->classResolver->getInstance(
         $builder,

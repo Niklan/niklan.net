@@ -48,10 +48,10 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
     $is_pre_parse_triggered = FALSE;
     $is_post_parse_triggered = FALSE;
 
-    $pre_parse_listener = static function ($e) use (&$is_pre_parse_triggered): void {
+    $pre_parse_listener = static function () use (&$is_pre_parse_triggered): void {
       $is_pre_parse_triggered = TRUE;
     };
-    $post_parse_listener = static function ($e) use (&$is_post_parse_triggered): void {
+    $post_parse_listener = static function () use (&$is_post_parse_triggered): void {
       $is_post_parse_triggered = TRUE;
     };
 

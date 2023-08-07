@@ -60,6 +60,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->finders = new PrioritizedList();
     $this->htmlParsers = new PrioritizedList();
     $this->bundlers = new PrioritizedList();
+    $this->builders = new PrioritizedList();
     $this->eventListeners = new PrioritizedList();
   }
 
