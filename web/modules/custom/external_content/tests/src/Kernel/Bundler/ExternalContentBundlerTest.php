@@ -73,10 +73,15 @@ final class ExternalContentBundlerTest extends ExternalContentTestBase {
     ]);
     $document_c = new ExternalContentDocument($file_c);
 
+    // This must be treated as unidentified.
+    $file_d = new ExternalContentFile('baz', 'foo');
+    $document_d = new ExternalContentDocument($file_d);
+
     $document_collection = new ExternalContentDocumentCollection();
     $document_collection->add($document_a);
     $document_collection->add($document_b);
     $document_collection->add($document_c);
+    $document_collection->add($document_d);
 
     $bundle_collection = $this->bundler->bundle($document_collection);
     self::assertCount(2, $bundle_collection);
