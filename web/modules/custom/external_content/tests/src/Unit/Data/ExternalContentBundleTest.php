@@ -7,7 +7,7 @@ use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Node\ExternalContentDocument;
-use Drupal\Tests\token\Kernel\UnitTest;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides an external content bundle test.
@@ -15,7 +15,7 @@ use Drupal\Tests\token\Kernel\UnitTest;
  * @covers \Drupal\external_content\Data\ExternalContentBundle
  * @group external_content
  */
-final class ExternalContentBundleTest extends UnitTest {
+final class ExternalContentBundleTest extends UnitTestCase {
 
   /**
    * Tests getting documents from bundle by attribute.
