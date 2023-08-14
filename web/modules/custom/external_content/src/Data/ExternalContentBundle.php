@@ -18,7 +18,9 @@ final class ExternalContentBundle implements \Countable, \IteratorAggregate {
    * @param string $id
    *   The bundle identifier.
    */
-  public function __construct(protected string $id,) {}
+  public function __construct(
+    protected string $id,
+  ) {}
 
   /**
    * Gets the bundle identifier.
