@@ -8,11 +8,6 @@ namespace Drupal\external_content\Data;
 final class ExternalContentHtml {
 
   /**
-   * The additional data.
-   */
-  protected Data $data;
-
-  /**
    * Constructs a new ExternalContentHtml instance.
    *
    * @param \Drupal\external_content\Data\ExternalContentFile $file

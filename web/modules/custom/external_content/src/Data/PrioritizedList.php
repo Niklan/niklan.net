@@ -15,7 +15,7 @@ final class PrioritizedList implements \IteratorAggregate {
   /**
    * The sorted list of items.
    */
-  protected ?\Traversable $sorted = NULL;
+  protected ?\ArrayIterator $sorted = NULL;
 
   /**
    * Adds an item into a list.
@@ -33,7 +33,7 @@ final class PrioritizedList implements \IteratorAggregate {
   /**
    * {@inheritdoc}
    */
-  public function getIterator(): \Traversable {
+  public function getIterator(): \ArrayIterator {
     if ($this->sorted) {
       return $this->sorted;
     }
