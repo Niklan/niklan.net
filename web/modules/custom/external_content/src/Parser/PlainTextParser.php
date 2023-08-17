@@ -24,10 +24,10 @@ final class PlainTextParser implements HtmlParserInterface {
     // If this is a DOMText and trim is an empty value, skip processing element,
     // because it's just a whitespace.
     if (!\trim($node->nodeValue)) {
-      return HtmlParserResult::finalize();
+      return HtmlParserResult::stop();
     }
 
-    return HtmlParserResult::finalizeWith(new PlainText($node->nodeValue));
+    return HtmlParserResult::finalize(new PlainText($node->nodeValue));
   }
 
 }

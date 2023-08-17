@@ -26,7 +26,7 @@ final class HtmlElementParser implements HtmlParserInterface {
       }
     }
 
-    return HtmlParserResult::replaceWith($element);
+    return HtmlParserResult::replace($element);
   }
 
 }
