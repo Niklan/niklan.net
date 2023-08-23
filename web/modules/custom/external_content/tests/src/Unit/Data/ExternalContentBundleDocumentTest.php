@@ -17,7 +17,7 @@ use Drupal\Tests\UnitTestCase;
 final class ExternalContentBundleDocumentTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $file = new ExternalContentFile('foo', 'bar');

@@ -45,7 +45,7 @@ final class ExternalContentBundlerTest extends ExternalContentTestBase {
   }
 
   /**
-   * Tests that bundler works as expected.
+   * {@selfdoc}
    */
   public function testBundler(): void {
     $environment = new Environment(new Configuration());

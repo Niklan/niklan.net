@@ -45,7 +45,7 @@ final class ExternalContentRenderArrayBuilderTest extends ExternalContentTestBas
   }
 
   /**
-   * Tests that render array builds as expected.
+   * {@selfdoc}
    */
   public function testBuild(): void {
     $paragraph = new HtmlElement('p');

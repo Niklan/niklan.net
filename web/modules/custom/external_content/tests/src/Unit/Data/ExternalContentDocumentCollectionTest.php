@@ -16,7 +16,7 @@ use Drupal\Tests\UnitTestCase;
 final class ExternalContentDocumentCollectionTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $instance = new ExternalContentDocumentCollection();

@@ -14,7 +14,7 @@ use Drupal\Tests\UnitTestCase;
 final class LoaderResultTest extends UnitTestCase {
 
   /**
-   * Tests the entity result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\LoaderResultEntity
    */
@@ -29,7 +29,7 @@ final class LoaderResultTest extends UnitTestCase {
   }
 
   /**
-   * Tests the 'ignore' result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\LoaderResultIgnore
    */
@@ -42,7 +42,7 @@ final class LoaderResultTest extends UnitTestCase {
   }
 
   /**
-   * Tests the 'skip' result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\LoaderResultSkip
    */

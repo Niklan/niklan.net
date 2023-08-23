@@ -14,7 +14,7 @@ use Drupal\Tests\UnitTestCase;
 final class AttributesTest extends UnitTestCase {
 
   /**
-   * Tests that object works as expected.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $instance = new Attributes();

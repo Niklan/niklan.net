@@ -15,7 +15,7 @@ use Drupal\Tests\UnitTestCase;
 final class ExternalContentHtmlTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $html = '<p>Hello, World!</p>';

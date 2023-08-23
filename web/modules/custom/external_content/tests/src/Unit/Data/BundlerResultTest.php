@@ -15,7 +15,7 @@ use Drupal\Tests\UnitTestCase;
 final class BundlerResultTest extends UnitTestCase {
 
   /**
-   * Tests identified result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\BundlerResultIdentified
    */
@@ -30,7 +30,7 @@ final class BundlerResultTest extends UnitTestCase {
   }
 
   /**
-   * Tests unidentified result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\BundlerResultUnidentified
    */

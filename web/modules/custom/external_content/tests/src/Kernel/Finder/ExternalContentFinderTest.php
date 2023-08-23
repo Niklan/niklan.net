@@ -17,12 +17,12 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 final class ExternalContentFinderTest extends ExternalContentTestBase {
 
   /**
-   * The external content finder.
+   * {@selfdoc}
    */
   protected ExternalContentFinderInterface $finder;
 
   /**
-   * Tests how it works without any finder.
+   * {@selfdoc}
    */
   public function testEmptyFinder(): void {
     $environment = new Environment(new Configuration());
@@ -33,7 +33,7 @@ final class ExternalContentFinderTest extends ExternalContentTestBase {
   }
 
   /**
-   * Tests how it works with a foo finder.
+   * {@selfdoc}
    */
   public function testFooFinder(): void {
     $environment = new Environment(new Configuration());

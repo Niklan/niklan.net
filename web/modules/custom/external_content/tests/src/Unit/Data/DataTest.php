@@ -14,7 +14,7 @@ use Drupal\Tests\UnitTestCase;
 final class DataTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $initial_data = ['foo' => 'bar'];

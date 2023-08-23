@@ -14,7 +14,7 @@ use Drupal\Tests\UnitTestCase;
 final class ConfigurationTest extends UnitTestCase {
 
   /**
-   * Tests that object works as expected.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $configuration = new Configuration(['foo' => 'bar']);

@@ -14,13 +14,13 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Provides a test for external content HTML parser.
  *
- * @ingroup external_content
+ * @group external_content
  * @covers \Drupal\external_content\Parser\ExternalContentHtmlParser
  */
 final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
 
   /**
-   * The HTML parser.
+   * {@selfdoc}
    */
   protected ExternalContentHtmlParserInterface $htmlParser;
 
@@ -42,7 +42,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
   }
 
   /**
-   * Tests that events are called.
+   * {@selfdoc}
    */
   public function testEvents(): void {
     $is_pre_parse_triggered = FALSE;

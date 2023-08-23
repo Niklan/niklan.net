@@ -14,7 +14,7 @@ use Drupal\Tests\UnitTestCase;
 final class BuilderResultTest extends UnitTestCase {
 
   /**
-   * Tests none builder result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\BuilderResultNone
    */
@@ -26,7 +26,7 @@ final class BuilderResultTest extends UnitTestCase {
   }
 
   /**
-   * Tests render array builder result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\BuilderResultRenderArray
    */

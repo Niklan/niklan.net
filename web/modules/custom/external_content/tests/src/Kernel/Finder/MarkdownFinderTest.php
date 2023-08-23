@@ -17,7 +17,7 @@ use org\bovigo\vfs\vfsStream;
 final class MarkdownFinderTest extends ExternalContentTestBase {
 
   /**
-   * Test markdown finder.
+   * {@selfdoc}
    */
   public function testFind(): void {
     vfsStream::setup(structure: [

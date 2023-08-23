@@ -16,7 +16,7 @@ use org\bovigo\vfs\vfsStream;
 final class ExternalContentFileTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     vfsStream::setup(structure: [

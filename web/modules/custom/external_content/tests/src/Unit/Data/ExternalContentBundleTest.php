@@ -18,7 +18,7 @@ use Drupal\Tests\UnitTestCase;
 final class ExternalContentBundleTest extends UnitTestCase {
 
   /**
-   * Tests getting documents from bundle by attribute.
+   * {@selfdoc}
    */
   public function testGetByAttribute(): void {
     $bundle = new ExternalContentBundle('hooks');
@@ -58,7 +58,7 @@ final class ExternalContentBundleTest extends UnitTestCase {
   }
 
   /**
-   * Tests getting documents from bundle by attribute and value.
+   * {@selfdoc}
    */
   public function testGetByAttributeValue(): void {
     $bundle = new ExternalContentBundle('hooks');

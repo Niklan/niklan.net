@@ -15,7 +15,7 @@ use Drupal\Tests\UnitTestCase;
 final class HtmlParserResultTest extends UnitTestCase {
 
   /**
-   * Tests continue result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\HtmlParserResultContinue
    */
@@ -29,7 +29,7 @@ final class HtmlParserResultTest extends UnitTestCase {
   }
 
   /**
-   * Tests finalize result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\HtmlParserResultFinalize
    */
@@ -44,7 +44,7 @@ final class HtmlParserResultTest extends UnitTestCase {
   }
 
   /**
-   * Tests replace result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\HtmlParserResultReplace
    */
@@ -59,7 +59,7 @@ final class HtmlParserResultTest extends UnitTestCase {
   }
 
   /**
-   * Tests stop result.
+   * {@selfdoc}
    *
    * @covers \Drupal\external_content\Data\HtmlParserResultStop
    */

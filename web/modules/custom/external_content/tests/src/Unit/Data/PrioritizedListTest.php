@@ -14,7 +14,7 @@ use Drupal\Tests\UnitTestCase;
 final class PrioritizedListTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $instance = new PrioritizedList();

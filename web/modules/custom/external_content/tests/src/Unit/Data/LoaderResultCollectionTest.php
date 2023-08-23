@@ -15,7 +15,7 @@ use Drupal\Tests\UnitTestCase;
 final class LoaderResultCollectionTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $instance = new LoaderResultCollection();

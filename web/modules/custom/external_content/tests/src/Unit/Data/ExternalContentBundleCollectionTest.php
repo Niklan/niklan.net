@@ -15,7 +15,7 @@ use Drupal\Tests\UnitTestCase;
 final class ExternalContentBundleCollectionTest extends UnitTestCase {
 
   /**
-   * Tests the object.
+   * {@selfdoc}
    */
   public function testObject(): void {
     $instance = new ExternalContentBundleCollection();
