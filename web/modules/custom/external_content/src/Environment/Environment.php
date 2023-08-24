@@ -166,7 +166,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
 
     foreach ($this->getListenersForEvent($event) as $event_listener) {
       if ($event instanceof StoppableEventInterface && $event->isPropagationStopped()) {
-        return $event;
+        break;
       }
 
       $event_listener($event);
