@@ -21,11 +21,7 @@ final class HtmlElement extends Node {
     protected string $tag,
     protected ?Attributes $attributes = NULL,
   ) {
-    if ($this->attributes) {
-      return;
-    }
-
-    $this->attributes = new Attributes();
+    $this->attributes ??= new Attributes();
   }
 
   /**

@@ -1,20 +1,20 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Kernel\Finder;
+namespace Drupal\Tests\niklan\Kernel\Finder;
 
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Finder\MarkdownFinder;
-use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
+use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Provides a test for Markdown finder.
  *
- * @covers \Drupal\external_content\Finder\MarkdownFinder
+ * @covers \Drupal\niklan\Finder\MarkdownFinder
  * @group external_content
  */
-final class MarkdownFinderTest extends ExternalContentTestBase {
+final class MarkdownFinderTest extends NiklanTestBase {
 
   /**
    * {@selfdoc}
