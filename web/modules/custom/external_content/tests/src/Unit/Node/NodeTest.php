@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\niklan\Unit\Node;
 
-use Drupal\external_content\Node\Node;
+use Drupal\external_content_test\Node\SimpleNode;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -17,14 +17,14 @@ final class NodeTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $instance_a = new class () extends Node {};
+    $instance_a = new SimpleNode();
 
     self::assertFalse($instance_a->hasChildren());
     self::assertEquals([], $instance_a->getChildren()->getArrayCopy());
     self::assertFalse($instance_a->hasParent());
     self::assertEquals($instance_a, $instance_a->getRoot());
 
-    $instance_b = new class () extends Node {};
+    $instance_b = new SimpleNode();
 
     self::assertFalse($instance_b->hasChildren());
     self::assertEquals([], $instance_b->getChildren()->getArrayCopy());
@@ -46,7 +46,7 @@ final class NodeTest extends UnitTestCase {
     self::assertEquals($instance_a, $instance_b->getParent());
     self::assertEquals($instance_a, $instance_b->getRoot());
 
-    $instance_c = new class () extends Node {};
+    $instance_c = new SimpleNode();
     $instance_a->replaceNode($instance_b, $instance_c);
 
     self::assertEquals(
@@ -58,7 +58,7 @@ final class NodeTest extends UnitTestCase {
     $instance_a->replaceNode($instance_c, $instance_b);
     // A → B → C.
     $instance_b->addChild($instance_c);
-    $instance_d = new class () extends Node {};
+    $instance_d = new SimpleNode();
     // A → B → D.
     $instance_a->replaceNode($instance_c, $instance_d);
 

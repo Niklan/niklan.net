@@ -30,6 +30,11 @@ final class DataTest extends UnitTestCase {
 
     self::assertTrue($instance->has('bar'));
     self::assertEquals('baz', $instance->get('bar'));
+
+    self::assertEquals(
+      ['foo' => 'bar', 'bar' => 'baz'],
+      $instance->all(),
+    );
   }
 
 }

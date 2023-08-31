@@ -8,14 +8,16 @@ namespace Drupal\external_content\Data;
 final class Attributes {
 
   /**
-   * An array with attributes.
+   * Constructs a new Attributes instance.
    */
-  protected array $attributes = [];
+  public function __construct(
+    protected array $attributes = [],
+  ) {}
 
   /**
    * Gets all attributes.
    */
-  public function getAttributes(): array {
+  public function all(): array {
     return $this->attributes;
   }
 

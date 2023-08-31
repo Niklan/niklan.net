@@ -55,4 +55,11 @@ final class Data {
     return \array_key_exists($key, $this->data);
   }
 
+  /**
+   * {@selfdoc}
+   */
+  public function all(): array {
+    return $this->data;
+  }
+
 }

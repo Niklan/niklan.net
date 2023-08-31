@@ -2,7 +2,9 @@
 
 namespace Drupal\external_content\Node;
 
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\Attributes;
+use Drupal\external_content\Data\Data;
 
 /**
  * Represents a simple HTML element.
@@ -36,6 +38,25 @@ final class HtmlElement extends Node {
    */
   public function getAttributes(): Attributes {
     return $this->attributes;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function serialize(): Data {
+    return new Data([
+      'tag' => $this->tag,
+      'attributes' => $this->attributes->all(),
+    ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function deserialize(Data $data): NodeInterface {
+    $attributes = new Attributes($data->get('attributes'));
+
+    return new self($data->get('tag'), $attributes);
   }
 
 }

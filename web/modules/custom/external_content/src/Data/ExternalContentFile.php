@@ -8,23 +8,14 @@ namespace Drupal\external_content\Data;
 final class ExternalContentFile {
 
   /**
-   * The additional data associated with a file.
-   */
-  protected Data $data;
-
-  /**
-   * Constructs a new SourceDocument object.
-   *
-   * @param string $workingDir
-   *   The full (absolute) path to a working dir.
-   * @param string $pathname
-   *   The full (absolute) path to a file and its name.
+   * Constructs a new ExternalContentFile object.
    */
   public function __construct(
     protected string $workingDir,
     protected string $pathname,
+    protected ?Data $data = NULL,
   ) {
-    $this->data = new Data();
+    $this->data ??= new Data();
   }
 
   /**

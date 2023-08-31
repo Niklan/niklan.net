@@ -22,21 +22,21 @@ final class AttributesTest extends UnitTestCase {
     self::assertFalse($instance->hasAttributes());
     self::assertFalse($instance->hasAttribute('foo'));
     self::assertNull($instance->getAttribute('foo'));
-    self::assertEmpty($instance->getAttributes());
+    self::assertEmpty($instance->all());
 
     $instance->setAttribute('foo', 'bar');
 
     self::assertTrue($instance->hasAttributes());
     self::assertTrue($instance->hasAttribute('foo'));
     self::assertEquals('bar', $instance->getAttribute('foo'));
-    self::assertEquals(['foo' => 'bar'], $instance->getAttributes());
+    self::assertEquals(['foo' => 'bar'], $instance->all());
 
     $instance->removeAttribute('foo');
 
     self::assertFalse($instance->hasAttributes());
     self::assertFalse($instance->hasAttribute('foo'));
     self::assertNull($instance->getAttribute('foo'));
-    self::assertEmpty($instance->getAttributes());
+    self::assertEmpty($instance->all());
   }
 
 }

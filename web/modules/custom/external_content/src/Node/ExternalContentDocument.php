@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Node;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\ExternalContentFile;
 
 /**
@@ -53,6 +54,34 @@ final class ExternalContentDocument extends Node {
    */
   public function getRoot(): NodeInterface {
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function serialize(): Data {
+    return new Data([
+      'file' => [
+        'working_dir' => $this->file->getWorkingDir(),
+        'pathname' => $this->file->getPathname(),
+        'data' => $this->file->getData()->all(),
+      ],
+    ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function deserialize(Data $data): NodeInterface {
+    $file_info = $data->get('file');
+    $file_data = new Data($file_info['data']);
+    $file = new ExternalContentFile(
+      $file_info['working_dir'],
+      $file_info['pathname'],
+      $file_data,
+    );
+
+    return new self($file);
   }
 
 }
