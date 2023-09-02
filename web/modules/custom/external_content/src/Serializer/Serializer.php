@@ -40,8 +40,10 @@ final class Serializer {
    */
   public function deserialize(string $json): ExternalContentDocument {
     $json_array = \json_decode($json, TRUE);
+    $document = $this->deserializeRecursive($json_array);
+    \assert($document instanceof ExternalContentDocument);
 
-    return $this->deserializeRecursive($json_array);
+    return $document;
   }
 
   /**
