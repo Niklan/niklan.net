@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content\Field;
 
-use Drupal\Core\TypedData\ComputedItemListTrait;
 use Drupal\Core\TypedData\TypedData;
+use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
 use Drupal\external_content\Serializer\Serializer;
 
@@ -14,26 +14,31 @@ use Drupal\external_content\Serializer\Serializer;
  */
 final class ExternalContentDocumentComputed extends TypedData {
 
-  use ComputedItemListTrait;
+  /**
+   * {@selfdoc}
+   */
+  protected ?ExternalContentDocument $value = NULL;
 
   /**
    * {@inheritdoc}
    */
-  protected function computeValue(): void {
+  public function getValue(): ?ExternalContentDocument {
+    if ($this->value) {
+      return $this->value;
+    }
+
     $field_item = $this->getParent();
     \assert($field_item instanceof ExternalContentDocumentItem);
 
     if ($field_item->get('value')->validate()->count() > 0) {
-      $this->setValue(NULL);
-
-      return;
+      return NULL;
     }
 
     $serializer = new Serializer();
     $json = $field_item->get('value')->getValue();
-    $document = $serializer->deserialize($json);
+    $this->value = $serializer->deserialize($json);
 
-    $this->setValue($document);
+    return $this->value;
   }
 
 }

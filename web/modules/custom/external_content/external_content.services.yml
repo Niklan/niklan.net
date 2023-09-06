@@ -1,35 +1,14 @@
 services:
-  Drupal\external_content\Contract\Finder\ExternalContentFinderInterface:
-    alias: 'Drupal\external_content\Finder\ExternalContentFinder'
-    public: false
-
-  Drupal\external_content\Finder\ExternalContentFinder:
+  _defaults:
     autowire: true
 
-  Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface:
-    alias: 'Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver'
-    public: false
-
-  Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver:
-    autowire: true
-
-  Drupal\external_content\Contract\Parser\ExternalContentHtmlParserInterface:
-    alias: 'Drupal\external_content\Parser\ExternalContentHtmlParser'
-    public: false
-
-  Drupal\external_content\Parser\ExternalContentHtmlParser:
-    autowire: true
-
-  Drupal\external_content\Contract\Bundler\ExternalContentBundlerInterface:
-    alias: 'Drupal\external_content\Bundler\ExternalContentBundler'
-    public: false
-
-  Drupal\external_content\Bundler\ExternalContentBundler:
-    autowire: true
-
-  Drupal\external_content\Contract\Builder\ExternalContentRenderArrayBuilderInterface:
-    alias: 'Drupal\external_content\Builder\ExternalContentRenderArrayBuilder'
-    public: false
-
-  Drupal\external_content\Builder\ExternalContentRenderArrayBuilder:
-    autowire: true
+  Drupal\external_content\Finder\ExternalContentFinder: {}
+  Drupal\external_content\Contract\Finder\ExternalContentFinderInterface: '@Drupal\external_content\Finder\ExternalContentFinder'
+  Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver: {}
+  Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface: '@Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver'
+  Drupal\external_content\Parser\ExternalContentHtmlParser: {}
+  Drupal\external_content\Contract\Parser\ExternalContentHtmlParserInterface: '@Drupal\external_content\Parser\ExternalContentHtmlParser'
+  Drupal\external_content\Bundler\ExternalContentBundler: {}
+  Drupal\external_content\Contract\Bundler\ExternalContentBundlerInterface: '@Drupal\external_content\Bundler\ExternalContentBundler'
+  Drupal\external_content\Builder\ExternalContentRenderArrayBuilder: {}
+  Drupal\external_content\Contract\Builder\ExternalContentRenderArrayBuilderInterface: '@Drupal\external_content\Builder\ExternalContentRenderArrayBuilder'
