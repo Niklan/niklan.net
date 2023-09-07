@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
-use Drupal\external_content\Contract\Parser\ExternalContentHtmlParserInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
@@ -20,14 +20,14 @@ use org\bovigo\vfs\vfsStream;
  * Provides a test for external content HTML parser.
  *
  * @group external_content
- * @covers \Drupal\external_content\Parser\ExternalContentHtmlParser
+ * @covers \Drupal\external_content\Parser\HtmlParserFacade
  */
 final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
    */
-  protected ExternalContentHtmlParserInterface $htmlParser;
+  protected HtmlParserFacadeInterface $htmlParser;
 
   /**
    * {@inheritdoc}
@@ -37,7 +37,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
 
     $this->htmlParser = $this
       ->container
-      ->get(ExternalContentHtmlParserInterface::class);
+      ->get(HtmlParserFacadeInterface::class);
 
     vfsStream::setup(structure: [
       'foo' => [

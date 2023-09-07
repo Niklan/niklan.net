@@ -2,9 +2,9 @@
 
 namespace Drupal\external_content\Bundler;
 
+use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultIdentifiedInterface;
-use Drupal\external_content\Contract\Bundler\ExternalContentBundlerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleCollection;
@@ -16,7 +16,7 @@ use Drupal\external_content\Node\ExternalContentDocument;
 /**
  * Provides an external content bundler.
  */
-final class ExternalContentBundler implements ExternalContentBundlerInterface {
+final class BundlerFacade implements BundlerFacadeInterface {
 
   /**
    * The environment.

@@ -9,7 +9,7 @@ use Drupal\external_content\Data\ExternalContentDocumentCollection;
 /**
  * Represents an external content bundler.
  */
-interface ExternalContentBundlerInterface extends EnvironmentAwareInterface {
+interface BundlerFacadeInterface extends EnvironmentAwareInterface {
 
   /**
    * Provides a bundle information for a single document.

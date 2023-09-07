@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
-use Drupal\external_content\Contract\Finder\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\Finder\FooFinder;
@@ -11,15 +11,15 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 /**
  * Provides an external content finder test.
  *
- * @covers \Drupal\external_content\Finder\ExternalContentFinder
+ * @covers \Drupal\external_content\Finder\FinderFacade
  * @group external_content
  */
-final class ExternalContentFinderTest extends ExternalContentTestBase {
+final class FinderFacadeTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
    */
-  protected ExternalContentFinderInterface $finder;
+  protected FinderFacadeInterface $finder;
 
   /**
    * {@selfdoc}
@@ -52,7 +52,7 @@ final class ExternalContentFinderTest extends ExternalContentTestBase {
 
     $this->finder = $this
       ->container
-      ->get(ExternalContentFinderInterface::class);
+      ->get(FinderFacadeInterface::class);
   }
 
 }

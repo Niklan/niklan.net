@@ -4,7 +4,7 @@ namespace Drupal\external_content\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Parser\ExternalContentHtmlParserInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
@@ -18,7 +18,7 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * Provides an external HTML parser.
  */
-final class ExternalContentHtmlParser implements ExternalContentHtmlParserInterface {
+final class HtmlParserFacade implements HtmlParserFacadeInterface {
 
   /**
    * The environment.

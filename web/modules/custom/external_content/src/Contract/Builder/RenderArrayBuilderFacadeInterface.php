@@ -8,7 +8,7 @@ use Drupal\external_content\Node\ExternalContentDocument;
 /**
  * Represents an external content render array builder.
  */
-interface ExternalContentRenderArrayBuilderInterface extends EnvironmentAwareInterface {
+interface RenderArrayBuilderFacadeInterface extends EnvironmentAwareInterface {
 
   /**
    * Builds a render array from document.

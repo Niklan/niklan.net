@@ -4,7 +4,7 @@ namespace Drupal\external_content\Builder;
 
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultRenderArrayInterface;
-use Drupal\external_content\Contract\Builder\ExternalContentRenderArrayBuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -14,7 +14,7 @@ use Drupal\external_content\Node\ExternalContentDocument;
 /**
  * Provides an external content render array builder.
  */
-final class ExternalContentRenderArrayBuilder implements ExternalContentRenderArrayBuilderInterface {
+final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterface {
 
   /**
    * The environment.
@@ -22,7 +22,7 @@ final class ExternalContentRenderArrayBuilder implements ExternalContentRenderAr
   protected EnvironmentInterface $environment;
 
   /**
-   * Constructs a new ExternalContentRenderArrayBuilder instance.
+   * Constructs a new RenderArrayBuilderFacade instance.
    *
    * @param \Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
    *   The class resolver.

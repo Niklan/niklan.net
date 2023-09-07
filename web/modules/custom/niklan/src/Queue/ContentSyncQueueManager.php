@@ -4,7 +4,7 @@ namespace Drupal\niklan\Queue;
 
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\Core\Queue\QueueInterface;
-use Drupal\external_content\Contract\Finder\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
 use Drupal\external_content\Data\ExternalContent;
 use Drupal\external_content\Data\SourceConfiguration;
 
@@ -25,12 +25,12 @@ final class ContentSyncQueueManager {
    *
    * @param \Drupal\Core\Queue\QueueFactory $queueFactory
    *   The queue factory.
-   * @param \Drupal\external_content\Contract\Finder\ExternalContentFinderInterface $externalContentFinder
+   * @param \Drupal\external_content\Contract\Finder\FinderFacadeInterface $externalContentFinder
    *   The external content finder.
    */
   public function __construct(
     protected QueueFactory $queueFactory,
-    protected ExternalContentFinderInterface $externalContentFinder,
+    protected FinderFacadeInterface $externalContentFinder,
   ) {}
 
   /**

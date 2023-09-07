@@ -8,7 +8,7 @@ use Drupal\external_content\Data\ExternalContentFileCollection;
 /**
  * Represents an external content finder.
  */
-interface ExternalContentFinderInterface extends EnvironmentAwareInterface {
+interface FinderFacadeInterface extends EnvironmentAwareInterface {
 
   /**
    * Finds an external content files.

@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Finder;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Finder\ExternalContentFinderInterface;
+use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
@@ -11,7 +11,7 @@ use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInt
 /**
  * Provides an external content finder.
  */
-final class ExternalContentFinder implements ExternalContentFinderInterface {
+final class FinderFacade implements FinderFacadeInterface {
 
   /**
    * The environment.

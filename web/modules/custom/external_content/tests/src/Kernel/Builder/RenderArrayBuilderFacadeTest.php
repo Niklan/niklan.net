@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Builder;
 
-use Drupal\external_content\Contract\Builder\ExternalContentRenderArrayBuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
@@ -17,9 +17,9 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * Provides a test for external content render array builder.
  *
  * @group external_content
- * @covers \Drupal\external_content\Builder\ExternalContentRenderArrayBuilder
+ * @covers \Drupal\external_content\Builder\RenderArrayBuilderFacade
  */
-final class ExternalContentRenderArrayBuilderTest extends ExternalContentTestBase {
+final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
 
   /**
    * {@inheritdoc}
@@ -31,7 +31,7 @@ final class ExternalContentRenderArrayBuilderTest extends ExternalContentTestBas
   /**
    * The render array builder.
    */
-  protected ExternalContentRenderArrayBuilderInterface $renderArrayBuilder;
+  protected RenderArrayBuilderFacadeInterface $renderArrayBuilder;
 
   /**
    * {@inheritdoc}
@@ -41,7 +41,7 @@ final class ExternalContentRenderArrayBuilderTest extends ExternalContentTestBas
 
     $this->renderArrayBuilder = $this
       ->container
-      ->get(ExternalContentRenderArrayBuilderInterface::class);
+      ->get(RenderArrayBuilderFacadeInterface::class);
   }
 
   /**

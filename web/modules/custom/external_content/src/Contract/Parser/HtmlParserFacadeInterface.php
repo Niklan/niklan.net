@@ -9,7 +9,7 @@ use Drupal\external_content\Node\ExternalContentDocument;
 /**
  * Represents an external content HTML parser.
  */
-interface ExternalContentHtmlParserInterface extends EnvironmentAwareInterface {
+interface HtmlParserFacadeInterface extends EnvironmentAwareInterface {
 
   /**
    * Parses the external content HTML into AST.
