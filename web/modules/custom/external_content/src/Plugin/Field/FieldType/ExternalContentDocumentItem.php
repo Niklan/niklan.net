@@ -16,6 +16,7 @@ use Drupal\external_content\Field\ExternalContentDocumentComputed;
  *   label = @Translation("External content document"),
  *   description = @Translation("Stores the external content document."),
  *   category = @Translation("External content"),
+ *   default_formatter = "external_content_document",
  * )
  */
 final class ExternalContentDocumentItem extends FieldItemBase {
