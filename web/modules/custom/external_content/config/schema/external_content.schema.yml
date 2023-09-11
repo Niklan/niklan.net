@@ -1,0 +1,7 @@
+field.formatter.settings.external_content_render_array:
+  type: mapping
+  label: 'External content render array formatter'
+  mapping:
+    environment:
+      type: string
+      label: 'Environment plugin ID'

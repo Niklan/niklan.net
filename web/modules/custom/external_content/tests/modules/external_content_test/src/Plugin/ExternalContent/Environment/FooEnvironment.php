@@ -6,6 +6,8 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
+use Drupal\external_content_test\Builder\HtmlBuilder;
+use Drupal\external_content_test\Builder\PlainTextBuilder;
 use Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\Environment\EnvironmentPluginTest;
 
 /**
@@ -25,8 +27,11 @@ final class FooEnvironment extends EnvironmentPlugin {
     $configuration = new Configuration([
       EnvironmentPluginTest::class => 'Oh, hello there!',
     ]);
+    $environment = new Environment($configuration);
+    $environment->addBuilder(HtmlBuilder::class);
+    $environment->addBuilder(PlainTextBuilder::class);
 
-    return new Environment($configuration);
+    return $environment;
   }
 
 }

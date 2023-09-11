@@ -5,6 +5,7 @@ namespace Drupal\external_content\Plugin\ExternalContent\Environment;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\Core\Plugin\Factory\ContainerFactory;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 
 /**
@@ -44,6 +45,8 @@ final class EnvironmentPluginManager extends DefaultPluginManager implements Env
       $cache_backend,
       'external_content_environment_plugin_definition',
     );
+
+    $this->factory = new ContainerFactory($this);
   }
 
 }

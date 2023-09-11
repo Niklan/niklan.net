@@ -80,7 +80,7 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
       '#required' => TRUE,
       '#title' => new TranslatableMarkup('Environment'),
       '#description' => new TranslatableMarkup('The external content environment that will be used for rendering content.'),
-      '#default_value' => $this->configuration['environment'],
+      '#default_value' => $this->getSetting('environment'),
       '#options' => $this->getEnvironmentPluginOptions(),
     ];
 
@@ -103,7 +103,7 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
   public function settingsSummary(): array {
     $summary = [];
 
-    if ($this->configuration['environment']) {
+    if ($this->getSetting('environment')) {
       $summary[] = (string) new TranslatableMarkup('Environment: @environment', [
         '@environment' => $this->getEnvironmentPluginOptions()[$this->configuration['environment']],
       ]);
@@ -121,13 +121,21 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
-    if (!$this->configuration['environment']) {
+    $environment_plugin_id = $this->getSetting('environment');
+
+    if (!$environment_plugin_id) {
+      return [];
+    }
+
+    if (!$this->environmentPluginManager->hasDefinition($environment_plugin_id)) {
       return [];
     }
 
     $environment_plugin = $this
       ->environmentPluginManager
-      ->getDefinition($this->configuration['environment']);
+      ->createInstance($this->getSetting('environment'));
+
+    \dump($environment_plugin);
 
     if (!$environment_plugin instanceof EnvironmentPluginInterface) {
       return [];
