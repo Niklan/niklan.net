@@ -22,8 +22,9 @@ final class HtmlBuilder implements BuilderInterface {
     }
 
     return BuilderResult::renderArray([
-      '#theme' => 'html_tag',
+      '#type' => 'html_tag',
       '#tag' => $node->getTag(),
+      '#attributes' => $node->getAttributes()->all(),
       'children' => $children,
     ]);
   }

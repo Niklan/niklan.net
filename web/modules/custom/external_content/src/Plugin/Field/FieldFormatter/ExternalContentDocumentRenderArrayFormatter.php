@@ -105,7 +105,7 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
 
     if ($this->getSetting('environment')) {
       $summary[] = (string) new TranslatableMarkup('Environment: @environment', [
-        '@environment' => $this->getEnvironmentPluginOptions()[$this->configuration['environment']],
+        '@environment' => $this->getEnvironmentPluginOptions()[$this->getSetting('environment')],
       ]);
     }
     else {
@@ -134,12 +134,7 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
     $environment_plugin = $this
       ->environmentPluginManager
       ->createInstance($this->getSetting('environment'));
-
-    \dump($environment_plugin);
-
-    if (!$environment_plugin instanceof EnvironmentPluginInterface) {
-      return [];
-    }
+    \assert($environment_plugin instanceof EnvironmentPluginInterface);
 
     $this
       ->renderArrayBuilder
@@ -155,7 +150,8 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
         continue;
       }
 
-      $element[] = $this->renderArrayBuilder->build($document);
+      $build = $this->renderArrayBuilder->build($document);
+      $element[] = $build->getRenderArray();
     }
 
     return $element;

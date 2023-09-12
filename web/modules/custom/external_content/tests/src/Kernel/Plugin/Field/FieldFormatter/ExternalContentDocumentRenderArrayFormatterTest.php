@@ -10,6 +10,7 @@ use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Plugin\Field\FieldFormatter\ExternalContentDocumentRenderArrayFormatter;
 use Drupal\external_content\Serializer\Serializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -118,27 +119,13 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
 
   /**
    * {@selfdoc}
+   *
+   * @dataProvider formatterData
    */
-  public function testFormatterWithoutEnvironment(): void {
-    $this->setFormatterSettings(['environment' => NULL]);
+  public function testFormatter(?string $environment_plugin_id, ?string $document_json, bool $expect_result): void {
+    $this->setFormatterSettings(['environment' => $environment_plugin_id]);
     $entity = $this->getEntityTestStorage()->create([
-      'external_content' => $this->getExternalContentDocumentValue(),
-    ]);
-    self::assertEquals(\SAVED_NEW, $entity->save());
-
-    $build = $this->getEntityTestViewBuilder()->view($entity);
-    $this->render($build);
-
-    \dump($this->getRawContent());
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function testFormatter(): void {
-    $this->setFormatterSettings(['environment' => 'foo']);
-    $entity = $this->getEntityTestStorage()->create([
-      'external_content' => $this->getExternalContentDocumentValue(),
+      'external_content' => $document_json,
     ]);
 
     self::assertEquals(\SAVED_NEW, $entity->save());
@@ -146,7 +133,74 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
     $build = $this->getEntityTestViewBuilder()->view($entity, 'default');
     $this->render($build);
 
-    \dump($this->getRawContent());
+    if ($expect_result) {
+      self::assertRaw('<p foo="bar">Hello, World! Formatter is here!</p>');
+    }
+    else {
+      self::assertNoRaw('<p foo="bar">Hello, World! Formatter is here!</p>');
+    }
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function formatterData(): \Generator {
+    yield 'Valid result' => [
+      'environment_plugin_id' => 'foo',
+      'document' => $this->getExternalContentDocumentValue(),
+      'expect_result' => TRUE,
+    ];
+
+    yield 'Environment is not set' => [
+      'environment_plugin_id' => NULL,
+      'document' => $this->getExternalContentDocumentValue(),
+      'expect_result' => FALSE,
+    ];
+
+    yield 'Not existing environment plugin' => [
+      'environment_plugin_id' => 'not_exists_for_sure',
+      'document' => $this->getExternalContentDocumentValue(),
+      'expect_result' => FALSE,
+    ];
+
+    yield 'Wrong JSON' => [
+      'environment_plugin_id' => 'foo',
+      'document' => 'abc',
+      'expect_result' => FALSE,
+    ];
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @dataProvider settingsSummaryData
+   */
+  public function testSettingsSummary(array $settings, array $expected_summary): void {
+    $this->setFormatterSettings($settings);
+
+    $display_repository = $this->container->get('entity_display.repository');
+    $display = $display_repository
+      ->getViewDisplay('entity_test', 'entity_test');
+    $formatter = $display->getRenderer('external_content');
+    \assert($formatter instanceof ExternalContentDocumentRenderArrayFormatter);
+    $actual_summary = \array_map('strval', $formatter->settingsSummary());
+
+    self::assertSame($expected_summary, $actual_summary);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function settingsSummaryData(): \Generator {
+    yield 'No environment selected' => [
+      'settings' => ['environment' => NULL],
+      'expected_summary' => ['Environment: none'],
+    ];
+
+    yield 'Foo environment selected' => [
+      'settings' => ['environment' => 'foo'],
+      'expected_summary' => ['Environment: Foo environment (foo)'],
+    ];
   }
 
 }

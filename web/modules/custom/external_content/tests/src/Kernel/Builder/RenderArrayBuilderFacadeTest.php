@@ -67,15 +67,17 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
     $result = $this->renderArrayBuilder->build($external_content_document);
 
     $expected_result = [
-      '#theme' => 'html_tag',
+      '#type' => 'html_tag',
       '#tag' => 'p',
+      '#attributes' => [],
       'children' => [
         0 => [
           '#markup' => 'Hello, ',
         ],
         1 => [
-          '#theme' => 'html_tag',
+          '#type' => 'html_tag',
           '#tag' => 'strong',
+          '#attributes' => [],
           'children' => [
             0 => [
               '#markup' => 'World',
