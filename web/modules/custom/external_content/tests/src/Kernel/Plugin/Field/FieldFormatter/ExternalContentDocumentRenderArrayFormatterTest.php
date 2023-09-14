@@ -5,6 +5,7 @@ namespace Drupal\Tests\external_content\Kernel\Plugin\Field\FieldFormatter;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
+use Drupal\Core\Form\FormState;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Node\ExternalContentDocument;
@@ -201,6 +202,39 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
       'settings' => ['environment' => 'foo'],
       'expected_summary' => ['Environment: Foo environment (foo)'],
     ];
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testSettingsForm(): void {
+    // Test default settings.
+    $this->setFormatterSettings(['environment' => NULL]);
+    $form = $this->buildSettingsForm();
+    self::assertArrayHasKey('environment', $form);
+    self::assertNull($form['environment']['#default_value']);
+    self::assertArrayHasKey('foo', $form['environment']['#options']);
+
+    // Test with selected environment.
+    $this->setFormatterSettings(['environment' => 'foo']);
+    $form = $this->buildSettingsForm();
+    self::assertEquals('foo', $form['environment']['#default_value']);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function buildSettingsForm(): array {
+    $display_repository = $this->container->get('entity_display.repository');
+    $display = $display_repository
+      ->getViewDisplay('entity_test', 'entity_test');
+    $formatter = $display->getRenderer('external_content');
+    \assert($formatter instanceof ExternalContentDocumentRenderArrayFormatter);
+
+    $form = [];
+    $form_state = new FormState();
+
+    return $formatter->settingsForm($form, $form_state);
   }
 
 }
