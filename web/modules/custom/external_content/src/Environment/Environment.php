@@ -7,6 +7,7 @@ use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\EventListener;
 use Drupal\external_content\Data\PrioritizedList;
@@ -19,49 +20,53 @@ use Psr\EventDispatcher\StoppableEventInterface;
 final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface {
 
   /**
-   * The list of HTML parsers.
+   * {@selfdoc}
    */
   protected PrioritizedList $htmlParsers;
 
   /**
-   * The list of content bundlers.
+   * {@selfdoc}
    */
   protected PrioritizedList $bundlers;
 
   /**
-   * The list of finders.
+   * {@selfdoc}
    */
   protected PrioritizedList $finders;
 
   /**
-   * The event listeners.
+   * {@selfdoc}
    */
   protected PrioritizedList $eventListeners;
 
   /**
-   * The list of builders.
+   * {@selfdoc}
+   */
+  protected PrioritizedList $serializers;
+
+  /**
+   * {@selfdoc}
    */
   protected PrioritizedList $builders;
 
   /**
-   * The event dispatcher.
+   * {@selfdoc}
    */
   protected ?EventDispatcherInterface $eventDispatcher = NULL;
 
   /**
    * Constructs a new Environment instance.
-   *
-   * @param \Drupal\external_content\Data\Configuration $configuration
-   *   The environment configuration.
    */
   public function __construct(
-    protected Configuration $configuration,
+    protected ?Configuration $configuration = NULL,
   ) {
+    $this->configuration ??= new Configuration();
     $this->finders = new PrioritizedList();
     $this->htmlParsers = new PrioritizedList();
     $this->bundlers = new PrioritizedList();
     $this->builders = new PrioritizedList();
     $this->eventListeners = new PrioritizedList();
+    $this->serializers = new PrioritizedList();
   }
 
   /**
@@ -191,6 +196,23 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
         $event,
       );
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addSerializer(string $class, int $priority = 0): EnvironmentBuilderInterface {
+    \assert(\is_subclass_of($class, NodeSerializerInterface::class));
+    $this->serializers->add($class, $priority);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSerializers(): PrioritizedList {
+    return $this->serializers;
   }
 
 }

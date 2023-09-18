@@ -3,7 +3,6 @@
 namespace Drupal\Tests\external_content\Kernel\Bundler;
 
 use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
@@ -48,7 +47,7 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testBundler(): void {
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addBundler(FrontMatterIdLanguageBundler::class);
     $this->bundler->setEnvironment($environment);
 

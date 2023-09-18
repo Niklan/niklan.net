@@ -3,7 +3,6 @@
 namespace Drupal\Tests\external_content\Kernel\DependencyInjection;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\DependencyInjection\ClassA;
@@ -51,7 +50,7 @@ final class EnvironmentAwareClassResolverTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testFallback(): void {
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
 
     $instance_a = $this
       ->classResolver
@@ -67,7 +66,7 @@ final class EnvironmentAwareClassResolverTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testEnvironmentInjection(): void {
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
 
     $instance = $this->environmentAwareClassResolver->getInstance(
       EnvironmentAwareClassA::class,
@@ -82,7 +81,7 @@ final class EnvironmentAwareClassResolverTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testWrongInstance(): void {
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
 
     self::expectException(\InvalidArgumentException::class);
 
@@ -97,7 +96,7 @@ final class EnvironmentAwareClassResolverTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testReuseInstance(): void {
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
 
     $instance_a = $this->environmentAwareClassResolver->getInstance(
       ClassA::class,

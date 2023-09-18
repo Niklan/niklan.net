@@ -3,7 +3,6 @@
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Event\HtmlPostParseEvent;
@@ -60,7 +59,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
       $is_post_parse_triggered = TRUE;
     };
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addEventListener(
       HtmlPreParseEvent::class,
       $pre_parse_listener,
@@ -95,7 +94,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
       vfsStream::url('root/foo/bar.html'),
     );
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addHtmlParser(PlainTextParser::class);
     $environment->addHtmlParser(HtmlElementParser::class);
     $this->htmlParser->setEnvironment($environment);
@@ -122,7 +121,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
       vfsStream::url('root/foo/bar.html'),
     );
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $this->htmlParser->setEnvironment($environment);
 
     $result = $this->htmlParser->parse($file);

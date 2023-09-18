@@ -13,28 +13,33 @@ use Psr\EventDispatcher\ListenerProviderInterface;
 interface EnvironmentInterface extends EventDispatcherInterface, ListenerProviderInterface {
 
   /**
-   * Gets the HTML parsers.
+   * {@selfdoc}
    */
   public function getHtmlParsers(): PrioritizedList;
 
   /**
-   * Gets the content bundlers.
+   * {@selfdoc}
    */
   public function getBundlers(): PrioritizedList;
 
   /**
-   * Gets the configuration.
+   * {@selfdoc}
    */
   public function getConfiguration(): Configuration;
 
   /**
-   * Gets the finders.
+   * {@selfdoc}
    */
   public function getFinders(): PrioritizedList;
 
   /**
-   * Gets the builders.
+   * {@selfdoc}
    */
   public function getBuilders(): PrioritizedList;
+
+  /**
+   * {@selfdoc}
+   */
+  public function getSerializers(): PrioritizedList;
 
 }

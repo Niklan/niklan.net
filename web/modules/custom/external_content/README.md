@@ -57,10 +57,3 @@ $configuration = new Configuration('working_dirs', [
 Environment lets you build a specific set of processors with different
 priorities, configuration and control how to process them.
 
-## Pipeline
-
-1. [x] Find
-2. [x] Parse HTML
-3. [x] Bundle multiple variants of the same content.
-4. [ ] Render array builder
-5. [ ] Loader

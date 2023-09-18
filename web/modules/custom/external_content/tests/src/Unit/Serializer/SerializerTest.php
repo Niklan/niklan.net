@@ -3,9 +3,12 @@
 namespace Drupal\Tests\external_content\Unit\Serializer;
 
 use Drupal\external_content\Data\ExternalContentFile;
+use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Serializer\HtmlElementSerializer;
+use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\external_content\Serializer\Serializer;
 use Drupal\Tests\UnitTestCase;
 
@@ -20,6 +23,20 @@ final class SerializerTest extends UnitTestCase {
   /**
    * {@selfdoc}
    */
+  private function prepareSerializer(): Serializer {
+    $environment = new Environment();
+    $environment
+      ->addSerializer(PlainTextSerializer::class)
+      ->addSerializer(HtmlElementSerializer::class);
+    $serializer = new Serializer();
+    $serializer->setEnvironment($environment);
+
+    return $serializer;
+  }
+
+  /**
+   * {@selfdoc}
+   */
   public function testSerialization(): void {
     $file = new ExternalContentFile('foo', 'bar');
     $document = new ExternalContentDocument($file);
@@ -29,7 +46,7 @@ final class SerializerTest extends UnitTestCase {
     $p->addChild(new PlainText('!'));
     $document->addChild($p);
 
-    $serializer = new Serializer();
+    $serializer = $this->prepareSerializer();
 
     $json = $serializer->serialize($document);
     $expected_json = <<<'JSON'

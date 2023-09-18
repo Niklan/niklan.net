@@ -7,7 +7,6 @@ use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\BundlerResult;
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Environment\Environment;
@@ -32,8 +31,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
    */
   public function testEvents(): void {
     $event = new FooEvent();
-    $configuration = new Configuration();
-    $environment = new Environment($configuration);
+    $environment = new Environment();
 
     self::assertFalse($environment->getListenersForEvent($event)->valid());
 
@@ -87,7 +85,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     };
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addHtmlParser($html_parser::class);
 
     $expected = [
@@ -115,7 +113,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     };
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addBundler($bundler::class);
 
     $expected = [
@@ -143,7 +141,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     };
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addFinder($finder::class);
 
     $expected = [
@@ -171,7 +169,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     };
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addBuilder($builder::class);
 
     $expected = [
@@ -188,8 +186,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testConfiguration(): void {
-    $configuration = new Configuration();
-    $environment = new Environment($configuration);
+    $environment = new Environment();
 
     self::assertEquals($configuration, $environment->getConfiguration());
   }
@@ -208,7 +205,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     $event = $this->prophesize(StoppableEventInterface::class);
     $event = $event->reveal();
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->setEventDispatcher($event_dispatcher);
     $environment->dispatch($event);
   }

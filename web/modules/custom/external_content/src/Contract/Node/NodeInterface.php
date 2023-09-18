@@ -7,7 +7,7 @@ namespace Drupal\external_content\Contract\Node;
  *
  * The content node — a single typed content data. E.g., image, text, code.
  */
-interface NodeInterface extends SerializableNodeInterface {
+interface NodeInterface {
 
   /**
    * Sets parent node if current is child.

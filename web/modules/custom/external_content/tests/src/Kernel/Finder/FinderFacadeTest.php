@@ -3,7 +3,6 @@
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
 use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\Finder\FooFinder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
@@ -25,7 +24,7 @@ final class FinderFacadeTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testEmptyFinder(): void {
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $this->finder->setEnvironment($environment);
     $result = $this->finder->find();
 
@@ -36,7 +35,7 @@ final class FinderFacadeTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testFooFinder(): void {
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addFinder(FooFinder::class);
     $this->finder->setEnvironment($environment);
     $result = $this->finder->find();

@@ -3,7 +3,6 @@
 namespace Drupal\Tests\external_content\Kernel\Builder;
 
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\ExternalContentDocument;
@@ -59,7 +58,7 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
     $external_content_document = new ExternalContentDocument($external_file);
     $external_content_document->addChild($paragraph);
 
-    $environment = new Environment(new Configuration());
+    $environment = new Environment();
     $environment->addBuilder(HtmlBuilder::class);
     $environment->addBuilder(PlainTextBuilder::class);
 
