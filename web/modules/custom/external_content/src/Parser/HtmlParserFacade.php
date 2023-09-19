@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\Parser;
 
+use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
@@ -9,7 +10,6 @@ use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Data\HtmlParserResult;
-use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Event\HtmlPostParseEvent;
 use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Node\ExternalContentDocument;
@@ -28,7 +28,7 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
   /**
    * Constructs a new ExternalContentHtmlParser instance.
    *
-   * @param \Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
+   * @param \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
    *   The class resolver.
    */
   public function __construct(

@@ -2,15 +2,16 @@
 
 namespace Drupal\Tests\external_content\Unit\Serializer;
 
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
 use Drupal\external_content\Serializer\HtmlElementSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
-use Drupal\external_content\Serializer\Serializer;
-use Drupal\Tests\UnitTestCase;
+use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
  * Provides a test for external content serializer.
@@ -18,21 +19,7 @@ use Drupal\Tests\UnitTestCase;
  * @covers \Drupal\external_content\Serializer\Serializer
  * @group external_content
  */
-final class SerializerTest extends UnitTestCase {
-
-  /**
-   * {@selfdoc}
-   */
-  private function prepareSerializer(): Serializer {
-    $environment = new Environment();
-    $environment
-      ->addSerializer(PlainTextSerializer::class)
-      ->addSerializer(HtmlElementSerializer::class);
-    $serializer = new Serializer();
-    $serializer->setEnvironment($environment);
-
-    return $serializer;
-  }
+final class SerializerTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
@@ -50,7 +37,7 @@ final class SerializerTest extends UnitTestCase {
 
     $json = $serializer->serialize($document);
     $expected_json = <<<'JSON'
-    {"type":"Drupal\\external_content\\Node\\ExternalContentDocument","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"Drupal\\external_content\\Node\\HtmlElement","data":{"tag":"p","attributes":[]},"children":[{"type":"Drupal\\external_content\\Node\\PlainText","data":{"text":"Hello, "},"children":[]},{"type":"Drupal\\external_content\\Node\\HtmlElement","data":{"tag":"strong","attributes":[]},"children":[{"type":"Drupal\\external_content\\Node\\PlainText","data":{"text":"World"},"children":[]}]},{"type":"Drupal\\external_content\\Node\\PlainText","data":{"text":"!"},"children":[]}]}]}
+    {"type":"external_content:document","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","data":{"tag":"p","attributes":[]},"children":[{"type":"external_content:plain_text","data":{"text":"Hello, "},"children":[]},{"type":"external_content:html_element","data":{"tag":"strong","attributes":[]},"children":[{"type":"external_content:plain_text","data":{"text":"World"},"children":[]}]},{"type":"external_content:plain_text","data":{"text":"!"},"children":[]}]}]}
     JSON;
 
     self::assertEquals($expected_json, $json);
@@ -58,6 +45,21 @@ final class SerializerTest extends UnitTestCase {
     $document_from_json = $serializer->deserialize($expected_json);
 
     self::assertEquals($document, $document_from_json);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function prepareSerializer(): SerializerInterface {
+    $environment = new Environment();
+    $environment
+      ->addSerializer(PlainTextSerializer::class)
+      ->addSerializer(HtmlElementSerializer::class)
+      ->addSerializer(ExternalContentDocumentSerializer::class);
+    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer->setEnvironment($environment);
+
+    return $serializer;
   }
 
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\DependencyInjection;
+namespace Drupal\external_content\Contract\DependencyInjection;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 

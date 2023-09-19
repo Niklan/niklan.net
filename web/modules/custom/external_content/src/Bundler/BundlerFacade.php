@@ -5,12 +5,12 @@ namespace Drupal\external_content\Bundler;
 use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultIdentifiedInterface;
+use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleCollection;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
-use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
@@ -26,7 +26,7 @@ final class BundlerFacade implements BundlerFacadeInterface {
   /**
    * Constructs a new ExternalContentBundler instance.
    *
-   * @param \Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
+   * @param \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
    *   The class resolver.
    */
   public function __construct(

@@ -3,7 +3,7 @@
 namespace Drupal\Tests\external_content\Kernel\DependencyInjection;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
+use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\DependencyInjection\ClassA;
 use Drupal\external_content_test\DependencyInjection\EnvironmentAwareClassA;
@@ -32,7 +32,7 @@ final class EnvironmentAwareClassResolverTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private EnvironmentAwareClassResolverInterface $environmentAwareClassResolver;
+  private \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $environmentAwareClassResolver;
 
   /**
    * {@inheritdoc}

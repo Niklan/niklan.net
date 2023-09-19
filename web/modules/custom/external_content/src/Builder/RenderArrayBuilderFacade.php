@@ -5,10 +5,10 @@ namespace Drupal\external_content\Builder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultRenderArrayInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
+use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
-use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
@@ -24,7 +24,7 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
   /**
    * Constructs a new RenderArrayBuilderFacade instance.
    *
-   * @param \Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
+   * @param \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
    *   The class resolver.
    */
   public function __construct(

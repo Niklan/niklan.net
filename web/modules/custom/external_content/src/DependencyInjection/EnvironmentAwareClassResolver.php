@@ -3,6 +3,7 @@
 namespace Drupal\external_content\DependencyInjection;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
+use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 

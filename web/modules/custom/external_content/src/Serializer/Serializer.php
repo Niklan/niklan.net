@@ -2,17 +2,19 @@
 
 namespace Drupal\external_content\Serializer;
 
+use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
  * Provides a serializer for external content.
  */
-final class Serializer implements EnvironmentAwareInterface {
+final class Serializer implements EnvironmentAwareInterface, SerializerInterface {
 
   /**
    * {@selfdoc}
@@ -25,7 +27,14 @@ final class Serializer implements EnvironmentAwareInterface {
   private EnvironmentInterface $environment;
 
   /**
-   * {@selfdoc}
+   * Constructs a new Serializer instance.
+   */
+  public function __construct(
+    private readonly EnvironmentAwareClassResolverInterface $classResolver,
+  ) {}
+
+  /**
+   * {@inheritdoc}
    */
   public function serialize(ExternalContentDocument $document): string {
     return \json_encode($this->serializeRecursive($document));
@@ -49,15 +58,20 @@ final class Serializer implements EnvironmentAwareInterface {
    */
   private function serializeNode(NodeInterface $node, array $children): array {
     foreach ($this->environment->getSerializers() as $serializer) {
-      \assert($serializer instanceof NodeSerializerInterface);
+      $instance = $this->classResolver->getInstance(
+        $serializer,
+        NodeSerializerInterface::class,
+        $this->getEnvironment(),
+      );
+      \assert($instance instanceof NodeSerializerInterface);
 
-      if (!$serializer->supportsSerialization($node)) {
+      if (!$instance->supportsSerialization($node)) {
         continue;
       }
 
       return [
-        'type' => $serializer->getSerializationBlockType(),
-        'data' => $serializer->serialize($node),
+        'type' => $instance->getSerializationBlockType(),
+        'data' => $instance->serialize($node)->all(),
         'children' => $children,
       ];
     }
@@ -70,7 +84,7 @@ final class Serializer implements EnvironmentAwareInterface {
   }
 
   /**
-   * {@selfdoc}
+   * {@inheritdoc}
    */
   public function deserialize(string $json): ExternalContentDocument {
     $json_array = \json_decode($json, TRUE);
@@ -106,13 +120,18 @@ final class Serializer implements EnvironmentAwareInterface {
     $data = new Data($node_data['data']);
 
     foreach ($this->getEnvironment()->getSerializers() as $serializer) {
-      \assert($serializer instanceof NodeSerializerInterface);
+      $instance = $this->classResolver->getInstance(
+        $serializer,
+        NodeSerializerInterface::class,
+        $this->getEnvironment(),
+      );
+      \assert($instance instanceof NodeSerializerInterface);
 
-      if (!$serializer->supportsDeserialization($block_type)) {
+      if (!$instance->supportsDeserialization($block_type)) {
         continue;
       }
 
-      return $serializer->deserialize($data);
+      return $instance->deserialize($data);
     }
 
     return NULL;

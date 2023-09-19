@@ -56,32 +56,4 @@ final class ExternalContentDocument extends Node {
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function serialize(): Data {
-    return new Data([
-      'file' => [
-        'working_dir' => $this->file->getWorkingDir(),
-        'pathname' => $this->file->getPathname(),
-        'data' => $this->file->getData()->all(),
-      ],
-    ]);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function deserialize(Data $data): NodeInterface {
-    $file_info = $data->get('file');
-    $file_data = new Data($file_info['data']);
-    $file = new ExternalContentFile(
-      $file_info['working_dir'],
-      $file_info['pathname'],
-      $file_data,
-    );
-
-    return new self($file);
-  }
-
 }

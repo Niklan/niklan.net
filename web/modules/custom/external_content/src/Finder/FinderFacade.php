@@ -2,11 +2,11 @@
 
 namespace Drupal\external_content\Finder;
 
+use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\ExternalContentFileCollection;
-use Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface;
 
 /**
  * Provides an external content finder.
@@ -21,7 +21,7 @@ final class FinderFacade implements FinderFacadeInterface {
   /**
    * Constructs a new ExternalContentFinder instance.
    *
-   * @param \Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
+   * @param \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
    *   The class resolver.
    */
   public function __construct(
