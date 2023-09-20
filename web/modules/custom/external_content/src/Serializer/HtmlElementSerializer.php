@@ -16,7 +16,9 @@ final class HtmlElementSerializer implements NodeSerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function serialize(HtmlElement|NodeInterface $node): Data {
+  public function serialize(NodeInterface $node): Data {
+    \assert($node instanceof HtmlElement);
+
     return new Data([
       'tag' => $node->getTag(),
       'attributes' => $node->getAttributes()->all(),

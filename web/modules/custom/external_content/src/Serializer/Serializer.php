@@ -9,7 +9,6 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
  * Provides a serializer for external content.
@@ -36,7 +35,7 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
   /**
    * {@inheritdoc}
    */
-  public function serialize(ExternalContentDocument $document): string {
+  public function serialize(NodeInterface $document): string {
     return \json_encode($this->serializeRecursive($document));
   }
 
@@ -86,12 +85,12 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
   /**
    * {@inheritdoc}
    */
-  public function deserialize(string $json): ExternalContentDocument {
+  public function deserialize(string $json): NodeInterface {
     $json_array = \json_decode($json, TRUE);
-    $document = $this->deserializeRecursive($json_array);
-    \assert($document instanceof ExternalContentDocument);
+    $node = $this->deserializeRecursive($json_array);
+    \assert($node instanceof NodeInterface);
 
-    return $document;
+    return $node;
   }
 
   /**

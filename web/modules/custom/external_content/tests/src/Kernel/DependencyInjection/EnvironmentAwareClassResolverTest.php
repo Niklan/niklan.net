@@ -32,7 +32,7 @@ final class EnvironmentAwareClassResolverTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $environmentAwareClassResolver;
+  private EnvironmentAwareClassResolverInterface $environmentAwareClassResolver;
 
   /**
    * {@inheritdoc}

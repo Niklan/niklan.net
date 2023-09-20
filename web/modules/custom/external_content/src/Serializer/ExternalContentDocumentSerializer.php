@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Serializer;
 
@@ -16,7 +16,9 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
   /**
    * {@inheritdoc}
    */
-  public function serialize(ExternalContentDocument|NodeInterface $node): Data {
+  public function serialize(NodeInterface $node): Data {
+    \assert($node instanceof ExternalContentDocument);
+
     return new Data([
       'file' => [
         'working_dir' => $node->getFile()->getWorkingDir(),

@@ -3,9 +3,9 @@
 namespace Drupal\external_content\Field;
 
 use Drupal\Core\TypedData\TypedData;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
-use Drupal\external_content\Serializer\Serializer;
 
 /**
  * Provides a computed field for "external_content_document" field type.
@@ -34,11 +34,19 @@ final class ExternalContentDocumentComputed extends TypedData {
       return NULL;
     }
 
-    $serializer = new Serializer();
     $json = $field_item->get('value')->getValue();
-    $this->value = $serializer->deserialize($json);
+    $element = self::getSerializer()->deserialize($json);
+    \assert($element instanceof ExternalContentDocument);
+    $this->value = $element;
 
     return $this->value;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private static function getSerializer(): SerializerInterface {
+    return \Drupal::service(SerializerInterface::class);
   }
 
 }

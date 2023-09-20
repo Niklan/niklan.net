@@ -15,7 +15,9 @@ final class PlainTextSerializer implements NodeSerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function serialize(PlainText|NodeInterface $node): Data {
+  public function serialize(NodeInterface $node): Data {
+    \assert($node instanceof PlainText);
+
     return new Data([
       'text' => $node->getContent(),
     ]);

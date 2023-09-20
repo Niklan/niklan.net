@@ -3,7 +3,6 @@
 namespace Drupal\external_content\Node;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\ExternalContentFile;
 
 /**
