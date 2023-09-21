@@ -9,16 +9,13 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
+use Drupal\external_content\Exception\MissingDeserializerException;
+use Drupal\external_content\Exception\MissingSerializerException;
 
 /**
  * Provides a serializer for external content.
  */
 final class Serializer implements EnvironmentAwareInterface, SerializerInterface {
-
-  /**
-   * {@selfdoc}
-   */
-  public const UNDEFINED = 'external_content:undefined';
 
   /**
    * {@selfdoc}
@@ -70,16 +67,13 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
 
       return [
         'type' => $instance->getSerializationBlockType(),
+        'version' => $instance->getSerializerVersion(),
         'data' => $instance->serialize($node)->all(),
         'children' => $children,
       ];
     }
 
-    return [
-      'type' => self::UNDEFINED,
-      'data' => [],
-      'children' => $children,
-    ];
+    throw new MissingSerializerException($node, $this->getEnvironment());
   }
 
   /**
@@ -109,12 +103,8 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
   /**
    * {@selfdoc}
    */
-  private function deserializeNode(array $node_data): ?NodeInterface {
-    $block_type = $node_data['type'] ?? self::UNDEFINED;
-
-    if ($block_type === self::UNDEFINED) {
-      return NULL;
-    }
+  private function deserializeNode(array $node_data): NodeInterface {
+    $version = $node_data['version'] ?? '0.0.0';
 
     $data = new Data($node_data['data']);
 
@@ -126,14 +116,18 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
       );
       \assert($instance instanceof NodeSerializerInterface);
 
-      if (!$instance->supportsDeserialization($block_type)) {
+      if (!$instance->supportsDeserialization($node_data['type'], $version)) {
         continue;
       }
 
-      return $instance->deserialize($data);
+      return $instance->deserialize($data, $version);
     }
 
-    return NULL;
+    throw new MissingDeserializerException(
+      $node_data['type'],
+      $version,
+      $this->getEnvironment(),
+    );
   }
 
   /**

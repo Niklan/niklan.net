@@ -7,6 +7,7 @@ use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\BundlerResult;
+use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Environment\Environment;
@@ -188,7 +189,10 @@ final class EnvironmentTest extends UnitTestCaseTest {
   public function testConfiguration(): void {
     $environment = new Environment();
 
-    self::assertEquals($configuration, $environment->getConfiguration());
+    self::assertInstanceOf(
+      Configuration::class,
+      $environment->getConfiguration(),
+    );
   }
 
   /**

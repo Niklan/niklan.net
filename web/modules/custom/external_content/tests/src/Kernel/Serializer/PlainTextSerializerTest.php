@@ -27,7 +27,7 @@ final class PlainTextSerializerTest extends ExternalContentTestBase {
     $serializer->setEnvironment($environment);
 
     $element = new PlainText('Hello, World!');
-    $expected_json = '{"type":"external_content:plain_text","data":{"text":"Hello, World!"},"children":[]}';
+    $expected_json = '{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, World!"},"children":[]}';
 
     self::assertEquals($expected_json, $serializer->serialize($element));
 

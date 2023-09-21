@@ -4,12 +4,16 @@ namespace Drupal\Tests\external_content\Kernel\Plugin\Field\FieldType;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_test\Entity\EntityTest;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ExternalContentFile;
+use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
-use Drupal\external_content\Serializer\Serializer;
+use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
+use Drupal\external_content\Serializer\HtmlElementSerializer;
+use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -110,7 +114,14 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   private function prepareDocumentJson(): string {
-    $serializer = new Serializer();
+    $serializer = $this->container->get(SerializerInterface::class);
+    $environment = new Environment();
+    $environment
+      ->addSerializer(PlainTextSerializer::class)
+      ->addSerializer(HtmlElementSerializer::class)
+      ->addSerializer(PlainTextSerializer::class)
+      ->addSerializer(ExternalContentDocumentSerializer::class);
+    $serializer->setEnvironment($environment);
 
     return $serializer->serialize($this->prepareDocument());
   }

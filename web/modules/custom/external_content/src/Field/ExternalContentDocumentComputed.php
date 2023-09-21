@@ -35,7 +35,9 @@ final class ExternalContentDocumentComputed extends TypedData {
     }
 
     $json = $field_item->get('value')->getValue();
-    $element = self::getSerializer()->deserialize($json);
+    $serializer = self::getSerializer();
+    // @todo Store environment plugin ID with a field value and set it here
+    //   for serializer.
     \assert($element instanceof ExternalContentDocument);
     $this->value = $element;
 

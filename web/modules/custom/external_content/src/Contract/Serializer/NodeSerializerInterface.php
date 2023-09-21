@@ -18,6 +18,11 @@ interface NodeSerializerInterface {
   /**
    * {@selfdoc}
    */
+  public function getSerializerVersion(): string;
+
+  /**
+   * {@selfdoc}
+   */
   public function getSerializationBlockType(): string;
 
   /**
@@ -28,11 +33,11 @@ interface NodeSerializerInterface {
   /**
    * {@selfdoc}
    */
-  public function supportsDeserialization(string $block_type): bool;
+  public function supportsDeserialization(string $block_type, string $serialized_version): bool;
 
   /**
    * {@selfdoc}
    */
-  public function deserialize(Data $data): NodeInterface;
+  public function deserialize(Data $data, string $serialized_version): NodeInterface;
 
 }

@@ -31,13 +31,6 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
   /**
    * {@inheritdoc}
    */
-  public function getSerializationBlockType(): string {
-    return 'external_content:document';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function supportsSerialization(NodeInterface $node): bool {
     return $node instanceof ExternalContentDocument;
   }
@@ -45,14 +38,21 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
   /**
    * {@inheritdoc}
    */
-  public function supportsDeserialization(string $block_type): bool {
+  public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data): NodeInterface {
+  public function getSerializationBlockType(): string {
+    return 'external_content:document';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function deserialize(Data $data, string $serialized_version): NodeInterface {
     $file_info = $data->get('file');
     $file_data = new Data($file_info['data']);
     $file = new ExternalContentFile(
@@ -62,6 +62,13 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
     );
 
     return new ExternalContentDocument($file);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSerializerVersion(): string {
+    return '1.0.0';
   }
 
 }

@@ -29,7 +29,7 @@ final class ExternalContentDocumentSerializerTest extends ExternalContentTestBas
 
     $file = new ExternalContentFile('foo', 'bar');
     $document = new ExternalContentDocument($file);
-    $expected_json = '{"type":"external_content:document","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[]}';
+    $expected_json = '{"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[]}';
 
     self::assertEquals($expected_json, $serializer->serialize($document));
 

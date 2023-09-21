@@ -33,7 +33,7 @@ final class PlainTextSerializer implements NodeSerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function supportsDeserialization(string $block_type): bool {
+  public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
@@ -47,8 +47,15 @@ final class PlainTextSerializer implements NodeSerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data): NodeInterface {
+  public function deserialize(Data $data, string $serialized_version): NodeInterface {
     return new PlainText($data->get('text'));
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function getSerializerVersion(): string {
+    return '1.0.0';
   }
 
 }

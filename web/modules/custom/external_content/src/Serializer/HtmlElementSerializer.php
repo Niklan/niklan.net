@@ -42,17 +42,24 @@ final class HtmlElementSerializer implements NodeSerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function supportsDeserialization(string $block_type): bool {
+  public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data): NodeInterface {
+  public function deserialize(Data $data, string $serialized_version): NodeInterface {
     $attributes = new Attributes($data->get('attributes'));
 
     return new HtmlElement($data->get('tag'), $attributes);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function getSerializerVersion(): string {
+    return '1.0.0';
   }
 
 }

@@ -6,13 +6,7 @@ use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Form\FormState;
-use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Data\ExternalContentFile;
-use Drupal\external_content\Node\ExternalContentDocument;
-use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Plugin\Field\FieldFormatter\ExternalContentDocumentRenderArrayFormatter;
-use Drupal\external_content\Serializer\Serializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -109,13 +103,7 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
    * {@selfdoc}
    */
   private function getExternalContentDocumentValue(): string {
-    $file = new ExternalContentFile('foo', 'bar');
-    $document = new ExternalContentDocument($file);
-    $p = new HtmlElement('p', new Attributes(['foo' => 'bar']));
-    $p->addChild(new PlainText('Hello, World! Formatter is here!'));
-    $document->addChild($p);
-
-    return (new Serializer())->serialize($document);
+    return '{"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"p","attributes":{"foo":"bar"}},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, World! Formatter is here!"},"children":[]}]}]}';
   }
 
   /**

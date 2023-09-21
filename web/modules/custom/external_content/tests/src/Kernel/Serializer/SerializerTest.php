@@ -37,7 +37,7 @@ final class SerializerTest extends ExternalContentTestBase {
 
     $json = $serializer->serialize($document);
     $expected_json = <<<'JSON'
-    {"type":"external_content:document","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","data":{"tag":"p","attributes":[]},"children":[{"type":"external_content:plain_text","data":{"text":"Hello, "},"children":[]},{"type":"external_content:html_element","data":{"tag":"strong","attributes":[]},"children":[{"type":"external_content:plain_text","data":{"text":"World"},"children":[]}]},{"type":"external_content:plain_text","data":{"text":"!"},"children":[]}]}]}
+    {"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"p","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, "},"children":[]},{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"strong","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"World"},"children":[]}]},{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"!"},"children":[]}]}]}
     JSON;
 
     self::assertEquals($expected_json, $json);

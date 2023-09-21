@@ -30,7 +30,7 @@ final class HtmlElementSerializerTest extends ExternalContentTestBase {
     $attributes = new Attributes();
     $attributes->setAttribute('foo', 'bar');
     $element = new HtmlElement('div', $attributes);
-    $expected_json = '{"type":"external_content:html_element","data":{"tag":"div","attributes":{"foo":"bar"}},"children":[]}';
+    $expected_json = '{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"div","attributes":{"foo":"bar"}},"children":[]}';
 
     self::assertEquals($expected_json, $serializer->serialize($element));
 
