@@ -2,8 +2,10 @@
 
 namespace Drupal\Tests\external_content\Unit\Environment;
 
+use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
+use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\BundlerResult;
@@ -12,6 +14,8 @@ use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Serializer\PlainTextSerializer;
+use Drupal\external_content_test\Builder\HtmlBuilder;
 use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
@@ -212,6 +216,47 @@ final class EnvironmentTest extends UnitTestCaseTest {
     $environment = new Environment();
     $environment->setEventDispatcher($event_dispatcher);
     $environment->dispatch($event);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testSerializer(): void {
+    $environment = new Environment();
+    $environment->addSerializer(PlainTextSerializer::class);
+
+    $expected = [
+      0 => PlainTextSerializer::class,
+    ];
+
+    self::assertEquals(
+      $expected,
+      $environment->getSerializers()->getIterator()->getArrayCopy(),
+    );
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testExtension(): void {
+    $extension = new class implements ExtensionInterface {
+
+      /**
+       * {@inheritdoc}
+       */
+      public function register(EnvironmentBuilderInterface $environment): void {
+        $environment->addBuilder(HtmlBuilder::class);
+      }
+
+    };
+
+    $environment = new Environment();
+    $environment->addExtension($extension);
+
+    self::assertEquals(
+      HtmlBuilder::class,
+      $environment->getBuilders()->getIterator()->offsetGet(0),
+    );
   }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\Contract\Builder;
 
+use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -43,5 +44,10 @@ interface EnvironmentBuilderInterface {
    * {@selfdoc}
    */
   public function setEventDispatcher(EventDispatcherInterface $event_dispatcher): self;
+
+  /**
+   * {@selfdoc}
+   */
+  public function addExtension(ExtensionInterface $extension): self;
 
 }

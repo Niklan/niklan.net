@@ -5,6 +5,7 @@ namespace Drupal\external_content\Environment;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
@@ -130,7 +131,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addEventListener(string $event_class, callable $listener, int $priority = 0): EnvironmentBuilderInterface {
+  public function addEventListener(string $event_class, callable $listener, int $priority = 0): self {
     $this->eventListeners->add(new EventListener($event_class, $listener), $priority);
 
     return $this;
@@ -148,7 +149,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addBuilder(string $class, int $priority = 0): EnvironmentBuilderInterface {
+  public function addBuilder(string $class, int $priority = 0): self {
     $this->builders->add($class, $priority);
 
     return $this;
@@ -201,7 +202,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addSerializer(string $class, int $priority = 0): EnvironmentBuilderInterface {
+  public function addSerializer(string $class, int $priority = 0): self {
     \assert(\is_subclass_of($class, NodeSerializerInterface::class));
     $this->serializers->add($class, $priority);
 
@@ -213,6 +214,15 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    */
   public function getSerializers(): PrioritizedList {
     return $this->serializers;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addExtension(ExtensionInterface $extension): self {
+    $extension->register($this);
+
+    return $this;
   }
 
 }
