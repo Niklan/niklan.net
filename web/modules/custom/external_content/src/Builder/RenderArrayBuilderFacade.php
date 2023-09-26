@@ -5,7 +5,6 @@ namespace Drupal\external_content\Builder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultRenderArrayInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
-use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -20,16 +19,6 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
    * The environment.
    */
   protected EnvironmentInterface $environment;
-
-  /**
-   * Constructs a new RenderArrayBuilderFacade instance.
-   *
-   * @param \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
-   *   The class resolver.
-   */
-  public function __construct(
-    protected EnvironmentAwareClassResolverInterface $classResolver,
-  ) {}
 
   /**
    * {@inheritdoc}
@@ -80,13 +69,8 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
    */
   protected function buildNode(NodeInterface $node, array $children): array {
     foreach ($this->environment->getBuilders() as $builder) {
-      $instance = $this->classResolver->getInstance(
-        $builder,
-        BuilderInterface::class,
-        $this->getEnvironment(),
-      );
-      \assert($instance instanceof BuilderInterface);
-      $result = $instance->build($node, $children);
+      \assert($builder instanceof BuilderInterface);
+      $result = $builder->build($node, $children);
 
       if ($result->isNotBuild()) {
         continue;
@@ -100,13 +84,6 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
     // If build didn't happen, just return children. Most likely it's a root
     // collection like SourceFileContent.
     return $children;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getEnvironment(): EnvironmentInterface {
-    return $this->environment;
   }
 
   /**

@@ -2,7 +2,6 @@
 
 namespace Drupal\external_content\Parser;
 
-use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
@@ -26,23 +25,13 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
   protected EnvironmentInterface $environment;
 
   /**
-   * Constructs a new ExternalContentHtmlParser instance.
-   *
-   * @param \Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface $classResolver
-   *   The class resolver.
-   */
-  public function __construct(
-    protected EnvironmentAwareClassResolverInterface $classResolver,
-  ) {}
-
-  /**
    * {@inheritdoc}
    */
   public function parse(ExternalContentFile $file): ExternalContentDocument {
     $html = new ExternalContentHtml($file, $file->getContents());
 
     $event = new HtmlPreParseEvent($html);
-    $this->getEnvironment()->dispatch($event);
+    $this->environment->dispatch($event);
 
     $document = new ExternalContentDocument($file);
     $crawler = new Crawler($html->getContent());
@@ -51,7 +40,7 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
     $this->parseChildren($body_node, $document);
 
     $event = new HtmlPostParseEvent($document);
-    $this->getEnvironment()->dispatch($event);
+    $this->environment->dispatch($event);
 
     return $document;
   }
@@ -91,13 +80,8 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
    */
   protected function parseNode(\DOMNode $node): HtmlParserResult {
     foreach ($this->environment->getHtmlParsers() as $parser) {
-      $instance = $this->classResolver->getInstance(
-        $parser,
-        HtmlParserInterface::class,
-        $this->getEnvironment(),
-      );
-      \assert($instance instanceof HtmlParserInterface);
-      $result = $instance->parse($node);
+      \assert($parser instanceof HtmlParserInterface);
+      $result = $parser->parse($node);
 
       if ($result->hasReplacement() || !$result->shouldContinue()) {
         return $result;
@@ -105,13 +89,6 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
     }
 
     return HtmlParserResult::continue();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getEnvironment(): EnvironmentInterface {
-    return $this->environment;
   }
 
   /**

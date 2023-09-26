@@ -48,7 +48,7 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
    */
   public function testBundler(): void {
     $environment = new Environment();
-    $environment->addBundler(FrontMatterIdLanguageBundler::class);
+    $environment->addBundler(new FrontMatterIdLanguageBundler());
     $this->bundler->setEnvironment($environment);
 
     $file_a = new ExternalContentFile('foo', 'bar');

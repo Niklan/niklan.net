@@ -2,6 +2,8 @@
 
 namespace Drupal\external_content\Extension;
 
+use Drupal\external_content\Builder\HtmlElementBuilder;
+use Drupal\external_content\Builder\PlainTextBuilder;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Parser\HtmlElementParser;
@@ -26,17 +28,15 @@ final class BasicHtmlExtension implements ExtensionInterface {
   public function register(EnvironmentBuilderInterface $environment): void {
     $environment
       // Prioritize it over everything, it's a special element.
-      ->addSerializer(ExternalContentDocumentSerializer::class, 1_000)
+      ->addSerializer(new ExternalContentDocumentSerializer(), 1_000)
       // The basic HTML element.
-      ->addHtmlParser(HtmlElementParser::class, self::WEIGHT)
-      // @todo Add builder.
-      //   ->addBuilder(HtmlElement::class, self::WEIGHT)
-      ->addSerializer(HtmlElementSerializer::class, self::WEIGHT)
+      ->addHtmlParser(new HtmlElementParser(), self::WEIGHT)
+      ->addBuilder(new HtmlElementBuilder(), self::WEIGHT)
+      ->addSerializer(new HtmlElementSerializer(), self::WEIGHT)
       // The plain text.
-      ->addHtmlParser(PlainTextParser::class, self::WEIGHT)
-      // @todo Add builder.
-      //   ->addBuilder(PlainText::class, self::WEIGHT)
-      ->addSerializer(PlainTextSerializer::class, self::WEIGHT);
+      ->addHtmlParser(new PlainTextParser(), self::WEIGHT)
+      ->addBuilder(new PlainTextBuilder(), self::WEIGHT)
+      ->addSerializer(new PlainTextSerializer(), self::WEIGHT);
   }
 
 }

@@ -4,7 +4,6 @@ services:
 
   Drupal\external_content\Builder\RenderArrayBuilderFacade: {}
   Drupal\external_content\Bundler\BundlerFacade: {}
-  Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver: {}
   Drupal\external_content\Finder\FinderFacade: {}
   Drupal\external_content\Parser\HtmlParserFacade: {}
   Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager:
@@ -13,7 +12,6 @@ services:
 
   Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface: '@Drupal\external_content\Builder\RenderArrayBuilderFacade'
   Drupal\external_content\Contract\Bundler\BundlerFacadeInterface: '@Drupal\external_content\Bundler\BundlerFacade'
-  Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface: '@Drupal\external_content\DependencyInjection\EnvironmentAwareClassResolver'
   Drupal\external_content\Contract\Finder\FinderFacadeInterface: '@Drupal\external_content\Finder\FinderFacade'
   Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
   Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface: '@Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager'

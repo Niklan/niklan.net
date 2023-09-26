@@ -2,7 +2,6 @@
 
 namespace Drupal\external_content\Serializer;
 
-use Drupal\external_content\Contract\DependencyInjection\EnvironmentAwareClassResolverInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
@@ -21,13 +20,6 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
    * {@selfdoc}
    */
   private EnvironmentInterface $environment;
-
-  /**
-   * Constructs a new Serializer instance.
-   */
-  public function __construct(
-    private readonly EnvironmentAwareClassResolverInterface $classResolver,
-  ) {}
 
   /**
    * {@inheritdoc}
@@ -54,26 +46,21 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
    */
   private function serializeNode(NodeInterface $node, array $children): array {
     foreach ($this->environment->getSerializers() as $serializer) {
-      $instance = $this->classResolver->getInstance(
-        $serializer,
-        NodeSerializerInterface::class,
-        $this->getEnvironment(),
-      );
-      \assert($instance instanceof NodeSerializerInterface);
+      \assert($serializer instanceof NodeSerializerInterface);
 
-      if (!$instance->supportsSerialization($node)) {
+      if (!$serializer->supportsSerialization($node)) {
         continue;
       }
 
       return [
-        'type' => $instance->getSerializationBlockType(),
-        'version' => $instance->getSerializerVersion(),
-        'data' => $instance->serialize($node)->all(),
+        'type' => $serializer->getSerializationBlockType(),
+        'version' => $serializer->getSerializerVersion(),
+        'data' => $serializer->serialize($node)->all(),
         'children' => $children,
       ];
     }
 
-    throw new MissingSerializerException($node, $this->getEnvironment());
+    throw new MissingSerializerException($node, $this->environment);
   }
 
   /**
@@ -108,25 +95,20 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
 
     $data = new Data($node_data['data']);
 
-    foreach ($this->getEnvironment()->getSerializers() as $serializer) {
-      $instance = $this->classResolver->getInstance(
-        $serializer,
-        NodeSerializerInterface::class,
-        $this->getEnvironment(),
-      );
-      \assert($instance instanceof NodeSerializerInterface);
+    foreach ($this->environment->getSerializers() as $serializer) {
+      \assert($serializer instanceof NodeSerializerInterface);
 
-      if (!$instance->supportsDeserialization($node_data['type'], $version)) {
+      if (!$serializer->supportsDeserialization($node_data['type'], $version)) {
         continue;
       }
 
-      return $instance->deserialize($data, $version);
+      return $serializer->deserialize($data, $version);
     }
 
     throw new MissingDeserializerException(
       $node_data['type'],
       $version,
-      $this->getEnvironment(),
+      $this->environment,
     );
   }
 
@@ -135,13 +117,6 @@ final class Serializer implements EnvironmentAwareInterface, SerializerInterface
    */
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getEnvironment(): EnvironmentInterface {
-    return $this->environment;
   }
 
 }

@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Kernel\Builder;
 
+use Drupal\external_content\Builder\HtmlElementBuilder;
+use Drupal\external_content\Builder\PlainTextBuilder;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
-use Drupal\external_content_test\Builder\HtmlBuilder;
-use Drupal\external_content_test\Builder\PlainTextBuilder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -59,8 +59,8 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
     $external_content_document->addChild($paragraph);
 
     $environment = new Environment();
-    $environment->addBuilder(HtmlBuilder::class);
-    $environment->addBuilder(PlainTextBuilder::class);
+    $environment->addBuilder(new HtmlElementBuilder());
+    $environment->addBuilder(new PlainTextBuilder());
 
     $this->renderArrayBuilder->setEnvironment($environment);
     $result = $this->renderArrayBuilder->build($external_content_document);

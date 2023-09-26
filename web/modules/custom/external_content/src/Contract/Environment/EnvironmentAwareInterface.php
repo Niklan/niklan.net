@@ -15,9 +15,4 @@ interface EnvironmentAwareInterface {
    */
   public function setEnvironment(EnvironmentInterface $environment): void;
 
-  /**
-   * Gets the environment.
-   */
-  public function getEnvironment(): EnvironmentInterface;
-
 }

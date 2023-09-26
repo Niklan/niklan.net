@@ -2,6 +2,11 @@
 
 namespace Drupal\Tests\external_content\Unit\Extension;
 
+use Drupal\external_content\Builder\HtmlElementBuilder;
+use Drupal\external_content\Builder\PlainTextBuilder;
+use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Parser\HtmlElementParser;
@@ -27,31 +32,32 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     $environment->addExtension(new BasicHtmlExtension());
 
     self::assertCount(3, $environment->getSerializers());
+    $serializer_classes = \array_map(
+      static fn (NodeSerializerInterface $serializer) => $serializer::class,
+      $environment->getSerializers()->getIterator()->getArrayCopy(),
+    );
     self::assertContains(
       ExternalContentDocumentSerializer::class,
-      $environment->getSerializers(),
+      $serializer_classes,
     );
-    self::assertContains(
-      HtmlElementSerializer::class,
-      $environment->getSerializers(),
-    );
-    self::assertContains(
-      PlainTextSerializer::class,
-      $environment->getSerializers(),
-    );
+    self::assertContains(HtmlElementSerializer::class, $serializer_classes);
+    self::assertContains(PlainTextSerializer::class, $serializer_classes);
 
     self::assertCount(2, $environment->getHtmlParsers());
-    self::assertContains(
-      HtmlElementParser::class,
-      $environment->getHtmlParsers(),
+    $parser_classes = \array_map(
+      static fn (HtmlParserInterface $parser) => $parser::class,
+      $environment->getHtmlParsers()->getIterator()->getArrayCopy(),
     );
-    self::assertContains(
-      PlainTextParser::class,
-      $environment->getHtmlParsers(),
-    );
+    self::assertContains(HtmlElementParser::class, $parser_classes);
+    self::assertContains(PlainTextParser::class, $parser_classes);
 
-    // @todo Test builders when implemented.
-    //   self::assertCount(2, $environment->getBuilders());
+    self::assertCount(2, $environment->getBuilders());
+    $builder_classes = \array_map(
+       static fn (BuilderInterface $builder) => $builder::class,
+       $environment->getBuilders()->getIterator()->getArrayCopy(),
+     );
+    self::assertContains(HtmlElementBuilder::class, $builder_classes);
+    self::assertContains(PlainTextBuilder::class, $builder_classes);
   }
 
 }

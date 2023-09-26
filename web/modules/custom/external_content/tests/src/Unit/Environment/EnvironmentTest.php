@@ -2,12 +2,17 @@
 
 namespace Drupal\Tests\external_content\Unit\Environment;
 
+use Drupal\external_content\Builder\HtmlElementBuilder;
+use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Data\BundlerResult;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFileCollection;
@@ -15,7 +20,6 @@ use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Serializer\PlainTextSerializer;
-use Drupal\external_content_test\Builder\HtmlBuilder;
 use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
@@ -91,10 +95,10 @@ final class EnvironmentTest extends UnitTestCaseTest {
     };
 
     $environment = new Environment();
-    $environment->addHtmlParser($html_parser::class);
+    $environment->addHtmlParser(new $html_parser());
 
     $expected = [
-      0 => $html_parser::class,
+      0 => $html_parser,
     ];
 
     self::assertEquals(
@@ -119,10 +123,10 @@ final class EnvironmentTest extends UnitTestCaseTest {
     };
 
     $environment = new Environment();
-    $environment->addBundler($bundler::class);
+    $environment->addBundler(new $bundler());
 
     $expected = [
-      0 => $bundler::class,
+      0 => $bundler,
     ];
 
     self::assertEquals(
@@ -147,10 +151,10 @@ final class EnvironmentTest extends UnitTestCaseTest {
     };
 
     $environment = new Environment();
-    $environment->addFinder($finder::class);
+    $environment->addFinder(new $finder());
 
     $expected = [
-      0 => $finder::class,
+      0 => $finder,
     ];
 
     self::assertEquals(
@@ -163,22 +167,22 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testBuilder(): void {
-    $builder = new class implements BundlerInterface {
+    $builder = new class implements BuilderInterface {
 
       /**
        * {@inheritdoc}
        */
-      public function bundle(ExternalContentDocument $document): BundlerResultInterface {
-        return BundlerResult::unidentified();
+      public function build(NodeInterface $node, array $children): BuilderResultInterface {
+        return BuilderResult::none();
       }
 
     };
 
     $environment = new Environment();
-    $environment->addBuilder($builder::class);
+    $environment->addBuilder(new $builder());
 
     $expected = [
-      0 => $builder::class,
+      0 => $builder,
     ];
 
     self::assertEquals(
@@ -222,11 +226,13 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testSerializer(): void {
+    $serializer = new PlainTextSerializer();
+
     $environment = new Environment();
-    $environment->addSerializer(PlainTextSerializer::class);
+    $environment->addSerializer($serializer);
 
     $expected = [
-      0 => PlainTextSerializer::class,
+      0 => $serializer,
     ];
 
     self::assertEquals(
@@ -239,22 +245,31 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testExtension(): void {
-    $extension = new class implements ExtensionInterface {
+    $builder = new HtmlElementBuilder();
+
+    $extension = new class ($builder) implements ExtensionInterface {
+
+      /**
+       * Constructs a new instance.
+       */
+      public function __construct(
+        private readonly BuilderInterface $builder,
+      ) {}
 
       /**
        * {@inheritdoc}
        */
       public function register(EnvironmentBuilderInterface $environment): void {
-        $environment->addBuilder(HtmlBuilder::class);
+        $environment->addBuilder($this->builder);
       }
 
     };
 
     $environment = new Environment();
-    $environment->addExtension($extension);
+    $environment->addExtension(new $extension($builder));
 
     self::assertEquals(
-      HtmlBuilder::class,
+      $builder,
       $environment->getBuilders()->getIterator()->offsetGet(0),
     );
   }

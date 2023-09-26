@@ -22,7 +22,7 @@ final class ExternalContentDocumentSerializerTest extends ExternalContentTestBas
    */
   public function testSerialization(): void {
     $environment = new Environment();
-    $environment->addSerializer(ExternalContentDocumentSerializer::class);
+    $environment->addSerializer(new ExternalContentDocumentSerializer());
 
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);

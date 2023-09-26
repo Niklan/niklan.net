@@ -2,8 +2,11 @@
 
 namespace Drupal\external_content\Environment;
 
+use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
+use Drupal\external_content\Contract\Configuration\ConfigurationAwareInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
@@ -12,13 +15,16 @@ use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\EventListener;
 use Drupal\external_content\Data\PrioritizedList;
+use Drupal\external_content\Exception\MissingContainerException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides an environment for a specific external content processing.
  */
-final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface {
+final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface, ContainerAwareInterface {
 
   /**
    * {@selfdoc}
@@ -56,6 +62,11 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   protected ?EventDispatcherInterface $eventDispatcher = NULL;
 
   /**
+   * {@selfdoc}
+   */
+  protected ?ContainerInterface $container = NULL;
+
+  /**
    * Constructs a new Environment instance.
    */
   public function __construct(
@@ -73,19 +84,49 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addHtmlParser(string $class, int $priority = 0): EnvironmentBuilderInterface {
-    \assert(\is_subclass_of($class, HtmlParserInterface::class));
-    $this->htmlParsers->add($class, $priority);
+  public function addHtmlParser(HtmlParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface {
+    $this->htmlParsers->add($parser, $priority);
+    $this->injectDependencies($parser);
 
     return $this;
   }
 
   /**
+   * {@selfdoc}
+   */
+  private function injectDependencies(object $object): void {
+    if ($object instanceof EnvironmentAwareInterface) {
+      $object->setEnvironment($this);
+    }
+
+    if ($object instanceof ConfigurationAwareInterface) {
+      $object->setConfiguration($this->configuration);
+    }
+
+    if (!($object instanceof ContainerAwareInterface)) {
+      return;
+    }
+
+    if (!$this->container) {
+      throw new MissingContainerException($object::class);
+    }
+
+    $object->setContainer($this->container);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function setContainer(?ContainerInterface $container): void {
+    $this->container = $container;
+  }
+
+  /**
    * {@inheritdoc}
    */
-  public function addBundler(string $class, int $priority = 0): EnvironmentBuilderInterface {
-    \assert(\is_subclass_of($class, BundlerInterface::class));
-    $this->bundlers->add($class, $priority);
+  public function addBundler(BundlerInterface $bundler, int $priority = 0): EnvironmentBuilderInterface {
+    $this->bundlers->add($bundler, $priority);
+    $this->injectDependencies($bundler);
 
     return $this;
   }
@@ -114,9 +155,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addFinder(string $class, int $priority = 0): EnvironmentBuilderInterface {
-    \assert(\is_subclass_of($class, FinderInterface::class));
-    $this->finders->add($class, $priority);
+  public function addFinder(FinderInterface $finder, int $priority = 0): EnvironmentBuilderInterface {
+    $this->finders->add($finder, $priority);
+    $this->injectDependencies($finder);
 
     return $this;
   }
@@ -149,8 +190,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addBuilder(string $class, int $priority = 0): self {
-    $this->builders->add($class, $priority);
+  public function addBuilder(BuilderInterface $builder, int $priority = 0): self {
+    $this->builders->add($builder, $priority);
+    $this->injectDependencies($builder);
 
     return $this;
   }
@@ -202,9 +244,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addSerializer(string $class, int $priority = 0): self {
-    \assert(\is_subclass_of($class, NodeSerializerInterface::class));
-    $this->serializers->add($class, $priority);
+  public function addSerializer(NodeSerializerInterface $serializer, int $priority = 0): self {
+    $this->serializers->add($serializer, $priority);
+    $this->injectDependencies($serializer);
 
     return $this;
   }

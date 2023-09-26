@@ -22,7 +22,7 @@ final class HtmlElementSerializerTest extends ExternalContentTestBase {
    */
   public function testSerialization(): void {
     $environment = new Environment();
-    $environment->addSerializer(HtmlElementSerializer::class);
+    $environment->addSerializer(new HtmlElementSerializer());
 
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);

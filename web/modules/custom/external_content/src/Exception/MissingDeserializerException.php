@@ -21,7 +21,10 @@ final class MissingDeserializerException extends \LogicException {
       "Environment used for deserialization doesn't provides serializer for %s type of %s version. Available serializers: %s",
       $this->type,
       $this->version,
-      \implode(', ', $this->environment->getSerializers()),
+      \implode(
+        ', ',
+        $this->environment->getSerializers()->getIterator()->getArrayCopy(),
+      ),
     );
     parent::__construct($message);
   }

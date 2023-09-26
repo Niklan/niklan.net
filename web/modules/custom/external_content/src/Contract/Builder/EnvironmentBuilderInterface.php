@@ -2,7 +2,11 @@
 
 namespace Drupal\external_content\Contract\Builder;
 
+use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
+use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -13,27 +17,27 @@ interface EnvironmentBuilderInterface {
   /**
    * {@selfdoc}
    */
-  public function addHtmlParser(string $class, int $priority = 0): self;
+  public function addHtmlParser(HtmlParserInterface $parser, int $priority = 0): self;
 
   /**
    * {@selfdoc}
    */
-  public function addBundler(string $class, int $priority = 0): self;
+  public function addBundler(BundlerInterface $bundler, int $priority = 0): self;
 
   /**
    * {@selfdoc}
    */
-  public function addFinder(string $class, int $priority = 0): self;
+  public function addFinder(FinderInterface $finder, int $priority = 0): self;
 
   /**
    * {@selfdoc}
    */
-  public function addBuilder(string $class, int $priority = 0): self;
+  public function addBuilder(BuilderInterface $builder, int $priority = 0): self;
 
   /**
    * {@selfdoc}
    */
-  public function addSerializer(string $class, int $priority): self;
+  public function addSerializer(NodeSerializerInterface $serializer, int $priority): self;
 
   /**
    * {@selfdoc}

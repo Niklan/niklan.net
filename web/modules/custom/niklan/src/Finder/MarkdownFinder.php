@@ -33,7 +33,7 @@ final class MarkdownFinder implements FinderInterface, EnvironmentAwareInterface
     $this->validate();
 
     $files = new ExternalContentFileCollection();
-    $configuration = $this->getEnvironment()->getConfiguration();
+    $configuration = $this->environment->getConfiguration();
     $settings = $configuration->get('markdown_finder');
     $patterns = \array_map(
       static fn ($extension) => '*.' . $extension,
@@ -73,7 +73,7 @@ final class MarkdownFinder implements FinderInterface, EnvironmentAwareInterface
    * Validates configuration for the finder.
    */
   protected function validate(): void {
-    $configuration = $this->getEnvironment()->getConfiguration();
+    $configuration = $this->environment->getConfiguration();
 
     if (!$configuration->exists('markdown_finder')) {
       $message = \sprintf(
@@ -102,13 +102,6 @@ final class MarkdownFinder implements FinderInterface, EnvironmentAwareInterface
 
       throw new InvalidConfigurationException($message);
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getEnvironment(): EnvironmentInterface {
-    return $this->environment;
   }
 
   /**

@@ -95,8 +95,8 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
     );
 
     $environment = new Environment();
-    $environment->addHtmlParser(PlainTextParser::class);
-    $environment->addHtmlParser(HtmlElementParser::class);
+    $environment->addHtmlParser(new PlainTextParser());
+    $environment->addHtmlParser(new HtmlElementParser());
     $this->htmlParser->setEnvironment($environment);
 
     $result = $this->htmlParser->parse($file);

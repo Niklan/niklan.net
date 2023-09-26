@@ -1,28 +1,31 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content_test\Builder;
+namespace Drupal\external_content\Builder;
 
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\HtmlElement;
 
 /**
- * Provides a simple builder for the plain text.
+ * Provides a simple HTML render array builder.
  */
-final class PlainTextBuilder implements BuilderInterface {
+final class HtmlElementBuilder implements BuilderInterface {
 
   /**
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, array $children): BuilderResultInterface {
-    if (!$node instanceof PlainText) {
+    if (!$node instanceof HtmlElement) {
       return BuilderResult::none();
     }
 
     return BuilderResult::renderArray([
-      '#markup' => $node->getContent(),
+      '#type' => 'html_tag',
+      '#tag' => $node->getTag(),
+      '#attributes' => $node->getAttributes()->all(),
+      'children' => $children,
     ]);
   }
 

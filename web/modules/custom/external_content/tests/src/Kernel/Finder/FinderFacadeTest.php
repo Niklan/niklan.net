@@ -36,7 +36,7 @@ final class FinderFacadeTest extends ExternalContentTestBase {
    */
   public function testFooFinder(): void {
     $environment = new Environment();
-    $environment->addFinder(FooFinder::class);
+    $environment->addFinder(new FooFinder());
     $this->finder->setEnvironment($environment);
     $result = $this->finder->find();
 

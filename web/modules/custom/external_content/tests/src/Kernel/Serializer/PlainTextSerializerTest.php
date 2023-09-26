@@ -21,7 +21,7 @@ final class PlainTextSerializerTest extends ExternalContentTestBase {
    */
   public function testSerialization(): void {
     $environment = new Environment();
-    $environment->addSerializer(PlainTextSerializer::class);
+    $environment->addSerializer(new PlainTextSerializer());
 
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);

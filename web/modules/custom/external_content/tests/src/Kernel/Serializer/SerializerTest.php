@@ -53,9 +53,9 @@ final class SerializerTest extends ExternalContentTestBase {
   private function prepareSerializer(): SerializerInterface {
     $environment = new Environment();
     $environment
-      ->addSerializer(PlainTextSerializer::class)
-      ->addSerializer(HtmlElementSerializer::class)
-      ->addSerializer(ExternalContentDocumentSerializer::class);
+      ->addSerializer(new PlainTextSerializer())
+      ->addSerializer(new HtmlElementSerializer())
+      ->addSerializer(new ExternalContentDocumentSerializer());
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
 
