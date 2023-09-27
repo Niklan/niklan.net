@@ -2,7 +2,6 @@
 
 namespace Drupal\external_content\Serializer;
 
-use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
@@ -14,7 +13,7 @@ use Drupal\external_content\Exception\MissingSerializerException;
 /**
  * Provides a serializer for external content.
  */
-final class Serializer implements EnvironmentAwareInterface, SerializerInterface {
+final class Serializer implements SerializerInterface {
 
   /**
    * {@selfdoc}

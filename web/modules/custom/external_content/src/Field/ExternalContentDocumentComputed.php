@@ -3,6 +3,8 @@
 namespace Drupal\external_content\Field;
 
 use Drupal\Core\TypedData\TypedData;
+use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
+use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
@@ -34,12 +36,23 @@ final class ExternalContentDocumentComputed extends TypedData {
       return NULL;
     }
 
-    $json = $field_item->get('value')->getValue();
+    if ($field_item->get('environment_plugin_id')->validate()->count() > 0) {
+      return NULL;
+    }
+
+    $environment_plugin = self::getEnvironmentPluginManager()
+      ->createInstance($field_item->get('environment_plugin_id')->getString());
+    \assert($environment_plugin instanceof EnvironmentPluginInterface);
+
     $serializer = self::getSerializer();
-    // @todo Store environment plugin ID with a field value and set it here
-    //   for serializer.
-    \assert($element instanceof ExternalContentDocument);
-    $this->value = $element;
+    $serializer->setEnvironment($environment_plugin->getEnvironment());
+    $document = $serializer->deserialize($field_item->get('value')->getValue());
+
+    if (!($document instanceof ExternalContentDocument)) {
+      return NULL;
+    }
+
+    $this->value = $document;
 
     return $this->value;
   }
@@ -49,6 +62,13 @@ final class ExternalContentDocumentComputed extends TypedData {
    */
   private static function getSerializer(): SerializerInterface {
     return \Drupal::service(SerializerInterface::class);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private static function getEnvironmentPluginManager(): EnvironmentPluginManagerInterface {
+    return \Drupal::service(EnvironmentPluginManagerInterface::class);
   }
 
 }

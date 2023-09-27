@@ -7,13 +7,11 @@ use Drupal\entity_test\Entity\EntityTest;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
+use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
-use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
-use Drupal\external_content\Serializer\HtmlElementSerializer;
-use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -32,6 +30,7 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
     'field',
     'user',
     'entity_test',
+    'external_content_test',
   ];
 
   /**
@@ -66,14 +65,20 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
       ])->save();
 
     $document_json = $this->prepareDocumentJson();
+
     $entity = $entity_test_storage->create();
     \assert($entity instanceof EntityTest);
-    $entity->set($field_name, $document_json);
+    $entity->set($field_name, [
+      'value' => $document_json,
+      'environment_plugin_id' => 'field_item',
+    ]);
     $field_item = $entity->get($field_name)->first();
     \assert($field_item instanceof ExternalContentDocumentItem);
 
     self::assertSame($document_json, $field_item->get('value')->getValue());
+
     $computed_document = $field_item->get('document')->getValue();
+
     self::assertEquals(
       $this->prepareDocument(),
       $computed_document,
@@ -85,13 +90,26 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
     );
     self::assertCount(0, $field_item->validate());
 
-    // Test wrong JSON.
-    $entity->set($field_name, 'not a json');
+    // Wrong JSON, but valid plugin.
+    $entity->set($field_name, [
+      'value' => 'not a json',
+      'environment_plugin_id' => 'field_item',
+    ]);
     $field_item = $entity->get($field_name)->first();
     \assert($field_item instanceof ExternalContentDocumentItem);
 
-    self::assertEquals('not a json', $field_item->get('value')->getValue(),);
+    self::assertEquals('not a json', $field_item->get('value')->getValue());
     self::assertNull($field_item->get('document')->getValue());
+    self::assertCount(1, $field_item->validate());
+
+    // Valid JSON, but invalid plugin.
+    $entity->set($field_name, [
+      'value' => $document_json,
+      'environment_plugin_id' => 'random_plugin_that_does_not_exists',
+    ]);
+    $field_item = $entity->get($field_name)->first();
+    \assert($field_item instanceof ExternalContentDocumentItem);
+
     self::assertCount(1, $field_item->validate());
   }
 
@@ -114,13 +132,10 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   private function prepareDocumentJson(): string {
-    $serializer = $this->container->get(SerializerInterface::class);
     $environment = new Environment();
-    $environment
-      ->addSerializer(PlainTextSerializer::class)
-      ->addSerializer(HtmlElementSerializer::class)
-      ->addSerializer(PlainTextSerializer::class)
-      ->addSerializer(ExternalContentDocumentSerializer::class);
+    $environment->addExtension(new BasicHtmlExtension());
+
+    $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
 
     return $serializer->serialize($this->prepareDocument());

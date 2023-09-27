@@ -2,12 +2,13 @@
 
 namespace Drupal\external_content\Contract\Serializer;
 
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 
 /**
  * Defines the interface for an External Content DOM serializer.
  */
-interface SerializerInterface {
+interface SerializerInterface extends EnvironmentAwareInterface {
 
   /**
    * {@selfdoc}

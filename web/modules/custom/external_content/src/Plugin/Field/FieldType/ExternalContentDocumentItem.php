@@ -6,6 +6,7 @@ use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
+use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Field\ExternalContentDocumentComputed;
 
 /**
@@ -29,7 +30,15 @@ final class ExternalContentDocumentItem extends FieldItemBase {
 
     $properties['value'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Serialized external content document'))
-      ->addConstraint('ExternalContentValidJson');
+      ->addConstraint('ExternalContentValidJson')
+      ->setRequired(TRUE);
+
+    $properties['environment_plugin_id'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Environment plugin ID'))
+      ->addConstraint('PluginExists', [
+        'manager' => EnvironmentPluginManagerInterface::class,
+      ])
+      ->setRequired(TRUE);
 
     $properties['document'] = DataDefinition::create('any')
       ->setLabel(new TranslatableMarkup('External content document'))
@@ -52,6 +61,11 @@ final class ExternalContentDocumentItem extends FieldItemBase {
           'mysql_type' => 'json',
           'sqlite_type' => 'text',
           'not null' => FALSE,
+        ],
+        'environment_plugin_id' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
         ],
       ],
     ];

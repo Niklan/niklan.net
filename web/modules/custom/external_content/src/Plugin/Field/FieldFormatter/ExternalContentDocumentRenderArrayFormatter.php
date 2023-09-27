@@ -65,61 +65,6 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings(): array {
-    return [
-      'environment' => NULL,
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsForm(array $form, FormStateInterface $form_state): array {
-    $form['environment'] = [
-      '#type' => 'select',
-      '#required' => TRUE,
-      '#title' => new TranslatableMarkup('Environment'),
-      '#description' => new TranslatableMarkup('The external content environment that will be used for rendering content.'),
-      '#default_value' => $this->getSetting('environment'),
-      '#options' => $this->getEnvironmentPluginOptions(),
-    ];
-
-    return $form;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getEnvironmentPluginOptions(): array {
-    return \array_map(
-      static fn (array $definition) => "{$definition['label']} ({$definition['id']})",
-      $this->environmentPluginManager->getDefinitions(),
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary(): array {
-    $summary = [];
-
-    if ($this->getSetting('environment')) {
-      $summary[] = (string) new TranslatableMarkup('Environment: @environment', [
-        '@environment' => $this->getEnvironmentPluginOptions()[$this->getSetting('environment')],
-      ]);
-    }
-    else {
-      $summary[] = (string) new TranslatableMarkup('Environment: @environment', [
-        '@environment' => new TranslatableMarkup('none'),
-      ]);
-    }
-
-    return $summary;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $environment_plugin_id = $this->getSetting('environment');
 
