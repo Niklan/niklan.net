@@ -5,8 +5,6 @@ namespace Drupal\Tests\external_content\Kernel\Plugin\Field\FieldFormatter;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
-use Drupal\Core\Form\FormState;
-use Drupal\external_content\Plugin\Field\FieldFormatter\ExternalContentDocumentRenderArrayFormatter;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -68,19 +66,13 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
         ],
       ])
       ->save();
-  }
 
-  /**
-   * {@selfdoc}
-   */
-  private function setFormatterSettings(array $settings): void {
     $this
       ->container
       ->get('entity_display.repository')
       ->getViewDisplay('entity_test', 'entity_test', 'default')
       ->setComponent('external_content', [
         'type' => 'external_content_render_array',
-        'settings' => $settings,
       ])
       ->save();
   }
@@ -112,9 +104,11 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
    * @dataProvider formatterData
    */
   public function testFormatter(?string $environment_plugin_id, ?string $document_json, bool $expect_result): void {
-    $this->setFormatterSettings(['environment' => $environment_plugin_id]);
     $entity = $this->getEntityTestStorage()->create([
-      'external_content' => $document_json,
+      'external_content' => [
+        'value' => $document_json,
+        'environment_plugin_id' => $environment_plugin_id,
+      ],
     ]);
 
     self::assertEquals(\SAVED_NEW, $entity->save());
@@ -135,7 +129,7 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
    */
   public function formatterData(): \Generator {
     yield 'Valid result' => [
-      'environment_plugin_id' => 'foo',
+      'environment_plugin_id' => 'field_item',
       'document' => $this->getExternalContentDocumentValue(),
       'expect_result' => TRUE,
     ];
@@ -153,76 +147,10 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
     ];
 
     yield 'Wrong JSON' => [
-      'environment_plugin_id' => 'foo',
+      'environment_plugin_id' => 'field_item',
       'document' => 'abc',
       'expect_result' => FALSE,
     ];
-  }
-
-  /**
-   * {@selfdoc}
-   *
-   * @dataProvider settingsSummaryData
-   */
-  public function testSettingsSummary(array $settings, array $expected_summary): void {
-    $this->setFormatterSettings($settings);
-
-    $display_repository = $this->container->get('entity_display.repository');
-    $display = $display_repository
-      ->getViewDisplay('entity_test', 'entity_test');
-    $formatter = $display->getRenderer('external_content');
-    \assert($formatter instanceof ExternalContentDocumentRenderArrayFormatter);
-    $actual_summary = \array_map('strval', $formatter->settingsSummary());
-
-    self::assertSame($expected_summary, $actual_summary);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function settingsSummaryData(): \Generator {
-    yield 'No environment selected' => [
-      'settings' => ['environment' => NULL],
-      'expected_summary' => ['Environment: none'],
-    ];
-
-    yield 'Foo environment selected' => [
-      'settings' => ['environment' => 'foo'],
-      'expected_summary' => ['Environment: Foo environment (foo)'],
-    ];
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function testSettingsForm(): void {
-    // Test default settings.
-    $this->setFormatterSettings(['environment' => NULL]);
-    $form = $this->buildSettingsForm();
-    self::assertArrayHasKey('environment', $form);
-    self::assertNull($form['environment']['#default_value']);
-    self::assertArrayHasKey('foo', $form['environment']['#options']);
-
-    // Test with selected environment.
-    $this->setFormatterSettings(['environment' => 'foo']);
-    $form = $this->buildSettingsForm();
-    self::assertEquals('foo', $form['environment']['#default_value']);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function buildSettingsForm(): array {
-    $display_repository = $this->container->get('entity_display.repository');
-    $display = $display_repository
-      ->getViewDisplay('entity_test', 'entity_test');
-    $formatter = $display->getRenderer('external_content');
-    \assert($formatter instanceof ExternalContentDocumentRenderArrayFormatter);
-
-    $form = [];
-    $form_state = new FormState();
-
-    return $formatter->settingsForm($form, $form_state);
   }
 
 }

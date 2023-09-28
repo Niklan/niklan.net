@@ -15,8 +15,8 @@ final class EnvironmentPluginManagerTest extends EnvironmentPluginTestBase {
   public function testManager(): void {
     $definitions = $this->environmentPluginManager->getDefinitions();
 
-    self::assertCount(1, $definitions);
     self::assertArrayHasKey('foo', $definitions);
+    self::assertArrayHasKey('field_item', $definitions);
   }
 
 }

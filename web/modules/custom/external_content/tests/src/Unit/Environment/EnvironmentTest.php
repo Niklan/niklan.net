@@ -2,22 +2,28 @@
 
 namespace Drupal\Tests\external_content\Unit\Environment;
 
+use Drupal\Component\DependencyInjection\ContainerInterface;
 use Drupal\external_content\Builder\HtmlElementBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
+use Drupal\external_content\Contract\Configuration\ConfigurationAwareInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Data\BundlerResult;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Environment\Environment;
+use Drupal\external_content\Exception\MissingContainerException;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\external_content_test\Event\BarEvent;
@@ -26,6 +32,7 @@ use Drupal\Tests\UnitTestCaseTest;
 use Prophecy\Argument;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * Provides a test for environment.
@@ -272,6 +279,82 @@ final class EnvironmentTest extends UnitTestCaseTest {
       $builder,
       $environment->getBuilders()->getIterator()->offsetGet(0),
     );
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @dataProvider injectDependenciesDataProvider
+   */
+  public function testInjectDependencies(string $component_interface, string $method): void {
+    $container = $this->prophesize(ContainerInterface::class);
+
+    $object = $this
+      ->prophesize($component_interface)
+      ->willImplement(EnvironmentAwareInterface::class)
+      ->willImplement(ConfigurationAwareInterface::class)
+      ->willImplement(ContainerAwareInterface::class);
+
+    $object
+      ->setEnvironment(Argument::type(EnvironmentInterface::class))
+      ->shouldBeCalled();
+
+    $object
+      ->setConfiguration(Argument::type(Configuration::class))
+      ->shouldBeCalled();
+
+    $object
+      ->setContainer(Argument::type(ContainerInterface::class))
+      ->shouldBeCalled();
+
+    $environment = new Environment();
+    $environment->setContainer($container->reveal());
+    \call_user_func([$environment, $method], $object->reveal());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function injectDependenciesDataProvider(): \Generator {
+    yield 'HTML Parser' => [
+      'component_interface' => HtmlParserInterface::class,
+      'method' => 'addHtmlParser',
+    ];
+
+    yield 'Bundler' => [
+      'component_interface' => BundlerInterface::class,
+      'method' => 'addBundler',
+    ];
+
+    yield 'Builder' => [
+      'component_interface' => BuilderInterface::class,
+      'method' => 'addBuilder',
+    ];
+
+    yield 'Finder' => [
+      'component_interface' => FinderInterface::class,
+      'method' => 'addFinder',
+    ];
+
+    yield 'Serializer' => [
+      'component_interface' => NodeSerializerInterface::class,
+      'method' => 'addSerializer',
+    ];
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testMissingContainerException(): void {
+    $object = $this
+      ->prophesize(HtmlParserInterface::class)
+      ->willImplement(ContainerAwareInterface::class);
+
+    $environment = new Environment();
+
+    self::expectException(MissingContainerException::class);
+
+    $environment->addHtmlParser($object->reveal());
   }
 
 }

@@ -12,9 +12,6 @@ final class ExternalContentDocument extends Node {
 
   /**
    * Constructs a new ExternalContentDocument instance.
-   *
-   * @param \Drupal\external_content\Data\ExternalContentFile $file
-   *   The external content file.
    */
   public function __construct(
     protected ExternalContentFile $file,

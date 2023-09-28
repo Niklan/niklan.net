@@ -5,9 +5,7 @@ namespace Drupal\external_content\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
@@ -66,34 +64,26 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode): array {
-    $environment_plugin_id = $this->getSetting('environment');
-
-    if (!$environment_plugin_id) {
-      return [];
-    }
-
-    if (!$this->environmentPluginManager->hasDefinition($environment_plugin_id)) {
-      return [];
-    }
-
-    $environment_plugin = $this
-      ->environmentPluginManager
-      ->createInstance($this->getSetting('environment'));
-    \assert($environment_plugin instanceof EnvironmentPluginInterface);
-
-    $this
-      ->renderArrayBuilder
-      ->setEnvironment($environment_plugin->getEnvironment());
-
     $element = [];
 
     foreach ($items as $item) {
       \assert($item instanceof ExternalContentDocumentItem);
       $document = $item->get('document')->getValue();
+      $is_valid_environment_plugin = $item->get('environment_plugin_id')->validate()->count() === 0;
 
-      if (!$document instanceof ExternalContentDocument) {
+      if (!($document instanceof ExternalContentDocument) || !$is_valid_environment_plugin) {
         continue;
       }
+
+      $environment_plugin_id = $item->get('environment_plugin_id')->getValue();
+      $environment_plugin = $this
+        ->environmentPluginManager
+        ->createInstance($environment_plugin_id);
+      \assert($environment_plugin instanceof EnvironmentPluginInterface);
+
+      $this
+        ->renderArrayBuilder
+        ->setEnvironment($environment_plugin->getEnvironment());
 
       $build = $this->renderArrayBuilder->build($document);
       $element[] = $build->getRenderArray();
