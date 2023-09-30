@@ -5,6 +5,8 @@ namespace Drupal\Tests\external_content\Unit\Serializer;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
+use Drupal\external_content\Exception\MissingDeserializerException;
+use Drupal\external_content\Exception\MissingSerializerException;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
@@ -60,6 +62,37 @@ final class SerializerTest extends ExternalContentTestBase {
     $serializer->setEnvironment($environment);
 
     return $serializer;
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @covers \Drupal\external_content\Exception\MissingSerializerException
+   */
+  public function testMissingSerializerException(): void {
+    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer->setEnvironment(new Environment());
+
+    $file = new ExternalContentFile('foo', 'bar');
+    $document = new ExternalContentDocument($file);
+
+    self::expectException(MissingSerializerException::class);
+
+    $serializer->serialize($document);
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @covers \Drupal\external_content\Exception\MissingDeserializerException
+   */
+  public function testMissingDeserializerException(): void {
+    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer->setEnvironment(new Environment());
+
+    self::expectException(MissingDeserializerException::class);
+
+    $serializer->deserialize('{"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}}}');
   }
 
 }

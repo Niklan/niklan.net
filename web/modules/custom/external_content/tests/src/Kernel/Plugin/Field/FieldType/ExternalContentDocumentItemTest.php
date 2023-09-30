@@ -4,6 +4,7 @@ namespace Drupal\Tests\external_content\Kernel\Plugin\Field\FieldType;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_test\Entity\EntityTest;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
@@ -41,38 +42,21 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  public function testField(): void {
-    $field_storage_config_storage = $this
-      ->entityTypeManager
-      ->getStorage('field_storage_config');
-    $field_config_storage = $this
-      ->entityTypeManager
-      ->getStorage('field_config');
+  protected string $fieldName;
+
+  /**
+   * {@selfdoc}
+   */
+  public function testValidField(): void {
+    $document_json = $this->prepareJson($this->prepareDocument());
     $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
-
-    $field_name = \mb_strtolower($this->randomMachineName());
-    $field_storage_config_storage
-      ->create([
-        'entity_type' => 'entity_test',
-        'type' => 'external_content_document',
-        'field_name' => $field_name,
-      ])->save();
-    $field_config_storage
-      ->create([
-        'entity_type' => 'entity_test',
-        'bundle' => 'entity_test',
-        'field_name' => $field_name,
-      ])->save();
-
-    $document_json = $this->prepareDocumentJson();
-
     $entity = $entity_test_storage->create();
     \assert($entity instanceof EntityTest);
-    $entity->set($field_name, [
+    $entity->set($this->fieldName, [
       'value' => $document_json,
       'environment_plugin_id' => 'field_item',
     ]);
-    $field_item = $entity->get($field_name)->first();
+    $field_item = $entity->get($this->fieldName)->first();
     \assert($field_item instanceof ExternalContentDocumentItem);
 
     self::assertSame($document_json, $field_item->get('value')->getValue());
@@ -89,28 +73,66 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
       $field_item->get('document')->getValue(),
     );
     self::assertCount(0, $field_item->validate());
+  }
 
+  /**
+   * {@selfdoc}
+   */
+  public function testWrongJsonValidPlugin(): void {
+    $document_json = $this->prepareJson($this->prepareDocument());
+    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
+    $entity = $entity_test_storage->create();
+    \assert($entity instanceof EntityTest);
     // Wrong JSON, but valid plugin.
-    $entity->set($field_name, [
+    $entity->set($this->fieldName, [
       'value' => 'not a json',
       'environment_plugin_id' => 'field_item',
     ]);
-    $field_item = $entity->get($field_name)->first();
+    $field_item = $entity->get($this->fieldName)->first();
     \assert($field_item instanceof ExternalContentDocumentItem);
 
     self::assertEquals('not a json', $field_item->get('value')->getValue());
     self::assertNull($field_item->get('document')->getValue());
     self::assertCount(1, $field_item->validate());
+  }
 
-    // Valid JSON, but invalid plugin.
-    $entity->set($field_name, [
+  /**
+   * {@selfdoc}
+   */
+  public function testValidJsonWrongPlugin(): void {
+    $document_json = $this->prepareJson($this->prepareDocument());
+    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
+    $entity = $entity_test_storage->create();
+    \assert($entity instanceof EntityTest);
+    $entity->set($this->fieldName, [
       'value' => $document_json,
       'environment_plugin_id' => 'random_plugin_that_does_not_exists',
     ]);
-    $field_item = $entity->get($field_name)->first();
+    $field_item = $entity->get($this->fieldName)->first();
     \assert($field_item instanceof ExternalContentDocumentItem);
 
     self::assertCount(1, $field_item->validate());
+    self::assertNull($field_item->get('document')->getValue());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testValueStartsNotWithExternalContentDocument(): void {
+    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
+    $entity = $entity_test_storage->create();
+    \assert($entity instanceof EntityTest);
+
+    $entity->set($this->fieldName, [
+      'value' => $this->prepareJson(new PlainText('Hello!')),
+      'environment_plugin_id' => 'field_item',
+    ]);
+    $field_item = $entity->get($this->fieldName)->first();
+    \assert($field_item instanceof ExternalContentDocumentItem);
+
+    // This is a valid JSON, but starts with a different node.
+    self::assertCount(0, $field_item->validate());
+    self::assertNull($field_item->get('document')->getValue());
   }
 
   /**
@@ -131,14 +153,14 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function prepareDocumentJson(): string {
+  private function prepareJson(NodeInterface $node): string {
     $environment = new Environment();
     $environment->addExtension(new BasicHtmlExtension());
 
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
 
-    return $serializer->serialize($this->prepareDocument());
+    return $serializer->serialize($node);
   }
 
   /**
@@ -151,6 +173,27 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
     $this->installEntitySchema('entity_test');
 
     $this->entityTypeManager = $this->container->get('entity_type.manager');
+
+    $field_storage_config_storage = $this
+      ->entityTypeManager
+      ->getStorage('field_storage_config');
+    $field_config_storage = $this
+      ->entityTypeManager
+      ->getStorage('field_config');
+
+    $this->fieldName = \mb_strtolower($this->randomMachineName());
+    $field_storage_config_storage
+      ->create([
+        'entity_type' => 'entity_test',
+        'type' => 'external_content_document',
+        'field_name' => $this->fieldName,
+      ])->save();
+    $field_config_storage
+      ->create([
+        'entity_type' => 'entity_test',
+        'bundle' => 'entity_test',
+        'field_name' => $this->fieldName,
+      ])->save();
   }
 
 }
