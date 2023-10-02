@@ -23,7 +23,7 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
   /**
    * {@inheritdoc}
    */
-  public function build(ExternalContentDocument $document): BuilderResultRenderArrayInterface {
+  public function build(NodeInterface $document): BuilderResultRenderArrayInterface {
     $children = $this->buildRecursive($document, []);
     $build = $this->buildNode($document, $children);
     // Since this is root build, it will always have only one array element.

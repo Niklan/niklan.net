@@ -7,20 +7,20 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
-use Drupal\external_content\Field\ExternalContentDocumentComputed;
+use Drupal\external_content\Field\ExternalContentComputedProperty;
 
 /**
  * Provides a field for external content document storage.
  *
  * @FieldType(
- *   id = "external_content_document",
- *   label = @Translation("External content document"),
- *   description = @Translation("Stores the external content document."),
+ *   id = "external_content",
+ *   label = @Translation("External content"),
+ *   description = @Translation("Stores the external content."),
  *   category = @Translation("External content"),
- *   default_formatter = "external_content_document",
+ *   default_formatter = "external_content_render_array",
  * )
  */
-final class ExternalContentDocumentItem extends FieldItemBase {
+final class ExternalContentFieldItem extends FieldItemBase {
 
   /**
    * {@inheritdoc}
@@ -40,11 +40,18 @@ final class ExternalContentDocumentItem extends FieldItemBase {
       ])
       ->setRequired(TRUE);
 
-    $properties['document'] = DataDefinition::create('any')
-      ->setLabel(new TranslatableMarkup('External content document'))
-      ->setDescription(new TranslatableMarkup('The external content document instance.'))
+    $properties['data'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Data'))
+      ->setDescription(new TranslatableMarkup('A JSON string with additional data.'))
+      ->addConstraint('ExternalContentValidJson', [
+        'skipEmptyValue' => TRUE,
+      ]);
+
+    $properties['content'] = DataDefinition::create('any')
+      ->setLabel(new TranslatableMarkup('External content'))
+      ->setDescription(new TranslatableMarkup('The external content element instance.'))
       ->setComputed(TRUE)
-      ->setClass(ExternalContentDocumentComputed::class);
+      ->setClass(ExternalContentComputedProperty::class);
 
     return $properties;
   }
@@ -66,6 +73,13 @@ final class ExternalContentDocumentItem extends FieldItemBase {
           'type' => 'varchar',
           'length' => 255,
           'not null' => TRUE,
+        ],
+        'data' => [
+          'type' => 'json',
+          'pgsql_type' => 'json',
+          'mysql_type' => 'json',
+          'sqlite_type' => 'text',
+          'not null' => FALSE,
         ],
       ],
     ];

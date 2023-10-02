@@ -7,10 +7,10 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
-use Drupal\external_content\Node\ExternalContentDocument;
-use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
+use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,11 +20,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "external_content_render_array",
  *   label = @Translation("Render array builder"),
  *   field_types = {
- *     "external_content_document"
+ *     "external_content"
  *   }
  * )
  */
-final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+final class ExternalContentRenderArrayFieldFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * {@inheritdoc}
@@ -67,13 +67,14 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
     $element = [];
 
     foreach ($items as $item) {
-      \assert($item instanceof ExternalContentDocumentItem);
-      $document = $item->get('document')->getValue();
-      $is_valid_environment_plugin = $item->get('environment_plugin_id')->validate()->count() === 0;
+      \assert($item instanceof ExternalContentFieldItem);
 
-      if (!($document instanceof ExternalContentDocument) || !$is_valid_environment_plugin) {
+      if ($item->validate()->count()) {
         continue;
       }
+
+      $content = $item->get('content')->getValue();
+      \assert($content instanceof NodeInterface);
 
       $environment_plugin_id = $item->get('environment_plugin_id')->getValue();
       $environment_plugin = $this
@@ -85,7 +86,7 @@ final class ExternalContentDocumentRenderArrayFormatter extends FormatterBase im
         ->renderArrayBuilder
         ->setEnvironment($environment_plugin->getEnvironment());
 
-      $build = $this->renderArrayBuilder->build($document);
+      $build = $this->renderArrayBuilder->build($content);
       $element[] = $build->getRenderArray();
     }
 

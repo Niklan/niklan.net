@@ -8,13 +8,18 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Validates the ExternalContentValidJson constraint.
  */
-final class ValidJsonConstraintValidator extends ConstraintValidator {
+final class ExternalContentValidJsonConstraintValidator extends ConstraintValidator {
 
   /**
    * {@inheritdoc}
    */
   public function validate(mixed $value, Constraint $constraint): void {
-    \assert($constraint instanceof ValidJsonConstraint);
+    \assert($constraint instanceof ExternalContentValidJsonConstraint);
+
+    // Exit without violation is NULL is a valid value.
+    if (\is_null($value) && $constraint->skipEmptyValue) {
+      return;
+    }
 
     // If values is not a string, doesn't even bother to check for validity, it
     // is clearly not a JSON.
@@ -38,7 +43,7 @@ final class ValidJsonConstraintValidator extends ConstraintValidator {
   /**
    * {@selfdoc}
    */
-  private function addInvalidJsonViolation(ValidJsonConstraint $constraint): void {
+  private function addInvalidJsonViolation(ExternalContentValidJsonConstraint $constraint): void {
     $this
       ->context
       ->buildViolation($constraint->invalidJsonMessage)

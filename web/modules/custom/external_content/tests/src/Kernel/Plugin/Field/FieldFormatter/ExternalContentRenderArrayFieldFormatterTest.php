@@ -10,10 +10,10 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 /**
  * Provides a test for render array formatter.
  *
- * @covers \Drupal\external_content\Plugin\Field\FieldFormatter\ExternalContentDocumentRenderArrayFormatter
+ * @covers \Drupal\external_content\Plugin\Field\FieldFormatter\ExternalContentRenderArrayFieldFormatter
  * @group external_content
  */
-final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalContentTestBase {
+final class ExternalContentRenderArrayFieldFormatterTest extends ExternalContentTestBase {
 
   /**
    * {@inheritdoc}
@@ -48,7 +48,7 @@ final class ExternalContentDocumentRenderArrayFormatterTest extends ExternalCont
       ->getStorage('field_storage_config')
       ->create([
         'field_name' => 'external_content',
-        'type' => 'external_content_document',
+        'type' => 'external_content',
         'entity_type' => 'entity_test',
         'cardinality' => 1,
       ]);

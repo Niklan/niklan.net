@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Unit\Plugin\Validation\Constraint;
 
-use Drupal\external_content\Plugin\Validation\Constraint\ValidJsonConstraint;
+use Drupal\external_content\Plugin\Validation\Constraint\ExternalContentValidJsonConstraint;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\Validator\Validation;
 
 /**
  * Provides a test for JSON validation constraint.
  *
- * @covers \Drupal\external_content\Plugin\Validation\Constraint\ValidJsonConstraintValidator
+ * @covers \Drupal\external_content\Plugin\Validation\Constraint\ExternalContentValidJsonConstraintValidator
  * @group external_content
  */
 final class ValidJsonConstraintValidatorTest extends UnitTestCase {
@@ -20,7 +20,7 @@ final class ValidJsonConstraintValidatorTest extends UnitTestCase {
    * @dataProvider validateData
    */
   public function testValidate(mixed $input, int $expected_violations): void {
-    $constraint = new ValidJsonConstraint();
+    $constraint = new ExternalContentValidJsonConstraint();
     $validator = Validation::createValidator();
 
     $violations = $validator->validate($input, $constraint);

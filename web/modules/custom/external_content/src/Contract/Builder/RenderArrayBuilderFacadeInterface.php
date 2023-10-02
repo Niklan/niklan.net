@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Contract\Builder;
 
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
@@ -13,6 +14,6 @@ interface RenderArrayBuilderFacadeInterface extends EnvironmentAwareInterface {
   /**
    * Builds a render array from document.
    */
-  public function build(ExternalContentDocument $document): BuilderResultRenderArrayInterface;
+  public function build(NodeInterface $document): BuilderResultRenderArrayInterface;
 
 }

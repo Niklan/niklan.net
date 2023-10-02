@@ -3,40 +3,36 @@
 namespace Drupal\external_content\Field;
 
 use Drupal\Core\TypedData\TypedData;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
-use Drupal\external_content\Node\ExternalContentDocument;
-use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
+use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 
 /**
- * Provides a computed field for "external_content_document" field type.
+ * Provides a computed field for "external_content" field type.
  *
- * @see \Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem
+ * @see \Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem
  */
-final class ExternalContentDocumentComputed extends TypedData {
+final class ExternalContentComputedProperty extends TypedData {
 
   /**
    * {@selfdoc}
    */
-  protected ?ExternalContentDocument $value = NULL;
+  protected ?NodeInterface $value = NULL;
 
   /**
    * {@inheritdoc}
    */
-  public function getValue(): ?ExternalContentDocument {
+  public function getValue(): ?NodeInterface {
     if ($this->value) {
       return $this->value;
     }
 
     $field_item = $this->getParent();
-    \assert($field_item instanceof ExternalContentDocumentItem);
+    \assert($field_item instanceof ExternalContentFieldItem);
 
-    if ($field_item->get('value')->validate()->count() > 0) {
-      return NULL;
-    }
-
-    if ($field_item->get('environment_plugin_id')->validate()->count() > 0) {
+    if ($field_item->validate()->count()) {
       return NULL;
     }
 
@@ -46,13 +42,9 @@ final class ExternalContentDocumentComputed extends TypedData {
 
     $serializer = self::getSerializer();
     $serializer->setEnvironment($environment_plugin->getEnvironment());
-    $document = $serializer->deserialize($field_item->get('value')->getValue());
+    $element = $serializer->deserialize($field_item->get('value')->getValue());
 
-    if (!($document instanceof ExternalContentDocument)) {
-      return NULL;
-    }
-
-    $this->value = $document;
+    $this->value = $element;
 
     return $this->value;
   }

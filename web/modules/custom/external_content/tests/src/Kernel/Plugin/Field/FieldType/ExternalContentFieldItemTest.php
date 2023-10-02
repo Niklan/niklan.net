@@ -12,17 +12,17 @@ use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Node\ExternalContentDocument;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
-use Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem;
+use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
  * Provides a test for external content document field type.
  *
- * @covers \Drupal\external_content\Plugin\Field\FieldType\ExternalContentDocumentItem
- * @covers \Drupal\external_content\Field\ExternalContentDocumentComputed
+ * @covers \Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem
+ * @covers \Drupal\external_content\Field\ExternalContentComputedProperty
  * @group external_content
  */
-final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
+final class ExternalContentFieldItemTest extends ExternalContentTestBase {
 
   /**
    * {@inheritdoc}
@@ -49,28 +49,26 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
    */
   public function testValidField(): void {
     $document_json = $this->prepareJson($this->prepareDocument());
-    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
-    $entity = $entity_test_storage->create();
-    \assert($entity instanceof EntityTest);
+    $entity = $this->createEntity();
     $entity->set($this->fieldName, [
       'value' => $document_json,
       'environment_plugin_id' => 'field_item',
     ]);
     $field_item = $entity->get($this->fieldName)->first();
-    \assert($field_item instanceof ExternalContentDocumentItem);
+    \assert($field_item instanceof ExternalContentFieldItem);
 
     self::assertSame($document_json, $field_item->get('value')->getValue());
 
-    $computed_document = $field_item->get('document')->getValue();
+    $computed_content = $field_item->get('content')->getValue();
 
     self::assertEquals(
       $this->prepareDocument(),
-      $computed_document,
+      $computed_content,
     );
     // Make sure that consecutive call for document returns cached instance.
     self::assertSame(
-      $computed_document,
-      $field_item->get('document')->getValue(),
+      $computed_content,
+      $field_item->get('content')->getValue(),
     );
     self::assertCount(0, $field_item->validate());
   }
@@ -79,20 +77,17 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testWrongJsonValidPlugin(): void {
-    $document_json = $this->prepareJson($this->prepareDocument());
-    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
-    $entity = $entity_test_storage->create();
-    \assert($entity instanceof EntityTest);
+    $entity = $this->createEntity();
     // Wrong JSON, but valid plugin.
     $entity->set($this->fieldName, [
       'value' => 'not a json',
       'environment_plugin_id' => 'field_item',
     ]);
     $field_item = $entity->get($this->fieldName)->first();
-    \assert($field_item instanceof ExternalContentDocumentItem);
+    \assert($field_item instanceof ExternalContentFieldItem);
 
     self::assertEquals('not a json', $field_item->get('value')->getValue());
-    self::assertNull($field_item->get('document')->getValue());
+    self::assertNull($field_item->get('content')->getValue());
     self::assertCount(1, $field_item->validate());
   }
 
@@ -101,38 +96,73 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
    */
   public function testValidJsonWrongPlugin(): void {
     $document_json = $this->prepareJson($this->prepareDocument());
-    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
-    $entity = $entity_test_storage->create();
-    \assert($entity instanceof EntityTest);
+    $entity = $this->createEntity();
     $entity->set($this->fieldName, [
       'value' => $document_json,
       'environment_plugin_id' => 'random_plugin_that_does_not_exists',
     ]);
     $field_item = $entity->get($this->fieldName)->first();
-    \assert($field_item instanceof ExternalContentDocumentItem);
+    \assert($field_item instanceof ExternalContentFieldItem);
 
     self::assertCount(1, $field_item->validate());
-    self::assertNull($field_item->get('document')->getValue());
+    self::assertNull($field_item->get('content')->getValue());
   }
 
   /**
    * {@selfdoc}
    */
   public function testValueStartsNotWithExternalContentDocument(): void {
-    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
-    $entity = $entity_test_storage->create();
-    \assert($entity instanceof EntityTest);
+    $element = new PlainText('Hello!');
+
+    $entity = $this->createEntity();
+    $entity->set($this->fieldName, [
+      'value' => $this->prepareJson($element),
+      'environment_plugin_id' => 'field_item',
+    ]);
+    $field_item = $entity->get($this->fieldName)->first();
+    \assert($field_item instanceof ExternalContentFieldItem);
+
+    // This is a valid JSON, but starts with a different node.
+    self::assertCount(0, $field_item->validate());
+    self::assertEquals($element, $field_item->get('content')->getValue());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testEmptyData(): void {
+    $entity = $this->createEntity();
 
     $entity->set($this->fieldName, [
       'value' => $this->prepareJson(new PlainText('Hello!')),
       'environment_plugin_id' => 'field_item',
     ]);
-    $field_item = $entity->get($this->fieldName)->first();
-    \assert($field_item instanceof ExternalContentDocumentItem);
+    $entity->save();
 
-    // This is a valid JSON, but starts with a different node.
+    $field_item = $entity->get($this->fieldName)->first();
+    \assert($field_item instanceof ExternalContentFieldItem);
+
+    self::assertNull($field_item->get('data')->getValue());
     self::assertCount(0, $field_item->validate());
-    self::assertNull($field_item->get('document')->getValue());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testNotEmptyData(): void {
+    $entity = $this->createEntity();
+    $entity->set($this->fieldName, [
+      'value' => $this->prepareJson(new PlainText('Hello!')),
+      'environment_plugin_id' => 'field_item',
+      'data' => \json_encode(['foo' => 'bar']),
+    ]);
+    $entity->save();
+
+    $field_item = $entity->get($this->fieldName)->first();
+    \assert($field_item instanceof ExternalContentFieldItem);
+
+    self::assertEquals('{"foo":"bar"}', $field_item->get('data')->getValue());
+    self::assertCount(0, $field_item->validate());
   }
 
   /**
@@ -164,6 +194,17 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
   }
 
   /**
+   * {@selfdoc}
+   */
+  public function createEntity(): EntityTest {
+    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
+    $entity = $entity_test_storage->create();
+    \assert($entity instanceof EntityTest);
+
+    return $entity;
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -185,7 +226,7 @@ final class ExternalContentDocumentItemTest extends ExternalContentTestBase {
     $field_storage_config_storage
       ->create([
         'entity_type' => 'entity_test',
-        'type' => 'external_content_document',
+        'type' => 'external_content',
         'field_name' => $this->fieldName,
       ])->save();
     $field_config_storage
