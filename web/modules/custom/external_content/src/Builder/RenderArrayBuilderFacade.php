@@ -8,7 +8,6 @@ use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
-use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
  * Provides an external content render array builder.

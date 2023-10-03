@@ -4,7 +4,6 @@ namespace Drupal\external_content\Contract\Builder;
 
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Node\ExternalContentDocument;
 
 /**
  * Represents an external content render array builder.
