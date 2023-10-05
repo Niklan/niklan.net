@@ -30,6 +30,7 @@ web/sites/simpletest
 
 # Ignore IDE project settings.
 .idea
+.vscode
 
 # Ignore npm packages.
 node_modules
