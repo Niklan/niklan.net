@@ -9,7 +9,8 @@
          beStrictAboutChangesToGlobalState="true"
          cacheResult="false"
          testdox="true"
-         failOnWarning="true">
+         failOnWarning="true"
+         verbose="true">
   <php>
     <ini name="error_reporting" value="0"/>
     <ini name="memory_limit" value="-1"/>
