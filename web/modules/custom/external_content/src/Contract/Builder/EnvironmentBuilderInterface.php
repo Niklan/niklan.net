@@ -5,6 +5,7 @@ namespace Drupal\external_content\Contract\Builder;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -53,5 +54,10 @@ interface EnvironmentBuilderInterface {
    * {@selfdoc}
    */
   public function addExtension(ExtensionInterface $extension): self;
+
+  /**
+   * {@selfdoc}
+   */
+  public function addLoader(LoaderInterface $loader, int $priority): self;
 
 }

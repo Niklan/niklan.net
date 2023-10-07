@@ -10,6 +10,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Configuration;
@@ -67,6 +68,11 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   protected ?ContainerInterface $container = NULL;
 
   /**
+   * {@selfdoc}
+   */
+  protected PrioritizedList $loaders;
+
+  /**
    * Constructs a new Environment instance.
    */
   public function __construct(
@@ -79,6 +85,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->builders = new PrioritizedList();
     $this->eventListeners = new PrioritizedList();
     $this->serializers = new PrioritizedList();
+    $this->loaders = new PrioritizedList();
   }
 
   /**
@@ -263,6 +270,23 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    */
   public function addExtension(ExtensionInterface $extension): self {
     $extension->register($this);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLoaders(): PrioritizedList {
+    return $this->loaders;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addLoader(LoaderInterface $loader, int $priority = 0): self {
+    $this->loaders->add($loader, $priority);
+    $this->injectDependencies($loader);
 
     return $this;
   }

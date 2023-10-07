@@ -42,4 +42,9 @@ interface EnvironmentInterface extends EventDispatcherInterface, ListenerProvide
    */
   public function getSerializers(): PrioritizedList;
 
+  /**
+   * {@selfdoc}
+   */
+  public function getLoaders(): PrioritizedList;
+
 }
