@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
          bootstrap="web/core/tests/bootstrap.php"
-         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter"
          colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
@@ -12,7 +11,7 @@
          failOnWarning="true"
          verbose="true">
   <php>
-    <ini name="error_reporting" value="0"/>
+    <ini name="error_reporting" value="32767"/>
     <ini name="memory_limit" value="-1"/>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     <!--<env name="SIMPLETEST_BASE_URL" value="http://nginx"/>-->
@@ -57,6 +56,7 @@
     <report>
       <!-- Write it here, because PHPUnit run under web user has no access to write into other directories. -->
       <clover outputFile="web/sites/default/files/coverage.xml"/>
+      <html outputDirectory="web/sites/default/files/coverage"/>
     </report>
   </coverage>
 </phpunit>

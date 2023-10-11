@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\energypipe_core\Loader;
+namespace Drupal\external_content\Loader;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Loader\LoaderFacadeInterface;
