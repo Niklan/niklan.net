@@ -6,6 +6,7 @@ namespace Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\Environmen
  * Provides a test for environment plugin manager.
  *
  * @covers \Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager
+ * @group external_content
  */
 final class EnvironmentPluginManagerTest extends EnvironmentPluginTestBase {
 

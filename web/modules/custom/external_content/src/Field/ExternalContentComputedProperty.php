@@ -2,12 +2,12 @@
 
 namespace Drupal\external_content\Field;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\TypedData;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
-use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 
 /**
  * Provides a computed field for "external_content" field type.
@@ -30,7 +30,7 @@ final class ExternalContentComputedProperty extends TypedData {
     }
 
     $field_item = $this->getParent();
-    \assert($field_item instanceof ExternalContentFieldItem);
+    \assert($field_item instanceof FieldItemInterface);
 
     if ($field_item->validate()->count()) {
       return NULL;

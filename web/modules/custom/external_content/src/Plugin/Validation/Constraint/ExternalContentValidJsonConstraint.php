@@ -36,7 +36,7 @@ final class ExternalContentValidJsonConstraint extends Constraint {
     ?array $groups = NULL,
     mixed $payload = NULL,
   ) {
-    $this->skipEmptyValue = $options['skipEmptyValue'] ?: $this->skipEmptyValue;
+    $this->skipEmptyValue = $options['skipEmptyValue'] ?? $this->skipEmptyValue;
 
     parent::__construct($options, $groups, $payload);
   }

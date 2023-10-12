@@ -40,8 +40,6 @@ final class HtmlElementBuilderTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testInvalidElement(): void {
-
-    dump(\set_error_handler(fn () => true));
     $element = new class() extends Node {};
     $builder = new HtmlElementBuilder();
     $result = $builder->build($element, []);

@@ -15,14 +15,17 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
+use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Data\BundlerResult;
 use Drupal\external_content\Data\Configuration;
+use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\Data\HtmlParserResult;
+use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingContainerException;
 use Drupal\external_content\Node\ExternalContentDocument;
@@ -196,6 +199,34 @@ final class EnvironmentTest extends UnitTestCaseTest {
     self::assertEquals(
       $expected,
       $environment->getBuilders()->getIterator()->getArrayCopy(),
+    );
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testLoader(): void {
+    $loader = new class implements LoaderInterface {
+
+      /**
+       * {@inheritdoc}
+       */
+      public function load(ExternalContentBundleDocument $bundle): LoaderResultInterface {
+        return LoaderResult::skip();
+      }
+
+    };
+
+    $environment = new Environment();
+    $environment->addLoader(new $loader());
+
+    $expected = [
+      0 => $loader,
+    ];
+
+    self::assertEquals(
+      $expected,
+      $environment->getLoaders()->getIterator()->getArrayCopy(),
     );
   }
 

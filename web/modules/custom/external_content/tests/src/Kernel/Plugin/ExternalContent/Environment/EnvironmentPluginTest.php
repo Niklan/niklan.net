@@ -9,6 +9,7 @@ use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\Environm
  * Provides a test for environment plugin.
  *
  * @covers \Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin
+ * @group external_content
  */
 final class EnvironmentPluginTest extends EnvironmentPluginTestBase {
 
