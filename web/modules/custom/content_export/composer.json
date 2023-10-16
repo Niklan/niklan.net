@@ -1,6 +1,6 @@
 {
     "name": "niklan/content_export",
-    "type": "drupal-drush",
+    "type": "drupal-custom-module",
     "version": "1.0.0",
     "extra": {
         "drush": {

@@ -31,7 +31,7 @@ final class BlogEntryFrontMatterExtractor {
     );
 
     $values = [
-      'id' => $blog_entry->id(),
+      'id' => $blog_entry->getExternalId(),
       'language' => $blog_entry->get('langcode')->getString(),
       'title' => $blog_entry->label(),
       'created' => $created->format(

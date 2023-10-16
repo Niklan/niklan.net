@@ -12,7 +12,7 @@ use League\CommonMark\CommonMarkConverter;
  * @Filter(
  *   id = "niklan_markdown",
  *   title = @Translation("Markdown"),
- *   type = \Drupal\niklan\Plugin\Filter\Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
+ *   type = \Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
  *   weight = -10
  * )
  */

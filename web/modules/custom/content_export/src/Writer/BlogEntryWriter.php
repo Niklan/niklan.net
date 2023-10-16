@@ -8,7 +8,9 @@ use Drupal\content_export\Data\ExportState;
 use Drupal\content_export\Data\MarkdownBuilderState;
 use Drupal\content_export\Data\WriterState;
 use Drupal\content_export\Manager\MarkdownBuilderManager;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 /**
@@ -64,8 +66,15 @@ final class BlogEntryWriter {
    */
   protected function prepareDestinationDirectory(BlogEntryExport $export, ExportState $state): string {
     $base_uri = $state->getDestination();
+    $created = DrupalDateTime::createFromFormat(
+      DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
+      $export->getFrontMatter()->getValue('created'),
+    );
+    $year = $created->format('Y');
+    $month = $created->format('m');
+    $day = $created->format('d');
     $id = $export->getFrontMatter()->getValue('id');
-    $working_dir = "$base_uri/blog/$id";
+    $working_dir = "$base_uri/blog/$year/$month/$day/$id";
     $this->fileSystem->prepareDirectory(
       $working_dir,
       FileSystemInterface::CREATE_DIRECTORY,
