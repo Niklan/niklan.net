@@ -30,7 +30,7 @@ final class MarkdownFinder implements FinderInterface, EnvironmentAwareInterface
    * {@inheritdoc}
    */
   public function find(): ExternalContentFileCollection {
-    $this->validate();
+    $this->assertConfiguration();
 
     $files = new ExternalContentFileCollection();
     $configuration = $this->environment->getConfiguration();
@@ -72,7 +72,7 @@ final class MarkdownFinder implements FinderInterface, EnvironmentAwareInterface
   /**
    * Validates configuration for the finder.
    */
-  protected function validate(): void {
+  protected function assertConfiguration(): void {
     $configuration = $this->environment->getConfiguration();
 
     if (!$configuration->exists('markdown_finder')) {

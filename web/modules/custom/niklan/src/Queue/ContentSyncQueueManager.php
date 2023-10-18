@@ -18,7 +18,7 @@ final class ContentSyncQueueManager {
   /**
    * The queue name.
    */
-  protected const QUEUE_NAME = 'content_sync';
+  protected const QUEUE_NAME = 'blog_content_sync';
 
   /**
    * Constructs a new ContentSyncQueueManager instance.
