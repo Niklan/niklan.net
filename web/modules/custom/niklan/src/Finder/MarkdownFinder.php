@@ -5,6 +5,7 @@ namespace Drupal\niklan\Finder;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentFileCollection;
 use Drupal\external_content\Exception\InvalidConfigurationException;
@@ -62,7 +63,11 @@ final class MarkdownFinder implements FinderInterface, EnvironmentAwareInterface
       );
       $working_dir = \rtrim($working_dir, '/');
 
-      $file = new ExternalContentFile($working_dir, $file_info->getPathname());
+      $file = new ExternalContentFile(
+        $working_dir,
+        $file_info->getPathname(),
+        new Data(['is_markdown' => TRUE]),
+      );
       $files->add($file);
     }
 

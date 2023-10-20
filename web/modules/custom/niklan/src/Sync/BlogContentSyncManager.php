@@ -30,18 +30,20 @@ final class BlogContentSyncManager {
   /**
    * {@selfdoc}
    */
-  private function getEnvironment(): EnvironmentInterface {
-    return $this->environmentBuilder->build();
+  private function getEnvironment(string $content_directory): EnvironmentInterface {
+    return $this->environmentBuilder->build($content_directory);
   }
 
   /**
    * Requests content synchronization.
    */
-  public function synchronize(): void {
-    $this->finder->setEnvironment($this->getEnvironment());
+  public function synchronize(string $content_directory): void {
+    $environment = $this->getEnvironment($content_directory);
+
+    $this->finder->setEnvironment($environment);
     $file_collection = $this->finder->find();
 
-    $this->htmlParser->setEnvironment($this->getEnvironment());
+    $this->htmlParser->setEnvironment($environment);
     $content_documents = new ExternalContentDocumentCollection();
 
     foreach ($file_collection as $content_file) {
@@ -50,9 +52,9 @@ final class BlogContentSyncManager {
     }
 
     // @todo Add language bundler.
-    $this->bundler->setEnvironment($this->getEnvironment());
+    $this->bundler->setEnvironment($environment);
     $content_bundles = $this->bundler->bundle($content_documents);
-    \dump($content_bundles);
+    dump($content_bundles);
     // @todo Build Queue and run it.
   }
 

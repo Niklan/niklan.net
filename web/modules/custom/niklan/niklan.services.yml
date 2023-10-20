@@ -60,3 +60,14 @@ services:
 
   Drupal\niklan\Builder\BlogContentEnvironmentBuilder:
     autowire: true
+
+  Drupal\niklan\Builder\BlogMarkdownEnvironmentBuilder:
+    autowire: true
+
+  Drupal\niklan\Converter\BlogMarkdownConverter:
+    autowire: true
+
+  Drupal\niklan\EventSubscriber\BlogContentSyncEventSubscriber:
+    autowire: true
+    tags:
+      - { name: event_subscriber }
