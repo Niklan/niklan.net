@@ -30,11 +30,11 @@ final class BasicHtmlExtension implements ExtensionInterface {
       // Prioritize it over everything, it's a special element.
       ->addSerializer(new ExternalContentDocumentSerializer(), 1_000)
       // The basic HTML element.
-      ->addHtmlParser(new HtmlElementParser(), self::WEIGHT)
+      ->addParser(new HtmlElementParser(), self::WEIGHT)
       ->addBuilder(new HtmlElementBuilder(), self::WEIGHT)
       ->addSerializer(new HtmlElementSerializer(), self::WEIGHT)
       // The plain text.
-      ->addHtmlParser(new PlainTextParser(), self::WEIGHT)
+      ->addParser(new PlainTextParser(), self::WEIGHT)
       ->addBuilder(new PlainTextBuilder(), self::WEIGHT)
       ->addSerializer(new PlainTextSerializer(), self::WEIGHT);
   }

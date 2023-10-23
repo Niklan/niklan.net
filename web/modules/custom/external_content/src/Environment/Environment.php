@@ -11,7 +11,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
-use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\EventListener;
@@ -91,7 +91,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addHtmlParser(HtmlParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface {
+  public function addParser(ParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface {
     $this->htmlParsers->add($parser, $priority);
     $this->injectDependencies($parser);
 
@@ -141,7 +141,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getHtmlParsers(): PrioritizedList {
+  public function getParsers(): PrioritizedList {
     return $this->htmlParsers;
   }
 

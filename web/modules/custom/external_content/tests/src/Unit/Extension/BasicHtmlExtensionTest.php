@@ -5,7 +5,7 @@ namespace Drupal\Tests\external_content\Unit\Extension;
 use Drupal\external_content\Builder\HtmlElementBuilder;
 use Drupal\external_content\Builder\PlainTextBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
-use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
@@ -43,10 +43,10 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     self::assertContains(HtmlElementSerializer::class, $serializer_classes);
     self::assertContains(PlainTextSerializer::class, $serializer_classes);
 
-    self::assertCount(2, $environment->getHtmlParsers());
+    self::assertCount(2, $environment->getParsers());
     $parser_classes = \array_map(
-      static fn (HtmlParserInterface $parser) => $parser::class,
-      $environment->getHtmlParsers()->getIterator()->getArrayCopy(),
+      static fn (ParserInterface $parser) => $parser::class,
+      $environment->getParsers()->getIterator()->getArrayCopy(),
     );
     self::assertContains(HtmlElementParser::class, $parser_classes);
     self::assertContains(PlainTextParser::class, $parser_classes);

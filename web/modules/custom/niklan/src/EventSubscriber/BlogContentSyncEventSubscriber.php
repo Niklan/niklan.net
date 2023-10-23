@@ -1,14 +1,8 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\EventSubscriber;
 
-use Drupal\external_content\Event\HtmlPostParseEvent;
 use Drupal\external_content\Event\HtmlPreParseEvent;
-use Drupal\niklan\CommonMark\Adapter\EmbedAdapter;
-use Drupal\niklan\CommonMark\Extension\NiklanMarkdownExtension;
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\MarkdownConverter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -38,7 +32,7 @@ final class BlogContentSyncEventSubscriber implements EventSubscriberInterface {
     // @todo Use BlogMarkdownConverter.
     $html = $converter->convert($event->getHtml()->getContent());
     $event->getHtml()->setContent($html->getContent());
-    dump($event->getHtml()->getContent());
+    \dump($event->getHtml()->getContent());
   }
 
 }

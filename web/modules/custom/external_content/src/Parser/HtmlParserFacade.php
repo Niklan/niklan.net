@@ -5,7 +5,7 @@ namespace Drupal\external_content\Parser;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
-use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Data\HtmlParserResult;
@@ -79,8 +79,8 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
    *   The element to parse.
    */
   protected function parseNode(\DOMNode $node): HtmlParserResult {
-    foreach ($this->environment->getHtmlParsers() as $parser) {
-      \assert($parser instanceof HtmlParserInterface);
+    foreach ($this->environment->getParsers() as $parser) {
+      \assert($parser instanceof ParserInterface);
       $result = $parser->parse($node);
 
       if ($result->hasReplacement() || !$result->shouldContinue()) {

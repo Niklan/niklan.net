@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Parser;
 
-use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Node\PlainText;
 
@@ -11,7 +11,7 @@ use Drupal\external_content\Node\PlainText;
  *
  * It is important that this parser have higher priority over HtmlElementParser.
  */
-final class PlainTextParser implements HtmlParserInterface {
+final class PlainTextParser implements ParserInterface {
 
   /**
    * {@inheritdoc}

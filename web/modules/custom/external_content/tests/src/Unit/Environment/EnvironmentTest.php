@@ -17,7 +17,7 @@ use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Data\BundlerResult;
@@ -94,7 +94,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testHtmlParsers(): void {
-    $html_parser = new class implements HtmlParserInterface {
+    $html_parser = new class implements ParserInterface {
 
       /**
        * {@inheritdoc}
@@ -106,7 +106,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     };
 
     $environment = new Environment();
-    $environment->addHtmlParser(new $html_parser());
+    $environment->addParser(new $html_parser());
 
     $expected = [
       0 => $html_parser,
@@ -114,7 +114,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     self::assertEquals(
       $expected,
-      $environment->getHtmlParsers()->getIterator()->getArrayCopy(),
+      $environment->getParsers()->getIterator()->getArrayCopy(),
     );
   }
 
@@ -349,7 +349,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
    */
   public function injectDependenciesDataProvider(): \Generator {
     yield 'HTML Parser' => [
-      'component_interface' => HtmlParserInterface::class,
+      'component_interface' => ParserInterface::class,
       'method' => 'addHtmlParser',
     ];
 
@@ -384,14 +384,14 @@ final class EnvironmentTest extends UnitTestCaseTest {
    */
   public function testMissingContainerException(): void {
     $object = $this
-      ->prophesize(HtmlParserInterface::class)
+      ->prophesize(ParserInterface::class)
       ->willImplement(ContainerAwareInterface::class);
 
     $environment = new Environment();
 
     self::expectException(MissingContainerException::class);
 
-    $environment->addHtmlParser($object->reveal());
+    $environment->addParser($object->reveal());
   }
 
 }

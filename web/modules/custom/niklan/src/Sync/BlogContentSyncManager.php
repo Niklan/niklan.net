@@ -54,7 +54,7 @@ final class BlogContentSyncManager {
     // @todo Add language bundler.
     $this->bundler->setEnvironment($environment);
     $content_bundles = $this->bundler->bundle($content_documents);
-    dump($content_bundles);
+    \dump($content_bundles);
     // @todo Build Queue and run it.
   }
 
