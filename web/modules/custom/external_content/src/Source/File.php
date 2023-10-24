@@ -1,11 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Data;
+namespace Drupal\external_content\Source;
+
+use Drupal\external_content\Contract\Source\SourceInterface;
+use Drupal\external_content\Data\Data;
 
 /**
  * Represents a source file with a content.
  */
-final class ExternalContentFile {
+final class File implements SourceInterface {
 
   /**
    * Constructs a new ExternalContentFile object.
@@ -71,6 +74,14 @@ final class ExternalContentFile {
    */
   public function getData(): Data {
     return $this->data;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function id(): string {
+    return $this->getRelativePathname();
   }
 
 }

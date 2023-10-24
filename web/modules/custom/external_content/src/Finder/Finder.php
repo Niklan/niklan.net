@@ -2,31 +2,30 @@
 
 namespace Drupal\external_content\Finder;
 
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
-use Drupal\external_content\Data\ExternalContentFileCollection;
+use Drupal\external_content\Source\Collection;
 
 /**
- * Provides an external content finder.
+ * Provides a main finder to rule them all.
  */
-final class FinderFacade implements FinderFacadeInterface {
+final class Finder implements FinderInterface, EnvironmentAwareInterface {
 
   /**
-   * The environment.
+   * {@selfdoc}
    */
   protected EnvironmentInterface $environment;
 
   /**
    * {@inheritdoc}
    */
-  public function find(): ExternalContentFileCollection {
-    $collection = new ExternalContentFileCollection();
+  public function find(): Collection {
+    $collection = new Collection();
 
     foreach ($this->environment->getFinders() as $finder) {
       \assert($finder instanceof FinderInterface);
-      $finder_collection = $finder->find();
-      $collection->merge($finder_collection);
+      $collection->merge($finder->find());
     }
 
     return $collection;

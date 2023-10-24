@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
-    - field.field.node.blog_entry.external_content
     - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
@@ -68,7 +67,6 @@ content:
     region: content
 hidden:
   comment_node_blog_entry: true
-  external_content: true
   external_id: true
   extra_field_previous_next: true
   extra_field_share: true

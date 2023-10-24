@@ -4,8 +4,8 @@ namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
-use Drupal\external_content\Data\ExternalContentFile;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -20,8 +20,8 @@ final class ExternalContentBundleDocumentTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $file = new ExternalContentFile('foo', 'bar');
-    $document = new ExternalContentDocument($file);
+    $file = new File('foo', 'bar');
+    $document = new Content($file);
     $attributes = new Attributes();
 
     $instance = new ExternalContentBundleDocument($document, $attributes);

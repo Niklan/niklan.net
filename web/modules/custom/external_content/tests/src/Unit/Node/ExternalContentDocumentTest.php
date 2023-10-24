@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\external_content\Unit\Node;
 
-use Drupal\external_content\Data\ExternalContentFile;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\File;
 use Drupal\external_content_test\Node\SimpleNode;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides an external content document test.
  *
- * @covers \Drupal\external_content\Node\ExternalContentDocument
+ * @covers \Drupal\external_content\Node\Content
  * @group external_content
  */
 final class ExternalContentDocumentTest extends UnitTestCase {
@@ -19,8 +19,8 @@ final class ExternalContentDocumentTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $file = new ExternalContentFile('foo', 'bar');
-    $instance = new ExternalContentDocument($file);
+    $file = new File('foo', 'bar');
+    $instance = new Content($file);
 
     self::assertEquals($file, $instance->getFile());
     self::assertFalse($instance->hasParent());

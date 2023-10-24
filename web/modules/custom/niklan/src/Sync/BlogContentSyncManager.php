@@ -4,10 +4,10 @@ namespace Drupal\niklan\Sync;
 
 use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
+use Drupal\external_content\Contract\Finder\SourceFinderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
-use Drupal\external_content\Data\ExternalContentFile;
+use Drupal\external_content\Source\File;
 use Drupal\niklan\Builder\BlogContentEnvironmentBuilder;
 
 /**
@@ -22,7 +22,7 @@ final class BlogContentSyncManager {
    */
   public function __construct(
     private BlogContentEnvironmentBuilder $environmentBuilder,
-    private FinderFacadeInterface $finder,
+    private SourceFinderInterface $finder,
     private HtmlParserFacadeInterface $htmlParser,
     private BundlerFacadeInterface $bundler,
   ) {}
@@ -47,7 +47,7 @@ final class BlogContentSyncManager {
     $content_documents = new ExternalContentDocumentCollection();
 
     foreach ($file_collection as $content_file) {
-      \assert($content_file instanceof ExternalContentFile);
+      \assert($content_file instanceof File);
       $content_documents->add($this->htmlParser->parse($content_file));
     }
 

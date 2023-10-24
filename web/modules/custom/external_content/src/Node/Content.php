@@ -3,24 +3,35 @@
 namespace Drupal\external_content\Node;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Data\ExternalContentFile;
+use Drupal\external_content\Data\Data;
+use Drupal\external_content\Source\File;
 
 /**
  * Provides an external content document.
  */
-final class ExternalContentDocument extends Node {
+final class Content extends Node {
 
   /**
-   * Constructs a new ExternalContentDocument instance.
+   * Constructs a new Content instance.
    */
   public function __construct(
-    protected ExternalContentFile $file,
-  ) {}
+    protected File $file,
+    protected Data $data,
+  ) {
+    $this->data ??= new Data();
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function getData(): Data {
+    return $this->data;
+  }
 
   /**
    * Gets the file.
    */
-  public function getFile(): ExternalContentFile {
+  public function getFile(): File {
     return $this->file;
   }
 

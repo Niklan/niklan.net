@@ -30,7 +30,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@selfdoc}
    */
-  protected PrioritizedList $htmlParsers;
+  protected PrioritizedList $parsers;
 
   /**
    * {@selfdoc}
@@ -80,7 +80,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   ) {
     $this->configuration ??= new Configuration();
     $this->finders = new PrioritizedList();
-    $this->htmlParsers = new PrioritizedList();
+    $this->parsers = new PrioritizedList();
     $this->bundlers = new PrioritizedList();
     $this->builders = new PrioritizedList();
     $this->eventListeners = new PrioritizedList();
@@ -92,7 +92,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   public function addParser(ParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface {
-    $this->htmlParsers->add($parser, $priority);
+    $this->parsers->add($parser, $priority);
     $this->injectDependencies($parser);
 
     return $this;
@@ -142,7 +142,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   public function getParsers(): PrioritizedList {
-    return $this->htmlParsers;
+    return $this->parsers;
   }
 
   /**

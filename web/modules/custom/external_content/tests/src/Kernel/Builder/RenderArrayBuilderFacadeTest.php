@@ -5,11 +5,11 @@ namespace Drupal\Tests\external_content\Kernel\Builder;
 use Drupal\external_content\Builder\HtmlElementBuilder;
 use Drupal\external_content\Builder\PlainTextBuilder;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -54,8 +54,8 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
     );
     $paragraph->addChild(new PlainText('!'));
 
-    $external_file = new ExternalContentFile('foo', 'foo/bar.html');
-    $external_content_document = new ExternalContentDocument($external_file);
+    $external_file = new File('foo', 'foo/bar.html');
+    $external_content_document = new Content($external_file);
     $external_content_document->addChild($paragraph);
 
     $environment = new Environment();

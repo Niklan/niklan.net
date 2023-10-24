@@ -6,12 +6,12 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Event\HtmlPostParseEvent;
 use Drupal\external_content\Event\HtmlPreParseEvent;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\File;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -27,13 +27,13 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
   /**
    * {@inheritdoc}
    */
-  public function parse(ExternalContentFile $file): ExternalContentDocument {
+  public function parse(File $file): Content {
     $html = new ExternalContentHtml($file, $file->getContents());
 
     $event = new HtmlPreParseEvent($html);
     $this->environment->dispatch($event);
 
-    $document = new ExternalContentDocument($file);
+    $document = new Content($file);
     $crawler = new Crawler($html->getContent());
     $crawler = $crawler->filter('body');
     $body_node = $crawler->getNode(0);

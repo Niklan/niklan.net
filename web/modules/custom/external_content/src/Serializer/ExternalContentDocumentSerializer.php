@@ -5,8 +5,8 @@ namespace Drupal\external_content\Serializer;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Data\ExternalContentFile;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\File;
 
 /**
  * Provides serializer for the main document node.
@@ -17,7 +17,7 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
    * {@inheritdoc}
    */
   public function serialize(NodeInterface $node): Data {
-    \assert($node instanceof ExternalContentDocument);
+    \assert($node instanceof Content);
 
     return new Data([
       'file' => [
@@ -32,7 +32,7 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
    * {@inheritdoc}
    */
   public function supportsSerialization(NodeInterface $node): bool {
-    return $node instanceof ExternalContentDocument;
+    return $node instanceof Content;
   }
 
   /**
@@ -55,13 +55,13 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
   public function deserialize(Data $data, string $serialized_version): NodeInterface {
     $file_info = $data->get('file');
     $file_data = new Data($file_info['data']);
-    $file = new ExternalContentFile(
+    $file = new File(
       $file_info['working_dir'],
       $file_info['pathname'],
       $file_data,
     );
 
-    return new ExternalContentDocument($file);
+    return new Content($file);
   }
 
   /**

@@ -23,13 +23,12 @@ use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Data\BundlerResult;
 use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
-use Drupal\external_content\Data\ExternalContentFileCollection;
-use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingContainerException;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 use Drupal\external_content\Serializer\PlainTextSerializer;
+use Drupal\external_content\Source\Collection;
 use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
@@ -93,41 +92,13 @@ final class EnvironmentTest extends UnitTestCaseTest {
   /**
    * {@selfdoc}
    */
-  public function testHtmlParsers(): void {
-    $html_parser = new class implements ParserInterface {
-
-      /**
-       * {@inheritdoc}
-       */
-      public function parse(\DOMNode $node): HtmlParserResult {
-        return HtmlParserResult::stop();
-      }
-
-    };
-
-    $environment = new Environment();
-    $environment->addParser(new $html_parser());
-
-    $expected = [
-      0 => $html_parser,
-    ];
-
-    self::assertEquals(
-      $expected,
-      $environment->getParsers()->getIterator()->getArrayCopy(),
-    );
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function testBundlers(): void {
     $bundler = new class implements BundlerInterface {
 
       /**
        * {@inheritdoc}
        */
-      public function bundle(ExternalContentDocument $document): BundlerResultInterface {
+      public function bundle(Content $document): BundlerResultInterface {
         return BundlerResult::unidentified();
       }
 
@@ -155,8 +126,8 @@ final class EnvironmentTest extends UnitTestCaseTest {
       /**
        * {@inheritdoc}
        */
-      public function find(): ExternalContentFileCollection {
-        return new ExternalContentFileCollection();
+      public function find(): Collection {
+        return new Collection();
       }
 
     };

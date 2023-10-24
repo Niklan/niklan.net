@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Contract\Finder;
 
-use Drupal\external_content\Data\ExternalContentFileCollection;
+use Drupal\external_content\Source\Collection;
 
 /**
  * Represents a specific external content finder.
@@ -10,8 +10,8 @@ use Drupal\external_content\Data\ExternalContentFileCollection;
 interface FinderInterface {
 
   /**
-   * Finds an external content files.
+   * {@selfdoc}
    */
-  public function find(): ExternalContentFileCollection;
+  public function find(): Collection;
 
 }

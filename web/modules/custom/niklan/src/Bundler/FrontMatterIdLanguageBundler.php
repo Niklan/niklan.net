@@ -6,7 +6,7 @@ use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\BundlerResult;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 
 /**
  * Provides a bundler based on Front Matter 'id' and 'language' params.
@@ -16,7 +16,7 @@ final class FrontMatterIdLanguageBundler implements BundlerInterface {
   /**
    * {@inheritdoc}
    */
-  public function bundle(ExternalContentDocument $document): BundlerResultInterface {
+  public function bundle(Content $document): BundlerResultInterface {
     $file = $document->getFile();
     $data = $file->getData();
 

@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Data;
 
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 
 /**
  * Provides a value object for a single document inside bundle.
@@ -12,13 +12,13 @@ final class ExternalContentBundleDocument {
   /**
    * Constructs a new ExternalContentBundleDocument instance.
    *
-   * @param \Drupal\external_content\Node\ExternalContentDocument $document
+   * @param \Drupal\external_content\Node\Content $document
    *   The external content document.
    * @param \Drupal\external_content\Data\Attributes|null $attributes
    *   The attributes (traits) associated by this document inside a bundle.
    */
   public function __construct(
-    protected ExternalContentDocument $document,
+    protected Content $document,
     protected ?Attributes $attributes = NULL,
   ) {
     if ($this->attributes) {
@@ -31,7 +31,7 @@ final class ExternalContentBundleDocument {
   /**
    * Gets the document instance.
    */
-  public function getDocument(): ExternalContentDocument {
+  public function getDocument(): Content {
     return $this->document;
   }
 

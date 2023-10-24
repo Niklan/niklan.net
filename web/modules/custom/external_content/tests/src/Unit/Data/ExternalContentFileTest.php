@@ -3,14 +3,14 @@
 namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Data\ExternalContentFile;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 use org\bovigo\vfs\vfsStream;
 
 /**
  * Provides an external content file test.
  *
- * @covers \Drupal\external_content\Data\ExternalContentFile
+ * @covers \Drupal\external_content\Source\File
  * @group external_content
  */
 final class ExternalContentFileTest extends UnitTestCase {
@@ -27,7 +27,7 @@ final class ExternalContentFileTest extends UnitTestCase {
       ],
     ]);
 
-    $instance = new ExternalContentFile(
+    $instance = new File(
       vfsStream::url('root/foo'),
       vfsStream::url('root/foo/bar/baz.txt'),
     );

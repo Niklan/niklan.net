@@ -10,7 +10,7 @@ use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleCollection;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 
 /**
  * Provides an external content bundler.
@@ -51,7 +51,7 @@ final class BundlerFacade implements BundlerFacadeInterface {
    */
   protected function identifyBundles(BundlerInterface $instance, array $documents, array &$identified_bundles): void {
     foreach ($documents as $key => $document) {
-      \assert($document instanceof ExternalContentDocument);
+      \assert($document instanceof Content);
       $result = $instance->bundle($document);
 
       if ($result->isUnidentified()) {

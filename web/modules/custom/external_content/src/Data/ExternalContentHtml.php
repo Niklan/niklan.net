@@ -2,6 +2,8 @@
 
 namespace Drupal\external_content\Data;
 
+use Drupal\external_content\Source\File;
+
 /**
  * Represents a single external content with HTML.
  */
@@ -10,20 +12,20 @@ final class ExternalContentHtml {
   /**
    * Constructs a new ExternalContentHtml instance.
    *
-   * @param \Drupal\external_content\Data\ExternalContentFile $file
+   * @param \Drupal\external_content\Source\File $file
    *   The external content file.
    * @param string $content
    *   The content.
    */
   public function __construct(
-    protected ExternalContentFile $file,
+    protected File $file,
     protected string $content,
   ) {}
 
   /**
    * Gets the external content file.
    */
-  public function getFile(): ExternalContentFile {
+  public function getFile(): File {
     return $this->file;
   }
 

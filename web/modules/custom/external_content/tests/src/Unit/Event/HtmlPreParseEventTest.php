@@ -2,9 +2,9 @@
 
 namespace Drupal\Tests\external_content\Unit\Event;
 
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Event\HtmlPreParseEvent;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -19,7 +19,7 @@ final class HtmlPreParseEventTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testEvent(): void {
-    $file = new ExternalContentFile('foo', 'bar');
+    $file = new File('foo', 'bar');
     $html = new ExternalContentHtml($file, 'foo');
 
     $event = new HtmlPreParseEvent($html);

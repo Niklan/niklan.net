@@ -6,9 +6,9 @@ use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
 use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\File;
 use Drupal\external_content_test\Bundler\FrontMatterIdLanguageBundler;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -51,30 +51,30 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
     $environment->addBundler(new FrontMatterIdLanguageBundler());
     $this->bundler->setEnvironment($environment);
 
-    $file_a = new ExternalContentFile('foo', 'bar');
+    $file_a = new File('foo', 'bar');
     $file_a->getData()->set('front_matter', [
       'id' => '1',
       'language' => 'ru',
     ]);
-    $document_a = new ExternalContentDocument($file_a);
+    $document_a = new Content($file_a);
 
-    $file_b = new ExternalContentFile('bar', 'baz');
+    $file_b = new File('bar', 'baz');
     $file_b->getData()->set('front_matter', [
       'id' => '1',
       'language' => 'en',
     ]);
-    $document_b = new ExternalContentDocument($file_b);
+    $document_b = new Content($file_b);
 
-    $file_c = new ExternalContentFile('baz', 'foo');
+    $file_c = new File('baz', 'foo');
     $file_c->getData()->set('front_matter', [
       'id' => '2',
       'language' => 'ru',
     ]);
-    $document_c = new ExternalContentDocument($file_c);
+    $document_c = new Content($file_c);
 
     // This must be treated as unidentified.
-    $file_d = new ExternalContentFile('baz', 'foo');
-    $document_d = new ExternalContentDocument($file_d);
+    $file_d = new File('baz', 'foo');
+    $document_d = new Content($file_d);
 
     $document_collection = new ExternalContentDocumentCollection();
     $document_collection->add($document_a);

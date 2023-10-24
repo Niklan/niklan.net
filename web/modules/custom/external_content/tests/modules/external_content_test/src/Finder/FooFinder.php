@@ -3,8 +3,8 @@
 namespace Drupal\external_content_test\Finder;
 
 use Drupal\external_content\Contract\Finder\FinderInterface;
-use Drupal\external_content\Data\ExternalContentFile;
-use Drupal\external_content\Data\ExternalContentFileCollection;
+use Drupal\external_content\Source\File;
+use Drupal\external_content\Source\Collection;
 
 /**
  * Provides a finder with a predefined set of files.
@@ -14,9 +14,9 @@ final class FooFinder implements FinderInterface {
   /**
    * {@inheritdoc}
    */
-  public function find(): ExternalContentFileCollection {
-    $files = new ExternalContentFileCollection();
-    $files->add(new ExternalContentFile('foo/bar', 'foo/bar/baz.txt'));
+  public function find(): Collection {
+    $files = new Collection();
+    $files->add(new File('foo/bar', 'foo/bar/baz.txt'));
 
     return $files;
   }

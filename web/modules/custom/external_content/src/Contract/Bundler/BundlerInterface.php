@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Contract\Bundler;
 
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 
 /**
  * Represents an external content bundler.
@@ -39,6 +39,6 @@ interface BundlerInterface {
    * same content for different purposes, for example, all russian versions or
    * all Drupal 10 versions based on attributes.
    */
-  public function bundle(ExternalContentDocument $document): BundlerResultInterface;
+  public function bundle(Content $document): BundlerResultInterface;
 
 }

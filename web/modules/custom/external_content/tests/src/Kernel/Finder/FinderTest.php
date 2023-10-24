@@ -2,7 +2,8 @@
 
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
-use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
+use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Finder\SourceFinderInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\Finder\FooFinder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
@@ -10,23 +11,25 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 /**
  * Provides an external content finder test.
  *
- * @covers \Drupal\external_content\Finder\FinderFacade
+ * @covers \Drupal\external_content\Finder\Finder
  * @group external_content
  */
-final class FinderFacadeTest extends ExternalContentTestBase {
+final class FinderTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
    */
-  protected FinderFacadeInterface $finder;
+  private function getFinder(): FinderInterface {
+    return $this->container->get(FinderInterface::class);
+  }
 
   /**
    * {@selfdoc}
    */
   public function testEmptyFinder(): void {
     $environment = new Environment();
-    $this->finder->setEnvironment($environment);
-    $result = $this->finder->find();
+    $this->getFinder()->setEnvironment($environment);
+    $result = $this->getFinder()->find();
 
     self::assertCount(0, $result);
   }
@@ -37,21 +40,10 @@ final class FinderFacadeTest extends ExternalContentTestBase {
   public function testFooFinder(): void {
     $environment = new Environment();
     $environment->addFinder(new FooFinder());
-    $this->finder->setEnvironment($environment);
-    $result = $this->finder->find();
+    $this->getFinder()->setEnvironment($environment);
+    $result = $this->getFinder()->find();
 
     self::assertCount(1, $result);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->finder = $this
-      ->container
-      ->get(FinderFacadeInterface::class);
   }
 
 }

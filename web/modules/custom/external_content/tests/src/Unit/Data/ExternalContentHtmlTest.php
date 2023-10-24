@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\external_content\Unit\Data;
 
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Data\ExternalContentHtml;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -19,7 +19,7 @@ final class ExternalContentHtmlTest extends UnitTestCase {
    */
   public function testObject(): void {
     $html = '<p>Hello, World!</p>';
-    $file = new ExternalContentFile('foo', 'bar');
+    $file = new File('foo', 'bar');
     $instance = new ExternalContentHtml($file, $html);
 
     self::assertEquals($file, $instance->getFile());

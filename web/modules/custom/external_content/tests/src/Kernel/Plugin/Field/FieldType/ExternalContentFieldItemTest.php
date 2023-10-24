@@ -6,13 +6,13 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -168,9 +168,9 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function prepareDocument(): ExternalContentDocument {
-    $file = new ExternalContentFile('foo', 'bar');
-    $document = new ExternalContentDocument($file);
+  private function prepareDocument(): Content {
+    $file = new File('foo', 'bar');
+    $document = new Content($file);
     $p = new HtmlElement('p');
     $p->addChild(new PlainText('Hello, '));
     $p->addChild((new HtmlElement('strong'))->addChild(new PlainText('World')));

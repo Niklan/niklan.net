@@ -2,9 +2,9 @@
 
 namespace Drupal\Tests\external_content\Event;
 
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Event\HtmlPostParseEvent;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -19,8 +19,8 @@ final class HtmlPostParseEventTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testEvent(): void {
-    $file = new ExternalContentFile('foo', 'bar');
-    $document = new ExternalContentDocument($file);
+    $file = new File('foo', 'bar');
+    $document = new Content($file);
 
     $event = new HtmlPostParseEvent($document);
 

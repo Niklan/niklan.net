@@ -11,7 +11,7 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Provides a test for Markdown finder.
  *
- * @covers \Drupal\niklan\Finder\MarkdownFinder
+ * @covers \Drupal\niklan\Finder\FileFinder
  * @group external_content
  */
 final class MarkdownFinderTest extends NiklanTestBase {

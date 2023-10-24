@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Data;
 
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 
 /**
  * Represents a collection of external content documents.
@@ -19,10 +19,10 @@ final class ExternalContentDocumentCollection implements \Countable, \IteratorAg
   /**
    * Adds an external content document into collection.
    *
-   * @param \Drupal\external_content\Node\ExternalContentDocument $document
+   * @param \Drupal\external_content\Node\Content $document
    *   The document.
    */
-  public function add(ExternalContentDocument $document): void {
+  public function add(Content $document): void {
     $this->items[] = $document;
   }
 

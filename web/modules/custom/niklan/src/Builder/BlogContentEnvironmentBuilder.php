@@ -7,7 +7,7 @@ use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\niklan\Bundler\FrontMatterIdLanguageBundler;
-use Drupal\niklan\Finder\MarkdownFinder;
+use Drupal\niklan\Finder\FileFinder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -50,7 +50,7 @@ final class BlogContentEnvironmentBuilder {
     $this->environment->setEventDispatcher($this->eventDispatcher);
 
     $this->environment->addExtension(new BasicHtmlExtension());
-    $this->environment->addFinder(new MarkdownFinder());
+    $this->environment->addFinder(new FileFinder());
     $this->environment->addBundler(new FrontMatterIdLanguageBundler());
 
     return $this->environment;

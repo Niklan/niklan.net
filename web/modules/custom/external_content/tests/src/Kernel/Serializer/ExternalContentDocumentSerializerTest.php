@@ -3,10 +3,10 @@
 namespace Drupal\Tests\external_content\Kernel\Serializer;
 
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -27,8 +27,8 @@ final class ExternalContentDocumentSerializerTest extends ExternalContentTestBas
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
 
-    $file = new ExternalContentFile('foo', 'bar');
-    $document = new ExternalContentDocument($file);
+    $file = new File('foo', 'bar');
+    $document = new Content($file);
     $expected_json = '{"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[]}';
 
     self::assertEquals($expected_json, $serializer->serialize($document));

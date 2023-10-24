@@ -3,15 +3,15 @@
 namespace Drupal\Tests\external_content\Kernel\Parser;
 
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
-use Drupal\external_content\Data\ExternalContentFile;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Event\HtmlPostParseEvent;
 use Drupal\external_content\Event\HtmlPreParseEvent;
-use Drupal\external_content\Node\ExternalContentDocument;
+use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Parser\HtmlElementParser;
 use Drupal\external_content\Parser\PlainTextParser;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;
 
@@ -69,7 +69,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
       $post_parse_listener,
     );
 
-    $file = new ExternalContentFile(
+    $file = new File(
       vfsStream::url('root'),
       vfsStream::url('root/foo/bar.html'),
     );
@@ -89,7 +89,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testParse(): void {
-    $file = new ExternalContentFile(
+    $file = new File(
       vfsStream::url('root'),
       vfsStream::url('root/foo/bar.html'),
     );
@@ -106,7 +106,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
     $p->addChild((new HtmlElement('strong'))->addChild(new PlainText('World')));
     $p->addChild(new PlainText('!'));
 
-    $expected_result = new ExternalContentDocument($file);
+    $expected_result = new Content($file);
     $expected_result->addChild($p);
 
     self::assertEquals($expected_result, $result);
@@ -116,7 +116,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testWithoutParsers(): void {
-    $file = new ExternalContentFile(
+    $file = new File(
       vfsStream::url('root'),
       vfsStream::url('root/foo/bar.html'),
     );
@@ -126,7 +126,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
 
     $result = $this->htmlParser->parse($file);
 
-    $expected_result = new ExternalContentDocument($file);
+    $expected_result = new Content($file);
 
     self::assertEquals($expected_result, $result);
   }
