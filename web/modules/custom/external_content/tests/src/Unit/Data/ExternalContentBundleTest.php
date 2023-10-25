@@ -26,12 +26,12 @@ final class ExternalContentBundleTest extends UnitTestCase {
     self::assertEquals('hooks', $bundle->getId());
 
     $doc_en = new ExternalContentBundleDocument(
-      new Content(new \Drupal\external_content\Source\File('foo', 'bar')),
+      new Content(new File('foo', 'bar')),
       (new Attributes())->setAttribute('language', 'en'),
     );
 
     $doc_ru = new ExternalContentBundleDocument(
-      new Content(new \Drupal\external_content\Source\File('foo', 'bar')),
+      new Content(new File('foo', 'bar')),
       (new Attributes())->setAttribute('language', 'ru'),
     );
 
@@ -63,7 +63,7 @@ final class ExternalContentBundleTest extends UnitTestCase {
   public function testGetByAttributeValue(): void {
     $bundle = new ExternalContentBundle('hooks');
     $bundle->add(new ExternalContentBundleDocument(
-      new Content(new \Drupal\external_content\Source\File('foo', 'bar')),
+      new Content(new File('foo', 'bar')),
       (new Attributes())->setAttribute('language', 'en'),
     ));
     $bundle->add(new ExternalContentBundleDocument(

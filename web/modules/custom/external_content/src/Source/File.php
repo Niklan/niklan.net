@@ -76,7 +76,6 @@ final class File implements SourceInterface {
     return $this->data;
   }
 
-
   /**
    * {@inheritdoc}
    */

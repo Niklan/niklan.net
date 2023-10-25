@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Contract\Parser;
+namespace Drupal\external_content\Contract\Parser\Html;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
 

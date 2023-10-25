@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content\Contract\Parser;
 
+use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Source\File;
 
 /**
  * Provides an interface for external content file parser.
@@ -16,6 +16,11 @@ interface ParserInterface {
   /**
    * {@selfdoc}
    */
-  public function parse(File $file): Content;
+  public function parse(SourceInterface $source): Content;
+
+  /**
+   * {@selfdoc}
+   */
+  public function supportsParse(SourceInterface $source): bool;
 
 }

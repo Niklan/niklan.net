@@ -4,6 +4,7 @@ namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
 use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -23,7 +24,7 @@ final class ExternalContentDocumentCollectionTest extends UnitTestCase {
     self::assertCount(0, $instance);
     self::assertEquals([], $instance->getIterator()->getArrayCopy());
 
-    $file = new \Drupal\external_content\Source\File('foo', 'bar');
+    $file = new File('foo', 'bar');
     $document = new Content($file);
     $instance->add($document);
 

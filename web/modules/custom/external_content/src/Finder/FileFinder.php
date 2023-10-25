@@ -8,8 +8,8 @@ use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Exception\InvalidConfigurationException;
 use Drupal\external_content\Exception\MissingConfigurationException;
-use Drupal\external_content\Source\File;
 use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Source\File;
 use Symfony\Component\Finder\Finder;
 
 /**

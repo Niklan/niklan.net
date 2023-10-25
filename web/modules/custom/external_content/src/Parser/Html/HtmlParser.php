@@ -1,11 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Parser;
+namespace Drupal\external_content\Parser\Html;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
+use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Event\HtmlPostParseEvent;
@@ -17,7 +18,7 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * Provides an external HTML parser.
  */
-final class HtmlParserFacade implements HtmlParserFacadeInterface {
+final class HtmlParser implements ParserInterface {
 
   /**
    * The environment.
@@ -27,7 +28,7 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
   /**
    * {@inheritdoc}
    */
-  public function parse(File $file): Content {
+  public function doParse(File $file): Content {
     $html = new ExternalContentHtml($file, $file->getContents());
 
     $event = new HtmlPreParseEvent($html);
@@ -98,4 +99,18 @@ final class HtmlParserFacade implements HtmlParserFacadeInterface {
     $this->environment = $environment;
   }
 
-}
+  /**
+   * {@inheritdoc}
+   */
+  public function supportsParse(SourceInterface $source): bool {
+    return $source->type() === 'html';
+  }
+
+  /**
+   * @param \Drupal\external_content\Contract\Source\SourceInterface $source
+   *
+   * @return \Drupal\external_content\Node\Content
+   */
+  public function parse(SourceInterface $source): Content {
+    // TODO: Implement parse() method.
+  }}

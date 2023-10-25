@@ -3,8 +3,8 @@
 namespace Drupal\external_content_test\Finder;
 
 use Drupal\external_content\Contract\Finder\FinderInterface;
-use Drupal\external_content\Source\File;
 use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Source\File;
 
 /**
  * Provides a finder with a predefined set of files.

@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Data;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Parser\HtmlParserResultInterface;
+use Drupal\external_content\Contract\Parser\Html\HtmlParserResultInterface;
 
 /**
  * Represents an HTML parser status.

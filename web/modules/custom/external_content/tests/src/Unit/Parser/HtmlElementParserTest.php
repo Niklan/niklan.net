@@ -4,13 +4,13 @@ namespace Drupal\comment\Tests\external_content\Unit\Parser;
 
 use Drupal\external_content\Data\HtmlParserResultReplace;
 use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Parser\HtmlElementParser;
+use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a HTML element parser test.
  *
- * @covers \Drupal\external_content\Parser\HtmlElementParser
+ * @covers \Drupal\external_content\Parser\Html\ElementParser
  * @group external_content
  */
 final class HtmlElementParserTest extends UnitTestCase {
@@ -23,8 +23,8 @@ final class HtmlElementParserTest extends UnitTestCase {
     $node = $document->createElement('div');
     $node->setAttribute('data-foo', 'bar');
 
-    $parser = new HtmlElementParser();
-    $result = $parser->parse($node);
+    $parser = new ElementParser();
+    $result = $parser->parseNode($node);
 
     self::assertInstanceOf(HtmlParserResultReplace::class, $result);
 

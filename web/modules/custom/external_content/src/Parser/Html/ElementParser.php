@@ -1,20 +1,20 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Parser;
+namespace Drupal\external_content\Parser\Html;
 
-use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\Html\HtmlParserInterface;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Node\HtmlElement;
 
 /**
  * Provides a generic HTML element parser.
  */
-final class HtmlElementParser implements HtmlParserInterface {
+final class ElementParser implements HtmlParserInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function parse(\DOMNode $node): HtmlParserResult {
+  public function parseNode(\DOMNode $node): HtmlParserResult {
     $element = new HtmlElement($node->nodeName);
 
     if ($node->hasAttributes()) {

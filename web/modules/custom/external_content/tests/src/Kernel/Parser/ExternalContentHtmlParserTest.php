@@ -9,8 +9,8 @@ use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\HtmlElement;
 use Drupal\external_content\Node\PlainText;
-use Drupal\external_content\Parser\HtmlElementParser;
-use Drupal\external_content\Parser\PlainTextParser;
+use Drupal\external_content\Parser\Html\ElementParser;
+use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;
@@ -19,7 +19,7 @@ use org\bovigo\vfs\vfsStream;
  * Provides a test for external content HTML parser.
  *
  * @group external_content
- * @covers \Drupal\external_content\Parser\HtmlParserFacade
+ * @covers \Drupal\external_content\Parser\Html\HtmlParser
  */
 final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
 
@@ -96,7 +96,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
 
     $environment = new Environment();
     $environment->addParser(new PlainTextParser());
-    $environment->addParser(new HtmlElementParser());
+    $environment->addParser(new ElementParser());
     $this->htmlParser->setEnvironment($environment);
 
     $result = $this->htmlParser->parse($file);
