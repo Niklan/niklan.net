@@ -24,4 +24,9 @@ interface SourceInterface {
    */
   public function type(): string;
 
+  /**
+   * Returns a source contents.
+   */
+  public function contents(): string;
+
 }

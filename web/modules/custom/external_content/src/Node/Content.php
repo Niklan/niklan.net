@@ -3,8 +3,8 @@
 namespace Drupal\external_content\Node;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Source\File;
 
 /**
  * Provides an external content document.
@@ -15,8 +15,8 @@ final class Content extends Node {
    * Constructs a new Content instance.
    */
   public function __construct(
-    protected File $file,
-    protected Data $data,
+    protected SourceInterface $source,
+    protected ?Data $data = NULL,
   ) {
     $this->data ??= new Data();
   }
@@ -29,10 +29,10 @@ final class Content extends Node {
   }
 
   /**
-   * Gets the file.
+   * Gets the content source.
    */
-  public function getFile(): File {
-    return $this->file;
+  public function getSource(): SourceInterface {
+    return $this->source;
   }
 
   /**

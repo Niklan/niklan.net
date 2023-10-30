@@ -21,9 +21,9 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
 
     return new Data([
       'file' => [
-        'working_dir' => $node->getFile()->getWorkingDir(),
-        'pathname' => $node->getFile()->getPathname(),
-        'data' => $node->getFile()->getData()->all(),
+        'working_dir' => $node->getSource()->getWorkingDir(),
+        'pathname' => $node->getSource()->getPathname(),
+        'data' => $node->getSource()->getData()->all(),
       ],
     ]);
   }

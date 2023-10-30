@@ -22,7 +22,7 @@ final class ExternalContentDocumentTest extends UnitTestCase {
     $file = new File('foo', 'bar');
     $instance = new Content($file);
 
-    self::assertEquals($file, $instance->getFile());
+    self::assertEquals($file, $instance->getSource());
     self::assertFalse($instance->hasParent());
     self::assertNull($instance->getParent());
     self::assertEquals($instance, $instance->getRoot());

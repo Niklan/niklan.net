@@ -2,23 +2,20 @@
 
 namespace Drupal\external_content\Parser\Html;
 
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Parser\HtmlParserFacadeInterface;
+use Drupal\external_content\Contract\Parser\Html\HtmlParserInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
-use Drupal\external_content\Data\ExternalContentHtml;
 use Drupal\external_content\Data\HtmlParserResult;
-use Drupal\external_content\Event\HtmlPostParseEvent;
-use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Source\File;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Provides an external HTML parser.
  */
-final class HtmlParser implements ParserInterface {
+final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
 
   /**
    * The environment.
@@ -28,20 +25,26 @@ final class HtmlParser implements ParserInterface {
   /**
    * {@inheritdoc}
    */
-  public function doParse(File $file): Content {
-    $html = new ExternalContentHtml($file, $file->getContents());
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
+  }
 
-    $event = new HtmlPreParseEvent($html);
-    $this->environment->dispatch($event);
+  /**
+   * {@inheritdoc}
+   */
+  public function supportsParse(SourceInterface $source): bool {
+    return $source->type() === 'html';
+  }
 
-    $document = new Content($file);
-    $crawler = new Crawler($html->getContent());
+  /**
+   * {@selfdoc}
+   */
+  public function parse(SourceInterface $source): Content {
+    $document = new Content($source);
+    $crawler = new Crawler($source->contents());
     $crawler = $crawler->filter('body');
     $body_node = $crawler->getNode(0);
     $this->parseChildren($body_node, $document);
-
-    $event = new HtmlPostParseEvent($document);
-    $this->environment->dispatch($event);
 
     return $document;
   }
@@ -81,8 +84,8 @@ final class HtmlParser implements ParserInterface {
    */
   protected function parseNode(\DOMNode $node): HtmlParserResult {
     foreach ($this->environment->getParsers() as $parser) {
-      \assert($parser instanceof ParserInterface);
-      $result = $parser->parse($node);
+      \assert($parser instanceof HtmlParserInterface);
+      $result = $parser->parseNode($node);
 
       if ($result->hasReplacement() || !$result->shouldContinue()) {
         return $result;
@@ -92,25 +95,4 @@ final class HtmlParser implements ParserInterface {
     return HtmlParserResult::continue();
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function supportsParse(SourceInterface $source): bool {
-    return $source->type() === 'html';
-  }
-
-  /**
-   * @param \Drupal\external_content\Contract\Source\SourceInterface $source
-   *
-   * @return \Drupal\external_content\Node\Content
-   */
-  public function parse(SourceInterface $source): Content {
-    // TODO: Implement parse() method.
-  }}
+}
