@@ -8,15 +8,16 @@ use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Configuration\ConfigurationAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\EventListener;
 use Drupal\external_content\Data\PrioritizedList;
 use Drupal\external_content\Exception\MissingContainerException;
+use League\Config\Configuration;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -269,6 +270,10 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   public function addExtension(ExtensionInterface $extension): self {
+    if ($extension instanceof ConfigurableExtensionInterface) {
+      $extension->configureSchema($this->configuration);
+    }
+
     $extension->register($this);
 
     return $this;

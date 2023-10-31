@@ -54,7 +54,7 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
     );
     $paragraph->addChild(new PlainText('!'));
 
-    $external_file = new File('foo', 'foo/bar.html');
+    $external_file = new File('foo', 'foo/bar.html', 'html');
     $external_content_document = new Content($external_file);
     $external_content_document->addChild($paragraph);
 

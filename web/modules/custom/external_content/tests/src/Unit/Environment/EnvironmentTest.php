@@ -21,7 +21,7 @@ use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Data\BundlerResult;
-use Drupal\external_content\Data\Configuration;
+
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Environment\Environment;
@@ -32,6 +32,7 @@ use Drupal\external_content\Source\Collection;
 use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
+use League\Config\Configuration;
 use Prophecy\Argument;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
@@ -319,9 +320,9 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function injectDependenciesDataProvider(): \Generator {
-    yield 'HTML Parser' => [
+    yield 'Parser' => [
       'component_interface' => ParserInterface::class,
-      'method' => 'addHtmlParser',
+      'method' => 'addParser',
     ];
 
     yield 'Bundler' => [

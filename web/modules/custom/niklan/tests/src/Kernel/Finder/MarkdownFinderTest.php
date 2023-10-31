@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\niklan\Kernel\Finder;
 
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Finder\MarkdownFinder;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;

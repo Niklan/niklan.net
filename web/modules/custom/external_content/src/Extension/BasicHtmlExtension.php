@@ -3,11 +3,9 @@
 namespace Drupal\external_content\Extension;
 
 use Drupal\external_content\Builder\HtmlElementBuilder;
-use Drupal\external_content\Builder\PlainTextBuilder;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
-use Drupal\external_content\Parser\Html\ElementParser;
-use Drupal\external_content\Parser\Html\PlainTextParser;
+use Drupal\external_content\Parser\Html\HtmlParser;
 use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
 use Drupal\external_content\Serializer\HtmlElementSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
@@ -18,11 +16,6 @@ use Drupal\external_content\Serializer\PlainTextSerializer;
 final class BasicHtmlExtension implements ExtensionInterface {
 
   /**
-   * {@selfdoc}
-   */
-  private const WEIGHT = -1_000;
-
-  /**
    * {@inheritdoc}
    */
   public function register(EnvironmentBuilderInterface $environment): void {
@@ -30,13 +23,10 @@ final class BasicHtmlExtension implements ExtensionInterface {
       // Prioritize it over everything, it's a special element.
       ->addSerializer(new ExternalContentDocumentSerializer(), 1_000)
       // The basic HTML element.
-      ->addParser(new ElementParser(), self::WEIGHT)
-      ->addBuilder(new HtmlElementBuilder(), self::WEIGHT)
-      ->addSerializer(new HtmlElementSerializer(), self::WEIGHT)
-      // The plain text.
-      ->addParser(new PlainTextParser(), self::WEIGHT)
-      ->addBuilder(new PlainTextBuilder(), self::WEIGHT)
-      ->addSerializer(new PlainTextSerializer(), self::WEIGHT);
+      ->addParser(new HtmlParser())
+      ->addBuilder(new HtmlElementBuilder())
+      ->addSerializer(new HtmlElementSerializer())
+      ->addSerializer(new PlainTextSerializer());
   }
 
 }

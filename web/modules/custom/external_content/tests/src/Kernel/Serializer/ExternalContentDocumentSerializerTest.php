@@ -27,7 +27,7 @@ final class ExternalContentDocumentSerializerTest extends ExternalContentTestBas
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
 
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
     $expected_json = '{"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[]}';
 

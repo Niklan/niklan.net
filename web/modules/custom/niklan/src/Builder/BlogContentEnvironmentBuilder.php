@@ -3,11 +3,12 @@
 namespace Drupal\niklan\Builder;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Data\Configuration;
+
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\niklan\Bundler\FrontMatterIdLanguageBundler;
 use Drupal\niklan\Finder\FileFinder;
+use League\Config\Configuration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -39,10 +40,9 @@ final class BlogContentEnvironmentBuilder {
       return $this->environment;
     }
 
-    $configuration = new Configuration([
-      'markdown_finder' => [
-        'dirs' => $content_directory,
-      ],
+    $configuration = new Configuration();
+    $configuration->set('markdown_finder', [
+      'dirs' => $content_directory,
     ]);
     $this->environment = new Environment($configuration);
 

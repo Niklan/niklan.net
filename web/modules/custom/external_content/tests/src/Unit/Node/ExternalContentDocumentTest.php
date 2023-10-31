@@ -19,7 +19,7 @@ final class ExternalContentDocumentTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $instance = new Content($file);
 
     self::assertEquals($file, $instance->getSource());

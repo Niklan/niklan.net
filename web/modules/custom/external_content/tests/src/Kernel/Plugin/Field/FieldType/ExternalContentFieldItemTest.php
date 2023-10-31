@@ -169,7 +169,7 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   private function prepareDocument(): Content {
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
     $p = new HtmlElement('p');
     $p->addChild(new PlainText('Hello, '));

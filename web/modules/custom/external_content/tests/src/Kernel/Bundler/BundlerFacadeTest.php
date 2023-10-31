@@ -51,29 +51,29 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
     $environment->addBundler(new FrontMatterIdLanguageBundler());
     $this->bundler->setEnvironment($environment);
 
-    $file_a = new File('foo', 'bar');
-    $file_a->getData()->set('front_matter', [
+    $file_a = new File('foo', 'bar', 'html');
+    $file_a->data()->set('front_matter', [
       'id' => '1',
       'language' => 'ru',
     ]);
     $document_a = new Content($file_a);
 
-    $file_b = new File('bar', 'baz');
-    $file_b->getData()->set('front_matter', [
+    $file_b = new File('bar', 'baz', 'html');
+    $file_b->data()->set('front_matter', [
       'id' => '1',
       'language' => 'en',
     ]);
     $document_b = new Content($file_b);
 
-    $file_c = new File('baz', 'foo');
-    $file_c->getData()->set('front_matter', [
+    $file_c = new File('baz', 'foo', 'html');
+    $file_c->data()->set('front_matter', [
       'id' => '2',
       'language' => 'ru',
     ]);
     $document_c = new Content($file_c);
 
     // This must be treated as unidentified.
-    $file_d = new File('baz', 'foo');
+    $file_d = new File('baz', 'foo', 'html');
     $document_d = new Content($file_d);
 
     $document_collection = new ExternalContentDocumentCollection();

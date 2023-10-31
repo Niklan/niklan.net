@@ -23,7 +23,7 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
       'file' => [
         'working_dir' => $node->getSource()->getWorkingDir(),
         'pathname' => $node->getSource()->getPathname(),
-        'data' => $node->getSource()->getData()->all(),
+        'data' => $node->getSource()->data()->all(),
       ],
     ]);
   }
@@ -58,6 +58,7 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
     $file = new File(
       $file_info['working_dir'],
       $file_info['pathname'],
+      'html',
       $file_data,
     );
 

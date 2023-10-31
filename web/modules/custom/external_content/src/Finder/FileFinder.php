@@ -66,6 +66,7 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
       $file = new File(
         $working_dir,
         $file_info->getPathname(),
+        'html',
         new Data(['is_markdown' => TRUE]),
       );
       $files->add($file);

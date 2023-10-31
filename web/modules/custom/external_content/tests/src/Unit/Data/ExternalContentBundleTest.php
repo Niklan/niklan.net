@@ -26,17 +26,17 @@ final class ExternalContentBundleTest extends UnitTestCase {
     self::assertEquals('hooks', $bundle->getId());
 
     $doc_en = new ExternalContentBundleDocument(
-      new Content(new File('foo', 'bar')),
+      new Content(new File('foo', 'bar', 'html')),
       (new Attributes())->setAttribute('language', 'en'),
     );
 
     $doc_ru = new ExternalContentBundleDocument(
-      new Content(new File('foo', 'bar')),
+      new Content(new File('foo', 'bar', 'html')),
       (new Attributes())->setAttribute('language', 'ru'),
     );
 
     $doc_d10 = new ExternalContentBundleDocument(
-      new Content(new File('foo', 'bar')),
+      new Content(new File('foo', 'bar', 'html')),
       (new Attributes())->setAttribute('drupal', '10'),
     );
 
@@ -63,15 +63,15 @@ final class ExternalContentBundleTest extends UnitTestCase {
   public function testGetByAttributeValue(): void {
     $bundle = new ExternalContentBundle('hooks');
     $bundle->add(new ExternalContentBundleDocument(
-      new Content(new File('foo', 'bar')),
+      new Content(new File('foo', 'bar', 'html')),
       (new Attributes())->setAttribute('language', 'en'),
     ));
     $bundle->add(new ExternalContentBundleDocument(
-      new Content(new File('foo', 'bar')),
+      new Content(new File('foo', 'bar', 'html')),
       (new Attributes())->setAttribute('language', 'ru'),
     ));
     $bundle->add(new ExternalContentBundleDocument(
-      new Content(new File('foo', 'bar')),
+      new Content(new File('foo', 'bar', 'html')),
       (new Attributes())->setAttribute('drupal', '10'),
     ));
 

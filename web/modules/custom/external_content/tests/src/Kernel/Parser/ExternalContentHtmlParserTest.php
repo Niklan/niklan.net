@@ -72,6 +72,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
     $file = new File(
       vfsStream::url('root'),
       vfsStream::url('root/foo/bar.html'),
+      'html',
     );
     $this->htmlParser->setEnvironment($environment);
 
@@ -92,6 +93,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
     $file = new File(
       vfsStream::url('root'),
       vfsStream::url('root/foo/bar.html'),
+      'html',
     );
 
     $environment = new Environment();
@@ -119,6 +121,7 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
     $file = new File(
       vfsStream::url('root'),
       vfsStream::url('root/foo/bar.html'),
+      'html',
     );
 
     $environment = new Environment();

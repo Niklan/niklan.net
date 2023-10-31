@@ -19,7 +19,7 @@ final class ExternalContentHtmlTest extends UnitTestCase {
    */
   public function testObject(): void {
     $html = '<p>Hello, World!</p>';
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $instance = new ExternalContentHtml($file, $html);
 
     self::assertEquals($file, $instance->getFile());

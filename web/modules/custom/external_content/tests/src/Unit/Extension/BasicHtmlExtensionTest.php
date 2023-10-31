@@ -31,7 +31,7 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     $environment = new Environment();
     $environment->addExtension(new BasicHtmlExtension());
 
-    self::assertCount(3, $environment->getSerializers());
+    self::assertCount(2, $environment->getSerializers());
     $serializer_classes = \array_map(
       static fn (NodeSerializerInterface $serializer) => $serializer::class,
       $environment->getSerializers()->getIterator()->getArrayCopy(),
@@ -43,7 +43,7 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     self::assertContains(HtmlElementSerializer::class, $serializer_classes);
     self::assertContains(PlainTextSerializer::class, $serializer_classes);
 
-    self::assertCount(2, $environment->getParsers());
+    self::assertCount(1, $environment->getParsers());
     $parser_classes = \array_map(
       static fn (ParserInterface $parser) => $parser::class,
       $environment->getParsers()->getIterator()->getArrayCopy(),
@@ -51,7 +51,7 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     self::assertContains(ElementParser::class, $parser_classes);
     self::assertContains(PlainTextParser::class, $parser_classes);
 
-    self::assertCount(2, $environment->getBuilders());
+    self::assertCount(1, $environment->getBuilders());
     $builder_classes = \array_map(
        static fn (BuilderInterface $builder) => $builder::class,
        $environment->getBuilders()->getIterator()->getArrayCopy(),

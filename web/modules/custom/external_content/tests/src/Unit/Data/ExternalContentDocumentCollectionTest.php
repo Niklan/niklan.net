@@ -24,7 +24,7 @@ final class ExternalContentDocumentCollectionTest extends UnitTestCase {
     self::assertCount(0, $instance);
     self::assertEquals([], $instance->getIterator()->getArrayCopy());
 
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
     $instance->add($document);
 

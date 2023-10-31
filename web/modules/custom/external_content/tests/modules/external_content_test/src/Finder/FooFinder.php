@@ -16,7 +16,7 @@ final class FooFinder implements FinderInterface {
    */
   public function find(): Collection {
     $files = new Collection();
-    $files->add(new File('foo/bar', 'foo/bar/baz.txt'));
+    $files->add(new File('foo/bar', 'foo/bar/baz.txt', 'text'));
 
     return $files;
   }

@@ -18,7 +18,7 @@ final class FrontMatterIdLanguageBundler implements BundlerInterface {
    */
   public function bundle(Content $document): BundlerResultInterface {
     $file = $document->getSource();
-    $data = $file->getData();
+    $data = $file->data();
 
     if (!$data->has('front_matter')) {
       return BundlerResult::unidentified();

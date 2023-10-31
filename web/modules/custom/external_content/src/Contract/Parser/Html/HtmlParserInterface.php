@@ -10,6 +10,6 @@ interface HtmlParserInterface {
   /**
    * {@selfdoc}
    */
-  public function parseNode(\DOMNode $node): void;
+  public function parseNode(\DOMNode $node): HtmlParserResultInterface;
 
 }

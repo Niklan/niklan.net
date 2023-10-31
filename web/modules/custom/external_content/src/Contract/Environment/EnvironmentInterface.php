@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content\Contract\Environment;
 
-use Drupal\external_content\Data\Configuration;
 use Drupal\external_content\Data\PrioritizedList;
+use League\Config\Configuration;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 

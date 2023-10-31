@@ -20,7 +20,7 @@ final class ExternalContentBundleDocumentTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
     $attributes = new Attributes();
 

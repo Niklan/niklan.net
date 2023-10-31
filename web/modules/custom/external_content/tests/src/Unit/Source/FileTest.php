@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Unit\Data;
+namespace Drupal\Tests\external_content\Unit\Source;
 
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Source\File;
@@ -13,7 +13,7 @@ use org\bovigo\vfs\vfsStream;
  * @covers \Drupal\external_content\Source\File
  * @group external_content
  */
-final class ExternalContentFileTest extends UnitTestCase {
+final class FileTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
@@ -30,6 +30,7 @@ final class ExternalContentFileTest extends UnitTestCase {
     $instance = new File(
       vfsStream::url('root/foo'),
       vfsStream::url('root/foo/bar/baz.txt'),
+      'text',
     );
 
     self::assertEquals('vfs://root/foo/bar/baz.txt', $instance->getPathname());
@@ -37,8 +38,8 @@ final class ExternalContentFileTest extends UnitTestCase {
     self::assertEquals('bar/baz.txt', $instance->getRelativePathname());
     self::assertEquals('txt', $instance->getExtension());
     self::assertTrue($instance->isReadable());
-    self::assertEquals('Hello, World!', $instance->getContents());
-    self::assertInstanceOf(Data::class, $instance->getData());
+    self::assertEquals('Hello, World!', $instance->contents());
+    self::assertInstanceOf(Data::class, $instance->data());
   }
 
 }

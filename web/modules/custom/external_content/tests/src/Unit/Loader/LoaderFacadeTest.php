@@ -59,7 +59,7 @@ final class LoaderFacadeTest extends UnitTestCase {
    * {@selfdoc}
    */
   private function prepareExternalContentBundleDocument(): ExternalContentBundleDocument {
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
 
     return new ExternalContentBundleDocument($document);

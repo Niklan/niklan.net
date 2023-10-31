@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\external_content\Unit\Data;
 
-use Drupal\external_content\Data\Configuration;
 use Drupal\Tests\UnitTestCase;
 
 /**

@@ -5,7 +5,7 @@ namespace Drupal\external_content_test\Plugin\ExternalContent\Environment;
 use Drupal\external_content\Builder\HtmlElementBuilder;
 use Drupal\external_content\Builder\PlainTextBuilder;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Data\Configuration;
+
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
 use Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\Environment\EnvironmentPluginTest;

@@ -23,7 +23,7 @@ final class ExternalContentFileCollectionTest extends UnitTestCase {
     self::assertCount(0, $collection_a);
     self::assertEquals([], $collection_a->getIterator()->getArrayCopy());
 
-    $file_a = new File('foo', 'bar');
+    $file_a = new File('foo', 'bar', 'html');
     $collection_a->add($file_a);
 
     self::assertCount(1, $collection_a);
@@ -33,7 +33,7 @@ final class ExternalContentFileCollectionTest extends UnitTestCase {
     );
 
     $collection_b = new Collection();
-    $file_b = new File('bar', 'baz');
+    $file_b = new File('bar', 'baz', 'html');
     $collection_b->add($file_b);
 
     self::assertCount(1, $collection_b);

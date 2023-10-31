@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "097f2dcf0cc4163d83206ae42429b3d0",
+    "content-hash": "5ec940ec3ec1bf3cd51651845f5419b8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4405,9 +4405,9 @@
             "dist": {
                 "type": "path",
                 "url": "web/modules/custom/content_export",
-                "reference": "a64d6a5aef3c4cfd4eaeedbcce294f9239f2cb1f"
+                "reference": "abcdf7013cf84797b55afafb5674608bc9233b37"
             },
-            "type": "drupal-drush",
+            "type": "drupal-custom-module",
             "extra": {
                 "drush": {
                     "services": {
@@ -4415,6 +4415,25 @@
                     }
                 }
             },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan/external_content",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "web/modules/custom/external_content",
+                "reference": "c792253f29a1da53e3c173715a1174102fc31079"
+            },
+            "require": {
+                "league/config": "^1.2"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
             "transport-options": {
                 "relative": true
             }
@@ -12948,7 +12967,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "ext-dom": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

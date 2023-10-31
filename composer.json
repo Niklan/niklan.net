@@ -28,6 +28,7 @@
     ],
     "require": {
         "php": ">=8.2",
+        "ext-dom": "*",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.6",
         "drupal/antibot": "^2.0",
@@ -54,8 +55,8 @@
         "drupal/twig_tweak": "^3.0",
         "drush/drush": "^11.0",
         "niklan/content_export": "^1.0",
-        "niklan/niklan": "^1.0",
-        "ext-dom": "*"
+        "niklan/external_content": "^1.0",
+        "niklan/niklan": "^1.0"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^2.0@alpha",

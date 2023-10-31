@@ -16,6 +16,7 @@ final class File implements SourceInterface {
   public function __construct(
     protected string $workingDir,
     protected string $pathname,
+    protected string $type,
     protected ?Data $data = NULL,
   ) {
     $this->data ??= new Data();
@@ -63,16 +64,23 @@ final class File implements SourceInterface {
   }
 
   /**
-   * Gets file contents.
+   * {@inheritdoc}
    */
-  public function getContents(): string {
+  public function contents(): string {
     return \file_get_contents($this->getPathname());
   }
 
   /**
-   * Gets the additional data associated with a file.
+   * {@inheritdoc}
    */
-  public function getData(): Data {
+  public function type(): string {
+    return $this->type;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function data(): Data {
     return $this->data;
   }
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Unit\Serializer;
+namespace Drupal\Tests\external_content\Kernel\Serializer;
 
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Environment\Environment;
@@ -27,7 +27,7 @@ final class SerializerTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testSerialization(): void {
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
     $p = new HtmlElement('p');
     $p->addChild(new PlainText('Hello, '));
@@ -73,7 +73,7 @@ final class SerializerTest extends ExternalContentTestBase {
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment(new Environment());
 
-    $file = new File('foo', 'bar');
+    $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
 
     self::expectException(MissingSerializerException::class);
