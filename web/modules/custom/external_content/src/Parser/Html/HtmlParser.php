@@ -83,7 +83,7 @@ final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
    *   The element to parse.
    */
   protected function parseNode(\DOMNode $node): HtmlParserResult {
-    foreach ($this->environment->getParsers() as $parser) {
+    foreach ($this->environment->getConfiguration()->get('html.parsers') as $parser) {
       \assert($parser instanceof HtmlParserInterface);
       $result = $parser->parseNode($node);
 
