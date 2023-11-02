@@ -3,7 +3,7 @@
 namespace Drupal\comment\Tests\external_content\Unit\Parser;
 
 use Drupal\external_content\Data\HtmlParserResultReplace;
-use Drupal\external_content\Node\HtmlElement;
+use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\Tests\UnitTestCase;
 
@@ -30,7 +30,7 @@ final class HtmlElementParserTest extends UnitTestCase {
 
     $replacement = $result->getReplacement();
 
-    self::assertInstanceOf(HtmlElement::class, $replacement);
+    self::assertInstanceOf(Element::class, $replacement);
     self::assertEquals('div', $replacement->getTag());
     self::assertEquals(
       'bar',

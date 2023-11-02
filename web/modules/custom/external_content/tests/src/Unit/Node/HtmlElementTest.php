@@ -3,13 +3,13 @@
 namespace Drupal\Tests\external_content\Unit\Node;
 
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Node\HtmlElement;
+use Drupal\external_content\Node\Html\Element;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a HTML element test.
  *
- * @covers \Drupal\external_content\Node\HtmlElement
+ * @covers \Drupal\external_content\Node\Html\Element
  * @group external_content
  */
 final class HtmlElementTest extends UnitTestCase {
@@ -20,7 +20,7 @@ final class HtmlElementTest extends UnitTestCase {
   public function testObject(): void {
     $attributes = new Attributes();
     $attributes->setAttribute('foo', 'bar');
-    $instance = new HtmlElement('div', $attributes);
+    $instance = new Element('div', $attributes);
 
     self::assertEquals('div', $instance->getTag());
     self::assertSame($attributes, $instance->getAttributes());

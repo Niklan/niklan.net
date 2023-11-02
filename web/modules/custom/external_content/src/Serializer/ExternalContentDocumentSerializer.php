@@ -16,7 +16,7 @@ final class ExternalContentDocumentSerializer implements NodeSerializerInterface
   /**
    * {@inheritdoc}
    */
-  public function serialize(NodeInterface $node): Data {
+  public function normalize(NodeInterface $node): Data {
     \assert($node instanceof Content);
 
     return new Data([

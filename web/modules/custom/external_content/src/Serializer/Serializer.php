@@ -23,27 +23,27 @@ final class Serializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function serialize(NodeInterface $document): string {
-    return \json_encode($this->serializeRecursive($document));
+  public function normalize(NodeInterface $document): string {
+    return \json_encode($this->normalizeRecursive($document));
   }
 
   /**
    * {@selfdoc}
    */
-  private function serializeRecursive(NodeInterface $node): array {
+  private function normalizeRecursive(NodeInterface $node): array {
     $children = [];
 
     foreach ($node->getChildren() as $child) {
-      $children[] = $this->serializeRecursive($child);
+      $children[] = $this->normalizeRecursive($child);
     }
 
-    return $this->serializeNode($node, $children);
+    return $this->normalizeNode($node, $children);
   }
 
   /**
    * {@selfdoc}
    */
-  private function serializeNode(NodeInterface $node, array $children): array {
+  private function normalizeNode(NodeInterface $node, array $children): array {
     foreach ($this->environment->getSerializers() as $serializer) {
       \assert($serializer instanceof NodeSerializerInterface);
 
@@ -54,7 +54,7 @@ final class Serializer implements SerializerInterface {
       return [
         'type' => $serializer->getSerializationBlockType(),
         'version' => $serializer->getSerializerVersion(),
-        'data' => $serializer->serialize($node)->all(),
+        'data' => $serializer->normalize($node)->all(),
         'children' => $children,
       ];
     }

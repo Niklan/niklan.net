@@ -2,18 +2,13 @@
 
 namespace Drupal\external_content\Data;
 
-use Drupal\external_content\Contract\Builder\BuilderResultRenderArrayInterface;
-
 /**
  * Represents a builder result with a render array.
  */
-final class BuilderResultRenderArray extends BuilderResult implements BuilderResultRenderArrayInterface {
+final class BuilderResultRenderArray extends BuilderResult {
 
   /**
    * Constructs a new BuilderResultRenderArray instance.
-   *
-   * @param array $renderArray
-   *   The render array result.
    */
   public function __construct(
     protected array $renderArray,
@@ -36,7 +31,7 @@ final class BuilderResultRenderArray extends BuilderResult implements BuilderRes
   /**
    * {@inheritdoc}
    */
-  public function getRenderArray(): array {
+  public function result(): array {
     return $this->renderArray;
   }
 

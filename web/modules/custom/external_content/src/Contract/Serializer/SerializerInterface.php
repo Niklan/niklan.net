@@ -13,7 +13,7 @@ interface SerializerInterface extends EnvironmentAwareInterface {
   /**
    * {@selfdoc}
    */
-  public function serialize(NodeInterface $document): string;
+  public function normalize(NodeInterface $document): string;
 
   /**
    * {@selfdoc}

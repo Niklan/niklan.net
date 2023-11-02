@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Converter;
+namespace Drupal\external_content\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;

@@ -5,7 +5,7 @@ namespace Drupal\external_content\Parser\Html;
 use Drupal\external_content\Contract\Parser\Html\HtmlParserInterface;
 use Drupal\external_content\Contract\Parser\Html\HtmlParserResultInterface;
 use Drupal\external_content\Data\HtmlParserResult;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\PlainText;
 
 /**
  * Provides a parser for a simple text inside HTML elements.

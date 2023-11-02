@@ -21,4 +21,11 @@ final class BuilderResultNone extends BuilderResult {
     return TRUE;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function result(): mixed {
+    // @todo Implement result() method.
+  }
+
 }

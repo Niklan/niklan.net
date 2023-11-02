@@ -5,7 +5,7 @@ namespace Drupal\external_content\Serializer;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\PlainText;
 
 /**
  * Provides a serialization for a plain text element.
@@ -15,7 +15,7 @@ final class PlainTextSerializer implements NodeSerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function serialize(NodeInterface $node): Data {
+  public function normalize(NodeInterface $node): Data {
     \assert($node instanceof PlainText);
 
     return new Data([

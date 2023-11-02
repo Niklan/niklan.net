@@ -6,18 +6,18 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Node\HtmlElement;
+use Drupal\external_content\Node\Html\Element;
 
 /**
  * Provides a serializer for HTML element.
  */
-final class HtmlElementSerializer implements NodeSerializerInterface {
+final class ElementSerializer implements NodeSerializerInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function serialize(NodeInterface $node): Data {
-    \assert($node instanceof HtmlElement);
+  public function normalize(NodeInterface $node): Data {
+    \assert($node instanceof Element);
 
     return new Data([
       'tag' => $node->getTag(),
@@ -36,7 +36,7 @@ final class HtmlElementSerializer implements NodeSerializerInterface {
    * {@inheritdoc}
    */
   public function supportsSerialization(NodeInterface $node): bool {
-    return $node instanceof HtmlElement;
+    return $node instanceof Element;
   }
 
   /**
@@ -52,7 +52,7 @@ final class HtmlElementSerializer implements NodeSerializerInterface {
   public function deserialize(Data $data, string $serialized_version): NodeInterface {
     $attributes = new Attributes($data->get('attributes'));
 
-    return new HtmlElement($data->get('tag'), $attributes);
+    return new Element($data->get('tag'), $attributes);
   }
 
   /**

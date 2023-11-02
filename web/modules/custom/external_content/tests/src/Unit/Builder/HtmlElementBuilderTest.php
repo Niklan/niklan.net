@@ -2,16 +2,16 @@
 
 namespace Drupal\Tests\external_content\Unit\Builder;
 
-use Drupal\external_content\Builder\HtmlElementBuilder;
+use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Node\HtmlElement;
+use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Node;
 use Drupal\Tests\UnitTestCaseTest;
 
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Builder\HtmlElementBuilder
+ * @covers \Drupal\external_content\Builder\Html\ElementRenderArrayBuilder
  * @group external_content
  */
 final class HtmlElementBuilderTest extends UnitTestCaseTest {
@@ -20,9 +20,9 @@ final class HtmlElementBuilderTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testValidElement(): void {
-    $element = new HtmlElement('div', new Attributes(['foo' => 'bar']));
-    $builder = new HtmlElementBuilder();
-    $result = $builder->build($element, []);
+    $element = new Element('div', new Attributes(['foo' => 'bar']));
+    $builder = new ElementRenderArrayBuilder();
+    $result = $builder->build($element, [], []);
     $expected_result = [
       '#type' => 'html_tag',
       '#tag' => 'div',
@@ -41,8 +41,8 @@ final class HtmlElementBuilderTest extends UnitTestCaseTest {
    */
   public function testInvalidElement(): void {
     $element = new class() extends Node {};
-    $builder = new HtmlElementBuilder();
-    $result = $builder->build($element, []);
+    $builder = new ElementRenderArrayBuilder();
+    $result = $builder->build($element, [], []);
 
     self::assertTrue($result->isNotBuild());
   }

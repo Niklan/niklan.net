@@ -11,8 +11,8 @@ use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\Environm
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Field\ExternalContentComputedProperty;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -101,7 +101,7 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($this->getEnvironment());
 
-    return $serializer->serialize($this->prepareDocument());
+    return $serializer->normalize($this->prepareDocument());
   }
 
   /**
@@ -133,7 +133,7 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
   private function prepareDocument(): Content {
     $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
-    $p = new HtmlElement('p');
+    $p = new Element('p');
     $p->addChild(new PlainText('Hello, World!'));
     $document->addChild($p);
 

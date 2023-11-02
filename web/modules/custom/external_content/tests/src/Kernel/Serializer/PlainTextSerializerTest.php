@@ -4,7 +4,7 @@ namespace Drupal\Tests\external_content\Kernel\Serializer;
 
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -29,7 +29,7 @@ final class PlainTextSerializerTest extends ExternalContentTestBase {
     $element = new PlainText('Hello, World!');
     $expected_json = '{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, World!"},"children":[]}';
 
-    self::assertEquals($expected_json, $serializer->serialize($element));
+    self::assertEquals($expected_json, $serializer->normalize($element));
 
     $deserialized_element = $serializer->deserialize($expected_json);
 

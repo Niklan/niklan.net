@@ -7,8 +7,8 @@ use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Event\HtmlPostParseEvent;
 use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Source\File;
@@ -103,9 +103,9 @@ final class ExternalContentHtmlParserTest extends ExternalContentTestBase {
 
     $result = $this->htmlParser->parse($file);
 
-    $p = new HtmlElement('p');
+    $p = new Element('p');
     $p->addChild(new PlainText('Hello, '));
-    $p->addChild((new HtmlElement('strong'))->addChild(new PlainText('World')));
+    $p->addChild((new Element('strong'))->addChild(new PlainText('World')));
     $p->addChild(new PlainText('!'));
 
     $expected_result = new Content($file);

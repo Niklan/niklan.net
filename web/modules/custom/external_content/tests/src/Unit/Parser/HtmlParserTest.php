@@ -5,8 +5,8 @@ namespace Drupal\Tests\external_content\Unit\Parser;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
-use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Parser\Html\HtmlParser;
 use Drupal\Tests\UnitTestCase;
 
@@ -34,7 +34,7 @@ final class HtmlParserTest extends UnitTestCase {
     $result = $html_parser->parse($html);
 
     $p = $result->getChildren()->offsetGet(0);
-    self::assertInstanceOf(HtmlElement::class, $p);
+    self::assertInstanceOf(Element::class, $p);
     self::assertSame('p', $p->getTag());
 
     $text = $p->getChildren()->offsetGet(0);

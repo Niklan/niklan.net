@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\external_content\Unit\Builder;
 
-use Drupal\external_content\Builder\PlainTextBuilder;
+use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
+use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Node\Node;
-use Drupal\external_content\Node\PlainText;
 use Drupal\Tests\UnitTestCaseTest;
 
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Builder\PlainTextBuilder
+ * @covers \Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder
  * @group external_content
  */
 final class PlainTextBuilderTest extends UnitTestCaseTest {
@@ -20,8 +20,8 @@ final class PlainTextBuilderTest extends UnitTestCaseTest {
    */
   public function testValidElement(): void {
     $element = new PlainText('Hello, World!');
-    $builder = new PlainTextBuilder();
-    $result = $builder->build($element, []);
+    $builder = new PlainTextRenderArrayBuilder();
+    $result = $builder->build($element, [], []);
     $expected_result = [
       '#markup' => 'Hello, World!',
     ];
@@ -35,8 +35,8 @@ final class PlainTextBuilderTest extends UnitTestCaseTest {
    */
   public function testInvalidElement(): void {
     $element = new class() extends Node {};
-    $builder = new PlainTextBuilder();
-    $result = $builder->build($element, []);
+    $builder = new PlainTextRenderArrayBuilder();
+    $result = $builder->build($element, [], []);
 
     self::assertTrue($result->isNotBuild());
   }

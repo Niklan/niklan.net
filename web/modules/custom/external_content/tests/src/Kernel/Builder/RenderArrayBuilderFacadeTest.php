@@ -2,13 +2,13 @@
 
 namespace Drupal\Tests\external_content\Kernel\Builder;
 
-use Drupal\external_content\Builder\HtmlElementBuilder;
-use Drupal\external_content\Builder\PlainTextBuilder;
+use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -16,7 +16,7 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * Provides a test for external content render array builder.
  *
  * @group external_content
- * @covers \Drupal\external_content\Builder\RenderArrayBuilderFacade
+ * @covers \Drupal\external_content\Builder\RenderArrayBuilder
  */
 final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
 
@@ -47,10 +47,10 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testBuild(): void {
-    $paragraph = new HtmlElement('p');
+    $paragraph = new Element('p');
     $paragraph->addChild(new PlainText('Hello, '));
     $paragraph->addChild(
-      (new HtmlElement('strong'))->addChild(new PlainText('World')),
+      (new Element('strong'))->addChild(new PlainText('World')),
     );
     $paragraph->addChild(new PlainText('!'));
 
@@ -59,8 +59,8 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
     $external_content_document->addChild($paragraph);
 
     $environment = new Environment();
-    $environment->addBuilder(new HtmlElementBuilder());
-    $environment->addBuilder(new PlainTextBuilder());
+    $environment->addBuilder(new ElementRenderArrayBuilder());
+    $environment->addBuilder(new PlainTextRenderArrayBuilder());
 
     $this->renderArrayBuilder->setEnvironment($environment);
     $result = $this->renderArrayBuilder->build($external_content_document);

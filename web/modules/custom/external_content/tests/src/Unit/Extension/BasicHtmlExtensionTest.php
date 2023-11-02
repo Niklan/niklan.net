@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\external_content\Unit\Extension;
 
-use Drupal\external_content\Builder\HtmlElementBuilder;
-use Drupal\external_content\Builder\PlainTextBuilder;
+use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
@@ -11,8 +11,8 @@ use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
+use Drupal\external_content\Serializer\ElementSerializer;
 use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
-use Drupal\external_content\Serializer\HtmlElementSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\Tests\UnitTestCaseTest;
 
@@ -40,7 +40,7 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
       ExternalContentDocumentSerializer::class,
       $serializer_classes,
     );
-    self::assertContains(HtmlElementSerializer::class, $serializer_classes);
+    self::assertContains(ElementSerializer::class, $serializer_classes);
     self::assertContains(PlainTextSerializer::class, $serializer_classes);
 
     self::assertCount(1, $environment->getParsers());
@@ -56,8 +56,8 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
        static fn (BuilderInterface $builder) => $builder::class,
        $environment->getBuilders()->getIterator()->getArrayCopy(),
      );
-    self::assertContains(HtmlElementBuilder::class, $builder_classes);
-    self::assertContains(PlainTextBuilder::class, $builder_classes);
+    self::assertContains(ElementRenderArrayBuilder::class, $builder_classes);
+    self::assertContains(PlainTextRenderArrayBuilder::class, $builder_classes);
   }
 
 }

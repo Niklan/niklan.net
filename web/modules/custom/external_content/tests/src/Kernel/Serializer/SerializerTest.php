@@ -7,10 +7,10 @@ use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingDeserializerException;
 use Drupal\external_content\Exception\MissingSerializerException;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Serializer\ElementSerializer;
 use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
-use Drupal\external_content\Serializer\HtmlElementSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
@@ -29,15 +29,15 @@ final class SerializerTest extends ExternalContentTestBase {
   public function testSerialization(): void {
     $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
-    $p = new HtmlElement('p');
+    $p = new Element('p');
     $p->addChild(new PlainText('Hello, '));
-    $p->addChild((new HtmlElement('strong'))->addChild(new PlainText('World')));
+    $p->addChild((new Element('strong'))->addChild(new PlainText('World')));
     $p->addChild(new PlainText('!'));
     $document->addChild($p);
 
     $serializer = $this->prepareSerializer();
 
-    $json = $serializer->serialize($document);
+    $json = $serializer->normalize($document);
     $expected_json = <<<'JSON'
     {"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"p","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, "},"children":[]},{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"strong","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"World"},"children":[]}]},{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"!"},"children":[]}]}]}
     JSON;
@@ -56,7 +56,7 @@ final class SerializerTest extends ExternalContentTestBase {
     $environment = new Environment();
     $environment
       ->addSerializer(new PlainTextSerializer())
-      ->addSerializer(new HtmlElementSerializer())
+      ->addSerializer(new ElementSerializer())
       ->addSerializer(new ExternalContentDocumentSerializer());
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
@@ -78,7 +78,7 @@ final class SerializerTest extends ExternalContentTestBase {
 
     self::expectException(MissingSerializerException::class);
 
-    $serializer->serialize($document);
+    $serializer->normalize($document);
   }
 
   /**

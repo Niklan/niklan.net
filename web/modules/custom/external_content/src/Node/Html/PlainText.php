@@ -1,6 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Node;
+namespace Drupal\external_content\Node\Html;
+
+use Drupal\external_content\Node\Node;
 
 /**
  * Represents a simple plain text inside elements.

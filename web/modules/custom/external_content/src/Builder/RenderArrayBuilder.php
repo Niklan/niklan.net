@@ -3,8 +3,8 @@
 namespace Drupal\external_content\Builder;
 
 use Drupal\external_content\Contract\Builder\BuilderInterface;
-use Drupal\external_content\Contract\Builder\BuilderResultRenderArrayInterface;
-use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
+use Drupal\external_content\Contract\Builder\BuilderResultInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -12,7 +12,7 @@ use Drupal\external_content\Data\BuilderResult;
 /**
  * Provides an external content render array builder.
  */
-final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterface {
+final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInterface {
 
   /**
    * The environment.
@@ -22,9 +22,9 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
   /**
    * {@inheritdoc}
    */
-  public function build(NodeInterface $document): BuilderResultRenderArrayInterface {
-    $children = $this->buildRecursive($document, []);
-    $build = $this->buildNode($document, $children);
+  public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+    $context = $this->buildRecursive($node, $context);
+    $build = $this->buildNode($node, $context);
     // Since this is root build, it will always have only one array element.
     // This doesn't make any sense, so it is reset to an actual children build.
     //
@@ -51,9 +51,23 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
   }
 
   /**
-   * Builds an element with its children.
+   * {@inheritdoc}
    */
-  protected function buildRecursive(NodeInterface $node, array $children): array {
+  public function supportsBuild(NodeInterface $node, string $type, array $context = []): bool {
+    return $type === self::class;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  protected function buildRecursive(NodeInterface $node, array $children): mixed {
     $children_build = [];
 
     foreach ($node->getChildren() as $child) {
@@ -64,32 +78,30 @@ final class RenderArrayBuilderFacade implements RenderArrayBuilderFacadeInterfac
   }
 
   /**
-   * Builds a single node.
+   * {@selfdoc}
    */
-  protected function buildNode(NodeInterface $node, array $children): array {
+  protected function buildNode(NodeInterface $node, array $children): mixed {
+    $context = ['children' => $children];
+
     foreach ($this->environment->getBuilders() as $builder) {
       \assert($builder instanceof BuilderInterface);
-      $result = $builder->build($node, $children);
+
+      if (!$builder->supportsBuild($node, self::class, $context)) {
+        continue;
+      }
+
+      $result = $builder->build($node, self::class, $context);
 
       if ($result->isNotBuild()) {
         continue;
       }
 
-      \assert($result instanceof BuilderResultRenderArrayInterface);
-
-      return $result->getRenderArray();
+      return $result->result();
     }
 
     // If build didn't happen, just return children. Most likely it's a root
-    // collection like SourceFileContent.
+    // element.
     return $children;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
   }
 
 }

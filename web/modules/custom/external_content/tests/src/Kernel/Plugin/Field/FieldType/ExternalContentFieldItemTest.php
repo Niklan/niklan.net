@@ -9,8 +9,8 @@ use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Node\HtmlElement;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
@@ -171,9 +171,9 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
   private function prepareDocument(): Content {
     $file = new File('foo', 'bar', 'html');
     $document = new Content($file);
-    $p = new HtmlElement('p');
+    $p = new Element('p');
     $p->addChild(new PlainText('Hello, '));
-    $p->addChild((new HtmlElement('strong'))->addChild(new PlainText('World')));
+    $p->addChild((new Element('strong'))->addChild(new PlainText('World')));
     $p->addChild(new PlainText('!'));
     $document->addChild($p);
 
@@ -190,7 +190,7 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
 
-    return $serializer->serialize($node);
+    return $serializer->normalize($node);
   }
 
   /**

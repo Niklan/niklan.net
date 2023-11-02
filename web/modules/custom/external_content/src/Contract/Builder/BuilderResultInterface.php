@@ -17,4 +17,9 @@ interface BuilderResultInterface {
    */
   public function isNotBuild(): bool;
 
+  /**
+   * {@selfdoc}
+   */
+  public function result(): mixed;
+
 }

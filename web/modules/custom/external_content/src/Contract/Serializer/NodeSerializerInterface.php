@@ -13,7 +13,7 @@ interface NodeSerializerInterface {
   /**
    * {@selfdoc}
    */
-  public function serialize(NodeInterface $node): Data;
+  public function normalize(NodeInterface $node): Data;
 
   /**
    * {@selfdoc}
