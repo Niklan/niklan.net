@@ -36,15 +36,14 @@ final class BasicHtmlExtension implements ConfigurableExtensionInterface {
    * {@inheritdoc}
    */
   public function configureSchema(ConfigurationBuilderInterface $builder): void {
+    $builder->addSchema('html', Expect::structure([
+      'parsers' => Expect::type(PrioritizedList::class)->required(),
+    ]));
+
     $parsers = new PrioritizedList();
     $parsers->add(new ElementParser(), -1000);
     $parsers->add(new PlainTextParser(), -900);
-
-    $builder->addSchema('html', Expect::structure([
-      'parsers' => Expect::type(PrioritizedList::class)
-        ->required()
-        ->default($parsers),
-    ]));
+    $builder->set('html.parsers', $parsers);
   }
 
 }

@@ -25,17 +25,17 @@ final class PlainTextParserTest extends UnitTestCase {
 
     $document = new \DOMDocument();
     $generic_element = $document->createElement('div');
-    $result = $parser->parse($generic_element);
+    $result = $parser->parseNode($generic_element);
 
     self::assertInstanceOf(HtmlParserResultContinue::class, $result);
 
     $empty_text = $document->createTextNode('');
-    $result = $parser->parse($empty_text);
+    $result = $parser->parseNode($empty_text);
 
     self::assertInstanceOf(HtmlParserResultStop::class, $result);
 
     $valid_text = $document->createTextNode('Hello, World!');
-    $result = $parser->parse($valid_text);
+    $result = $parser->parseNode($valid_text);
 
     self::assertInstanceOf(HtmlParserResultFinalize::class, $result);
 

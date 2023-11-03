@@ -58,7 +58,7 @@ final class RenderArrayBuilderTest extends ExternalContentTestBase {
     self::assertTrue(
       $this
         ->getRenderArrayBuilder()
-        ->supportsBuild($paragraph, RenderArrayBuilder::class)
+        ->supportsBuild($paragraph, RenderArrayBuilder::class),
     );
 
     $this->getRenderArrayBuilder()->setEnvironment($environment);

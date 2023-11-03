@@ -7,22 +7,19 @@ use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
-use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
-use Drupal\external_content\Contract\Configuration\ConfigurationAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
-use Drupal\external_content\Data\BundlerResult;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingContainerException;
-use Drupal\external_content\Node\Content;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\external_content\Source\Collection;
 use Drupal\external_content_test\Builder\EmptyRenderArrayBuilder;
@@ -30,6 +27,7 @@ use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
 use League\Config\Configuration;
+use League\Config\ConfigurationAwareInterface;
 use Prophecy\Argument;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
@@ -91,19 +89,11 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testBundlers(): void {
-    $bundler = new class implements BundlerInterface {
-
-      /**
-       * {@inheritdoc}
-       */
-      public function bundle(Content $document): BundlerResultInterface {
-        return BundlerResult::unidentified();
-      }
-
-    };
+    $bundler = $this->prophesize(BundlerInterface::class);
+    $bundler = $bundler->reveal();
 
     $environment = new Environment();
-    $environment->addBundler(new $bundler());
+    $environment->addBundler($bundler);
 
     $expected = [
       0 => $bundler,
@@ -112,6 +102,26 @@ final class EnvironmentTest extends UnitTestCaseTest {
     self::assertEquals(
       $expected,
       $environment->getBundlers()->getIterator()->getArrayCopy(),
+    );
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testParsers(): void {
+    $parser = $this->prophesize(ParserInterface::class);
+    $parser = $parser->reveal();
+
+    $environment = new Environment();
+    $environment->addParser($parser);
+
+    $expected = [
+      0 => $parser,
+    ];
+
+    self::assertEquals(
+      $expected,
+      $environment->getParsers()->getIterator()->getArrayCopy(),
     );
   }
 
@@ -271,6 +281,19 @@ final class EnvironmentTest extends UnitTestCaseTest {
       $builder,
       $environment->getBuilders()->getIterator()->offsetGet(0),
     );
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testExtensionConfigureSchema(): void {
+    $extension = $this->prophesize(ConfigurableExtensionInterface::class);
+    $extension->register(Argument::cetera())->shouldBeCalled();
+    $extension->configureSchema(Argument::cetera())->shouldBeCalled();
+    $extension = $extension->reveal();
+
+    $environment = new Environment();
+    $environment->addExtension($extension);
   }
 
   /**

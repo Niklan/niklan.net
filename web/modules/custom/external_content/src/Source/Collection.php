@@ -10,14 +10,14 @@ use Drupal\external_content\Contract\Source\SourceInterface;
 final class Collection implements \Countable, \IteratorAggregate {
 
   /**
-   * The array with source file items.
+   * {@selfdoc}
    *
    * @var \Drupal\external_content\Contract\Source\SourceInterface[]
    */
   protected array $items = [];
 
   /**
-   * Adds a source into collection.
+   * {@selfdoc}
    */
   public function add(SourceInterface $source): void {
     $this->items[$source->id()] = $source;
@@ -38,10 +38,7 @@ final class Collection implements \Countable, \IteratorAggregate {
   }
 
   /**
-   * Merge provided collection into current one.
-   *
-   * @param \Drupal\external_content\Data\SourceCollection $collection
-   *   The collection to merge from.
+   * {@selfdoc}
    */
   public function merge(self $collection): self {
     foreach ($collection as $item) {

@@ -40,6 +40,8 @@ final class FileTest extends UnitTestCase {
     self::assertTrue($instance->isReadable());
     self::assertEquals('Hello, World!', $instance->contents());
     self::assertInstanceOf(Data::class, $instance->data());
+    self::assertEquals('text', $instance->type());
+    self::assertEquals('bar/baz.txt', $instance->id());
   }
 
 }
