@@ -4,12 +4,13 @@ namespace Drupal\Tests\external_content\Kernel\Builder;
 
 use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
 use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\RenderArrayBuilderFacadeInterface;
+use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Source\File;
+use Drupal\external_content_test\Builder\NoneBuilder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -18,7 +19,7 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * @group external_content
  * @covers \Drupal\external_content\Builder\RenderArrayBuilder
  */
-final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
+final class RenderArrayBuilderTest extends ExternalContentTestBase {
 
   /**
    * {@inheritdoc}
@@ -28,19 +29,10 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
   ];
 
   /**
-   * The render array builder.
+   * {@selfdoc}
    */
-  protected RenderArrayBuilderFacadeInterface $renderArrayBuilder;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->renderArrayBuilder = $this
-      ->container
-      ->get(RenderArrayBuilderFacadeInterface::class);
+  private function getRenderArrayBuilder(): RenderArrayBuilder {
+    return $this->container->get(RenderArrayBuilder::class);
   }
 
   /**
@@ -59,11 +51,18 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
     $external_content_document->addChild($paragraph);
 
     $environment = new Environment();
+    $environment->addBuilder(new NoneBuilder());
     $environment->addBuilder(new ElementRenderArrayBuilder());
     $environment->addBuilder(new PlainTextRenderArrayBuilder());
 
-    $this->renderArrayBuilder->setEnvironment($environment);
-    $result = $this->renderArrayBuilder->build($external_content_document);
+    self::assertTrue(
+      $this
+        ->getRenderArrayBuilder()
+        ->supportsBuild($paragraph, RenderArrayBuilder::class)
+    );
+
+    $this->getRenderArrayBuilder()->setEnvironment($environment);
+    $result = $this->getRenderArrayBuilder()->build($external_content_document);
 
     $expected_result = [
       '#type' => 'html_tag',
@@ -89,7 +88,7 @@ final class RenderArrayBuilderFacadeTest extends ExternalContentTestBase {
       ],
     ];
 
-    self::assertEquals($expected_result, $result->getRenderArray());
+    self::assertEquals($expected_result, $result->result());
   }
 
 }

@@ -23,6 +23,7 @@ final class BuilderResultTest extends UnitTestCase {
 
     self::assertFalse($result->isBuilt());
     self::assertTrue($result->isNotBuild());
+    self::assertNull($result->result());
   }
 
   /**
@@ -36,7 +37,7 @@ final class BuilderResultTest extends UnitTestCase {
 
     self::assertTrue($result->isBuilt());
     self::assertFalse($result->isNotBuild());
-    self::assertEquals($render_array, $result->getRenderArray());
+    self::assertEquals($render_array, $result->result());
   }
 
 }

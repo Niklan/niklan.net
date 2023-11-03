@@ -1,8 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Unit\Builder;
+namespace Drupal\Tests\external_content\Unit\Builder\Html;
 
 use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Node;
@@ -14,7 +15,7 @@ use Drupal\Tests\UnitTestCaseTest;
  * @covers \Drupal\external_content\Builder\Html\ElementRenderArrayBuilder
  * @group external_content
  */
-final class HtmlElementBuilderTest extends UnitTestCaseTest {
+final class ElementRenderArrayBuilderTest extends UnitTestCaseTest {
 
   /**
    * {@selfdoc}
@@ -22,7 +23,7 @@ final class HtmlElementBuilderTest extends UnitTestCaseTest {
   public function testValidElement(): void {
     $element = new Element('div', new Attributes(['foo' => 'bar']));
     $builder = new ElementRenderArrayBuilder();
-    $result = $builder->build($element, [], []);
+    $result = $builder->build($element, RenderArrayBuilder::class);
     $expected_result = [
       '#type' => 'html_tag',
       '#tag' => 'div',
@@ -33,7 +34,7 @@ final class HtmlElementBuilderTest extends UnitTestCaseTest {
     ];
 
     self::assertTrue($result->isBuilt());
-    self::assertEquals($expected_result, $result->getRenderArray());
+    self::assertEquals($expected_result, $result->result());
   }
 
   /**
@@ -42,9 +43,9 @@ final class HtmlElementBuilderTest extends UnitTestCaseTest {
   public function testInvalidElement(): void {
     $element = new class() extends Node {};
     $builder = new ElementRenderArrayBuilder();
-    $result = $builder->build($element, [], []);
-
-    self::assertTrue($result->isNotBuild());
+    self::assertFalse(
+      $builder->supportsBuild($element, RenderArrayBuilder::class),
+    );
   }
 
 }
