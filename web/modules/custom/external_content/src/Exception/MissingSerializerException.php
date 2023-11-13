@@ -18,12 +18,8 @@ final class MissingSerializerException extends \LogicException {
     public readonly EnvironmentInterface $environment,
   ) {
     $message = \sprintf(
-      "Environment used for serialization doesn't provides serializer for %s node. Available serializers: %s",
+      "Environment used for serialization doesn't provides serializer for %s node.",
       \get_class($this->node),
-      \implode(
-        ', ',
-        $this->environment->getSerializers()->getIterator()->getArrayCopy(),
-      ),
     );
     parent::__construct($message);
   }

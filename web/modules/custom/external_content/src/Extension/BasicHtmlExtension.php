@@ -24,6 +24,18 @@ final class BasicHtmlExtension implements ConfigurableExtensionInterface {
    * {@inheritdoc}
    */
   public function register(EnvironmentBuilderInterface $environment): void {
+    // Add default parsers if none provided.
+    // @todo COmplete it. Returns NULL with an empty value.
+    if (!$environment->getConfiguration()->exists('html.parsers')) {
+      $parsers = new PrioritizedList();
+      $parsers->add(new ElementParser(), -1000);
+      $parsers->add(new PlainTextParser(), -900);
+
+      $environment
+        ->getConfiguration()
+        ->set('html.parsers', $parsers);
+    }
+
     $environment
       ->addParser(new HtmlParser())
       ->addBuilder(new ElementRenderArrayBuilder())
@@ -37,13 +49,8 @@ final class BasicHtmlExtension implements ConfigurableExtensionInterface {
    */
   public function configureSchema(ConfigurationBuilderInterface $builder): void {
     $builder->addSchema('html', Expect::structure([
-      'parsers' => Expect::type(PrioritizedList::class)->required(),
+      'parsers' => Expect::type(PrioritizedList::class),
     ]));
-
-    $parsers = new PrioritizedList();
-    $parsers->add(new ElementParser(), -1000);
-    $parsers->add(new PlainTextParser(), -900);
-    $builder->set('html.parsers', $parsers);
   }
 
 }

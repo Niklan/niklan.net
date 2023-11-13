@@ -12,6 +12,7 @@ use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
+use Drupal\external_content\Serializer\ContentSerializer;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -185,6 +186,7 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
    */
   private function prepareJson(NodeInterface $node): string {
     $environment = new Environment();
+    $environment->addSerializer(new ContentSerializer());
     $environment->addExtension(new BasicHtmlExtension());
 
     $serializer = $this->container->get(SerializerInterface::class);

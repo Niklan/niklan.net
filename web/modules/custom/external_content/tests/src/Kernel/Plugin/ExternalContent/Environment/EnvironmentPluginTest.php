@@ -29,7 +29,7 @@ final class EnvironmentPluginTest extends EnvironmentPluginTestBase {
     $environment = $plugin->getEnvironment();
     $configuration = $environment->getConfiguration();
 
-    self::assertEquals('Oh, hello there!', $configuration->get(self::class));
+    self::assertEquals('Oh, hello there!', $configuration->get('foo'));
   }
 
 }

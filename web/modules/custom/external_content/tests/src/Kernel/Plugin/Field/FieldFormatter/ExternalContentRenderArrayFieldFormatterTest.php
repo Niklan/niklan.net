@@ -104,6 +104,7 @@ final class ExternalContentRenderArrayFieldFormatterTest extends ExternalContent
    * @dataProvider formatterData
    */
   public function testFormatter(?string $environment_plugin_id, ?string $document_json, bool $expect_result): void {
+
     $entity = $this->getEntityTestStorage()->create([
       'external_content' => [
         'value' => $document_json,

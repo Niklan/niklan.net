@@ -5,14 +5,14 @@ namespace Drupal\Tests\external_content\Kernel\Serializer;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
+use Drupal\external_content\Serializer\ContentSerializer;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Serializer\ExternalContentDocumentSerializer
+ * @covers \Drupal\external_content\Serializer\ContentSerializer
  * @group external_content
  */
 final class ExternalContentDocumentSerializerTest extends ExternalContentTestBase {
@@ -22,7 +22,7 @@ final class ExternalContentDocumentSerializerTest extends ExternalContentTestBas
    */
   public function testSerialization(): void {
     $environment = new Environment();
-    $environment->addSerializer(new ExternalContentDocumentSerializer());
+    $environment->addSerializer(new ContentSerializer());
 
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);

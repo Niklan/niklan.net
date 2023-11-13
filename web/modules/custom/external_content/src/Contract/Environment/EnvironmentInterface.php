@@ -3,14 +3,14 @@
 namespace Drupal\external_content\Contract\Environment;
 
 use Drupal\external_content\Data\PrioritizedList;
-use League\Config\Configuration;
+use League\Config\ConfigurationProviderInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 
 /**
  * Represents an external content environment.
  */
-interface EnvironmentInterface extends EventDispatcherInterface, ListenerProviderInterface {
+interface EnvironmentInterface extends EventDispatcherInterface, ListenerProviderInterface, ConfigurationProviderInterface {
 
   /**
    * {@selfdoc}
@@ -21,11 +21,6 @@ interface EnvironmentInterface extends EventDispatcherInterface, ListenerProvide
    * {@selfdoc}
    */
   public function getBundlers(): PrioritizedList;
-
-  /**
-   * {@selfdoc}
-   */
-  public function getConfiguration(): Configuration;
 
   /**
    * {@selfdoc}

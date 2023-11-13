@@ -6,6 +6,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
+use Drupal\external_content\Serializer\ContentSerializer;
 
 /**
  * Provides an environment for testing field item.
@@ -22,6 +23,7 @@ final class FieldItemEnvironment extends EnvironmentPlugin {
    */
   public function getEnvironment(): EnvironmentInterface {
     $environment = new Environment();
+    $environment->addSerializer(new ContentSerializer());
     $environment->addExtension(new BasicHtmlExtension());
 
     return $environment;

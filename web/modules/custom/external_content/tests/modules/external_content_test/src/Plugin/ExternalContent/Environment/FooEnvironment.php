@@ -7,7 +7,8 @@ use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
-use Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\Environment\EnvironmentPluginTest;
+use League\Config\Configuration;
+use Nette\Schema\Expect;
 
 /**
  * Provides an environment for testing.
@@ -24,7 +25,7 @@ final class FooEnvironment extends EnvironmentPlugin {
    */
   public function getEnvironment(): EnvironmentInterface {
     $configuration = new Configuration([
-      EnvironmentPluginTest::class => 'Oh, hello there!',
+      'foo' => Expect::string('Oh, hello there!'),
     ]);
     $environment = new Environment($configuration);
     $environment->addBuilder(new ElementRenderArrayBuilder());

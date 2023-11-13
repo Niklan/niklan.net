@@ -8,12 +8,13 @@ use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use League\Config\ConfigurationProviderInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Represents an interface for environment builder.
  */
-interface EnvironmentBuilderInterface {
+interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
 
   /**
    * {@selfdoc}

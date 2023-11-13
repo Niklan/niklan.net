@@ -6,8 +6,6 @@ use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Exception\InvalidConfigurationException;
-use Drupal\external_content\Exception\MissingConfigurationException;
 use Drupal\external_content\Source\Collection;
 use Drupal\external_content\Source\File;
 use Symfony\Component\Finder\Finder;
@@ -31,8 +29,6 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
    * {@inheritdoc}
    */
   public function find(): Collection {
-    $this->assertConfiguration();
-
     $files = new Collection();
     $configuration = $this->environment->getConfiguration();
     $settings = $configuration->get('file_finder');
@@ -73,52 +69,6 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
     }
 
     return $files;
-  }
-
-  /**
-   * Validates configuration for the finder.
-   */
-  protected function assertConfiguration(): void {
-    $configuration = $this->environment->getConfiguration();
-
-    if (!$configuration->exists('file_finder')) {
-      $message = \sprintf(
-        'To use "%s" you must provide "file_finder" configuration.',
-        self::class,
-      );
-
-      throw new MissingConfigurationException($message);
-    }
-
-    $settings = $configuration->get('file_finder');
-
-    if (!\array_key_exists('directories', $settings)) {
-      $message = \sprintf('"%s" requires "directories" settings.', self::class);
-
-      throw new MissingConfigurationException($message);
-    }
-
-    $directories = $settings['directories'];
-
-    if (!\is_string($directories) && !\is_array($directories)) {
-      $message = \sprintf(
-        '"%s" requires "directories" configuration to be string or array.',
-        self::class,
-      );
-
-      throw new InvalidConfigurationException($message);
-    }
-
-    $extensions = $settings['extensions'];
-
-    if (!\is_array($extensions)) {
-      $message = \sprintf(
-        '"%" requires "extensions" configuration be an array of strings.',
-        self::class,
-      );
-
-      throw new InvalidConfigurationException($message);
-    }
   }
 
   /**

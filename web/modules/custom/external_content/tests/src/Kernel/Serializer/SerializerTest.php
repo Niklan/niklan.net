@@ -9,8 +9,8 @@ use Drupal\external_content\Exception\MissingSerializerException;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Serializer\ContentSerializer;
 use Drupal\external_content\Serializer\ElementSerializer;
-use Drupal\external_content\Serializer\ExternalContentDocumentSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
@@ -57,7 +57,7 @@ final class SerializerTest extends ExternalContentTestBase {
     $environment
       ->addSerializer(new PlainTextSerializer())
       ->addSerializer(new ElementSerializer())
-      ->addSerializer(new ExternalContentDocumentSerializer());
+      ->addSerializer(new ContentSerializer());
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($environment);
 

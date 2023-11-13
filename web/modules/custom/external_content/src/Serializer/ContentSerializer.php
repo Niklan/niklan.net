@@ -11,7 +11,7 @@ use Drupal\external_content\Source\File;
 /**
  * Provides serializer for the main document node.
  */
-final class ExternalContentDocumentSerializer implements NodeSerializerInterface {
+final class ContentSerializer implements NodeSerializerInterface {
 
   /**
    * {@inheritdoc}
