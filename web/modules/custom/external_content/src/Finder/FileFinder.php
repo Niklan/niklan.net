@@ -14,7 +14,7 @@ use Symfony\Component\Finder\Finder;
  * Provides a file finder.
  *
  * Configuration:
- * - file_finders:
+ * - file_finder:
  *   - extensions: An array with extensions to search for. E.g.: ['md', 'html'].
  *   - directories: An array with directories to search into.
  */
@@ -31,14 +31,13 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
   public function find(): Collection {
     $files = new Collection();
     $configuration = $this->environment->getConfiguration();
-    $settings = $configuration->get('file_finder');
     $patterns = \array_map(
       static fn ($extension) => '*.' . $extension,
-      $settings['extensions'],
+      $configuration->get('file_finder.extensions'),
     );
 
     $finder = new Finder();
-    $finder->in($settings['directories']);
+    $finder->in($configuration->get('file_finder.directories'));
     $finder->name($patterns);
 
     if (!$finder->hasResults()) {
