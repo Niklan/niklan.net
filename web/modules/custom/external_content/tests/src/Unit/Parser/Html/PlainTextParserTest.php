@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Unit\Parser;
+namespace Drupal\Tests\external_content\Unit\Parser\Html;
 
 use Drupal\external_content\Data\HtmlParserResultContinue;
 use Drupal\external_content\Data\HtmlParserResultFinalize;

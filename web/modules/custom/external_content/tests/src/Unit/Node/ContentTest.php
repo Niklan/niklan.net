@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Node;
 
+use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Source\File;
 use Drupal\external_content_test\Node\SimpleNode;
@@ -13,7 +14,7 @@ use Drupal\Tests\UnitTestCase;
  * @covers \Drupal\external_content\Node\Content
  * @group external_content
  */
-final class ExternalContentDocumentTest extends UnitTestCase {
+final class ContentTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
@@ -26,9 +27,10 @@ final class ExternalContentDocumentTest extends UnitTestCase {
     self::assertFalse($instance->hasParent());
     self::assertNull($instance->getParent());
     self::assertEquals($instance, $instance->getRoot());
+    self::assertInstanceOf(Data::class, $instance->getData());
 
     $node = new SimpleNode();
-    $instance->setParent($node);
+    $instance = $instance->setParent($node);
 
     self::assertFalse($instance->hasParent());
     self::assertNotEquals($node, $instance->getParent());

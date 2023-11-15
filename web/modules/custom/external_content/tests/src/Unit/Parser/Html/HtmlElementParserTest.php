@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\comment\Tests\external_content\Unit\Parser;
+namespace Drupal\comment\Tests\external_content\Unit\Parser\Html;
 
 use Drupal\external_content\Data\HtmlParserResultReplace;
 use Drupal\external_content\Node\Html\Element;

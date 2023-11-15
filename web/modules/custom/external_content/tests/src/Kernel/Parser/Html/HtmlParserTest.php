@@ -3,6 +3,7 @@
 namespace Drupal\Tests\external_content\Kernel\Parser\Html;
 
 use Drupal\external_content\Contract\Parser\ParserInterface;
+use Drupal\external_content\Data\PrioritizedList;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Node\Content;
@@ -10,6 +11,7 @@ use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Parser\Html\HtmlParser;
 use Drupal\external_content\Source\File;
+use Drupal\external_content_test\Parser\Html\ContinueParser;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;
 
@@ -86,6 +88,31 @@ final class HtmlParserTest extends ExternalContentTestBase {
 
     self::expectExceptionMessage('Missing config schema for "html"');
     $this->getParser()->parse($file);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testWithoutSuitableParser(): void {
+    $this->prepareSourceDir();
+
+    $file = new File(
+      vfsStream::url('root'),
+      vfsStream::url('root/foo/bar.html'),
+      'html',
+    );
+
+    $environment = new Environment();
+    $environment->addExtension(new BasicHtmlExtension());
+
+    $parsers = new PrioritizedList();
+    $parsers->add(new ContinueParser(), 1000);
+    $environment->getConfiguration()->set('html.parsers', $parsers);
+
+    $this->getParser()->setEnvironment($environment);
+
+    $result = $this->getParser()->parse($file);
+    self::assertCount(0, $result->getChildren());
   }
 
 }
