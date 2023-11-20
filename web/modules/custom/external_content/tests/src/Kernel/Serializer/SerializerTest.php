@@ -66,8 +66,6 @@ final class SerializerTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Exception\MissingSerializerException
    */
   public function testMissingSerializerException(): void {
     $serializer = $this->container->get(SerializerInterface::class);
@@ -83,8 +81,6 @@ final class SerializerTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Exception\MissingDeserializerException
    */
   public function testMissingDeserializerException(): void {
     $serializer = $this->container->get(SerializerInterface::class);

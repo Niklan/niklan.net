@@ -19,17 +19,24 @@ final class PrioritizedListTest extends UnitTestCase {
   public function testObject(): void {
     $instance = new PrioritizedList();
 
-    self::assertEquals([], $instance->getIterator()->getArrayCopy());
+    $iterator_a = $instance->getIterator();
+    self::assertEquals([], $iterator_a->getArrayCopy());
 
     $instance->add('a', -100);
     $instance->add('b', -100);
     $instance->add('c', 0);
     $instance->add('d', 100);
 
-    self::assertEquals(
-      ['d', 'c', 'a', 'b'],
-      $instance->getIterator()->getArrayCopy(),
-    );
+    $iterator_b = $instance->getIterator();
+    self::assertEquals(['d', 'c', 'a', 'b'], $iterator_b->getArrayCopy());
+
+    // Iterator A and B are different, because list is different.
+    self::assertNotSame($iterator_a, $iterator_b);
+
+    // Consequent calls without changing the list should return cached iterator.
+    $iterator_c = $instance->getIterator();
+    self::assertSame($iterator_b, $iterator_c);
+    self::assertNotSame($iterator_a, $iterator_c);
   }
 
 }

@@ -37,7 +37,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
  * Provides a test for environment.
  *
  * @group external_content
- * @coversDefaultClass \Drupal\external_content\Environment\Environment
+ * @covers \Drupal\external_content\Environment\Environment
  */
 final class EnvironmentTest extends UnitTestCaseTest {
 

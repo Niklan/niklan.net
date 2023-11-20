@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Exception;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 
 /**
  * Provides an exception for missing deserializer.
@@ -17,14 +18,16 @@ final class MissingDeserializerException extends \LogicException {
     public readonly string $version,
     public readonly EnvironmentInterface $environment,
   ) {
+    $available_serializer = \array_map(
+      static fn (NodeSerializerInterface $serializer): string => $serializer::class,
+      \iterator_to_array($this->environment->getSerializers()),
+    );
+
     $message = \sprintf(
       "Environment used for deserialization doesn't provides serializer for %s type of %s version. Available serializers: %s",
       $this->type,
       $this->version,
-      \implode(
-        ', ',
-        $this->environment->getSerializers()->getIterator()->getArrayCopy(),
-      ),
+      \implode(', ', $available_serializer),
     );
     parent::__construct($message);
   }
