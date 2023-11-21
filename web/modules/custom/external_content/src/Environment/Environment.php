@@ -18,6 +18,7 @@ use Drupal\external_content\Data\PrioritizedList;
 use Drupal\external_content\Exception\MissingContainerException;
 use League\Config\Configuration;
 use League\Config\ConfigurationAwareInterface;
+use League\Config\ConfigurationInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -156,8 +157,8 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getConfiguration(): Configuration {
-    return $this->configuration;
+  public function getConfiguration(): ConfigurationInterface {
+    return $this->configuration->reader();
   }
 
   /**

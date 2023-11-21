@@ -18,6 +18,8 @@ final class ElementRenderArrayBuilder implements BuilderInterface {
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+    \assert($node instanceof Element);
+
     return BuilderResult::renderArray([
       '#type' => 'html_tag',
       '#tag' => $node->getTag(),

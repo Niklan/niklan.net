@@ -18,6 +18,8 @@ final class PlainTextRenderArrayBuilder implements BuilderInterface {
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+    \assert($node instanceof PlainText);
+
     return BuilderResult::renderArray([
       '#markup' => $node->getContent(),
     ]);

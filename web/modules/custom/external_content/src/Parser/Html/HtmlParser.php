@@ -6,6 +6,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\Html\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\Html\HtmlParserResultInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\HtmlParserResult;
@@ -82,7 +83,7 @@ final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
    * @param \DOMNode $node
    *   The element to parse.
    */
-  protected function parseNode(\DOMNode $node): HtmlParserResult {
+  protected function parseNode(\DOMNode $node): HtmlParserResultInterface {
     foreach ($this->environment->getConfiguration()->get('html.parsers') as $parser) {
       \assert($parser instanceof HtmlParserInterface);
       $result = $parser->parseNode($node);

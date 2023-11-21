@@ -5,6 +5,7 @@ namespace Drupal\Tests\external_content\Unit\Extension;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\Extension\ConfigurableExtension;
 use Drupal\Tests\UnitTestCase;
+use League\Config\Configuration;
 
 /**
  * {@selfdoc}
@@ -18,17 +19,19 @@ final class ConfigurableExtensionTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testExtension(): void {
-    $environment = new Environment();
+    $configuration = new Configuration();
+    $configuration->merge([
+      'foo' => 'bar',
+      'bar' => 123,
+    ]);
+    $environment = new Environment($configuration);
     $environment->addExtension(new ConfigurableExtension());
 
-    $environment->getConfiguration()->set('foo', 'bar');
     self::assertSame('bar', $environment->getConfiguration()->get('foo'));
-
-    $environment->getConfiguration()->set('foo', 123);
     self::expectExceptionMessage(
-      "The item 'foo' expects to be string, 123 given.",
+      "The item 'bar' expects to be string, 123 given.",
     );
-    $environment->getConfiguration()->get('foo');
+    $environment->getConfiguration()->get('bar');
   }
 
 }

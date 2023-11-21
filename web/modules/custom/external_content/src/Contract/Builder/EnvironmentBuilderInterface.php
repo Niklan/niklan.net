@@ -39,7 +39,7 @@ interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
   /**
    * {@selfdoc}
    */
-  public function addSerializer(NodeSerializerInterface $serializer, int $priority): self;
+  public function addSerializer(NodeSerializerInterface $serializer, int $priority = 0): self;
 
   /**
    * {@selfdoc}

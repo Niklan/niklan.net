@@ -7,6 +7,7 @@ use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\FileFinderExtension;
 use Drupal\external_content\Finder\Finder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
+use League\Config\Configuration;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -23,8 +24,8 @@ final class FileFinderTest extends ExternalContentTestBase {
   public function testFinder(): void {
     $this->prepareDirectory();
 
-    $environment = $this->buildEnvironment();
-    $environment->getConfiguration()->merge([
+    $configuration = new Configuration();
+    $configuration->merge([
       'file_finder' => [
         'extensions' => ['md', 'html'],
         'directories' => [
@@ -34,6 +35,7 @@ final class FileFinderTest extends ExternalContentTestBase {
         ],
       ],
     ]);
+    $environment = $this->buildEnvironment($configuration);
 
     $finder = $this->getFinder();
     $finder->setEnvironment($environment);
@@ -50,8 +52,8 @@ final class FileFinderTest extends ExternalContentTestBase {
   public function testEmptyFinder(): void {
     $this->prepareDirectory();
 
-    $environment = $this->buildEnvironment();
-    $environment->getConfiguration()->merge([
+    $configuration = new Configuration();
+    $configuration->merge([
       'file_finder' => [
         'extensions' => ['md', 'html'],
         'directories' => [
@@ -59,6 +61,7 @@ final class FileFinderTest extends ExternalContentTestBase {
         ],
       ],
     ]);
+    $environment = $this->buildEnvironment($configuration);
 
     $finder = $this->getFinder();
     $finder->setEnvironment($environment);
@@ -69,8 +72,8 @@ final class FileFinderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function buildEnvironment(): Environment {
-    $environment = new Environment();
+  private function buildEnvironment(Configuration $configuration): Environment {
+    $environment = new Environment($configuration);
     $environment->addExtension(new FileFinderExtension());
 
     return $environment;

@@ -17,6 +17,7 @@ final class ConfigurableExtension implements ConfigurableExtensionInterface {
    */
   public function configureSchema(ConfigurationBuilderInterface $builder): void {
     $builder->addSchema('foo', Expect::string());
+    $builder->addSchema('bar', Expect::string());
   }
 
   /**

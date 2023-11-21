@@ -7,9 +7,7 @@ use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
 use Drupal\external_content\Data\PrioritizedList;
-use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\HtmlParser;
-use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Serializer\ElementSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use League\Config\ConfigurationBuilderInterface;
@@ -24,17 +22,6 @@ final class BasicHtmlExtension implements ConfigurableExtensionInterface {
    * {@inheritdoc}
    */
   public function register(EnvironmentBuilderInterface $environment): void {
-    // Add default parsers if none provided.
-    if (!$environment->getConfiguration()->get('html.parsers')) {
-      $parsers = new PrioritizedList();
-      $parsers->add(new ElementParser(), -1000);
-      $parsers->add(new PlainTextParser(), -900);
-
-      $environment
-        ->getConfiguration()
-        ->set('html.parsers', $parsers);
-    }
-
     $environment
       ->addParser(new HtmlParser())
       ->addBuilder(new ElementRenderArrayBuilder())

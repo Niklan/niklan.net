@@ -20,9 +20,10 @@ final class ContentSerializer implements NodeSerializerInterface {
     \assert($node instanceof Content);
 
     return new Data([
-      'file' => [
-        'working_dir' => $node->getSource()->getWorkingDir(),
-        'pathname' => $node->getSource()->getPathname(),
+      'data' => $node->getData()->all(),
+      'source' => [
+        'id' => $node->getSource()->id(),
+        'type' => $node->getSource()->type(),
         'data' => $node->getSource()->data()->all(),
       ],
     ]);
