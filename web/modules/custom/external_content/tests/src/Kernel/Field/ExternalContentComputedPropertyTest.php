@@ -13,7 +13,6 @@ use Drupal\external_content\Field\ExternalContentComputedProperty;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
-use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -131,8 +130,7 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
    * {@selfdoc}
    */
   private function prepareDocument(): Content {
-    $file = new File('foo', 'bar', 'html');
-    $document = new Content($file);
+    $document = new Content();
     $p = new Element('p');
     $p->addChild(new PlainText('Hello, World!'));
     $document->addChild($p);

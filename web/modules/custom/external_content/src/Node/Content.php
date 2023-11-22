@@ -3,7 +3,6 @@
 namespace Drupal\external_content\Node;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Data;
 
 /**
@@ -15,7 +14,6 @@ final class Content extends Node {
    * Constructs a new Content instance.
    */
   public function __construct(
-    protected SourceInterface $source,
     protected ?Data $data = NULL,
   ) {
     $this->data ??= new Data();
@@ -26,13 +24,6 @@ final class Content extends Node {
    */
   public function getData(): Data {
     return $this->data;
-  }
-
-  /**
-   * Gets the content source.
-   */
-  public function getSource(): SourceInterface {
-    return $this->source;
   }
 
   /**

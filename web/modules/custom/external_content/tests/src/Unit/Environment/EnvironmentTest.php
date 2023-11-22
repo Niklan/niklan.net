@@ -28,6 +28,7 @@ use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
 use League\Config\Configuration;
 use League\Config\ConfigurationAwareInterface;
+use League\Config\ConfigurationInterface;
 use Prophecy\Argument;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
@@ -207,7 +208,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     $environment = new Environment();
 
     self::assertInstanceOf(
-      Configuration::class,
+      ConfigurationInterface::class,
       $environment->getConfiguration(),
     );
   }

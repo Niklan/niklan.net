@@ -55,7 +55,7 @@ final class ParserTest extends ExternalContentTestBase {
       ->shouldBeCalled();
     $parser
       ->parse(Argument::cetera())
-      ->willReturn(new Content($source))
+      ->willReturn(new Content())
       ->shouldBeCalled();
     $parser = $parser->reveal();
 

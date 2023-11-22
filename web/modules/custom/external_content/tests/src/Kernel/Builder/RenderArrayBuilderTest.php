@@ -9,7 +9,6 @@ use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
-use Drupal\external_content\Source\File;
 use Drupal\external_content_test\Builder\NoneBuilder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -46,8 +45,7 @@ final class RenderArrayBuilderTest extends ExternalContentTestBase {
     );
     $paragraph->addChild(new PlainText('!'));
 
-    $external_file = new File('foo', 'foo/bar.html', 'html');
-    $external_content_document = new Content($external_file);
+    $external_content_document = new Content();
     $external_content_document->addChild($paragraph);
 
     $environment = new Environment();

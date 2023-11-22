@@ -12,7 +12,6 @@ use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Serializer\ContentSerializer;
 use Drupal\external_content\Serializer\ElementSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
-use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -27,8 +26,7 @@ final class SerializerTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testSerialization(): void {
-    $file = new File('foo', 'bar', 'html');
-    $document = new Content($file);
+    $document = new Content();
     $p = new Element('p');
     $p->addChild(new PlainText('Hello, '));
     $p->addChild((new Element('strong'))->addChild(new PlainText('World')));
@@ -39,7 +37,7 @@ final class SerializerTest extends ExternalContentTestBase {
 
     $json = $serializer->normalize($document);
     $expected_json = <<<'JSON'
-    {"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"p","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, "},"children":[]},{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"strong","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"World"},"children":[]}]},{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"!"},"children":[]}]}]}
+    {"type":"external_content:document","version":"1.0.0","data":[],"children":[{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"p","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, "},"children":[]},{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"strong","attributes":[]},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"World"},"children":[]}]},{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"!"},"children":[]}]}]}
     JSON;
 
     self::assertEquals($expected_json, $json);
@@ -71,8 +69,7 @@ final class SerializerTest extends ExternalContentTestBase {
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment(new Environment());
 
-    $file = new File('foo', 'bar', 'html');
-    $document = new Content($file);
+    $document = new Content();
 
     self::expectException(MissingSerializerException::class);
 

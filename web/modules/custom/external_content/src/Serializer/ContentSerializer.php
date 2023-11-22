@@ -6,7 +6,6 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Source\File;
 
 /**
  * Provides serializer for the main document node.
@@ -19,14 +18,7 @@ final class ContentSerializer implements NodeSerializerInterface {
   public function normalize(NodeInterface $node): Data {
     \assert($node instanceof Content);
 
-    return new Data([
-      'data' => $node->getData()->all(),
-      'source' => [
-        'id' => $node->getSource()->id(),
-        'type' => $node->getSource()->type(),
-        'data' => $node->getSource()->data()->all(),
-      ],
-    ]);
+    return $node->getData();
   }
 
   /**
@@ -54,16 +46,7 @@ final class ContentSerializer implements NodeSerializerInterface {
    * {@inheritdoc}
    */
   public function deserialize(Data $data, string $serialized_version): NodeInterface {
-    $file_info = $data->get('file');
-    $file_data = new Data($file_info['data']);
-    $file = new File(
-      $file_info['working_dir'],
-      $file_info['pathname'],
-      'html',
-      $file_data,
-    );
-
-    return new Content($file);
+    return new Content($data);
   }
 
   /**

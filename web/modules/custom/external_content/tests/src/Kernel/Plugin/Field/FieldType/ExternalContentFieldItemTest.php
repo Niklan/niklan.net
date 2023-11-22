@@ -13,7 +13,6 @@ use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\external_content\Serializer\ContentSerializer;
-use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -170,8 +169,7 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   private function prepareDocument(): Content {
-    $file = new File('foo', 'bar', 'html');
-    $document = new Content($file);
+    $document = new Content();
     $p = new Element('p');
     $p->addChild(new PlainText('Hello, '));
     $p->addChild((new Element('strong'))->addChild(new PlainText('World')));

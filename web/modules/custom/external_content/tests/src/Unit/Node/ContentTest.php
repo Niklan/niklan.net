@@ -4,7 +4,6 @@ namespace Drupal\Tests\external_content\Unit\Node;
 
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Source\File;
 use Drupal\external_content_test\Node\SimpleNode;
 use Drupal\Tests\UnitTestCase;
 
@@ -20,10 +19,8 @@ final class ContentTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $file = new File('foo', 'bar', 'html');
-    $instance = new Content($file);
+    $instance = new Content();
 
-    self::assertEquals($file, $instance->getSource());
     self::assertFalse($instance->hasParent());
     self::assertNull($instance->getParent());
     self::assertEquals($instance, $instance->getRoot());

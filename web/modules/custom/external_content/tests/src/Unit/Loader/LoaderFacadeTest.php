@@ -10,7 +10,6 @@ use Drupal\external_content\Data\LoaderResultIgnore;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Loader\LoaderFacade;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 use Prophecy\Argument;
 
@@ -59,10 +58,7 @@ final class LoaderFacadeTest extends UnitTestCase {
    * {@selfdoc}
    */
   private function prepareExternalContentBundleDocument(): ExternalContentBundleDocument {
-    $file = new File('foo', 'bar', 'html');
-    $document = new Content($file);
-
-    return new ExternalContentBundleDocument($document);
+    return new ExternalContentBundleDocument(new Content());
   }
 
   /**

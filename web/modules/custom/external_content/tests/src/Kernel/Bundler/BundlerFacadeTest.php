@@ -8,7 +8,6 @@ use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\ExternalContentDocumentCollection;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Source\File;
 use Drupal\external_content_test\Bundler\FrontMatterIdLanguageBundler;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
@@ -51,30 +50,26 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
     $environment->addBundler(new FrontMatterIdLanguageBundler());
     $this->bundler->setEnvironment($environment);
 
-    $file_a = new File('foo', 'bar', 'html');
-    $file_a->data()->set('front_matter', [
+    $document_a = new Content();
+    $document_a->getData()->set('front_matter', [
       'id' => '1',
       'language' => 'ru',
     ]);
-    $document_a = new Content($file_a);
 
-    $file_b = new File('bar', 'baz', 'html');
-    $file_b->data()->set('front_matter', [
+    $document_b = new Content();
+    $document_b->getData()->set('front_matter', [
       'id' => '1',
       'language' => 'en',
     ]);
-    $document_b = new Content($file_b);
 
-    $file_c = new File('baz', 'foo', 'html');
-    $file_c->data()->set('front_matter', [
+    $document_c = new Content();
+    $document_c->getData()->set('front_matter', [
       'id' => '2',
       'language' => 'ru',
     ]);
-    $document_c = new Content($file_c);
 
     // This must be treated as unidentified.
-    $file_d = new File('baz', 'foo', 'html');
-    $document_d = new Content($file_d);
+    $document_d = new Content();
 
     $document_collection = new ExternalContentDocumentCollection();
     $document_collection->add($document_a);
