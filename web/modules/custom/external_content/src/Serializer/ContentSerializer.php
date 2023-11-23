@@ -39,7 +39,7 @@ final class ContentSerializer implements NodeSerializerInterface {
    * {@inheritdoc}
    */
   public function getSerializationBlockType(): string {
-    return 'external_content:document';
+    return 'external_content:content';
   }
 
   /**

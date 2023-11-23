@@ -81,6 +81,13 @@ final class File implements SourceInterface {
    * {@inheritdoc}
    */
   public function data(): Data {
+    $this->data->set('id', $this->id());
+    $this->data->set('type', $this->type());
+    $this->data->set('working_dir', $this->getWorkingDir());
+    $this->data->set('pathname', $this->getPathname());
+    $this->data->set('relative_pathname', $this->getRelativePathname());
+    $this->data->set('extension', $this->getExtension());
+
     return $this->data;
   }
 

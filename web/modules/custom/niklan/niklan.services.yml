@@ -55,8 +55,8 @@ services:
     tags:
       - { name: access_check, applies_to: _niklan_github_signature }
 
-  Drupal\niklan\Sync\BlogContentSyncManager:
-    autowire: true
+#  Drupal\niklan\Sync\BlogContentSyncManager:
+#    autowire: true
 
   Drupal\niklan\Builder\BlogContentEnvironmentBuilder:
     autowire: true
@@ -66,8 +66,3 @@ services:
 
   Drupal\niklan\Converter\BlogMarkdownConverter:
     autowire: true
-
-  Drupal\niklan\EventSubscriber\BlogContentSyncEventSubscriber:
-    autowire: true
-    tags:
-      - { name: event_subscriber }

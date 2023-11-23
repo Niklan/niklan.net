@@ -13,7 +13,7 @@ final class EventListener {
    * @param string $event
    *   The FQN of listened event.
    * @param \Closure $listener
-   *   The listener closer..
+   *   The listener closure.
    */
   public function __construct(
     protected string $event,

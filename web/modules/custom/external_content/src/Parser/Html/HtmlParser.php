@@ -11,6 +11,7 @@ use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\HtmlParserResult;
+use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Node\Content;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -43,14 +44,15 @@ final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
    */
   public function parse(SourceInterface $source): Content {
     $data = new Data([
-      'source' => [
-        'id' => $source->id(),
-        'type' => $source->type(),
-        'data' => $source->data()->all(),
-      ],
+      'source' => $source->data()->all(),
     ]);
-    $document = new Content($data);
-    $crawler = new Crawler($source->contents());
+    $content = $source->contents();
+
+    $pre_parse_event = new HtmlPreParseEvent($content, $data);
+    $this->environment->dispatch($pre_parse_event);
+
+    $document = new Content($pre_parse_event->data);
+    $crawler = new Crawler($pre_parse_event->content);
     $crawler = $crawler->filter('body');
     $body_node = $crawler->getNode(0);
     $this->parseChildren($body_node, $document);

@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
 use Drupal\external_content\Data\PrioritizedList;
 use Drupal\external_content\Parser\Html\HtmlParser;
+use Drupal\external_content\Serializer\ContentSerializer;
 use Drupal\external_content\Serializer\ElementSerializer;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use League\Config\ConfigurationBuilderInterface;
@@ -27,7 +28,8 @@ final class BasicHtmlExtension implements ConfigurableExtensionInterface {
       ->addBuilder(new ElementRenderArrayBuilder())
       ->addBuilder(new PlainTextRenderArrayBuilder())
       ->addSerializer(new ElementSerializer())
-      ->addSerializer(new PlainTextSerializer());
+      ->addSerializer(new PlainTextSerializer())
+      ->addSerializer(new ContentSerializer());
   }
 
   /**
