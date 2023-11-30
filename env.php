@@ -28,4 +28,4 @@ Timer::start('parse');
 $content = $parser->parse($source);
 Timer::stop('parse');
 
-dump(Timer::read('parse'));
+dump('Parse time, ms: ' . Timer::read('parse'));

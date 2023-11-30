@@ -1,4 +1,7 @@
 services:
+  _defaults:
+    autowire: true
+
   niklan.event_subscriber:
     class: Drupal\niklan\EventSubscriber\RouteSubscriber
     tags:
@@ -55,14 +58,6 @@ services:
     tags:
       - { name: access_check, applies_to: _niklan_github_signature }
 
-#  Drupal\niklan\Sync\BlogContentSyncManager:
-#    autowire: true
-
-  Drupal\niklan\Builder\BlogContentEnvironmentBuilder:
-    autowire: true
-
+  Drupal\niklan\Sync\BlogSyncManager:
   Drupal\niklan\Builder\BlogMarkdownEnvironmentBuilder:
-    autowire: true
-
   Drupal\niklan\Converter\BlogMarkdownConverter:
-    autowire: true

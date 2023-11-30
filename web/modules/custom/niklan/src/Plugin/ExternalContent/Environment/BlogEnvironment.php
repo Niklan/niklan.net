@@ -9,6 +9,7 @@ use Drupal\external_content\Data\PrioritizedList;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Extension\BasicHtmlExtension;
+use Drupal\external_content\Extension\FileFinderExtension;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
@@ -56,9 +57,12 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
   public function getEnvironment(): EnvironmentInterface {
     $configuration = new Configuration();
     $configuration->set('html.parsers', $this->prepareHtmlParsers());
+    $configuration->set('file_finder.extensions', ['md']);
+    $configuration->set('file_finder.directories', ['private://content']);
 
     $environment = new Environment($configuration);
     $environment->addExtension(new BasicHtmlExtension());
+    $environment->addExtension(new FileFinderExtension());
 
     $environment->addEventListener(
       event_class: HtmlPreParseEvent::class,
