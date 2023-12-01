@@ -3,9 +3,9 @@
 namespace Drupal\Tests\external_content\Kernel\Bundler;
 
 use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
+use Drupal\external_content\Data\ContentCollection;
 use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
-use Drupal\external_content\Data\ExternalContentDocumentCollection;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content_test\Bundler\FrontMatterIdLanguageBundler;
@@ -71,7 +71,7 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
     // This must be treated as unidentified.
     $document_d = new Content();
 
-    $document_collection = new ExternalContentDocumentCollection();
+    $document_collection = new ContentCollection();
     $document_collection->add($document_a);
     $document_collection->add($document_b);
     $document_collection->add($document_c);

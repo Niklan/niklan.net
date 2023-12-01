@@ -4,10 +4,12 @@ namespace Drupal\niklan\Command;
 
 use Drupal\Component\Utility\Timer;
 use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Source\File;
 use Drupal\niklan\Sync\BlogSyncManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -50,6 +52,8 @@ final class BlogSync extends Command {
       return self::SUCCESS;
     }
 
+    $this->parse($collection, $output, $formatter);
+
     return self::SUCCESS;
   }
 
@@ -68,7 +72,11 @@ final class BlogSync extends Command {
    * {@selfdoc}
    */
   private function find(OutputInterface $output, FormatterHelper $formatter): Collection {
-    $formatter = $this->getHelper('formatter');
+    $output->writeln($formatter->formatSection(
+      'search',
+      'Starting files search',
+    ));
+
     Timer::start('finder');
     $collection = $this->syncManager->find();
     Timer::stop('finder');
@@ -92,6 +100,51 @@ final class BlogSync extends Command {
     }
 
     return $collection;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function parse(Collection $collection, OutputInterface $output, FormatterHelper $formatter): void {
+    $output->writeln($formatter->formatSection(
+      'parse',
+      'Start parsing files.',
+    ));
+
+    $progress = new ProgressBar($output, $collection->count());
+    $progress->setFormat("%current%/%max% [%bar%] %elapsed% %memory%\n");
+
+    foreach ($collection as $source) {
+      \assert($source instanceof File);
+
+      if ($output->isVerbose()) {
+        $output->writeln($formatter->formatSection(
+          'parse',
+          \sprintf('Start parsing %s', $source->getPathname()),
+        ));
+      }
+
+      Timer::start($source->id());
+      // @todo Add to collection for bundling.
+      $content = $this->syncManager->parse($source);
+      Timer::stop($source->id());
+      $progress->advance();
+
+      if (!$output->isVerbose()) {
+        continue;
+      }
+
+      $output->writeln($formatter->formatSection(
+      'parse',
+      \sprintf(
+        'Parsing %s completed in %sms',
+        $source->getPathname(),
+        Timer::read($source->id()),
+      ),
+      ));
+    }
+
+    $progress->finish();
   }
 
 }

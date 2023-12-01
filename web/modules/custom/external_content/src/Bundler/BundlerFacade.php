@@ -6,10 +6,10 @@ use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultIdentifiedInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Data\ContentCollection;
 use Drupal\external_content\Data\ExternalContentBundle;
 use Drupal\external_content\Data\ExternalContentBundleCollection;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
-use Drupal\external_content\Data\ExternalContentDocumentCollection;
 use Drupal\external_content\Node\Content;
 
 /**
@@ -25,7 +25,7 @@ final class BundlerFacade implements BundlerFacadeInterface {
   /**
    * {@inheritdoc}
    */
-  public function bundle(ExternalContentDocumentCollection $document_collection): ExternalContentBundleCollection {
+  public function bundle(ContentCollection $document_collection): ExternalContentBundleCollection {
     $identified_bundles = [];
     $documents = $document_collection->getIterator()->getArrayCopy();
 

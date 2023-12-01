@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Unit\Data;
 
-use Drupal\external_content\Data\ExternalContentDocumentCollection;
+use Drupal\external_content\Data\ContentCollection;
 use Drupal\external_content\Node\Content;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides an external content document collection test.
  *
- * @covers \Drupal\external_content\Data\ExternalContentDocumentCollection
+ * @covers \Drupal\external_content\Data\ContentCollection
  * @group external_content
  */
 final class ExternalContentDocumentCollectionTest extends UnitTestCase {
@@ -18,7 +18,7 @@ final class ExternalContentDocumentCollectionTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $instance = new ExternalContentDocumentCollection();
+    $instance = new ContentCollection();
 
     self::assertCount(0, $instance);
     self::assertEquals([], $instance->getIterator()->getArrayCopy());

@@ -6,7 +6,10 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Finder\Finder;
+use Drupal\external_content\Node\Content;
+use Drupal\external_content\Parser\Parser;
 use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Source\File;
 
 /**
  * Provides content synchronization manager.
@@ -26,15 +29,24 @@ final class BlogSyncManager {
   public function __construct(
     private readonly EnvironmentPluginManagerInterface $environmentPluginManager,
     private readonly Finder $finder,
-  ) {}
+    private readonly Parser $parser,
+  ) {
+    $this->finder->setEnvironment($this->getEnvironment());
+    $this->parser->setEnvironment($this->getEnvironment());
+  }
 
   /**
-   * Requests content synchronization.
+   * {@selfdoc}
    */
   public function find(): Collection {
-    $this->finder->setEnvironment($this->getEnvironment());
-
     return $this->finder->find();
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function parse(File $source): Content {
+    return $this->parser->parse($source);
   }
 
   /**

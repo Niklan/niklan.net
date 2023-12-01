@@ -7,12 +7,12 @@ use Drupal\external_content\Node\Content;
 /**
  * Represents a collection of external content documents.
  */
-final class ExternalContentDocumentCollection implements \Countable, \IteratorAggregate {
+final class ContentCollection implements \Countable, \IteratorAggregate {
 
   /**
    * The array with parsed documents.
    *
-   * @var \Drupal\external_content\Data\ExternalContentDocumentCollection[]
+   * @var \Drupal\external_content\Data\ContentCollection[]
    */
   protected array $items = [];
 

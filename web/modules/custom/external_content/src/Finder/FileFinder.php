@@ -5,7 +5,6 @@ namespace Drupal\external_content\Finder;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
-use Drupal\external_content\Data\Data;
 use Drupal\external_content\Source\Collection;
 use Drupal\external_content\Source\File;
 use Symfony\Component\Finder\Finder;
@@ -62,7 +61,6 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
         $working_dir,
         $file_info->getPathname(),
         'html',
-        new Data(['is_markdown' => TRUE]),
       );
       $files->add($file);
     }
