@@ -8,6 +8,10 @@ use Drupal\external_content\Data\ExternalContentBundleCollection;
 
 /**
  * Represents an external content bundler.
+ *
+ * @todo Consider moving bundler before parsing to save a lot of time and
+ *   resources. In that case sources should be able to prepare data (like
+ *   Front Matter extraction) before that.
  */
 interface BundlerFacadeInterface extends EnvironmentAwareInterface {
 

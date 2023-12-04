@@ -2,23 +2,23 @@
 
 namespace Drupal\Tests\external_content\Unit\Data;
 
-use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides an external content file collection test.
  *
- * @covers \Drupal\external_content\Source\Collection
+ * @covers \Drupal\external_content\Data\SourceCollection
  * @group external_content
  */
-final class ExternalContentFileCollectionTest extends UnitTestCase {
+final class SourceCollectionTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
    */
   public function testObject(): void {
-    $collection_a = new Collection();
+    $collection_a = new SourceCollection();
 
     self::assertCount(0, $collection_a);
     self::assertEquals([], $collection_a->getIterator()->getArrayCopy());
@@ -32,7 +32,7 @@ final class ExternalContentFileCollectionTest extends UnitTestCase {
       $collection_a->getIterator()->getArrayCopy(),
     );
 
-    $collection_b = new Collection();
+    $collection_b = new SourceCollection();
     $file_b = new File('bar', 'baz', 'html');
     $collection_b->add($file_b);
 

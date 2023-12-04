@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Source;
+namespace Drupal\external_content\Data;
 
 use Drupal\external_content\Contract\Source\SourceInterface;
 
 /**
  * Represents a collection of source files.
  */
-final class Collection implements \Countable, \IteratorAggregate {
+final class SourceCollection implements \Countable, \IteratorAggregate {
 
   /**
    * {@selfdoc}

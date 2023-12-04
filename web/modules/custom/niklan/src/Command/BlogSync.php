@@ -3,13 +3,14 @@
 namespace Drupal\niklan\Command;
 
 use Drupal\Component\Utility\Timer;
-use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Data\ContentCollection;
+use Drupal\external_content\Data\ExternalContentBundleCollection;
+use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Source\File;
 use Drupal\niklan\Sync\BlogSyncManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\FormatterHelper;
-use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\ProgressIndicator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -25,6 +26,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class BlogSync extends Command {
 
   /**
+   * {@selfdoc}
+   */
+  private OutputInterface $output;
+
+  /**
    * Constructs a BlogSync object.
    */
   public function __construct(
@@ -37,22 +43,12 @@ final class BlogSync extends Command {
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output): int {
-    $formatter = $this->getHelper('formatter');
+    $this->output = $output;
 
-    $this->welcome($output, $formatter);
-    $collection = $this->find($output, $formatter);
-
-    if (!$collection->count()) {
-      $output->writeln($formatter->formatSection(
-        'search',
-        'cya',
-        'comment',
-      ));
-
-      return self::SUCCESS;
-    }
-
-    $this->parse($collection, $output, $formatter);
+    $this->log('start', 'Zug! Zug! Lazy peons are ready to work!');
+    $source_collection = $this->find();
+    $content_collection = $this->parse($source_collection);
+    $this->bundle($content_collection);
 
     return self::SUCCESS;
   }
@@ -60,43 +56,23 @@ final class BlogSync extends Command {
   /**
    * {@selfdoc}
    */
-  private function welcome(OutputInterface $output, FormatterHelper $formatter): void {
-    $output->writeln($formatter->formatSection(
-      'start',
-      'Zug! Zug! Lazy peons are ready to work!',
-      'comment',
-    ));
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function find(OutputInterface $output, FormatterHelper $formatter): Collection {
-    $output->writeln($formatter->formatSection(
-      'search',
-      'Starting files search',
-    ));
+  private function find(): SourceCollection {
+    $this->log('search', 'Starting sources search');
 
     Timer::start('finder');
     $collection = $this->syncManager->find();
     Timer::stop('finder');
 
     if ($collection->count()) {
-      $output->writeln($formatter->formatSection(
-        'search',
-        \sprintf(
-          '%s files found in %sms.',
-          $collection->count(),
-          Timer::read('finder'),
-        ),
-      ));
+      $message = \sprintf(
+        '%s sources found in %sms.',
+        $collection->count(),
+        Timer::read('finder'),
+      );
+      $this->log('search', $message);
     }
     else {
-      $output->writeln($formatter->formatSection(
-        'search',
-        'No files were found in a working directory.',
-        'comment',
-      ));
+      $this->log('search', 'No sources were found in a working directory.');
     }
 
     return $collection;
@@ -105,46 +81,105 @@ final class BlogSync extends Command {
   /**
    * {@selfdoc}
    */
-  private function parse(Collection $collection, OutputInterface $output, FormatterHelper $formatter): void {
-    $output->writeln($formatter->formatSection(
-      'parse',
-      'Start parsing files.',
-    ));
+  private function parse(SourceCollection $collection): ContentCollection {
+    $parse_statistics = [];
 
-    $progress = new ProgressBar($output, $collection->count());
-    $progress->setFormat("%current%/%max% [%bar%] %elapsed% %memory%\n");
+    $this->log('parse', 'Start parsing sources.');
+
+    $progress = $this->prepareProgress();
+    $progress->start('Parsing sources…');
+    Timer::start('parse');
+    $content_collection = new ContentCollection();
 
     foreach ($collection as $source) {
       \assert($source instanceof File);
-
-      if ($output->isVerbose()) {
-        $output->writeln($formatter->formatSection(
-          'parse',
-          \sprintf('Start parsing %s', $source->getPathname()),
-        ));
-      }
-
-      Timer::start($source->id());
-      // @todo Add to collection for bundling.
-      $content = $this->syncManager->parse($source);
-      Timer::stop($source->id());
+      $timer_id = "parse_{$source->id()}";
+      Timer::start($timer_id);
+      $content_collection->add($this->syncManager->parse($source));
+      Timer::stop($timer_id);
       $progress->advance();
-
-      if (!$output->isVerbose()) {
-        continue;
-      }
-
-      $output->writeln($formatter->formatSection(
-      'parse',
-      \sprintf(
-        'Parsing %s completed in %sms',
-        $source->getPathname(),
-        Timer::read($source->id()),
-      ),
-      ));
+      $parse_statistics[$source->id()] = Timer::read($timer_id);
     }
 
-    $progress->finish();
+    Timer::stop('parse');
+    $progress->finish(\sprintf(
+      'Parsing completed in %sms',
+      Timer::read('parse'),
+    ));
+
+    if ($this->output->isVerbose()) {
+      foreach ($parse_statistics as $source_id => $parse_time) {
+        $message = \sprintf('Parsing %s took %sms', $source_id, $parse_time);
+        $this->log('parse', $message);
+      }
+    }
+
+    return $content_collection;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function prepareProgress(): ProgressIndicator {
+    return new ProgressIndicator(
+      output: $this->output,
+      indicatorValues: [
+        '[ o o o o o ]',
+        '[co o o o o ]',
+        '[Co o o o o ]',
+        '[-c o o o o ]',
+        '[-C o o o o ]',
+        '[--co o o o ]',
+        '[--Co o o o ]',
+        '[---c o o o ]',
+        '[---C o o o ]',
+        '[----co o o ]',
+        '[----Co o o ]',
+        '[-----c o o ]',
+        '[-----C o o ]',
+        '[------co o ]',
+        '[------Co o ]',
+        '[-------c o ]',
+        '[-------C o ]',
+        '[--------co ]',
+        '[--------Co ]',
+        '[---------c ]',
+        '[---------C ]',
+        '[----------c]',
+        '[----------C]',
+        '[-----------]',
+      ],
+    );
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function log(string $type, string $message): void {
+    $formatter = $this->getHelper('formatter');
+    $this->output->writeln($formatter->formatSection(
+      section: $type,
+      message: $message,
+    ));
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function bundle(ContentCollection $content_collection): ExternalContentBundleCollection {
+    $this->log('bundle', 'Start bundling content');
+    Timer::start('bundle');
+    $bundle_collection = $this->syncManager->bundle($content_collection);
+    Timer::stop('bundle');
+    $message = \sprintf(
+      '%s sources bundled into %s content in %sms',
+      $content_collection->count(),
+      $bundle_collection->count(),
+      Timer::read('bundle'),
+    );
+    $this->log('bundle', $message);
+
+    return $bundle_collection;
   }
 
 }

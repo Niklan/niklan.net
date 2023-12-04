@@ -43,9 +43,7 @@ final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
    * {@selfdoc}
    */
   public function parse(SourceInterface $source): Content {
-    $data = new Data([
-      'source' => $source->data()->all(),
-    ]);
+    $data = new Data(['source' => $source->data()->all()]);
     $content = $source->contents();
 
     $pre_parse_event = new HtmlPreParseEvent($content, $data);

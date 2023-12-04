@@ -18,10 +18,10 @@ use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\LoaderResult;
+use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingContainerException;
 use Drupal\external_content\Serializer\PlainTextSerializer;
-use Drupal\external_content\Source\Collection;
 use Drupal\external_content_test\Builder\EmptyRenderArrayBuilder;
 use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
@@ -135,8 +135,8 @@ final class EnvironmentTest extends UnitTestCaseTest {
       /**
        * {@inheritdoc}
        */
-      public function find(): Collection {
-        return new Collection();
+      public function find(): SourceCollection {
+        return new SourceCollection();
       }
 
     };

@@ -5,7 +5,7 @@ namespace Drupal\external_content\Finder;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
-use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Source\File;
 use Symfony\Component\Finder\Finder;
 
@@ -27,8 +27,8 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
   /**
    * {@inheritdoc}
    */
-  public function find(): Collection {
-    $files = new Collection();
+  public function find(): SourceCollection {
+    $files = new SourceCollection();
     $configuration = $this->environment->getConfiguration();
     $patterns = \array_map(
       static fn ($extension) => '*.' . $extension,

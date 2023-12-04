@@ -3,7 +3,7 @@
 namespace Drupal\external_content_test\Finder;
 
 use Drupal\external_content\Contract\Finder\FinderInterface;
-use Drupal\external_content\Source\Collection;
+use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Source\File;
 
 /**
@@ -14,8 +14,8 @@ final class FooFinder implements FinderInterface {
   /**
    * {@inheritdoc}
    */
-  public function find(): Collection {
-    $files = new Collection();
+  public function find(): SourceCollection {
+    $files = new SourceCollection();
     $files->add(new File('foo/bar', 'foo/bar/baz.txt', 'text'));
 
     return $files;
