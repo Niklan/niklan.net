@@ -41,9 +41,9 @@ final class SourceCollection implements \Countable, \IteratorAggregate {
    * {@selfdoc}
    */
   public function merge(self $collection): self {
-    foreach ($collection as $item) {
-      \assert($item instanceof File);
-      $this->items[$item->getPathname()] = $item;
+    foreach ($collection as $source) {
+      \assert($source instanceof SourceInterface);
+      $this->items[$source->id()] = $source;
     }
 
     return $this;

@@ -36,7 +36,12 @@ final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
    * {@inheritdoc}
    */
   public function supportsParse(SourceInterface $source): bool {
-    return $source->type() === 'html';
+    $supported_types = $this
+      ->environment
+      ->getConfiguration()
+      ->get('html.supported_types');
+
+    return \in_array($source->type(), $supported_types);
   }
 
   /**

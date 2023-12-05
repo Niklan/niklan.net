@@ -7,6 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Data\PrioritizedList;
 use Drupal\external_content\Environment\Environment;
+use Drupal\external_content\Event\FileFoundEvent;
 use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Extension\FileFinderExtension;
@@ -35,6 +36,7 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
     array $configuration,
     $plugin_id,
     $plugin_definition,
+    private ContainerInterface $container,
     private BlogMarkdownConverter $markdownConverter,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -48,6 +50,7 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container,
       $container->get(BlogMarkdownConverter::class),
     );
   }
@@ -58,18 +61,25 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
   public function getEnvironment(): EnvironmentInterface {
     $configuration = new Configuration();
     $configuration->set('html.parsers', $this->prepareHtmlParsers());
+    $configuration->set('html.supported_types', ['text/markdown']);
     $configuration->set('file_finder.extensions', ['md']);
     $configuration->set('file_finder.directories', ['private://content']);
 
     $environment = new Environment($configuration);
+    $environment->setContainer($this->container);
+
     $environment->addExtension(new BasicHtmlExtension());
     $environment->addExtension(new FileFinderExtension());
 
     $environment->addBundler(new FrontMatterIdLanguageBundler());
 
     $environment->addEventListener(
+      event_class: FileFoundEvent::class,
+      listener: fn (FileFoundEvent $event) => $this->extractSourceFrontMatter($event),
+    );
+    $environment->addEventListener(
       event_class: HtmlPreParseEvent::class,
-      listener: fn (HtmlPreParseEvent $event) => $this->extractFrontMatter($event),
+      listener: fn (HtmlPreParseEvent $event) => $this->removeFrontMatter($event),
     );
     $environment->addEventListener(
       event_class: HtmlPreParseEvent::class,
@@ -82,7 +92,15 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
   /**
    * {@selfdoc}
    */
-  private function extractFrontMatter(HtmlPreParseEvent $event): void {
+  private function extractSourceFrontMatter(FileFoundEvent $event): void {
+    $front_matter = FrontMatter::create($event->file->contents());
+    $event->file->data()->set('front_matter', $front_matter->getData());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function removeFrontMatter(HtmlPreParseEvent $event): void {
     $front_matter = FrontMatter::create($event->content);
     $event->data->set('front_matter', $front_matter->getData());
     $event->content = $front_matter->getContent();

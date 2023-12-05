@@ -3,6 +3,7 @@
 namespace Drupal\niklan\Command;
 
 use Drupal\Component\Utility\Timer;
+use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\ContentCollection;
 use Drupal\external_content\Data\ExternalContentBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
@@ -10,9 +11,9 @@ use Drupal\external_content\Source\File;
 use Drupal\niklan\Sync\BlogSyncManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressIndicator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * {@selfdoc}
@@ -28,7 +29,7 @@ final class BlogSync extends Command {
   /**
    * {@selfdoc}
    */
-  private OutputInterface $output;
+  private SymfonyStyle $io;
 
   /**
    * Constructs a BlogSync object.
@@ -43,9 +44,9 @@ final class BlogSync extends Command {
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output): int {
-    $this->output = $output;
+    $this->io = new SymfonyStyle($input, $output);
 
-    $this->log('start', 'Zug! Zug! Lazy peons are ready to work!');
+    $this->io->title('Zug! Zug! Lazy peons are ready to work!');
     $source_collection = $this->find();
     $content_collection = $this->parse($source_collection);
     $this->bundle($content_collection);
@@ -57,7 +58,7 @@ final class BlogSync extends Command {
    * {@selfdoc}
    */
   private function find(): SourceCollection {
-    $this->log('search', 'Starting sources search');
+    $this->io->comment('Starting sources search');
 
     Timer::start('finder');
     $collection = $this->syncManager->find();
@@ -69,10 +70,24 @@ final class BlogSync extends Command {
         $collection->count(),
         Timer::read('finder'),
       );
-      $this->log('search', $message);
+
+      if ($this->io->isVerbose()) {
+        $this->io->table(
+          headers: ['Source ID', 'Source Type'],
+          rows: \array_map(
+            static fn (SourceInterface $source): array => [
+              $source->id(),
+              $source->type(),
+            ],
+            \iterator_to_array($collection),
+          ),
+        );
+      }
+
+      $this->io->success($message);
     }
     else {
-      $this->log('search', 'No sources were found in a working directory.');
+      $this->io->note('No sources were found in a working directory.');
     }
 
     return $collection;
@@ -84,35 +99,36 @@ final class BlogSync extends Command {
   private function parse(SourceCollection $collection): ContentCollection {
     $parse_statistics = [];
 
-    $this->log('parse', 'Start parsing sources.');
-
-    $progress = $this->prepareProgress();
-    $progress->start('Parsing sources…');
+    $this->io->comment('Start parsing sources.');
+    $this->io->progressStart($collection->count());
     Timer::start('parse');
     $content_collection = new ContentCollection();
 
-    foreach ($collection as $source) {
+    foreach ($this->io->progressIterate($collection) as $source) {
       \assert($source instanceof File);
       $timer_id = "parse_{$source->id()}";
       Timer::start($timer_id);
       $content_collection->add($this->syncManager->parse($source));
       Timer::stop($timer_id);
-      $progress->advance();
-      $parse_statistics[$source->id()] = Timer::read($timer_id);
+      $this->io->progressAdvance();
+      $parse_statistics[] = [$source->id(), Timer::read($timer_id)];
     }
 
     Timer::stop('parse');
-    $progress->finish(\sprintf(
-      'Parsing completed in %sms',
+    $this->io->progressFinish();
+
+    if ($this->io->isVerbose()) {
+      \uasort($parse_statistics, static fn (array $a, array $b) => $b[1] <=> $a[1]);
+      $this->io->table(
+        headers: ['Source ID', 'Parse Time (ms)'],
+        rows: $parse_statistics,
+      );
+    }
+
+    $this->io->success(\sprintf(
+      'Parsing completed in %sms.',
       Timer::read('parse'),
     ));
-
-    if ($this->output->isVerbose()) {
-      foreach ($parse_statistics as $source_id => $parse_time) {
-        $message = \sprintf('Parsing %s took %sms', $source_id, $parse_time);
-        $this->log('parse', $message);
-      }
-    }
 
     return $content_collection;
   }
@@ -120,54 +136,8 @@ final class BlogSync extends Command {
   /**
    * {@selfdoc}
    */
-  private function prepareProgress(): ProgressIndicator {
-    return new ProgressIndicator(
-      output: $this->output,
-      indicatorValues: [
-        '[ o o o o o ]',
-        '[co o o o o ]',
-        '[Co o o o o ]',
-        '[-c o o o o ]',
-        '[-C o o o o ]',
-        '[--co o o o ]',
-        '[--Co o o o ]',
-        '[---c o o o ]',
-        '[---C o o o ]',
-        '[----co o o ]',
-        '[----Co o o ]',
-        '[-----c o o ]',
-        '[-----C o o ]',
-        '[------co o ]',
-        '[------Co o ]',
-        '[-------c o ]',
-        '[-------C o ]',
-        '[--------co ]',
-        '[--------Co ]',
-        '[---------c ]',
-        '[---------C ]',
-        '[----------c]',
-        '[----------C]',
-        '[-----------]',
-      ],
-    );
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function log(string $type, string $message): void {
-    $formatter = $this->getHelper('formatter');
-    $this->output->writeln($formatter->formatSection(
-      section: $type,
-      message: $message,
-    ));
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function bundle(ContentCollection $content_collection): ExternalContentBundleCollection {
-    $this->log('bundle', 'Start bundling content');
+    $this->io->comment('Start bundling content.');
     Timer::start('bundle');
     $bundle_collection = $this->syncManager->bundle($content_collection);
     Timer::stop('bundle');
@@ -177,7 +147,7 @@ final class BlogSync extends Command {
       $bundle_collection->count(),
       Timer::read('bundle'),
     );
-    $this->log('bundle', $message);
+    $this->io->success($message);
 
     return $bundle_collection;
   }
