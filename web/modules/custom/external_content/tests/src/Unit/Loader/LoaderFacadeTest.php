@@ -4,9 +4,9 @@ namespace Drupal\Tests\external_content\Unit\Loader;
 
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultEntityInterface;
-use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\LoaderResultIgnore;
+use Drupal\external_content\Data\SourceVariant;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Loader\LoaderFacade;
 use Drupal\external_content\Node\Content;
@@ -57,8 +57,8 @@ final class LoaderFacadeTest extends UnitTestCase {
   /**
    * {@selfdoc}
    */
-  private function prepareExternalContentBundleDocument(): ExternalContentBundleDocument {
-    return new ExternalContentBundleDocument(new Content());
+  private function prepareExternalContentBundleDocument(): SourceVariant {
+    return new SourceVariant(new Content());
   }
 
   /**

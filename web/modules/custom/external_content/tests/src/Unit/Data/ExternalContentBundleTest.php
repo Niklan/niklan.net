@@ -3,15 +3,15 @@
 namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Data\ExternalContentBundle;
-use Drupal\external_content\Data\ExternalContentBundleDocument;
+use Drupal\external_content\Data\SourceBundle;
+use Drupal\external_content\Data\SourceVariant;
 use Drupal\external_content\Node\Content;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides an external content bundle test.
  *
- * @covers \Drupal\external_content\Data\ExternalContentBundle
+ * @covers \Drupal\external_content\Data\SourceBundle
  * @group external_content
  */
 final class ExternalContentBundleTest extends UnitTestCase {
@@ -20,21 +20,21 @@ final class ExternalContentBundleTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testGetByAttribute(): void {
-    $bundle = new ExternalContentBundle('hooks');
+    $bundle = new SourceBundle('hooks');
 
     self::assertEquals('hooks', $bundle->getId());
 
-    $doc_en = new ExternalContentBundleDocument(
+    $doc_en = new SourceVariant(
       new Content(),
       (new Attributes())->setAttribute('language', 'en'),
     );
 
-    $doc_ru = new ExternalContentBundleDocument(
+    $doc_ru = new SourceVariant(
       new Content(),
       (new Attributes())->setAttribute('language', 'ru'),
     );
 
-    $doc_d10 = new ExternalContentBundleDocument(
+    $doc_d10 = new SourceVariant(
       new Content(),
       (new Attributes())->setAttribute('drupal', '10'),
     );
@@ -60,16 +60,16 @@ final class ExternalContentBundleTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testGetByAttributeValue(): void {
-    $bundle = new ExternalContentBundle('hooks');
-    $bundle->add(new ExternalContentBundleDocument(
+    $bundle = new SourceBundle('hooks');
+    $bundle->add(new SourceVariant(
       new Content(),
       (new Attributes())->setAttribute('language', 'en'),
     ));
-    $bundle->add(new ExternalContentBundleDocument(
+    $bundle->add(new SourceVariant(
       new Content(),
       (new Attributes())->setAttribute('language', 'ru'),
     ));
-    $bundle->add(new ExternalContentBundleDocument(
+    $bundle->add(new SourceVariant(
       new Content(),
       (new Attributes())->setAttribute('drupal', '10'),
     ));

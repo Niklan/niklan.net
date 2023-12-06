@@ -4,9 +4,9 @@ namespace Drupal\external_content_test\Bundler;
 
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
+use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\BundlerResult;
-use Drupal\external_content\Node\Content;
 
 /**
  * Provides a bundler based on Front Matter 'id' and 'language' params.
@@ -16,8 +16,8 @@ final class FrontMatterIdLanguageBundler implements BundlerInterface {
   /**
    * {@inheritdoc}
    */
-  public function bundle(Content $document): BundlerResultInterface {
-    $data = $document->getData();
+  public function bundle(SourceInterface $source): BundlerResultInterface {
+    $data = $source->getData();
 
     if (!$data->has('front_matter')) {
       return BundlerResult::unidentified();

@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Contract\Bundler;
 
-use Drupal\external_content\Node\Content;
+use Drupal\external_content\Contract\Source\SourceInterface;
 
 /**
  * Represents an external content bundler.
@@ -10,15 +10,16 @@ use Drupal\external_content\Node\Content;
 interface BundlerInterface {
 
   /**
-   * Identifies document withing environment.
+   * Identifies sources withing environment.
    *
-   * The same identity can be used by multiple documents within environment.
-   * This is the main characteristic that used for bundle multiple documents.
+   * The same identity can be used by multiple sources within environment.
+   * This is the main characteristic that used for bundle multiple content.
    *
-   * E.g.: Document A and Document B can return both ID: 'foo'. In context of
+   * E.g.: Source A and Source B can return both ID: 'foo'. In context of
    * bundler it means that those documents both about 'foo', but they can have
-   * different attributes, for example, Document A is in Russian but document B
-   * in English. This make them a 'foo' bundle in a different languages.
+   * different attributes, for example, Source A is in Russian but Source B in
+   * English. This makes them a 'foo' bundle with a different language
+   * variations.
    *
    * More complex example. Let's assume we have content about 'Drupal Hooks' in
    * two different languages 'ru' and 'en', also it has versions for Drupal 8,
@@ -27,7 +28,7 @@ interface BundlerInterface {
    * have its own additional attributes:
    *
    * - ID: hooks
-   * - Attributes:
+   * - Variations:
    * -- language: ru, drupal: 8
    * -- language: en, drupal: 8
    * -- language: ru, drupal: 9
@@ -39,6 +40,6 @@ interface BundlerInterface {
    * same content for different purposes, for example, all russian versions or
    * all Drupal 10 versions based on attributes.
    */
-  public function bundle(Content $document): BundlerResultInterface;
+  public function bundle(SourceInterface $source): BundlerResultInterface;
 
 }

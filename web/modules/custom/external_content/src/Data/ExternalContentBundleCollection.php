@@ -15,10 +15,10 @@ final class ExternalContentBundleCollection implements \Countable, \IteratorAggr
   /**
    * Adds an external content bundle into collection.
    *
-   * @param \Drupal\external_content\Data\ExternalContentBundle $bundle
+   * @param \Drupal\external_content\Data\SourceBundle $bundle
    *   The external content bundle.
    */
-  public function add(ExternalContentBundle $bundle): self {
+  public function add(SourceBundle $bundle): self {
     $this->items[] = $bundle;
 
     return $this;

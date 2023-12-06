@@ -5,7 +5,7 @@ namespace Drupal\external_content\Data;
 /**
  * Provides an external content bundle.
  */
-final class ExternalContentBundle implements \Countable, \IteratorAggregate {
+final class SourceBundle implements \Countable, \IteratorAggregate {
 
   /**
    * The array with bundled documents.
@@ -35,12 +35,12 @@ final class ExternalContentBundle implements \Countable, \IteratorAggregate {
   public function getByAttribute(string $attribute): self {
     $bundle = new self($this->id);
 
-    $callback = static function (ExternalContentBundleDocument $document) use ($bundle, $attribute): void {
-      if (!$document->getAttributes()->hasAttribute($attribute)) {
+    $callback = static function (SourceVariant $source_variant) use ($bundle, $attribute): void {
+      if (!$source_variant->attributes->hasAttribute($attribute)) {
         return;
       }
 
-      $bundle->add($document);
+      $bundle->add($source_variant);
     };
     \array_walk($this->documents, $callback);
 
@@ -50,7 +50,7 @@ final class ExternalContentBundle implements \Countable, \IteratorAggregate {
   /**
    * Adds the document into bundle.
    */
-  public function add(ExternalContentBundleDocument $document): self {
+  public function add(SourceVariant $document): self {
     $this->documents[] = $document;
 
     return $this;
@@ -62,8 +62,8 @@ final class ExternalContentBundle implements \Countable, \IteratorAggregate {
   public function getByAttributeValue(string $attribute, string $value): self {
     $bundle = new self($this->id);
 
-    $callback = static function (ExternalContentBundleDocument $document) use ($bundle, $attribute, $value): void {
-      $attributes = $document->getAttributes();
+    $callback = static function (SourceVariant $source_variant) use ($bundle, $attribute, $value): void {
+      $attributes = $source_variant->attributes;
 
       if (!$attributes->hasAttribute($attribute)) {
         return;
@@ -73,7 +73,7 @@ final class ExternalContentBundle implements \Countable, \IteratorAggregate {
         return;
       }
 
-      $bundle->add($document);
+      $bundle->add($source_variant);
     };
     \array_walk($this->documents, $callback);
 

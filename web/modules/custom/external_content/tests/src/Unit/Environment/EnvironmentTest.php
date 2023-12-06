@@ -16,9 +16,9 @@ use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
-use Drupal\external_content\Data\ExternalContentBundleDocument;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\SourceCollection;
+use Drupal\external_content\Data\SourceVariant;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingContainerException;
 use Drupal\external_content\Serializer\PlainTextSerializer;
@@ -182,7 +182,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
       /**
        * {@inheritdoc}
        */
-      public function load(ExternalContentBundleDocument $bundle): LoaderResultInterface {
+      public function load(SourceVariant $bundle): LoaderResultInterface {
         return LoaderResult::skip();
       }
 

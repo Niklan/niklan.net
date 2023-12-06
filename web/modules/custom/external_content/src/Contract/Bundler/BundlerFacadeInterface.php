@@ -3,8 +3,8 @@
 namespace Drupal\external_content\Contract\Bundler;
 
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
-use Drupal\external_content\Data\ContentCollection;
 use Drupal\external_content\Data\ExternalContentBundleCollection;
+use Drupal\external_content\Data\SourceCollection;
 
 /**
  * Represents an external content bundler.
@@ -48,9 +48,9 @@ interface BundlerFacadeInterface extends EnvironmentAwareInterface {
    * same content for different purposes, for example, all russian versions or
    * all Drupal 10 versions based on attributes.
    *
-   * @param \Drupal\external_content\Data\ContentCollection $document_collection
+   * @param \Drupal\external_content\Data\SourceCollection $document_collection
    *   The collections of documents.
    */
-  public function bundle(ContentCollection $document_collection): ExternalContentBundleCollection;
+  public function bundle(SourceCollection $source_collection): ExternalContentBundleCollection;
 
 }
