@@ -2,15 +2,15 @@
 
 namespace Drupal\external_content\Finder;
 
-use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\SourceCollection;
 
 /**
  * Provides a main finder to rule them all.
  */
-final class Finder implements FinderInterface, EnvironmentAwareInterface {
+final class FinderFacade implements FinderFacadeInterface {
 
   /**
    * {@selfdoc}

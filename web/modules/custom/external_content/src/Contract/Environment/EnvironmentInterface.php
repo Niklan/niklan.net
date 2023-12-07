@@ -20,7 +20,7 @@ interface EnvironmentInterface extends EventDispatcherInterface, ListenerProvide
   /**
    * {@selfdoc}
    */
-  public function getBundlers(): PrioritizedList;
+  public function getIdentifiers(): PrioritizedList;
 
   /**
    * {@selfdoc}

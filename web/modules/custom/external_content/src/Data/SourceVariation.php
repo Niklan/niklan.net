@@ -7,7 +7,7 @@ use Drupal\external_content\Contract\Source\SourceInterface;
 /**
  * Provides a value object for a single source inside bundle.
  */
-final readonly class SourceVariant {
+final readonly class SourceVariation {
 
   /**
    * Constructs a new SourceBundleVariant instance.

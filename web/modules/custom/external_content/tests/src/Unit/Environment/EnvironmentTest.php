@@ -16,9 +16,9 @@ use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\SourceCollection;
-use Drupal\external_content\Data\SourceVariant;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingContainerException;
 use Drupal\external_content\Serializer\PlainTextSerializer;
@@ -102,7 +102,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     self::assertEquals(
       $expected,
-      $environment->getBundlers()->getIterator()->getArrayCopy(),
+      $environment->getIdentifiers()->getIterator()->getArrayCopy(),
     );
   }
 
@@ -182,7 +182,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
       /**
        * {@inheritdoc}
        */
-      public function load(SourceVariant $bundle): LoaderResultInterface {
+      public function load(IdentifierSource $bundle): LoaderResultInterface {
         return LoaderResult::skip();
       }
 
@@ -347,7 +347,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
       'method' => 'addBuilder',
     ];
 
-    yield 'Finder' => [
+    yield 'FinderFacade' => [
       'component_interface' => FinderInterface::class,
       'method' => 'addFinder',
     ];

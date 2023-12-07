@@ -2,16 +2,16 @@
 
 namespace Drupal\external_content\Contract\Loader;
 
-use Drupal\external_content\Data\SourceVariant;
+use Drupal\external_content\Data\ContentBundle;
 
 /**
- * Represents an external content loader.
+ * {@selfdoc}
  */
 interface LoaderInterface {
 
   /**
-   * Loads a single external content.
+   * {@selfdoc}
    */
-  public function load(SourceVariant $bundle): LoaderResultInterface;
+  public function load(ContentBundle $bundle): LoaderResultInterface;
 
 }

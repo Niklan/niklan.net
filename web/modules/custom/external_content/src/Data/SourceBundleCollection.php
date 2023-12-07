@@ -5,18 +5,15 @@ namespace Drupal\external_content\Data;
 /**
  * Represents a collection of external content bundles.
  */
-final class ExternalContentBundleCollection implements \Countable, \IteratorAggregate {
+final class SourceBundleCollection implements \Countable, \IteratorAggregate {
 
   /**
-   * The array with external content bundle items.
+   * {@selfdoc}
    */
   protected array $items = [];
 
   /**
-   * Adds an external content bundle into collection.
-   *
-   * @param \Drupal\external_content\Data\SourceBundle $bundle
-   *   The external content bundle.
+   * {@selfdoc}
    */
   public function add(SourceBundle $bundle): self {
     $this->items[] = $bundle;

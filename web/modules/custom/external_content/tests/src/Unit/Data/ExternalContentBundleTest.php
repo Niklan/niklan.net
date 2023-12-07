@@ -3,15 +3,15 @@
 namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Data\SourceBundle;
-use Drupal\external_content\Data\SourceVariant;
+use Drupal\external_content\Data\ContentBundle;
+use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Node\Content;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides an external content bundle test.
  *
- * @covers \Drupal\external_content\Data\SourceBundle
+ * @covers \Drupal\external_content\Data\ContentBundle
  * @group external_content
  */
 final class ExternalContentBundleTest extends UnitTestCase {
@@ -20,21 +20,21 @@ final class ExternalContentBundleTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testGetByAttribute(): void {
-    $bundle = new SourceBundle('hooks');
+    $bundle = new ContentBundle('hooks');
 
-    self::assertEquals('hooks', $bundle->getId());
+    self::assertEquals('hooks', $bundle->id);
 
-    $doc_en = new SourceVariant(
+    $doc_en = new IdentifierSource(
       new Content(),
       (new Attributes())->setAttribute('language', 'en'),
     );
 
-    $doc_ru = new SourceVariant(
+    $doc_ru = new IdentifierSource(
       new Content(),
       (new Attributes())->setAttribute('language', 'ru'),
     );
 
-    $doc_d10 = new SourceVariant(
+    $doc_d10 = new IdentifierSource(
       new Content(),
       (new Attributes())->setAttribute('drupal', '10'),
     );
@@ -60,16 +60,16 @@ final class ExternalContentBundleTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testGetByAttributeValue(): void {
-    $bundle = new SourceBundle('hooks');
-    $bundle->add(new SourceVariant(
+    $bundle = new ContentBundle('hooks');
+    $bundle->add(new IdentifierSource(
       new Content(),
       (new Attributes())->setAttribute('language', 'en'),
     ));
-    $bundle->add(new SourceVariant(
+    $bundle->add(new IdentifierSource(
       new Content(),
       (new Attributes())->setAttribute('language', 'ru'),
     ));
-    $bundle->add(new SourceVariant(
+    $bundle->add(new IdentifierSource(
       new Content(),
       (new Attributes())->setAttribute('drupal', '10'),
     ));

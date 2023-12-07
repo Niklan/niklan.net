@@ -6,8 +6,8 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Loader\LoaderFacadeInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
+use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\LoaderResult;
-use Drupal\external_content\Data\SourceVariant;
 
 /**
  * {@selfdoc}
@@ -22,7 +22,7 @@ final class LoaderFacade implements LoaderFacadeInterface {
   /**
    * {@inheritdoc}
    */
-  public function load(SourceVariant $bundle): LoaderResultInterface {
+  public function load(ContentBundle $bundle): LoaderResultInterface {
     foreach ($this->environment->getLoaders() as $loader) {
       \assert($loader instanceof LoaderInterface);
       $result = $loader->load($bundle);

@@ -1,13 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Contract\Bundler;
+namespace Drupal\external_content\Contract\Identifier;
 
 use Drupal\external_content\Contract\Source\SourceInterface;
+use Drupal\external_content\Data\SourceIdentification;
 
 /**
- * Represents an external content bundler.
+ * {@selfdoc}
  */
-interface BundlerInterface {
+interface IdentifierInterface {
 
   /**
    * Identifies sources withing environment.
@@ -40,6 +41,11 @@ interface BundlerInterface {
    * same content for different purposes, for example, all russian versions or
    * all Drupal 10 versions based on attributes.
    */
-  public function bundle(SourceInterface $source): BundlerResultInterface;
+  public function identify(SourceInterface $source): SourceIdentification;
+
+  /**
+   * {@selfdoc}
+   */
+  public function supportsIdentification(SourceInterface $source): bool;
 
 }

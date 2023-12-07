@@ -2,9 +2,9 @@
 
 namespace Drupal\external_content\Contract\Builder;
 
-use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
@@ -24,7 +24,7 @@ interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
   /**
    * {@selfdoc}
    */
-  public function addBundler(BundlerInterface $bundler, int $priority = 0): self;
+  public function addIdentifier(IdentifierInterface $identifier, int $priority = 0): self;
 
   /**
    * {@selfdoc}

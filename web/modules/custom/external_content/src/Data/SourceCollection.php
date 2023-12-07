@@ -5,14 +5,12 @@ namespace Drupal\external_content\Data;
 use Drupal\external_content\Contract\Source\SourceInterface;
 
 /**
- * Represents a collection of source files.
+ * {@selfdoc}
  */
 final class SourceCollection implements \Countable, \IteratorAggregate {
 
   /**
    * {@selfdoc}
-   *
-   * @var \Drupal\external_content\Contract\Source\SourceInterface[]
    */
   protected array $items = [];
 

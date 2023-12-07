@@ -4,12 +4,14 @@ namespace Drupal\niklan\Sync;
 
 use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
+use Drupal\external_content\Contract\Loader\LoaderFacadeInterface;
+use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
-use Drupal\external_content\Data\ContentCollection;
-use Drupal\external_content\Data\ExternalContentBundleCollection;
+use Drupal\external_content\Data\ContentBundle;
+use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
-use Drupal\external_content\Finder\Finder;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Parser\Parser;
 use Drupal\external_content\Source\File;
@@ -31,13 +33,15 @@ final class BlogSyncManager {
    */
   public function __construct(
     private readonly EnvironmentPluginManagerInterface $environmentPluginManager,
-    private readonly Finder $finder,
-    private readonly Parser $parser,
+    private readonly FinderFacadeInterface $finder,
     private readonly BundlerFacadeInterface $bundler,
+    private readonly Parser $parser,
+    private readonly LoaderFacadeInterface $loader,
   ) {
     $this->finder->setEnvironment($this->getEnvironment());
-    $this->parser->setEnvironment($this->getEnvironment());
     $this->bundler->setEnvironment($this->getEnvironment());
+    $this->parser->setEnvironment($this->getEnvironment());
+    $this->loader->setEnvironment($this->getEnvironment());
   }
 
   /**
@@ -57,8 +61,15 @@ final class BlogSyncManager {
   /**
    * {@selfdoc}
    */
-  public function bundle(ContentCollection $collection): ExternalContentBundleCollection {
+  public function bundle(SourceCollection $collection): SourceBundleCollection {
     return $this->bundler->bundle($collection);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function load(ContentBundle $bundle): LoaderResultInterface {
+    return $this->loader->load($bundle);
   }
 
   /**

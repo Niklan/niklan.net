@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Unit\Data;
 
-use Drupal\external_content\Data\ExternalContentBundleCollection;
-use Drupal\external_content\Data\SourceBundle;
+use Drupal\external_content\Data\ContentBundle;
+use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides an external content bundle collection test.
  *
- * @covers \Drupal\external_content\Data\ExternalContentBundleCollection
+ * @covers \Drupal\external_content\Data\SourceBundleCollection
  * @group external_content
  */
 final class ExternalContentBundleCollectionTest extends UnitTestCase {
@@ -18,12 +18,12 @@ final class ExternalContentBundleCollectionTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testObject(): void {
-    $instance = new ExternalContentBundleCollection();
+    $instance = new SourceBundleCollection();
 
     self::assertCount(0, $instance);
     self::assertEquals([], $instance->getIterator()->getArrayCopy());
 
-    $bundle = new SourceBundle('foo');
+    $bundle = new ContentBundle('foo');
     $instance->add($bundle);
 
     self::assertCount(1, $instance);

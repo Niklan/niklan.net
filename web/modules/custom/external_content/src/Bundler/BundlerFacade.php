@@ -3,14 +3,14 @@
 namespace Drupal\external_content\Bundler;
 
 use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
-use Drupal\external_content\Contract\Bundler\BundlerInterface;
-use Drupal\external_content\Contract\Bundler\BundlerResultIdentifiedInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
-use Drupal\external_content\Data\ExternalContentBundleCollection;
+use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Data\SourceBundle;
+use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
-use Drupal\external_content\Data\SourceVariant;
+use Drupal\external_content\Data\SourceVariation;
 
 /**
  * Provides an external content bundler.
@@ -25,15 +25,13 @@ final class BundlerFacade implements BundlerFacadeInterface {
   /**
    * {@inheritdoc}
    */
-  public function bundle(SourceCollection $source_collection): ExternalContentBundleCollection {
+  public function bundle(SourceCollection $source_collection): SourceBundleCollection {
     $identified_bundles = [];
     $sources = $source_collection->getIterator()->getArrayCopy();
 
-    foreach ($this->environment->getBundlers() as $bundler) {
-      \assert($bundler instanceof BundlerInterface);
-      // Let each bundler go over whole sources before passing it to the
-      // other.
-      $this->identifyBundles($bundler, $sources, $identified_bundles);
+    foreach ($this->environment->getIdentifiers() as $identifier) {
+      \assert($identifier instanceof IdentifierInterface);
+      $this->identifyBundles($identifier, $sources, $identified_bundles);
     }
 
     return $this->packBundles($identified_bundles);
@@ -47,23 +45,20 @@ final class BundlerFacade implements BundlerFacadeInterface {
   }
 
   /**
-   * Identifies bundles using specific bundler.
+   * {@selfdoc}
    */
-  protected function identifyBundles(BundlerInterface $instance, array $sources, array &$identified_bundles): void {
-    foreach ($sources as $key => $source) {
+  protected function identifyBundles(IdentifierInterface $identifier, array $sources, array &$identified_bundles): void {
+    foreach ($sources as $source) {
       \assert($source instanceof SourceInterface);
-      $result = $instance->bundle($source);
 
-      if ($result->isUnidentified()) {
+      if (!$identifier->supportsIdentification($source)) {
         continue;
       }
 
-      \assert($result instanceof BundlerResultIdentifiedInterface);
-      unset($sources[$key]);
-
-      $identified_bundles[$result->id()][] = [
+      $result = $identifier->identify($source);
+      $identified_bundles[$result->id][] = [
         'source' => $source,
-        'attributes' => $result->attributes(),
+        'attributes' => $result->attributes,
       ];
     }
   }
@@ -71,16 +66,16 @@ final class BundlerFacade implements BundlerFacadeInterface {
   /**
    * Creates bundles and packs them into collection.
    */
-  protected function packBundles(array $identified_bundles): ExternalContentBundleCollection {
-    $bundle_collection = new ExternalContentBundleCollection();
+  protected function packBundles(array $identified_bundles): SourceBundleCollection {
+    $bundle_collection = new SourceBundleCollection();
 
-    foreach ($identified_bundles as $id => $bundle_documents) {
+    foreach ($identified_bundles as $id => $variations) {
       $bundle = new SourceBundle((string) $id);
 
-      foreach ($bundle_documents as $bundle_document) {
-        $bundle_variant = new SourceVariant(
-          $bundle_document['source'],
-          $bundle_document['attributes'],
+      foreach ($variations as $variation) {
+        $bundle_variant = new SourceVariation(
+          $variation['source'],
+          $variation['attributes'],
         );
         $bundle->add($bundle_variant);
       }

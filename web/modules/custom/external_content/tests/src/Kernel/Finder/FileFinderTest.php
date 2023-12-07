@@ -5,7 +5,7 @@ namespace Drupal\Tests\external_content\Kernel\Finder;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\FileFinderExtension;
-use Drupal\external_content\Finder\Finder;
+use Drupal\external_content\Finder\FinderFacade;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use League\Config\Configuration;
 use org\bovigo\vfs\vfsStream;
@@ -82,7 +82,7 @@ final class FileFinderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function getFinder(): Finder {
+  private function getFinder(): FinderFacade {
     return $this->container->get(FinderInterface::class);
   }
 

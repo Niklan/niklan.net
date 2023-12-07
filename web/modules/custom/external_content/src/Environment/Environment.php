@@ -4,12 +4,12 @@ namespace Drupal\external_content\Environment;
 
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
-use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
@@ -37,7 +37,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@selfdoc}
    */
-  protected PrioritizedList $bundlers;
+  protected PrioritizedList $identifiers;
 
   /**
    * {@selfdoc}
@@ -83,7 +83,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->configuration ??= new Configuration();
     $this->finders = new PrioritizedList();
     $this->parsers = new PrioritizedList();
-    $this->bundlers = new PrioritizedList();
+    $this->identifiers = new PrioritizedList();
     $this->builders = new PrioritizedList();
     $this->eventListeners = new PrioritizedList();
     $this->serializers = new PrioritizedList();
@@ -133,9 +133,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addBundler(BundlerInterface $bundler, int $priority = 0): EnvironmentBuilderInterface {
-    $this->bundlers->add($bundler, $priority);
-    $this->injectDependencies($bundler);
+  public function addIdentifier(IdentifierInterface $identifier, int $priority = 0): EnvironmentBuilderInterface {
+    $this->identifiers->add($this->identifiers, $priority);
+    $this->injectDependencies($identifier);
 
     return $this;
   }
@@ -150,8 +150,8 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getBundlers(): PrioritizedList {
-    return $this->bundlers;
+  public function getIdentifiers(): PrioritizedList {
+    return $this->identifiers;
   }
 
   /**

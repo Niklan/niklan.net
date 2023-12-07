@@ -3,9 +3,9 @@
 namespace Drupal\external_content\Data;
 
 /**
- * Provides an external content bundle.
+ * {@selfdoc}
  */
-final class SourceBundle implements \Countable, \IteratorAggregate {
+final class ContentBundle implements \Countable, \IteratorAggregate {
 
   /**
    * {@selfdoc}
@@ -13,7 +13,7 @@ final class SourceBundle implements \Countable, \IteratorAggregate {
   protected array $items = [];
 
   /**
-   * Constructs a new SourceBundle instance.
+   * Constructs a new ContentBundle instance.
    */
   public function __construct(
     public readonly string $id,
@@ -25,7 +25,7 @@ final class SourceBundle implements \Countable, \IteratorAggregate {
   public function getByAttribute(string $attribute): self {
     $bundle = new self($this->id);
 
-    $callback = static function (SourceVariation $variation) use ($bundle, $attribute): void {
+    $callback = static function (ContentVariation $variation) use ($bundle, $attribute): void {
       if (!$variation->attributes->hasAttribute($attribute)) {
         return;
       }
@@ -40,7 +40,7 @@ final class SourceBundle implements \Countable, \IteratorAggregate {
   /**
    * {@selfdoc}
    */
-  public function add(SourceVariation $variation): self {
+  public function add(ContentVariation $variation): self {
     $this->items[] = $variation;
 
     return $this;
@@ -52,8 +52,8 @@ final class SourceBundle implements \Countable, \IteratorAggregate {
   public function getByAttributeValue(string $attribute, string $value): self {
     $bundle = new self($this->id);
 
-    $callback = static function (SourceVariation $source_variant) use ($bundle, $attribute, $value): void {
-      $attributes = $source_variant->attributes;
+    $callback = static function (ContentVariation $variation) use ($bundle, $attribute, $value): void {
+      $attributes = $variation->attributes;
 
       if (!$attributes->hasAttribute($attribute)) {
         return;
@@ -63,7 +63,7 @@ final class SourceBundle implements \Countable, \IteratorAggregate {
         return;
       }
 
-      $bundle->add($source_variant);
+      $bundle->add($variation);
     };
     \array_walk($this->items, $callback);
 

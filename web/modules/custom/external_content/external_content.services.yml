@@ -3,7 +3,8 @@ services:
     autowire: true
 
   Drupal\external_content\Bundler\BundlerFacade: {}
-  Drupal\external_content\Finder\Finder: {}
+  Drupal\external_content\Finder\FinderFacade: {}
+  Drupal\external_content\Loader\LoaderFacade: {}
   Drupal\external_content\Parser\Parser: {}
   Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager:
     parent: default_plugin_manager
@@ -11,7 +12,8 @@ services:
   Drupal\external_content\Builder\RenderArrayBuilder: {}
 
   Drupal\external_content\Contract\Bundler\BundlerFacadeInterface: '@Drupal\external_content\Bundler\BundlerFacade'
-  Drupal\external_content\Contract\Finder\FinderInterface: '@Drupal\external_content\Finder\Finder'
+  Drupal\external_content\Contract\Finder\FinderFacadeInterface: '@Drupal\external_content\Finder\FinderFacade'
   Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
   Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface: '@Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager'
+  Drupal\external_content\Contract\Loader\LoaderFacadeInterface: '@Drupal\external_content\Loader\LoaderFacade'
   Drupal\external_content\Contract\Parser\ParserInterface: '@Drupal\external_content\Parser\Parser'

@@ -3,9 +3,9 @@
 namespace Drupal\Tests\external_content\Kernel\Bundler;
 
 use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
+use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentCollection;
-use Drupal\external_content\Data\SourceBundle;
-use Drupal\external_content\Data\SourceVariant;
+use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content_test\Bundler\FrontMatterIdLanguageBundler;
@@ -81,11 +81,11 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
     self::assertCount(2, $bundle_collection);
 
     $bundle = $bundle_collection->getIterator()->current();
-    self::assertInstanceOf(SourceBundle::class, $bundle);
-    self::assertEquals('1', $bundle->getId());
+    self::assertInstanceOf(ContentBundle::class, $bundle);
+    self::assertEquals('1', $bundle->id);
 
     $source_variant = $bundle->getIterator()->current();
-    self::assertInstanceOf(SourceVariant::class, $source_variant);
+    self::assertInstanceOf(IdentifierSource::class, $source_variant);
     self::assertEquals(
       'ru',
       $source_variant->attributes->getAttribute('language'),

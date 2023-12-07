@@ -2,40 +2,46 @@
 
 namespace Drupal\external_content_test\Bundler;
 
-use Drupal\external_content\Contract\Bundler\BundlerInterface;
-use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
+use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Data\BundlerResult;
+use Drupal\external_content\Data\SourceIdentification;
 
 /**
  * Provides a bundler based on Front Matter 'id' and 'language' params.
  */
-final class FrontMatterIdLanguageBundler implements BundlerInterface {
+final class FrontMatterIdLanguageBundler implements IdentifierInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function bundle(SourceInterface $source): BundlerResultInterface {
-    $data = $source->getData();
-
-    if (!$data->has('front_matter')) {
-      return BundlerResult::unidentified();
-    }
-
-    $front_matter = $data->get('front_matter');
-
-    if (!\array_key_exists('id', $front_matter)) {
-      return BundlerResult::unidentified();
-    }
-
+  public function identify(SourceInterface $source): SourceIdentification {
+    $front_matter = $source->data()->get('front_matter');
     $attributes = new Attributes();
 
     if (\array_key_exists('language', $front_matter)) {
       $attributes->setAttribute('language', $front_matter['language']);
     }
 
-    return BundlerResult::identified($front_matter['id'], $attributes);
+    return new SourceIdentification(
+      id: $front_matter['id'],
+      attributes: $attributes,
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function supportsIdentification(SourceInterface $source): bool {
+    if (!$source->data()->has('front_matter')) {
+      return FALSE;
+    }
+
+    if (!$source->data()->get('front_matter')->has('id')) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
 }

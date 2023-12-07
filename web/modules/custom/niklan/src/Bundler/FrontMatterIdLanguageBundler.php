@@ -2,8 +2,8 @@
 
 namespace Drupal\niklan\Bundler;
 
-use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerResultInterface;
+use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\BundlerResult;
@@ -11,13 +11,13 @@ use Drupal\external_content\Data\BundlerResult;
 /**
  * Provides a bundler based on Front Matter 'id' and 'language' params.
  */
-final class FrontMatterIdLanguageBundler implements BundlerInterface {
+final class FrontMatterIdLanguageBundler implements IdentifierInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function bundle(SourceInterface $source): BundlerResultInterface {
-    $data = $source->getData();
+  public function identify(SourceInterface $source): BundlerResultInterface {
+    $data = $source->data();
 
     if (!$data->has('front_matter')) {
       return BundlerResult::unidentified();

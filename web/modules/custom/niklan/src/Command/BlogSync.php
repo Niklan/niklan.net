@@ -4,9 +4,13 @@ namespace Drupal\niklan\Command;
 
 use Drupal\Component\Utility\Timer;
 use Drupal\external_content\Contract\Source\SourceInterface;
-use Drupal\external_content\Data\ContentCollection;
-use Drupal\external_content\Data\ExternalContentBundleCollection;
+use Drupal\external_content\Data\ContentBundle;
+use Drupal\external_content\Data\ContentVariation;
+use Drupal\external_content\Data\IdentifierSource;
+use Drupal\external_content\Data\SourceBundle;
+use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
+use Drupal\external_content\Node\Content;
 use Drupal\external_content\Source\File;
 use Drupal\niklan\Sync\BlogSyncManager;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -47,9 +51,9 @@ final class BlogSync extends Command {
     $this->io = new SymfonyStyle($input, $output);
 
     $this->io->title('Zug! Zug! Lazy peons are ready to work!');
-    $source_collection = $this->find();
-    $content_collection = $this->parse($source_collection);
-    $this->bundle($content_collection);
+    $sources = $this->find();
+    $bundles = $this->bundle($sources);
+    $this->load($bundles);
 
     return self::SUCCESS;
   }
@@ -62,29 +66,24 @@ final class BlogSync extends Command {
 
     Timer::start('finder');
     $collection = $this->syncManager->find();
-    Timer::stop('finder');
 
     if ($collection->count()) {
+      foreach (\iterator_to_array($collection) as $source) {
+        \assert($source instanceof SourceInterface);
+        $message = \sprintf(
+          'Found source %s of type %s',
+          $source->id(),
+          $source->type(),
+        );
+        $this->io->comment($message);
+      }
+
       $message = \sprintf(
         '%s sources found in %sms.',
         $collection->count(),
         Timer::read('finder'),
       );
-
-      if ($this->io->isVerbose()) {
-        $this->io->table(
-          headers: ['Source ID', 'Source Type'],
-          rows: \array_map(
-            static fn (SourceInterface $source): array => [
-              $source->id(),
-              $source->type(),
-            ],
-            \iterator_to_array($collection),
-          ),
-        );
-      }
-
-      $this->io->success($message);
+      $this->io->info($message);
     }
     else {
       $this->io->note('No sources were found in a working directory.');
@@ -96,60 +95,84 @@ final class BlogSync extends Command {
   /**
    * {@selfdoc}
    */
-  private function parse(SourceCollection $collection): ContentCollection {
-    $parse_statistics = [];
+  private function bundle(SourceCollection $sources): SourceBundleCollection {
+    $this->io->comment('Start bundling sources.');
+    Timer::start('bundle');
+    $bundle_collection = $this->syncManager->bundle($sources);
+    $message = \sprintf(
+      '%s sources bundled into %s content in %sms',
+      $sources->count(),
+      $bundle_collection->count(),
+      Timer::read('bundle'),
+    );
+    $this->io->info($message);
 
-    $this->io->comment('Start parsing sources.');
-    $this->io->progressStart($collection->count());
-    Timer::start('parse');
-    $content_collection = new ContentCollection();
-
-    foreach ($this->io->progressIterate($collection) as $source) {
-      \assert($source instanceof File);
-      $timer_id = "parse_{$source->id()}";
-      Timer::start($timer_id);
-      $content_collection->add($this->syncManager->parse($source));
-      Timer::stop($timer_id);
-      $this->io->progressAdvance();
-      $parse_statistics[] = [$source->id(), Timer::read($timer_id)];
-    }
-
-    Timer::stop('parse');
-    $this->io->progressFinish();
-
-    if ($this->io->isVerbose()) {
-      \uasort($parse_statistics, static fn (array $a, array $b) => $b[1] <=> $a[1]);
-      $this->io->table(
-        headers: ['Source ID', 'Parse Time (ms)'],
-        rows: $parse_statistics,
-      );
-    }
-
-    $this->io->success(\sprintf(
-      'Parsing completed in %sms.',
-      Timer::read('parse'),
-    ));
-
-    return $content_collection;
+    return $bundle_collection;
   }
 
   /**
    * {@selfdoc}
    */
-  private function bundle(ContentCollection $content_collection): ExternalContentBundleCollection {
-    $this->io->comment('Start bundling content.');
-    Timer::start('bundle');
-    $bundle_collection = $this->syncManager->bundle($content_collection);
-    Timer::stop('bundle');
-    $message = \sprintf(
-      '%s sources bundled into %s content in %sms',
-      $content_collection->count(),
-      $bundle_collection->count(),
-      Timer::read('bundle'),
-    );
-    $this->io->success($message);
+  private function load(SourceBundleCollection $bundles): void {
+    $this->io->comment('Start loading sources.');
+    Timer::start('load');
 
-    return $bundle_collection;
+    foreach ($bundles as $bundle) {
+      \assert($bundle instanceof SourceBundle);
+      $this->loadBundle($bundle);
+    }
+
+    $message = \sprintf(
+      '%s bundles processed in %sms',
+      $bundles->count(),
+      Timer::read('load'),
+    );
+    $this->io->info($message);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function loadBundle(SourceBundle $bundle): void {
+    $this->io->comment("Starting loading bundle '{$bundle->id}'.");
+    $timer_id = "load_bundle:{$bundle->id}";
+    Timer::start($timer_id);
+
+    $parsed_bundle = $this->parseBundle($bundle);
+    $this->syncManager->load($parsed_bundle);
+
+    $this->io->comment(\sprintf(
+      "Loading of bundle '%s' done in %sms.",
+      $bundle->id,
+      Timer::read($timer_id),
+    ));
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function parseBundle(SourceBundle $source_bundle): ContentBundle {
+    $content_bundle = new ContentBundle($source_bundle->id);
+
+    foreach ($source_bundle as $source_variation) {
+      \assert($source_variation instanceof IdentifierSource);
+      $content_variation = new ContentVariation(
+        content: $this->parseSource($source_variation->source),
+        attributes: $source_variation->attributes,
+      );
+      $content_bundle->add($content_variation);
+    }
+
+    return $content_bundle;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function parseSource(SourceInterface $source): Content {
+    \assert($source instanceof File);
+
+    return $this->syncManager->parse($source);
   }
 
 }
