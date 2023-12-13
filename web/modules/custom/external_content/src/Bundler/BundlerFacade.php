@@ -6,7 +6,6 @@ use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
-use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Data\SourceBundle;
 use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;

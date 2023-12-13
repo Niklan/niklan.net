@@ -14,8 +14,8 @@ use Drupal\external_content\Extension\FileFinderExtension;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
-use Drupal\niklan\Bundler\FrontMatterIdLanguageBundler;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
+use Drupal\niklan\Identifier\FrontMatterIdentifier;
 use League\Config\Configuration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -71,7 +71,7 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
     $environment->addExtension(new BasicHtmlExtension());
     $environment->addExtension(new FileFinderExtension());
 
-    $environment->addBundler(new FrontMatterIdLanguageBundler());
+    $environment->addIdentifier(new FrontMatterIdentifier());
 
     $environment->addEventListener(
       event_class: FileFoundEvent::class,

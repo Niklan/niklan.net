@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content\Parser;
 
-use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Parser\ParserFacadeInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Exception\MissingSourceParserException;
@@ -12,7 +12,7 @@ use Drupal\external_content\Node\Content;
 /**
  * {@selfdoc}
  */
-final class Parser implements ParserInterface, EnvironmentAwareInterface {
+final class ParserFacade implements ParserFacadeInterface {
 
   /**
    * {@selfdoc}

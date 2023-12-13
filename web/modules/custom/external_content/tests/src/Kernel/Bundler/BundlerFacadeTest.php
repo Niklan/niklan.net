@@ -47,7 +47,7 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
    */
   public function testBundler(): void {
     $environment = new Environment();
-    $environment->addBundler(new FrontMatterIdLanguageBundler());
+    $environment->addIdentifier(new FrontMatterIdLanguageBundler());
     $this->bundler->setEnvironment($environment);
 
     $document_a = new Content();

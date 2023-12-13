@@ -13,7 +13,7 @@ use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Parser\Parser;
+use Drupal\external_content\Parser\ParserFacade;
 use Drupal\external_content\Source\File;
 
 /**
@@ -35,7 +35,7 @@ final class BlogSyncManager {
     private readonly EnvironmentPluginManagerInterface $environmentPluginManager,
     private readonly FinderFacadeInterface $finder,
     private readonly BundlerFacadeInterface $bundler,
-    private readonly Parser $parser,
+    private readonly ParserFacade $parser,
     private readonly LoaderFacadeInterface $loader,
   ) {
     $this->finder->setEnvironment($this->getEnvironment());

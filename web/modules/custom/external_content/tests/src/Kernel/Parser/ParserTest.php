@@ -13,7 +13,7 @@ use Prophecy\Argument;
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Parser\Parser
+ * @covers \Drupal\external_content\Parser\ParserFacade
  * @group external_content
  */
 final class ParserTest extends ExternalContentTestBase {

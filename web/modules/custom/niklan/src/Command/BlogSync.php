@@ -6,10 +6,10 @@ use Drupal\Component\Utility\Timer;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentVariation;
-use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Data\SourceBundle;
 use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
+use Drupal\external_content\Data\SourceVariation;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Source\File;
 use Drupal\niklan\Sync\BlogSyncManager;
@@ -155,7 +155,7 @@ final class BlogSync extends Command {
     $content_bundle = new ContentBundle($source_bundle->id);
 
     foreach ($source_bundle as $source_variation) {
-      \assert($source_variation instanceof IdentifierSource);
+      \assert($source_variation instanceof SourceVariation);
       $content_variation = new ContentVariation(
         content: $this->parseSource($source_variation->source),
         attributes: $source_variation->attributes,

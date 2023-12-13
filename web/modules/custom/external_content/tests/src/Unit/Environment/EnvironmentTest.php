@@ -12,6 +12,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
@@ -89,15 +90,15 @@ final class EnvironmentTest extends UnitTestCaseTest {
   /**
    * {@selfdoc}
    */
-  public function testBundlers(): void {
-    $bundler = $this->prophesize(BundlerInterface::class);
-    $bundler = $bundler->reveal();
+  public function testIdentifiers(): void {
+    $identifier = $this->prophesize(IdentifierInterface::class);
+    $identifier = $identifier->reveal();
 
     $environment = new Environment();
-    $environment->addBundler($bundler);
+    $environment->addIdentifier($identifier);
 
     $expected = [
-      0 => $bundler,
+      0 => $identifier,
     ];
 
     self::assertEquals(

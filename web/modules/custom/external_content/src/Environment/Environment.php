@@ -134,7 +134,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   public function addIdentifier(IdentifierInterface $identifier, int $priority = 0): EnvironmentBuilderInterface {
-    $this->identifiers->add($this->identifiers, $priority);
+    $this->identifiers->add($identifier, $priority);
     $this->injectDependencies($identifier);
 
     return $this;
