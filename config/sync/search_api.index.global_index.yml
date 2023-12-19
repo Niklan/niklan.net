@@ -64,7 +64,7 @@ field_settings:
     boost: 0.8
     configuration:
       roles:
-        anonymous: anonymous
+        - anonymous
       view_mode:
         'entity:node':
           blog_entry: search_index

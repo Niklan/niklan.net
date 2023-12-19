@@ -36,15 +36,15 @@ filters:
     weight: 0
     settings:
       filter_url_length: 72
-  niklan_prismjs:
-    id: niklan_prismjs
-    provider: niklan
-    status: true
-    weight: 100
-    settings: {  }
   niklan_markdown:
     id: niklan_markdown
     provider: niklan
     status: true
     weight: -10
+    settings: {  }
+  niklan_prismjs:
+    id: niklan_prismjs
+    provider: niklan
+    status: true
+    weight: 100
     settings: {  }

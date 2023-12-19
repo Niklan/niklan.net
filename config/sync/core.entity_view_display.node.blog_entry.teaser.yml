@@ -58,8 +58,8 @@ content:
     type: niklan_responsive_media_thumbnail
     label: hidden
     settings:
-      responsive_image_style: node_blog_entry_teaser_promo
       image_link: content
+      responsive_image_style: node_blog_entry_teaser_promo
       image_limit: '0'
     third_party_settings: {  }
     weight: 2
