@@ -3,33 +3,33 @@
 namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Data\IdentifierSource;
+use Drupal\external_content\Data\SourceIdentification;
 use Drupal\external_content_test\Source\FooSource;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * Provides an external content bundle document test.
+ * {@selfdoc}
  *
- * @covers \Drupal\external_content\Data\IdentifierSource
+ * @covers \Drupal\external_content\Data\SourceIdentification
  * @group external_content
  */
-final class SourceBundleVariantTest extends UnitTestCase {
+final class SourceIdentificationTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
    */
   public function testObject(): void {
-    $source = new FooSource('id', 'type', 'contents');
+    $id = $this->randomString();
     $attributes = new Attributes();
 
-    $instance = new IdentifierSource($source, $attributes);
+    $instance = new SourceIdentification($id, $attributes);
 
-    self::assertEquals($source, $instance->source);
+    self::assertEquals($id, $instance->id);
     self::assertEquals($attributes, $instance->attributes);
 
     // Without attribute.
-    $instance = new IdentifierSource($source);
-    self::assertEquals($source, $instance->source);
+    $instance = new SourceIdentification($id);
+    self::assertEquals($id, $instance->id);
     self::assertInstanceOf(Attributes::class, $instance->attributes);
   }
 
