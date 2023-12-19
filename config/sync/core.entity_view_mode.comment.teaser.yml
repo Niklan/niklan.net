@@ -6,5 +6,6 @@ dependencies:
     - comment
 id: comment.teaser
 label: Teaser
+description: ''
 targetEntityType: comment
 cache: true
