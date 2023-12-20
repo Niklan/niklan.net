@@ -2,11 +2,11 @@
 
 namespace Drupal\Tests\external_content\Kernel\Plugin\ExternalContent\HtmlParser;
 
-use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface;
 use Drupal\external_content\Dto\HtmlParserState;
 use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Dto\SourceFileParams;
 use Drupal\external_content\Parser\ChainHtmlParserInterface;
+use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserInterface;
 use Drupal\external_content\Plugin\ExternalContent\HtmlParser\HtmlParserPluginManagerInterface;
 use Drupal\external_content_test\Dto\FooBarElement;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;

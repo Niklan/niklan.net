@@ -20,7 +20,7 @@ use Drupal\filter\Plugin\FilterBase;
  * @Filter(
  *   id = "niklan_prismjs",
  *   title = @Translation("Prism.js"),
- *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
+ *   type = \Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
  *   weight = 100,
  * )
  */

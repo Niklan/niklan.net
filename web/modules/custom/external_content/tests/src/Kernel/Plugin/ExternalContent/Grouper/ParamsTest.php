@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\external_content\Plugin\ExternalContent\Grouper;
 
-use Drupal\external_content\Plugin\ExternalContent\Grouper\Params;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\external_content\Dto\ExternalContent;
@@ -12,6 +11,7 @@ use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFileParams;
 use Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManagerInterface;
+use Drupal\external_content\Plugin\ExternalContent\Grouper\Params;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Prophecy\Argument;
 

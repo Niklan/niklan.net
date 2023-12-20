@@ -2,9 +2,9 @@
 
 namespace Drupal\external_content\Grouper;
 
-use Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperInterface;
 use Drupal\external_content\Dto\ExternalContentCollection;
 use Drupal\external_content\Dto\ParsedSourceFileCollection;
+use Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperInterface;
 use Drupal\external_content\Plugin\ExternalContent\Grouper\GrouperPluginManagerInterface;
 
 /**

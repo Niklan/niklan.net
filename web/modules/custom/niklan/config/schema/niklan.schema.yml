@@ -28,6 +28,13 @@ field.formatter.settings.niklan_responsive_media_thumbnail:
     responsive_image_style:
       type: string
       label: 'The responsive image style ID'
+    image_loading:
+      type: mapping
+      label: 'Image loading settings'
+      mapping:
+        attribute:
+          type: string
+          label: 'Loading attribute'
 
 field.formatter.settings.niklan_media_remote_video_optimized:
   type: mapping
