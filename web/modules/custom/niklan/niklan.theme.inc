@@ -5,8 +5,8 @@
  * Contains preprocess and process functions for custom templates.
  */
 
-use Drupal\media\MediaStorage;
 use Drupal\media\MediaInterface;
+use Drupal\media\MediaStorage;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 
 /**

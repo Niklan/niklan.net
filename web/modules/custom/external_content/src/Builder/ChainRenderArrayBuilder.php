@@ -2,9 +2,9 @@
 
 namespace Drupal\external_content\Builder;
 
-use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface;
 use Drupal\Component\Utility\SortArray;
 use Drupal\external_content\Dto\ElementInterface;
+use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderInterface;
 use Drupal\external_content\Plugin\ExternalContent\Builder\BuilderPluginManagerInterface;
 
 /**

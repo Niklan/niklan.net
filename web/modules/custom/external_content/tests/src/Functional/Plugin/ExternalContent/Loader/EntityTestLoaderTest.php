@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\external_content\Functional\Plugin\ExternalContent\Loader;
 
-use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface;
 use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\external_content\Dto\ExternalContent;
 use Drupal\external_content\Dto\ExternalContentCollection;
@@ -10,6 +9,7 @@ use Drupal\external_content\Dto\ParsedSourceFile;
 use Drupal\external_content\Dto\SourceFile;
 use Drupal\external_content\Dto\SourceFileContent;
 use Drupal\external_content\Dto\SourceFileParams;
+use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderInterface;
 use Drupal\external_content\Plugin\ExternalContent\Loader\LoaderPluginManagerInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
