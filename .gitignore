@@ -1,47 +1,18 @@
-# Ignore core beacuse all of a project's dependencies managed with Composer
-# including Drupal core.
-core
-
-# Ignore contrib modules and themes, because they all managed via Composer.
-web/modules/contrib
-web/themes/contrib
-
+# Ignore public directory because all project modules, themes, profiles,
+# libraries and public files are managed by Composer and Drupal Scaffold
+# Plugin.
+/web/
 # Ignore third-party dependencies that are managed with Composer.
-# Generally you should only ignore the root vendor directory. It's important
-# that core/assets/vendor and any other vendor directories within contrib or
-# custom module, theme, etc., are not ignored unless you purposely do so.
 /vendor/
-
-# Ignore libraries since they managed via Composer.
-web/libraries
-
-# Ignore configuration files that may contain sensitive information.
-web/sites/*/settings*.php
-web/sites/*/services*.yml
-web/sites/development.services.yml
-
 # Ignore paths that contain user-generated content.
-web/sites/*/files
-web/sites/*/private
 /private
-
-# Ignore SimpleTest multi-site environment.
-web/sites/simpletest
-
 # Ignore IDE project settings.
 .idea
-
 # Ignore npm packages.
 node_modules
 yarn-error.log
-
-# Ignore split configurations.
-config/split
-
 # Appended by core.
 .csslintrc
-.eslintignore
-.eslintrc.json
 .ht.router.php
 .htaccess
 INSTALL.txt
@@ -53,29 +24,8 @@ index.php
 robots.txt
 update.php
 web.config
-
-# Ignore scaffold files provided by drupal:scaffold.
-.gitattributes
-.editorconfig
-example.sites.php
-example.settings.*.php
-default.settings.php
-default.services.yml
-
-# Ignore maps for builded files like .css.map, .js.map.
-*.map
-
-# Ignore .mo files if someone try to use Poedit
-/translations/*.mo
-
-# Ignore environment files.
-web/.env.php
-web/.env.example.php
-
-# Quality tools local configs.
-phpunit.xml
-phpcs.xml
-phpstan.neon
-
-# Drush contrib commands shouldn't be in repo.
-drush/Commands/contrib
+# Ignore db backup
+*.sql
+*.sql.gz
+# Ignore helpers for PHPStorm.
+.phpstorm.meta.php
