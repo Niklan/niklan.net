@@ -3,6 +3,7 @@
 namespace Drupal\niklan\Hook\Entity;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\Portfolio;
 
@@ -29,8 +30,14 @@ final class BundleInfoAlter {
   protected function alterBundleClasses(array &$bundles): void {
     $bundle_classes_map = [
       'node' => [
-        'blog_entry' => ['class' => BlogEntry::class],
-        'portfolio' => ['class' => Portfolio::class],
+        'blog_entry' => [
+          'class' => BlogEntry::class,
+          'label' => new TranslatableMarkup('Blog article'),
+        ],
+        'portfolio' => [
+          'class' => Portfolio::class,
+          'label' => new TranslatableMarkup('Portfolio project'),
+        ],
       ],
     ];
 
