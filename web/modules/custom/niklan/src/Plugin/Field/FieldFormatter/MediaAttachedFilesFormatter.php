@@ -8,6 +8,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\ByteSizeMarkup;
 use Drupal\file\FileInterface;
 use Drupal\media\MediaInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -77,7 +78,7 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
         '#theme' => 'niklan_media_attached_file',
         '#uri' => $file->getFileUri(),
         '#filename' => $file->getFilename(),
-        '#filesize' => \format_size($file->getSize()),
+        '#filesize' => ByteSizeMarkup::create($file->getSize()),
         '#label' => $media->label(),
       ];
     }

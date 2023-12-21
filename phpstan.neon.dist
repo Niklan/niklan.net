@@ -1,14 +1,9 @@
-#includes:
-#  - phpstan-baseline.neon
-
 parameters:
   paths:
     - ./web/modules/custom
   excludePaths:
     - *Test.php
     - *TestBase.php
-    # Temporary exclude while refactoring external_content.
-    - ./web/modules/custom/niklan
   level: 5
   drupal:
     # Some tools (e.g. PHPStorm) can execute PHPStan from different directories,
