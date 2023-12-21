@@ -79,7 +79,6 @@ jobs:
 
       - name: Copy files for environment
         run: |
-          cp ./phpunit.xml.dist ./phpunit.xml
           mkdir -p ./web/sites/default
           cp ./assets/scaffold/settings.local.php ./web/sites/default/settings.local.php
           cp ./.github/workflows/d4d-phpunit/.env ./.env
