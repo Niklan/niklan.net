@@ -41,9 +41,6 @@ jobs:
       - name: Install Composer dependencies
         run: composer install ${{ env.COMPOSER_FLAGS }}
 
-      - name: Prepare PHPCS config
-        run: cp phpcs.xml.dist phpcs.xml
-
       - name: PHPCS Analyse
         run: composer phpcs
 
@@ -65,9 +62,6 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install ${{ env.COMPOSER_FLAGS }}
-
-      - name: Prepare PHPStan config
-        run: cp phpstan.neon.dist phpstan.neon
 
       - name: PHPCS Analyse
         run: composer phpcs
