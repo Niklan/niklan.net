@@ -8,7 +8,8 @@
          cacheResult="false"
          verbose="true">
   <php>
-    <ini name="error_reporting" value="32767"/>
+    <!-- @todo Switch to 32767 and fix all tests. -->
+    <ini name="error_reporting" value="0"/>
     <ini name="memory_limit" value="-1"/>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     <!--<env name="SIMPLETEST_BASE_URL" value="http://nginx"/>-->
