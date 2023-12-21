@@ -11,18 +11,11 @@ services:
       # This parameter will pass .env contents to PHP container. This is
       # required by settings.php file.
       PHP_FPM_CLEAR_ENV: "no"
-      PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
-      DB_HOST: $DB_HOST
-      DB_PORT: $DB_PORT
-      DB_USER: $DB_USER
-      DB_PASSWORD: $DB_PASSWORD
-      DB_NAME: $DB_NAME
-      DB_DRIVER: $DB_DRIVER
       PHP_PCOV_ENABLED: 1
       PHP_PCOV_DIRECTORY: /var/www/html/web/modules/custom
       # PHPUnit Drupal testing configurations
       SIMPLETEST_BASE_URL: "http://nginx"
-      SIMPLETEST_DB: "sqlite://localhost//mnt/tmpfs/test.sqlite"
+      SIMPLETEST_DB: "sqlite://localhost//mnt/files/test.sqlite"
       MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]'
       # docker compose up -d --no-deps --build php
       # This will allow to run tests without 'sudo'.
@@ -30,8 +23,6 @@ services:
       PHP_FPM_GROUP: wodby
     volumes:
       - ./:/var/www/html:cached
-    tmpfs:
-      - /mnt/tmpfs
 
   nginx:
     image: wodby/nginx:$NGINX_TAG
@@ -46,8 +37,6 @@ services:
       NGINX_VHOST_PRESET: $NGINX_VHOST_PRESET
     volumes:
       - ./:/var/www/html:cached
-    labels:
-      - "traefik.http.routers.${PROJECT_NAME}_nginx.rule=Host(`${PROJECT_BASE_URL}`)"
 
   chrome:
     image: selenium/standalone-chrome:$SELENIUM_CHROME_TAG
@@ -61,12 +50,3 @@ services:
       - "--log-path=/tmp/chromedriver.log"
       - "--verbose"
       - "--whitelisted-ips="
-
-  traefik:
-    image: traefik:v2.0
-    container_name: "${PROJECT_NAME}_traefik"
-    command: --api.insecure=true --providers.docker
-    ports:
-      - '80:80'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock

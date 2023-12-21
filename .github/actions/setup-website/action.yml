@@ -1,0 +1,28 @@
+name: 'Setup website'
+description: 'Setups website from repository.'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Copy files for environment
+      shell: bash
+      run: |
+        mkdir -p ./web/sites/default
+        cp ./.github/actions/setup-website/.env ./.env
+        cp ./.github/actions/setup-website/docker-compose.yml ./docker-compose.yml
+
+    - name: Build PHP container
+      shell: bash
+      run: docker compose up -d --no-deps --build php
+
+    - name: Run docker
+      shell: bash
+      run: docker compose up -d
+
+    - name: Install Task into docker
+      shell: bash
+      run: docker compose exec -T php sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+
+    - name: Install site
+      shell: bash
+      run: docker compose exec -T php task install -y
