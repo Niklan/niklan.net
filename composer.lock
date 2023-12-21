@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dbc2ac979baa99ebc14f85f39a9733dd",
+    "content-hash": "163437f7f8ed96af38fb697e82934edd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4401,32 +4401,38 @@
             "time": "2023-12-10T21:03:43+00:00"
         },
         {
-            "name": "niklan/content_export",
-            "version": "1.0.0",
+            "name": "niklan/external_content",
+            "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
-                "url": "web/modules/custom/content_export",
-                "reference": "a64d6a5aef3c4cfd4eaeedbcce294f9239f2cb1f"
+                "url": "app/Drupal/external_content",
+                "reference": "dbc849667781cc80dcea757c83c1c4a90740a68c"
             },
-            "type": "drupal-drush",
-            "extra": {
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^11"
-                    }
-                }
+            "type": "drupal-custom-module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan/mechanical",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/Drupal/mechanical",
+                "reference": "aebde7794301527e35391726d4a13aebf36fca42"
             },
+            "type": "drupal-custom-theme",
             "transport-options": {
                 "relative": true
             }
         },
         {
             "name": "niklan/niklan",
-            "version": "1.0.0",
+            "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
-                "url": "web/modules/custom/niklan",
-                "reference": "d314b43a952063b389bf5e1d2d33aa3605087c23"
+                "url": "app/Drupal/niklan",
+                "reference": "5bf8120d52cc9d833b6aad4b1c64fad4220e3990"
             },
             "require": {
                 "ext-dom": "*",
@@ -4434,10 +4440,22 @@
                 "scrivo/highlight.php": "^9.0"
             },
             "type": "drupal-custom-module",
-            "description": "Custom code.",
             "keywords": [
                 "Drupal"
             ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan/niklan_installer",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/Drupal/niklan_installer",
+                "reference": "cdc501d69c4f5333ba380266d92e2471a7a5a9f2"
+            },
+            "type": "drupal-custom-profile",
             "transport-options": {
                 "relative": true
             }
@@ -10185,6 +10203,26 @@
             "time": "2023-09-27T08:59:11+00:00"
         },
         {
+            "name": "niklan/content_export",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/Drupal/content_export",
+                "reference": "adbf26038beabe71d8a6db314f7dcf71532e9a6d"
+            },
+            "type": "drupal-custom-module",
+            "extra": {
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^11"
+                    }
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "open-telemetry/api",
             "version": "1.0.1",
             "source": {
@@ -13820,7 +13858,12 @@
         "drupal/rabbit_hole": 10,
         "drupal/redirect": 15,
         "drupal/symfony_mailer": 10,
-        "chi-teck/drupal-coder-extension": 15
+        "niklan/external_content": 20,
+        "niklan/mechanical": 20,
+        "niklan/niklan": 20,
+        "niklan/niklan_installer": 20,
+        "chi-teck/drupal-coder-extension": 15,
+        "niklan/content_export": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

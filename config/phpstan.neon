@@ -1,6 +1,6 @@
 parameters:
   paths:
-    - ./web/modules/custom
+    - ../app
   excludePaths:
     - *Test.php
     - *TestBase.php
