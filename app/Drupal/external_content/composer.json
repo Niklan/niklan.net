@@ -1,7 +1,7 @@
 {
     "name": "niklan/external_content",
     "type": "drupal-custom-module",
-    "version": "1.0.0",
+    "version": "1.0.0-dev",
     "keywords": [
         "Drupal"
     ],
