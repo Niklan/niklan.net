@@ -3,8 +3,7 @@
   <description>Niklan.net</description>
   <arg name="colors"/>
   <arg name="extensions" value="php,module,inc,install,theme"/>
-  <file>./web/modules/custom</file>
-  <file>./web/themes/custom</file>
+  <file>../app</file>
   <!-- Exclude fixtures. -->
   <exclude-pattern>*/fixtures/*</exclude-pattern>
   <exclude-pattern>*\.(css|js)</exclude-pattern>

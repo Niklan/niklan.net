@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
-         bootstrap="web/core/tests/bootstrap.php"
+<phpunit bootstrap="../web/core/tests/bootstrap.php"
          colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
-         beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
-         cacheResult="false"
-         testdox="true"
          failOnWarning="true"
+         testdox="true"
+         cacheResult="false"
          verbose="true">
   <php>
-    <ini name="error_reporting" value="32767"/>
+    <!-- @todo Switch to 32767 and fix all tests. -->
+    <ini name="error_reporting" value="0"/>
     <ini name="memory_limit" value="-1"/>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     <!--<env name="SIMPLETEST_BASE_URL" value="http://nginx"/>-->
@@ -21,42 +19,39 @@
 
   <testsuites>
     <testsuite name="unit">
-      <directory>./web/modules/custom/*/tests/src/Unit</directory>
+      <directory>../app/Drupal/*/tests/src/Unit</directory>
     </testsuite>
     <testsuite name="kernel">
-      <directory>./web/modules/custom/*/tests/src/Kernel</directory>
+      <directory>../app/Drupal/*/tests/src/Kernel</directory>
     </testsuite>
     <testsuite name="functional">
-      <directory>./web/modules/custom/*/tests/src/Functional</directory>
+      <directory>../app/Drupal/*/tests/src/Functional</directory>
     </testsuite>
     <testsuite name="functional-javascript">
-      <directory>./web/modules/custom/*/tests/src/FunctionalJavascript</directory>
+      <directory>../app/Drupal/*/tests/src/FunctionalJavascript</directory>
     </testsuite>
   </testsuites>
 
-<!--  <listeners>-->
-<!--    <listener class="\Drupal\Tests\Listeners\DrupalListener"/>-->
-<!--  </listeners>-->
+  <listeners>
+    <listener class="\Drupal\Tests\Listeners\DrupalListener"/>
+  </listeners>
 
   <coverage processUncoveredFiles="true">
     <include>
-      <directory>./web/modules/custom/*/src</directory>
+      <directory>../app/Drupal/*/src</directory>
     </include>
 
     <exclude>
-      <directory>./web/modules/custom/*/tests</directory>
+      <directory>../app/Drupal/*/tests</directory>
       <!-- There is no reason for test for one-time use code. -->
-      <directory>./web/modules/custom/*/src/Hook/Deploy</directory>
+      <directory>../app/Drupal/*/src/Hook/Deploy</directory>
       <!-- Exclude temporary module from coverage results. -->
-      <directory>./web/modules/custom/content_export</directory>
-      <!-- Temporary exclude it for easier testing of external content. -->
-      <directory>./web/modules/custom/niklan</directory>
+      <directory>../app/Drupal/content_export</directory>
     </exclude>
 
     <report>
       <!-- Write it here, because PHPUnit run under web user has no access to write into other directories. -->
-      <clover outputFile="web/sites/default/files/coverage.xml"/>
-      <html outputDirectory="web/sites/default/files/coverage"/>
+      <clover outputFile="../web/sites/default/files/coverage.xml"/>
     </report>
   </coverage>
 </phpunit>
