@@ -1,11 +1,12 @@
 .russian-drupal-awards {
-  display: block;
-  margin: var(--spacing-sm);
-  margin-top: var(--spacing-lg);
   --fill-1: #1e00d7;
   --fill-2: #090035;
   --fill-3: #fb0055;
   --fill-4: #b9b5d7;
+
+  display: block;
+  margin: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
 }
 
 [data-theme="dark"] .russian-drupal-awards {

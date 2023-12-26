@@ -27,6 +27,8 @@
 }
 
 .dark-mode-toggle__button {
+  --button-padding: 0;
+
   display: block;
   width: 32px;
   height: 32px;
@@ -34,7 +36,6 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 18px;
-  --button-padding: 0;
 }
 
 .dark-mode-toggle__button--light {

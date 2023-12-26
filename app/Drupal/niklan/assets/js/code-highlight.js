@@ -12,7 +12,7 @@
    * for mobile devices on pages where a lot of code needs to be highlighted.
    */
   Drupal.behaviors.niklanCodeHighlight = {
-    attach: function (context, settings) {
+    attach (context, settings) {
       if (!window.IntersectionObserver) {
         return;
       }
@@ -34,7 +34,7 @@
         const intersectionObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              let codeBlock = entry.target;
+              const codeBlock = entry.target;
               Prism.highlightElement(codeBlock);
               intersectionObserver.unobserve(codeBlock);
             }

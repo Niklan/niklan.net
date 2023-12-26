@@ -1,10 +1,4 @@
 .blog-meta {
-  font-size: var(--font-size);
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  color: var(--color);
-
   --icon-read-time: url('../../../icons/212121/clock-check.svg');
   --icon-comments: url('../../../icons/212121/comment-multiple.svg');
   --icon-no-comments: url('../../../icons/212121/comment-multiple-outline.svg');
@@ -13,13 +7,19 @@
   --link-color: var(--color);
   --icon-size: 24px;
   --font-size: var(--font-size-base)
-}
+;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--color);
+  font-size: var(--font-size);}
 
 @media (min-width: 576px) {
 
   .blog-meta {
-    align-items: center;
-    flex-direction: row
+    flex-direction: row;
+    align-items: center
   }
 }
 

@@ -1,0 +1,33 @@
+{
+  "name": "niklan.net",
+  "version": "1.0.0-dev",
+  "private": true,
+  "engines": {
+    "yarn": ">=1.22",
+    "node": ">=18.16"
+  },
+  "scripts": {
+    "lint:js": "./node_modules/.bin/eslint -c config/.eslintrc.json --ext .js .",
+    "lint:yml": "./node_modules/.bin/eslint -c config/.eslintrc.json --ext .yml --ext .yaml .",
+    "lint:css": "./node_modules/.bin/stylelint -c config/.stylelintrc.json **/*.css",
+    "spellcheck": "./node_modules/.bin/cspell --config config/.cspell.json --no-progress \"**\"",
+    "build-dictionary": "./node_modules/.bin/cspell --config config/.cspell.json --words-only --unique \"**\" | sort -f > config/cspell/dictionary.txt"
+  },
+  "prettier": "./config/.prettierrc.json",
+  "devDependencies": {
+    "cspell": "^8.1.3",
+    "eslint": "^8.54.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-yml": "^1.10.0",
+    "prettier": "^3.1.0",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-order": "^6.0.3"
+  },
+  "resolutions": {
+    "wrap-ansi": "^7.0"
+  }
+}

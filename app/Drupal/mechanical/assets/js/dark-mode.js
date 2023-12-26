@@ -4,7 +4,7 @@
  */
 (function () {
 
-  'use strict';
+  
 
   function DarkMode() {
     this.store = localStorage;
@@ -21,7 +21,7 @@
     /**
      * Initialize script.
      */
-    init: function () {
+    init () {
       // Update theme on script initialization.
       this.update();
 
@@ -35,7 +35,7 @@
     /**
      * Sets needed color scheme.
      */
-    setColorScheme: function (scheme) {
+    setColorScheme (scheme) {
       if (['auto', 'light', 'dark'].includes(scheme)) {
         if (scheme ===  'auto') {
           // By removing value we fallback to 'system detection' mode.
@@ -55,7 +55,7 @@
     /**
      * Get currently active color scheme.
      */
-    getColorScheme: function () {
+    getColorScheme () {
       let currentScheme = this.store.getItem(this.name);
       // If no value is set, let it be handled bu user's system.
       if (!currentScheme) {
@@ -67,26 +67,26 @@
     /**
      * Gets current color scheme from system settings.
      */
-    getColorSchemeFromSystem: function () {
+    getColorSchemeFromSystem () {
       if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         return 'dark';
       }
-      else {
+      
         return 'light';
-      }
+      
     },
 
     /**
      * Checks if current color scheme from system or specified.
      */
-    isSchemeFromSystem: function () {
+    isSchemeFromSystem () {
       return this.store.getItem(this.name) === null;
     },
 
     /**
      * Sets correct attributes to update theme visuals.
      */
-    update: function () {
+    update () {
       this.dispatchEvent('onUpdate', this.getColorScheme(), this.isSchemeFromSystem());
       document.documentElement.setAttribute('data-theme', this.getColorScheme());
     },
@@ -94,14 +94,14 @@
     /**
      * Adds handler for 'onUpdate' event.
      */
-    onUpdate: function (handler) {
+    onUpdate (handler) {
       this.eventHandlers.onUpdate.push(handler);
     },
 
     /**
      * Dispatch custom event.
      */
-    dispatchEvent: function (eventName, ...args) {
+    dispatchEvent (eventName, ...args) {
       this.eventHandlers[eventName].forEach(handler => {
         handler.call(this, ...args);
       });
@@ -110,6 +110,6 @@
   }
 
   // The DarkMode object is internal. Pass only instance into global scope.
-  window['DarkMode'] = new DarkMode();
+  window.DarkMode = new DarkMode();
 
 })();

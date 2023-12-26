@@ -1,11 +1,8 @@
-.comments-list {
-
-}
-
 .comments-list__head {
-  font-size: var(--font-size-sm);
-  margin-bottom: var(--spacing-xl);
   --p-margin--y: var(--spacing-sm);
+
+  margin-bottom: var(--spacing-xl);
+  font-size: var(--font-size-sm);
 }
 
 .comments-list__item:not(:last-child) {

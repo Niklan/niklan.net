@@ -10,16 +10,17 @@
 }
 
 .form-item {
-  margin: var(--form-item-margin);
   --form-item-margin: var(--form-item-margin--y) var(--form-item-margin--x);
+
+  margin: var(--form-item-margin);
 }
 
 .form-item__label {
+  display: table;
+  margin: var(--form-item-label-margin--y) 0;
   font-size: var(--form-item-label-font-size);
   font-weight: bold;
   line-height: var(--form-item-label-line-height);
-  display: table;
-  margin: var(--form-item-label-margin--y) 0;
 }
 
 .form-item__label[for] {
@@ -27,20 +28,20 @@
 }
 
 .form-item__label--required::after {
-  font-weight: bold;
   display: inline-block;
   margin-left: var(--spacing-xxs);
   content: '*';
   color: var(--color-maximum-red);
+  font-weight: bold;
 }
 
 .form-item__label--inline {
-  font-weight: normal;
   display: inline;
+  font-weight: normal;
 }
 
 .form-item__description {
-  font-size: var(--form-item-description-font-size);
   margin: var(--form-item-description-margin--y) 0;
   color: var(--form-item-description-color);
+  font-size: var(--form-item-description-font-size);
 }

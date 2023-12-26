@@ -16,6 +16,8 @@
 }
 
 .form-boolean {
+  --form-boolean-border: var(--form-boolean-border--width) var(--form-boolean-border--style) var(--form-boolean-border--color);
+
   display: inline-block;
   width: var(--form-boolean-width);
   height: var(--form-boolean-height);
@@ -30,7 +32,6 @@
   background-size: 100% 100%;
   box-shadow: var(--form-boolean-box-shadow);
   appearance: none;
-  --form-boolean-border: var(--form-boolean-border--width) var(--form-boolean-border--style) var(--form-boolean-border--color);
 }
 
 .form-boolean:active {
@@ -48,10 +49,11 @@
 }
 
 .form-boolean:disabled {
-  cursor: not-allowed;
   --form-boolean-border--color: var(--color-border);
   --form-boolean-background-color: var(--color-disabled);
   --form-boolean-box-shadow: none;
+
+  cursor: not-allowed;
 }
 
 /**

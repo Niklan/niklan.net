@@ -1,6 +1,6 @@
 /**
  * @file
- * Provides behaviours to dark mode switchers.
+ * Provides behaviors to dark mode switchers.
  */
 (function (Drupal, DarkMode) {
 
