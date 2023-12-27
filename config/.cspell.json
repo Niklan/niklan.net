@@ -17,6 +17,7 @@
   "ignorePaths": [
     "../assets/vendor/**",
     "../assets/patch/**",
+    "../assets/translation/**",
     "../config/cspell/**",
     "../config/sync/**",
     "../web/**",

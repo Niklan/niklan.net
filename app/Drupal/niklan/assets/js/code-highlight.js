@@ -3,7 +3,7 @@
  * code-highlight.es6.js behaviors.
  */
 
-(function (Drupal) {
+((Drupal) => {
 
   /**
    * Highlight the code blocks.
@@ -12,7 +12,7 @@
    * for mobile devices on pages where a lot of code needs to be highlighted.
    */
   Drupal.behaviors.niklanCodeHighlight = {
-    attach (context, settings) {
+    attach () {
       if (!window.IntersectionObserver) {
         return;
       }
@@ -31,8 +31,8 @@
       }
 
       trigger(() => {
-        const intersectionObserver = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
+        const intersectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const codeBlock = entry.target;
               Prism.highlightElement(codeBlock);
@@ -41,7 +41,7 @@
           });
         });
 
-        [].slice.call(document.querySelectorAll('pre code')).forEach(function (codeBlock) {
+        [].slice.call(document.querySelectorAll('pre code')).forEach((codeBlock) => {
           if (codeBlock.processed) {
             return;
           }

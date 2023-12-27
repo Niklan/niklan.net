@@ -8,7 +8,9 @@
     "vendor/**/*"
   ],
   "globals": {
-    "App": true
+    "App": true,
+    "Prism": true,
+    "DarkMode": true
   },
   "rules": {
     "prettier/prettier": "off",

@@ -1,4 +1,4 @@
-(function () {
+(() => {
 
   const navigationElement = document.querySelector('.js-navigation');
   const mobileButtonElement = document.querySelector('.js-navigation-mobile-toggle');
@@ -15,7 +15,7 @@
     });
   }
 
-  mobileButtonElement.addEventListener('click', function () {
+  mobileButtonElement.addEventListener('click', () => {
     navigationElement.classList.toggle('is-active');
     document.querySelector('body').classList.toggle('is-navigation-active');
   });

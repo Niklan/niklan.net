@@ -2,9 +2,7 @@
  * @file
  * Dark mode switcher.
  */
-(function () {
-
-  
+(() => {
 
   function DarkMode() {
     this.store = localStorage;
