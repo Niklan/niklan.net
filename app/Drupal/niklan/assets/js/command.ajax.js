@@ -5,7 +5,7 @@
  * These JS file injected into core/drupal.ajax library in
  * niklan_library_info_alter().
  */
-(function (Drupal) {
+((Drupal) => {
 
   /**
    * Command to update the current url on request.
@@ -14,7 +14,7 @@
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
    */
-  Drupal.AjaxCommands.prototype.niklanHistoryReplaceState = function (ajax, response) {
+  Drupal.AjaxCommands.prototype.niklanHistoryReplaceState = (ajax, response) => {
     window.history.replaceState(response.stateObj, '', response.url);
   }
 

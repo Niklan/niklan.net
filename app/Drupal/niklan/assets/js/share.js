@@ -2,14 +2,14 @@
  * @file
  * Provides code for share button.
  */
-(function (Drupal, once, navigator) {
+((Drupal, once, navigator) => {
 
   /**
    * Attaches Share API to element.
    */
   function attachShare(shareElement) {
-    const text = shareElement.dataset.text;
-    const url = shareElement.dataset.url;
+    const {text} = shareElement.dataset;
+    const {url} = shareElement.dataset;
     if (!text || !url) {
       return;
     }
@@ -21,7 +21,8 @@
 
     shareElement.addEventListener('click', () => {
       navigator.share({text, url})
-        .catch((error) => console.log('Sharing failed', error));
+        // eslint-disable no-console
+        .catch((error) => console.error('Sharing failed', error));
     });
   }
 

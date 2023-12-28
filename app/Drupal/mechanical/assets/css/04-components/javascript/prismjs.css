@@ -2,12 +2,12 @@
   --prismjs-background: var(--color-white);
   --prismjs-color: var(--color-black);
   --prismjs-keyword: #0033B3;
-  --prismjs-punctuatuion: var(--prismjs-color);
+  --prismjs-punctuation: var(--prismjs-color);
   --prismjs-tag: #1750EB;
   --prismjs-string: #067D17;
   --prismjs-comment: #8C8C8C;
   --prismjs-class-name: var(--color-black);
-  --prismjs-variable: #660000;
+  --prismjs-variable: #600;
   --prismjs-important: var(--prismjs-keyword);
   --prismjs-function: #00627A;
   --prismjs-this: var(--prismjs-variable);
@@ -32,9 +32,6 @@
 
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: var(--font-monospace);
-  font-size: var(--font-size-xs);
-  line-height: 1.4;
   display: block;
   overflow-x: auto;
   text-align: left;
@@ -45,6 +42,9 @@ pre[class*="language-"] {
   tab-size: 4;
   hyphens: none;
   color: var(--prismjs-color);
+  font-family: var(--font-monospace);
+  font-size: var(--font-size-xs);
+  line-height: 1.4;
 }
 
 code[class*="language-"] {
@@ -83,7 +83,7 @@ pre[class*="language-"] {
 }
 
 .token.punctuation {
-  color: var(--prismjs-punctuatuion);
+  color: var(--prismjs-punctuation);
 }
 
 .namespace {

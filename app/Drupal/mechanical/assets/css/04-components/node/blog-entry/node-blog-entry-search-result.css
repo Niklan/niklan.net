@@ -3,7 +3,8 @@
 }
 
 .node-blog-entry-search-result__title {
-  font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-sm);
   --link-color: var(--text-color);
+
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-base);
 }

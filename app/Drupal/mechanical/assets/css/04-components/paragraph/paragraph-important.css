@@ -1,11 +1,4 @@
 .paragraph-important {
-  font-size: 0.875rem;
-  position: relative;
-  padding: var(--spacing-lg);
-  padding-left: calc(var(--spacing-md) * 6);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background-color: var(--navigation-background);
   --icon: none;
   --background-color: transparent;
   --font-size-h1: 1.75rem;
@@ -14,6 +7,14 @@
   --font-size-h4: 1.25rem;
   --font-size-h5: 1.125rem;
   --font-size-h6: 1;
+
+  position: relative;
+  padding: var(--spacing-lg);
+  padding-left: calc(var(--spacing-md) * 6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--navigation-background);
+  font-size: 0.875rem;
 }
 
 .paragraph-important::before {

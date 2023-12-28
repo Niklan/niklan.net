@@ -46,11 +46,11 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: var(--line-height-heading);
   margin: unset;
   margin-bottom: var(--spacing-sm);
   word-break: break-word;
   color: var(--heading-color);
+  line-height: var(--line-height-heading);
 }
 
 @media (min-width: 576px) {
