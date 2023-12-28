@@ -1,0 +1,266 @@
+version: '3'
+
+env:
+  PHP_BIN: '{{.PHP_BIN | default "$(which php)"}}'
+  COMPOSER_BIN: '{{.COMPOSER_BIN | default "$(which composer)"}}'
+  YARN_BIN: '{{.YARN_BIN | default "$(which yarn)"}}'
+
+vars:
+  CONFIG_DIR: '{{.TASKFILE_DIR}}/config'
+  COMPOSER_BIN_DIR: '{{.TASKFILE_DIR}}/vendor/bin'
+  NODEJS_BIN_DIR: '{{.TASKFILE_DIR}}/node_modules/.bin'
+
+tasks:
+  default:
+    cmd: 'task --list-all'
+
+  composer:
+    label: Composer
+    desc: Runs 'composer' command.
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN}} {{.CLI_ARGS}}'
+
+  drush:
+    label: Drush
+    desc: Runs 'drush' command.
+    requires:
+      vars:
+        - COMPOSER_BIN_DIR
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/drush {{.CLI_ARGS}}'
+
+  phpstorm-meta:
+    label: PHPStorm metadata
+    desc: Generates PHPStorm metadata.
+    cmds:
+      - task: drush
+        vars: { CLI_ARGS: 'generate -y phpstorm-meta' }
+
+  phpcs:
+    label: PHPCS
+    desc: Runs 'phpcs' command.
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpcs -ps --colors --standard={{.CONFIG_DIR}}/phpcs.xml {{.CLI_ARGS}}'
+
+  phpcbf:
+    label: PHPCBF
+    desc: Runs 'phpcbf' command.
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpcbf -ps --colors --standard={{.CONFIG_DIR}}/phpcs.xml {{.CLI_ARGS}}'
+
+  phpstan:
+    label: PHPStan
+    desc: Runs 'phpstan' command.
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpstan --configuration={{.CONFIG_DIR}}/phpstan.neon {{.CLI_ARGS}}'
+
+  parallel-lint:
+    label: PHP Parallel lint
+    desc: Runs 'parallel-lint' command.
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/parallel-lint {{.CLI_ARGS}}'
+
+  phpunit:
+    label: PHPUnit
+    desc: Runs 'phpunit' command.
+    vars:
+      SUITE: '{{if .SUITE}}--testsuite={{.SUITE}}{{end}}'
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpunit --configuration={{.CONFIG_DIR}}/phpunit.xml {{.SUITE}} {{.CLI_ARGS}}'
+
+  yarn:
+    label: yarn
+    desc: Runs 'yarn' command.
+    cmd: '{{.YARN_BIN}} {{.CLI_ARGS}}'
+
+  install:
+    desc: Install website.
+    summary: Installs a website with a demo content for development and testing.
+    prompt: |
+      This command will delete current database and install a fresh website.
+      All unsaved data will be permanently lost.
+      Are you sure?
+    cmds:
+      - task: composer
+        vars: { CLI_ARGS: 'install' }
+      - task: drush
+        vars: { CLI_ARGS: 'site:install -y --existing-config' }
+      - task: drush
+        vars: { CLI_ARGS: 'deploy:mark-complete -y' }
+      - task: phpstorm-meta
+      - task: drush
+        vars: { CLI_ARGS: 'user:login --uid=1' }
+
+  validate:
+    label: Project validation
+    desc: Validates project files.
+    cmds:
+      - task: validate/composer
+      - task: validate/phplint
+      - task: validate/phpcs
+      - task: validate/phpstan
+      - task: validate/js
+      - task: validate/css
+      - task: validate/yml
+      - task: validate/spellcheck
+
+  validate/composer:
+    label: Composer validation
+    desc: Validates composer.json file and checks platform requirements.
+    cmds:
+      - task: composer
+        vars: { CLI_ARGS: 'validate --strict' }
+      - task: composer
+        vars: { CLI_ARGS: 'check-platform-req' }
+
+  validate/phplint:
+    label: PHP linter
+    desc: Lints PHP files.
+    aliases:
+      - 'phplint'
+    cmds:
+      - task: parallel-lint
+        vars: { CLI_ARGS: '-e php,module,install,inc,theme app' }
+
+  validate/phpcs:
+    label: PHPCS validation
+    desc: Validate PHP for code style.
+    cmds:
+      - task: phpcs
+
+  validate/phpstan:
+    label: PHPStan analyze
+    desc: Analyze PHP code for bugs and errors.
+    cmds:
+      - task: phpstan
+        vars: { CLI_ARGS: 'analyze' }
+
+  validate/js:
+    label: JavaScript linter
+    desc: Lints JavaScript files.
+    aliases:
+      - 'jslint'
+    cmds:
+      - task: yarn
+        vars: { CLI_ARGS: 'lint:js' }
+
+  validate/css:
+    label: CSS linter
+    desc: Lints CSS files.
+    aliases:
+      - 'csslint'
+    cmds:
+      - task: yarn
+        vars: { CLI_ARGS: 'lint:css' }
+
+  validate/yml:
+    label: YML linter
+    desc: Lints Y(A)ML files.
+    aliases:
+      - 'ymllint'
+      - 'yamllint'
+    cmds:
+      - task: yarn
+        vars: { CLI_ARGS: 'lint:yml' }
+
+  validate/spellcheck:
+    label: Spellcheck
+    desc: Checks for common spelling issues.
+    aliases:
+      - 'cspell'
+    cmds:
+      - task: yarn
+        vars: { CLI_ARGS: 'spellcheck {{.CLI_ARGS}}' }
+
+  fix:
+    label: Fixing found issues
+    desc: Trying for automated fixes for found problems.
+    cmds:
+      - task: fix/phpcs
+      - task: fix/js
+      - task: fix/css
+      - task: fix/yml
+
+  fix/phpcs:
+    label: PHPCS
+    desc: Fix PHPCS issues.
+    cmds:
+      - task: phpcbf
+
+  fix/js:
+    label: JavaScript
+    desc: Fix JavaScript issues.
+    cmds:
+      - task: yarn
+        vars: { CLI_ARGS: 'lint:js --fix' }
+
+  fix/css:
+    label: CSS
+    desc: Fix CSS issues.
+    cmds:
+      - task: yarn
+        vars: { CLI_ARGS: 'lint:css --fix' }
+
+  fix/yml:
+    label: Y(A)ML
+    desc: Fix Y(A)ML issues.
+    aliases:
+      - 'fix/yaml'
+    cmds:
+      - task: yarn
+        vars: { CLI_ARGS: 'lint:yml --fix' }
+
+  test:
+    label: Tests
+    desc: Runs all available project tests.
+    cmds:
+      - task: test/unit
+      - task: test/kernel
+      - task: test/browser
+      - task: test/existing-site
+      - task: test/existing-site-js
+
+  test/unit:
+    label: Unit tests
+    desc: Runs Unit test
+    cmds:
+      - task: phpunit
+        vars: { SUITE: 'unit' }
+
+  test/kernel:
+    label: Kernel tests
+    desc: Runs Kernel tests.
+    cmds:
+      - task: phpunit
+        vars: { SUITE: 'kernel' }
+
+  test/browser:
+    label: Browser tests
+    desc: Runs Browser tests.
+    cmds:
+      - task: phpunit
+        vars: { SUITE: 'functional' }
+
+  test/existing-site:
+    label: Acceptance tests
+    desc: Runs Acceptance tests.
+    cmds:
+      - task: phpunit
+        vars: { SUITE: 'existing-site' }
+
+  test/existing-site-js:
+    label: Acceptance with JavaScript tests
+    desc: Runs Acceptance with JavaScript tests.
+    cmds:
+      - task: phpunit
+        vars: { SUITE: 'existing-site-javascript' }
+
+  update:
+    label: Update project
+    desc: Updates project dependencies withing constraints.
+    prompt: |
+      This command can break website. Do it independently without any other 
+      active changes. Make sure you have a backup.
+      Never run it on production.
+    cmds:
+      - task: composer
+        vars: { CLI_ARGS: 'update -W' }
+      - task: drush
+        vars: { CLI_ARGS: 'updatedb -y' }
+      - task: drush
+        vars: { CLI_ARGS: 'config:export -y'}
+      - task: yarn
+        vars: { CLI_ARGS: 'upgrade' }
