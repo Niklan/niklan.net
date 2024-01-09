@@ -3,6 +3,7 @@ version: '3'
 env:
   PHP_BIN: '{{.PHP_BIN | default "$(which php)"}}'
   COMPOSER_BIN: '{{.COMPOSER_BIN | default "$(which composer)"}}'
+  NODE_BIN: '{{.NODE_BIN | default "$(which node)"}}'
   YARN_BIN: '{{.YARN_BIN | default "$(which yarn)"}}'
 
 vars:
@@ -65,6 +66,21 @@ tasks:
     label: yarn
     desc: Runs 'yarn' command.
     cmd: '{{.YARN_BIN}} {{.CLI_ARGS}}'
+
+  eslint:
+    label: ESLint
+    desc: Runs 'eslint' command.
+    cmd: '{{.NODE_BIN}} {{.NODEJS_BIN_DIR}}/eslint {{.CLI_ARGS}}'
+
+  stylelint:
+    label: Stylelint
+    desc: Runs 'stylelint' command.
+    cmd: '{{.NODE_BIN}} {{.NODEJS_BIN_DIR}}/stylelint {{.CLI_ARGS}}'
+
+  cspell:
+    label: CSPell
+    desc: Runs 'cspell' command.
+    cmd: '{{.NODE_BIN}} {{.NODEJS_BIN_DIR}}/cspell {{.CLI_ARGS}}'
 
   install:
     desc: Install website.
@@ -134,8 +150,8 @@ tasks:
     aliases:
       - 'jslint'
     cmds:
-      - task: yarn
-        vars: { CLI_ARGS: 'lint:js' }
+      - task: eslint
+        vars: { CLI_ARGS: '-c {{.CONFIG_DIR}}/.eslintrc.json --ext .js . {{.CLI_ARGS}}' }
 
   validate/css:
     label: CSS linter
@@ -143,8 +159,8 @@ tasks:
     aliases:
       - 'csslint'
     cmds:
-      - task: yarn
-        vars: { CLI_ARGS: 'lint:css' }
+      - task: stylelint
+        vars: { CLI_ARGS: '-c {{.CONFIG_DIR}}/.stylelintrc.json **/*.css {{.CLI_ARGS}}' }
 
   validate/yml:
     label: YML linter
@@ -153,17 +169,17 @@ tasks:
       - 'ymllint'
       - 'yamllint'
     cmds:
-      - task: yarn
-        vars: { CLI_ARGS: 'lint:yml' }
+      - task: eslint
+        vars: { CLI_ARGS: '-c {{.CONFIG_DIR}}/.eslintrc.json --ext .yml --ext .yaml . {{.CLI_ARGS}}' }
 
   validate/spellcheck:
     label: Spellcheck
     desc: Checks for common spelling issues.
     aliases:
-      - 'cspell'
+      - 'spellcheck'
     cmds:
-      - task: yarn
-        vars: { CLI_ARGS: 'spellcheck {{.CLI_ARGS}}' }
+      - task: cspell
+        vars: { CLI_ARGS: '--config {{.CONFIG_DIR}}/.cspell.json --no-progress "**" {{.CLI_ARGS}}' }
 
   fix:
     label: Fixing found issues
@@ -184,15 +200,15 @@ tasks:
     label: JavaScript
     desc: Fix JavaScript issues.
     cmds:
-      - task: yarn
-        vars: { CLI_ARGS: 'lint:js --fix' }
+      - task: validate/js
+        vars: { CLI_ARGS: '--fix' }
 
   fix/css:
     label: CSS
     desc: Fix CSS issues.
     cmds:
-      - task: yarn
-        vars: { CLI_ARGS: 'lint:css --fix' }
+      - task: validate/css
+        vars: { CLI_ARGS: '--fix' }
 
   fix/yml:
     label: Y(A)ML
@@ -200,8 +216,8 @@ tasks:
     aliases:
       - 'fix/yaml'
     cmds:
-      - task: yarn
-        vars: { CLI_ARGS: 'lint:yml --fix' }
+      - task: validate/yml
+        vars: { CLI_ARGS: '--fix' }
 
   test:
     label: Tests
@@ -261,6 +277,13 @@ tasks:
       - task: drush
         vars: { CLI_ARGS: 'updatedb -y' }
       - task: drush
-        vars: { CLI_ARGS: 'config:export -y'}
+        vars: { CLI_ARGS: 'config:export -y' }
       - task: yarn
         vars: { CLI_ARGS: 'upgrade' }
+
+  build-dictionary:
+    label: Builds dictionary
+    desc: Builds a project dictionary for CSPell.
+    cmds:
+      - task: cspell
+        vars: { CLI_ARGS: '--config {{.CONFIG_DIR}}/.cspell.json --words-only --unique "**" | sort -f > {{.CONFIG_DIR}}/cspell/dictionary.txt' }
