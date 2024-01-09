@@ -59,6 +59,7 @@
         "drupal/core-dev": "~10.2.0",
         "mglaman/drupal-check": "^1.3",
         "niklan/content_export": "^1.0@dev",
+        "php-parallel-lint/php-parallel-lint": "^1.3",
         "phpspec/prophecy-phpunit": "^2.0"
     },
     "conflict": {
@@ -122,13 +123,5 @@
             "web/themes/custom/{$name}": ["type:drupal-custom-theme"],
             "web/profiles/custom/{$name}": ["type:drupal-custom-profile"]
         }
-    },
-    "scripts": {
-        "phpcs": "vendor/bin/phpcs -ps --standard=config/phpcs.xml",
-        "phpcbf": "vendor/bin/phpcbf -p --standard=config/phpcs.xml",
-        "phpstan": "vendor/bin/phpstan analyze --configuration=config/phpstan.neon",
-        "phpunit": "vendor/bin/phpunit --configuration=$(pwd)/config/phpunit.xml",
-        "phpunit-coverage": "vendor/bin/phpunit --configuration=$(pwd)/config/phpunit.xml --coverage-text",
-        "locale-import": "vendor/bin/drush locale:import --type=customized --override=all ru ../assets/translation/ru.po"
     }
 }

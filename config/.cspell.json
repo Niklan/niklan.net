@@ -27,6 +27,7 @@
     "**/*.sql",
     "**/*/composer.json",
     "**/*/composer.lock",
-    "../LICENSE"
+    "../LICENSE",
+    "../Taskfile.yml"
   ]
 }

@@ -18,7 +18,6 @@ Rcmjg
 sfmono
 sqlpassword
 sqlusername
-stylelintrc
 teck
 testdox
 Tinkoff
