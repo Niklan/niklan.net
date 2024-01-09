@@ -8,9 +8,10 @@
 }
 
 .comment-full__created {
-  font-size: var(--font-size-xs);
-  margin-left: var(--spacing-xxs);
   --link-color: var(--color-gray-web);
+
+  margin-left: var(--spacing-xxs);
+  font-size: var(--font-size-xs);
 }
 
 .comment-full__content {
@@ -18,10 +19,11 @@
 }
 
 .comment-full__footer .links {
+  --link-color: var(--color-roman-silver);
+
   display: flex;
   align-items: center;
   text-transform: lowercase;
-  --link-color: var(--color-roman-silver);
 }
 
 .comment-full__footer .links__item:not(:first-child) {

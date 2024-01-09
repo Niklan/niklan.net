@@ -41,7 +41,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install ${{ env.COMPOSER_FLAGS }}
 
-      - name: PHPCS Analyse
+      - name: PHPCS Analyze
         run: composer phpcs
 
   # PHPStan checks.
@@ -63,7 +63,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install ${{ env.COMPOSER_FLAGS }}
 
-      - name: PHPCS Analyse
+      - name: PHPCS Analyze
         run: composer phpcs
 
   # PHPUnit tests.

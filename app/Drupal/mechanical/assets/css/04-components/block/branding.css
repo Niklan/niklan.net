@@ -30,12 +30,13 @@
 }
 
 .branding__name {
+  --focus-box-shadow: none;
+  --link-color: var(--heading-color);
+
+  display: block;
   font-size: var(--font-size-h4);
   font-weight: bold;
   line-height: 1;
-  display: block;
-  --focus-box-shadow: none;
-  --link-color: var(--heading-color);
 }
 
 .branding__name:focus {

@@ -1,7 +1,7 @@
 .share__title {
-  font-weight: bold;
   margin-bottom: var(--spacing-sm);
   color: var(--heading-color);
+  font-weight: bold;
 }
 
 .share__links {
@@ -42,7 +42,7 @@
 }
 
 .share__link--telegram {
-  background-color: #0088cc;
+  background-color: #08c;
   background-image: url('../../../icons/FFFFFF/telegram.svg');
 }
 

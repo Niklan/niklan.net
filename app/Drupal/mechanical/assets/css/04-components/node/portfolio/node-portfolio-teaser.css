@@ -4,8 +4,9 @@
 }
 
 .node-portfolio-teaser__title {
-  font-weight: bold;
   --link-color: var(--heading-color);
+
+  font-weight: bold;
 }
 
 .node-portfolio-teaser .node-portfolio-field-date {

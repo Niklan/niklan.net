@@ -25,9 +25,9 @@
 }
 
 .messages .messages__title {
-  font-size: var(--font-size-base);
   margin-left: var(--spacing-lg);
   color: white;
+  font-size: var(--font-size-base);
 }
 
 .messages__content {

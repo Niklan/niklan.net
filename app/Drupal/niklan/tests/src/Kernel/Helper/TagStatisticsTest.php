@@ -77,7 +77,7 @@ final class TagStatisticsTest extends NiklanTestBase {
   }
 
   /**
-   * Tests that limitration works as expected.
+   * Tests that limitation works as expected.
    */
   public function testLimitedStatistics(): void {
     $tag_a = Term::create(['vid' => 'tags', 'name' => 'Tag A']);

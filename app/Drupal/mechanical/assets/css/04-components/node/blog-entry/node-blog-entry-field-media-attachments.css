@@ -1,6 +1,6 @@
 .node-blog-entry-field-media-attachments__label {
-  font-size: var(--font-size-h4);
-  font-weight: bold;
   margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-h4);
+  font-weight: bold;
 }

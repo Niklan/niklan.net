@@ -1,14 +1,15 @@
 .paragraph-code {
-  margin: var(--p-margin--y) 0;
   --border-color: var(--color-border);
+
+  margin: var(--p-margin--y) 0;
 }
 
 .paragraph-code .paragraph-code-field-title {
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+  word-break: break-word;
   font-family: var(--font-monospace);
   font-size: var(--font-size-xs);
   font-weight: bold;
   font-style: italic;
-  display: inline-block;
-  margin-bottom: var(--spacing-xs);
-  word-break: break-word;
 }

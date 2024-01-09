@@ -1,0 +1,33 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "import": [
+    "../web/core/.cspell.json"
+  ],
+  "dictionaries": [
+    "project",
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "project",
+      "path": "./cspell/dictionary.txt",
+      "addWords": true
+    }
+  ],
+  "ignorePaths": [
+    "../assets/vendor/**",
+    "../assets/patch/**",
+    "../assets/translation/**",
+    "../config/cspell/**",
+    "../config/sync/**",
+    "../web/**",
+    "../private/**",
+    "../vendor/**",
+    "node_modules",
+    "**/*.sql",
+    "**/*/composer.json",
+    "**/*/composer.lock",
+    "../LICENSE",
+    "../Taskfile.yml"
+  ]
+}

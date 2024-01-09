@@ -6,6 +6,6 @@
 }
 
 .block--toc .block__title {
-  font-weight: bold;
   margin-bottom: var(--spacing-md);
+  font-weight: bold;
 }

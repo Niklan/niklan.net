@@ -57,8 +57,8 @@ Configuration plugins is a starting point for all external content.
 
 ```mermaid
 graph TB
-    ConfigurationPluginManager --> |Looking for external contet configurations| MODULE.external_content.yml
-    -->|Holds basic configuration infromation, including ID and working dir.| Configuration
+    ConfigurationPluginManager --> |Looking for external content configurations| MODULE.external_content.yml
+    -->|Holds basic configuration information, including ID and working dir.| Configuration
 ```
 
 ### Markup Plugins
@@ -97,8 +97,8 @@ loader and can be called not at the same process as finders.
 ```mermaid
 graph TB
   subgraph Configure Plugins
-    ConfigurationPluginManager --> |Looking for external contet cnfigurations| MODULE.external_content.yml
-    -->|Holds basic configuration infromation, including ID and working dir.| Configuration
+    ConfigurationPluginManager --> |Looking for external content configurations| MODULE.external_content.yml
+    -->|Holds basic configuration information, including ID and working dir.| Configuration
   end
 
   subgraph External Content Finder Group[ExternalContentFinder]

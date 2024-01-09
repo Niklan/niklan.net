@@ -1,9 +1,9 @@
 :root {
-  --follow-popup-backgroud: var(--color-white);
+  --follow-popup-background: var(--color-white);
 }
 
 [data-theme="dark"] {
-  --follow-popup-backgroud: var(--color-gunmetal);
+  --follow-popup-background: var(--color-gunmetal);
 }
 
 .follow {
@@ -13,8 +13,8 @@
 
 .follow-actions {
   display: grid;
-  grid-gap: var(--spacing-xs);
   grid-template-columns: repeat(5, 1fr);
+  grid-gap: var(--spacing-xs);
 }
 
 .follow__action {
@@ -31,12 +31,12 @@
 }
 
 .follow__action--telegram {
-  --background-color: #0088cc;
+  --background-color: #08c;
   --icon: url('../../../icons/FFFFFF/telegram.svg');
 }
 
 .follow__action--youtube {
-  --background-color: #FF0000;
+  --background-color: #F00;
   --icon: url('../../../icons/FFFFFF/youtube.svg');
 }
 

@@ -3,8 +3,8 @@
  */
 
 .breadcrumb {
-  font-size: var(--font-size-sm);
   display: flex;
+  font-size: var(--font-size-sm);
 }
 
 .breadcrumb__path {
