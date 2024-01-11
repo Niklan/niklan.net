@@ -16,6 +16,9 @@ jobs:
   production:
     name: Production
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://niklan.net
     if: github.ref == 'refs/heads/production'
     steps:
       - name: Create SSH key
