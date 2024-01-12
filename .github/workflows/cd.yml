@@ -1,9 +1,7 @@
-name: Continuous Integration
+name: CD
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ production ]
 
 env:
   SSH_KEY: ${{ secrets.ci_deploy_key }}
@@ -11,19 +9,17 @@ env:
   SSH_HOST: ${{ secrets.ci_production_host }}
   # The root of an App. This where git root is.
   APP_ROOT: ${{ secrets.ci_app_root }}
-  # The App located inside project root. Mainly the product root is the folder
-  # with docker-compose.yml.
-  PROJECT_ROOT: ${{ secrets.ci_project_root }}
   COMPOSER_BIN: docker compose exec -T php composer
   DRUSH_BIN: docker compose exec -T php drush
-  DRUSH_URI: https://niklan.net
 
 jobs:
-  deploy:
+  production:
+    name: Production
     runs-on: ubuntu-latest
     environment:
       name: production
       url: https://niklan.net
+    if: github.ref == 'refs/heads/production'
     steps:
       - name: Create SSH key
         run: |
@@ -37,6 +33,7 @@ jobs:
             IdentityFile ~/.ssh/id_rsa
             StrictHostKeyChecking no
           END
+
       - name: Pull changes
         shell: bash
         run: |
