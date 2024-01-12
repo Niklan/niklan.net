@@ -1,7 +1,7 @@
 .main-layout {
   display: grid;
-  min-height: 100vh;
-  grid-template-columns: 1fr
+  grid-template-columns: 1fr;
+  min-height: 100vh
 }
 
 @media (min-width: 992px) {

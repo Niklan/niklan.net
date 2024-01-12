@@ -17,6 +17,7 @@ a {
 }
 
 a:hover {
-  text-decoration: none;
   --link-color: var(--link-color--hover);
+
+  text-decoration: none;
 }

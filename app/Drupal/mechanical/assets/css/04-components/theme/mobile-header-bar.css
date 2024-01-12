@@ -1,8 +1,9 @@
 .mobile-header-bar {
+  --menu-icon: url('../../../icons/000000/menu.svg');
+
   display: flex;
   align-items: center;
   height: 60px;
-  --menu-icon: url('../../../icons/000000/menu.svg');
 }
 
 [data-theme="dark"] .mobile-header-bar {
@@ -20,9 +21,10 @@
 }
 
 .mobile-header-bar__name {
+  --link-color: var(--text-color);
+
   font-size: var(--font-size-h5);
   font-weight: bold;
-  --link-color: var(--text-color);
 }
 
 .mobile-header-bar__menu-button {

@@ -20,6 +20,6 @@
 }
 
 .copyright__name-and-date {
-  font-size: var(--font-size-xs);
   margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
 }

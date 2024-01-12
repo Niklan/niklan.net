@@ -15,9 +15,9 @@
 }
 
 blockquote {
-  font-size: var(--blockquote-font-size);
   margin: var(--blockquote-margins);
   padding: var(--blockquote-paddings);
   border-left: var(--blockquote-border-size) solid var(--blockquote-border-color);
   background: var(--blockquote-background);
+  font-size: var(--blockquote-font-size);
 }

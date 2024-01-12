@@ -4,26 +4,26 @@
 .local-tasks {
   position: relative;
   display: flex;
-  align-items: center;
   flex-flow: wrap;
+  align-items: center;
   margin: unset;
   padding: unset;
   list-style: none;
 }
 
 .local-tasks__link {
-  font-weight: bold;
-  line-height: 1.2rem;
   position: relative;
   display: flex;
   overflow: hidden;
-  align-items: center;
   flex-grow: 1;
+  align-items: center;
   min-height: 3rem;
   padding: var(--spacing-sm) var(--spacing-lg);
   text-decoration: none;
   color: var(--color-dark-silver);
   border-radius: var(--radius-xxs) var(--radius-xxs) 0 0;
+  font-weight: bold;
+  line-height: 1.2rem;
 }
 
 .local-tasks__link:hover {

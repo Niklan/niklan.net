@@ -1,7 +1,7 @@
 .tags-page {
   display: grid;
-  grid-gap: var(--spacing-md);
-  grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: var(--spacing-md)
 }
 
 @media (min-width: 576px) {

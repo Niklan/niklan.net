@@ -4,18 +4,17 @@
  *
  * @todo fix or remove.
  */
-
-(function (Drupal) {
+((Drupal) => {
 
   Drupal.behaviors.paragraphCodeHighlightLines = {
-    attach: function (context, settings) {
-      let codeParagraphs = document.querySelectorAll('.paragraph-code:not(.paragraph-code--lines-highlighted)');
+    attach () {
+      const codeParagraphs = document.querySelectorAll('.paragraph-code:not(.paragraph-code--lines-highlighted)');
 
       if (codeParagraphs.length) {
         codeParagraphs.forEach(paragraph => {
           if (paragraph.getAttribute('data-highlighted-lines').length) {
-            let linesArray = this.parseLines(paragraph.getAttribute('data-highlighted-lines'));
-            let linesTotal = this.parseLinesTotal(paragraph);
+            const linesArray = this.parseLines(paragraph.getAttribute('data-highlighted-lines'));
+            const linesTotal = this.parseLinesTotal(paragraph);
             this.addHighlightElements(paragraph, linesArray, linesTotal);
           }
 
@@ -29,24 +28,24 @@
      *
      * Handle range of lines to be correctly parsed.
      */
-    parseLines: function (lines) {
-      let linesArray = lines.split(',');
-      let linesArrayNew = [];
+    parseLines (lines) {
+      const linesArray = lines.split(',');
+      const linesArrayNew = [];
 
       linesArray.forEach(item => {
-        let linesRange = item.split(':');
+        const linesRange = item.split(':');
 
         if (linesRange.length === 2) {
-          let lineStart = parseInt(linesRange[0]);
-          let lineEnd = parseInt(linesRange[1]);
+          const lineStart = parseInt(linesRange[0], 10);
+          const lineEnd = parseInt(linesRange[1], 10);
           let i;
 
           for (i = lineStart; i <= lineEnd; i++) {
-            linesArrayNew.push(parseInt(i));
+            linesArrayNew.push(parseInt(i, 10));
           }
         }
         else {
-          linesArrayNew.push(parseInt(item));
+          linesArrayNew.push(parseInt(item, 10));
         }
       });
 
@@ -56,23 +55,23 @@
     /**
      * Parser total lines in element.
      */
-    parseLinesTotal: function (paragraph) {
-      let codeElement = paragraph.querySelector('pre code');
-      let codeElementStyles = window.getComputedStyle(codeElement);
-      let codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
-      let codeElementPaddingBottom = parseFloat(codeElementStyles.getPropertyValue('padding-bottom'));
-      let codeElementHeight = parseFloat(codeElementStyles.getPropertyValue('height'));
-      let codeElementContentHeight = codeElementHeight - codeElementPaddingTop - codeElementPaddingBottom;
-      let codeLineHeight = this.getLineHeight(codeElement);
+    parseLinesTotal (paragraph) {
+      const codeElement = paragraph.querySelector('pre code');
+      const codeElementStyles = window.getComputedStyle(codeElement);
+      const codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
+      const codeElementPaddingBottom = parseFloat(codeElementStyles.getPropertyValue('padding-bottom'));
+      const codeElementHeight = parseFloat(codeElementStyles.getPropertyValue('height'));
+      const codeElementContentHeight = codeElementHeight - codeElementPaddingTop - codeElementPaddingBottom;
+      const codeLineHeight = this.getLineHeight(codeElement);
 
-      return parseInt(codeElementContentHeight / codeLineHeight);
+      return parseInt(codeElementContentHeight / codeLineHeight, 10);
     },
 
     /**
      * Gets line height.
      */
-    getLineHeight: function (element) {
-      let elementStyles = window.getComputedStyle(element);
+    getLineHeight (element) {
+      const elementStyles = window.getComputedStyle(element);
 
       return parseFloat(elementStyles.getPropertyValue('line-height'));
     },
@@ -80,20 +79,20 @@
     /**
      * Add elements for highlighting lines.
      */
-    addHighlightElements: function (paragraph, linesToHighlight, linesTotal) {
-      let codeElement = paragraph.querySelector('pre code');
-      let codeElementStyles = window.getComputedStyle(codeElement);
-      let codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
-      let codeLineHeight = this.getLineHeight(codeElement);
+    addHighlightElements (paragraph, linesToHighlight, linesTotal) {
+      const codeElement = paragraph.querySelector('pre code');
+      const codeElementStyles = window.getComputedStyle(codeElement);
+      const codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
+      const codeLineHeight = this.getLineHeight(codeElement);
 
-      let highlightElement = document.createElement('div');
+      const highlightElement = document.createElement('div');
       highlightElement.classList.add('paragraph-code__highlight-line');
-      highlightElement.style.height = codeLineHeight + 'px';
+      highlightElement.style.height = `${codeLineHeight  }px`;
 
       linesToHighlight.forEach(lineNumber => {
         if (lineNumber <= linesTotal) {
-          let lineHighlightElement = highlightElement.cloneNode();
-          lineHighlightElement.style.top = ((codeLineHeight * (lineNumber - 1)) + codeElementPaddingTop) + 'px';
+          const lineHighlightElement = highlightElement.cloneNode();
+          lineHighlightElement.style.top = `${(codeLineHeight * (lineNumber - 1)) + codeElementPaddingTop  }px`;
           codeElement.appendChild(lineHighlightElement);
         }
       });

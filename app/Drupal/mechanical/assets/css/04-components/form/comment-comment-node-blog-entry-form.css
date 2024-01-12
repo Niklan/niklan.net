@@ -6,8 +6,8 @@
 
 .comment-comment-node-blog-entry-form__info {
   display: grid;
-  grid-gap: var(--grid-gap);
-  grid-template-columns: 1fr
+  grid-template-columns: 1fr;
+  grid-gap: var(--grid-gap)
 }
 
 @media (min-width: 576px) {

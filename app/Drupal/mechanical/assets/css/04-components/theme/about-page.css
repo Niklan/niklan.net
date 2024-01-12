@@ -1,15 +1,11 @@
-.about-page {
-
-}
-
 .about-page__hire {
   width: 100%;
 }
 
 .about-welcome {
   display: grid;
-  grid-gap: var(--spacing-lg);
-  grid-template-columns: 1fr
+  grid-template-columns: 1fr;
+  grid-gap: var(--spacing-lg)
 }
 
 @media (min-width: 576px) {
@@ -31,8 +27,8 @@
 }
 
 .about-welcome__subtitle {
-  font-size: var(--font-size-h5);
   margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-h5);
 }
 
 .about-welcome__title {

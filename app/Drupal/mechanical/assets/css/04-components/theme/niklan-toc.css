@@ -6,9 +6,9 @@
 }
 
 .toc {
+  overflow-y: auto;
   font-size: var(--font-size-sm);
   line-height: 1.7;
-  overflow-y: auto;
 }
 
 .toc__menu {
@@ -26,14 +26,15 @@
 
 .toc__link:hover,
 .toc__link:focus {
+  --focus-box-shadow: none;
+
   text-decoration: none;
   color: var(--toc-link-hover-color);
-  --focus-box-shadow: none;
 }
 
 .toc__link--active {
-  font-weight: bold;
   color: var(--link-color);
+  font-weight: bold;
 }
 
 .toc__submenu {

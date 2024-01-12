@@ -22,8 +22,9 @@
 }
 
 .form-element {
-  font-size: var(--form-control-font-size);
-  line-height: var(--form-control-line-height);
+  --form-control-padding: calc(var(--form-control-padding--y) - var(--form-control-border--width)) calc(var(--form-control-padding--x) - var(--form-control-border--width));
+  --form-control-border: var(--form-control-border--width) var(--form-control-border--style) var(--form-control-border--color);
+
   display: inline-block;
   max-width: 100%;
   padding: var(--form-control-padding);
@@ -33,8 +34,8 @@
   border-radius: var(--form-control-border-radius);
   background-color: var(--form-control-background);
   box-shadow: var(--form-control-box-shadow);
-  --form-control-padding: calc(var(--form-control-padding--y) - var(--form-control-border--width)) calc(var(--form-control-padding--x) - var(--form-control-border--width));
-  --form-control-border: var(--form-control-border--width) var(--form-control-border--style) var(--form-control-border--color);
+  font-size: var(--form-control-font-size);
+  line-height: var(--form-control-line-height);
   appearance: none;
 }
 
@@ -56,10 +57,11 @@
 }
 
 .form-element:disabled {
-  cursor: not-allowed;
   --form-control-background: var(--form-control-background--disabled);
   --form-control-border--color: var(--color-light-gray);
   --form-control-box-shadow: unset;
+
+  cursor: not-allowed;
 }
 
 /**

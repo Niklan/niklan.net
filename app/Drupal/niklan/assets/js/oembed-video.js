@@ -2,7 +2,7 @@
  * @file
  * Provides code for oembed optimizations.
  */
-(function (Drupal, once) {
+((Drupal, once) => {
 
   /**
    * Replaces preview element with real content.
@@ -36,4 +36,3 @@
   }
 
 })(Drupal, once);
-

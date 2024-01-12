@@ -1,0 +1,47 @@
+name: 'Setup environment'
+description: 'Setups environment for validation tasks.'
+
+inputs:
+  php-version:
+    description: 'PHP version to install'
+    required: true
+    default: '8.2'
+
+  php-extensions:
+    description: 'PHP extensions to enable'
+    required: true
+    default: 'intl, zip, intl, zip, date, dom, filter, gd, hash, json, pcre, session, simplexml, spl, tokenizer, xml'
+
+  node-version:
+    description: 'Node.js version to install'
+    required: true
+    default: '>=18.16'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Task installation
+      uses: arduino/setup-task@v1
+      with:
+        version: 3.x
+
+    - name: PHP installation
+      uses: shivammathur/setup-php@v2
+      with:
+        coverage: none
+        extensions: ${{ inputs.php-extensions }}
+        ini-values: memory_limit=-1
+        php-version: ${{ inputs.php-version }}
+
+    - name: PHP dependencies installation
+      shell: bash
+      run: composer install --ansi --no-interaction --no-progress --prefer-dist
+
+    - name: Node.js installation
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Node.js dependencies installation
+      shell: bash
+      run: yarn install

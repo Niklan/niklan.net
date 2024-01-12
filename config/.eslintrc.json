@@ -1,0 +1,20 @@
+{
+  "extends": "./../web/core/.eslintrc.json",
+  "root": true,
+  "ignorePatterns": [
+    "assets/vendor/**/*",
+    "config/sync/**/*",
+    "web/**/*",
+    "vendor/**/*"
+  ],
+  "globals": {
+    "App": true,
+    "Prism": true,
+    "DarkMode": true
+  },
+  "rules": {
+    "prettier/prettier": "off",
+    "valid-jsdoc": "off",
+    "no-console": ["error", {"allow": ["warn", "error"]}]
+  }
+}

@@ -12,8 +12,9 @@
 }
 
 .sidebar-search-form__input {
-  padding-left: 48px;
   --form-control-border-radius: var(--radius-xs);
+
+  padding-left: 48px;
 }
 
 .sidebar-search-form__submit,
@@ -23,6 +24,7 @@
   --button-box-shadow: none;
   --button-border: unset;
   --button-border-radius: var(--radius-sm);
+
   height: 100%;
 }
 
