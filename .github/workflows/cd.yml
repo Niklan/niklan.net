@@ -9,6 +9,9 @@ env:
   SSH_HOST: ${{ secrets.ci_production_host }}
   # The root of an App. This where git root is.
   APP_ROOT: ${{ secrets.ci_app_root }}
+  # The App located inside project root. Mainly the product root is the folder
+  # with docker-compose.yml.
+  PROJECT_ROOT: ${{ secrets.ci_project_root }}
   COMPOSER_BIN: docker compose exec -T php composer
   DRUSH_BIN: docker compose exec -T php drush
 
