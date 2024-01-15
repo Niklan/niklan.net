@@ -2,6 +2,8 @@ name: CD
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ production ]
 
 env:
   SSH_KEY: ${{ secrets.ci_deploy_key }}
@@ -22,7 +24,6 @@ jobs:
     environment:
       name: production
       url: https://niklan.net
-    if: github.ref == 'refs/heads/production'
     steps:
       - name: Create SSH key
         run: |
