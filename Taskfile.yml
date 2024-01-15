@@ -287,3 +287,10 @@ tasks:
     cmds:
       - task: cspell
         vars: { CLI_ARGS: '--config {{.CONFIG_DIR}}/.cspell.json --words-only --unique "**" | sort -f > {{.CONFIG_DIR}}/cspell/dictionary.txt' }
+
+  import-translations:
+    label: Import translations
+    desc: Imports custom project-specific translations.
+    cmds:
+      - task: drush
+        vars: { CLI_ARGS: 'locale:import --type=customized --override=all ru {{.TASKFILE_DIR}}/assets/translation/ru.po' }
