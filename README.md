@@ -12,7 +12,7 @@ This is a repository with a source code of <https://niklan.net> website.
 
 ## System requirements
 
-- PHP 8.1+
+- PHP 8.3+
 - [Drupal's system requirements](https://www.drupal.org/docs/system-requirements) for the rest not mentioned above.
 
 ## Installation
