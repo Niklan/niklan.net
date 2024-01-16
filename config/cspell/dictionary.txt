@@ -1,14 +1,13 @@
 allowtransparency
 atrule
 bazz
-databasefilename
 Druki
 druki
 flexboxes
 Glisseo
 glisseo
 isabelline
-mailhog
+MAILHUB
 Niklan
 niklan
 opsz
@@ -16,8 +15,7 @@ photoswipe
 prismjs
 Rcmjg
 sfmono
-sqlpassword
-sqlusername
+SSMTP
 teck
 testdox
 Tinkoff
