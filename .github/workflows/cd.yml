@@ -2,6 +2,8 @@ name: CD
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ production ]
 
 env:
   SSH_KEY: ${{ secrets.ci_deploy_key }}
@@ -14,6 +16,7 @@ env:
   PROJECT_ROOT: ${{ secrets.ci_project_root }}
   COMPOSER_BIN: docker compose exec -T php composer
   DRUSH_BIN: docker compose exec -T php drush
+  TASK_BIN: docker compose exec -T php task
 
 jobs:
   production:
@@ -22,7 +25,6 @@ jobs:
     environment:
       name: production
       url: https://niklan.net
-    if: github.ref == 'refs/heads/production'
     steps:
       - name: Create SSH key
         run: |
@@ -53,4 +55,4 @@ jobs:
         run: ssh production "cd $PROJECT_ROOT && docker compose exec -T php pkill -USR2 php-fpm"
 
       - name: Import custom translations
-        run: ssh production "cd $PROJECT_ROOT && $COMPOSER_BIN locale-import"
+        run: ssh production "cd $PROJECT_ROOT && $TASK_BIN import-translations"

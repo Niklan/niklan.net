@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a890d1b38160d0d1450e1efba5a6349",
+    "content-hash": "cda50dc3213b3d4fe0b2685718437926",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4410,15 +4410,9 @@
             "dist": {
                 "type": "path",
                 "url": "app/Drupal/external_content",
-                "reference": "c3d10713cf7667197d9a39dcaa25ef984cd3f167"
-            },
-            "require": {
-                "league/config": "^1.2"
+                "reference": "dbc849667781cc80dcea757c83c1c4a90740a68c"
             },
             "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
             "transport-options": {
                 "relative": true
             }
@@ -13935,8 +13929,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2",
-        "ext-dom": "*"
+        "php": ">=8.3"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
