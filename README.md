@@ -1,96 +1,86 @@
 # Niklan.net
 
-<img src="./web/themes/custom/mechanical/logo.svg" alt="Niklan.net" width="128" align="right">
+<img src="./app/Drupal/mechanical/logo.svg" alt="Niklan.net" width="128" align="right">
 
-[![Quality Tools](https://github.com/Niklan/niklan.net/actions/workflows/quality-tools.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/quality-tools.yml)
+[![CI](https://github.com/Niklan/niklan.net/actions/workflows/ci.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/ci.yml)
+[![CD](https://github.com/Niklan/niklan.net/actions/workflows/cd.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/cd.yml)
 [![Code coverage](https://codecov.io/gh/Niklan/niklan.net/branch/develop/graph/badge.svg)](https://codecov.io/gh/Niklan/niklan.net/)
 
 This is a repository with a source code of <https://niklan.net> website.
 
-> **WARNING!**\
-> It's not intended to be used other than for educational purposes. Backward compatibility and support is not provided. If you want something to ask me about that code, you can [contact me](https://niklan.net/contact) directly.
+> [!WARNING]
+> It's not intended to be used other than for educational purposes. Backward 
+> compatibility and support is not provided. If you want something to ask me 
+> about that code, you can [contact me](https://niklan.net/contact) directly.
 
-## System requirements
+## 💿 System requirements
 
+- [Drupal's system requirements][drupal-system-requirements] if not mentioned 
+  below.
 - PHP 8.3+
-- [Drupal's system requirements](https://www.drupal.org/docs/system-requirements) for the rest not mentioned above.
+- (optional) [Task] for simplify things with [Taskfile.yml].
+- (optional) Yarn for running additional Quality Checks.
 
-## Installation
+## 🖱️ Installation
 
 - Clone repository
   ```shell
   git clone https://github.com/Niklan/niklan.net.git
   ```
-- Install PHP dependencies
+- Install website
   ```shell
-  composer install
+  task install
   ```
-- Create custom `settings.local.php` and adjust settings if needed
-  ```shell
-  cp web/sites/default/example.settings.local.php web/sites/default/settings.local.php
-  ```
-- Open your local domain, e.g.: https://niklan.localhost
-- Follow installation instructions.
 - Make a cup of ☕ or 🍵 and wait until the installation is finished.
+- Open your local domain, e.g.: https://example.localhost
 
-## Quality tools
+## 🧬 Quality Tools
 
-The project uses PHPCS and PHPStan for checkin quality of the code and code-style.
+The project has multiple quality tools used for CI. You can run all of them 
+with:
 
-### PHPCS
-
-PHPCS is configured in [phpcs.xml](phpcs.xml). It uses Drupal PHPCS rules with additional one from [chi-teck/drupal-coder-extension](https://github.com/Chi-teck/drupal-coder-extension) package for modern PHP syntax improvements.
-
-Copy PHPCS settings:
-
-```shell
-cp phpcs.xml.dist phpcs.xml
+```bash
+task validate
 ```
 
-**Run PHPCS:**
+Many of issues can be fixed automatically, for that, just run:
 
-```shell
-composer phpcs
+```bash
+task fix
 ```
 
-### PHPStan
+If you want to run a specific validation or fix, use dedicated tasks, like
+`task validate/phpcs`. Check [Taskfile.yml] or run `task` to find all available
+option.
 
-![PHPStan level](https://img.shields.io/badge/PHPStan-level%205-brightgreen.svg?style=flat)
+## 🧪 Testing
 
-PHPStan is configured in [phpstan.neon](phpstan.neon). It uses [mglaman/phpstan-drupal](https://github.com/mglaman/phpstan-drupal) on top of default ones.
+If you want to run test suites all at once, you can use:
 
-Copy PHPStan settings:
-
-```shell
-cp phpstan.neon.dist phpstan.neon
+```bash
+task test
 ```
 
-**Run PHPStan:**
+You can also run individual test suites like `task test/unit`, or bypass a 
+custom command by:
 
-```shell
-composer phpstan
+```bash
+task phpunit -- --filter FooBarTest
 ```
 
-### PHPUnit
+## 🪤 Contribution
 
-PHPUnit is used for unit-testing of the project.
+This is a personal project, I'm not expects any contributions to it. You can 
+send Pull Request with typo fixes and maybe other improvements, but don't expect
+them to be merged. You better not to do that.
 
-Copy settings for PHPUnit and adjust if needed:
+## 📬 Feedback
 
-```shell
-cp phpunit.xml.dist phpunit.xml
-```
+If you want to ask me something about this project, or it's code-base, feel free
+to [contact me][contact-form].
 
-**Run PHPUnit:**
-
-```shell
-composer phpunit
-```
-
-## Contribution
-
-This is a personal project, it's not expects any contributions to it. You can send Pull Request with typo fixes and maybe other improvements, but don't expect them to be merged. You better do not do that.
-
-## Feedback
-
-If you want to ask me something about this project, or it's code-base, feel free to [contact me](https://niklan.net/contact).
+[Task]: https://taskfile.dev/
+[Taskfile.yml]: ./Taskfile.yml
+[Yarn]: https://yarnpkg.com/
+[drupal-system-requirements]: https://www.drupal.org/docs/system-requirements
+[contact-form]: https://niklan.net/contact

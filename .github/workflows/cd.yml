@@ -3,7 +3,8 @@ name: CD
 on:
   workflow_dispatch:
   push:
-    branches: [ production ]
+    branches:
+      - production
 
 env:
   SSH_KEY: ${{ secrets.ci_deploy_key }}
