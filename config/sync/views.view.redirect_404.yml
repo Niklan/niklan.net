@@ -17,11 +17,11 @@ base_field: ''
 display:
   default:
     id: default
-    display_title: Master
+    display_title: Основной
     display_plugin: default
     position: 0
     display_options:
-      title: 'Fix 404 pages'
+      title: 'Исправление 404 страниц'
       fields:
         path:
           id: path
@@ -33,7 +33,7 @@ display:
           entity_type: null
           entity_field: null
           plugin_id: standard
-          label: Path
+          label: Путь
           exclude: false
           alter:
             alter_text: false
@@ -82,7 +82,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: serialized
-          label: Count
+          label: Количество
           exclude: false
           alter:
             alter_text: false
@@ -184,7 +184,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: date
-          label: 'Last accessed'
+          label: 'Последний доступ'
           exclude: false
           alter:
             alter_text: false
@@ -236,7 +236,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: Language
+          label: Язык
           exclude: false
           alter:
             alter_text: false
@@ -285,7 +285,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: redirect_404_operations
-          label: Operations
+          label: Операции
           exclude: false
           alter:
             alter_text: false
@@ -338,22 +338,22 @@ display:
             previous: ‹‹
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
+            items_per_page_label: 'Элементов на страницу'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: '- Все -'
             offset: false
-            offset_label: Offset
+            offset_label: Пропустить
       exposed_form:
         type: basic
         options:
-          submit_button: Filter
+          submit_button: Фильтр
           reset_button: true
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          reset_button_label: Сбросить
+          exposed_sorts_label: 'Сортировать по'
           expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
+          sort_asc_label: 'По возрастанию'
+          sort_desc_label: 'По убыванию'
       access:
         type: perm
         options:
@@ -390,7 +390,7 @@ display:
           exposed: true
           expose:
             operator_id: path_op
-            label: Path
+            label: Путь
             description: ''
             use_operator: false
             operator: path_op
@@ -431,7 +431,7 @@ display:
           exposed: true
           expose:
             operator_id: langcode_op
-            label: Language
+            label: Язык
             description: ''
             use_operator: false
             operator: langcode_op
@@ -573,7 +573,7 @@ display:
       tags: {  }
   page_1:
     id: page_1
-    display_title: Page
+    display_title: Страница
     display_plugin: page
     position: 1
     display_options:
