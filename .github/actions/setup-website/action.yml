@@ -10,6 +10,7 @@ runs:
         mkdir -p ./web/sites/default
         cp ./.github/actions/setup-website/.env ./.env
         cp ./.github/actions/setup-website/docker-compose.yml ./docker-compose.yml
+        cp ./.github/actions/setup-website/php.dockerfile ./php.dockerfile
 
     - name: Build PHP container
       shell: bash
