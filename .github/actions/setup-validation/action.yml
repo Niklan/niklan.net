@@ -21,9 +21,8 @@ runs:
   using: "composite"
   steps:
     - name: Task installation
-      uses: arduino/setup-task@v1
-      with:
-        version: 3.x
+      shell: bash
+      run: sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
     - name: PHP installation
       uses: shivammathur/setup-php@v2
