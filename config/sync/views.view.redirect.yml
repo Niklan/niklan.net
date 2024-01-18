@@ -9,7 +9,7 @@ dependencies:
 _core:
   default_config_hash: CmEaMuCJ98kSh_yrKoFCxG628jM5_QIS9Nmb7cHFBc4
 id: redirect
-label: Redirect
+label: Переадресация
 module: views
 description: 'List of redirects'
 tag: ''
@@ -18,11 +18,11 @@ base_field: rid
 display:
   default:
     id: default
-    display_title: Master
+    display_title: Основной
     display_plugin: default
     position: 0
     display_options:
-      title: Redirect
+      title: Переадресация
       fields:
         redirect_source__path:
           id: redirect_source__path
@@ -34,7 +34,7 @@ display:
           entity_type: redirect
           entity_field: redirect_source
           plugin_id: field
-          label: From
+          label: От
           exclude: false
           alter:
             alter_text: false
@@ -183,23 +183,23 @@ display:
             last: 'последняя »'
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
+            items_per_page_label: 'Элементов на страницу'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: '- Все -'
             offset: false
-            offset_label: Offset
+            offset_label: Пропустить
           quantity: 9
       exposed_form:
         type: basic
         options:
-          submit_button: Filter
+          submit_button: Фильтр
           reset_button: true
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          reset_button_label: Сбросить
+          exposed_sorts_label: 'Сортировать по'
           expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
+          sort_asc_label: 'По возрастанию'
+          sort_desc_label: 'По убыванию'
       access:
         type: perm
         options:
@@ -217,7 +217,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: true
-          content: 'There is no redirect yet.'
+          content: 'Перенаправлений пока нет.'
           tokenize: false
       sorts: {  }
       arguments: {  }
@@ -238,7 +238,7 @@ display:
           exposed: true
           expose:
             operator_id: redirect_source__path_op
-            label: From
+            label: От
             description: ''
             use_operator: false
             operator: redirect_source__path_op
@@ -281,7 +281,7 @@ display:
           exposed: true
           expose:
             operator_id: redirect_redirect__uri_op
-            label: To
+            label: Кому
             description: ''
             use_operator: false
             operator: redirect_redirect__uri_op
@@ -327,7 +327,7 @@ display:
           exposed: true
           expose:
             operator_id: status_code_op
-            label: 'Status code'
+            label: 'Код состояния'
             description: ''
             use_operator: false
             operator: status_code_op
@@ -346,7 +346,7 @@ display:
             placeholder: ''
           is_grouped: true
           group_info:
-            label: 'Status code'
+            label: 'Код состояния'
             description: ''
             identifier: status_code
             optional: true
@@ -357,49 +357,49 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: '300 Multiple Choices'
+                title: '300 Множество Выборов'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '300'
               2:
-                title: '301 Moved Permanently'
+                title: '301 Перемещёно Окончательно'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '301'
               3:
-                title: '302 Found'
+                title: '302 Найдено'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '302'
               4:
-                title: '303 See Other'
+                title: '303 Смотреть Другое'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '303'
               5:
-                title: '304 Not Modified'
+                title: '304 Не Изменялось'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '304'
               6:
-                title: '305 Use Proxy'
+                title: '305 Использовать Прокси'
                 operator: '='
                 value:
                   min: ''
                   max: ''
                   value: '305'
               7:
-                title: '307 Temporary Redirect'
+                title: '307 - Временно перемещено'
                 operator: '='
                 value:
                   min: ''
@@ -421,7 +421,7 @@ display:
           exposed: true
           expose:
             operator_id: language_op
-            label: 'Original language'
+            label: 'Язык оригинала'
             description: ''
             use_operator: false
             operator: language_op
@@ -541,7 +541,7 @@ display:
       cacheable: false
   page_1:
     id: page_1
-    display_title: Page
+    display_title: Страница
     display_plugin: page
     position: 1
     display_options:

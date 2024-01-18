@@ -16,6 +16,7 @@ prismjs
 Rcmjg
 sfmono
 SSMTP
+Taskfile
 teck
 testdox
 Tinkoff

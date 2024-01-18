@@ -20,5 +20,6 @@ default_value:
     value: "```php\r\n\r\n```"
     format: markdown
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats: {  }
 field_type: text_long

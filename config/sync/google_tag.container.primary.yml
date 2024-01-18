@@ -1,5 +1,7 @@
+uuid: b5526f35-dc36-4675-b240-b0f48681fbb2
 langcode: ru
 status: true
+dependencies: {  }
 id: primary
 label: Primary
 weight: 0
@@ -36,3 +38,4 @@ status_toggle: 'exclude listed'
 status_list: |-
   403
   404
+conditions: {  }
