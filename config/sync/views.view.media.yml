@@ -11,7 +11,7 @@ dependencies:
 _core:
   default_config_hash: TFUfJMkC5E-HhafRL20wJK0EdtJotDtqb_9kJw2att4
 id: media
-label: Media
+label: Мультимедиа
 module: views
 description: ''
 tag: ''
@@ -20,11 +20,11 @@ base_field: mid
 display:
   default:
     id: default
-    display_title: Default
+    display_title: 'По умолчанию'
     display_plugin: default
     position: 0
     display_options:
-      title: Media
+      title: Мультимедиа
       fields:
         thumbnail__target_id:
           id: thumbnail__target_id
@@ -36,7 +36,7 @@ display:
           entity_type: media
           entity_field: thumbnail
           plugin_id: field
-          label: Thumbnail
+          label: Миниатюра
           exclude: false
           alter:
             alter_text: false
@@ -104,7 +104,7 @@ display:
           entity_type: media
           entity_field: media
           plugin_id: field
-          label: 'Media name'
+          label: 'Название медиа'
           exclude: false
           alter:
             alter_text: false
@@ -151,7 +151,7 @@ display:
           entity_type: media
           entity_field: bundle
           plugin_id: field
-          label: Type
+          label: Тип
           exclude: false
           alter:
             alter_text: false
@@ -216,7 +216,7 @@ display:
           entity_type: media
           entity_field: uid
           plugin_id: field
-          label: Author
+          label: Автор
           exclude: false
           alter:
             alter_text: false
@@ -281,7 +281,7 @@ display:
           entity_type: media
           entity_field: status
           plugin_id: field
-          label: Status
+          label: Статус
           exclude: false
           alter:
             alter_text: false
@@ -326,8 +326,8 @@ display:
           type: boolean
           settings:
             format: custom
-            format_custom_false: Unpublished
-            format_custom_true: Published
+            format_custom_false: 'Снято с публикации'
+            format_custom_true: Опубликовано
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -348,7 +348,7 @@ display:
           entity_type: media
           entity_field: changed
           plugin_id: field
-          label: Updated
+          label: Обновлено
           exclude: false
           alter:
             alter_text: false
@@ -423,7 +423,7 @@ display:
           admin_label: ''
           entity_type: media
           plugin_id: entity_operations
-          label: Operations
+          label: Операции
           exclude: false
           alter:
             alter_text: false
@@ -479,23 +479,23 @@ display:
             last: 'Последняя »'
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
+            items_per_page_label: 'Элементов на страницу'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: '- Все -'
             offset: false
-            offset_label: Offset
+            offset_label: Пропустить
           quantity: 9
       exposed_form:
         type: basic
         options:
-          submit_button: Filter
+          submit_button: Фильтр
           reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          reset_button_label: Сбросить
+          exposed_sorts_label: 'Сортировать по'
           expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
+          sort_asc_label: 'По возрастанию'
+          sort_desc_label: 'По убыванию'
       access:
         type: perm
         options:
@@ -513,7 +513,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: true
-          content: 'No media available.'
+          content: 'Мультимедийных файлов не найдено.'
           tokenize: false
       sorts:
         created:
@@ -550,7 +550,7 @@ display:
           exposed: true
           expose:
             operator_id: name_op
-            label: 'Media name'
+            label: 'Название медиа'
             description: ''
             use_operator: false
             operator: name_op
@@ -592,7 +592,7 @@ display:
           exposed: true
           expose:
             operator_id: bundle_op
-            label: Type
+            label: Тип
             description: ''
             use_operator: false
             operator: bundle_op
@@ -635,7 +635,7 @@ display:
           exposed: true
           expose:
             operator_id: ''
-            label: 'True'
+            label: Истина
             description: null
             use_operator: false
             operator: status_op
@@ -649,7 +649,7 @@ display:
               authenticated: authenticated
           is_grouped: true
           group_info:
-            label: 'Published status'
+            label: 'Статус публикации'
             description: ''
             identifier: status
             optional: true
@@ -660,11 +660,11 @@ display:
             default_group_multiple: {  }
             group_items:
               1:
-                title: Published
+                title: Опубликовано
                 operator: '='
                 value: '1'
               2:
-                title: Unpublished
+                title: 'Снято с публикации'
                 operator: '='
                 value: '0'
         langcode:
@@ -683,7 +683,7 @@ display:
           exposed: true
           expose:
             operator_id: langcode_op
-            label: Language
+            label: Язык
             description: ''
             use_operator: false
             operator: langcode_op
@@ -838,7 +838,7 @@ display:
       tags: {  }
   media_page_list:
     id: media_page_list
-    display_title: Media
+    display_title: Мультимедиа
     display_plugin: page
     position: 1
     display_options:
