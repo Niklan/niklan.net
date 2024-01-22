@@ -1,0 +1,4 @@
+development-warning.toolbar:
+  css:
+    theme:
+      assets/css/development-warning.toolbar.css: { }

@@ -28,8 +28,10 @@ $settings['hash_salt'] = 'localhost';
 
 $settings['config_exclude_modules'] = [
   'devel',
-  'stage_file_proxy',
+  'field_ui',
+  'views_ui',
   'content_export',
+  'niklan_dev',
 ];
 
 $config['field_ui.settings']['field_prefix'] = '';

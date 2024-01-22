@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cda50dc3213b3d4fe0b2685718437926",
+    "content-hash": "1dd84247875994ab4c9b2119af719760",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -10228,6 +10228,20 @@
             }
         },
         {
+            "name": "niklan/niklan_dev",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/Drupal/niklan_dev",
+                "reference": "941433d78eeec2982d782dbc4c3a8bc1535bb776"
+            },
+            "type": "drupal-custom-module",
+            "description": "The module with some functionality related to the project development.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "open-telemetry/api",
             "version": "1.0.2",
             "source": {
@@ -13925,7 +13939,8 @@
         "niklan/niklan": 20,
         "niklan/niklan_installer": 20,
         "chi-teck/drupal-coder-extension": 15,
-        "niklan/content_export": 20
+        "niklan/content_export": 20,
+        "niklan/niklan_dev": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

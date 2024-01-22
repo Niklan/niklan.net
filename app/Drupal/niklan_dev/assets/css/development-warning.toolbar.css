@@ -4,22 +4,18 @@
  */
 .toolbar-warning {
   overflow: hidden;
-  margin: 0.4em 0;
+  margin: 0.35em 0;
   padding: 0.5em 2em 0.5em 2.3333em;
   user-select: none;
   text-indent: -1000px;
   text-transform: uppercase;
-  background: url(../../../../../core/misc/icons/e29700/warning.svg) no-repeat center center transparent;
+  background: url(../icons/FFFFFF/warning_FILL0_wght400_GRAD0_opsz24.svg) no-repeat center center transparent;
   background-size: auto 20px;
 }
 
-.toolbar-warning:hover {
-  color: #e29700;
-}
-
 .toolbar-bar {
-  background-color: #333 !important;
-  background-image: url('../icons/ffffff/devel-symbolic.svg');
+  background-color: #51000F !important;
+  background-image: url('../icons/FFFFFF/devel-symbolic.svg');
   background-repeat: repeat-x;
 }
 
@@ -28,10 +24,10 @@
     padding-right: 1em; /* LTR */
     text-decoration: none;
     text-indent: 0;
-    color: #e29700;
-    border: 1px solid #e29700;
+    color: #FFF;
+    border: 2px solid #E40029;
     border-radius: 4px;
-    background-color: #333;
+    background-color: #B00020;
     background-position: 0.5em center; /* LTR */
     background-size: auto 18px;
     font-weight: bold;

@@ -50,11 +50,6 @@ code_line_highlight:
   dependencies:
     - core/drupal
 
-development-warning.toolbar:
-  css:
-    theme:
-      assets/css/development-warning.toolbar.css: { }
-
 content-editing.toolbar:
   css:
     theme:
