@@ -300,3 +300,6 @@ msgstr "Искать"
 
 msgid "Subject"
 msgstr "Тема"
+
+msgid "Development version"
+msgstr "Версия для разработки"

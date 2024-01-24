@@ -1,0 +1,10 @@
+<?php declare(strict_types = 1);
+
+use Drupal\niklan_dev\Hook\Toolbar\DevelopmentWarningToolbar;
+
+/**
+ * Implements hook_toolbar().
+ */
+function niklan_dev_toolbar(): array {
+  return \Drupal::classResolver(DevelopmentWarningToolbar::class)();
+}
