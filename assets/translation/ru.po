@@ -315,3 +315,6 @@ msgstr "Синхронизация содержимого"
 
 msgid "Allows to configure content synchronization and track current status."
 msgstr "Позволяет настроить синхронизацию содержимого и отслеживать текущее состояние."
+
+msgid "Development version"
+msgstr "Версия для разработки"

@@ -1,0 +1,12 @@
+name: Niklan Development
+type: module
+description: The module with some functionality related to the project development.
+package: Development
+core_version_requirement: ^10
+
+# NOTE! If you add some module into development dependencies, consider to add it
+# to 'config_exclude_modules' setting.
+dependencies:
+  - niklan:niklan
+  - drupal:field_ui
+  - drupal:views_ui

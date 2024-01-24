@@ -1,12 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Hook\Toolbar;
+namespace Drupal\niklan_dev\Hook\Toolbar;
 
-use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Provides a development warning toolbar element.
+ *
+ * @ingroup toolbar
  */
 final class DevelopmentWarningToolbar {
 
@@ -14,10 +15,6 @@ final class DevelopmentWarningToolbar {
    * Implements hook_toolbar().
    */
   public function __invoke(): array {
-    if (!Settings::get('niklan_development_warning', FALSE)) {
-      return [];
-    }
-
     // Add a warning about using a dev site.
     $items['dev-site-warning'] = [
       '#weight' => 999,
@@ -33,7 +30,7 @@ final class DevelopmentWarningToolbar {
         'label' => $label,
       ],
       '#attached' => [
-        'library' => ['niklan/development-warning.toolbar'],
+        'library' => ['niklan_dev/development-warning.toolbar'],
       ],
     ];
 
