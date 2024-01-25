@@ -17,8 +17,8 @@
           return;
         }
 
-        let codeBlock = entry.target;
-        let codeElement = codeBlock.querySelector('pre code');
+        const codeBlock = entry.target;
+        const codeElement = codeBlock.querySelector('pre code');
         Prism.highlightElement(codeElement);
         highlightLines(codeBlock);
         intersectionObserver.unobserve(codeBlock);
@@ -37,52 +37,52 @@
    *   The code block element.
    */
   function highlightLines(codeBlock) {
-    let preElement = codeBlock.querySelector('pre');
+    const preElement = codeBlock.querySelector('pre');
 
     if (!preElement.hasAttribute('data-highlight')) {
       return;
     }
 
-    let highlightLines = preElement.getAttribute('data-highlight');
-    let linesArray = parseHighlightLines(highlightLines);
-    let totalLines = parseTotalLines(preElement);
+    const highlightLines = preElement.getAttribute('data-highlight');
+    const linesArray = parseHighlightLines(highlightLines);
+    const totalLines = parseTotalLines(preElement);
 
     addHighlightElements(codeBlock, linesArray, totalLines);
   }
 
   function addHighlightElements(codeBlock, linesToHighlight, totalLines) {
-    let codeElement = codeBlock.querySelector('pre code');
-    let codeElementStyles = window.getComputedStyle(codeElement);
-    let codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
-    let codeLineHeight = getLineHeight(codeElement);
+    const codeElement = codeBlock.querySelector('pre code');
+    const codeElementStyles = window.getComputedStyle(codeElement);
+    const codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
+    const codeLineHeight = getLineHeight(codeElement);
 
-    let highlightClass = codeBlock.dataset.highlightedLineClass;
-    let highlightElement = document.createElement('div');
+    const highlightClass = codeBlock.dataset.highlightedLineClass;
+    const highlightElement = document.createElement('div');
     highlightElement.classList.add(highlightClass);
-    highlightElement.style.height = codeLineHeight + 'px';
+    highlightElement.style.height = `${codeLineHeight  }px`;
 
     linesToHighlight.forEach(lineNumber => {
       if (lineNumber <= totalLines) {
-        let lineHighlightElement = highlightElement.cloneNode();
-        lineHighlightElement.style.top = ((codeLineHeight * (lineNumber - 1)) + codeElementPaddingTop) + 'px';
+        const lineHighlightElement = highlightElement.cloneNode();
+        lineHighlightElement.style.top = `${(codeLineHeight * (lineNumber - 1)) + codeElementPaddingTop  }px`;
         codeElement.appendChild(lineHighlightElement);
       }
     });
   }
 
   function parseTotalLines(codeBlock) {
-    let codeElementStyles = window.getComputedStyle(codeBlock);
-    let codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
-    let codeElementPaddingBottom = parseFloat(codeElementStyles.getPropertyValue('padding-bottom'));
-    let codeElementHeight = parseFloat(codeElementStyles.getPropertyValue('height'));
-    let codeElementContentHeight = codeElementHeight - codeElementPaddingTop - codeElementPaddingBottom;
-    let codeLineHeight = getLineHeight(codeBlock);
+    const codeElementStyles = window.getComputedStyle(codeBlock);
+    const codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
+    const codeElementPaddingBottom = parseFloat(codeElementStyles.getPropertyValue('padding-bottom'));
+    const codeElementHeight = parseFloat(codeElementStyles.getPropertyValue('height'));
+    const codeElementContentHeight = codeElementHeight - codeElementPaddingTop - codeElementPaddingBottom;
+    const codeLineHeight = getLineHeight(codeBlock);
 
     return parseInt(codeElementContentHeight / codeLineHeight);
   }
 
   function getLineHeight(element) {
-    let elementStyles = window.getComputedStyle(element);
+    const elementStyles = window.getComputedStyle(element);
 
     return parseFloat(elementStyles.getPropertyValue('line-height'));
   }
@@ -96,15 +96,15 @@
    *   Lines to highlight array.
    */
   function parseHighlightLines(highlightLines) {
-    let linesArray = highlightLines.split(',');
-    let linesArrayNew = [];
+    const linesArray = highlightLines.split(',');
+    const linesArrayNew = [];
 
     linesArray.forEach(item => {
-      let linesRange = item.split(':');
+      const linesRange = item.split(':');
 
       if (linesRange.length === 2) {
-        let lineStart = parseInt(linesRange[0]);
-        let lineEnd = parseInt(linesRange[1]);
+        const lineStart = parseInt(linesRange[0]);
+        const lineEnd = parseInt(linesRange[1]);
         let i;
 
         for (i = lineStart; i <= lineEnd; i++) {
@@ -126,7 +126,7 @@
    * for mobile devices on pages where a lot of code needs to be highlighted.
    */
   Drupal.behaviors.niklanCodeBlock = {
-    attach: function (context, settings) {
+    attach (context, settings) {
       if (trigger) {
         return;
       }

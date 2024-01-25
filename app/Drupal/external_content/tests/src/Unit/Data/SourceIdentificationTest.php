@@ -4,7 +4,6 @@ namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\SourceIdentification;
-use Drupal\external_content_test\Source\FooSource;
 use Drupal\Tests\UnitTestCase;
 
 /**

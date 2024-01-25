@@ -16,6 +16,7 @@ use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
 use Drupal\niklan\Identifier\FrontMatterIdentifier;
+use Drupal\niklan\Loader\BlogLoader;
 use League\Config\Configuration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -85,6 +86,8 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
       event_class: HtmlPreParseEvent::class,
       listener: fn (HtmlPreParseEvent $event) => $this->convertMarkdown($event),
     );
+
+    $environment->addLoader(new BlogLoader());
 
     return $environment;
   }
