@@ -25,27 +25,6 @@ final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInte
   public function build(NodeInterface $node, string $type = self::class, array $context = []): BuilderResultInterface {
     $context = $this->buildRecursive($node, $context);
     $build = $this->buildNode($node, $context);
-    // Since this is root build, it will always have only one array element.
-    // This doesn't make any sense, so it is reset to an actual children build.
-    //
-    // E.g. before:
-    // @code
-    // $build = [
-    //   0 => [
-    //     0 => ['#markup' => 'foo'],
-    //     1 => ['#markup' => 'bar'],
-    //   ],
-    // ];
-    // @endcode
-    //
-    // By doing reset we flatten it to:
-    // @code
-    // $build = [
-    //   0 => ['#markup' => 'foo'],
-    //   1 => ['#markup' => 'bar'],
-    // ];
-    // @endcode
-    $build = \reset($build);
 
     return BuilderResult::renderArray($build);
   }

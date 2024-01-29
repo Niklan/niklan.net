@@ -18,6 +18,7 @@ use Drupal\niklan\Converter\BlogMarkdownConverter;
 use Drupal\niklan\Identifier\FrontMatterIdentifier;
 use Drupal\niklan\Loader\BlogLoader;
 use League\Config\Configuration;
+use Nette\Schema\Expect;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -65,6 +66,9 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
     $configuration->set('html.supported_types', ['text/markdown']);
     $configuration->set('file_finder.extensions', ['md']);
     $configuration->set('file_finder.directories', ['private://content']);
+
+    $configuration->addSchema('environment_plugin_id', Expect::string());
+    $configuration->set('environment_plugin_id', $this->getPluginId());
 
     $environment = new Environment($configuration);
     $environment->setContainer($this->container);

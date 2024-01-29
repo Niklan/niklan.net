@@ -2,9 +2,14 @@
 
 namespace Drupal\niklan\Loader;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentVariation;
 use Drupal\external_content\Data\LoaderResult;
@@ -19,12 +24,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup content_sync
  */
-final class BlogLoader implements LoaderInterface, ContainerAwareInterface {
+final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, ContainerAwareInterface {
 
   /**
    * {@selfdoc}
    */
   private ContainerInterface $container;
+
+  /**
+   * {@selfdoc}
+   */
+  private EnvironmentInterface $environment;
 
   /**
    * {@inheritdoc}
@@ -41,6 +51,10 @@ final class BlogLoader implements LoaderInterface, ContainerAwareInterface {
     // Loop over variations with a different languages.
     foreach ($bundle->getByAttribute('language') as $content_variation) {
       \assert($content_variation instanceof ContentVariation);
+      // Switch the content language to be the same as variation.
+      $langcode = $content_variation->attributes->getAttribute('language');
+      $blog_entry = $blog_entry->getTranslation($langcode);
+
       $this->processBlogEntryVariation($blog_entry, $content_variation);
     }
 
@@ -51,6 +65,20 @@ final class BlogLoader implements LoaderInterface, ContainerAwareInterface {
       entity_type_id: $blog_entry->getEntityTypeId(),
       entity_id: $blog_entry->id(),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setContainer(?ContainerInterface $container): void {
+    $this->container = $container;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
   }
 
   /**
@@ -83,23 +111,62 @@ final class BlogLoader implements LoaderInterface, ContainerAwareInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * {@selfdoc}
    */
-  public function setContainer(?ContainerInterface $container): void {
-    $this->container = $container;
+  private function getSerializer(): SerializerInterface {
+    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer->setEnvironment($this->environment);
+
+    return $serializer;
   }
 
   /**
    * {@selfdoc}
+   *
+   * @todo
+   *   - [x] Created
+   *   - [x] Updated
+   *   - [x] Title
+   *   - [x] Description
+   *   - [ ] Promo
+   *   - [ ] Tags
    */
   private function processBlogEntryVariation(BlogEntryInterface $blog_entry, ContentVariation $content_variation): void {
-    // Switch the content language to be the same as variation.
-    $langcode = $content_variation->attributes->getAttribute('language');
-    $blog_entry = $blog_entry->getTranslation($langcode);
+    $content = $content_variation->content;
+    $front_matter = $content->getData()->get('front_matter');
+
+    $blog_entry->setTitle($front_matter['title']);
+
+    $created = DrupalDateTime::createFromFormat(
+      format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
+      time: $front_matter['created'],
+    );
+    $blog_entry->setCreatedTime($created->getTimestamp());
+
+    $updated = DrupalDateTime::createFromFormat(
+      format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
+      time: $front_matter['updated'],
+    );
+    $blog_entry->setChangedTime($updated->getTimestamp());
+
+    $blog_entry->set('body', ['value' => $front_matter['description']]);
 
     // @todo Loop over content and replace asset nodes with a new one that
     //   uses Drupal internal Media IDs/URIs.
-    // @todo Compare an updated value with existing one and update if needed.
+    // @todo Compare an updated value with existing one and update if needed. Or
+    //   just rely on 'updated' front matter value. If it is not changed, just
+    //   skip. This will simplify the logic and force content to have a proper
+    //   update date.
+    $normalized = $this
+      ->getSerializer()
+      ->normalize($content_variation->content);
+    $blog_entry->set('external_content', [
+      'value' => $normalized,
+      'environment_plugin_id' => $this
+        ->environment
+        ->getConfiguration()
+        ->get('environment_plugin_id'),
+    ]);
   }
 
 }
