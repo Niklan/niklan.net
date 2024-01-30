@@ -2,7 +2,9 @@
 
 namespace Drupal\niklan\Entity\File;
 
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\file\Entity\File as CoreFile;
+use Drupal\niklan\Helper\FileHelper;
 
 /**
  * Provides a bundle class for 'file' entity.
@@ -24,12 +26,17 @@ final class File extends CoreFile implements FileInterface {
    * {@inheritdoc}
    */
   public function calculateChecksum(): void {
-    if (!\file_exists($this->getFileUri())) {
-      return;
-    }
-
-    $checksum = \md5_file($this->getFileUri());
+    $checksum = FileHelper::fileChecksum($this->getFileUri());
     $this->set('niklan_checksum', $checksum);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave(EntityStorageInterface $storage): void {
+    parent::preSave($storage);
+
+    $this->calculateChecksum();
   }
 
 }

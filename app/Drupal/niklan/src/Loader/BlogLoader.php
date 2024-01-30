@@ -13,9 +13,11 @@ use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentVariation;
 use Drupal\external_content\Data\LoaderResult;
+use Drupal\external_content\Node\Content;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\node\NodeStorageInterface;
+use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -48,18 +50,20 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       return LoaderResult::ignore();
     }
 
-    // Loop over variations with a different languages.
     foreach ($bundle->getByAttribute('language') as $content_variation) {
       \assert($content_variation instanceof ContentVariation);
       // Switch the content language to be the same as variation.
       $langcode = $content_variation->attributes->getAttribute('language');
       $blog_entry = $blog_entry->getTranslation($langcode);
-
       $this->processBlogEntryVariation($blog_entry, $content_variation);
     }
 
-    // @todo Implement the logic to avoid unnecessary save.
-    $blog_entry->save();
+    // @todo Consider add some kind of sync command version and check it as
+    //   well. The content may be not changed, but the logic can be changed and
+    //   it should be handled here.
+    if ($blog_entry->getChangedTime() !== $blog_entry->original->getChangedTime()) {
+      $blog_entry->save();
+    }
 
     return LoaderResult::entity(
       entity_type_id: $blog_entry->getEntityTypeId(),
@@ -129,34 +133,29 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
    *   - [x] Title
    *   - [x] Description
    *   - [ ] Promo
-   *   - [ ] Tags
+   *   - [x] Tags
    */
   private function processBlogEntryVariation(BlogEntryInterface $blog_entry, ContentVariation $content_variation): void {
     $content = $content_variation->content;
     $front_matter = $content->getData()->get('front_matter');
-
-    $blog_entry->setTitle($front_matter['title']);
-
     $created = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
       time: $front_matter['created'],
     );
-    $blog_entry->setCreatedTime($created->getTimestamp());
-
     $updated = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
       time: $front_matter['updated'],
     );
-    $blog_entry->setChangedTime($updated->getTimestamp());
 
+    $blog_entry->setTitle($front_matter['title']);
+    $blog_entry->setCreatedTime($created->getTimestamp());
+    $blog_entry->setChangedTime($updated->getTimestamp());
     $blog_entry->set('body', ['value' => $front_matter['description']]);
+    $this->processTags($blog_entry, $front_matter);
+    $this->processPromo($blog_entry, $content);
 
     // @todo Loop over content and replace asset nodes with a new one that
     //   uses Drupal internal Media IDs/URIs.
-    // @todo Compare an updated value with existing one and update if needed. Or
-    //   just rely on 'updated' front matter value. If it is not changed, just
-    //   skip. This will simplify the logic and force content to have a proper
-    //   update date.
     $normalized = $this
       ->getSerializer()
       ->normalize($content_variation->content);
@@ -167,6 +166,54 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
         ->getConfiguration()
         ->get('environment_plugin_id'),
     ]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function processTags(BlogEntryInterface $blog_entry, array $front_matter): void {
+    if (!\array_key_exists('tags', $front_matter) || !\is_array($front_matter['tags'])) {
+      return;
+    }
+
+    $term_storage = $this->getEntityTypeManager()->getStorage('taxonomy_term');
+    \assert($term_storage instanceof TermStorageInterface);
+    $tag_ids = $term_storage
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('vid', 'tags')
+      ->condition('langcode', $blog_entry->language()->getId())
+      // New tags are not created during sync.
+      ->condition('name', $front_matter['tags'], 'IN')
+      ->sort('name')
+      ->execute();
+
+    $field_tags_value = \array_map(
+      callback: static fn (string $tag_id) => ['target_id' => $tag_id],
+      array: $tag_ids,
+    );
+    $blog_entry->set('field_tags', \array_values($field_tags_value));
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function processPromo(BlogEntryInterface $blog_entry, Content $content): void {
+    $source_data = $content->getData()->get('source');
+
+    if (!isset($source_data['pathname']) || !isset($source_data['front_matter']['promo'])) {
+      return;
+    }
+
+    $source_dir = \dirname($content->getData()->get('source')['pathname']);
+    $promo_asset = $source_data['front_matter']['promo'];
+    $promo_pathname = "$source_dir/$promo_asset";
+
+    if (!\file_exists($promo_pathname)) {
+      return;
+    }
+
+    // @todo Find media by a checksum.
   }
 
 }

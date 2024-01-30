@@ -17,6 +17,8 @@
     <!-- Conflicts with {@selfdoc} phpdoc. -->
     <exclude name="Drupal.Commenting.DocComment.ShortNotCapital"/>
     <exclude name="Drupal.Commenting.DocComment.ShortFullStop"/>
+    <!-- Todos in a custom project is not only about fixing thing. -->
+    <exclude name="Drupal.Commenting.TodoComment.TodoFormat"/>
   </rule>
 
   <!-- Project specific rules. -->

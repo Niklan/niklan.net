@@ -38,11 +38,7 @@ final class FrontMatterIdentifier implements IdentifierInterface {
 
     $front_matter = $data->get('front_matter');
 
-    if (!\array_key_exists('id', $front_matter)) {
-      return FALSE;
-    }
-
-    return TRUE;
+    return \array_key_exists('id', $front_matter);
   }
 
 }

@@ -37,11 +37,7 @@ final class FrontMatterIdLanguageBundler implements IdentifierInterface {
       return FALSE;
     }
 
-    if (!$source->data()->get('front_matter')->has('id')) {
-      return FALSE;
-    }
-
-    return TRUE;
+    return $source->data()->get('front_matter')->has('id');
   }
 
 }
