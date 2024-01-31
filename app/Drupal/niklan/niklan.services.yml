@@ -58,6 +58,7 @@ services:
     tags:
       - { name: access_check, applies_to: _niklan_github_signature }
 
+  Drupal\niklan\Asset\ContentAssetManager: {}
   Drupal\niklan\Sync\BlogSyncManager: {}
   Drupal\niklan\Builder\BlogMarkdownEnvironmentBuilder: {}
   Drupal\niklan\Converter\BlogMarkdownConverter: {}

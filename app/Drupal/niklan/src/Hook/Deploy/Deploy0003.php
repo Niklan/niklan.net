@@ -103,9 +103,6 @@ final class Deploy0003 implements ContainerInjectionInterface {
 
     foreach ($files as $file) {
       \assert($file instanceof FileInterface);
-
-      $file->calculateChecksum();
-
       $file->save();
 
       $sandbox['current']++;

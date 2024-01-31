@@ -12,3 +12,6 @@ parameters:
     # directs to directory with phpstan.neon (current) file, which is in
     # Drupal project docroot.
     drupal_root: %rootDir%/../../../
+  ignoreErrors:
+    # @todo Refactor or wait until Drupal core solve that issue.
+    - '#.+Symfony\\Component\\DependencyInjection\\ContainerAwareInterface.+#'

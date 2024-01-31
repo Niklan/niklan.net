@@ -120,6 +120,7 @@ final class Deploy0002 implements ContainerInjectionInterface {
    */
   protected function getExternalIdMapping(): array {
     // 'nid' => 'external-id'.
+    /* spellchecker: disable */
     return [
       '1' => 'hello-world',
       '2' => 'ubuntu-12-web-server',
@@ -181,7 +182,7 @@ final class Deploy0002 implements ContainerInjectionInterface {
       '60' => 'programmatically-print-entityform',
       '61' => 'drupalife-store-edit-and-update',
       '62' => 'd7-theme-checkboxes-and-radios',
-      '63' => 'd7-node-grants-and-acess',
+      '63' => 'd7-node-grants-and-access',
       '64' => 'drupal-8-api-changes',
       '65' => 'mappy-7.x-1.4-8.x-1.0-rc1',
       '66' => 'd8-hello-world',
@@ -276,6 +277,7 @@ final class Deploy0002 implements ContainerInjectionInterface {
       '215' => 'why-you-should-try-drupal-9',
       '216' => 'drupal-warmer-2',
     ];
+    /* spellchecker: enable */
   }
 
 }

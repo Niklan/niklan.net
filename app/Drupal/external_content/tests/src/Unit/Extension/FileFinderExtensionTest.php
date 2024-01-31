@@ -10,7 +10,7 @@ use Drupal\Tests\UnitTestCase;
  * {@selfdoc}
  *
  * @covers \Drupal\external_content\Extension\FileFinderExtension
- * @group external_ontent
+ * @group external_content
  */
 final class FileFinderExtensionTest extends UnitTestCase {
 

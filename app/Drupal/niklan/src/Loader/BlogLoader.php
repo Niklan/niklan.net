@@ -14,6 +14,8 @@ use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentVariation;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Node\Content;
+use Drupal\media\MediaInterface;
+use Drupal\niklan\Asset\ContentAssetManager;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\node\NodeStorageInterface;
@@ -58,12 +60,8 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       $this->processBlogEntryVariation($blog_entry, $content_variation);
     }
 
-    // @todo Consider add some kind of sync command version and check it as
-    //   well. The content may be not changed, but the logic can be changed and
-    //   it should be handled here.
-    if ($blog_entry->getChangedTime() !== $blog_entry->original->getChangedTime()) {
-      $blog_entry->save();
-    }
+    // @todo Add some checks to avoid unnecessary saving.
+    $blog_entry->save();
 
     return LoaderResult::entity(
       entity_type_id: $blog_entry->getEntityTypeId(),
@@ -104,6 +102,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       return NULL;
     }
 
+    /* @phpstan-ignore-next-line */
     return $node_storage->load(\reset($ids));
   }
 
@@ -133,6 +132,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
    *   - [x] Title
    *   - [x] Description
    *   - [ ] Promo
+   *   - [ ] Attachments
    *   - [x] Tags
    */
   private function processBlogEntryVariation(BlogEntryInterface $blog_entry, ContentVariation $content_variation): void {
@@ -172,6 +172,8 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
    * {@selfdoc}
    */
   private function processTags(BlogEntryInterface $blog_entry, array $front_matter): void {
+    $blog_entry->set('field_tags', NULL);
+
     if (!\array_key_exists('tags', $front_matter) || !\is_array($front_matter['tags'])) {
       return;
     }
@@ -199,6 +201,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
    * {@selfdoc}
    */
   private function processPromo(BlogEntryInterface $blog_entry, Content $content): void {
+    $blog_entry->set('field_media_image', NULL);
     $source_data = $content->getData()->get('source');
 
     if (!isset($source_data['pathname']) || !isset($source_data['front_matter']['promo'])) {
@@ -213,7 +216,14 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       return;
     }
 
-    // @todo Find media by a checksum.
+    $asset_manager = $this->container->get(ContentAssetManager::class);
+    $media = $asset_manager->saveMedia($promo_pathname);
+
+    if (!$media instanceof MediaInterface) {
+      return;
+    }
+
+    $blog_entry->set('field_media_image', ['target_id' => $media->id()]);
   }
 
 }
