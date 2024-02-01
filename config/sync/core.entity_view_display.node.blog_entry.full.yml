@@ -7,6 +7,7 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
+    - field.field.node.blog_entry.external_content
     - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
@@ -15,6 +16,7 @@ dependencies:
     - node.type.blog_entry
   module:
     - comment
+    - external_content
     - niklan
     - text
     - user
@@ -43,6 +45,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 6
+    region: content
+  external_content:
+    type: external_content_render_array
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
   extra_field_created_time:
     settings: {  }

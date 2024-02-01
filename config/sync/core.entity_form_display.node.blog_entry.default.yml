@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
+    - field.field.node.blog_entry.external_content
     - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
@@ -13,6 +14,7 @@ dependencies:
     - node.type.blog_entry
   module:
     - comment
+    - media_library
 id: node.blog_entry.default
 targetEntityType: node
 bundle: blog_entry
@@ -26,40 +28,47 @@ content:
     third_party_settings: {  }
   comment_node_blog_entry:
     type: comment_default
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   external_id:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_media_image:
+    type: media_library_widget
+    weight: 0
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 1
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   simple_sitemap:
-    weight: 10
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 3
+    weight: 4
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: content
     settings:
       display_label: true
@@ -67,13 +76,12 @@ content:
 hidden:
   body: true
   created: true
+  external_content: true
   field_content: true
   field_media_attachments: true
-  field_media_image: true
   field_tags: true
   langcode: true
   path: true
-  simple_sitemap: true
   title: true
   uid: true
   url_redirects: true

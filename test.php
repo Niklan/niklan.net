@@ -1,10 +1,14 @@
 <?php
 
-use Drupal\niklan\Hook\Deploy\Deploy0003;
+use Drupal\niklan\Entity\File\FileInterface;
 
-$sandbox = [
-  '#finished' => 0,
-];
-while ($sandbox['#finished'] < 1) {
-  \Drupal::classResolver(Deploy0003::class)($sandbox);
+$files = \Drupal\niklan\Entity\File\File::loadMultiple();
+
+$mimies = [];
+
+foreach ($files as $file) {
+  assert($file instanceof FileInterface);
+  $mimies[] = $file->getMimeType();
 }
+
+dump(array_unique($mimies));
