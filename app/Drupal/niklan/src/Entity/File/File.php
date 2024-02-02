@@ -26,7 +26,7 @@ final class File extends CoreFile implements FileInterface {
    * {@inheritdoc}
    */
   public function calculateChecksum(): void {
-    $checksum = FileHelper::fileChecksum($this->getFileUri());
+    $checksum = FileHelper::checksum($this->getFileUri());
     $this->set('niklan_checksum', $checksum);
   }
 

@@ -217,7 +217,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
     }
 
     $asset_manager = $this->container->get(ContentAssetManager::class);
-    $media = $asset_manager->saveMedia($promo_pathname);
+    $media = $asset_manager->syncWithMedia($promo_pathname);
 
     if (!$media instanceof MediaInterface) {
       return;

@@ -27,8 +27,15 @@ final class ContentAssetManager {
   /**
    * {@selfdoc}
    */
-  public function saveMedia(string $path): ?MediaInterface {
-    $file = $this->saveFile($path);
+  public function syncWithMedia(string $path): ?MediaInterface {
+    // External URLs are not supported, and most likely never will be here.
+    // If you are interested in implementation, check this:
+    // https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L124-L126
+    if (UrlHelper::isExternal($path)) {
+      return NULL;
+    }
+
+    $file = $this->syncWithFile($path);
 
     if (!$file instanceof FileInterface) {
       return NULL;
@@ -43,7 +50,7 @@ final class ContentAssetManager {
         : NULL;
 
     if (!$media_id) {
-      return $this->prepareMediaForFile($file);
+      return $this->createMediaForFile($file);
     }
 
     $media = $this->entityTypeManager->getStorage('media')->load($media_id);
@@ -52,22 +59,17 @@ final class ContentAssetManager {
       return $media;
     }
 
-    return $this->prepareMediaForFile($file);
+    return $this->createMediaForFile($file);
   }
 
   /**
    * {@selfdoc}
    */
-  public function saveFile(string $path): ?FileInterface {
-    // External URLs are not supported, and most likely never will be here.
-    // If you are interested in implementation, check this:
-    // https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L124-L126
-    if (UrlHelper::isExternal($path)) {
-      return NULL;
-    }
+  private function syncWithFile(string $path): ?FileInterface {
+    $checksum = FileHelper::checksum($path);
 
-    $checksum = FileHelper::fileChecksum($path);
-
+    // If checksum is not calculated, then file is exist or not accessible.
+    // Either way, this should be ended right here.
     if (!$checksum) {
       return NULL;
     }
@@ -82,6 +84,8 @@ final class ContentAssetManager {
       ->execute();
 
     if (\count($file_ids) === 0) {
+      // @todo Create a real file entity.
+      //   https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L199
       return NULL;
     }
 
@@ -92,7 +96,7 @@ final class ContentAssetManager {
   /**
    * {@selfdoc}
    */
-  private function prepareMediaForFile(FileInterface $file): ?MediaInterface {
+  private function createMediaForFile(FileInterface $file): ?MediaInterface {
     // Key - the mime type regex.
     // Value - the media type to save into.
     // First match will be used as a media type.
@@ -100,8 +104,8 @@ final class ContentAssetManager {
       '/image\/svg.+/' => 'file',
       '/image\/.+/' => 'image',
       '/video\/.+/' => 'video',
-      '/application\/.+' => 'file',
-      '/text\/.+' => 'file',
+      '/application\/.+/' => 'file',
+      '/text\/.+/' => 'file',
     ];
     $media_type = NULL;
 
