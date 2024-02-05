@@ -125,15 +125,6 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
 
   /**
    * {@selfdoc}
-   *
-   * @todo
-   *   - [x] Created
-   *   - [x] Updated
-   *   - [x] Title
-   *   - [x] Description
-   *   - [ ] Promo
-   *   - [ ] Attachments
-   *   - [x] Tags
    */
   private function processBlogEntryVariation(BlogEntryInterface $blog_entry, ContentVariation $content_variation): void {
     $content = $content_variation->content;
@@ -153,6 +144,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
     $blog_entry->set('body', ['value' => $front_matter['description']]);
     $this->processTags($blog_entry, $front_matter);
     $this->processPromo($blog_entry, $content);
+    $this->processAttachments($blog_entry, $content);
 
     // @todo Loop over content and replace asset nodes with a new one that
     //   uses Drupal internal Media IDs/URIs.
@@ -208,6 +200,9 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       return;
     }
 
+    // @todo Consider replace '/' with a '\DIRECTORY_SEPARATOR' to eliminate
+    //   potential problems on Windows and other system that uses '\' as a
+    //   separator.
     $source_dir = \dirname($content->getData()->get('source')['pathname']);
     $promo_asset = $source_data['front_matter']['promo'];
     $promo_pathname = "$source_dir/$promo_asset";
@@ -224,6 +219,40 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
     }
 
     $blog_entry->set('field_media_image', ['target_id' => $media->id()]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function processAttachments(BlogEntryInterface $blog_entry, Content $content): void {
+    $blog_entry->set('field_media_attachments', NULL);
+    $source_data = $content->getData()->get('source');
+
+    if (!isset($source_data['pathname']) || !isset($source_data['front_matter']['attachments'])) {
+      return;
+    }
+
+    $source_dir = \dirname($content->getData()->get('source')['pathname']);
+
+    foreach ($source_data['front_matter']['attachments'] as $attachment) {
+      $attachment_pathname = "$source_dir/{$attachment['path']}";
+
+      if (!\file_exists($attachment_pathname)) {
+        return;
+      }
+
+      $asset_manager = $this->container->get(ContentAssetManager::class);
+      // @todo Consider add a media additional info sync, like name and alt.
+      $media = $asset_manager->syncWithMedia($attachment_pathname);
+
+      if (!$media instanceof MediaInterface) {
+        return;
+      }
+
+      $blog_entry
+        ->get('field_media_attachments')
+        ->appendItem(['target_id' => $media->id()]);
+    }
   }
 
 }

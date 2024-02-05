@@ -3,7 +3,9 @@
 namespace Drupal\niklan\Asset;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\File\FileInterface;
@@ -22,6 +24,8 @@ final class ContentAssetManager {
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private FileUsageInterface $fileUsage,
+    private FileSystemInterface $fileSystem,
+    private UuidInterface $uuid,
   ) {}
 
   /**
@@ -84,9 +88,7 @@ final class ContentAssetManager {
       ->execute();
 
     if (\count($file_ids) === 0) {
-      // @todo Create a real file entity.
-      //   https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L199
-      return NULL;
+      return $this->saveToFile($path);
     }
 
     /* @phpstan-ignore-next-line */
@@ -117,13 +119,74 @@ final class ContentAssetManager {
       }
     }
 
-    if (!$media_type) {
+    return match ($media_type) {
+      default => NULL,
+      'image', 'file', 'video' => $this->saveFileToMediaWithFileReference(
+        file: $file,
+        type: $media_type,
+      ),
+    };
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function saveFileToMediaWithFileReference(FileInterface $file, string $type): MediaInterface {
+    $media = $this
+      ->entityTypeManager
+      ->getStorage('media')
+      ->create(['bundle' => $type]);
+    \assert($media instanceof MediaInterface);
+    $source_field = $media->getSource()->getConfiguration()['source_field'];
+    $media->setName($file->label());
+    $media->set($source_field, $file);
+    $media->save();
+
+    return $media;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function saveToFile(string $path): ?FileInterface {
+    $destination = $this->prepareDestination($path);
+
+    if (!$this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
       return NULL;
     }
 
-    // @todo Implement something like that:
-    //   https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L233
-    return NULL;
+    $destination_uri = $destination . \DIRECTORY_SEPARATOR . $this->prepareFilename($path);
+    $this->fileSystem->copy($path, $destination_uri);
+
+    $file_storage = $this->entityTypeManager->getStorage('file');
+    $file = $file_storage->create();
+    \assert($file instanceof FileInterface);
+    $file->setFileUri($destination_uri);
+    $file->setPermanent();
+    $file->save();
+
+    return $file;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function prepareDestination(string $path): string {
+    $datetime = new \DateTime();
+
+    return \implode(\DIRECTORY_SEPARATOR, [
+      'public:/',
+      $datetime->format('Y') . '-' . $datetime->format('m'),
+    ]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function prepareFilename(string $path): string {
+    $extension = FileHelper::extension($path);
+
+    return "{$this->uuid->generate()}.{$extension}";
   }
 
 }
