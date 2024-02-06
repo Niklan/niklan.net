@@ -22,12 +22,25 @@ final class PlainTextParser implements HtmlParserInterface {
       return HtmlParserResult::continue();
     }
 
-    // If this is a DOMText and trim is an empty value, skip processing element,
-    // because it's just a whitespace.
-    if (!\trim($node->nodeValue)) {
-      return HtmlParserResult::stop();
-    }
-
+    // Previously, here was a check for an empty string (e.g. space character).
+    // It was checked by trim() function and parser returned stop signal for
+    // that element. This is wrong, because in cases when multiple consecutive
+    // inline HTML elements are added, this logic will fail.
+    //
+    // Example:
+    // @code
+    //   <a href="#">foo</a> <code>bar</code>
+    //                      ^
+    //                      this space is lost, and they are concatenated.
+    // @endcode
+    //
+    // The result was:
+    // @code
+    //   <a href="#">foo</a><code>bar</code>
+    // @endcode
+    //
+    // This is clearly unwanted behavior. Make sure not to add this check here
+    // again.
     return HtmlParserResult::finalize(new PlainText($node->nodeValue));
   }
 

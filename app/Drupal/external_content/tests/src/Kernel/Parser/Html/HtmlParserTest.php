@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Parser\Html;
 
+use Drupal\external_content\Contract\Parser\ParserFacadeInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\PrioritizedList;
@@ -30,7 +31,7 @@ final class HtmlParserTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   private function getParser(): ParserInterface {
-    return $this->container->get(ParserInterface::class);
+    return $this->container->get(ParserFacadeInterface::class);
   }
 
   /**
