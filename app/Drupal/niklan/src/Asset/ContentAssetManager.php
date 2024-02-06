@@ -32,6 +32,8 @@ final class ContentAssetManager {
    * {@selfdoc}
    */
   public function syncWithMedia(string $path): ?MediaInterface {
+    $path = \urldecode($path);
+
     // External URLs are not supported, and most likely never will be here.
     // If you are interested in implementation, check this:
     // https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L124-L126
@@ -72,7 +74,7 @@ final class ContentAssetManager {
   private function syncWithFile(string $path): ?FileInterface {
     $checksum = FileHelper::checksum($path);
 
-    // If checksum is not calculated, then file is exist or not accessible.
+    // If checksum is not calculated, then file is not exist or not accessible.
     // Either way, this should be ended right here.
     if (!$checksum) {
       return NULL;
@@ -99,20 +101,23 @@ final class ContentAssetManager {
    * {@selfdoc}
    */
   private function createMediaForFile(FileInterface $file): ?MediaInterface {
-    // Key - the mime type regex.
+    // Key - fnmatch pattern.
     // Value - the media type to save into.
     // First match will be used as a media type.
     $map = [
-      '/image\/svg.+/' => 'file',
-      '/image\/.+/' => 'image',
-      '/video\/.+/' => 'video',
-      '/application\/.+/' => 'file',
-      '/text\/.+/' => 'file',
+      'image/svg*' => 'file',
+      'image/*' => 'image',
+      'video/*' => 'video',
+      'application/*' => 'file',
+      'text/*' => 'file',
     ];
     $media_type = NULL;
 
-    foreach ($map as $regex => $media_type_association) {
-      if (\preg_match($regex, $file->getMimeType()) === 1) {
+    foreach ($map as $pattern => $media_type_association) {
+      // phpcs:disable Drupal.Functions.DiscouragedFunctions.Discouraged
+      // @phpstan-ignore-next-line
+      if (\fnmatch($pattern, $file->getMimeType())) {
+        // phpcs:enable
         $media_type = $media_type_association;
 
         break;

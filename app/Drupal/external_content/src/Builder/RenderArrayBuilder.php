@@ -23,8 +23,9 @@ final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInte
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, string $type = self::class, array $context = []): BuilderResultInterface {
-    $context = $this->buildRecursive($node, $context);
-    $build = $this->buildNode($node, $context);
+    $initial_children = [];
+    $children = $this->buildRecursive($node, $initial_children, $context);
+    $build = $this->buildNode($node, $children, $context);
 
     return BuilderResult::renderArray($build);
   }
@@ -46,21 +47,21 @@ final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInte
   /**
    * {@selfdoc}
    */
-  protected function buildRecursive(NodeInterface $node, array $children): mixed {
+  protected function buildRecursive(NodeInterface $node, array &$children, array $context): mixed {
     $children_build = [];
 
     foreach ($node->getChildren() as $child) {
-      $children_build[] = $this->buildRecursive($child, $children);
+      $children_build[] = $this->buildRecursive($child, $children, $context);
     }
 
-    return $this->buildNode($node, $children_build);
+    return $this->buildNode($node, $children_build, $context);
   }
 
   /**
    * {@selfdoc}
    */
-  protected function buildNode(NodeInterface $node, array $children): mixed {
-    $context = ['children' => $children];
+  protected function buildNode(NodeInterface $node, array $children, array $context): mixed {
+    $context += ['children' => $children];
 
     foreach ($this->environment->getBuilders() as $builder) {
       \assert($builder instanceof BuilderInterface);

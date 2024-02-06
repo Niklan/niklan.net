@@ -86,7 +86,15 @@ final class ExternalContentRenderArrayFieldFormatter extends FormatterBase imple
         ->renderArrayBuilder
         ->setEnvironment($environment_plugin->getEnvironment());
 
-      $build = $this->renderArrayBuilder->build($content);
+      $build = $this->renderArrayBuilder->build(
+        node: $content,
+        context: [
+          'environment_plugin_id' => $environment_plugin_id,
+          'entity_type' => $this->fieldDefinition->getTargetEntityTypeId(),
+          'bundle' => $this->fieldDefinition->getTargetBundle(),
+          'view_mode' => $this->viewMode,
+        ],
+      );
       $element[] = $build->result();
     }
 

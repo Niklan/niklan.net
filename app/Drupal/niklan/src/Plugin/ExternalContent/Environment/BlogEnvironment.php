@@ -14,9 +14,11 @@ use Drupal\external_content\Extension\FileFinderExtension;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
+use Drupal\niklan\Builder\DrupalMediaElementRenderArrayBuilder;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
 use Drupal\niklan\Identifier\FrontMatterIdentifier;
 use Drupal\niklan\Loader\BlogLoader;
+use Drupal\niklan\Serializer\DrupalMediaElementSerializer;
 use League\Config\Configuration;
 use Nette\Schema\Expect;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -92,6 +94,8 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
     );
 
     $environment->addLoader(new BlogLoader());
+    $environment->addSerializer(new DrupalMediaElementSerializer());
+    $environment->addBuilder(new DrupalMediaElementRenderArrayBuilder());
 
     return $environment;
   }

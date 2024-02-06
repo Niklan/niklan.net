@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Loader;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
@@ -9,16 +10,18 @@ use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentVariation;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Node\Content;
+use Drupal\external_content\Node\Html\Element;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Asset\ContentAssetManager;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
-use Drupal\node\NodeStorageInterface;
+use Drupal\niklan\Node\DrupalMediaElement;
 use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -87,10 +90,9 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
    * {@selfdoc}
    */
   private function findBlogEntry(string $external_id): ?BlogEntry {
-    $node_storage = $this->getEntityTypeManager()->getStorage('node');
-    \assert($node_storage instanceof NodeStorageInterface);
+    $storage = $this->getEntityTypeManager()->getStorage('node');
 
-    $ids = $node_storage
+    $ids = $storage
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('type', 'blog_entry')
@@ -103,7 +105,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
     }
 
     /* @phpstan-ignore-next-line */
-    return $node_storage->load(\reset($ids));
+    return $storage->load(\reset($ids));
   }
 
   /**
@@ -129,6 +131,11 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
   private function processBlogEntryVariation(BlogEntryInterface $blog_entry, ContentVariation $content_variation): void {
     $content = $content_variation->content;
     $front_matter = $content->getData()->get('front_matter');
+    // @todo Consider replace '/' with a '\DIRECTORY_SEPARATOR' to eliminate
+    //   potential problems on Windows and other system that uses '\' as a
+    //   separator.
+    $source_dir = \dirname($content->getData()->get('source')['pathname']);
+
     $created = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
       time: $front_matter['created'],
@@ -143,14 +150,15 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
     $blog_entry->setChangedTime($updated->getTimestamp());
     $blog_entry->set('body', ['value' => $front_matter['description']]);
     $this->processTags($blog_entry, $front_matter);
-    $this->processPromo($blog_entry, $content);
+    $this->processPromo($blog_entry, $content, $source_dir);
     $this->processAttachments($blog_entry, $content);
+    $this->replaceMediaNodes($content, $source_dir);
 
     // @todo Loop over content and replace asset nodes with a new one that
     //   uses Drupal internal Media IDs/URIs.
     $normalized = $this
       ->getSerializer()
-      ->normalize($content_variation->content);
+      ->normalize($content);
     $blog_entry->set('external_content', [
       'value' => $normalized,
       'environment_plugin_id' => $this
@@ -192,7 +200,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
   /**
    * {@selfdoc}
    */
-  private function processPromo(BlogEntryInterface $blog_entry, Content $content): void {
+  private function processPromo(BlogEntryInterface $blog_entry, Content $content, string $source_dir): void {
     $blog_entry->set('field_media_image', NULL);
     $source_data = $content->getData()->get('source');
 
@@ -200,10 +208,6 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       return;
     }
 
-    // @todo Consider replace '/' with a '\DIRECTORY_SEPARATOR' to eliminate
-    //   potential problems on Windows and other system that uses '\' as a
-    //   separator.
-    $source_dir = \dirname($content->getData()->get('source')['pathname']);
     $promo_asset = $source_data['front_matter']['promo'];
     $promo_pathname = "$source_dir/$promo_asset";
 
@@ -232,17 +236,11 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       return;
     }
 
+    $asset_manager = $this->container->get(ContentAssetManager::class);
     $source_dir = \dirname($content->getData()->get('source')['pathname']);
 
     foreach ($source_data['front_matter']['attachments'] as $attachment) {
       $attachment_pathname = "$source_dir/{$attachment['path']}";
-
-      if (!\file_exists($attachment_pathname)) {
-        return;
-      }
-
-      $asset_manager = $this->container->get(ContentAssetManager::class);
-      // @todo Consider add a media additional info sync, like name and alt.
       $media = $asset_manager->syncWithMedia($attachment_pathname);
 
       if (!$media instanceof MediaInterface) {
@@ -253,6 +251,45 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
         ->get('field_media_attachments')
         ->appendItem(['target_id' => $media->id()]);
     }
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function replaceMediaNodes(NodeInterface $node, string $source_dir): void {
+    foreach ($node->getChildren() as $child) {
+      \assert($node instanceof NodeInterface);
+      $this->replaceMediaNodes($child, $source_dir);
+    }
+
+    if (!$node instanceof Element) {
+      return;
+    }
+
+    if ($node->getTag() !== 'img') {
+      return;
+    }
+
+    $src = $node->getAttributes()->getAttribute('src');
+
+    // @todo Handle YouTube links. They are added using image syntax.
+    if (UrlHelper::isExternal($src)) {
+      return;
+    }
+
+    $element_pathname = "$source_dir/$src";
+    $asset_manager = $this->container->get(ContentAssetManager::class);
+    $media = $asset_manager->syncWithMedia($element_pathname);
+
+    if (!$media instanceof MediaInterface) {
+      return;
+    }
+
+    $new_node = new DrupalMediaElement(
+      $media->uuid(),
+      $node->getAttributes()->getAttribute('alt'),
+    );
+    $node->getRoot()->replaceNode($node, $new_node);
   }
 
 }
