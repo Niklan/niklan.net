@@ -8,11 +8,13 @@ flexboxes
 Glisseo
 glisseo
 isabelline
+lightbox
 MAILHUB
 Nette
 Niklan
 niklan
 opsz
+Photoswipe
 photoswipe
 prismjs
 Rcmjg

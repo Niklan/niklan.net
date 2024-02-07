@@ -14,6 +14,7 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\niklan\Hook\Entity\BaseFieldInfo;
 use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
+use Drupal\niklan\Hook\Theme\NiklanLightboxResponsiveImagePreprocess;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\paragraphs\ParagraphInterface;
@@ -183,6 +184,15 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     ],
     'niklan_sidebar_search_form' => [
       'variables' => [],
+    ],
+    'niklan_lightbox_responsive_image' => [
+      'variables' => [
+        'uri' => NULL,
+        'thumbnail_responsive_image_style_id' => NULL,
+        'lightbox_image_style_id' => NULL,
+        'alt' => NULL,
+        'attributes' => [],
+      ],
     ],
   ];
 }
@@ -403,4 +413,11 @@ function niklan_entity_bundle_info_alter(array &$bundles): void {
  */
 function niklan_entity_base_field_info(EntityTypeInterface $entity_type): array {
   return \Drupal::classResolver(BaseFieldInfo::class)($entity_type);
+}
+
+/**
+ * {@selfdoc}
+ */
+function template_preprocess_niklan_lightbox_responsive_image(array &$variables): void {
+  \Drupal::classResolver(NiklanLightboxResponsiveImagePreprocess::class)($variables);
 }

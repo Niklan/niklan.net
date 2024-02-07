@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
 use Drupal\media\MediaInterface;
+use Drupal\niklan\Entity\File\FileInterface;
 use Drupal\niklan\Node\DrupalMediaElement;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -33,10 +34,10 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
       return BuilderResult::none();
     }
 
-    return BuilderResult::renderArray([
-      // @todo Prepare render array with media.
-      '#markup' => $media->uuid(),
-    ]);
+    return match ($media->bundle()) {
+      'image' => $this->buildImageRenderArray($media, $node->alt, $context),
+      default => BuilderResult::none(),
+    };
   }
 
   /**
@@ -73,6 +74,26 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
     }
 
     return $storage->load(\reset($ids));
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function buildImageRenderArray(MediaInterface $media, ?string $alt, array $context): BuilderResultInterface {
+    $source_field = $media->getSource()->getConfiguration()['source_field'];
+    $file = $media->get($source_field)->first()->get('entity')->getValue();
+
+    if (!$file instanceof FileInterface) {
+      return BuilderResult::none();
+    }
+
+    return BuilderResult::renderArray([
+      '#theme' => 'niklan_lightbox_responsive_image',
+      '#uri' => $file->getFileUri(),
+      '#alt' => $alt,
+      '#thumbnail_responsive_image_style_id' => 'paragraph_image_image',
+      '#lightbox_image_style_id' => 'big_image',
+    ]);
   }
 
 }
