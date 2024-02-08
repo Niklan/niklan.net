@@ -26,7 +26,6 @@
   background: var(--color-black--o-70);
   font-size: var(--font-size-sm);
   font-weight: bold;
-  line-height: 1;
 }
 
 .lightbox__alt-text {
@@ -44,4 +43,21 @@
 .lightbox__full-link:hover .lightbox__alt-text {
   transform: translateY(0);
   opacity: 1;
+}
+
+.lightbox__magnify {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background: var(--color-black--o-70);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+}
+
+.lightbox__magnify svg {
+  fill: var(--color-white);
 }
