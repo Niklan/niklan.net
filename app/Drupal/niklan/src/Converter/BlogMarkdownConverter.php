@@ -19,8 +19,6 @@ final readonly class BlogMarkdownConverter {
 
   /**
    * {@selfdoc}
-   *
-   * @todo Add DTO for result or think about creating converters in environment.
    */
   public function convert(string $markdown): string {
     $environment = $this->markdownEnvironmentBuilder->build();

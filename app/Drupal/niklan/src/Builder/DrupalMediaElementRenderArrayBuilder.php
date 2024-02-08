@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Builder;
 
+use Drupal\Core\Template\Attribute;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
@@ -35,7 +36,8 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
     }
 
     return match ($media->bundle()) {
-      'image' => $this->buildImageRenderArray($media, $node->alt, $context),
+      'image' => $this->buildImageRenderArray($media, $node->alt),
+      'video' => $this->buildVideoRenderArray($media),
       default => BuilderResult::none(),
     };
   }
@@ -79,9 +81,8 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
   /**
    * {@selfdoc}
    */
-  private function buildImageRenderArray(MediaInterface $media, ?string $alt, array $context): BuilderResultInterface {
-    $source_field = $media->getSource()->getConfiguration()['source_field'];
-    $file = $media->get($source_field)->first()->get('entity')->getValue();
+  private function buildImageRenderArray(MediaInterface $media, ?string $alt): BuilderResultInterface {
+    $file = $this->getMediaSourceFile($media);
 
     if (!$file instanceof FileInterface) {
       return BuilderResult::none();
@@ -94,6 +95,47 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
       '#thumbnail_responsive_image_style_id' => 'paragraph_image_image',
       '#lightbox_image_style_id' => 'big_image',
     ]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function buildVideoRenderArray(MediaInterface $media): BuilderResultInterface {
+    $file = $this->getMediaSourceFile($media);
+
+    if (!$file instanceof FileInterface) {
+      return BuilderResult::none();
+    }
+
+    $source_attributes = new Attribute();
+    $source_attributes
+      ->setAttribute('src', $file->createFileUrl())
+      ->setAttribute('type', $file->getMimeType());
+    $source_item = [
+      'file' => $file,
+      'source_attributes' => $source_attributes,
+    ];
+
+    return BuilderResult::renderArray([
+      '#theme' => 'file_video',
+      '#attributes' => [
+        'width' => 640,
+        'height' => 480,
+        'controls' => 'controls',
+        'loop' => 'loop',
+        'muted' => TRUE,
+      ],
+      '#files' => [$source_item],
+    ]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getMediaSourceFile(MediaInterface $media): ?FileInterface {
+    $source_field = $media->getSource()->getConfiguration()['source_field'];
+
+    return $media->get($source_field)->first()->get('entity')->getValue();
   }
 
 }

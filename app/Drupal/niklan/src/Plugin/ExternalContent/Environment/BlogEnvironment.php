@@ -14,6 +14,7 @@ use Drupal\external_content\Extension\FileFinderExtension;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
+use Drupal\niklan\Builder\CodeBlockRenderArrayBuilder;
 use Drupal\niklan\Builder\DrupalMediaElementRenderArrayBuilder;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
 use Drupal\niklan\Identifier\FrontMatterIdentifier;
@@ -96,6 +97,7 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
     $environment->addLoader(new BlogLoader());
     $environment->addSerializer(new DrupalMediaElementSerializer());
     $environment->addBuilder(new DrupalMediaElementRenderArrayBuilder());
+    $environment->addBuilder(new CodeBlockRenderArrayBuilder(), 100);
 
     return $environment;
   }

@@ -64,9 +64,11 @@ final class FencedCodeRenderer implements NodeRendererInterface, XmlNodeRenderer
     //    ^^^^^^^
     // @endcode
     $info_parts = [];
-    \preg_match('/^(.+)\s?({.+})?/', $node->getInfo() ?? '', $info_parts);
+    \preg_match('/^(.+)\s?({.+})/', $node->getInfo() ?? '', $info_parts);
 
     if (\count($info_parts) === 0) {
+      $attrs->set('data-language', $node->getInfo());
+
       return;
     }
 
