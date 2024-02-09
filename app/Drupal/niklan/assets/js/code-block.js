@@ -116,7 +116,7 @@
 
     []
       .slice
-      .call(once('code-block', '[data-component-id="niklan:code-block"]'))
+      .call(once('code-block', '[data-selector="niklan:code-block"]'))
       .forEach((codeBlock) => {
         intersectionObserver.observe(codeBlock);
       });

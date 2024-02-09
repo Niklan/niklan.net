@@ -49,12 +49,6 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
   public function load(ContentBundle $bundle): LoaderResultInterface {
     $blog_entry = $this->findBlogEntry($bundle->id);
 
-    // If it's not found, stop processing. The new content is not created during
-    // sync at this point, and maybe never will be.
-    if (!$blog_entry instanceof BlogEntryInterface) {
-      return LoaderResult::ignore();
-    }
-
     foreach ($bundle->getByAttribute('language') as $content_variation) {
       \assert($content_variation instanceof ContentVariation);
       // Switch the content language to be the same as variation.
@@ -101,7 +95,9 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       ->execute();
 
     if (!$ids) {
-      return NULL;
+      // Create a new one if nothing is found.
+      // @phpstan-ignore-next-line
+      return $storage->create(['type' => 'blog_entry']);
     }
 
     /* @phpstan-ignore-next-line */

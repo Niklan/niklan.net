@@ -230,6 +230,13 @@ component.theme.lightbox-responsive-image:
     theme:
       assets/css/04-components/theme/lightbox-responsive-image.css: { }
 
+component.theme.code-block:
+  css:
+    theme:
+      assets/css/04-components/theme/code-block.css: { }
+  dependencies:
+    - mechanical/component.javascript.prismjs
+
 component.block.page-title:
   css:
     theme:

@@ -194,6 +194,14 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'attributes' => [],
       ],
     ],
+    'niklan_code_block' => [
+      'variables' => [
+        'language' => NULL,
+        'highlighted_lines' => [],
+        'heading' => NULL,
+        'code' => NULL,
+      ],
+    ],
   ];
 }
 

@@ -49,13 +49,13 @@
   position: absolute;
   top: var(--spacing-sm);
   right: var(--spacing-sm);
-  background: var(--color-black--o-70);
-  width: 2rem;
-  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 2rem;
+  height: 2rem;
   border-radius: var(--radius-xs);
+  background: var(--color-black--o-70);
 }
 
 .lightbox__magnify svg {

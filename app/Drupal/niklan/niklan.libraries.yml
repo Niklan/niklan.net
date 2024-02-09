@@ -1,11 +1,9 @@
 niklan.toolbar:
-  version: VERSION
   css:
     theme:
       assets/css/niklan.toolbar.css: { }
 
 mobile-sidebar:
-  version: VERSION
   js:
     assets/js/mobile-sidebar.js: { }
 
@@ -20,7 +18,6 @@ prismjs:
     /libraries/prismjs/prism.js: { minified: true }
 
 share:
-  version: VERSION
   js:
     assets/js/share.js: { }
   dependencies:
@@ -28,20 +25,19 @@ share:
     - core/once
 
 oembed-video:
-  version: VERSION
   js:
     assets/js/oembed-video.js: { }
   dependencies:
     - core/drupal
     - core/once
 
-# @todo fix or remove
-code_line_highlight:
-  version: VERSION
+code-block:
   js:
-    assets/js/paragraph.code.highlighted-lines.js: { }
+    assets/js/code-block.js: { }
   dependencies:
     - core/drupal
+    - core/once
+    - niklan/prismjs
 
 content-editing.toolbar:
   css:

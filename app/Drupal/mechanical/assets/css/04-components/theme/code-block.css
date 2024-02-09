@@ -1,5 +1,15 @@
+.code-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
 .code-block code {
   position: relative;
+}
+
+.code-block__title {
+  font-weight: bold;
 }
 
 .code-block__highlighted {

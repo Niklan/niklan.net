@@ -18,8 +18,20 @@ final class CodeBlockRenderArrayBuilder implements BuilderInterface {
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+    \assert($node instanceof Element);
+    $attributes = $node->getAttributes();
+    $info = [];
+
+    if ($attributes->hasAttribute('data-info')) {
+      $info = \json_decode($attributes->getAttribute('data-info'), TRUE);
+    }
+
     return BuilderResult::renderArray([
-      '#markup' => '@TODO COMPLETE',
+      '#theme' => 'niklan_code_block',
+      '#language' => $attributes->getAttribute('data-language'),
+      '#highlighted_lines' => $info['highlighted_lines'] ?? NULL,
+      '#heading' => $info['header'] ?? NULL,
+      '#code' => $context['children'],
     ]);
   }
 
