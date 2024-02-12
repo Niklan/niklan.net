@@ -23,6 +23,7 @@ final class DrupalMediaElementSerializer implements NodeSerializerInterface {
     return new Data([
       'uuid' => $node->uuid,
       'alt' => $node->alt,
+      'title' => $node->title,
     ]);
   }
 
@@ -54,6 +55,7 @@ final class DrupalMediaElementSerializer implements NodeSerializerInterface {
     return new DrupalMediaElement(
       $data->get('uuid'),
       $data->get('alt'),
+      $data->get('title'),
     );
   }
 

@@ -17,6 +17,7 @@ final class DrupalMediaElement extends Node {
   public function __construct(
     public readonly string $uuid,
     public readonly ?string $alt = NULL,
+    public readonly ?string $title = NULL,
   ) {}
 
 }

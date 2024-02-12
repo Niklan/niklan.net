@@ -191,6 +191,7 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'thumbnail_responsive_image_style_id' => NULL,
         'lightbox_image_style_id' => NULL,
         'alt' => NULL,
+        'title' => NULL,
         'attributes' => [],
       ],
     ],

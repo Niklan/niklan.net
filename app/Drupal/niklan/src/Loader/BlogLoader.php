@@ -268,14 +268,12 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
 
     $src = $node->getAttributes()->getAttribute('src');
 
-    // @todo Handle YouTube links. They are added using image syntax.
-    if (UrlHelper::isExternal($src)) {
-      return;
+    if (!UrlHelper::isExternal($src)) {
+      $src = "$source_dir/$src";
     }
 
-    $element_pathname = "$source_dir/$src";
     $asset_manager = $this->container->get(ContentAssetManager::class);
-    $media = $asset_manager->syncWithMedia($element_pathname);
+    $media = $asset_manager->syncWithMedia($src);
 
     if (!$media instanceof MediaInterface) {
       return;
@@ -284,6 +282,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
     $new_node = new DrupalMediaElement(
       $media->uuid(),
       $node->getAttributes()->getAttribute('alt'),
+      $node->getAttributes()->getAttribute('title'),
     );
     $node->getRoot()->replaceNode($node, $new_node);
   }

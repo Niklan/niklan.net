@@ -36,8 +36,9 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
     }
 
     return match ($media->bundle()) {
-      'image' => $this->buildImageRenderArray($media, $node->alt),
+      'image' => $this->buildImageRenderArray($media, $node),
       'video' => $this->buildVideoRenderArray($media),
+      'remote_video' => $this->buildRemoteVideoRenderArray($media),
       default => BuilderResult::none(),
     };
   }
@@ -81,7 +82,7 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
   /**
    * {@selfdoc}
    */
-  private function buildImageRenderArray(MediaInterface $media, ?string $alt): BuilderResultInterface {
+  private function buildImageRenderArray(MediaInterface $media, DrupalMediaElement $node): BuilderResultInterface {
     $file = $this->getMediaSourceFile($media);
 
     if (!$file instanceof FileInterface) {
@@ -91,7 +92,8 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
     return BuilderResult::renderArray([
       '#theme' => 'niklan_lightbox_responsive_image',
       '#uri' => $file->getFileUri(),
-      '#alt' => $alt,
+      '#alt' => $node->alt,
+      '#title' => $node->title,
       '#thumbnail_responsive_image_style_id' => 'paragraph_image_image',
       '#lightbox_image_style_id' => 'big_image',
     ]);
@@ -136,6 +138,18 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
     $source_field = $media->getSource()->getConfiguration()['source_field'];
 
     return $media->get($source_field)->first()->get('entity')->getValue();
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function buildRemoteVideoRenderArray(MediaInterface $media): BuilderResultInterface {
+    $view_builder = $this
+      ->container
+      ->get('entity_type.manager')
+      ->getViewBuilder('media');
+
+    return BuilderResult::renderArray($view_builder->view($media));
   }
 
 }

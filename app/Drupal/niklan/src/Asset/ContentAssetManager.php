@@ -8,8 +8,10 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\media\MediaInterface;
+use Drupal\media\MediaTypeInterface;
 use Drupal\niklan\Entity\File\FileInterface;
 use Drupal\niklan\Helper\FileHelper;
+use Drupal\niklan\Helper\YouTubeHelper;
 
 /**
  * {@selfdoc}
@@ -32,13 +34,12 @@ final class ContentAssetManager {
    * {@selfdoc}
    */
   public function syncWithMedia(string $path): ?MediaInterface {
+    // Replace spaces '%20' with an actual space. Without that, it can lead to
+    // a wrong file detection.
     $path = \urldecode($path);
 
-    // External URLs are not supported, and most likely never will be here.
-    // If you are interested in implementation, check this:
-    // https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L124-L126
     if (UrlHelper::isExternal($path)) {
-      return NULL;
+      return $this->syncExternal($path);
     }
 
     $file = $this->syncWithFile($path);
@@ -142,9 +143,8 @@ final class ContentAssetManager {
       ->getStorage('media')
       ->create(['bundle' => $type]);
     \assert($media instanceof MediaInterface);
-    $source_field = $media->getSource()->getConfiguration()['source_field'];
     $media->setName($file->label());
-    $media->set($source_field, $file);
+    $media->set($this->getMediaTypeSourceField($type), $file);
     $media->save();
 
     return $media;
@@ -192,6 +192,70 @@ final class ContentAssetManager {
     $extension = FileHelper::extension($path);
 
     return "{$this->uuid->generate()}.{$extension}";
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function syncExternal(string $url): ?MediaInterface {
+    // External URLs are partially supported. Only YouTube URLs are
+    // supported at this point. If you are interested in implementation that
+    // supports other contents (e.g. images), check this:
+    // https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L124-L126
+    if (!YouTubeHelper::isYouTubeUrl($url)) {
+      return NULL;
+    }
+
+    return $this->syncYouTubeMedia($url);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function syncYouTubeMedia(string $url): ?MediaInterface {
+    $video_id = YouTubeHelper::extractVideoId($url);
+
+    if (!$video_id) {
+      return NULL;
+    }
+
+    // Force URL to be in the same format.
+    $youtube_url = "https://youtu.be/{$video_id}";
+
+    $media_type_id = 'remote_video';
+    $source_field = $this->getMediaTypeSourceField($media_type_id);
+    $storage = $this->entityTypeManager->getStorage('media');
+    $ids = $storage
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('bundle', $media_type_id)
+      ->condition($source_field, $youtube_url)
+      ->range(0, 1)
+      ->execute();
+
+    if ($ids) {
+      return $storage->load(\reset($ids));
+    }
+
+    $media = $storage->create(['bundle' => $media_type_id]);
+    \assert($media instanceof MediaInterface);
+    $media->set($source_field, $youtube_url);
+    $media->save();
+
+    return $media;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getMediaTypeSourceField(string $media_type_id): string {
+    $media_type = $this
+      ->entityTypeManager
+      ->getStorage('media_type')
+      ->load($media_type_id);
+    \assert($media_type instanceof MediaTypeInterface);
+
+    return $media_type->getSource()->getConfiguration()['source_field'];
   }
 
 }

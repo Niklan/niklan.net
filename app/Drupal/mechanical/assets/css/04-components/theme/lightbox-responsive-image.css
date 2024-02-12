@@ -1,6 +1,8 @@
 .lightbox {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
 }
 
 .lightbox__full-link {
@@ -60,4 +62,9 @@
 
 .lightbox__magnify svg {
   fill: var(--color-white);
+}
+
+.lightbox__title {
+  color: var(--color-gray-web);
+  font-style: var(--font-size-sm);
 }

@@ -68,7 +68,16 @@ final readonly class NiklanLightboxResponsiveImagePreprocess implements Containe
     }
 
     $variables['responsive_image']['#uri'] = $variables['uri'];
-    $variables['responsive_image']['#attributes']['alt'] = $variables['alt'];
+
+    if (\array_key_exists('alt', $variables)) {
+      $variables['responsive_image']['#attributes']['alt'] = $variables['alt'];
+    }
+
+    if (!\array_key_exists('title', $variables)) {
+      return;
+    }
+
+    $variables['responsive_image']['#attributes']['title'] = $variables['title'];
   }
 
   /**

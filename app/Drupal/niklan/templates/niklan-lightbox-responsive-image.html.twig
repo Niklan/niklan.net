@@ -9,6 +9,7 @@
  * - thumbnail_responsive_image_style_id: The responsive image style ID.
  * - lightbox_image_style_id: The image style ID used for zoomed image.
  * - alt: The image alt.
+ * - title: The image title.
  * - responsive_image: The responsive image.
  * - full_image_url: The full image URL.
  * - size: The WxH size for aspect ratio.
@@ -34,4 +35,8 @@
       {{ include('@niklan/../assets/icons/000000/fullscreen_FILL0_wght400_GRAD0_opsz24.svg') }}
     </div>
   </a>
+
+  {% if title %}
+    <div class="lightbox__title">{{ title }}</div>
+  {% endif %}
 </div>
