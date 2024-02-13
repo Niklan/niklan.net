@@ -1,24 +1,24 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Serializer;
+namespace Drupal\niklan\Serializer\ExternalContent;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\Data;
-use Drupal\niklan\Node\DrupalMediaElement;
+use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 
 /**
  * {@selfdoc}
  *
  * @ingroup content_sync
  */
-final class DrupalMediaElementSerializer implements NodeSerializerInterface {
+final class DrupalMediaSerializer implements NodeSerializerInterface {
 
   /**
    * {@inheritdoc}
    */
   public function normalize(NodeInterface $node): Data {
-    \assert($node instanceof DrupalMediaElement);
+    \assert($node instanceof DrupalMedia);
 
     return new Data([
       'uuid' => $node->uuid,
@@ -31,7 +31,7 @@ final class DrupalMediaElementSerializer implements NodeSerializerInterface {
    * {@inheritdoc}
    */
   public function supportsSerialization(NodeInterface $node): bool {
-    return $node instanceof DrupalMediaElement;
+    return $node instanceof DrupalMedia;
   }
 
   /**
@@ -45,14 +45,14 @@ final class DrupalMediaElementSerializer implements NodeSerializerInterface {
    * {@inheritdoc}
    */
   public function getSerializationBlockType(): string {
-    return 'niklan:drupal_media_element';
+    return 'niklan:drupal_media';
   }
 
   /**
    * {@inheritdoc}
    */
   public function deserialize(Data $data, string $serialized_version): NodeInterface {
-    return new DrupalMediaElement(
+    return new DrupalMedia(
       $data->get('uuid'),
       $data->get('alt'),
       $data->get('title'),

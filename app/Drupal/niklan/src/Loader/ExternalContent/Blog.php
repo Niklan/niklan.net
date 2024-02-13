@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Loader;
+namespace Drupal\niklan\Loader\ExternalContent;
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -21,7 +21,7 @@ use Drupal\media\MediaInterface;
 use Drupal\niklan\Asset\ContentAssetManager;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
-use Drupal\niklan\Node\DrupalMediaElement;
+use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,7 +31,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @ingroup content_sync
  */
-final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, ContainerAwareInterface {
+final class Blog implements LoaderInterface, EnvironmentAwareInterface, ContainerAwareInterface {
 
   /**
    * {@selfdoc}
@@ -279,7 +279,7 @@ final class BlogLoader implements LoaderInterface, EnvironmentAwareInterface, Co
       return;
     }
 
-    $new_node = new DrupalMediaElement(
+    $new_node = new DrupalMedia(
       $media->uuid(),
       $node->getAttributes()->getAttribute('alt'),
       $node->getAttributes()->getAttribute('title'),

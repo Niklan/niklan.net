@@ -9,6 +9,8 @@ use Drupal\external_content\Data\SourceIdentification;
 
 /**
  * Provides a bundler based on Front Matter 'id' and 'language' params.
+ *
+ * @ingroup external_content
  */
 final class FrontMatterIdentifier implements IdentifierInterface {
 

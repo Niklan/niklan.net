@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Node;
+namespace Drupal\niklan\Node\ExternalContent;
 
 use Drupal\external_content\Node\Node;
 
@@ -9,10 +9,10 @@ use Drupal\external_content\Node\Node;
  *
  * @ingroup content_sync
  */
-final class DrupalMediaElement extends Node {
+final class DrupalMedia extends Node {
 
   /**
-   * Constructs a new DrupalMediaElement instance.
+   * {@selfdoc}
    */
   public function __construct(
     public readonly string $uuid,

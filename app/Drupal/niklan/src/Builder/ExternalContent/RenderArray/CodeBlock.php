@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Builder;
+namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
@@ -11,8 +11,10 @@ use Drupal\external_content\Node\Html\Element;
 
 /**
  * {@selfdoc}
+ *
+ * @ingroup content_sync
  */
-final class CodeBlockRenderArrayBuilder implements BuilderInterface {
+final class CodeBlock implements BuilderInterface {
 
   /**
    * {@inheritdoc}

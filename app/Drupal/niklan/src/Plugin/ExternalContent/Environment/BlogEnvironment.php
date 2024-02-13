@@ -14,12 +14,15 @@ use Drupal\external_content\Extension\FileFinderExtension;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
-use Drupal\niklan\Builder\CodeBlockRenderArrayBuilder;
-use Drupal\niklan\Builder\DrupalMediaElementRenderArrayBuilder;
+use Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock;
+use Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia;
+use Drupal\niklan\Builder\ExternalContent\RenderArray\Note;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
 use Drupal\niklan\Identifier\FrontMatterIdentifier;
-use Drupal\niklan\Loader\BlogLoader;
-use Drupal\niklan\Serializer\DrupalMediaElementSerializer;
+use Drupal\niklan\Loader\ExternalContent\Blog;
+use Drupal\niklan\Parser\ExternalContent\NoteParser;
+use Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer;
+use Drupal\niklan\Serializer\ExternalContent\NoteSerializer;
 use League\Config\Configuration;
 use Nette\Schema\Expect;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -75,11 +78,19 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
 
     $environment = new Environment($configuration);
     $environment->setContainer($this->container);
-
+    $environment->addIdentifier(new FrontMatterIdentifier());
     $environment->addExtension(new BasicHtmlExtension());
     $environment->addExtension(new FileFinderExtension());
-
-    $environment->addIdentifier(new FrontMatterIdentifier());
+    // Drupal media handler.
+    $environment->addSerializer(new DrupalMediaSerializer());
+    $environment->addBuilder(new DrupalMedia());
+    // Code block custom builder.
+    $environment->addBuilder(new CodeBlock(), 100);
+    // Note syntax support.
+    $environment->addBuilder(new Note(), 100);
+    $environment->addSerializer(new NoteSerializer());
+    // Blog entry loader.
+    $environment->addLoader(new Blog());
 
     $environment->addEventListener(
       event_class: FileFoundEvent::class,
@@ -93,11 +104,6 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
       event_class: HtmlPreParseEvent::class,
       listener: fn (HtmlPreParseEvent $event) => $this->convertMarkdown($event),
     );
-
-    $environment->addLoader(new BlogLoader());
-    $environment->addSerializer(new DrupalMediaElementSerializer());
-    $environment->addBuilder(new DrupalMediaElementRenderArrayBuilder());
-    $environment->addBuilder(new CodeBlockRenderArrayBuilder(), 100);
 
     return $environment;
   }
@@ -132,8 +138,9 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
    */
   private function prepareHtmlParsers(): PrioritizedList {
     $parsers = new PrioritizedList();
+    $parsers->add(new NoteParser(), 100);
     $parsers->add(new PlainTextParser(), 0);
-    $parsers->add(new ElementParser(), -1000);
+    $parsers->add(new ElementParser(), -100);
 
     return $parsers;
   }

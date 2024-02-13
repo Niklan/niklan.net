@@ -46,7 +46,7 @@ final class AsideMarkdownBuilder implements MarkdownBuilderInterface {
     }
 
     $markdown_parts = [];
-    $markdown_parts[] = '> {"type": "' . $source->getType() . '"}';
+    $markdown_parts[] = '> [!' . \strtoupper($source->getType()) . ']';
 
     foreach ($inner_content_parts as $inner_content_part) {
       $markdown_parts[] = '> ' . $inner_content_part;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Builder;
+namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 
 use Drupal\Core\Template\Attribute;
 use Drupal\external_content\Builder\RenderArrayBuilder;
@@ -10,14 +10,16 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\File\FileInterface;
-use Drupal\niklan\Node\DrupalMediaElement;
+use Drupal\niklan\Node\ExternalContent\DrupalMedia as DrupalMediaNode;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * {@selfdoc}
+ *
+ * @ingroup content_sync
  */
-final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, ContainerAwareInterface {
+final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
 
   /**
    * {@selfdoc}
@@ -28,7 +30,7 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
-    \assert($node instanceof DrupalMediaElement);
+    \assert($node instanceof DrupalMediaNode);
     $media = $this->findMedia($node->uuid);
 
     if (!$media instanceof MediaInterface) {
@@ -47,7 +49,7 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
    * {@inheritdoc}
    */
   public function supportsBuild(NodeInterface $node, string $type, array $context = []): bool {
-    return $type === RenderArrayBuilder::class && $node instanceof DrupalMediaElement;
+    return $type === RenderArrayBuilder::class && $node instanceof DrupalMediaNode;
   }
 
   /**
@@ -82,7 +84,7 @@ final class DrupalMediaElementRenderArrayBuilder implements BuilderInterface, Co
   /**
    * {@selfdoc}
    */
-  private function buildImageRenderArray(MediaInterface $media, DrupalMediaElement $node): BuilderResultInterface {
+  private function buildImageRenderArray(MediaInterface $media, DrupalMediaNode $node): BuilderResultInterface {
     $file = $this->getMediaSourceFile($media);
 
     if (!$file instanceof FileInterface) {

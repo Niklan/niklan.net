@@ -48,6 +48,9 @@ final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInte
    * {@selfdoc}
    */
   protected function buildRecursive(NodeInterface $node, array &$children, array $context): mixed {
+    // @todo Pass $this builder as an argument and let builder decide how to
+    //   handle children.
+    // @see \Drupal\niklan\CommonMark\Renderer\NoteRenderer::render
     $children_build = [];
 
     foreach ($node->getChildren() as $child) {
