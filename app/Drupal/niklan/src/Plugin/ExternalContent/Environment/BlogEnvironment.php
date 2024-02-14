@@ -18,7 +18,7 @@ use Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock;
 use Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia;
 use Drupal\niklan\Builder\ExternalContent\RenderArray\Note;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
-use Drupal\niklan\Identifier\FrontMatterIdentifier;
+use Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier;
 use Drupal\niklan\Loader\ExternalContent\Blog;
 use Drupal\niklan\Parser\ExternalContent\NoteParser;
 use Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer;
@@ -121,7 +121,7 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
    */
   private function removeFrontMatter(HtmlPreParseEvent $event): void {
     $front_matter = FrontMatter::create($event->content);
-    $event->data->set('front_matter', $front_matter->getData());
+    // Replace content with the version without Front Matter.
     $event->content = $front_matter->getContent();
   }
 

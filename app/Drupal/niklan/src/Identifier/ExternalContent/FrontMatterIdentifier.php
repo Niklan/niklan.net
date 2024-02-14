@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\Identifier;
+namespace Drupal\niklan\Identifier\ExternalContent;
 
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;

@@ -21,6 +21,7 @@ use Drupal\media\MediaInterface;
 use Drupal\niklan\Asset\ContentAssetManager;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
+use Drupal\niklan\Helper\PathHelper;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -97,7 +98,11 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
     if (!$ids) {
       // Create a new one if nothing is found.
       // @phpstan-ignore-next-line
-      return $storage->create(['type' => 'blog_entry']);
+      $blog_entry = $storage->create(['type' => 'blog_entry']);
+      \assert($blog_entry instanceof BlogEntryInterface);
+      $blog_entry->setExternalId($external_id);
+
+      return $blog_entry;
     }
 
     /* @phpstan-ignore-next-line */
@@ -126,11 +131,9 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
    */
   private function processBlogEntryVariation(BlogEntryInterface $blog_entry, ContentVariation $content_variation): void {
     $content = $content_variation->content;
-    $front_matter = $content->getData()->get('front_matter');
-    // @todo Consider replace '/' with a '\DIRECTORY_SEPARATOR' to eliminate
-    //   potential problems on Windows and other system that uses '\' as a
-    //   separator.
-    $source_dir = \dirname($content->getData()->get('source')['pathname']);
+    $source_info = $content->getData()->get('source');
+    $front_matter = $source_info['front_matter'];
+    $source_dir = \dirname($source_info['pathname']);
 
     $created = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
@@ -149,14 +152,10 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
     $this->processPromo($blog_entry, $content, $source_dir);
     $this->processAttachments($blog_entry, $content);
     $this->replaceMediaNodes($content, $source_dir);
+    $this->prepareInternalLinks($content, $source_dir);
 
-    // @todo Loop over content and replace asset nodes with a new one that
-    //   uses Drupal internal Media IDs/URIs.
-    $normalized = $this
-      ->getSerializer()
-      ->normalize($content);
     $blog_entry->set('external_content', [
-      'value' => $normalized,
+      'value' => $this->getSerializer()->normalize($content),
       'environment_plugin_id' => $this
         ->environment
         ->getConfiguration()
@@ -258,11 +257,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
       $this->replaceMediaNodes($child, $source_dir);
     }
 
-    if (!$node instanceof Element) {
-      return;
-    }
-
-    if ($node->getTag() !== 'img') {
+    if (!$node instanceof Element || $node->getTag() !== 'img') {
       return;
     }
 
@@ -285,6 +280,53 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
       $node->getAttributes()->getAttribute('title'),
     );
     $node->getRoot()->replaceNode($node, $new_node);
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * This logic done in loader because it better to be done once. After content
+   * is synced, the source directory can be removed and this logic would fail.
+   * This is why the all required information extracted during loading when
+   * all sources are exist.
+   */
+  private function prepareInternalLinks(NodeInterface $node, string $source_dir): void {
+    foreach ($node->getChildren() as $child) {
+      $this->prepareInternalLinks($child, $source_dir);
+    }
+
+    if (!$node instanceof Element || $node->getTag() !== 'a') {
+      return;
+    }
+
+    $attributes = $node->getAttributes();
+
+    if (!$attributes->hasAttribute('href')) {
+      return;
+    }
+
+    $href = $attributes->getAttribute('href');
+
+    if (UrlHelper::isExternal($href)) {
+      return;
+    }
+
+    $relative_pathname = $source_dir . \DIRECTORY_SEPARATOR . $href;
+    // @todo Improve it. It breaks stream wrapper schemes: private:/ - with a
+    //   single slash.
+    $pathname = PathHelper::normalizePath($relative_pathname);
+    $pathname = \str_replace('private:/', 'private://', $pathname);
+
+    // Only if the resulted pathname is existing we detected referenced to
+    // another content inside the source.
+    if (!\file_exists($pathname)) {
+      return;
+    }
+
+    $attributes->setAttribute('href', '#');
+    $attributes->setAttribute('data-selector', 'niklan:external-link');
+    $attributes->setAttribute('data-working-dir', '@todo working dir');
+    $attributes->setAttribute('data-relative-pathname', '@todo relative pathname');
   }
 
 }

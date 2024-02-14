@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Template\Attribute;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
@@ -27,6 +28,11 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
   private ContainerInterface $container;
 
   /**
+   * {@selfdoc}
+   */
+  private CacheableMetadata $cache;
+
+  /**
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
@@ -36,6 +42,9 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
     if (!$media instanceof MediaInterface) {
       return BuilderResult::none();
     }
+
+    $this->cache = new CacheableMetadata();
+    $this->cache->addCacheableDependency($media);
 
     return match ($media->bundle()) {
       'image' => $this->buildImageRenderArray($media, $node),
@@ -91,14 +100,18 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
       return BuilderResult::none();
     }
 
-    return BuilderResult::renderArray([
+    $this->cache->addCacheableDependency($file);
+    $build = [
       '#theme' => 'niklan_lightbox_responsive_image',
       '#uri' => $file->getFileUri(),
       '#alt' => $node->alt,
       '#title' => $node->title,
       '#thumbnail_responsive_image_style_id' => 'paragraph_image_image',
       '#lightbox_image_style_id' => 'big_image',
-    ]);
+    ];
+    $this->cache->applyTo($build);
+
+    return BuilderResult::renderArray($build);
   }
 
   /**
@@ -111,6 +124,8 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
       return BuilderResult::none();
     }
 
+    $this->cache->addCacheableDependency($file);
+
     $source_attributes = new Attribute();
     $source_attributes
       ->setAttribute('src', $file->createFileUrl())
@@ -120,7 +135,7 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
       'source_attributes' => $source_attributes,
     ];
 
-    return BuilderResult::renderArray([
+    $build = [
       '#theme' => 'file_video',
       '#attributes' => [
         'width' => 640,
@@ -130,7 +145,10 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
         'muted' => TRUE,
       ],
       '#files' => [$source_item],
-    ]);
+    ];
+    $this->cache->applyTo($build);
+
+    return BuilderResult::renderArray($build);
   }
 
   /**

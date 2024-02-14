@@ -64,6 +64,13 @@ final class File implements SourceInterface {
   }
 
   /**
+   * {@selfdoc}
+   */
+  public function getBasename(): string {
+    return \basename($this->getPathname());
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function contents(): string {
