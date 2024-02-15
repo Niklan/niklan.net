@@ -154,12 +154,19 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
     $this->replaceMediaNodes($content, $source_dir);
     $this->prepareInternalLinks($content, $source_dir);
 
+    $additional_info = [
+      // For internal links. MD5 is used instead clear value for a smaller size
+      // of the stored data.
+      'pathname_md5' => \md5($source_info['pathname']),
+    ];
+
     $blog_entry->set('external_content', [
       'value' => $this->getSerializer()->normalize($content),
       'environment_plugin_id' => $this
         ->environment
         ->getConfiguration()
         ->get('environment_plugin_id'),
+      'data' => \json_encode($additional_info),
     ]);
   }
 
@@ -300,22 +307,14 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
     }
 
     $attributes = $node->getAttributes();
-
-    if (!$attributes->hasAttribute('href')) {
-      return;
-    }
-
-    $href = $attributes->getAttribute('href');
+    $href = $attributes->getAttribute('href') ?? '';
 
     if (UrlHelper::isExternal($href)) {
       return;
     }
 
     $relative_pathname = $source_dir . \DIRECTORY_SEPARATOR . $href;
-    // @todo Improve it. It breaks stream wrapper schemes: private:/ - with a
-    //   single slash.
     $pathname = PathHelper::normalizePath($relative_pathname);
-    $pathname = \str_replace('private:/', 'private://', $pathname);
 
     // Only if the resulted pathname is existing we detected referenced to
     // another content inside the source.
@@ -325,8 +324,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
 
     $attributes->setAttribute('href', '#');
     $attributes->setAttribute('data-selector', 'niklan:external-link');
-    $attributes->setAttribute('data-working-dir', '@todo working dir');
-    $attributes->setAttribute('data-relative-pathname', '@todo relative pathname');
+    $attributes->setAttribute('data-pathname-md5', \md5($pathname));
   }
 
 }
