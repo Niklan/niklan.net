@@ -16,6 +16,7 @@ use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
 use Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock;
 use Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia;
+use Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder;
 use Drupal\niklan\Builder\ExternalContent\RenderArray\Note;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
 use Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier;
@@ -91,6 +92,7 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
     $environment->addSerializer(new NoteSerializer());
     // Blog entry loader.
     $environment->addLoader(new Blog());
+    $environment->addBuilder(new LinkBuilder(), 100);
 
     $environment->addEventListener(
       event_class: FileFoundEvent::class,
