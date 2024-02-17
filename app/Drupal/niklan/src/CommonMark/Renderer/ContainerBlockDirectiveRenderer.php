@@ -2,7 +2,7 @@
 
 namespace Drupal\niklan\CommonMark\Renderer;
 
-use Drupal\niklan\CommonMark\Block\ContainerDirective;
+use Drupal\niklan\CommonMark\Block\ContainerBlockDirective;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
@@ -14,20 +14,20 @@ use League\CommonMark\Util\RegexHelper;
  *
  * @ingroup markdown
  */
-final class ContainerDirectiveRenderer implements NodeRendererInterface {
+final class ContainerBlockDirectiveRenderer implements NodeRendererInterface {
 
   /**
    * {@inheritdoc}
    */
   #[\Override]
   public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable {
-    \assert($node instanceof ContainerDirective);
+    \assert($node instanceof ContainerBlockDirective);
 
     return new HtmlElement(
       tagName: 'div',
       attributes: [
         // @todo Inline content and metadata.
-        // @see \Drupal\niklan\CommonMark\Extension\ContainerDirectiveExtension
+        // @see \Drupal\niklan\CommonMark\Extension\ContainerBlockDirectiveExtension
         'data-selector' => 'niklan:container-directive',
         'data-container-type' => $this->resolveType($node),
       ],
@@ -38,8 +38,7 @@ final class ContainerDirectiveRenderer implements NodeRendererInterface {
   /**
    * {@selfdoc}
    */
-  private function resolveType(ContainerDirective $node): string {
-    \dump($node->info);
+  private function resolveType(ContainerBlockDirective $node): string {
     $matches = RegexHelper::matchFirst('/^\s*([a-z]+)/', $node->info);
 
     return $matches[1];

@@ -2,9 +2,9 @@
 
 namespace Drupal\niklan\CommonMark\Extension;
 
-use Drupal\niklan\CommonMark\Block\ContainerDirective;
-use Drupal\niklan\CommonMark\Parser\ContainerDirectiveStartParser;
-use Drupal\niklan\CommonMark\Renderer\ContainerDirectiveRenderer;
+use Drupal\niklan\CommonMark\Block\ContainerBlockDirective;
+use Drupal\niklan\CommonMark\Parser\ContainerBlockDirectiveStartParser;
+use Drupal\niklan\CommonMark\Renderer\ContainerBlockDirectiveRenderer;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ExtensionInterface;
 
@@ -12,7 +12,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  * {@selfdoc}
  *
  * Container Directive it is a simply Markdown Syntax that can be used to create
- * different types of containers using similar syntx.
+ * different types of containers using similar syntax.
  *
  * Example:
  * @code
@@ -34,16 +34,16 @@ use League\CommonMark\Extension\ExtensionInterface;
  *
  * @ingroup markdown
  */
-final class ContainerDirectiveExtension implements ExtensionInterface {
+final class ContainerBlockDirectiveExtension implements ExtensionInterface {
 
   /**
    * {@inheritdoc}
    */
   public function register(EnvironmentBuilderInterface $environment): void {
-    $environment->addBlockStartParser(new ContainerDirectiveStartParser());
+    $environment->addBlockStartParser(new ContainerBlockDirectiveStartParser(), 70);
     $environment->addRenderer(
-      nodeClass: ContainerDirective::class,
-      renderer: new ContainerDirectiveRenderer(),
+      nodeClass: ContainerBlockDirective::class,
+      renderer: new ContainerBlockDirectiveRenderer(),
     );
   }
 

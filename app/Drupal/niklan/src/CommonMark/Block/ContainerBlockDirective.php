@@ -9,13 +9,15 @@ use League\CommonMark\Node\Block\AbstractBlock;
  *
  * @ingroup markdown
  */
-final class ContainerDirective extends AbstractBlock {
+final class ContainerBlockDirective extends AbstractBlock {
 
   /**
    * {@selfdoc}
    */
   public function __construct(
-    public string $info = '',
+    public readonly int $colonLength,
+    public readonly int $offset,
+    public readonly string $info = '',
   ) {
     parent::__construct();
   }

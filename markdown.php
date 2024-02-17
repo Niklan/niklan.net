@@ -11,12 +11,12 @@ $environment->addExtension(new NiklanMarkdownExtension());
 $converter = new MarkdownConverter($environment);
 
 $test = <<<'Markdown'
-::: figure [inline] {foo=bar}
-![image](img.jpg)
-
-:: figcaption
-**strong description**
-:::
+:::::: foo
+  ::::: bar
+    :::: baz
+    ::::
+  :::::
+::::::
 Markdown;
 
 $result = $converter->convert($test)->getContent();
