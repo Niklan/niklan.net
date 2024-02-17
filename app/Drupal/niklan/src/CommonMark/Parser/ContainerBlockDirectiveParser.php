@@ -57,11 +57,6 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser {
    */
   #[\Override]
   public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue {
-    // Make sure to get all block information from the active one, not from
-    // $this.
-    $active_block = $activeBlockParser->getBlock();
-    \assert($active_block instanceof ContainerBlockDirective);
-
     if ($cursor->getNextNonSpaceCharacter() === ':') {
       $match = RegexHelper::matchFirst(
         pattern: '/^\s*(:{3,})(?=\s*$)/',
@@ -69,7 +64,7 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser {
       );
 
       // Check for closing colon. It should be same length as opening or more.
-      if ($match !== NULL && \strlen($match[0]) >= $active_block->colonLength) {
+      if ($match !== NULL && \strlen($match[1]) >= $this->colonLength) {
         return BlockContinue::finished();
       }
     }
@@ -79,7 +74,7 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser {
       // Move cursor on the block offset amount. Without this skip of indent
       // offset equals opening indent, it can trigger Indented code parser for
       // depth 3 and above.
-      $cursor->match('/^\s{0,' . $active_block->offset . '}/');
+      $cursor->match('/^\s{0,' . $this->offset . '}/');
     }
 
     return BlockContinue::at($cursor);

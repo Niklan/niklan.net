@@ -11,12 +11,13 @@ $environment->addExtension(new NiklanMarkdownExtension());
 $converter = new MarkdownConverter($environment);
 
 $test = <<<'Markdown'
-:::::: foo
-  ::::: bar
-    :::: baz
-    ::::
-  :::::
-::::::
+::::: foo
+  :::: bar
+    ::: baz
+    Hello World!
+    :::
+  ::::
+:::::
 Markdown;
 
 $result = $converter->convert($test)->getContent();
