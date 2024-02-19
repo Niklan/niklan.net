@@ -1,22 +1,17 @@
 <?php
 
 use League\CommonMark\Parser\Cursor;
-use League\CommonMark\Util\RegexHelper;
 
-$line = 'name [inline-content\] 123] (argument\)) {#id .class-a .class-b key=value key-b="value with space and bracket\}"}';
+$line = 'name[inline-content\] 123](argument\)){#id .class-a .class-b key=value key-b="value with space and bracket\}"}';
 $cursor = new Cursor($line);
 
 $escape_char = '\\';
-$type = '';
+// Type can be only lowercase, UPPERCASE, snakeCase, and AnYoThEr combination
+// consists of latin characters only.
+$type = $cursor->match('/^\s*([a-zA-Z]+)/');
 $inline_content = NULL;
 $argument = NULL;
 $attributes = NULL;
-
-do {
-  $type .= $cursor->getCurrentCharacter();
-  $cursor->advanceBy(1);
-}
-while ($cursor->getCurrentCharacter() != ' ');
 
 while (!$cursor->isAtEnd()) {
   match ($cursor->getCurrentCharacter()) {
@@ -41,11 +36,6 @@ function parseSection(Cursor $cursor, string $closing_char, ?string &$result) {
   // Remove escaping.
   $result = str_replace("\\$closing_char", $closing_char, $result);
 }
-
-dump($type);
-dump($inline_content);
-dump($argument);
-dump($attributes);
 
 $cursor = new Cursor($attributes);
 $identifier = NULL;
@@ -98,6 +88,4 @@ function parseKeyValue(Cursor $cursor, array &$key_value) {
   $key_value[$key] = $value;
 }
 
-dump($identifier);
-dump($selectors);
-dump($key_value);
+dump($type, $inline_content, $argument, $attributes, $identifier, $selectors, $key_value);
