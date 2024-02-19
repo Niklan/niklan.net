@@ -16,7 +16,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  *
  * Example:
  * @code
- *  ::: name [content] (argument) {key-value}
+ *  :::name[inline-content](argument){#id .class key=value}
  *  Note contents.
  *  :::
  * @endcode
@@ -29,7 +29,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  * Currently inline content and metadata is not supported.
  * @todo Add inline content and metadata support when nothing to do.
  *
- * @see https://talk.commonmark.org/t/generic-directives-plugins-syntax/444
+ * @see https://talk.commonmark.org/t/generic-directives-plugins-syntax
  * @see https://github.com/commonmark/commonmark-spec/wiki/Generic-Directive-Extension-List
  *
  * @ingroup markdown
