@@ -14,21 +14,25 @@ final class CommonMarkDirectiveHelper {
   /**
    * {@selfdoc}
    */
+  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string TYPE_REGEX = '/^\s*([a-zA-Z]+)/';
 
   /**
    * {@selfdoc}
    */
+  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string CSS_SELECTORS_REGEX = '/[#.\-_:a-zA-Z0-9=]+/';
 
   /**
    * {@selfdoc}
    */
+  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string ATTRIBUTES_KEY_REGEX = '/([a-zA-Z-]+)/';
 
   /**
    * {@selfdoc}
    */
+  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string ESCAPE_CHAR = '\\';
 
   /**
@@ -191,20 +195,24 @@ final class CommonMarkDirectiveHelper {
     do {
       $value .= $cursor->getCurrentCharacter();
       $cursor->advanceBy(1);
-
-      if ($cursor->isAtEnd()) {
-        break;
-      }
-
-      if ($has_string_opening) {
-        $should_continue = !($cursor->getCurrentCharacter() === '"' && $cursor->peek(-1) !== self::ESCAPE_CHAR);
-      }
-      else {
-        $should_continue = $cursor->getCurrentCharacter() !== ' ';
-      }
-    } while ($should_continue);
+    } while (self::shouldContinueParseValue($cursor, $has_string_opening));
 
     return $value;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private static function shouldContinueParseValue(Cursor $cursor, bool $has_string_opening): bool {
+    if ($cursor->isAtEnd()) {
+      return FALSE;
+    }
+
+    if ($has_string_opening) {
+      return !($cursor->getCurrentCharacter() === '"' && $cursor->peek(-1) !== self::ESCAPE_CHAR);
+    }
+
+    return $cursor->getCurrentCharacter() !== ' ';
   }
 
   /**
