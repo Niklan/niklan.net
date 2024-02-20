@@ -2,35 +2,32 @@
 
 namespace Drupal\niklan\CommonMark\Renderer;
 
-use Drupal\niklan\CommonMark\Block\ContainerBlockDirective;
+use Drupal\niklan\CommonMark\Block\LeafBlockDirective;
 use Drupal\niklan\Helper\CommonMarkDirectiveHelper;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
-use League\CommonMark\Util\RegexHelper;
 
 /**
  * {@selfdoc}
  *
  * @ingroup markdown
  */
-final class ContainerBlockDirectiveRenderer implements NodeRendererInterface {
+final class LeafBlockDirectiveRenderer implements NodeRendererInterface {
 
   /**
    * {@inheritdoc}
    */
   #[\Override]
   public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable {
-    \assert($node instanceof ContainerBlockDirective);
+    \assert($node instanceof LeafBlockDirective);
 
-    return new HtmlElement(
-      tagName: 'div',
-      attributes: [
-        'data-selector' => 'niklan:container-directive',
-      ] + CommonMarkDirectiveHelper::prepareElementAttributes($node->info),
-      contents: $childRenderer->renderNodes($node->children()),
-    );
+    $element_attributes = [
+      'data-selector' => 'niklan:leaf-directive',
+    ] + CommonMarkDirectiveHelper::prepareElementAttributes($node->info);
+
+    return new HtmlElement(tagName: 'div', attributes: $element_attributes);
   }
 
 }

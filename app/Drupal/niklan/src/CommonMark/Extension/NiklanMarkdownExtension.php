@@ -24,6 +24,7 @@ final class NiklanMarkdownExtension implements ExtensionInterface {
   public function register(EnvironmentBuilderInterface $environment): void {
     $environment->addExtension(new CommonMarkCoreExtension());
     $environment->addExtension(new ContainerBlockDirectiveExtension());
+    $environment->addExtension(new LeafBlockDirectiveExtension());
 
     // Should be higher than BlockQuoteStartParser which is having 70 priority.
     $environment->addBlockStartParser(new NoteStartParser(), 80);

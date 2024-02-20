@@ -26,9 +26,6 @@ use League\CommonMark\Extension\ExtensionInterface;
  * opening line. That way, you can even nest blocks (think divs) by using
  * successively fewer colons for each containing block.
  *
- * Currently inline content and metadata is not supported.
- * @todo Add inline content and metadata support when nothing to do.
- *
  * @see https://talk.commonmark.org/t/generic-directives-plugins-syntax
  * @see https://github.com/commonmark/commonmark-spec/wiki/Generic-Directive-Extension-List
  *
