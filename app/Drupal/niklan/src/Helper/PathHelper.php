@@ -17,7 +17,7 @@ final class PathHelper {
    * Normalize path like standard realpath() does.
    *
    * The main difference is that this implementation doesn't care about file or
-   * directory existance, it's just working with path.
+   * directory existence, it's just working with path.
    *
    * E.g., 'path/to/something/../../file.md' will be converted to
    * 'path/file.md'.

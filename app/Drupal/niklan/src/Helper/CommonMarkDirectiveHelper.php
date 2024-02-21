@@ -215,44 +215,4 @@ final class CommonMarkDirectiveHelper {
     return $cursor->getCurrentCharacter() !== ' ';
   }
 
-  /**
-   * Builds an array with attributes for HTML element based on info line.
-   *
-   * Note that inline content '[]' is not part of attributes.
-   */
-  public static function prepareElementAttributes(string $info_line): array {
-    $info = self::parseInfoString($info_line);
-    $attributes = [
-      'data-type' => $info['type'],
-    ];
-
-    if ($info['argument']) {
-      $attributes['data-argument'] = $info['argument'];
-    }
-
-    if ($info['attributes']) {
-      $extra_attributes = self::parseExtraAttributes($info['attributes']);
-      self::prepareElementExtraAttributes($attributes, $extra_attributes);
-    }
-
-    return $attributes;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private static function prepareElementExtraAttributes(array &$attributes, array $extra_attributes): void {
-    if ($extra_attributes['id']) {
-      $attributes['id'] = $extra_attributes['id'];
-    }
-
-    if ($extra_attributes['class']) {
-      $attributes['class'] = \implode(' ', $extra_attributes['class']);
-    }
-
-    foreach ($extra_attributes['key-value'] as $key => $value) {
-      $attributes[$key] = $value;
-    }
-  }
-
 }

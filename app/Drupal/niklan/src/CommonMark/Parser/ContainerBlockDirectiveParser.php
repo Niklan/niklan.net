@@ -2,12 +2,16 @@
 
 namespace Drupal\niklan\CommonMark\Parser;
 
+use Drupal\niklan\CommonMark\Block\BlockDirective;
 use Drupal\niklan\CommonMark\Block\ContainerBlockDirective;
+use Drupal\niklan\Helper\CommonMarkDirectiveHelper;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;
 use League\CommonMark\Parser\Block\BlockContinueParserInterface;
+use League\CommonMark\Parser\Block\BlockContinueParserWithInlinesInterface;
 use League\CommonMark\Parser\Cursor;
+use League\CommonMark\Parser\InlineParserEngineInterface;
 use League\CommonMark\Util\RegexHelper;
 
 /**
@@ -15,12 +19,12 @@ use League\CommonMark\Util\RegexHelper;
  *
  * @ingroup markdown
  */
-final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser {
+final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser implements BlockContinueParserWithInlinesInterface {
 
   /**
    * {@selfdoc}
    */
-  private readonly ContainerBlockDirective $block;
+  private readonly BlockDirective $block;
 
   /**
    * {@selfdoc}
@@ -28,12 +32,16 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser {
   public function __construct(
     public readonly int $colonLength,
     public readonly int $offset,
-    public readonly string $containerInfo,
+    public readonly string $directiveInfo,
   ) {
+    $info = CommonMarkDirectiveHelper::parseInfoString($this->directiveInfo);
+    $attributes = CommonMarkDirectiveHelper::parseExtraAttributes($info['attributes'] ?? '');
+
     $this->block = new ContainerBlockDirective(
-      colonLength: $this->colonLength,
-      offset: $this->offset,
-      info: $this->containerInfo,
+      type: $info['type'],
+      inlineContentRaw: $info['inline-content'],
+      argument: $info['argument'],
+      attributes: $attributes,
     );
   }
 
@@ -86,6 +94,21 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser {
   #[\Override]
   public function isContainer(): bool {
     return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function parseInlines(InlineParserEngineInterface $inlineParser): void {
+    if (!$this->block->inlineContentRaw) {
+      return;
+    }
+
+    $inlineParser->parse(
+      contents: $this->block->inlineContentRaw,
+      block: $this->block->inlineContent,
+    );
   }
 
 }

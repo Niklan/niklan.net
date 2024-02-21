@@ -8,6 +8,7 @@ flexboxes
 fullscreen
 Glisseo
 glisseo
+Inlines
 isabelline
 lightbox
 MAILHUB

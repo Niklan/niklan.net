@@ -19,7 +19,6 @@ use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Asset\ContentAssetManager;
-use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\niklan\Helper\PathHelper;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
@@ -84,7 +83,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
   /**
    * {@selfdoc}
    */
-  private function findBlogEntry(string $external_id): ?BlogEntry {
+  private function findBlogEntry(string $external_id): ?BlogEntryInterface {
     $storage = $this->getEntityTypeManager()->getStorage('node');
 
     $ids = $storage
@@ -97,7 +96,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
 
     if (!$ids) {
       // Create a new one if nothing is found.
-      // @phpstan-ignore-next-line
       $blog_entry = $storage->create(['type' => 'blog_entry']);
       \assert($blog_entry instanceof BlogEntryInterface);
       $blog_entry->setExternalId($external_id);

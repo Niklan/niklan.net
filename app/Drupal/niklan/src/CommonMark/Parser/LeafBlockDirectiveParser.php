@@ -2,32 +2,44 @@
 
 namespace Drupal\niklan\CommonMark\Parser;
 
+use Drupal\niklan\CommonMark\Block\BlockDirective;
 use Drupal\niklan\CommonMark\Block\LeafBlockDirective;
+use Drupal\niklan\Helper\CommonMarkDirectiveHelper;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;
 use League\CommonMark\Parser\Block\BlockContinueParserInterface;
+use League\CommonMark\Parser\Block\BlockContinueParserWithInlinesInterface;
 use League\CommonMark\Parser\Cursor;
+use League\CommonMark\Parser\InlineParserEngineInterface;
 
 /**
  * {@selfdoc}
  *
  * @ingroup markdown
  */
-final class LeafBlockDirectiveParser extends AbstractBlockContinueParser {
+final class LeafBlockDirectiveParser extends AbstractBlockContinueParser implements BlockContinueParserWithInlinesInterface {
 
   /**
    * {@selfdoc}
    */
-  private readonly LeafBlockDirective $block;
+  private readonly BlockDirective $block;
 
   /**
    * {@selfdoc}
    */
   public function __construct(
-    public readonly string $containerInfo,
+    public readonly string $directiveInfo,
   ) {
-    $this->block = new LeafBlockDirective($this->containerInfo);
+    $info = CommonMarkDirectiveHelper::parseInfoString($this->directiveInfo);
+    $attributes = CommonMarkDirectiveHelper::parseExtraAttributes($info['attributes'] ?? '');
+
+    $this->block = new LeafBlockDirective(
+      type: $info['type'],
+      inlineContentRaw: $info['inline-content'],
+      argument: $info['argument'],
+      attributes: $attributes,
+    );
   }
 
   /**
@@ -36,15 +48,6 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser {
   #[\Override]
   public function getBlock(): AbstractBlock {
     return $this->block;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function canContain(AbstractBlock $childBlock): bool {
-    // Leaf block like an empty div, it can't contain content inside. Only
-    // inline content is allowed.
-    return FALSE;
   }
 
   /**
@@ -69,6 +72,21 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser {
     $cursor->advanceBy(1);
 
     return BlockContinue::at($cursor);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function parseInlines(InlineParserEngineInterface $inlineParser): void {
+    if (!$this->block->inlineContentRaw) {
+      return;
+    }
+
+    $inlineParser->parse(
+      contents: $this->block->inlineContentRaw,
+      block: $this->block->inlineContent,
+    );
   }
 
 }

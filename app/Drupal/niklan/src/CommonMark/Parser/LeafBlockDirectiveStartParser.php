@@ -42,10 +42,10 @@ final class LeafBlockDirectiveStartParser implements BlockStartParserInterface {
       return BlockStart::none();
     }
 
-    $container_info = \trim($cursor->getRemainder());
+    $directive_info = \trim($cursor->getRemainder());
     // Move cursor at the end to skip parsing that info.
     $cursor->advanceToEnd();
-    $parser = new LeafBlockDirectiveParser($container_info);
+    $parser = new LeafBlockDirectiveParser($directive_info);
 
     return BlockStart::of($parser)->at($cursor);
   }

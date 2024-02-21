@@ -48,16 +48,15 @@ final class ContainerBlockDirectiveStartParser implements BlockStartParserInterf
       return BlockStart::none();
     }
 
-    // Get container info.
-    $container_info = \trim($cursor->getRemainder());
-    // Move cursor at the end to skip parsing that info.
+    $directiveInfo = \trim($cursor->getRemainder());
     $cursor->advanceToEnd();
+
     $parser = new ContainerBlockDirectiveParser(
       // Make sure to clear up content before colon to calculate a proper length
       // of opening 'tag'.
       colonLength: \strlen(\ltrim($colon, " \t")),
       offset: $cursor->getIndent(),
-      containerInfo: $container_info,
+      directiveInfo: $directiveInfo,
     );
 
     return BlockStart::of($parser)->at($cursor);

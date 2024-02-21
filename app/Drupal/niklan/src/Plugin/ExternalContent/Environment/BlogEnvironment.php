@@ -72,7 +72,7 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
     $configuration->set('html.parsers', $this->prepareHtmlParsers());
     $configuration->set('html.supported_types', ['text/markdown']);
     $configuration->set('file_finder.extensions', ['md']);
-    $configuration->set('file_finder.directories', ['private://content']);
+    $configuration->set('file_finder.directories', ['private://test']);
 
     $configuration->addSchema('environment_plugin_id', Expect::string());
     $configuration->set('environment_plugin_id', $this->getPluginId());

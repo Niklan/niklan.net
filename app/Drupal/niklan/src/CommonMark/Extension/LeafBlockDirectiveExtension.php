@@ -20,7 +20,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  *  :::name[inline-content](argument){#id .class key=value}
  * @endcode
  *
- * @see \Drupal\niklan\CommonMark\Block\ContainerBlockDirective
+ * @see \Drupal\niklan\CommonMark\Block\BlockDirective
  *
  * @ingroup markdown
  */

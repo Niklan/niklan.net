@@ -22,13 +22,19 @@ final class NoteParser implements HtmlParserInterface {
       return HtmlParserResult::continue();
     }
 
-    if (!$node->hasAttribute('data-selector') || $node->getAttribute('data-selector') !== 'niklan:note') {
+    if (!$node->hasAttribute('data-selector') || $node->getAttribute('data-selector') !== 'niklan:container-directive') {
       return HtmlParserResult::continue();
     }
 
-    $note_type = $node->getAttribute('data-note-type');
+    $allowed_types = ['note', 'tip', 'important', 'warning', 'caution'];
+    $type = $node->getAttribute('data-type');
 
-    return HtmlParserResult::replace(new Note($note_type));
+    if (!\in_array($type, $allowed_types)) {
+      return HtmlParserResult::continue();
+    }
+
+    // @todo Parse inline content to use as a title.
+    return HtmlParserResult::replace(new Note($type));
   }
 
 }
