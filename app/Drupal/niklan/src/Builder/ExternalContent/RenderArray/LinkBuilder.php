@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\Core\Url;
 use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
@@ -11,20 +12,20 @@ use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Node\Html\Element;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * {@selfdoc}
  *
  * @ingroup content_sync
  */
-final class LinkBuilder implements BuilderInterface, ContainerAwareInterface {
+final class LinkBuilder implements BuilderInterface {
 
   /**
    * {@selfdoc}
    */
-  private ContainerInterface $container;
+  public function __construct(
+    private readonly Connection $connection,
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -71,19 +72,11 @@ final class LinkBuilder implements BuilderInterface, ContainerAwareInterface {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  #[\Override]
-  public function setContainer(?ContainerInterface $container): void {
-    $this->container = $container;
-  }
-
-  /**
    * {@selfdoc}
    */
   private function findDestination(string $link_checksum): ?Url {
-    $connection = $this->container->get('database');
-    $query = $connection
+    $query = $this
+      ->connection
       ->select('node__external_content', 'ecf')
       ->condition('ecf.bundle', 'blog_entry')
       ->fields('ecf', ['entity_id'])

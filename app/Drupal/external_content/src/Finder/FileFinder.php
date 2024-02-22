@@ -8,8 +8,6 @@ use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Event\FileFoundEvent;
 use Drupal\external_content\Source\File;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
@@ -21,7 +19,7 @@ use Symfony\Component\Mime\MimeTypeGuesserInterface;
  *   - extensions: An array with extensions to search for. E.g.: ['md', 'html'].
  *   - directories: An array with directories to search into.
  */
-final class FileFinder implements FinderInterface, EnvironmentAwareInterface, ContainerAwareInterface {
+final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
 
   /**
    * {@selfdoc}
@@ -31,7 +29,9 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface, Co
   /**
    * {@selfdoc}
    */
-  protected ContainerInterface $container;
+  public function __construct(
+    private readonly MimeTypeGuesserInterface $mimeTypeGuesser,
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -51,9 +51,6 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface, Co
     if (!$finder->hasResults()) {
       return $files;
     }
-
-    $mime_type_guesser = $this->container->get('file.mime_type.guesser');
-    \assert($mime_type_guesser instanceof MimeTypeGuesserInterface);
 
     foreach ($finder as $file_info) {
       // Directories named as files should be avoided. E.g.
@@ -77,7 +74,7 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface, Co
         // enabled. But this is optionally, use only when this guesser fails.
         // E.g.: it doesn't handle Markdown files at all, Drupal doesn't even
         // know that this type exists.
-        type: $mime_type_guesser->guessMimeType($file_info->getPathname()),
+        type: $this->mimeTypeGuesser->guessMimeType($file_info->getPathname()),
       );
 
       $event = new FileFoundEvent($file);
@@ -94,13 +91,6 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface, Co
    */
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setContainer(?ContainerInterface $container): void {
-    $this->container = $container;
   }
 
 }

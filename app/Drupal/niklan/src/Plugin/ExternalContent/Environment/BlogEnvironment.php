@@ -9,23 +9,12 @@ use Drupal\external_content\Data\PrioritizedList;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Event\FileFoundEvent;
 use Drupal\external_content\Event\HtmlPreParseEvent;
-use Drupal\external_content\Extension\BasicHtmlExtension;
-use Drupal\external_content\Extension\FileFinderExtension;
 use Drupal\external_content\Parser\Html\ElementParser;
 use Drupal\external_content\Parser\Html\PlainTextParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
-use Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock;
-use Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia;
-use Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder;
-use Drupal\niklan\Builder\ExternalContent\RenderArray\Note;
 use Drupal\niklan\Converter\BlogMarkdownConverter;
-use Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier;
-use Drupal\niklan\Loader\ExternalContent\Blog;
 use Drupal\niklan\Parser\ExternalContent\NoteParser;
-use Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer;
-use Drupal\niklan\Serializer\ExternalContent\NoteSerializer;
 use League\Config\Configuration;
-use Nette\Schema\Expect;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -69,45 +58,15 @@ final class BlogEnvironment extends EnvironmentPlugin implements ContainerFactor
    */
   public function getEnvironment(): EnvironmentInterface {
     $configuration = new Configuration();
-    $configuration->set('html.parsers', $this->prepareHtmlParsers());
-    $configuration->set('html.supported_types', ['text/markdown']);
-    $configuration->set('file_finder.extensions', ['md']);
-    $configuration->set('file_finder.directories', ['private://test']);
 
-    $configuration->addSchema('environment_plugin_id', Expect::string());
-    $configuration->set('environment_plugin_id', $this->getPluginId());
-
-    $environment = new Environment($configuration);
-    $environment->setContainer($this->container);
-    $environment->addIdentifier(new FrontMatterIdentifier());
-    $environment->addExtension(new BasicHtmlExtension());
-    $environment->addExtension(new FileFinderExtension());
-    // Drupal media handler.
-    $environment->addSerializer(new DrupalMediaSerializer());
-    $environment->addBuilder(new DrupalMedia());
-    // Code block custom builder.
-    $environment->addBuilder(new CodeBlock(), 100);
-    // Note syntax support.
-    $environment->addBuilder(new Note(), 100);
-    $environment->addSerializer(new NoteSerializer());
-    // Blog entry loader.
-    $environment->addLoader(new Blog());
-    $environment->addBuilder(new LinkBuilder(), 100);
-
-    $environment->addEventListener(
-      event_class: FileFoundEvent::class,
-      listener: fn (FileFoundEvent $event) => $this->extractSourceFrontMatter($event),
-    );
-    $environment->addEventListener(
-      event_class: HtmlPreParseEvent::class,
-      listener: fn (HtmlPreParseEvent $event) => $this->removeFrontMatter($event),
-    );
-    $environment->addEventListener(
-      event_class: HtmlPreParseEvent::class,
-      listener: fn (HtmlPreParseEvent $event) => $this->convertMarkdown($event),
-    );
-
-    return $environment;
+    // $configuration->set('html.parsers', $this->prepareHtmlParsers());
+    //    $configuration->set('html.supported_types', ['text/markdown']);
+    //    $configuration->set('file_finder.extensions', ['md']);
+    //    $configuration->set('file_finder.directories', ['private://test']);
+    //
+    //    $configuration->addSchema('environment_plugin_id', Expect::string());
+    //    $configuration->set('environment_plugin_id', $this->getPluginId());
+    return new Environment($configuration);
   }
 
   /**

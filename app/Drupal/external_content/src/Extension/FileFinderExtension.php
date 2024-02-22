@@ -11,13 +11,20 @@ use Nette\Schema\Expect;
 /**
  * Provides a very basic extension with most useful settings.
  */
-final class FileFinderExtension implements ConfigurableExtensionInterface {
+final readonly class FileFinderExtension implements ConfigurableExtensionInterface {
+
+  /**
+   * {@selfdoc}
+   */
+  public function __construct(
+    private FileFinder $fileFinder,
+  ) {}
 
   /**
    * {@inheritdoc}
    */
   public function register(EnvironmentBuilderInterface $environment): void {
-    $environment->addFinder(new FileFinder());
+    $environment->addFinder($this->fileFinder);
   }
 
   /**

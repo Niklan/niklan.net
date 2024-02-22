@@ -59,3 +59,28 @@ services:
   Drupal\niklan\Sync\BlogSyncManager: {}
   Drupal\niklan\Builder\BlogMarkdownEnvironmentBuilder: {}
   Drupal\niklan\Converter\BlogMarkdownConverter: {}
+
+  Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier: {}
+  Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer: {}
+  Drupal\niklan\Serializer\ExternalContent\NoteSerializer: {}
+  Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia: {}
+  Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock: {}
+  Drupal\niklan\Builder\ExternalContent\RenderArray\Note: {}
+  Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder: {}
+  Drupal\niklan\Loader\ExternalContent\Blog: {}
+
+  external_content.environment.blog:
+    class: Drupal\external_content\Environment\Environment
+    calls:
+      - [addExtension, ['@Drupal\external_content\Extension\FileFinderExtension']]
+      - [addExtension, ['@Drupal\external_content\Extension\BasicHtmlExtension']]
+      - [addIdentifier, ['@Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier']]
+      - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer']]
+      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia']]
+      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock']]
+      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\Note']]
+      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder']]
+      - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\NoteSerializer']]
+      - [addLoader, ['@Drupal\niklan\Loader\ExternalContent\Blog']]
+    tags:
+      - { name: external_content.environment, id: blog, label: 'Blog articles' }

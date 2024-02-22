@@ -23,25 +23,27 @@ use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\niklan\Helper\PathHelper;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 use Drupal\taxonomy\TermStorageInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * {@selfdoc}
  *
  * @ingroup content_sync
  */
-final class Blog implements LoaderInterface, EnvironmentAwareInterface, ContainerAwareInterface {
-
-  /**
-   * {@selfdoc}
-   */
-  private ContainerInterface $container;
+final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
   /**
    * {@selfdoc}
    */
   private EnvironmentInterface $environment;
+
+  /**
+   * {@selfdoc}
+   */
+  public function __construct(
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly SerializerInterface $serializer,
+    private readonly ContentAssetManager $contentAssetManager,
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -69,13 +71,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
   /**
    * {@inheritdoc}
    */
-  public function setContainer(?ContainerInterface $container): void {
-    $this->container = $container;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
   }
@@ -84,7 +79,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
    * {@selfdoc}
    */
   private function findBlogEntry(string $external_id): ?BlogEntryInterface {
-    $storage = $this->getEntityTypeManager()->getStorage('node');
+    $storage = $this->entityTypeManager->getStorage('node');
 
     $ids = $storage
       ->getQuery()
@@ -110,18 +105,10 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
   /**
    * {@selfdoc}
    */
-  private function getEntityTypeManager(): EntityTypeManagerInterface {
-    return $this->container->get('entity_type.manager');
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function getSerializer(): SerializerInterface {
-    $serializer = $this->container->get(SerializerInterface::class);
-    $serializer->setEnvironment($this->environment);
+    $this->serializer->setEnvironment($this->environment);
 
-    return $serializer;
+    return $this->serializer;
   }
 
   /**
@@ -178,7 +165,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
       return;
     }
 
-    $term_storage = $this->getEntityTypeManager()->getStorage('taxonomy_term');
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     \assert($term_storage instanceof TermStorageInterface);
     $tag_ids = $term_storage
       ->getQuery()
@@ -215,8 +202,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
       return;
     }
 
-    $asset_manager = $this->container->get(ContentAssetManager::class);
-    $media = $asset_manager->syncWithMedia($promo_pathname);
+    $media = $this->contentAssetManager->syncWithMedia($promo_pathname);
 
     if (!$media instanceof MediaInterface) {
       return;
@@ -236,12 +222,11 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
       return;
     }
 
-    $asset_manager = $this->container->get(ContentAssetManager::class);
     $source_dir = \dirname($content->getData()->get('source')['pathname']);
 
     foreach ($source_data['front_matter']['attachments'] as $attachment) {
       $attachment_pathname = "$source_dir/{$attachment['path']}";
-      $media = $asset_manager->syncWithMedia($attachment_pathname);
+      $media = $this->contentAssetManager->syncWithMedia($attachment_pathname);
 
       if (!$media instanceof MediaInterface) {
         return;
@@ -272,8 +257,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface, Containe
       $src = "$source_dir/$src";
     }
 
-    $asset_manager = $this->container->get(ContentAssetManager::class);
-    $media = $asset_manager->syncWithMedia($src);
+    $media = $this->contentAssetManager->syncWithMedia($src);
 
     if (!$media instanceof MediaInterface) {
       return;

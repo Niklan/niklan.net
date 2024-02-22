@@ -3,6 +3,7 @@
 namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
@@ -12,25 +13,25 @@ use Drupal\external_content\Data\BuilderResult;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\File\FileInterface;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia as DrupalMediaNode;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * {@selfdoc}
  *
  * @ingroup content_sync
  */
-final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
-
-  /**
-   * {@selfdoc}
-   */
-  private ContainerInterface $container;
+final class DrupalMedia implements BuilderInterface {
 
   /**
    * {@selfdoc}
    */
   private CacheableMetadata $cache;
+
+  /**
+   * {@selfdoc}
+   */
+  public function __construct(
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+  ) {}
 
   /**
    * {@inheritdoc}
@@ -64,18 +65,8 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
   /**
    * {@selfdoc}
    */
-  public function setContainer(?ContainerInterface $container): void {
-    $this->container = $container;
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function findMedia(string $uuid): ?MediaInterface {
-    $storage = $this
-      ->container
-      ->get('entity_type.manager')
-      ->getStorage('media');
+    $storage = $this->entityTypeManager->getStorage('media');
 
     $ids = $storage
       ->getQuery()
@@ -164,10 +155,7 @@ final class DrupalMedia implements BuilderInterface, ContainerAwareInterface {
    * {@selfdoc}
    */
   private function buildRemoteVideoRenderArray(MediaInterface $media): BuilderResultInterface {
-    $view_builder = $this
-      ->container
-      ->get('entity_type.manager')
-      ->getViewBuilder('media');
+    $view_builder = $this->entityTypeManager->getViewBuilder('media');
 
     return BuilderResult::renderArray($view_builder->view($media));
   }
