@@ -22,6 +22,7 @@ final class NoteSerializer implements NodeSerializerInterface {
 
     return new Data([
       'type' => $node->type,
+      'heading' => $node->heading,
     ]);
   }
 
@@ -50,7 +51,7 @@ final class NoteSerializer implements NodeSerializerInterface {
    * {@inheritdoc}
    */
   public function deserialize(Data $data, string $serialized_version): NodeInterface {
-    return new Note($data->get('type'));
+    return new Note($data->get('type'), $data->get('heading'));
   }
 
   /**

@@ -203,6 +203,13 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'code' => NULL,
       ],
     ],
+    'niklan_note' => [
+      'variables' => [
+        'type' => NULL,
+        'heading' => NULL,
+        'content' => NULL,
+      ],
+    ],
   ];
 }
 

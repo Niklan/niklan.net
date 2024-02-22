@@ -16,6 +16,7 @@ final class Note extends Node {
    */
   public function __construct(
     public readonly string $type,
+    public readonly ?string $heading,
   ) {}
 
 }
