@@ -7,8 +7,6 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
 use Drupal\external_content\Contract\Loader\LoaderFacadeInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
@@ -24,30 +22,22 @@ use Drupal\external_content\Source\File;
 final class BlogSyncManager {
 
   /**
-   * {@selfdoc}
-   */
-  private ?EnvironmentInterface $environment = NULL;
-
-  /**
    * Constructs a new BlogContentSyncManager instance.
    */
   public function __construct(
-    private readonly EnvironmentPluginManagerInterface $environmentPluginManager,
+    private readonly EnvironmentInterface $environment,
     private readonly FinderFacadeInterface $finder,
     private readonly BundlerFacadeInterface $bundler,
     private readonly ParserFacade $parser,
     private readonly LoaderFacadeInterface $loader,
-  ) {
-    $this->finder->setEnvironment($this->getEnvironment());
-    $this->bundler->setEnvironment($this->getEnvironment());
-    $this->parser->setEnvironment($this->getEnvironment());
-    $this->loader->setEnvironment($this->getEnvironment());
-  }
+  ) {}
 
   /**
    * {@selfdoc}
    */
   public function find(): SourceCollection {
+    $this->finder->setEnvironment($this->environment);
+
     return $this->finder->find();
   }
 
@@ -55,6 +45,8 @@ final class BlogSyncManager {
    * {@selfdoc}
    */
   public function parse(File $source): Content {
+    $this->parser->setEnvironment($this->environment);
+
     return $this->parser->parse($source);
   }
 
@@ -62,6 +54,8 @@ final class BlogSyncManager {
    * {@selfdoc}
    */
   public function bundle(SourceCollection $collection): SourceBundleCollection {
+    $this->bundler->setEnvironment($this->environment);
+
     return $this->bundler->bundle($collection);
   }
 
@@ -69,22 +63,9 @@ final class BlogSyncManager {
    * {@selfdoc}
    */
   public function load(ContentBundle $bundle): LoaderResultInterface {
+    $this->loader->setEnvironment($this->environment);
+
     return $this->loader->load($bundle);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getEnvironment(): EnvironmentInterface {
-    if ($this->environment) {
-      return $this->environment;
-    }
-
-    $plugin = $this->environmentPluginManager->createInstance('blog');
-    \assert($plugin instanceof EnvironmentPluginInterface);
-    $this->environment = $plugin->getEnvironment();
-
-    return $this->environment;
   }
 
 }

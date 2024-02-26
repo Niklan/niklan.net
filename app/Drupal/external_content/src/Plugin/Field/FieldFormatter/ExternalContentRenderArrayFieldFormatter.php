@@ -8,8 +8,6 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

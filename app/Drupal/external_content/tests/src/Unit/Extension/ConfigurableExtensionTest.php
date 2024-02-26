@@ -5,7 +5,6 @@ namespace Drupal\Tests\external_content\Unit\Extension;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content_test\Extension\ConfigurableExtension;
 use Drupal\Tests\UnitTestCase;
-use League\Config\Configuration;
 
 /**
  * {@selfdoc}
@@ -19,12 +18,10 @@ final class ConfigurableExtensionTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testExtension(): void {
-    $configuration = new Configuration();
-    $configuration->merge([
+    $environment = new Environment([
       'foo' => 'bar',
       'bar' => 123,
     ]);
-    $environment = new Environment($configuration);
     $environment->addExtension(new ConfigurableExtension());
 
     self::assertSame('bar', $environment->getConfiguration()->get('foo'));

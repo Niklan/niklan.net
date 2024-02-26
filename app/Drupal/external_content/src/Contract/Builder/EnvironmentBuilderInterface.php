@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\Contract\Builder;
 
+use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
@@ -60,5 +61,10 @@ interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
    * {@selfdoc}
    */
   public function addLoader(LoaderInterface $loader, int $priority): self;
+
+  /**
+   * {@selfdoc}
+   */
+  public function addConverter(ConverterInterface $converter, int $priority): self;
 
 }

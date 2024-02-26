@@ -4,6 +4,7 @@ namespace Drupal\external_content\Environment;
 
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
+use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
@@ -15,19 +16,16 @@ use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
 use Drupal\external_content\Data\EventListener;
 use Drupal\external_content\Data\PrioritizedList;
-use Drupal\external_content\Exception\MissingContainerException;
 use League\Config\Configuration;
 use League\Config\ConfigurationAwareInterface;
 use League\Config\ConfigurationInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides an environment for a specific external content processing.
  */
-final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface, ContainerAwareInterface {
+final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface {
 
   /**
    * {@selfdoc}
@@ -67,23 +65,30 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@selfdoc}
    */
-  protected ?ContainerInterface $container = NULL;
+  protected PrioritizedList $loaders;
 
   /**
    * {@selfdoc}
    */
-  protected PrioritizedList $loaders;
+  protected PrioritizedList $converters;
+
+  /**
+   * {@selfdoc}
+   */
+  protected Configuration $configuration;
 
   /**
    * Constructs a new Environment instance.
    */
   public function __construct(
-    protected ?Configuration $configuration = NULL,
+    array $configuration = [],
   ) {
-    $this->configuration ??= new Configuration();
+    $this->configuration = new Configuration();
+    $this->configuration->merge($configuration);
     $this->finders = new PrioritizedList();
-    $this->parsers = new PrioritizedList();
     $this->identifiers = new PrioritizedList();
+    $this->converters = new PrioritizedList();
+    $this->parsers = new PrioritizedList();
     $this->builders = new PrioritizedList();
     $this->eventListeners = new PrioritizedList();
     $this->serializers = new PrioritizedList();
@@ -108,26 +113,11 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
       $object->setEnvironment($this);
     }
 
-    if ($object instanceof ConfigurationAwareInterface) {
-      $object->setConfiguration($this->configuration);
-    }
-
-    if (!($object instanceof ContainerAwareInterface)) {
+    if (!($object instanceof ConfigurationAwareInterface)) {
       return;
     }
 
-    if (!$this->container) {
-      throw new MissingContainerException($object::class);
-    }
-
-    $object->setContainer($this->container);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function setContainer(?ContainerInterface $container): void {
-    $this->container = $container;
+    $object->setConfiguration($this->configuration);
   }
 
   /**
@@ -296,6 +286,25 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   public function addLoader(LoaderInterface $loader, int $priority = 0): self {
     $this->loaders->add($loader, $priority);
     $this->injectDependencies($loader);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function getConverters(): PrioritizedList {
+    return $this->converters;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function addConverter(ConverterInterface $converter, int $priority): self {
+    $this->converters->add($converter, $priority);
+    $this->injectDependencies($converter);
 
     return $this;
   }

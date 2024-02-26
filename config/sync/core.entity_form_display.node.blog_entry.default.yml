@@ -32,6 +32,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  external_content:
+    type: null
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   external_id:
     type: string_textfield
     weight: 1
@@ -76,7 +82,6 @@ content:
 hidden:
   body: true
   created: true
-  external_content: true
   field_content: true
   field_media_attachments: true
   field_tags: true

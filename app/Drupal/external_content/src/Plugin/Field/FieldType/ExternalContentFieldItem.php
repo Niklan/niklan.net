@@ -6,7 +6,6 @@ use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Field\ExternalContentComputedProperty;
 
 /**
@@ -33,19 +32,14 @@ final class ExternalContentFieldItem extends FieldItemBase {
       ->addConstraint('ExternalContentValidJson')
       ->setRequired(TRUE);
 
-    $properties['environment_plugin_id'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Environment plugin ID'))
-      ->addConstraint('PluginExists', [
-        'manager' => EnvironmentPluginManagerInterface::class,
-      ])
+    $properties['environment_id'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Environment ID'))
+      ->setDescription(new TranslatableMarkup('The environment ID defined in the service container.'))
       ->setRequired(TRUE);
 
     $properties['data'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Data'))
-      ->setDescription(new TranslatableMarkup('A JSON string with additional data.'))
-      ->addConstraint('ExternalContentValidJson', [
-        'skipEmptyValue' => TRUE,
-      ]);
+      ->setDescription(new TranslatableMarkup('A JSON string with additional data.'));
 
     $properties['content'] = DataDefinition::create('any')
       ->setLabel(new TranslatableMarkup('External content'))
@@ -54,6 +48,17 @@ final class ExternalContentFieldItem extends FieldItemBase {
       ->setClass(ExternalContentComputedProperty::class);
 
     return $properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function getConstraints(): array {
+    $constraints = parent::getConstraints();
+    $constraints['data']['ExternalContentValidJson'] = [];
+
+    return $constraints;
   }
 
   /**
@@ -69,7 +74,7 @@ final class ExternalContentFieldItem extends FieldItemBase {
           'sqlite_type' => 'text',
           'not null' => FALSE,
         ],
-        'environment_plugin_id' => [
+        'environment_id' => [
           'type' => 'varchar',
           'length' => 255,
           'not null' => TRUE,
@@ -89,9 +94,10 @@ final class ExternalContentFieldItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty(): bool {
-    $value = $this->get('value')->getValue();
-
-    return $value === NULL || $value === '';
+    return match ($this->get('value')->getValue()) {
+      NULL, '', '{}' => TRUE,
+      default => FALSE,
+    };
   }
 
 }

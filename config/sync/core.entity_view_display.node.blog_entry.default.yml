@@ -16,7 +16,6 @@ dependencies:
   module:
     - comment
     - entity_reference_revisions
-    - external_content
     - text
     - user
 id: node.blog_entry.default
@@ -44,13 +43,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
-    region: content
-  external_content:
-    type: external_content_render_array
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 14
     region: content
   external_id:
     type: string
@@ -101,6 +93,7 @@ content:
     weight: 5
     region: content
 hidden:
+  external_content: true
   extra_field_comments_link: true
   extra_field_created_time: true
   extra_field_estimated_reading_time: true

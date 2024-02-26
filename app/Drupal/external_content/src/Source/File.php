@@ -17,10 +17,8 @@ final class File implements SourceInterface {
     protected string $workingDir,
     protected string $pathname,
     protected string $type,
-    protected ?Data $data = NULL,
-  ) {
-    $this->data ??= new Data();
-  }
+    protected ?Data $data = new Data(),
+  ) {}
 
   /**
    * Gets a relative (to working dir) pathname.

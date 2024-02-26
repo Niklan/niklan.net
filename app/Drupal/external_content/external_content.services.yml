@@ -1,3 +1,10 @@
+parameters:
+  # An array with environment services information. Each item can contain:
+  # - service: The environment service name.
+  # - label: The environment label.
+  # - id: The environment ID.
+  external_content.environments: []
+
 services:
   _defaults:
     autowire: true
@@ -6,22 +13,20 @@ services:
   Drupal\external_content\Finder\FinderFacade: {}
   Drupal\external_content\Loader\LoaderFacade: {}
   Drupal\external_content\Parser\ParserFacade: {}
-  Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager:
-    parent: default_plugin_manager
   Drupal\external_content\Serializer\Serializer: {}
   Drupal\external_content\Builder\RenderArrayBuilder: {}
 
   Drupal\external_content\Contract\Bundler\BundlerFacadeInterface: '@Drupal\external_content\Bundler\BundlerFacade'
   Drupal\external_content\Contract\Finder\FinderFacadeInterface: '@Drupal\external_content\Finder\FinderFacade'
   Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
-  Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface: '@Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager'
   Drupal\external_content\Contract\Loader\LoaderFacadeInterface: '@Drupal\external_content\Loader\LoaderFacade'
   Drupal\external_content\Contract\Parser\ParserFacadeInterface: '@Drupal\external_content\Parser\ParserFacade'
 
   # Environment.
+  Drupal\external_content\Contract\Environment\EnvironmentManagerInterface: '@Drupal\external_content\Environment\EnvironmentManager'
   Drupal\external_content\Environment\EnvironmentManager:
     arguments:
-      $environments: {}
+      $environments: '%external_content.environments%'
 
   # Extensions.
   Drupal\external_content\Extension\FileFinderExtension: {}
@@ -31,3 +36,7 @@ services:
   Drupal\external_content\Finder\FileFinder:
     arguments:
       $mimeTypeGuesser: '@file.mime_type.guesser'
+
+  # Converters.
+  Drupal\external_content\Contract\Converter\ConverterManagerInterface: '@Drupal\external_content\Converter\ConverterManager'
+  Drupal\external_content\Converter\ConverterManager: {}

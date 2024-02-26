@@ -4,9 +4,8 @@ namespace Drupal\external_content\Field;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\TypedData;
+use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 
 /**
@@ -36,12 +35,19 @@ final class ExternalContentComputedProperty extends TypedData {
       return NULL;
     }
 
-    $environment_plugin = self::getEnvironmentPluginManager()
-      ->createInstance($field_item->get('environment_plugin_id')->getString());
-    \assert($environment_plugin instanceof EnvironmentPluginInterface);
+    $environment_id = $field_item->get('environment_id')->getString();
+
+    try {
+      $environment = self::getEnvironmentManager()->getEnvironment(
+        environment_id: $environment_id,
+      );
+    }
+    catch (\Exception) {
+      return NULL;
+    }
 
     $serializer = self::getSerializer();
-    $serializer->setEnvironment($environment_plugin->getEnvironment());
+    $serializer->setEnvironment($environment);
     $element = $serializer->deserialize($field_item->get('value')->getValue());
 
     $this->value = $element;
@@ -59,8 +65,8 @@ final class ExternalContentComputedProperty extends TypedData {
   /**
    * {@selfdoc}
    */
-  private static function getEnvironmentPluginManager(): EnvironmentPluginManagerInterface {
-    return \Drupal::service(EnvironmentPluginManagerInterface::class);
+  private static function getEnvironmentManager(): EnvironmentManagerInterface {
+    return \Drupal::service(EnvironmentManagerInterface::class);
   }
 
 }

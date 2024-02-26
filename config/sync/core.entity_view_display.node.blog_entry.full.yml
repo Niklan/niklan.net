@@ -16,7 +16,6 @@ dependencies:
     - node.type.blog_entry
   module:
     - comment
-    - external_content
     - niklan
     - text
     - user
@@ -45,13 +44,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 6
-    region: content
-  external_content:
-    type: external_content_render_array
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
     region: content
   extra_field_created_time:
     settings: {  }
@@ -104,6 +96,7 @@ content:
     weight: 12
     region: content
 hidden:
+  external_content: true
   external_id: true
   extra_field_comments_link: true
   field_content: true

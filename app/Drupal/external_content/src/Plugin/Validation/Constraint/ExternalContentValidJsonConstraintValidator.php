@@ -16,14 +16,9 @@ final class ExternalContentValidJsonConstraintValidator extends ConstraintValida
   public function validate(mixed $value, Constraint $constraint): void {
     \assert($constraint instanceof ExternalContentValidJsonConstraint);
 
-    // Exit without violation is NULL is a valid value.
-    if (\is_null($value) && $constraint->skipEmptyValue) {
-      return;
-    }
-
     // If values is not a string, doesn't even bother to check for validity, it
     // is clearly not a JSON.
-    if (!\is_string($value)) {
+    if (\is_null($value) || !\is_string($value)) {
       $this->addInvalidJsonViolation($constraint);
 
       return;

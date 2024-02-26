@@ -147,10 +147,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
     $blog_entry->set('external_content', [
       'value' => $this->getSerializer()->normalize($content),
-      'environment_plugin_id' => $this
-        ->environment
-        ->getConfiguration()
-        ->get('environment_plugin_id'),
+      'environment_id' => 'blog',
       'data' => \json_encode($additional_info),
     ]);
   }

@@ -2,4 +2,6 @@
 
 use Drupal\external_content\Environment\EnvironmentManager;
 
-dump(\Drupal::service(EnvironmentManager::class));
+\Drupal::service(EnvironmentManager::class)->getEnvironment('blog');
+\Drupal::service(EnvironmentManager::class)->getEnvironment('blog');
+\Drupal::service(EnvironmentManager::class)->getEnvironment('blog');
