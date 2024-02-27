@@ -2,9 +2,9 @@
 
 namespace Drupal\niklan\Sync;
 
-use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
+use Drupal\external_content\Contract\Bundler\BundlerManagerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Finder\FinderFacadeInterface;
+use Drupal\external_content\Contract\Finder\FinderManagerInterface;
 use Drupal\external_content\Contract\Loader\LoaderFacadeInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Data\ContentBundle;
@@ -26,8 +26,8 @@ final class BlogSyncManager {
    */
   public function __construct(
     private readonly EnvironmentInterface $environment,
-    private readonly FinderFacadeInterface $finder,
-    private readonly BundlerFacadeInterface $bundler,
+    private readonly FinderManagerInterface $finder,
+    private readonly BundlerManagerInterface $bundler,
     private readonly ParserFacade $parser,
     private readonly LoaderFacadeInterface $loader,
   ) {}

@@ -86,7 +86,6 @@ final class File implements SourceInterface {
    * {@inheritdoc}
    */
   public function data(): Data {
-    $this->data->set('id', $this->id());
     $this->data->set('type', $this->type());
     $this->data->set('working_dir', $this->getWorkingDir());
     $this->data->set('pathname', $this->getPathname());
@@ -94,13 +93,6 @@ final class File implements SourceInterface {
     $this->data->set('extension', $this->getExtension());
 
     return $this->data;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function id(): string {
-    return $this->getRelativePathname();
   }
 
 }

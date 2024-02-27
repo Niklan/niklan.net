@@ -9,15 +9,15 @@ services:
   _defaults:
     autowire: true
 
-  Drupal\external_content\Bundler\BundlerFacade: {}
-  Drupal\external_content\Finder\FinderFacade: {}
+  Drupal\external_content\Bundler\BundlerManager: {}
+  Drupal\external_content\Finder\FinderManager: {}
   Drupal\external_content\Loader\LoaderFacade: {}
   Drupal\external_content\Parser\ParserFacade: {}
   Drupal\external_content\Serializer\Serializer: {}
   Drupal\external_content\Builder\RenderArrayBuilder: {}
 
-  Drupal\external_content\Contract\Bundler\BundlerFacadeInterface: '@Drupal\external_content\Bundler\BundlerFacade'
-  Drupal\external_content\Contract\Finder\FinderFacadeInterface: '@Drupal\external_content\Finder\FinderFacade'
+  Drupal\external_content\Contract\Bundler\BundlerManagerInterface: '@Drupal\external_content\Bundler\BundlerManager'
+  Drupal\external_content\Contract\Finder\FinderManagerInterface: '@Drupal\external_content\Finder\FinderManager'
   Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
   Drupal\external_content\Contract\Loader\LoaderFacadeInterface: '@Drupal\external_content\Loader\LoaderFacade'
   Drupal\external_content\Contract\Parser\ParserFacadeInterface: '@Drupal\external_content\Parser\ParserFacade'
@@ -36,6 +36,10 @@ services:
   Drupal\external_content\Finder\FileFinder:
     arguments:
       $mimeTypeGuesser: '@file.mime_type.guesser'
+
+  # Identifiers.
+  Drupal\external_content\Contract\Identifier\IdentifierManagerInterface: '@Drupal\external_content\Identifier\IdentifierManager'
+  Drupal\external_content\Identifier\IdentifierManager: {}
 
   # Converters.
   Drupal\external_content\Contract\Converter\ConverterManagerInterface: '@Drupal\external_content\Converter\ConverterManager'

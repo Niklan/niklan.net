@@ -9,7 +9,7 @@ use Drupal\external_content\Data\SourceCollection;
 /**
  * {@selfdoc}
  */
-interface BundlerFacadeInterface extends EnvironmentAwareInterface {
+interface BundlerManagerInterface extends EnvironmentAwareInterface {
 
   /**
    * {@selfdoc}

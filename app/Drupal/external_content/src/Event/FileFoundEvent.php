@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\Event;
 
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Source\File;
 
 /**
@@ -13,7 +14,8 @@ final class FileFoundEvent extends Event {
    * Constructs a new FileFoundEvent instance.
    */
   public function __construct(
-    public File $file,
+    public readonly File $file,
+    public readonly EnvironmentInterface $environment,
   ) {}
 
 }

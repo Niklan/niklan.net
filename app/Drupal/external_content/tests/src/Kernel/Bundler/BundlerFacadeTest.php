@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Bundler;
 
-use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
+use Drupal\external_content\Contract\Bundler\BundlerManagerInterface;
 use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentCollection;
 use Drupal\external_content\Data\IdentifierSource;
@@ -14,7 +14,7 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 /**
  * Provides a test for external content bundler.
  *
- * @covers \Drupal\external_content\Bundler\BundlerFacade
+ * @covers \Drupal\external_content\Bundler\BundlerManager
  * @group external_content
  */
 final class BundlerFacadeTest extends ExternalContentTestBase {
@@ -29,7 +29,7 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
   /**
    * The external content bundler.
    */
-  protected BundlerFacadeInterface $bundler;
+  protected BundlerManagerInterface $bundler;
 
   /**
    * {@inheritdoc}
@@ -39,7 +39,7 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
 
     $this->bundler = $this
       ->container
-      ->get(BundlerFacadeInterface::class);
+      ->get(BundlerManagerInterface::class);
   }
 
   /**

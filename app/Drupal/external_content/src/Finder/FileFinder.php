@@ -5,6 +5,7 @@ namespace Drupal\external_content\Finder;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
+use Drupal\external_content\Data\FinderResult;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Event\FileFoundEvent;
 use Drupal\external_content\Source\File;
@@ -36,7 +37,7 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
   /**
    * {@inheritdoc}
    */
-  public function find(): SourceCollection {
+  public function find(): FinderResult {
     $files = new SourceCollection();
     $configuration = $this->environment->getConfiguration();
     $patterns = \array_map(
@@ -49,7 +50,7 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
     $finder->name($patterns);
 
     if (!$finder->hasResults()) {
-      return $files;
+      return FinderResult::notFound();
     }
 
     foreach ($finder as $file_info) {
@@ -77,13 +78,13 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
         type: $this->mimeTypeGuesser->guessMimeType($file_info->getPathname()),
       );
 
-      $event = new FileFoundEvent($file);
+      $event = new FileFoundEvent($file, $this->environment);
       $this->environment->dispatch($event);
 
       $files->add($file);
     }
 
-    return $files;
+    return FinderResult::withSources($files);
   }
 
   /**

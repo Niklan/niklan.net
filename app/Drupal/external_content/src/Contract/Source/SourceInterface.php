@@ -10,11 +10,6 @@ use Drupal\external_content\Data\Data;
 interface SourceInterface {
 
   /**
-   * Returns a unique identifier for the source.
-   */
-  public function id(): string;
-
-  /**
    * Returns additional information related to source.
    */
   public function data(): Data;

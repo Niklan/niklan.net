@@ -2,12 +2,10 @@
 
 namespace Drupal\external_content\Data;
 
-use Drupal\external_content\Contract\Source\SourceInterface;
-
 /**
  * {@selfdoc}
  */
-final class SourceCollection {
+final readonly class IdentifiedSourceCollection {
 
   /**
    * {@selfdoc}
@@ -19,7 +17,7 @@ final class SourceCollection {
   /**
    * {@selfdoc}
    */
-  public function add(SourceInterface $source): void {
+  public function add(IdentifiedSource $source): void {
     if ($this->items->contains($source)) {
       return;
     }

@@ -8,13 +8,10 @@ namespace Drupal\external_content\Data;
 final class Data {
 
   /**
-   * Constructs a new Data instance.
-   *
-   * @param array $data
-   *   The array with initial data.
+   * {@selfdoc}
    */
   public function __construct(
-    protected array $data = [],
+    protected array $store = [],
   ) {}
 
   /**
@@ -26,7 +23,7 @@ final class Data {
    *   The value to store.
    */
   public function set(string $key, mixed $value): self {
-    $this->data[$key] = $value;
+    $this->store[$key] = $value;
 
     return $this;
   }
@@ -42,7 +39,7 @@ final class Data {
       return NULL;
     }
 
-    return $this->data[$key];
+    return $this->store[$key];
   }
 
   /**
@@ -52,14 +49,14 @@ final class Data {
    *   The data key.
    */
   public function has(string $key): bool {
-    return \array_key_exists($key, $this->data);
+    return \array_key_exists($key, $this->store);
   }
 
   /**
    * {@selfdoc}
    */
   public function all(): array {
-    return $this->data;
+    return $this->store;
   }
 
 }

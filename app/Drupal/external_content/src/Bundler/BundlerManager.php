@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Bundler;
 
-use Drupal\external_content\Contract\Bundler\BundlerFacadeInterface;
+use Drupal\external_content\Contract\Bundler\BundlerManagerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
@@ -14,7 +14,7 @@ use Drupal\external_content\Data\SourceVariation;
 /**
  * Provides an external content bundler.
  */
-final class BundlerFacade implements BundlerFacadeInterface {
+final class BundlerManager implements BundlerManagerInterface {
 
   /**
    * The environment.

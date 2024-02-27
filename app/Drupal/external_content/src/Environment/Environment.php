@@ -82,6 +82,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    */
   public function __construct(
     array $configuration = [],
+    public readonly ?string $id = NULL,
   ) {
     $this->configuration = new Configuration();
     $this->configuration->merge($configuration);

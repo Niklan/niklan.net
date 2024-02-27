@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Contract\Identifier;
 
 use Drupal\external_content\Contract\Source\SourceInterface;
-use Drupal\external_content\Data\SourceIdentification;
+use Drupal\external_content\Data\IdentifierResult;
 
 /**
  * {@selfdoc}
@@ -41,11 +41,6 @@ interface IdentifierInterface {
    * same content for different purposes, for example, all russian versions or
    * all Drupal 10 versions based on attributes.
    */
-  public function identify(SourceInterface $source): SourceIdentification;
-
-  /**
-   * {@selfdoc}
-   */
-  public function supportsIdentification(SourceInterface $source): bool;
+  public function identify(SourceInterface $source): IdentifierResult;
 
 }

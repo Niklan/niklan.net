@@ -56,6 +56,10 @@ services:
     arguments:
       - '@keyvalue.niklan.content_sync_settings'
 
+  Drupal\niklan\EventSubscriber\FileFoundEventSubscriber:
+    tags:
+      - { name: event_subscriber }
+
   Drupal\niklan\Asset\ContentAssetManager:
     arguments:
       $fileUsage: '@file.usage'
@@ -81,6 +85,7 @@ services:
         file_finder:
           extensions: ['md']
           directories: ['%external_content.blog.working_dir%']
+      $id: 'blog'
     calls:
       - [addExtension, ['@Drupal\external_content\Extension\FileFinderExtension']]
       - [addExtension, ['@Drupal\external_content\Extension\BasicHtmlExtension']]

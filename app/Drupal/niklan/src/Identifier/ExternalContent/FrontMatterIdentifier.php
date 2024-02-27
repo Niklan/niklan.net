@@ -5,7 +5,8 @@ namespace Drupal\niklan\Identifier\ExternalContent;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Data\SourceIdentification;
+use Drupal\external_content\Data\IdentifiedSource;
+use Drupal\external_content\Data\IdentifierResult;
 
 /**
  * Provides a bundler based on Front Matter 'id' and 'language' params.
@@ -17,7 +18,11 @@ final class FrontMatterIdentifier implements IdentifierInterface {
   /**
    * {@inheritdoc}
    */
-  public function identify(SourceInterface $source): SourceIdentification {
+  public function identify(SourceInterface $source): IdentifierResult {
+    if (!$this->supportsIdentification($source)) {
+      return IdentifierResult::notIdentified();
+    }
+
     $front_matter = $source->data()->get('front_matter');
     $attributes = new Attributes();
 
@@ -25,13 +30,19 @@ final class FrontMatterIdentifier implements IdentifierInterface {
       $attributes->setAttribute('language', $front_matter['language']);
     }
 
-    return new SourceIdentification($front_matter['id'], $attributes);
+    $result = new IdentifiedSource(
+      source: $source,
+      id: $front_matter['id'],
+      attributes: $attributes,
+    );
+
+    return IdentifierResult::identified($result);
   }
 
   /**
-   * {@inheritdoc}
+   * {@selfdoc}
    */
-  public function supportsIdentification(SourceInterface $source): bool {
+  private function supportsIdentification(SourceInterface $source): bool {
     $data = $source->data();
 
     if (!$data->has('front_matter')) {

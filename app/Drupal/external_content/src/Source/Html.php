@@ -14,18 +14,9 @@ final readonly class Html implements SourceInterface {
    * {@selfdoc}
    */
   public function __construct(
-    private string $id,
     private string $contents,
     private ?Data $data = new Data(),
   ) {}
-
-  /**
-   * {@selfdoc}
-   */
-  #[\Override]
-  public function id(): string {
-    return $this->id;
-  }
 
   /**
    * {@selfdoc}

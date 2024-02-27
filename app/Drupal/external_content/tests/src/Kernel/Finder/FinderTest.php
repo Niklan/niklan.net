@@ -10,7 +10,7 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 /**
  * Provides an external content finder test.
  *
- * @covers \Drupal\external_content\Finder\FinderFacade
+ * @covers \Drupal\external_content\Finder\FinderManager
  * @group external_content
  */
 final class FinderTest extends ExternalContentTestBase {
