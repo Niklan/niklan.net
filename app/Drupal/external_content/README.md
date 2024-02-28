@@ -6,7 +6,7 @@ it.
 
 - [x] Finder
 - [x] Identifier
-- [ ] Bundler
+- [x] Bundler
 - [ ] Converter
 - [ ] Parser
 - [ ] Builder

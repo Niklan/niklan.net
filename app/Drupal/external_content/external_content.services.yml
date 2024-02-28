@@ -41,6 +41,9 @@ services:
   Drupal\external_content\Contract\Identifier\IdentifierManagerInterface: '@Drupal\external_content\Identifier\IdentifierManager'
   Drupal\external_content\Identifier\IdentifierManager: {}
 
+  # Bundlers.
+  Drupal\external_content\Bundler\SameIdBundler: {}
+
   # Converters.
   Drupal\external_content\Contract\Converter\ConverterManagerInterface: '@Drupal\external_content\Converter\ConverterManager'
   Drupal\external_content\Converter\ConverterManager: {}

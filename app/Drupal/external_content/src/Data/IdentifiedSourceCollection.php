@@ -10,33 +10,38 @@ final readonly class IdentifiedSourceCollection {
   /**
    * {@selfdoc}
    */
-  public function __construct(
-    private \SplObjectStorage $items = new \SplObjectStorage(),
-  ) {}
+  private \SplObjectStorage $sources;
 
   /**
    * {@selfdoc}
    */
-  public function add(IdentifiedSource $source): void {
-    if ($this->items->contains($source)) {
-      return;
-    }
-
-    $this->items->attach($source);
+  public function __construct() {
+    $this->sources = new \SplObjectStorage();
   }
 
   /**
    * {@selfdoc}
    */
-  public function items(): \SplObjectStorage {
-    return $this->items;
+  public function add(IdentifiedSource $source): void {
+    if ($this->sources->contains($source)) {
+      return;
+    }
+
+    $this->sources->attach($source);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function sources(): \SplObjectStorage {
+    return $this->sources;
   }
 
   /**
    * {@selfdoc}
    */
   public function merge(self $collection): self {
-    $this->items->addAll($collection->items());
+    $this->sources->addAll($collection->sources());
 
     return $this;
   }

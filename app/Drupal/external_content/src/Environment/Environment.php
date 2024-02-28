@@ -4,6 +4,7 @@ namespace Drupal\external_content\Environment;
 
 use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
+use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
@@ -78,6 +79,11 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   protected Configuration $configuration;
 
   /**
+   * {@selfdoc}
+   */
+  protected PrioritizedList $bundlers;
+
+  /**
    * Constructs a new Environment instance.
    */
   public function __construct(
@@ -88,6 +94,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->configuration->merge($configuration);
     $this->finders = new PrioritizedList();
     $this->identifiers = new PrioritizedList();
+    $this->bundlers = new PrioritizedList();
     $this->converters = new PrioritizedList();
     $this->parsers = new PrioritizedList();
     $this->builders = new PrioritizedList();
@@ -308,6 +315,25 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->injectDependencies($converter);
 
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function addBundler(BundlerInterface $bundler, int $priority = 0): self {
+    $this->bundlers->add($bundler, $priority);
+    $this->injectDependencies($bundler);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function getBundlers(): PrioritizedList {
+    return $this->bundlers;
   }
 
 }

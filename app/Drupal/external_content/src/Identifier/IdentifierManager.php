@@ -36,22 +36,28 @@ final class IdentifierManager implements IdentifierManagerInterface {
 
     foreach ($source_collection->items() as $source) {
       \assert($source instanceof SourceInterface);
-
-      foreach ($this->environment->getIdentifiers() as $identifier) {
-        \assert($identifier instanceof IdentifierInterface);
-        $identifier_result = $identifier->identify($source);
-
-        if ($identifier_result->isNotIdentified()) {
-          continue;
-        }
-
-        $identified_sources->add($identifier_result->result());
-
-        continue 2;
-      }
+      $this->identifySource($source, $identified_sources);
     }
 
     return $identified_sources;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function identifySource(SourceInterface $source, IdentifiedSourceCollection $identified_sources): void {
+    foreach ($this->environment->getIdentifiers() as $identifier) {
+      \assert($identifier instanceof IdentifierInterface);
+      $identifier_result = $identifier->identify($source);
+
+      if ($identifier_result->isNotIdentified()) {
+        continue;
+      }
+
+      $identified_sources->add($identifier_result->result());
+
+      return;
+    }
   }
 
 }

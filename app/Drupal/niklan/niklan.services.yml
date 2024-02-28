@@ -90,6 +90,7 @@ services:
       - [addExtension, ['@Drupal\external_content\Extension\FileFinderExtension']]
       - [addExtension, ['@Drupal\external_content\Extension\BasicHtmlExtension']]
       - [addIdentifier, ['@Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier']]
+      - [addBundler, ['@Drupal\external_content\Bundler\SameIdBundler']]
       - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer']]
       - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia']]
       - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock']]

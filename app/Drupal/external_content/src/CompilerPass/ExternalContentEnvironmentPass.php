@@ -25,22 +25,29 @@ final class ExternalContentEnvironmentPass implements CompilerPassInterface {
         continue;
       }
 
-      if (\array_key_exists($attributes['id'], $environments)) {
-        throw new DuplicatedContainerEnvironmentDefinition(
-          environment_id: $attributes['id'],
-          existing_service: $environments[$attributes['id']]['service'],
-          current_service: $service,
-        );
-      }
-
-      $environments[$attributes['id']] = [
-        'service' => $service,
-        'id' => $attributes['id'],
-        'label' => $attributes['label'],
-      ];
+      $this->addEnvironment($service, $attributes, $environments);
     }
 
     $container->setParameter('external_content.environments', $environments);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function addEnvironment(string $service, mixed $attributes, array &$environments): void {
+    if (\array_key_exists($attributes['id'], $environments)) {
+      throw new DuplicatedContainerEnvironmentDefinition(
+        environment_id: $attributes['id'],
+        existing_service: $environments[$attributes['id']]['service'],
+        current_service: $service,
+      );
+    }
+
+    $environments[$attributes['id']] = [
+      'service' => $service,
+      'id' => $attributes['id'],
+      'label' => $attributes['label'],
+    ];
   }
 
 }

@@ -6,7 +6,7 @@ use Drupal\Component\Utility\Timer;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentVariation;
-use Drupal\external_content\Data\SourceBundle;
+use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\SourceBundleCollection;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Data\SourceVariation;
@@ -118,7 +118,7 @@ final class BlogSync extends Command {
     Timer::start('load');
 
     foreach ($bundles as $bundle) {
-      \assert($bundle instanceof SourceBundle);
+      \assert($bundle instanceof IdentifiedSourceBundle);
       $this->loadBundle($bundle);
     }
 
@@ -133,7 +133,7 @@ final class BlogSync extends Command {
   /**
    * {@selfdoc}
    */
-  private function loadBundle(SourceBundle $bundle): void {
+  private function loadBundle(IdentifiedSourceBundle $bundle): void {
     $this->io->comment("Starting loading bundle '{$bundle->id}'.");
     $timer_id = "load_bundle:{$bundle->id}";
     Timer::start($timer_id);
@@ -151,7 +151,7 @@ final class BlogSync extends Command {
   /**
    * {@selfdoc}
    */
-  private function parseBundle(SourceBundle $source_bundle): ContentBundle {
+  private function parseBundle(IdentifiedSourceBundle $source_bundle): ContentBundle {
     $content_bundle = new ContentBundle($source_bundle->id);
 
     foreach ($source_bundle as $source_variation) {
