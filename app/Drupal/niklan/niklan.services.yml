@@ -1,6 +1,3 @@
-parameters:
-  external_content.blog.working_dir: null
-
 services:
   _defaults:
     autowire: true
@@ -69,7 +66,9 @@ services:
   Drupal\niklan\Builder\BlogMarkdownEnvironmentBuilder: {}
   Drupal\niklan\Converter\BlogMarkdownConverter: {}
 
-  Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier: {}
+  Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier:
+    tags:
+      - { name: external_content.identifier, id: front_matter }
   Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer: {}
   Drupal\niklan\Serializer\ExternalContent\NoteSerializer: {}
   Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia: {}
@@ -78,26 +77,20 @@ services:
   Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder: {}
   Drupal\niklan\Loader\ExternalContent\Blog: {}
 
+  Drupal\niklan\Extension\ExternalContent\BlogExtension:
+    tags:
+      - { name: external_content.extension, id: blog }
+
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment
-    arguments:
-      $configuration:
-        file_finder:
-          extensions: ['md']
-          directories: ['%external_content.blog.working_dir%']
-      $id: 'blog'
     calls:
-      - [addExtension, ['@Drupal\external_content\Extension\FileFinderExtension']]
-      - [addExtension, ['@Drupal\external_content\Extension\BasicHtmlExtension']]
-      - [addIdentifier, ['@Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier']]
-      - [addBundler, ['@Drupal\external_content\Bundler\SameIdBundler']]
-      - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer']]
-      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia']]
-      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock']]
-      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\Note']]
-      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder']]
-      - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\NoteSerializer']]
-      - [addLoader, ['@Drupal\niklan\Loader\ExternalContent\Blog']]
-      - [setEventDispatcher, ['@event_dispatcher']]
+      - [addExtension, ['@Drupal\niklan\Extension\ExternalContent\BlogExtension']]
+    #      - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer']]
+    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia']]
+    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock']]
+    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\Note']]
+    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder']]
+    #      - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\NoteSerializer']]
+    #      - [addLoader, ['@Drupal\niklan\Loader\ExternalContent\Blog']]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }

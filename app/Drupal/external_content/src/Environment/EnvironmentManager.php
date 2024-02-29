@@ -4,29 +4,32 @@ namespace Drupal\external_content\Environment;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
-use Drupal\external_content\Exception\MissingEnvironmentException;
+use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * {@selfdoc}
  */
-final class EnvironmentManager implements EnvironmentManagerInterface {
+final readonly class EnvironmentManager implements EnvironmentManagerInterface {
 
   /**
    * {@selfdoc}
    */
   public function __construct(
-    private readonly ContainerInterface $container,
-    private readonly array $environments = [],
+    private ContainerInterface $container,
+    private array $environments = [],
   ) {}
 
   /**
    * {@inheritdoc}
    */
   #[\Override]
-  public function getEnvironment(string $environment_id): EnvironmentInterface {
-    if (!\array_key_exists($environment_id, $this->environments)) {
-      throw new MissingEnvironmentException($environment_id);
+  public function get(string $environment_id): EnvironmentInterface {
+    if (!$this->has($environment_id)) {
+      throw new MissingContainerDefinitionException(
+        type: 'environment',
+        id: $environment_id,
+      );
     }
 
     $service = $this->environments[$environment_id]['service'];
@@ -35,10 +38,18 @@ final class EnvironmentManager implements EnvironmentManagerInterface {
   }
 
   /**
+   * {@selfdoc}
+   */
+  #[\Override]
+  public function has(string $environment_id): bool {
+    return \array_key_exists($environment_id, $this->environments);
+  }
+
+  /**
    * {@inheritdoc}
    */
   #[\Override]
-  public function getEnvironments(): array {
+  public function list(): array {
     return $this->environments;
   }
 

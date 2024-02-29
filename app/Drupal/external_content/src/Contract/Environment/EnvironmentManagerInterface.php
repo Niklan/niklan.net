@@ -10,7 +10,12 @@ interface EnvironmentManagerInterface {
   /**
    * {@selfdoc}
    */
-  public function getEnvironment(string $environment_id): EnvironmentInterface;
+  public function get(string $environment_id): EnvironmentInterface;
+
+  /**
+   * {@selfdoc}
+   */
+  public function has(string $environment_id): bool;
 
   /**
    * {@selfdoc}
@@ -21,6 +26,6 @@ interface EnvironmentManagerInterface {
    *   id: string,
    *   }
    */
-  public function getEnvironments(): array;
+  public function list(): array;
 
 }

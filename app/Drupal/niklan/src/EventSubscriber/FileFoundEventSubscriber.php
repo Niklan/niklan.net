@@ -29,7 +29,7 @@ final class FileFoundEventSubscriber implements EventSubscriberInterface {
    * {@selfdoc}
    */
   public function onBlogSourceFileFound(FileFoundEvent $event): void {
-    if ($event->environment->id !== 'blog') {
+    if ($event->environment->id() !== 'blog') {
       return;
     }
 

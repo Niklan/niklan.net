@@ -38,7 +38,7 @@ final class ExternalContentComputedProperty extends TypedData {
     $environment_id = $field_item->get('environment_id')->getString();
 
     try {
-      $environment = self::getEnvironmentManager()->getEnvironment(
+      $environment = self::getEnvironmentManager()->get(
         environment_id: $environment_id,
       );
     }

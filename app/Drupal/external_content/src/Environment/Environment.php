@@ -88,7 +88,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    */
   public function __construct(
     array $configuration = [],
-    public readonly ?string $id = NULL,
+    private readonly ?string $id = NULL,
   ) {
     $this->configuration = new Configuration();
     $this->configuration->merge($configuration);
@@ -101,6 +101,14 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->eventListeners = new PrioritizedList();
     $this->serializers = new PrioritizedList();
     $this->loaders = new PrioritizedList();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function id(): ?string {
+    return $this->id;
   }
 
   /**
@@ -310,7 +318,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   #[\Override]
-  public function addConverter(ConverterInterface $converter, int $priority): self {
+  public function addConverter(ConverterInterface $converter, int $priority = 0): self {
     $this->converters->add($converter, $priority);
     $this->injectDependencies($converter);
 

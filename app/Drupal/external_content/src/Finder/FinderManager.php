@@ -6,24 +6,29 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Finder\FinderManagerInterface;
 use Drupal\external_content\Data\SourceCollection;
+use Drupal\external_content\Exception\MissingContainerDefinitionException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a main finder to rule them all.
+ * {@selfdoc}
  */
-final class FinderManager implements FinderManagerInterface {
+final readonly class FinderManager implements FinderManagerInterface {
 
   /**
    * {@selfdoc}
    */
-  protected EnvironmentInterface $environment;
+  public function __construct(
+    private ContainerInterface $container,
+    private array $finders = [],
+  ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function find(): SourceCollection {
+  public function find(EnvironmentInterface $environment): SourceCollection {
     $collection = new SourceCollection();
 
-    foreach ($this->environment->getFinders() as $finder) {
+    foreach ($environment->getFinders() as $finder) {
       \assert($finder instanceof FinderInterface);
       $finder_result = $finder->find();
 
@@ -40,8 +45,34 @@ final class FinderManager implements FinderManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
+  #[\Override]
+  public function get(string $finder_id): FinderInterface {
+    if (!$this->has($finder_id)) {
+      throw new MissingContainerDefinitionException(
+        type: 'finder',
+        id: $finder_id,
+      );
+    }
+
+    $service = $this->finders[$finder_id]['service'];
+
+    return $this->container->get($service);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function has(string $finder_id): bool {
+    return \array_key_exists($finder_id, $this->finders);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function list(): array {
+    return $this->finders;
   }
 
 }

@@ -1,0 +1,66 @@
+<?php declare(strict_types = 1);
+
+namespace Drupal\niklan\Extension\ExternalContent;
+
+use Drupal\Core\Site\Settings;
+use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
+use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
+use Drupal\external_content\Contract\Extension\ExtensionInterface;
+use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
+use League\Config\ConfigurationBuilderInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+
+/**
+ * {@selfdoc}
+ *
+ * @ingroup external_content
+ */
+final readonly class BlogExtension implements ExtensionInterface, ConfigurableExtensionInterface {
+
+  /**
+   * {@selfdoc}
+   */
+  public function __construct(
+    private ExternalContentManagerInterface $externalContentManager,
+    private EventDispatcherInterface $eventDispatcher,
+  ) {}
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function register(EnvironmentBuilderInterface $environment): void {
+    $extension_manager = $this->externalContentManager->getExtensionManager();
+    $bundler_manager = $this->externalContentManager->getBundlerManager();
+    $identifier_manager = $this
+      ->externalContentManager
+      ->getIdentifiersManager();
+
+    $environment
+      // @todo Consider to replace by callable subscribers right here. Look
+      //   like there are no need for Drupal's event dispatcher.
+      ->setEventDispatcher($this->eventDispatcher)
+      ->addExtension($extension_manager->get('file_finder'))
+      ->addExtension($extension_manager->get('basic_html'))
+      ->addBundler($bundler_manager->get('same_id'))
+      ->addIdentifier($identifier_manager->get('front_matter'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function configureSchema(ConfigurationBuilderInterface $builder): void {
+    $builder->merge([
+      'file_finder' => [
+        'extensions' => ['md'],
+        'directories' => [
+          // @todo Check if its needed, provide a documentation and update
+          //   scaffold files.
+          Settings::get('external_content_blog_dir', 'private://test'),
+        ],
+      ],
+    ]);
+  }
+
+}

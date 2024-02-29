@@ -61,16 +61,16 @@ interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
   /**
    * {@selfdoc}
    */
-  public function addLoader(LoaderInterface $loader, int $priority): self;
+  public function addLoader(LoaderInterface $loader, int $priority = 0): self;
 
   /**
    * {@selfdoc}
    */
-  public function addConverter(ConverterInterface $converter, int $priority): self;
+  public function addConverter(ConverterInterface $converter, int $priority = 0): self;
 
   /**
    * {@selfdoc}
    */
-  public function addBundler(BundlerInterface $bundler, int $priority): self;
+  public function addBundler(BundlerInterface $bundler, int $priority = 0): self;
 
 }
