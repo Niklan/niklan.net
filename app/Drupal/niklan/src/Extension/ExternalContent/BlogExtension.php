@@ -35,6 +35,7 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
     $identifier_manager = $this
       ->externalContentManager
       ->getIdentifiersManager();
+    $converter_manager = $this->externalContentManager->getConverterManager();
 
     $environment
       // @todo Consider to replace by callable subscribers right here. Look
@@ -43,7 +44,8 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->addExtension($extension_manager->get('file_finder'))
       ->addExtension($extension_manager->get('basic_html'))
       ->addBundler($bundler_manager->get('same_id'))
-      ->addIdentifier($identifier_manager->get('front_matter'));
+      ->addIdentifier($identifier_manager->get('front_matter'))
+      ->addConverter($converter_manager->get('niklan_markdown'));
   }
 
   /**

@@ -3,6 +3,7 @@
 namespace Drupal\external_content\ExternalContent;
 
 use Drupal\external_content\Contract\Bundler\BundlerManagerInterface;
+use Drupal\external_content\Contract\Converter\ConverterManagerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
 use Drupal\external_content\Contract\Extension\ExtensionManagerInterface;
 use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
@@ -23,6 +24,7 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
     private FinderManagerInterface $finderManager,
     private IdentifierManagerInterface $identifierManager,
     private BundlerManagerInterface $bundlerManager,
+    private ConverterManagerInterface $converterManager,
   ) {}
 
   /**
@@ -42,7 +44,7 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
   }
 
   /**
-   * {@selfdoc}
+   * {@inheritdoc}
    */
   #[\Override]
   public function getIdentifiersManager(): IdentifierManagerInterface {
@@ -50,7 +52,7 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
   }
 
   /**
-   * {@selfdoc}
+   * {@inheritdoc}
    */
   #[\Override]
   public function getBundlerManager(): BundlerManagerInterface {
@@ -58,11 +60,19 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
   }
 
   /**
-   * {@selfdoc}
+   * {@inheritdoc}
    */
   #[\Override]
   public function getExtensionManager(): ExtensionManagerInterface {
     return $this->extensionManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function getConverterManager(): ConverterManagerInterface {
+    return $this->converterManager;
   }
 
 }

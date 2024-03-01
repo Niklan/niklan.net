@@ -1,6 +1,5 @@
 services:
   niklan.sync.blog:
     class: Drupal\niklan\Command\BlogSync
-    arguments: ['@Drupal\niklan\Sync\BlogSyncManager']
     tags:
       - { name: console.command }

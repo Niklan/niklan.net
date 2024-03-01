@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Extension;
+namespace Drupal\niklan\Extension\Markdown;
 
-use Drupal\niklan\CommonMark\Renderer\FencedCodeRenderer;
+use Drupal\niklan\Renderer\Markdown\FencedCodeRenderer;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;

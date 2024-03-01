@@ -5,6 +5,7 @@ parameters:
   external_content.finders: []
   external_content.identifiers: []
   external_content.bundlers: []
+  external_content.converters: []
 
 services:
   _defaults:
@@ -68,4 +69,10 @@ services:
 
   # Converters.
   Drupal\external_content\Contract\Converter\ConverterManagerInterface: '@Drupal\external_content\Converter\ConverterManager'
-  Drupal\external_content\Converter\ConverterManager: {}
+  Drupal\external_content\Converter\ConverterManager:
+    arguments:
+      $converters: '%external_content.converters%'
+  Drupal\external_content\Converter\HtmlConverter:
+    shared: false
+    tags:
+      - { name: external_content.converter, id: html }

@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Renderer;
+namespace Drupal\niklan\Renderer\Markdown;
 
-use Drupal\niklan\CommonMark\Block\BlockDirective;
+use Drupal\niklan\Node\Markdown\BlockDirective;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;

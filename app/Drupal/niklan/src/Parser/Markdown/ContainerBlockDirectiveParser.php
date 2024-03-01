@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Parser;
+namespace Drupal\niklan\Parser\Markdown;
 
-use Drupal\niklan\CommonMark\Block\BlockDirective;
-use Drupal\niklan\CommonMark\Block\LeafBlockDirective;
 use Drupal\niklan\Helper\CommonMarkDirectiveHelper;
+use Drupal\niklan\Node\Markdown\BlockDirective;
+use Drupal\niklan\Node\Markdown\ContainerBlockDirective;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;
@@ -12,13 +12,14 @@ use League\CommonMark\Parser\Block\BlockContinueParserInterface;
 use League\CommonMark\Parser\Block\BlockContinueParserWithInlinesInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\InlineParserEngineInterface;
+use League\CommonMark\Util\RegexHelper;
 
 /**
  * {@selfdoc}
  *
  * @ingroup markdown
  */
-final class LeafBlockDirectiveParser extends AbstractBlockContinueParser implements BlockContinueParserWithInlinesInterface {
+final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser implements BlockContinueParserWithInlinesInterface {
 
   /**
    * {@selfdoc}
@@ -29,12 +30,14 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
    * {@selfdoc}
    */
   public function __construct(
+    public readonly int $colonLength,
+    public readonly int $offset,
     public readonly string $directiveInfo,
   ) {
     $info = CommonMarkDirectiveHelper::parseInfoString($this->directiveInfo);
     $attributes = CommonMarkDirectiveHelper::parseExtraAttributes($info['attributes'] ?? '');
 
-    $this->block = new LeafBlockDirective(
+    $this->block = new ContainerBlockDirective(
       type: $info['type'],
       inlineContentRaw: $info['inline-content'],
       argument: $info['argument'],
@@ -53,9 +56,8 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
   /**
    * {@inheritdoc}
    */
-  #[\Override]
-  public function isContainer(): bool {
-    return FALSE;
+  public function canContain(AbstractBlock $childBlock): bool {
+    return TRUE;
   }
 
   /**
@@ -63,15 +65,35 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
    */
   #[\Override]
   public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue {
-    // Make sure we at the end for the cursor line. It is moved here at start
-    // parser, but still, make sure this is the case.
-    if ($cursor->isAtEnd()) {
-      return BlockContinue::finished();
+    if ($cursor->getNextNonSpaceCharacter() === ':') {
+      $match = RegexHelper::matchFirst(
+        pattern: '/^\s*(:{3,})(?=\s*$)/',
+        subject: $cursor->getLine(),
+      );
+
+      // Check for closing colon. It should be same length as opening or more.
+      if ($match !== NULL && \strlen($match[1]) >= $this->colonLength) {
+        return BlockContinue::finished();
+      }
     }
 
-    $cursor->advanceBy(1);
+    // Only run ::match() if cursor contains space.
+    if ($cursor->getNextNonSpacePosition() > $cursor->getPosition()) {
+      // Move cursor on the block offset amount. Without this skip of indent
+      // offset equals opening indent, it can trigger Indented code parser for
+      // depth 3 and above.
+      $cursor->match('/^\s{0,' . $this->offset . '}/');
+    }
 
     return BlockContinue::at($cursor);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function isContainer(): bool {
+    return TRUE;
   }
 
   /**

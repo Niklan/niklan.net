@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Parser;
+namespace Drupal\niklan\Parser\Markdown;
 
 use League\CommonMark\Parser\Block\BlockStart;
 use League\CommonMark\Parser\Block\BlockStartParserInterface;
@@ -11,7 +11,7 @@ use League\CommonMark\Util\RegexHelper;
 /**
  * {@selfdoc}
  *
- * @see \Drupal\niklan\CommonMark\Extension\LeafBlockDirectiveExtension
+ * @see \Drupal\niklan\Extension\Markdown\LeafBlockDirectiveExtension
  *
  * @ingroup markdown
  */

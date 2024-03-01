@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Contract\ExternalContent;
 
 use Drupal\external_content\Contract\Bundler\BundlerManagerInterface;
+use Drupal\external_content\Contract\Converter\ConverterManagerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
 use Drupal\external_content\Contract\Extension\ExtensionManagerInterface;
 use Drupal\external_content\Contract\Finder\FinderManagerInterface;
@@ -37,5 +38,10 @@ interface ExternalContentManagerInterface {
    * {@selfdoc}
    */
   public function getBundlerManager(): BundlerManagerInterface;
+
+  /**
+   * {@selfdoc}
+   */
+  public function getConverterManager(): ConverterManagerInterface;
 
 }

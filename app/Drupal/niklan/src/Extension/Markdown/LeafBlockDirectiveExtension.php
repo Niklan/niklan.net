@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Extension;
+namespace Drupal\niklan\Extension\Markdown;
 
-use Drupal\niklan\CommonMark\Block\LeafBlockDirective;
-use Drupal\niklan\CommonMark\Parser\LeafBlockDirectiveStartParser;
-use Drupal\niklan\CommonMark\Renderer\LeafBlockDirectiveRenderer;
+use Drupal\niklan\Node\Markdown\LeafBlockDirective;
+use Drupal\niklan\Parser\Markdown\LeafBlockDirectiveStartParser;
+use Drupal\niklan\Renderer\Markdown\LeafBlockDirectiveRenderer;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ExtensionInterface;
 
@@ -16,11 +16,12 @@ use League\CommonMark\Extension\ExtensionInterface;
  * inline value.
  *
  * Example:
+ *
  * @code
  *  :::name[inline-content](argument){#id .class key=value}
  * @endcode
  *
- * @see \Drupal\niklan\CommonMark\Block\BlockDirective
+ * @see \Drupal\niklan\Node\Markdown\BlockDirective
  *
  * @ingroup markdown
  */

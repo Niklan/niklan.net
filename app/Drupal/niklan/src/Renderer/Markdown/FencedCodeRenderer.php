@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Renderer;
+namespace Drupal\niklan\Renderer\Markdown;
 
 use Dflydev\DotAccessData\DataInterface;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;

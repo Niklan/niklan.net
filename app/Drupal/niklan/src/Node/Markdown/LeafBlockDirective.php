@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Block;
+namespace Drupal\niklan\Node\Markdown;
 
 /**
  * {@selfdoc}

@@ -6,6 +6,8 @@ use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInter
 use Drupal\external_content\Contract\Finder\FinderManagerInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierManagerInterface;
 use Drupal\external_content\Environment\EnvironmentManager;
+use Drupal\external_content\Source\Html;
+use League\CommonMark\MarkdownConverter;
 
 Timer::start('test');
 $external_content = \Drupal::service(ExternalContentManagerInterface::class);
@@ -17,3 +19,14 @@ $bundled_sources = $external_content->getBundlerManager()->bundle($identified_so
 
 Timer::stop('test');
 dump(Timer::read('test'));
+
+$test = new Html(
+  <<<'Markdown'
+  ::: foo
+    :: bar
+  :::
+  
+  **strong**
+  Markdown
+);
+dump($external_content->getConverterManager()->convert($test, $environment));

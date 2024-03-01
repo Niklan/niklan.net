@@ -6,8 +6,10 @@ use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Converter\ConverterManagerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
+use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Drupal\external_content\Exception\MissingConverterException;
 use Drupal\external_content\Source\Html;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * {@selfdoc}
@@ -17,38 +19,59 @@ final class ConverterManager implements ConverterManagerInterface {
   /**
    * {@selfdoc}
    */
-  private EnvironmentInterface $environment;
+  public function __construct(
+    private ContainerInterface $container,
+    private array $converters = [],
+  ) {}
 
   /**
    * {@inheritdoc}
    */
   #[\Override]
-  public function convert(SourceInterface $input): Html {
-    foreach ($this->environment->getConverters() as $converter) {
+  public function convert(SourceInterface $input, EnvironmentInterface $environment): Html {
+    foreach ($environment->getConverters() as $converter) {
       \assert($converter instanceof ConverterInterface);
+      $result = $converter->convert($input);
 
-      if ($converter->supportsConversion($input)) {
-        return $converter->convert($input);
+      if ($result->hasResult()) {
+        return $result->getResult();
       }
     }
 
-    throw new MissingConverterException($input, $this->environment);
+    throw new MissingConverterException($input, $environment);
   }
 
   /**
    * {@inheritdoc}
    */
   #[\Override]
-  public function supportsConversion(SourceInterface $source): bool {
-    return TRUE;
+  public function get(string $converter_id): ConverterInterface {
+    if (!$this->has($converter_id)) {
+      throw new MissingContainerDefinitionException(
+        type: 'converter',
+        id: $converter_id,
+      );
+    }
+
+    $service = $this->converters[$converter_id]['service'];
+
+    return $this->container->get($service);
   }
 
   /**
    * {@inheritdoc}
    */
   #[\Override]
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
+  public function has(string $converter_id): bool {
+    return \array_key_exists($converter_id, $this->converters);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function list(): array {
+    return $this->converters;
   }
 
 }

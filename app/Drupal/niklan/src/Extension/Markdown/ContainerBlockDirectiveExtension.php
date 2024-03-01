@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\niklan\CommonMark\Extension;
+namespace Drupal\niklan\Extension\Markdown;
 
-use Drupal\niklan\CommonMark\Block\ContainerBlockDirective;
-use Drupal\niklan\CommonMark\Parser\ContainerBlockDirectiveStartParser;
-use Drupal\niklan\CommonMark\Renderer\ContainerBlockDirectiveRenderer;
+use Drupal\niklan\Node\Markdown\ContainerBlockDirective;
+use Drupal\niklan\Parser\Markdown\ContainerBlockDirectiveStartParser;
+use Drupal\niklan\Renderer\Markdown\ContainerBlockDirectiveRenderer;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ExtensionInterface;
 

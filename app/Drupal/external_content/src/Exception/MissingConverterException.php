@@ -24,8 +24,7 @@ final class MissingConverterException extends \LogicException {
     );
 
     $message = \sprintf(
-      "Conversion of the source ID %s with the type %s is not possible. No suitable converters are found. Available converters: %s",
-      $this->source->id(),
+      "Conversion of type %s is not possible. No suitable converters are found. Available converters: %s",
       $this->source->type(),
       \implode(', ', $available_parsers),
     );
