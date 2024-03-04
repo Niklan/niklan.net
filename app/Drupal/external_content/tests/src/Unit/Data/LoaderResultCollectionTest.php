@@ -23,8 +23,8 @@ final class LoaderResultCollectionTest extends UnitTestCase {
     self::assertCount(0, $instance);
     self::assertEquals([], $instance->getIterator()->getArrayCopy());
 
-    $result_a = LoaderResult::skip();
-    $result_b = LoaderResult::ignore();
+    $result_a = LoaderResult::pass();
+    $result_b = LoaderResult::stop();
     $result_c = LoaderResult::entity('node', '1');
 
     $instance

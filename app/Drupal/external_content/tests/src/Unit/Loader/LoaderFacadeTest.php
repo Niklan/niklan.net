@@ -8,7 +8,7 @@ use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\LoaderResultIgnore;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Loader\LoaderFacade;
+use Drupal\external_content\Loader\LoaderManager;
 use Drupal\external_content\Node\Content;
 use Drupal\Tests\UnitTestCase;
 use Prophecy\Argument;
@@ -16,7 +16,7 @@ use Prophecy\Argument;
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Loader\LoaderFacade
+ * @covers \Drupal\external_content\Loader\LoaderManager
  * @group external_content
  */
 final class LoaderFacadeTest extends UnitTestCase {
@@ -30,7 +30,7 @@ final class LoaderFacadeTest extends UnitTestCase {
     $environment->addLoader($this->prepareSkipLoader(), 1000);
     $environment->addLoader($this->prepareSuccessLoader());
 
-    $loader = new LoaderFacade();
+    $loader = new LoaderManager();
     $loader->setEnvironment($environment);
 
     $result = $loader->load($this->prepareExternalContentBundleDocument());
@@ -46,7 +46,7 @@ final class LoaderFacadeTest extends UnitTestCase {
   public function testLoadWithoutLoaders(): void {
     $environment = new Environment();
 
-    $loader = new LoaderFacade();
+    $loader = new LoaderManager();
     $loader->setEnvironment($environment);
 
     $result = $loader->load($this->prepareExternalContentBundleDocument());
@@ -65,7 +65,7 @@ final class LoaderFacadeTest extends UnitTestCase {
    * {@selfdoc}
    */
   private function prepareSkipLoader(): LoaderInterface {
-    $result = LoaderResult::skip();
+    $result = LoaderResult::pass();
 
     $loader = $this->prophesize(LoaderInterface::class);
     $loader->load(Argument::cetera())->willReturn($result);

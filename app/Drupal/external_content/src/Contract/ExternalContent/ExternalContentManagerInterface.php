@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
 use Drupal\external_content\Contract\Extension\ExtensionManagerInterface;
 use Drupal\external_content\Contract\Finder\FinderManagerInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierManagerInterface;
+use Drupal\external_content\Contract\Loader\LoaderManagerInterface;
 
 /**
  * {@selfdoc}
@@ -43,5 +44,10 @@ interface ExternalContentManagerInterface {
    * {@selfdoc}
    */
   public function getConverterManager(): ConverterManagerInterface;
+
+  /**
+   * {@selfdoc}
+   */
+  public function getLoaderManager(): LoaderManagerInterface;
 
 }

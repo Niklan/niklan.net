@@ -184,7 +184,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
        * {@inheritdoc}
        */
       public function load(IdentifierSource $bundle): LoaderResultInterface {
-        return LoaderResult::skip();
+        return LoaderResult::pass();
       }
 
     };

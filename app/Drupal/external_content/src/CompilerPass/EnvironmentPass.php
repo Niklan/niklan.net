@@ -48,6 +48,12 @@ final class EnvironmentPass implements CompilerPassInterface {
       service_tag: 'external_content.converter',
       parameter_name: 'external_content.converters',
     );
+    $this->processComponent(
+      container: $container,
+      type: 'loader',
+      service_tag: 'external_content.loader',
+      parameter_name: 'external_content.loaders',
+    );
   }
 
   /**

@@ -9,11 +9,10 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
-use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
-use Drupal\external_content\Data\ContentBundle;
 use Drupal\external_content\Data\ContentVariation;
+use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
@@ -48,7 +47,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   /**
    * {@inheritdoc}
    */
-  public function load(ContentBundle $bundle): LoaderResultInterface {
+  public function load(IdentifiedSourceBundle $bundle): LoaderResult {
     $blog_entry = $this->findBlogEntry($bundle->id);
 
     foreach ($bundle->getByAttribute('language') as $content_variation) {

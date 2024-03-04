@@ -12,25 +12,21 @@ final class SourceCollection {
   /**
    * {@selfdoc}
    */
-  public function __construct(
-    private \SplObjectStorage $items = new \SplObjectStorage(),
-  ) {}
+  private array $items = [];
 
   /**
    * {@selfdoc}
    */
   public function add(SourceInterface $source): void {
-    if ($this->items->contains($source)) {
-      return;
-    }
-
-    $this->items->attach($source);
+    $this->items[] = $source;
   }
 
   /**
    * {@selfdoc}
+   *
+   * @return \Drupal\external_content\Contract\Source\SourceInterface[]
    */
-  public function items(): \SplObjectStorage {
+  public function items(): array {
     return $this->items;
   }
 
@@ -38,7 +34,7 @@ final class SourceCollection {
    * {@selfdoc}
    */
   public function merge(self $collection): self {
-    $this->items->addAll($collection->items());
+    $this->items = \array_merge($this->items, $collection->items());
 
     return $this;
   }

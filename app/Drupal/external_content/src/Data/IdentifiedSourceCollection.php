@@ -5,35 +5,26 @@ namespace Drupal\external_content\Data;
 /**
  * {@selfdoc}
  */
-final readonly class IdentifiedSourceCollection {
+final class IdentifiedSourceCollection {
 
   /**
    * {@selfdoc}
    */
-  private \SplObjectStorage $sources;
-
-  /**
-   * {@selfdoc}
-   */
-  public function __construct() {
-    $this->sources = new \SplObjectStorage();
-  }
+  private array $sources = [];
 
   /**
    * {@selfdoc}
    */
   public function add(IdentifiedSource $source): void {
-    if ($this->sources->contains($source)) {
-      return;
-    }
-
-    $this->sources->attach($source);
+    $this->sources[] = $source;
   }
 
   /**
    * {@selfdoc}
+   *
+   * @return \Drupal\external_content\Data\IdentifiedSource[]
    */
-  public function sources(): \SplObjectStorage {
+  public function sources(): array {
     return $this->sources;
   }
 
@@ -41,7 +32,7 @@ final readonly class IdentifiedSourceCollection {
    * {@selfdoc}
    */
   public function merge(self $collection): self {
-    $this->sources->addAll($collection->sources());
+    $this->sources = \array_merge($this->sources, $collection->sources());
 
     return $this;
   }

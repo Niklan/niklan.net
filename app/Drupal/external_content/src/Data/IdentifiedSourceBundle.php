@@ -5,29 +5,36 @@ namespace Drupal\external_content\Data;
 /**
  * {@selfdoc}
  */
-final readonly class IdentifiedSourceBundle {
+final class IdentifiedSourceBundle {
 
   /**
    * {@selfdoc}
    */
-  private \SplObjectStorage $sources;
+  private array $sources = [];
 
   /**
    * {@selfdoc}
    */
   public function __construct(
-    public string $id,
-  ) {
-    $this->sources = new \SplObjectStorage();
-  }
+    public readonly string $id,
+  ) {}
 
   /**
    * {@selfdoc}
    */
   public function add(IdentifiedSource $source): self {
-    $this->sources->attach($source);
+    $this->sources[] = $source;
 
     return $this;
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @return \Drupal\external_content\Data\IdentifiedSource[]
+   */
+  public function sources(): array {
+    return $this->sources;
   }
 
   /**

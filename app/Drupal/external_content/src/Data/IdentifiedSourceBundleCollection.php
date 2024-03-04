@@ -5,35 +5,26 @@ namespace Drupal\external_content\Data;
 /**
  * {@selfdoc}
  */
-final readonly class IdentifiedSourceBundleCollection {
+final class IdentifiedSourceBundleCollection {
 
   /**
    * {@selfdoc}
    */
-  private \SplObjectStorage $bundles;
-
-  /**
-   * {@selfdoc}
-   */
-  public function __construct() {
-    $this->bundles = new \SplObjectStorage();
-  }
+  private array $bundles = [];
 
   /**
    * {@selfdoc}
    */
   public function add(IdentifiedSourceBundle $bundle): void {
-    if ($this->bundles->contains($bundle)) {
-      return;
-    }
-
-    $this->bundles->attach($bundle);
+    $this->bundles[] = $bundle;
   }
 
   /**
    * {@selfdoc}
+   *
+   * @return \Drupal\external_content\Data\IdentifiedSourceBundle[]
    */
-  public function bundles(): \SplObjectStorage {
+  public function bundles(): array {
     return $this->bundles;
   }
 
@@ -41,7 +32,7 @@ final readonly class IdentifiedSourceBundleCollection {
    * {@selfdoc}
    */
   public function merge(self $collection): self {
-    $this->bundles->addAll($collection->bundles());
+    $this->bundles = \array_merge($this->bundles, $collection->bundles());
 
     return $this;
   }

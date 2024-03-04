@@ -27,7 +27,7 @@ final readonly class MarkdownConverter implements ConverterInterface {
    */
   #[\Override]
   public function convert(SourceInterface $input): ConverterResult {
-    if ($input->type() !== 'text/html') {
+    if ($input->type() !== 'text/markdown') {
       return ConverterResult::pass();
     }
 

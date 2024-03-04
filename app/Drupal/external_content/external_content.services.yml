@@ -6,6 +6,7 @@ parameters:
   external_content.identifiers: []
   external_content.bundlers: []
   external_content.converters: []
+  external_content.loaders: []
 
 services:
   _defaults:
@@ -14,13 +15,11 @@ services:
   Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface: '@Drupal\external_content\ExternalContent\ExternalContentManager'
   Drupal\external_content\ExternalContent\ExternalContentManager: {}
 
-  Drupal\external_content\Loader\LoaderFacade: {}
   Drupal\external_content\Parser\ParserFacade: {}
   Drupal\external_content\Serializer\Serializer: {}
   Drupal\external_content\Builder\RenderArrayBuilder: {}
 
   Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
-  Drupal\external_content\Contract\Loader\LoaderFacadeInterface: '@Drupal\external_content\Loader\LoaderFacade'
   Drupal\external_content\Contract\Parser\ParserFacadeInterface: '@Drupal\external_content\Parser\ParserFacade'
 
   # Environment.
@@ -76,3 +75,9 @@ services:
     shared: false
     tags:
       - { name: external_content.converter, id: html }
+
+  # Loaders.
+  Drupal\external_content\Contract\Loader\LoaderManagerInterface: '@Drupal\external_content\Loader\LoaderManager'
+  Drupal\external_content\Loader\LoaderManager:
+    arguments:
+      $loaders: '%external_content.loaders%'

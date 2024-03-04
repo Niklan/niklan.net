@@ -18,7 +18,7 @@ final readonly class FinderResult {
    * {@selfdoc}
    */
   public function hasNoResults(): bool {
-    return \is_null($this->result) || $this->result->items()->count() === 0;
+    return \is_null($this->result) || \count($this->result->items()) === 0;
   }
 
   /**

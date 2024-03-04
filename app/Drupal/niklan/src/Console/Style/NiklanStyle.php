@@ -21,13 +21,13 @@ final class NiklanStyle extends SymfonyStyle {
    * {@selfdoc}
    */
   #[\Override]
-  public function info(array|string $message): void {
+  public function info(array|string $message, string $prefix = '<fg=yellow;options=bold> -> </>'): void {
     if (!\is_iterable($message)) {
       $message = [$message];
     }
 
     foreach ($message as $item) {
-      $this->writeln("<fg=yellow;options=bold> -> </> {$item}");
+      $this->writeln("{$prefix} {$item}");
     }
   }
 

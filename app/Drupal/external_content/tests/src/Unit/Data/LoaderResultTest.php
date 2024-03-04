@@ -34,7 +34,7 @@ final class LoaderResultTest extends UnitTestCase {
    * @covers \Drupal\external_content\Data\LoaderResultIgnore
    */
   public function testIgnoreResult(): void {
-    $result = LoaderResult::ignore();
+    $result = LoaderResult::stop();
 
     self::assertFalse($result->isSuccess());
     self::assertTrue($result->isNotSuccess());
@@ -47,7 +47,7 @@ final class LoaderResultTest extends UnitTestCase {
    * @covers \Drupal\external_content\Data\LoaderResultSkip
    */
   public function testSkipResult(): void {
-    $result = LoaderResult::skip();
+    $result = LoaderResult::pass();
 
     self::assertFalse($result->isSuccess());
     self::assertTrue($result->isNotSuccess());

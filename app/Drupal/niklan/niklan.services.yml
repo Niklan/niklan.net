@@ -71,10 +71,6 @@ services:
   Drupal\niklan\Asset\ContentAssetManager:
     arguments:
       $fileUsage: '@file.usage'
-  Drupal\niklan\Sync\BlogSyncManager:
-    arguments:
-      $environment: '@external_content.environment.blog'
-
   Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier:
     tags:
       - { name: external_content.identifier, id: front_matter }
@@ -84,7 +80,9 @@ services:
   Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock: {}
   Drupal\niklan\Builder\ExternalContent\RenderArray\Note: {}
   Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder: {}
-  Drupal\niklan\Loader\ExternalContent\Blog: {}
+  Drupal\niklan\Loader\ExternalContent\Blog:
+    tags:
+      - { name: external_content.loader, id: blog }
 
   Drupal\niklan\Converter\ExternalContent\MarkdownConverter:
     arguments:
@@ -106,6 +104,5 @@ services:
     #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\Note']]
     #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder']]
     #      - [addSerializer, ['@Drupal\niklan\Serializer\ExternalContent\NoteSerializer']]
-    #      - [addLoader, ['@Drupal\niklan\Loader\ExternalContent\Blog']]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }
