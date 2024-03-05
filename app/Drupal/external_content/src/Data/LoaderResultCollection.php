@@ -2,8 +2,6 @@
 
 namespace Drupal\external_content\Data;
 
-use Drupal\external_content\Contract\Loader\LoaderResultInterface;
-
 /**
  * Provides a collection with loader results.
  */
@@ -17,7 +15,7 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
   /**
    * Adds a result into collection.
    */
-  public function addResult(LoaderResultInterface $result): self {
+  public function addResult(LoaderResult $result): self {
     $this->items[] = $result;
 
     return $this;
@@ -45,7 +43,7 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
     $result = new self();
     \array_walk(
       $items,
-      static fn (LoaderResultInterface $item) => $result->addResult($item),
+      static fn (LoaderResult $item) => $result->addResult($item),
     );
 
     return $result;
@@ -55,7 +53,7 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
    * Gets all successful result items.
    */
   public function getSuccessful(): self {
-    $callback = static fn (LoaderResultInterface $item) => $item->isSuccess();
+    $callback = static fn (LoaderResult $item) => $item->hasResults();
 
     return $this->filter($callback);
   }

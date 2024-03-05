@@ -11,7 +11,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
-use Drupal\external_content\Data\ContentVariation;
+use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Node\Content;
@@ -50,21 +50,20 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   public function load(IdentifiedSourceBundle $bundle): LoaderResult {
     $blog_entry = $this->findBlogEntry($bundle->id);
 
-    foreach ($bundle->getByAttribute('language') as $content_variation) {
-      \assert($content_variation instanceof ContentVariation);
+    foreach ($bundle->getAllWithAttribute('language')->sources() as $identified_source) {
       // Switch the content language to be the same as variation.
-      $langcode = $content_variation->attributes->getAttribute('language');
+      $langcode = $identified_source->attributes->getAttribute('language');
       $blog_entry = $blog_entry->getTranslation($langcode);
-      $this->processBlogEntryVariation($blog_entry, $content_variation);
+      $this->processBlogEntryVariation($blog_entry, $identified_source);
     }
 
     // @todo Add some checks to avoid unnecessary saving.
     $blog_entry->save();
 
-    return LoaderResult::entity(
-      entity_type_id: $blog_entry->getEntityTypeId(),
-      entity_id: $blog_entry->id(),
-    );
+    return LoaderResult::withResults($bundle->id, [
+      'entity_type_id' => $blog_entry->getEntityTypeId(),
+      'entity_id' => $blog_entry->id(),
+    ]);
   }
 
   /**
@@ -113,11 +112,12 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   /**
    * {@selfdoc}
    */
-  private function processBlogEntryVariation(BlogEntryInterface $blog_entry, ContentVariation $content_variation): void {
-    $content = $content_variation->content;
-    $source_info = $content->getData()->get('source');
+  private function processBlogEntryVariation(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $source_info = $identified_source->source->data();
     $front_matter = $source_info['front_matter'];
     $source_dir = \dirname($source_info['pathname']);
+
+    // @todo convert and parse content.
 
     $created = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,

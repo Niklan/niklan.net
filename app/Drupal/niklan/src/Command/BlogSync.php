@@ -7,6 +7,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
 use Drupal\external_content\Data\IdentifiedSourceBundleCollection;
 use Drupal\external_content\Data\IdentifiedSourceCollection;
+use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Source\File;
 use Drupal\niklan\Console\Style\NiklanStyle;
@@ -52,12 +53,9 @@ final class BlogSync extends Command {
 
     $sources = $this->find($environment);
     $identified_sources = $this->identify($sources, $environment);
-    $this->bundle($identified_sources, $environment);
+    $bundle_collection = $this->bundle($identified_sources, $environment);
+    $this->load($bundle_collection, $environment);
 
-    //
-    //    for ($i = 1; $i <= 10; $i++) {
-    //      $this->io->advancePseudoProgress($i, 10, 'Processing file…');
-    //    }.
     return self::SUCCESS;
   }
 
@@ -69,7 +67,8 @@ final class BlogSync extends Command {
     Timer::start('find');
     $sources = $this
       ->externalContentManager
-      ->getFinderManager()->find($environment);
+      ->getFinderManager()
+      ->find($environment);
     Timer::stop('find');
 
     $info = \sprintf('<fg=gray>Search took <options=bold;fg=gray>%sms</></>', Timer::read('find'));
@@ -163,6 +162,43 @@ final class BlogSync extends Command {
     }
 
     return $bundled_sources;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function load(IdentifiedSourceBundleCollection $bundle_collection, EnvironmentInterface $environment): void {
+    $this->io->title("Start loading bundles…");
+    $loader_manager = $this->externalContentManager->getLoaderManager();
+    $total_bundles = \count($bundle_collection->bundles());
+
+    foreach ($bundle_collection->bundles() as $delta => $bundle) {
+      $timer_id = "load_$bundle->id";
+
+      $this->io->advancePseudoProgress(
+        current: $delta + 1,
+        max: $total_bundles,
+        message: \sprintf(
+          'Loading <options=bold;fg=green>%s</>…',
+          $bundle->id,
+        ),
+      );
+
+      Timer::start($timer_id);
+      $result_collection = $loader_manager->load($bundle, $environment);
+      Timer::stop($timer_id);
+
+      foreach ($result_collection->getSuccessful() as $result) {
+        \assert($result instanceof LoaderResult);
+        $info = \sprintf(
+          'Bundle <options=bold;fg=green>%s</> has been synced with <options=bold;fg=green>%s</> in <options=bold>%sms</>',
+          $bundle->id,
+          $result->results()['entity_type_id'] . ':' . $result->results()['entity_id'],
+          Timer::read($timer_id),
+        );
+        $this->io->info($info);
+      }
+    }
   }
 
 }
