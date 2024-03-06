@@ -21,20 +21,20 @@ final class IdentifiedSourceBundleCollection {
 
   /**
    * {@selfdoc}
-   *
-   * @return \Drupal\external_content\Data\IdentifiedSourceBundle[]
-   */
-  public function bundles(): array {
-    return $this->bundles;
-  }
-
-  /**
-   * {@selfdoc}
    */
   public function merge(self $collection): self {
     $this->bundles = \array_merge($this->bundles, $collection->bundles());
 
     return $this;
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @return \Drupal\external_content\Data\IdentifiedSourceBundle[]
+   */
+  public function bundles(): array {
+    return $this->bundles;
   }
 
 }

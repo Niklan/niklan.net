@@ -26,18 +26,6 @@ final class ContentSyncSettingsFormTest extends NiklanTestBase {
   protected ContentSyncSettingsRepositoryInterface $contentSyncSettings;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->formBuilder = $this->container->get('form_builder');
-    $this->contentSyncSettings = $this
-      ->container
-      ->get('niklan.repository.content_sync_settings');
-  }
-
-  /**
    * Tests that settings works as expected.
    */
   public function testSettings(): void {
@@ -73,6 +61,18 @@ final class ContentSyncSettingsFormTest extends NiklanTestBase {
     $this->formBuilder->submitForm(ContentSyncSettingsForm::class, $form_state);
 
     self::assertNull($this->contentSyncSettings->getWorkingDir());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->formBuilder = $this->container->get('form_builder');
+    $this->contentSyncSettings = $this
+      ->container
+      ->get('niklan.repository.content_sync_settings');
   }
 
 }

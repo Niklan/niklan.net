@@ -35,7 +35,7 @@ final class PlainTextRenderArrayBuilderTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testInvalidElement(): void {
-    $element = new class() extends Node {};
+    $element = new class () extends Node {};
     $builder = new PlainTextRenderArrayBuilder();
 
     self::assertFalse(

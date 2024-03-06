@@ -43,27 +43,6 @@ final class LoaderFacadeTest extends UnitTestCase {
   /**
    * {@selfdoc}
    */
-  public function testLoadWithoutLoaders(): void {
-    $environment = new Environment();
-
-    $loader = new LoaderManager();
-    $loader->setEnvironment($environment);
-
-    $result = $loader->load($this->prepareExternalContentBundleDocument());
-
-    self::assertInstanceOf(LoaderResultIgnore::class, $result);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function prepareExternalContentBundleDocument(): IdentifierSource {
-    return new IdentifierSource(new Content());
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function prepareSkipLoader(): LoaderInterface {
     $result = LoaderResult::pass();
 
@@ -83,6 +62,27 @@ final class LoaderFacadeTest extends UnitTestCase {
     $loader->load(Argument::cetera())->willReturn($result);
 
     return $loader->reveal();
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function prepareExternalContentBundleDocument(): IdentifierSource {
+    return new IdentifierSource(new Content());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testLoadWithoutLoaders(): void {
+    $environment = new Environment();
+
+    $loader = new LoaderManager();
+    $loader->setEnvironment($environment);
+
+    $result = $loader->load($this->prepareExternalContentBundleDocument());
+
+    self::assertInstanceOf(LoaderResultIgnore::class, $result);
   }
 
 }

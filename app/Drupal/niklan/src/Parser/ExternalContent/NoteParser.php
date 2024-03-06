@@ -32,28 +32,6 @@ final class NoteParser implements HtmlParserInterface {
   /**
    * {@selfdoc}
    */
-  private function findHeader(\DOMNode $node) {
-    $crawler = new Crawler($node);
-    $crawler = $crawler->filter('[data-selector="inline-content"]');
-
-    if (!$crawler->count()) {
-      return NULL;
-    }
-
-    $node = $crawler->getNode(0);
-    $heading = '';
-
-    foreach ($node->childNodes as $node) {
-      \assert($node instanceof \DOMNode);
-      $heading .= $node->ownerDocument->saveHTML($node);
-    }
-
-    return $heading;
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function isApplicable(\DOMNode $node): bool {
     if (!$node instanceof \DOMElement) {
       return FALSE;
@@ -71,6 +49,28 @@ final class NoteParser implements HtmlParserInterface {
     }
 
     return TRUE;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function findHeader(\DOMNode $node) {
+    $crawler = new Crawler($node);
+    $crawler = $crawler->filter('[data-selector="inline-content"]');
+
+    if (!$crawler->count()) {
+      return NULL;
+    }
+
+    $node = $crawler->getNode(0);
+    $heading = '';
+
+    foreach ($node->childNodes as $node) {
+      \assert($node instanceof \DOMNode);
+      $heading .= $node->ownerDocument->saveHTML($node);
+    }
+
+    return $heading;
   }
 
 }

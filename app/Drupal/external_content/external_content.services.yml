@@ -13,11 +13,11 @@ services:
     autowire: true
 
   Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface: '@Drupal\external_content\ExternalContent\ExternalContentManager'
-  Drupal\external_content\ExternalContent\ExternalContentManager: {}
+  Drupal\external_content\ExternalContent\ExternalContentManager: { }
 
-  Drupal\external_content\Parser\ParserFacade: {}
-  Drupal\external_content\Serializer\Serializer: {}
-  Drupal\external_content\Builder\RenderArrayBuilder: {}
+  Drupal\external_content\Parser\ParserFacade: { }
+  Drupal\external_content\Serializer\Serializer: { }
+  Drupal\external_content\Builder\RenderArrayBuilder: { }
 
   Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
   Drupal\external_content\Contract\Parser\ParserFacadeInterface: '@Drupal\external_content\Parser\ParserFacade'

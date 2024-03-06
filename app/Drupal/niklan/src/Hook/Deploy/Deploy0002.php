@@ -18,15 +18,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class Deploy0002 implements ContainerInjectionInterface {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get('entity_type.manager'),
-    );
-  }
-
-  /**
    * Constructs a new Deploy0002 instance.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -35,6 +26,15 @@ final class Deploy0002 implements ContainerInjectionInterface {
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): self {
+    return new self(
+      $container->get('entity_type.manager'),
+    );
+  }
 
   /**
    * Implements hook_deploy_HOOK().
@@ -73,19 +73,6 @@ final class Deploy0002 implements ContainerInjectionInterface {
   }
 
   /**
-   * Builds a default query for update.
-   */
-  protected function getQuery(): QueryInterface {
-    return $this
-      ->entityTypeManager
-      ->getStorage('node')
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('type', 'blog_entry')
-      ->sort('nid');
-  }
-
-  /**
    * Process a single batch.
    *
    * @param array $sandbox
@@ -113,6 +100,19 @@ final class Deploy0002 implements ContainerInjectionInterface {
     }
 
     $sandbox['#finished'] = $sandbox['current'] / $sandbox['total'];
+  }
+
+  /**
+   * Builds a default query for update.
+   */
+  protected function getQuery(): QueryInterface {
+    return $this
+      ->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('type', 'blog_entry')
+      ->sort('nid');
   }
 
   /**

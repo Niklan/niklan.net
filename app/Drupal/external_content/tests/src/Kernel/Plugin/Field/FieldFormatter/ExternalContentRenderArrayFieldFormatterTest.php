@@ -32,6 +32,83 @@ final class ExternalContentRenderArrayFieldFormatterTest extends ExternalContent
   protected EntityTypeManagerInterface $entityTypeManager;
 
   /**
+   * {@selfdoc}
+   *
+   * @dataProvider formatterData
+   */
+  public function testFormatter(?string $environment_plugin_id, ?string $document_json, bool $expect_result): void {
+
+    $entity = $this->getEntityTestStorage()->create([
+      'external_content' => [
+        'value' => $document_json,
+        'environment_plugin_id' => $environment_plugin_id,
+      ],
+    ]);
+
+    self::assertEquals(\SAVED_NEW, $entity->save());
+
+    $build = $this->getEntityTestViewBuilder()->view($entity, 'default');
+    $this->render($build);
+
+    if ($expect_result) {
+      self::assertRaw('<p foo="bar">Hello, World! Formatter is here!</p>');
+    }
+    else {
+      self::assertNoRaw('<p foo="bar">Hello, World! Formatter is here!</p>');
+    }
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getEntityTestStorage(): ContentEntityStorageInterface {
+    return $this->entityTypeManager->getStorage('entity_test');
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getEntityTestViewBuilder(): EntityViewBuilderInterface {
+    return $this->entityTypeManager->getViewBuilder('entity_test');
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function formatterData(): \Generator {
+    yield 'Valid result' => [
+      'environment_plugin_id' => 'field_item',
+      'document' => $this->getExternalContentDocumentValue(),
+      'expect_result' => TRUE,
+    ];
+
+    yield 'Environment is not set' => [
+      'environment_plugin_id' => NULL,
+      'document' => $this->getExternalContentDocumentValue(),
+      'expect_result' => FALSE,
+    ];
+
+    yield 'Not existing environment plugin' => [
+      'environment_plugin_id' => 'not_exists_for_sure',
+      'document' => $this->getExternalContentDocumentValue(),
+      'expect_result' => FALSE,
+    ];
+
+    yield 'Wrong JSON' => [
+      'environment_plugin_id' => 'field_item',
+      'document' => 'abc',
+      'expect_result' => FALSE,
+    ];
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getExternalContentDocumentValue(): string {
+    return '{"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"p","attributes":{"foo":"bar"}},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, World! Formatter is here!"},"children":[]}]}]}';
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -75,83 +152,6 @@ final class ExternalContentRenderArrayFieldFormatterTest extends ExternalContent
         'type' => 'external_content_render_array',
       ])
       ->save();
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getEntityTestStorage(): ContentEntityStorageInterface {
-    return $this->entityTypeManager->getStorage('entity_test');
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getEntityTestViewBuilder(): EntityViewBuilderInterface {
-    return $this->entityTypeManager->getViewBuilder('entity_test');
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getExternalContentDocumentValue(): string {
-    return '{"type":"external_content:document","version":"1.0.0","data":{"file":{"working_dir":"foo","pathname":"bar","data":[]}},"children":[{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"p","attributes":{"foo":"bar"}},"children":[{"type":"external_content:plain_text","version":"1.0.0","data":{"text":"Hello, World! Formatter is here!"},"children":[]}]}]}';
-  }
-
-  /**
-   * {@selfdoc}
-   *
-   * @dataProvider formatterData
-   */
-  public function testFormatter(?string $environment_plugin_id, ?string $document_json, bool $expect_result): void {
-
-    $entity = $this->getEntityTestStorage()->create([
-      'external_content' => [
-        'value' => $document_json,
-        'environment_plugin_id' => $environment_plugin_id,
-      ],
-    ]);
-
-    self::assertEquals(\SAVED_NEW, $entity->save());
-
-    $build = $this->getEntityTestViewBuilder()->view($entity, 'default');
-    $this->render($build);
-
-    if ($expect_result) {
-      self::assertRaw('<p foo="bar">Hello, World! Formatter is here!</p>');
-    }
-    else {
-      self::assertNoRaw('<p foo="bar">Hello, World! Formatter is here!</p>');
-    }
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function formatterData(): \Generator {
-    yield 'Valid result' => [
-      'environment_plugin_id' => 'field_item',
-      'document' => $this->getExternalContentDocumentValue(),
-      'expect_result' => TRUE,
-    ];
-
-    yield 'Environment is not set' => [
-      'environment_plugin_id' => NULL,
-      'document' => $this->getExternalContentDocumentValue(),
-      'expect_result' => FALSE,
-    ];
-
-    yield 'Not existing environment plugin' => [
-      'environment_plugin_id' => 'not_exists_for_sure',
-      'document' => $this->getExternalContentDocumentValue(),
-      'expect_result' => FALSE,
-    ];
-
-    yield 'Wrong JSON' => [
-      'environment_plugin_id' => 'field_item',
-      'document' => 'abc',
-      'expect_result' => FALSE,
-    ];
   }
 
 }

@@ -21,15 +21,6 @@ final class IdentifiedSourceBundle {
 
   /**
    * {@selfdoc}
-   */
-  public function add(IdentifiedSource $source): self {
-    $this->sources[] = $source;
-
-    return $this;
-  }
-
-  /**
-   * {@selfdoc}
    *
    * @return \Drupal\external_content\Data\IdentifiedSource[]
    */
@@ -54,6 +45,15 @@ final class IdentifiedSourceBundle {
     }
 
     return $bundle;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function add(IdentifiedSource $source): self {
+    $this->sources[] = $source;
+
+    return $this;
   }
 
   /**

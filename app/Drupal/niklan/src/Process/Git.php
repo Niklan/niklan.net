@@ -24,13 +24,6 @@ final class Git implements GitInterface {
   ) {}
 
   /**
-   * Gets Git binary path.
-   */
-  protected function getGitBin(): string {
-    return Settings::get('niklan_git_binary', $this->gitBinary);
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function pull(string $directory): Process {
@@ -63,6 +56,13 @@ final class Git implements GitInterface {
     ];
 
     return $this->terminal->createProcess($command, $directory);
+  }
+
+  /**
+   * Gets Git binary path.
+   */
+  protected function getGitBin(): string {
+    return Settings::get('niklan_git_binary', $this->gitBinary);
   }
 
 }

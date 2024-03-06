@@ -75,6 +75,19 @@ final class SearchControllerTest extends NiklanTestBase {
   }
 
   /**
+   * Builds an entity search prophecy.
+   *
+   * @param \Drupal\niklan\Data\EntitySearchResults $results
+   *   The entity search results.
+   */
+  protected function buildEntitySearch(EntitySearchResults $results): EntitySearchInterface {
+    $entity_search = $this->prophesize(EntitySearchInterface::class);
+    $entity_search->search(Argument::any())->willReturn($results);
+
+    return $entity_search->reveal();
+  }
+
+  /**
    * Tests that page contents built as expected with results found.
    */
   public function testBuildPageContentWithResults(): void {
@@ -114,19 +127,6 @@ final class SearchControllerTest extends NiklanTestBase {
     self::assertArrayHasKey('#theme', $result);
     self::assertArrayHasKey('#header', $result);
     self::assertArrayHasKey('#content', $result);
-  }
-
-  /**
-   * Builds an entity search prophecy.
-   *
-   * @param \Drupal\niklan\Data\EntitySearchResults $results
-   *   The entity search results.
-   */
-  protected function buildEntitySearch(EntitySearchResults $results): EntitySearchInterface {
-    $entity_search = $this->prophesize(EntitySearchInterface::class);
-    $entity_search->search(Argument::any())->willReturn($results);
-
-    return $entity_search->reveal();
   }
 
 }

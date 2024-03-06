@@ -11,10 +11,12 @@ use League\CommonMark\Extension\ExtensionInterface;
 /**
  * {@selfdoc}
  *
- * Container Directive it is a simply Markdown Syntax that can be used to create
+ * Container Directive it is a simply Markdown Syntax that can be used to
+ * create
  * different types of containers using similar syntax.
  *
  * Example:
+ *
  * @code
  *  :::name[inline-content](argument){#id .class key=value}
  *  Note contents.

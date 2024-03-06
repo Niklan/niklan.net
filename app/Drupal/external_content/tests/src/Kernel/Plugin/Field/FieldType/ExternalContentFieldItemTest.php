@@ -76,6 +76,45 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
+  private function prepareJson(NodeInterface $node): string {
+    $environment = new Environment();
+    $environment->addSerializer(new ContentSerializer());
+    $environment->addExtension(new BasicHtmlExtension());
+
+    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer->setEnvironment($environment);
+
+    return $serializer->normalize($node);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function prepareDocument(): Content {
+    $document = new Content();
+    $p = new Element('p');
+    $p->addChild(new PlainText('Hello, '));
+    $p->addChild((new Element('strong'))->addChild(new PlainText('World')));
+    $p->addChild(new PlainText('!'));
+    $document->addChild($p);
+
+    return $document;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function createEntity(): EntityTest {
+    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
+    $entity = $entity_test_storage->create();
+    \assert($entity instanceof EntityTest);
+
+    return $entity;
+  }
+
+  /**
+   * {@selfdoc}
+   */
   public function testWrongJsonValidPlugin(): void {
     $entity = $this->createEntity();
     // Wrong JSON, but valid plugin.
@@ -163,45 +202,6 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
 
     self::assertEquals('{"foo":"bar"}', $field_item->get('data')->getValue());
     self::assertCount(0, $field_item->validate());
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function prepareDocument(): Content {
-    $document = new Content();
-    $p = new Element('p');
-    $p->addChild(new PlainText('Hello, '));
-    $p->addChild((new Element('strong'))->addChild(new PlainText('World')));
-    $p->addChild(new PlainText('!'));
-    $document->addChild($p);
-
-    return $document;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function prepareJson(NodeInterface $node): string {
-    $environment = new Environment();
-    $environment->addSerializer(new ContentSerializer());
-    $environment->addExtension(new BasicHtmlExtension());
-
-    $serializer = $this->container->get(SerializerInterface::class);
-    $serializer->setEnvironment($environment);
-
-    return $serializer->normalize($node);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function createEntity(): EntityTest {
-    $entity_test_storage = $this->entityTypeManager->getStorage('entity_test');
-    $entity = $entity_test_storage->create();
-    \assert($entity instanceof EntityTest);
-
-    return $entity;
   }
 
   /**

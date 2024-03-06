@@ -32,11 +32,6 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
   /**
    * {@selfdoc}
    */
-  abstract protected function directiveSelector(): string;
-
-  /**
-   * {@selfdoc}
-   */
   private function prepareElementAttributes(BlockDirective $node): array {
     $attributes = [
       'data-selector' => $this->directiveSelector(),
@@ -71,6 +66,11 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
 
     return $contents;
   }
+
+  /**
+   * {@selfdoc}
+   */
+  abstract protected function directiveSelector(): string;
 
   /**
    * {@selfdoc}

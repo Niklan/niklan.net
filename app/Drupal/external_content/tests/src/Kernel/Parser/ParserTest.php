@@ -21,13 +21,6 @@ final class ParserTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function getParser(): ParserInterface {
-    return $this->container->get(ParserInterface::class);
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function testEmptyFinder(): void {
     $source = $this->prophesize(SourceInterface::class);
     $source = $source->reveal();
@@ -37,6 +30,13 @@ final class ParserTest extends ExternalContentTestBase {
     $exception = new MissingSourceParserException($source, $environment);
     self::expectExceptionObject($exception);
     $this->getParser()->parse($source);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getParser(): ParserInterface {
+    return $this->container->get(ParserInterface::class);
   }
 
   /**

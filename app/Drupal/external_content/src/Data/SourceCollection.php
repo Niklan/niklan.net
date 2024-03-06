@@ -23,20 +23,20 @@ final class SourceCollection {
 
   /**
    * {@selfdoc}
-   *
-   * @return \Drupal\external_content\Contract\Source\SourceInterface[]
-   */
-  public function items(): array {
-    return $this->items;
-  }
-
-  /**
-   * {@selfdoc}
    */
   public function merge(self $collection): self {
     $this->items = \array_merge($this->items, $collection->items());
 
     return $this;
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @return \Drupal\external_content\Contract\Source\SourceInterface[]
+   */
+  public function items(): array {
+    return $this->items;
   }
 
 }

@@ -21,20 +21,20 @@ final class IdentifiedSourceCollection {
 
   /**
    * {@selfdoc}
-   *
-   * @return \Drupal\external_content\Data\IdentifiedSource[]
-   */
-  public function sources(): array {
-    return $this->sources;
-  }
-
-  /**
-   * {@selfdoc}
    */
   public function merge(self $collection): self {
     $this->sources = \array_merge($this->sources, $collection->sources());
 
     return $this;
+  }
+
+  /**
+   * {@selfdoc}
+   *
+   * @return \Drupal\external_content\Data\IdentifiedSource[]
+   */
+  public function sources(): array {
+    return $this->sources;
   }
 
 }

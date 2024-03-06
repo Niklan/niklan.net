@@ -17,8 +17,15 @@ final readonly class BundlerResult {
   /**
    * {@selfdoc}
    */
-  public function shouldBeBundled(): bool {
-    return \is_null($this->bundleId) || \strlen($this->bundleId) > 0;
+  public static function bundleAs(string $bundle_id): self {
+    return new self($bundle_id);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public static function pass(): self {
+    return new self(NULL);
   }
 
   /**
@@ -31,15 +38,8 @@ final readonly class BundlerResult {
   /**
    * {@selfdoc}
    */
-  public static function bundleAs(string $bundle_id): self {
-    return new self($bundle_id);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public static function pass(): self {
-    return new self(NULL);
+  public function shouldBeBundled(): bool {
+    return \is_null($this->bundleId) || \strlen($this->bundleId) > 0;
   }
 
 }

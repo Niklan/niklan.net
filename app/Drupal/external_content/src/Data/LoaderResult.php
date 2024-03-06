@@ -17,48 +17,6 @@ final readonly class LoaderResult {
   ) {}
 
   /**
-   * {@selfdoc}
-   */
-  public function shouldContinue(): bool {
-    return $this->shouldContinue;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function shouldNotContinue(): bool {
-    return !$this->shouldContinue();
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function results(): array {
-    return $this->results;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function hasResults(): bool {
-    return \count($this->results) > 0;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function hasNoResults(): bool {
-    return !$this->hasResults();
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function bundleId(): string {
-    return $this->bundleId;
-  }
-
-  /**
    * Returned when loader don't want or can't load the source.
    *
    * But also allows loader manager to try other loaders from environment.
@@ -79,6 +37,48 @@ final readonly class LoaderResult {
    */
   public static function withResults(string $bundle_id, array $results): self {
     return new self(FALSE, $bundle_id, $results);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function shouldNotContinue(): bool {
+    return !$this->shouldContinue();
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function shouldContinue(): bool {
+    return $this->shouldContinue;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function results(): array {
+    return $this->results;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function hasNoResults(): bool {
+    return !$this->hasResults();
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function hasResults(): bool {
+    return \count($this->results) > 0;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function bundleId(): string {
+    return $this->bundleId;
   }
 
 }

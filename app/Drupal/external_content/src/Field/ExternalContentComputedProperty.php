@@ -58,15 +58,15 @@ final class ExternalContentComputedProperty extends TypedData {
   /**
    * {@selfdoc}
    */
-  private static function getSerializer(): SerializerInterface {
-    return \Drupal::service(SerializerInterface::class);
+  private static function getEnvironmentManager(): EnvironmentManagerInterface {
+    return \Drupal::service(EnvironmentManagerInterface::class);
   }
 
   /**
    * {@selfdoc}
    */
-  private static function getEnvironmentManager(): EnvironmentManagerInterface {
-    return \Drupal::service(EnvironmentManagerInterface::class);
+  private static function getSerializer(): SerializerInterface {
+    return \Drupal::service(SerializerInterface::class);
   }
 
 }

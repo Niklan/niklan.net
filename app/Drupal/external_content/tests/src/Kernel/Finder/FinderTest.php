@@ -18,19 +18,19 @@ final class FinderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function getFinder(): FinderInterface {
-    return $this->container->get(FinderInterface::class);
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function testEmptyFinder(): void {
     $environment = new Environment();
     $this->getFinder()->setEnvironment($environment);
     $result = $this->getFinder()->find();
 
     self::assertCount(0, $result);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getFinder(): FinderInterface {
+    return $this->container->get(FinderInterface::class);
   }
 
   /**

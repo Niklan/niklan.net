@@ -18,16 +18,6 @@ final class TagControllerTest extends NiklanTestBase {
   use TagsTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->setUpBlogEntry();
-    $this->setUpTagsVocabulary();
-  }
-
-  /**
    * Tests an empty collection result.
    */
   public function testEmptyCollection(): void {
@@ -97,6 +87,16 @@ final class TagControllerTest extends NiklanTestBase {
     self::assertCount(1, $this->cssSelect('.tag-page'));
     self::assertCount(1, $this->cssSelect('.tag-page__items'));
     self::assertCount(1, $this->cssSelect('.tag-page article'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->setUpBlogEntry();
+    $this->setUpTagsVocabulary();
   }
 
 }

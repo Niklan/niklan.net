@@ -12,16 +12,16 @@ use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 abstract class ExtraFieldTestBase extends NiklanTestBase {
 
   /**
-   * The extra field display plugin manager.
-   */
-  protected ?ExtraFieldDisplayManagerInterface $extraFieldDisplayManager;
-
-  /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'extra_field',
   ];
+
+  /**
+   * The extra field display plugin manager.
+   */
+  protected ?ExtraFieldDisplayManagerInterface $extraFieldDisplayManager;
 
   /**
    * {@inheritdoc}

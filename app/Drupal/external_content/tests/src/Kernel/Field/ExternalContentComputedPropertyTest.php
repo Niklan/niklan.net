@@ -43,18 +43,6 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
   /**
    * {@selfdoc}
    */
-  public function testValidField(): void {
-    $property = $this->preparePropertyInstance(violation_count: 0);
-
-    $value = $property->getValue();
-    self::assertEquals($this->prepareDocument(), $value);
-    // Make sure consecutive call returns previous result.
-    self::assertSame($value, $property->getValue());
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function preparePropertyInstance(int $violation_count): ExternalContentComputedProperty {
     $data_definition = DataDefinition::createFromDataType('any');
 
@@ -96,6 +84,13 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
   /**
    * {@selfdoc}
    */
+  private function getFieldItemEnvironmentPluginId(): string {
+    return 'field_item';
+  }
+
+  /**
+   * {@selfdoc}
+   */
   private function prepareFieldItemValue(): string {
     $serializer = $this->container->get(SerializerInterface::class);
     $serializer->setEnvironment($this->getEnvironment());
@@ -122,13 +117,6 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
   /**
    * {@selfdoc}
    */
-  private function getFieldItemEnvironmentPluginId(): string {
-    return 'field_item';
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function prepareDocument(): Content {
     $document = new Content();
     $p = new Element('p');
@@ -136,6 +124,18 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     $document->addChild($p);
 
     return $document;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testValidField(): void {
+    $property = $this->preparePropertyInstance(violation_count: 0);
+
+    $value = $property->getValue();
+    self::assertEquals($this->prepareDocument(), $value);
+    // Make sure consecutive call returns previous result.
+    self::assertSame($value, $property->getValue());
   }
 
 }

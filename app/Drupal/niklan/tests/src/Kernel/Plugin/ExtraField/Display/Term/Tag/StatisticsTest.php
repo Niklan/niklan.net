@@ -17,16 +17,6 @@ final class StatisticsTest extends ExtraFieldTestBase {
   use TagsTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->setUpBlogEntry();
-    $this->setUpTagsVocabulary();
-  }
-
-  /**
    * Test that field works as expected when no articles found.
    */
   public function testViewWithoutArticles(): void {
@@ -73,6 +63,16 @@ final class StatisticsTest extends ExtraFieldTestBase {
     $this->render($build);
 
     self::assertRaw('2 publications from 3 March 1973 to 4 May 1976');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->setUpBlogEntry();
+    $this->setUpTagsVocabulary();
   }
 
 }

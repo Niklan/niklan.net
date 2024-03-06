@@ -75,6 +75,22 @@ final readonly class BundlerManager implements BundlerManagerInterface {
   /**
    * {@selfdoc}
    */
+  private function bundleSource(IdentifiedSource $source, array &$bundles, EnvironmentInterface $environment): void {
+    foreach ($environment->getBundlers() as $bundler) {
+      \assert($bundler instanceof BundlerInterface);
+      $result = $bundler->bundle($source);
+
+      if ($result->shouldNotBeBundled()) {
+        continue;
+      }
+
+      $bundles[$result->bundleId][] = $source;
+    }
+  }
+
+  /**
+   * {@selfdoc}
+   */
   protected function packBundles(array $identified_bundles): IdentifiedSourceBundleCollection {
     $bundle_collection = new IdentifiedSourceBundleCollection();
 
@@ -89,22 +105,6 @@ final readonly class BundlerManager implements BundlerManagerInterface {
     }
 
     return $bundle_collection;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function bundleSource(IdentifiedSource $source, array &$bundles, EnvironmentInterface $environment): void {
-    foreach ($environment->getBundlers() as $bundler) {
-      \assert($bundler instanceof BundlerInterface);
-      $result = $bundler->bundle($source);
-
-      if ($result->shouldNotBeBundled()) {
-        continue;
-      }
-
-      $bundles[$result->bundleId][] = $source;
-    }
   }
 
 }

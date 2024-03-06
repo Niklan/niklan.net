@@ -11,6 +11,7 @@ use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Source\File;
 use Drupal\niklan\Console\Style\NiklanStyle;
+use Drupal\niklan\Exception\InvalidContentSource;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -184,19 +185,24 @@ final class BlogSync extends Command {
         ),
       );
 
-      Timer::start($timer_id);
-      $result_collection = $loader_manager->load($bundle, $environment);
-      Timer::stop($timer_id);
+      try {
+        Timer::start($timer_id);
+        $result_collection = $loader_manager->load($bundle, $environment);
+        Timer::stop($timer_id);
 
-      foreach ($result_collection->getSuccessful() as $result) {
-        \assert($result instanceof LoaderResult);
-        $info = \sprintf(
-          'Bundle <options=bold;fg=green>%s</> has been synced with <options=bold;fg=green>%s</> in <options=bold>%sms</>',
-          $bundle->id,
-          $result->results()['entity_type_id'] . ':' . $result->results()['entity_id'],
-          Timer::read($timer_id),
-        );
-        $this->io->info($info);
+        foreach ($result_collection->getSuccessful() as $result) {
+          \assert($result instanceof LoaderResult);
+          $info = \sprintf(
+            'Bundle <options=bold;fg=green>%s</> has been synced with <options=bold;fg=green>%s</> in <options=bold>%sms</>',
+            $bundle->id,
+            $result->results()['entity_type_id'] . ':' . $result->results()['entity_id'],
+            Timer::read($timer_id),
+          );
+          $this->io->info($info);
+        }
+      }
+      catch (InvalidContentSource $exception) {
+        $this->io->error($exception->getMessage());
       }
     }
   }

@@ -43,16 +43,16 @@ abstract class SearchApiSearch implements CacheableDependencyInterface {
   }
 
   /**
-   * Gets a Search API index.
-   */
-  abstract protected function getIndexId(): string;
-
-  /**
    * {@inheritdoc}
    */
   public function getCacheMaxAge(): int {
     return Cache::PERMANENT;
   }
+
+  /**
+   * Gets a Search API index.
+   */
+  abstract protected function getIndexId(): string;
 
   /**
    * Builds base query.

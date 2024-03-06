@@ -52,8 +52,8 @@ final class ContainerBlockDirectiveStartParser implements BlockStartParserInterf
     $cursor->advanceToEnd();
 
     $parser = new ContainerBlockDirectiveParser(
-      // Make sure to clear up content before colon to calculate a proper length
-      // of opening 'tag'.
+    // Make sure to clear up content before colon to calculate a proper length
+    // of opening 'tag'.
       colonLength: \strlen(\ltrim($colon, " \t")),
       offset: $cursor->getIndent(),
       directiveInfo: $directiveInfo,

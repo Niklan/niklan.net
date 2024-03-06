@@ -19,6 +19,18 @@ final class TocBuilderTest extends UnitTestCase {
   use ParagraphHeadingTrait;
 
   /**
+   * Tests that builder properly processing empty field.
+   */
+  public function testTreeForEmptyField(): void {
+    $items = $this->prepareFieldItemList();
+
+    $builder = new TocBuilder();
+    $tree = $builder->getTree($items);
+
+    self::assertEquals([], $tree);
+  }
+
+  /**
    * Prepares prophecy for entity reference field.
    *
    * @param array $paragraphs
@@ -29,18 +41,6 @@ final class TocBuilderTest extends UnitTestCase {
     $items->referencedEntities()->willReturn($paragraphs);
 
     return $items->reveal();
-  }
-
-  /**
-   * Tests that builder properly processing empty field.
-   */
-  public function testTreeForEmptyField(): void {
-    $items = $this->prepareFieldItemList();
-
-    $builder = new TocBuilder();
-    $tree = $builder->getTree($items);
-
-    self::assertEquals([], $tree);
   }
 
   /**

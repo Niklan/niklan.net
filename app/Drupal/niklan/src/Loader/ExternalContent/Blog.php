@@ -14,11 +14,11 @@ use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\LoaderResult;
-use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Asset\ContentAssetManager;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;
+use Drupal\niklan\Exception\InvalidContentSource;
 use Drupal\niklan\Helper\PathHelper;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 use Drupal\taxonomy\TermStorageInterface;
@@ -52,9 +52,9 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
     foreach ($bundle->getAllWithAttribute('language')->sources() as $identified_source) {
       // Switch the content language to be the same as variation.
-      $langcode = $identified_source->attributes->getAttribute('language');
-      $blog_entry = $blog_entry->getTranslation($langcode);
-      $this->processBlogEntryVariation($blog_entry, $identified_source);
+      $language = $identified_source->attributes->getAttribute('language');
+      $blog_entry = $blog_entry->getTranslation($language);
+      $this->syncBlogEntryVariation($blog_entry, $identified_source);
     }
 
     // @todo Add some checks to avoid unnecessary saving.
@@ -64,13 +64,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       'entity_type_id' => $blog_entry->getEntityTypeId(),
       'entity_id' => $blog_entry->id(),
     ]);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
   }
 
   /**
@@ -103,58 +96,86 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   /**
    * {@selfdoc}
    */
-  private function getSerializer(): SerializerInterface {
-    $this->serializer->setEnvironment($this->environment);
+  private function syncBlogEntryVariation(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $this->validateSource($identified_source);
 
-    return $this->serializer;
+    $this->syncTitle($blog_entry, $identified_source);
+    $this->syncDates($blog_entry, $identified_source);
+    $this->syncDescription($blog_entry, $identified_source);
+    $this->syncTags($blog_entry, $identified_source);
+    $this->syncPromoImage($blog_entry, $identified_source);
+    $this->syncAttachments($blog_entry, $identified_source);
+    $this->syncExternalContent($blog_entry, $identified_source);
   }
 
   /**
    * {@selfdoc}
    */
-  private function processBlogEntryVariation(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $source_info = $identified_source->source->data();
-    $front_matter = $source_info['front_matter'];
-    $source_dir = \dirname($source_info['pathname']);
+  private function validateSource(IdentifiedSource $identified_source): void {
+    $front_matter = $identified_source->source->data()->get('front_matter');
+    $required_front_matter = [
+      'id',
+      'language',
+      'title',
+      'created',
+      'updated',
+      'description',
+      'promo',
+    ];
 
-    // @todo convert and parse content.
+    $diff = \array_diff($required_front_matter, \array_keys($front_matter));
+
+    if ($diff) {
+      $message = \sprintf(
+        "The source %s doesn't have required Front Matter values: %s",
+        $identified_source->id,
+        \implode(', ', $diff),
+      );
+
+      throw new InvalidContentSource($message);
+    }
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function syncTitle(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $front_matter = $identified_source->source->data()->get('front_matter');
+    $blog_entry->setTitle($front_matter['title']);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function syncDates(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $front_matter = $identified_source->source->data()->get('front_matter');
 
     $created = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
       time: $front_matter['created'],
     );
+    $blog_entry->setCreatedTime($created->getTimestamp());
+
     $updated = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
       time: $front_matter['updated'],
     );
-
-    $blog_entry->setTitle($front_matter['title']);
-    $blog_entry->setCreatedTime($created->getTimestamp());
     $blog_entry->setChangedTime($updated->getTimestamp());
-    $blog_entry->set('body', ['value' => $front_matter['description']]);
-    $this->processTags($blog_entry, $front_matter);
-    $this->processPromo($blog_entry, $content, $source_dir);
-    $this->processAttachments($blog_entry, $content);
-    $this->replaceMediaNodes($content, $source_dir);
-    $this->prepareInternalLinks($content, $source_dir);
-
-    $additional_info = [
-      // For internal links. MD5 is used instead clear value for a smaller size
-      // of the stored data.
-      'pathname_md5' => \md5($source_info['pathname']),
-    ];
-
-    $blog_entry->set('external_content', [
-      'value' => $this->getSerializer()->normalize($content),
-      'environment_id' => 'blog',
-      'data' => \json_encode($additional_info),
-    ]);
   }
 
   /**
    * {@selfdoc}
    */
-  private function processTags(BlogEntryInterface $blog_entry, array $front_matter): void {
+  private function syncDescription(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $front_matter = $identified_source->source->data()->get('front_matter');
+    $blog_entry->set('body', ['value' => $front_matter['description']]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function syncTags(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $front_matter = $identified_source->source->data()->get('front_matter');
     $blog_entry->set('field_tags', NULL);
 
     if (!\array_key_exists('tags', $front_matter) || !\is_array($front_matter['tags'])) {
@@ -183,16 +204,16 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   /**
    * {@selfdoc}
    */
-  private function processPromo(BlogEntryInterface $blog_entry, Content $content, string $source_dir): void {
+  private function syncPromoImage(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $front_matter = $identified_source->source->data()->get('front_matter');
     $blog_entry->set('field_media_image', NULL);
-    $source_data = $content->getData()->get('source');
 
-    if (!isset($source_data['pathname']) || !isset($source_data['front_matter']['promo'])) {
+    if (!isset($front_matter['promo'])) {
       return;
     }
 
-    $promo_asset = $source_data['front_matter']['promo'];
-    $promo_pathname = "$source_dir/$promo_asset";
+    $promo_uri = $front_matter['promo'];
+    $promo_pathname = "{$this->getSourceDir($identified_source)}/$promo_uri";
 
     if (!\file_exists($promo_pathname)) {
       return;
@@ -210,18 +231,16 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   /**
    * {@selfdoc}
    */
-  private function processAttachments(BlogEntryInterface $blog_entry, Content $content): void {
+  private function syncAttachments(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    $front_matter = $identified_source->source->data()->get('front_matter');
     $blog_entry->set('field_media_attachments', NULL);
-    $source_data = $content->getData()->get('source');
 
-    if (!isset($source_data['pathname']) || !isset($source_data['front_matter']['attachments'])) {
+    if (!isset($front_matter['attachments'])) {
       return;
     }
 
-    $source_dir = \dirname($content->getData()->get('source')['pathname']);
-
-    foreach ($source_data['front_matter']['attachments'] as $attachment) {
-      $attachment_pathname = "$source_dir/{$attachment['path']}";
+    foreach ($front_matter['attachments'] as $attachment) {
+      $attachment_pathname = "{$this->getSourceDir($identified_source)}/{$attachment['path']}";
       $media = $this->contentAssetManager->syncWithMedia($attachment_pathname);
 
       if (!$media instanceof MediaInterface) {
@@ -232,6 +251,37 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
         ->get('field_media_attachments')
         ->appendItem(['target_id' => $media->id()]);
     }
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function syncExternalContent(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
+    // @todo Convert.
+    // @todo Parse.
+    return;
+
+    $this->replaceMediaNodes($content, $source_dir);
+    $this->prepareInternalLinks($content, $source_dir);
+
+    $additional_info = [
+      // For internal links. MD5 is used instead clear value for a smaller size
+      // of the stored data.
+      'pathname_md5' => \md5($source_info['pathname']),
+    ];
+
+    $blog_entry->set('external_content', [
+      'value' => $this->getSerializer()->normalize($content),
+      'environment_id' => 'blog',
+      'data' => \json_encode($additional_info),
+    ]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getSourceDir(IdentifiedSource $identified_source): string {
+    return \dirname($identified_source->source->data()->get('pathname'));
   }
 
   /**
@@ -303,6 +353,22 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $attributes->setAttribute('href', '#');
     $attributes->setAttribute('data-selector', 'niklan:external-link');
     $attributes->setAttribute('data-pathname-md5', \md5($pathname));
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getSerializer(): SerializerInterface {
+    $this->serializer->setEnvironment($this->environment);
+
+    return $this->serializer;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
   }
 
 }

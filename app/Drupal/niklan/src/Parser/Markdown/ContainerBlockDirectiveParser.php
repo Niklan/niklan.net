@@ -54,13 +54,6 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function canContain(AbstractBlock $childBlock): bool {
-    return TRUE;
-  }
-
-  /**
    * {@selfdoc}
    */
   #[\Override]
@@ -86,6 +79,13 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
     }
 
     return BlockContinue::at($cursor);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function canContain(AbstractBlock $childBlock): bool {
+    return TRUE;
   }
 
   /**

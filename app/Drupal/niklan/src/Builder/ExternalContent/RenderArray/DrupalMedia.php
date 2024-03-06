@@ -145,19 +145,19 @@ final class DrupalMedia implements BuilderInterface {
   /**
    * {@selfdoc}
    */
-  private function getMediaSourceFile(MediaInterface $media): ?FileInterface {
-    $source_field = $media->getSource()->getConfiguration()['source_field'];
+  private function buildRemoteVideoRenderArray(MediaInterface $media): BuilderResultInterface {
+    $view_builder = $this->entityTypeManager->getViewBuilder('media');
 
-    return $media->get($source_field)->first()->get('entity')->getValue();
+    return BuilderResult::renderArray($view_builder->view($media));
   }
 
   /**
    * {@selfdoc}
    */
-  private function buildRemoteVideoRenderArray(MediaInterface $media): BuilderResultInterface {
-    $view_builder = $this->entityTypeManager->getViewBuilder('media');
+  private function getMediaSourceFile(MediaInterface $media): ?FileInterface {
+    $source_field = $media->getSource()->getConfiguration()['source_field'];
 
-    return BuilderResult::renderArray($view_builder->view($media));
+    return $media->get($source_field)->first()->get('entity')->getValue();
   }
 
 }

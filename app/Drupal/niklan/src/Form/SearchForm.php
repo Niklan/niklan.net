@@ -76,6 +76,13 @@ final class SearchForm extends FormBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $form_state->setRedirectUrl($this->buildResultsUrl($form_state));
+  }
+
+  /**
    * Process AJAX request for search.
    *
    * @param array $form
@@ -142,13 +149,6 @@ final class SearchForm extends FormBase {
       'niklan.search_page',
       options: $url_options,
     )->setAbsolute();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $form_state->setRedirectUrl($this->buildResultsUrl($form_state));
   }
 
 }

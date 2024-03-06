@@ -38,9 +38,9 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     self::assertCount(1, $environment->getParsers());
     self::assertCount(2, $environment->getBuilders());
     $builder_classes = \array_map(
-       static fn (BuilderInterface $builder) => $builder::class,
-       $environment->getBuilders()->getIterator()->getArrayCopy(),
-     );
+      static fn (BuilderInterface $builder) => $builder::class,
+      $environment->getBuilders()->getIterator()->getArrayCopy(),
+    );
     self::assertContains(ElementRenderArrayBuilder::class, $builder_classes);
     self::assertContains(PlainTextRenderArrayBuilder::class, $builder_classes);
   }

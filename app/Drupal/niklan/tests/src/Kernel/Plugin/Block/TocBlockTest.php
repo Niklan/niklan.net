@@ -19,19 +19,6 @@ final class TocBlockTest extends BlockTestBase {
   use ParagraphHeadingTrait;
 
   /**
-   * Prepares prophecy for entity reference field.
-   *
-   * @param array $paragraphs
-   *   An array with paragraph items.
-   */
-  protected function prepareFieldItemList(array $paragraphs = []): EntityReferenceRevisionsFieldItemList {
-    $items = $this->prophesize(EntityReferenceRevisionsFieldItemList::class);
-    $items->referencedEntities()->willReturn($paragraphs);
-
-    return $items->reveal();
-  }
-
-  /**
    * Tests that block works properly when node is not found.
    */
   public function testBlockWithoutNode(): void {
@@ -67,6 +54,19 @@ final class TocBlockTest extends BlockTestBase {
     $this->render($build);
 
     self::assertCount(0, $this->cssSelect('.toc'));
+  }
+
+  /**
+   * Prepares prophecy for entity reference field.
+   *
+   * @param array $paragraphs
+   *   An array with paragraph items.
+   */
+  protected function prepareFieldItemList(array $paragraphs = []): EntityReferenceRevisionsFieldItemList {
+    $items = $this->prophesize(EntityReferenceRevisionsFieldItemList::class);
+    $items->referencedEntities()->willReturn($paragraphs);
+
+    return $items->reveal();
   }
 
   /**

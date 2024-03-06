@@ -21,23 +21,10 @@ final class File implements SourceInterface {
   ) {}
 
   /**
-   * Gets a relative (to working dir) pathname.
+   * Checks is files is readable.
    */
-  public function getRelativePathname(): string {
-    $without_working_dir = \str_replace(
-      $this->getWorkingDir(),
-      '',
-      $this->getPathname(),
-    );
-
-    return \ltrim($without_working_dir, \DIRECTORY_SEPARATOR);
-  }
-
-  /**
-   * Gets a working dir where file is found.
-   */
-  public function getWorkingDir(): string {
-    return $this->workingDir;
+  public function isReadable(): bool {
+    return \is_readable($this->getPathname());
   }
 
   /**
@@ -45,20 +32,6 @@ final class File implements SourceInterface {
    */
   public function getPathname(): string {
     return $this->pathname;
-  }
-
-  /**
-   * Gets a file extension.
-   */
-  public function getExtension(): string {
-    return \pathinfo($this->getPathname(), \PATHINFO_EXTENSION);
-  }
-
-  /**
-   * Checks is files is readable.
-   */
-  public function isReadable(): bool {
-    return \is_readable($this->getPathname());
   }
 
   /**
@@ -93,6 +66,33 @@ final class File implements SourceInterface {
     $this->data->set('extension', $this->getExtension());
 
     return $this->data;
+  }
+
+  /**
+   * Gets a working dir where file is found.
+   */
+  public function getWorkingDir(): string {
+    return $this->workingDir;
+  }
+
+  /**
+   * Gets a relative (to working dir) pathname.
+   */
+  public function getRelativePathname(): string {
+    $without_working_dir = \str_replace(
+      $this->getWorkingDir(),
+      '',
+      $this->getPathname(),
+    );
+
+    return \ltrim($without_working_dir, \DIRECTORY_SEPARATOR);
+  }
+
+  /**
+   * Gets a file extension.
+   */
+  public function getExtension(): string {
+    return \pathinfo($this->getPathname(), \PATHINFO_EXTENSION);
   }
 
 }

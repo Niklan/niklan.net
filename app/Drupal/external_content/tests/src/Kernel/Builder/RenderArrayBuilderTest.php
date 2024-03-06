@@ -30,13 +30,6 @@ final class RenderArrayBuilderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function getRenderArrayBuilder(): RenderArrayBuilder {
-    return $this->container->get(RenderArrayBuilder::class);
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function testBuild(): void {
     $paragraph = new Element('p');
     $paragraph->addChild(new PlainText('Hello, '));
@@ -87,6 +80,13 @@ final class RenderArrayBuilderTest extends ExternalContentTestBase {
     ];
 
     self::assertEquals($expected_result, $result->result());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getRenderArrayBuilder(): RenderArrayBuilder {
+    return $this->container->get(RenderArrayBuilder::class);
   }
 
 }

@@ -18,7 +18,8 @@
   'mail': 'mailto:?subject=' ~ text ~ '&body=' ~ url,
 } %}
 <div{{ attributes.addClass('share') }}>
-  <div class="share__title">❤️ {% trans %}Do you like it? Share it with others.{% endtrans %}</div>
+  <div class="share__title">
+    ❤️ {% trans %}Do you like it? Share it with others.{% endtrans %}</div>
   <div class="share__links">
     {# Native JavaScript Share API. #}
     <button class="share__link share__link--device"
@@ -28,7 +29,8 @@
             data-niklan-selector="share">
     </button>
     {% for modifier, href in links %}
-      <a href="{{ href }}" class="share__link share__link--{{ modifier }}" rel="nofollow noopener" target="_blank"></a>
+      <a href="{{ href }}" class="share__link share__link--{{ modifier }}"
+         rel="nofollow noopener" target="_blank"></a>
     {% endfor %}
   </div>
 </div>

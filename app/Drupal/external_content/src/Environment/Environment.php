@@ -114,41 +114,6 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addParser(ParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface {
-    $this->parsers->add($parser, $priority);
-    $this->injectDependencies($parser);
-
-    return $this;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function injectDependencies(object $object): void {
-    if ($object instanceof EnvironmentAwareInterface) {
-      $object->setEnvironment($this);
-    }
-
-    if (!($object instanceof ConfigurationAwareInterface)) {
-      return;
-    }
-
-    $object->setConfiguration($this->configuration);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function addIdentifier(IdentifierInterface $identifier, int $priority = 0): EnvironmentBuilderInterface {
-    $this->identifiers->add($identifier, $priority);
-    $this->injectDependencies($identifier);
-
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getParsers(): PrioritizedList {
     return $this->parsers;
   }
@@ -170,49 +135,8 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addFinder(FinderInterface $finder, int $priority = 0): EnvironmentBuilderInterface {
-    $this->finders->add($finder, $priority);
-    $this->injectDependencies($finder);
-
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getFinders(): PrioritizedList {
     return $this->finders;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function addEventListener(string $event_class, callable $listener, int $priority = 0): self {
-    $this->eventListeners->add(
-      item: new EventListener($event_class, $listener),
-      priority: $priority,
-    );
-
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setEventDispatcher(EventDispatcherInterface $event_dispatcher): self {
-    $this->eventDispatcher = $event_dispatcher;
-
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function addBuilder(BuilderInterface $builder, int $priority = 0): self {
-    $this->builders->add($builder, $priority);
-    $this->injectDependencies($builder);
-
-    return $this;
   }
 
   /**
@@ -262,9 +186,39 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addSerializer(NodeSerializerInterface $serializer, int $priority = 0): self {
-    $this->serializers->add($serializer, $priority);
-    $this->injectDependencies($serializer);
+  public function getSerializers(): PrioritizedList {
+    return $this->serializers;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLoaders(): PrioritizedList {
+    return $this->loaders;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function getConverters(): PrioritizedList {
+    return $this->converters;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function getBundlers(): PrioritizedList {
+    return $this->bundlers;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addParser(ParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface {
+    $this->parsers->add($parser, $priority);
+    $this->injectDependencies($parser);
 
     return $this;
   }
@@ -272,8 +226,62 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getSerializers(): PrioritizedList {
-    return $this->serializers;
+  public function addIdentifier(IdentifierInterface $identifier, int $priority = 0): EnvironmentBuilderInterface {
+    $this->identifiers->add($identifier, $priority);
+    $this->injectDependencies($identifier);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addFinder(FinderInterface $finder, int $priority = 0): EnvironmentBuilderInterface {
+    $this->finders->add($finder, $priority);
+    $this->injectDependencies($finder);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addEventListener(string $event_class, callable $listener, int $priority = 0): self {
+    $this->eventListeners->add(
+      item: new EventListener($event_class, $listener),
+      priority: $priority,
+    );
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEventDispatcher(EventDispatcherInterface $event_dispatcher): self {
+    $this->eventDispatcher = $event_dispatcher;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addBuilder(BuilderInterface $builder, int $priority = 0): self {
+    $this->builders->add($builder, $priority);
+    $this->injectDependencies($builder);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addSerializer(NodeSerializerInterface $serializer, int $priority = 0): self {
+    $this->serializers->add($serializer, $priority);
+    $this->injectDependencies($serializer);
+
+    return $this;
   }
 
   /**
@@ -292,26 +300,11 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getLoaders(): PrioritizedList {
-    return $this->loaders;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function addLoader(LoaderInterface $loader, int $priority = 0): self {
     $this->loaders->add($loader, $priority);
     $this->injectDependencies($loader);
 
     return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  #[\Override]
-  public function getConverters(): PrioritizedList {
-    return $this->converters;
   }
 
   /**
@@ -337,11 +330,18 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   }
 
   /**
-   * {@inheritdoc}
+   * {@selfdoc}
    */
-  #[\Override]
-  public function getBundlers(): PrioritizedList {
-    return $this->bundlers;
+  private function injectDependencies(object $object): void {
+    if ($object instanceof EnvironmentAwareInterface) {
+      $object->setEnvironment($this);
+    }
+
+    if (!($object instanceof ConfigurationAwareInterface)) {
+      return;
+    }
+
+    $object->setConfiguration($this->configuration);
   }
 
 }

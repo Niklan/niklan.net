@@ -20,7 +20,10 @@
   {%- endtrans -%}
 {% endset %}
 <div{{ attributes.addClass('blog-meta') }}>
-  <div class="blog-meta__created" title="{{ 'Created time'|t }}">{{ created }}</div>
-  <a href="{{ comments_url }}" class="blog-meta__comments{{ comment_count == 0 ? ' blog-meta__comments--no-comments' : '' }}">{{- comment_link_label -}}</a>
-  <div class="blog-meta__read-time" title="{{ 'Estimated reading time'|t }}">{{ estimated_read_time }} {{ 'min.'|t }}</div>
+  <div class="blog-meta__created"
+       title="{{ 'Created time'|t }}">{{ created }}</div>
+  <a href="{{ comments_url }}"
+     class="blog-meta__comments{{ comment_count == 0 ? ' blog-meta__comments--no-comments' : '' }}">{{- comment_link_label -}}</a>
+  <div class="blog-meta__read-time"
+       title="{{ 'Estimated reading time'|t }}">{{ estimated_read_time }} {{ 'min.'|t }}</div>
 </div>

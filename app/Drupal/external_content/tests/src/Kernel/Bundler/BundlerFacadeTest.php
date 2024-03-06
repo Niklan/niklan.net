@@ -32,17 +32,6 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
   protected BundlerManagerInterface $bundler;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->bundler = $this
-      ->container
-      ->get(BundlerManagerInterface::class);
-  }
-
-  /**
    * {@selfdoc}
    */
   public function testBundler(): void {
@@ -90,6 +79,17 @@ final class BundlerFacadeTest extends ExternalContentTestBase {
       'ru',
       $source_variant->attributes->getAttribute('language'),
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->bundler = $this
+      ->container
+      ->get(BundlerManagerInterface::class);
   }
 
 }

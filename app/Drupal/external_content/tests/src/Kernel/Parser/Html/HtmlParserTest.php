@@ -30,24 +30,6 @@ final class HtmlParserTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function getParser(): ParserInterface {
-    return $this->container->get(ParserFacadeInterface::class);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function prepareSourceDir(): void {
-    vfsStream::setup(structure: [
-      'foo' => [
-        'bar.html' => '<p>Hello, <strong>World</strong>!</p>',
-      ],
-    ]);
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function testParse(): void {
     $this->prepareSourceDir();
 
@@ -85,6 +67,24 @@ final class HtmlParserTest extends ExternalContentTestBase {
     $expected_result->addChild($p);
 
     self::assertEquals($expected_result, $result);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function prepareSourceDir(): void {
+    vfsStream::setup(structure: [
+      'foo' => [
+        'bar.html' => '<p>Hello, <strong>World</strong>!</p>',
+      ],
+    ]);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function getParser(): ParserInterface {
+    return $this->container->get(ParserFacadeInterface::class);
   }
 
   /**

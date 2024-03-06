@@ -28,6 +28,25 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
   use BlogEntryTrait;
 
   /**
+   * Tests that formatter works without media entities.
+   */
+  public function testFormatterWithoutMedia(): void {
+    $this->setFormatterSettings([
+      'responsive_image_style' => 'fallback',
+      'image_link' => 'content',
+    ]);
+
+    $node = Node::create([
+      'type' => 'blog_entry',
+      'title' => $this->randomMachineName(),
+    ]);
+    self::assertEquals(\SAVED_NEW, $node->save());
+    $this->renderNode($node);
+
+    self::assertCount(0, $this->cssSelect('article picture'));
+  }
+
+  /**
    * Updates formatter settings for tested field.
    *
    * @param array $settings
@@ -58,25 +77,6 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
       ->getViewBuilder('node')
       ->view($node, 'default');
     $this->render($build);
-  }
-
-  /**
-   * Tests that formatter works without media entities.
-   */
-  public function testFormatterWithoutMedia(): void {
-    $this->setFormatterSettings([
-      'responsive_image_style' => 'fallback',
-      'image_link' => 'content',
-    ]);
-
-    $node = Node::create([
-      'type' => 'blog_entry',
-      'title' => $this->randomMachineName(),
-    ]);
-    self::assertEquals(\SAVED_NEW, $node->save());
-    $this->renderNode($node);
-
-    self::assertCount(0, $this->cssSelect('article picture'));
   }
 
   /**
@@ -151,6 +151,17 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
   }
 
   /**
+   * Tests that settings form allows to set up all expected settings.
+   */
+  public function testSettingsForm(): void {
+    $formatter = $this->getFormatterInstance();
+    $plugin_form = $formatter->settingsForm([], new FormState());
+
+    self::assertArrayHasKey('image_link', $plugin_form);
+    self::assertArrayHasKey('responsive_image_style', $plugin_form);
+  }
+
+  /**
    * Gets formatter instance.
    */
   protected function getFormatterInstance(): MediaResponsiveThumbnailFormatter {
@@ -168,17 +179,6 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
         ],
         'field_definition' => $field_definitions['field_media_reference'],
       ]);
-  }
-
-  /**
-   * Tests that settings form allows to set up all expected settings.
-   */
-  public function testSettingsForm(): void {
-    $formatter = $this->getFormatterInstance();
-    $plugin_form = $formatter->settingsForm([], new FormState());
-
-    self::assertArrayHasKey('image_link', $plugin_form);
-    self::assertArrayHasKey('responsive_image_style', $plugin_form);
   }
 
   /**

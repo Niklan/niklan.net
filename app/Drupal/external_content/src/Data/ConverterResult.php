@@ -33,15 +33,15 @@ final readonly class ConverterResult {
   /**
    * {@selfdoc}
    */
-  public function hasNoResult(): bool {
-    return \is_null($this->result);
+  public function hasResult(): bool {
+    return !$this->hasNoResult();
   }
 
   /**
    * {@selfdoc}
    */
-  public function hasResult(): bool {
-    return !$this->hasNoResult();
+  public function hasNoResult(): bool {
+    return \is_null($this->result);
   }
 
   /**

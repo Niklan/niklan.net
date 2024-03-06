@@ -41,7 +41,7 @@ final class ElementRenderArrayBuilderTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testInvalidElement(): void {
-    $element = new class() extends Node {};
+    $element = new class () extends Node {};
     $builder = new ElementRenderArrayBuilder();
     self::assertFalse(
       $builder->supportsBuild($element, RenderArrayBuilder::class),

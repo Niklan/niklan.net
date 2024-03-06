@@ -115,11 +115,11 @@
     });
 
     []
-      .slice
-      .call(once('code-block', '[data-selector="niklan:code-block"]'))
-      .forEach((codeBlock) => {
-        intersectionObserver.observe(codeBlock);
-      });
+        .slice
+        .call(once('code-block', '[data-selector="niklan:code-block"]'))
+        .forEach((codeBlock) => {
+          intersectionObserver.observe(codeBlock);
+        });
   }
 
   /**

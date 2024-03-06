@@ -39,6 +39,7 @@ final class CommonMarkDirectiveHelper {
    * {@selfdoc}
    *
    * The info string is:
+   *
    * @code
    * name[inline-content](argument){#id .class key=value}
    * @endcode
@@ -119,6 +120,7 @@ final class CommonMarkDirectiveHelper {
    *
    * Extra attributes is a set of additional information which can contain ID
    * and class CSS selector, as wel ass key/value pairs.
+   *
    * @code
    * #id .class key=value foo="bar baz"
    * @endcode

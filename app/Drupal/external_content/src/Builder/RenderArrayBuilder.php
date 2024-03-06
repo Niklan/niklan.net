@@ -38,13 +38,6 @@ final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInte
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
-  }
-
-  /**
    * {@selfdoc}
    */
   protected function buildRecursive(NodeInterface $node, array &$children, array $context): mixed {
@@ -85,6 +78,13 @@ final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInte
     // If build didn't happen, just return children. Most likely it's a root
     // element.
     return $children;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
   }
 
 }

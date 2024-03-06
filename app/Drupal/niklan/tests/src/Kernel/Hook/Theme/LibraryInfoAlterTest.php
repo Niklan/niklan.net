@@ -18,15 +18,6 @@ final class LibraryInfoAlterTest extends NiklanTestBase {
   protected LibraryInfoAlter $libraryInfoAlter;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->libraryInfoAlter = LibraryInfoAlter::create($this->container);
-  }
-
-  /**
    * Tests that 'drupal.ajax' not altered for other extensions.
    */
   public function testAlterDrupalAjaxWithMissingLibrary(): void {
@@ -73,6 +64,15 @@ final class LibraryInfoAlterTest extends NiklanTestBase {
       ],
     ];
     self::assertEquals($expected_libraries, $libraries);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->libraryInfoAlter = LibraryInfoAlter::create($this->container);
   }
 
 }

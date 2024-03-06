@@ -40,24 +40,6 @@ final readonly class IdentifierManager implements IdentifierManagerInterface {
   }
 
   /**
-   * {@selfdoc}
-   */
-  private function identifySource(SourceInterface $source, IdentifiedSourceCollection $identified_sources, EnvironmentInterface $environment): void {
-    foreach ($environment->getIdentifiers() as $identifier) {
-      \assert($identifier instanceof IdentifierInterface);
-      $identifier_result = $identifier->identify($source);
-
-      if ($identifier_result->isNotIdentified()) {
-        continue;
-      }
-
-      $identified_sources->add($identifier_result->result());
-
-      return;
-    }
-  }
-
-  /**
    * {@inheritdoc}
    */
   #[\Override]
@@ -88,6 +70,24 @@ final readonly class IdentifierManager implements IdentifierManagerInterface {
   #[\Override]
   public function list(): array {
     return $this->identifiers;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function identifySource(SourceInterface $source, IdentifiedSourceCollection $identified_sources, EnvironmentInterface $environment): void {
+    foreach ($environment->getIdentifiers() as $identifier) {
+      \assert($identifier instanceof IdentifierInterface);
+      $identifier_result = $identifier->identify($source);
+
+      if ($identifier_result->isNotIdentified()) {
+        continue;
+      }
+
+      $identified_sources->add($identifier_result->result());
+
+      return;
+    }
   }
 
 }

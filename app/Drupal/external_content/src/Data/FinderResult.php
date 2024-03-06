@@ -17,8 +17,15 @@ final readonly class FinderResult {
   /**
    * {@selfdoc}
    */
-  public function hasNoResults(): bool {
-    return \is_null($this->result) || \count($this->result->items()) === 0;
+  public static function withSources(SourceCollection $collection): self {
+    return new self($collection);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public static function notFound(): self {
+    return new self();
   }
 
   /**
@@ -31,22 +38,15 @@ final readonly class FinderResult {
   /**
    * {@selfdoc}
    */
+  public function hasNoResults(): bool {
+    return \is_null($this->result) || \count($this->result->items()) === 0;
+  }
+
+  /**
+   * {@selfdoc}
+   */
   public function results(): ?SourceCollection {
     return $this->result;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public static function withSources(SourceCollection $collection): self {
-    return new self($collection);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public static function notFound(): self {
-    return new self();
   }
 
 }

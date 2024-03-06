@@ -18,14 +18,6 @@ final class GitTest extends NiklanTestBase {
   protected GitInterface $git;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-    $this->git = $this->container->get('niklan.process.git');
-  }
-
-  /**
    * Tests process creation for pulling from repository.
    */
   public function testPull(): void {
@@ -50,6 +42,14 @@ final class GitTest extends NiklanTestBase {
     $process = $this->git->getFileLastCommitId('/foo/bar', 'baz/index.md');
     $this->assertEquals("'git' 'log' '--format=\"%H\"' '-n 1' '--' 'baz/index.md'", $process->getCommandLine());
     $this->assertEquals('/foo/bar', $process->getWorkingDirectory());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->git = $this->container->get('niklan.process.git');
   }
 
 }

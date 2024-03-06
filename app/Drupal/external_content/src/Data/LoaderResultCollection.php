@@ -13,15 +13,6 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
   protected array $items = [];
 
   /**
-   * Adds a result into collection.
-   */
-  public function addResult(LoaderResult $result): self {
-    $this->items[] = $result;
-
-    return $this;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function getIterator(): \ArrayIterator {
@@ -33,6 +24,15 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
    */
   public function count(): int {
     return \count($this->items);
+  }
+
+  /**
+   * Gets all successful result items.
+   */
+  public function getSuccessful(): self {
+    $callback = static fn (LoaderResult $item) => $item->hasResults();
+
+    return $this->filter($callback);
   }
 
   /**
@@ -50,12 +50,12 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
   }
 
   /**
-   * Gets all successful result items.
+   * Adds a result into collection.
    */
-  public function getSuccessful(): self {
-    $callback = static fn (LoaderResult $item) => $item->hasResults();
+  public function addResult(LoaderResult $result): self {
+    $this->items[] = $result;
 
-    return $this->filter($callback);
+    return $this;
   }
 
 }

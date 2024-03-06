@@ -16,15 +16,6 @@ final class ShareTest extends ExtraFieldTestBase {
   use BlogEntryTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->setUpBlogEntry();
-  }
-
-  /**
    * Tests that field works as expected.
    */
   public function testView(): void {
@@ -41,6 +32,15 @@ final class ShareTest extends ExtraFieldTestBase {
     self::assertRaw('vk.com');
     self::assertRaw('facebook.com');
     self::assertRaw('mailto:?subject');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->setUpBlogEntry();
   }
 
 }

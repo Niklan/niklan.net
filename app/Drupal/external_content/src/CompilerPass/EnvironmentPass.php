@@ -81,18 +81,21 @@ final class EnvironmentPass implements CompilerPassInterface {
 
   /**
    * {@selfdoc}
-   *
-   * If an environment definition doesn't set '$id' value, then do it
-   * automatically from the tag 'id' value.
    */
-  private function setEnvironmentIdArgument(Definition $definition, string $id): void {
-    $arguments = $definition->getArguments();
+  private function processComponent(ContainerBuilder $container, string $type, string $service_tag, string $parameter_name): void {
+    $results = [];
 
-    if (\array_key_exists(0, $arguments) || \array_key_exists('$id', $arguments)) {
-      return;
+    foreach ($container->findTaggedServiceIds($service_tag) as $service => $attributes) {
+      $attributes = \reset($attributes);
+
+      if (!\array_key_exists('id', $attributes)) {
+        continue;
+      }
+
+      $this->addExtension($type, $service, $attributes, $results);
     }
 
-    $definition->setArgument('$id', $id);
+    $container->setParameter($parameter_name, $results);
   }
 
   /**
@@ -117,21 +120,18 @@ final class EnvironmentPass implements CompilerPassInterface {
 
   /**
    * {@selfdoc}
+   *
+   * If an environment definition doesn't set '$id' value, then do it
+   * automatically from the tag 'id' value.
    */
-  private function processComponent(ContainerBuilder $container, string $type, string $service_tag, string $parameter_name): void {
-    $results = [];
+  private function setEnvironmentIdArgument(Definition $definition, string $id): void {
+    $arguments = $definition->getArguments();
 
-    foreach ($container->findTaggedServiceIds($service_tag) as $service => $attributes) {
-      $attributes = \reset($attributes);
-
-      if (!\array_key_exists('id', $attributes)) {
-        continue;
-      }
-
-      $this->addExtension($type, $service, $attributes, $results);
+    if (\array_key_exists(0, $arguments) || \array_key_exists('$id', $arguments)) {
+      return;
     }
 
-    $container->setParameter($parameter_name, $results);
+    $definition->setArgument('$id', $id);
   }
 
   /**

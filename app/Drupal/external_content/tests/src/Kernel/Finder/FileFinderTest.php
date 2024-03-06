@@ -49,24 +49,23 @@ final class FileFinderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  public function testEmptyFinder(): void {
-    $this->prepareDirectory();
-
-    $configuration = new Configuration();
-    $configuration->merge([
-      'file_finder' => [
-        'extensions' => ['md', 'html'],
-        'directories' => [
-          vfsStream::url('root/empty-dir'),
-        ],
+  private function prepareDirectory(): void {
+    vfsStream::setup(structure: [
+      'foo' => [
+        'baz.txt' => 'Hello, World!',
+        'baz.html' => [],
       ],
+      'bar' => [
+        'baz.html' => 'Hello, World!',
+      ],
+      'baz' => [
+        'baz.md' => 'Hello, World!',
+      ],
+      'quux' => [
+        'baz.html' => 'Hello, World!',
+      ],
+      'empty-dir' => [],
     ]);
-    $environment = $this->buildEnvironment($configuration);
-
-    $finder = $this->getFinder();
-    $finder->setEnvironment($environment);
-    $result = $finder->find();
-    self::assertCount(0, $result);
   }
 
   /**
@@ -89,23 +88,24 @@ final class FileFinderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function prepareDirectory(): void {
-    vfsStream::setup(structure: [
-      'foo' => [
-        'baz.txt' => 'Hello, World!',
-        'baz.html' => [],
+  public function testEmptyFinder(): void {
+    $this->prepareDirectory();
+
+    $configuration = new Configuration();
+    $configuration->merge([
+      'file_finder' => [
+        'extensions' => ['md', 'html'],
+        'directories' => [
+          vfsStream::url('root/empty-dir'),
+        ],
       ],
-      'bar' => [
-        'baz.html' => 'Hello, World!',
-      ],
-      'baz' => [
-        'baz.md' => 'Hello, World!',
-      ],
-      'quux' => [
-        'baz.html' => 'Hello, World!',
-      ],
-      'empty-dir' => [],
     ]);
+    $environment = $this->buildEnvironment($configuration);
+
+    $finder = $this->getFinder();
+    $finder->setEnvironment($environment);
+    $result = $finder->find();
+    self::assertCount(0, $result);
   }
 
 }

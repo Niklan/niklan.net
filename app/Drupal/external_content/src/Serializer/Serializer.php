@@ -28,6 +28,24 @@ final class Serializer implements SerializerInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function deserialize(string $json): NodeInterface {
+    $json_array = \json_decode($json, TRUE);
+    $node = $this->deserializeRecursive($json_array);
+    \assert($node instanceof NodeInterface);
+
+    return $node;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
+  }
+
+  /**
    * {@selfdoc}
    */
   private function normalizeRecursive(NodeInterface $node): array {
@@ -60,17 +78,6 @@ final class Serializer implements SerializerInterface {
     }
 
     throw new MissingSerializerException($node, $this->environment);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function deserialize(string $json): NodeInterface {
-    $json_array = \json_decode($json, TRUE);
-    $node = $this->deserializeRecursive($json_array);
-    \assert($node instanceof NodeInterface);
-
-    return $node;
   }
 
   /**
@@ -109,13 +116,6 @@ final class Serializer implements SerializerInterface {
       $version,
       $this->environment,
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
   }
 
 }

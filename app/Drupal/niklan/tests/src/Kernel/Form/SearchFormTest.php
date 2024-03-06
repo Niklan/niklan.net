@@ -30,16 +30,6 @@ final class SearchFormTest extends NiklanTestBase {
   protected RequestStack $requestStack;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->formBuilder = $this->container->get('form_builder');
-    $this->requestStack = $this->container->get('request_stack');
-  }
-
-  /**
    * Tests basic form submission without values.
    */
   public function testSubmitFormEmpty(): void {
@@ -114,6 +104,16 @@ final class SearchFormTest extends NiklanTestBase {
 
     $commands = $response->getCommands();
     self::assertCount(3, $commands);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->formBuilder = $this->container->get('form_builder');
+    $this->requestStack = $this->container->get('request_stack');
   }
 
 }

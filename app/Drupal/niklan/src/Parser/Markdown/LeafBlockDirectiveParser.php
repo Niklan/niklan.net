@@ -51,14 +51,6 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
   }
 
   /**
-   * {@inheritdoc}
-   */
-  #[\Override]
-  public function isContainer(): bool {
-    return FALSE;
-  }
-
-  /**
    * {@selfdoc}
    */
   #[\Override]
@@ -72,6 +64,14 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
     $cursor->advanceBy(1);
 
     return BlockContinue::at($cursor);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function isContainer(): bool {
+    return FALSE;
   }
 
   /**

@@ -18,15 +18,15 @@ final class EnvironmentAwareClassA implements EnvironmentAwareInterface {
   /**
    * {@inheritdoc}
    */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
+  public function getEnvironment(): EnvironmentInterface {
+    return $this->environment;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getEnvironment(): EnvironmentInterface {
-    return $this->environment;
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
   }
 
 }

@@ -17,7 +17,7 @@ services:
 
   niklan.event_subscriber.term_page_build:
     class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
-    arguments: [ '@class_resolver' ]
+    arguments: ['@class_resolver']
     tags:
       - { name: event_subscriber }
 
@@ -57,7 +57,7 @@ services:
     tags:
       - { name: event_subscriber }
 
-  Drupal\niklan\Extension\Markdown\NiklanMarkdownExtension: {}
+  Drupal\niklan\Extension\Markdown\NiklanMarkdownExtension: { }
 
   niklan.markdown.environment:
     class: League\CommonMark\Environment\Environment
@@ -74,12 +74,12 @@ services:
   Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier:
     tags:
       - { name: external_content.identifier, id: front_matter }
-  Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer: {}
-  Drupal\niklan\Serializer\ExternalContent\NoteSerializer: {}
-  Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia: {}
-  Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock: {}
-  Drupal\niklan\Builder\ExternalContent\RenderArray\Note: {}
-  Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder: {}
+  Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer: { }
+  Drupal\niklan\Serializer\ExternalContent\NoteSerializer: { }
+  Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia: { }
+  Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock: { }
+  Drupal\niklan\Builder\ExternalContent\RenderArray\Note: { }
+  Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder: { }
   Drupal\niklan\Loader\ExternalContent\Blog:
     tags:
       - { name: external_content.loader, id: blog }
