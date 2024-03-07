@@ -10,6 +10,7 @@ use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInter
 use Drupal\external_content\Contract\Finder\FinderManagerInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierManagerInterface;
 use Drupal\external_content\Contract\Loader\LoaderManagerInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
 
 /**
  * {@selfdoc}
@@ -27,6 +28,7 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
     private BundlerManagerInterface $bundlerManager,
     private ConverterManagerInterface $converterManager,
     private LoaderManagerInterface $loaderManager,
+    private HtmlParserManagerInterface $htmlParserManager,
   ) {}
 
   /**
@@ -83,6 +85,14 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
   #[\Override]
   public function getLoaderManager(): LoaderManagerInterface {
     return $this->loaderManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function getHtmlParserManager(): HtmlParserManagerInterface {
+    return $this->htmlParserManager;
   }
 
 }

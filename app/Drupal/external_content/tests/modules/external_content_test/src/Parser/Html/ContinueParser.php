@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content_test\Parser\Html;
 
-use Drupal\external_content\Contract\Parser\Html\HtmlParserInterface;
 use Drupal\external_content\Contract\Parser\Html\HtmlParserResultInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\HtmlParserResult;
 
 /**

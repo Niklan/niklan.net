@@ -1,58 +1,43 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Parser\Html;
+namespace Drupal\external_content\Parser;
 
-use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Parser\Html\HtmlParserInterface;
-use Drupal\external_content\Contract\Parser\Html\HtmlParserResultInterface;
-use Drupal\external_content\Contract\Parser\ParserInterface;
-use Drupal\external_content\Contract\Source\SourceInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Event\HtmlPreParseEvent;
+use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Drupal\external_content\Node\Content;
+use Drupal\external_content\Source\Html;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Provides an external HTML parser.
  */
-final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
-
-  /**
-   * The environment.
-   */
-  protected EnvironmentInterface $environment;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function supportsParse(SourceInterface $source): bool {
-    $supported_types = $this
-      ->environment
-      ->getConfiguration()
-      ->get('html.supported_types');
-
-    return \in_array($source->type(), $supported_types);
-  }
+final class HtmlParserManager implements HtmlParserManagerInterface {
 
   /**
    * {@selfdoc}
    */
-  public function parse(SourceInterface $source): Content {
-    $data = new Data(['source' => $source->data()->all()]);
-    $content = $source->contents();
+  public function __construct(
+    private ContainerInterface $container,
+    private array $htmlParsers = [],
+  ) {}
+
+  /**
+   * {@selfdoc}
+   */
+  public function parse(Html $html, EnvironmentInterface $environment): Content {
+    $data = new Data(['source' => $html->data()->all()]);
+    $content = $html->contents();
 
     $pre_parse_event = new HtmlPreParseEvent($content, $data);
-    $this->environment->dispatch($pre_parse_event);
+    $environment->dispatch($pre_parse_event);
 
     $document = new Content($pre_parse_event->data);
     $crawler = new Crawler($pre_parse_event->content);
@@ -64,12 +49,40 @@ final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
   }
 
   /**
-   * Parse children of provided element.
-   *
-   * @param \DOMNode $element
-   *   The element to parse.
-   * @param \Drupal\external_content\Contract\Node\NodeInterface $parent
-   *   The parent where parsed element goes as children.
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function get(string $parser_id): HtmlParserInterface {
+    if (!$this->has($parser_id)) {
+      throw new MissingContainerDefinitionException(
+        type: 'html_parser',
+        id: $parser_id,
+      );
+    }
+
+    $service = $this->finders[$parser_id]['service'];
+
+    return $this->container->get($service);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function has(string $parser_id): bool {
+    return \array_key_exists($parser_id, $this->htmlParsers);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  #[\Override]
+  public function list(): array {
+    return $this->htmlParsers;
+  }
+
+  /**
+   * {@selfdoc}
    */
   protected function parseChildren(\DOMNode $element, NodeInterface $parent): void {
     foreach ($element->childNodes as $node) {
@@ -91,10 +104,7 @@ final class HtmlParser implements ParserInterface, EnvironmentAwareInterface {
   }
 
   /**
-   * Parse a single node.
-   *
-   * @param \DOMNode $node
-   *   The element to parse.
+   * {@selfdoc}
    */
   protected function parseNode(\DOMNode $node): HtmlParserResultInterface {
     foreach ($this->environment->getConfiguration()->get('html.parsers') as $parser) {

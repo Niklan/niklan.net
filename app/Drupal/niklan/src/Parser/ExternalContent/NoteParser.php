@@ -2,8 +2,8 @@
 
 namespace Drupal\niklan\Parser\ExternalContent;
 
-use Drupal\external_content\Contract\Parser\Html\HtmlParserInterface;
 use Drupal\external_content\Contract\Parser\Html\HtmlParserResultInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\niklan\Node\ExternalContent\Note;
 use Symfony\Component\DomCrawler\Crawler;

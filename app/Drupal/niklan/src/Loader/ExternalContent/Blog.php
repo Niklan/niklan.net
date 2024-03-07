@@ -8,9 +8,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\LoaderResult;
@@ -39,9 +39,9 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    * {@selfdoc}
    */
   public function __construct(
-    private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly SerializerInterface $serializer,
-    private readonly ContentAssetManager $contentAssetManager,
+    private ExternalContentManagerInterface $externalContentManager,
+    private EntityTypeManagerInterface $entityTypeManager,
+    private ContentAssetManager $contentAssetManager,
   ) {}
 
   /**
@@ -257,7 +257,11 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    * {@selfdoc}
    */
   private function syncExternalContent(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    // @todo Convert.
+    $html = $this->externalContentManager->getConverterManager()->convert(
+      input: $identified_source->source,
+      environment: $this->environment,
+    );
+
     // @todo Parse.
     return;
 
@@ -353,15 +357,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $attributes->setAttribute('href', '#');
     $attributes->setAttribute('data-selector', 'niklan:external-link');
     $attributes->setAttribute('data-pathname-md5', \md5($pathname));
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getSerializer(): SerializerInterface {
-    $this->serializer->setEnvironment($this->environment);
-
-    return $this->serializer;
   }
 
   /**

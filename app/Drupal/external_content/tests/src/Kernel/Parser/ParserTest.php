@@ -13,7 +13,7 @@ use Prophecy\Argument;
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Parser\ParserFacade
+ * @covers \Drupal\external_content\Parser\HtmlParserManager
  * @group external_content
  */
 final class ParserTest extends ExternalContentTestBase {
@@ -60,7 +60,7 @@ final class ParserTest extends ExternalContentTestBase {
     $parser = $parser->reveal();
 
     $environment = new Environment();
-    $environment->addParser($parser);
+    $environment->addHtmlParser($parser);
 
     $this->getParser()->setEnvironment($environment);
     $this->getParser()->parse($source);

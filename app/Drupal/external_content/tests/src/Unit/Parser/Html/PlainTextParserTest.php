@@ -6,13 +6,13 @@ use Drupal\external_content\Data\HtmlParserResultContinue;
 use Drupal\external_content\Data\HtmlParserResultFinalize;
 use Drupal\external_content\Data\HtmlParserResultStop;
 use Drupal\external_content\Node\Html\PlainText;
-use Drupal\external_content\Parser\Html\PlainTextParser;
+use Drupal\external_content\Parser\PlainTextParser;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a plain text parser.
  *
- * @covers \Drupal\external_content\Parser\Html\PlainTextParser
+ * @covers \Drupal\external_content\Parser\PlainTextParser
  * @group external_content
  */
 final class PlainTextParserTest extends UnitTestCase {

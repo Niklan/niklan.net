@@ -8,32 +8,20 @@ use Drupal\external_content\Contract\Parser\Html\HtmlParserResultInterface;
 /**
  * Represents an HTML parser status.
  */
-abstract class HtmlParserResult implements HtmlParserResultInterface {
+final class HtmlParserResult {
 
-  /**
-   * Replaces parsed element and continue parsing children.
-   */
-  public static function replace(NodeInterface $node): self {
+  public static function replaceAndContinue(NodeInterface $node): self {
     return new HtmlParserResultReplace($node);
   }
 
-  /**
-   * Replaces parsed element and stop parsing its children.
-   */
-  public static function finalize(NodeInterface $node): self {
+  public static function replaceAndStop(NodeInterface $node): self {
     return new HtmlParserResultFinalize($node);
   }
 
-  /**
-   * Indicates that parsing of element should continue.
-   */
-  public static function continue(): self {
+  public static function pass(): self {
     return new HtmlParserResultContinue();
   }
 
-  /**
-   * Indicates that parsing of element should be stopped without replacement.
-   */
   public static function stop(): self {
     return new HtmlParserResultStop();
   }

@@ -115,7 +115,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     $parser = $parser->reveal();
 
     $environment = new Environment();
-    $environment->addParser($parser);
+    $environment->addHtmlParser($parser);
 
     $expected = [
       0 => $parser,
@@ -123,7 +123,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     self::assertEquals(
       $expected,
-      $environment->getParsers()->getIterator()->getArrayCopy(),
+      $environment->getHtmlParsers()->getIterator()->getArrayCopy(),
     );
   }
 
@@ -376,7 +376,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     self::expectException(MissingContainerException::class);
 
-    $environment->addParser($object->reveal());
+    $environment->addHtmlParser($object->reveal());
   }
 
 }

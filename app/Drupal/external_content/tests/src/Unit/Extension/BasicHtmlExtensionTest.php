@@ -35,7 +35,7 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     self::assertContains(ElementSerializer::class, $serializer_classes);
     self::assertContains(PlainTextSerializer::class, $serializer_classes);
 
-    self::assertCount(1, $environment->getParsers());
+    self::assertCount(1, $environment->getHtmlParsers());
     self::assertCount(2, $environment->getBuilders());
     $builder_classes = \array_map(
       static fn (BuilderInterface $builder) => $builder::class,

@@ -20,7 +20,7 @@ final class MissingSourceParserException extends \LogicException {
   ) {
     $available_parsers = \array_map(
       static fn (ParserInterface $parser): string => $parser::class,
-      \iterator_to_array($this->environment->getParsers()),
+      \iterator_to_array($this->environment->getHtmlParsers()),
     );
 
     $message = \sprintf(

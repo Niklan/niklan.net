@@ -9,6 +9,7 @@ use Drupal\external_content\Contract\Extension\ExtensionManagerInterface;
 use Drupal\external_content\Contract\Finder\FinderManagerInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierManagerInterface;
 use Drupal\external_content\Contract\Loader\LoaderManagerInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
 
 /**
  * {@selfdoc}
@@ -49,5 +50,10 @@ interface ExternalContentManagerInterface {
    * {@selfdoc}
    */
   public function getLoaderManager(): LoaderManagerInterface;
+
+  /**
+   * {@selfdoc}
+   */
+  public function getHtmlParserManager(): HtmlParserManagerInterface;
 
 }

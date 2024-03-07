@@ -4,13 +4,13 @@ namespace Drupal\comment\Tests\external_content\Unit\Parser\Html;
 
 use Drupal\external_content\Data\HtmlParserResultReplace;
 use Drupal\external_content\Node\Html\Element;
-use Drupal\external_content\Parser\Html\ElementParser;
+use Drupal\external_content\Parser\ElementParser;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a HTML element parser test.
  *
- * @covers \Drupal\external_content\Parser\Html\ElementParser
+ * @covers \Drupal\external_content\Parser\ElementParser
  * @group external_content
  */
 final class HtmlElementParserTest extends UnitTestCase {

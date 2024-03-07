@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Parser\Html;
 
-use Drupal\external_content\Contract\Parser\ParserFacadeInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\PrioritizedList;
@@ -11,9 +11,9 @@ use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
 use Drupal\external_content\Node\Html\PlainText;
-use Drupal\external_content\Parser\Html\ElementParser;
-use Drupal\external_content\Parser\Html\HtmlParser;
-use Drupal\external_content\Parser\Html\PlainTextParser;
+use Drupal\external_content\Parser\ElementParser;
+use Drupal\external_content\Parser\HtmlParserManager;
+use Drupal\external_content\Parser\PlainTextParser;
 use Drupal\external_content\Source\File;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use League\Config\Configuration;
@@ -23,7 +23,7 @@ use org\bovigo\vfs\vfsStream;
  * Provides a test for external content HTML parser.
  *
  * @group external_content
- * @covers \Drupal\external_content\Parser\Html\HtmlParser
+ * @covers \Drupal\external_content\Parser\HtmlParserManager
  */
 final class HtmlParserTest extends ExternalContentTestBase {
 
@@ -84,7 +84,7 @@ final class HtmlParserTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   private function getParser(): ParserInterface {
-    return $this->container->get(ParserFacadeInterface::class);
+    return $this->container->get(HtmlParserManagerInterface::class);
   }
 
   /**
@@ -100,7 +100,7 @@ final class HtmlParserTest extends ExternalContentTestBase {
     );
 
     $environment = new Environment();
-    $environment->addParser(new HtmlParser());
+    $environment->addHtmlParser(new HtmlParserManager());
     $this->getParser()->setEnvironment($environment);
 
     self::expectExceptionMessage('Missing config schema for "html"');

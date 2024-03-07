@@ -7,6 +7,7 @@ parameters:
   external_content.bundlers: []
   external_content.converters: []
   external_content.loaders: []
+  external_content.html_parsers: []
 
 services:
   _defaults:
@@ -15,12 +16,9 @@ services:
   Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface: '@Drupal\external_content\ExternalContent\ExternalContentManager'
   Drupal\external_content\ExternalContent\ExternalContentManager: { }
 
-  Drupal\external_content\Parser\ParserFacade: { }
   Drupal\external_content\Serializer\Serializer: { }
   Drupal\external_content\Builder\RenderArrayBuilder: { }
-
   Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
-  Drupal\external_content\Contract\Parser\ParserFacadeInterface: '@Drupal\external_content\Parser\ParserFacade'
 
   # Environment.
   Drupal\external_content\Contract\Environment\EnvironmentManagerInterface: '@Drupal\external_content\Environment\EnvironmentManager'
@@ -81,3 +79,15 @@ services:
   Drupal\external_content\Loader\LoaderManager:
     arguments:
       $loaders: '%external_content.loaders%'
+
+  # HTML Parsers.
+  Drupal\external_content\Contract\Parser\HtmlParserManagerInterface: '@Drupal\external_content\Parser\HtmlParserManager'
+  Drupal\external_content\Parser\HtmlParserManager:
+    arguments:
+      $htmlParsers: '%external_content.html_parsers%'
+  Drupal\external_content\Parser\PlainTextParser:
+    tags:
+      - { name: external_content.html_parser, id: plain_text }
+  Drupal\external_content\Parser\ElementParser:
+    tags:
+      - { name: external_content.html_parser, id: element }

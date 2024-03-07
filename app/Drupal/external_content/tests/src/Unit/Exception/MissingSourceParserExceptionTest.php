@@ -27,7 +27,7 @@ final class MissingSourceParserExceptionTest extends UnitTestCase {
     $source = $source->reveal();
 
     $environment = new Environment();
-    $environment->addParser($available);
+    $environment->addHtmlParser($available);
 
     $exception = new MissingSourceParserException(
       source: $source,
