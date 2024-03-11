@@ -8,6 +8,7 @@ parameters:
   external_content.converters: []
   external_content.loaders: []
   external_content.html_parsers: []
+  external_content.serializers: []
 
 services:
   _defaults:
@@ -16,9 +17,7 @@ services:
   Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface: '@Drupal\external_content\ExternalContent\ExternalContentManager'
   Drupal\external_content\ExternalContent\ExternalContentManager: { }
 
-  Drupal\external_content\Serializer\Serializer: { }
   Drupal\external_content\Builder\RenderArrayBuilder: { }
-  Drupal\external_content\Contract\Serializer\SerializerInterface: '@Drupal\external_content\Serializer\Serializer'
 
   # Environment.
   Drupal\external_content\Contract\Environment\EnvironmentManagerInterface: '@Drupal\external_content\Environment\EnvironmentManager'
@@ -91,3 +90,18 @@ services:
   Drupal\external_content\Parser\ElementParser:
     tags:
       - { name: external_content.html_parser, id: element }
+
+  # Serializer.
+  Drupal\external_content\Contract\Serializer\SerializerManagerInterface: '@Drupal\external_content\Serializer\SerializerManager'
+  Drupal\external_content\Serializer\SerializerManager:
+    arguments:
+      $serializers: '%external_content.serializers%'
+  Drupal\external_content\Serializer\ContentSerializer:
+    tags:
+      - { name: external_content.serializer, id: content }
+  Drupal\external_content\Serializer\ElementSerializer:
+    tags:
+      - { name: external_content.serializer, id: element }
+  Drupal\external_content\Serializer\PlainTextSerializer:
+    tags:
+      - { name: external_content.serializer, id: plain_text }

@@ -8,7 +8,7 @@ use Drupal\Core\TypedData\TypedDataInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
 use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
-use Drupal\external_content\Contract\Serializer\SerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Field\ExternalContentComputedProperty;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Html\Element;
@@ -92,7 +92,7 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
    * {@selfdoc}
    */
   private function prepareFieldItemValue(): string {
-    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer = $this->container->get(SerializerManagerInterface::class);
     $serializer->setEnvironment($this->getEnvironment());
 
     return $serializer->normalize($this->prepareDocument());

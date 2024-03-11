@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Serializer;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Html\Element;
@@ -11,7 +11,7 @@ use Drupal\external_content\Node\Html\Element;
 /**
  * Provides a serializer for HTML element.
  */
-final class ElementSerializer implements NodeSerializerInterface {
+final class ElementSerializer implements SerializerInterface {
 
   /**
    * {@inheritdoc}

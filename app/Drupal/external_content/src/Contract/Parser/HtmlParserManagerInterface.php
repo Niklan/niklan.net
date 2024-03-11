@@ -3,7 +3,6 @@
 namespace Drupal\external_content\Contract\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Source\Html;
 

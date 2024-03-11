@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Serializer;
 
-use Drupal\external_content\Contract\Serializer\SerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Serializer\PlainTextSerializer;
@@ -23,7 +23,7 @@ final class PlainTextSerializerTest extends ExternalContentTestBase {
     $environment = new Environment();
     $environment->addSerializer(new PlainTextSerializer());
 
-    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer = $this->container->get(SerializerManagerInterface::class);
     $serializer->setEnvironment($environment);
 
     $element = new PlainText('Hello, World!');

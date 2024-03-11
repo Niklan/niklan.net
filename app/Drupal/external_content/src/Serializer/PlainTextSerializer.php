@@ -3,14 +3,14 @@
 namespace Drupal\external_content\Serializer;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Html\PlainText;
 
 /**
  * Provides a serialization for a plain text element.
  */
-final class PlainTextSerializer implements NodeSerializerInterface {
+final class PlainTextSerializer implements SerializerInterface {
 
   /**
    * {@inheritdoc}

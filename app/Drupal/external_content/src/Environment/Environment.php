@@ -14,7 +14,7 @@ use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\EventListener;
 use Drupal\external_content\Data\PrioritizedList;
 use League\Config\Configuration;
@@ -277,7 +277,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addSerializer(NodeSerializerInterface $serializer, int $priority = 0): self {
+  public function addSerializer(SerializerInterface $serializer, int $priority = 0): self {
     $this->serializers->add($serializer, $priority);
     $this->injectDependencies($serializer);
 

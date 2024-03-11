@@ -5,7 +5,7 @@ namespace Drupal\Tests\external_content\Kernel\Plugin\Field\FieldType;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\SerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Node\Content;
@@ -81,7 +81,7 @@ final class ExternalContentFieldItemTest extends ExternalContentTestBase {
     $environment->addSerializer(new ContentSerializer());
     $environment->addExtension(new BasicHtmlExtension());
 
-    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer = $this->container->get(SerializerManagerInterface::class);
     $serializer->setEnvironment($environment);
 
     return $serializer->normalize($node);

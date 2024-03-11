@@ -16,7 +16,7 @@ use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Loader\LoaderResultInterface;
 use Drupal\external_content\Contract\Parser\ParserInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\IdentifierSource;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\SourceCollection;
@@ -353,8 +353,8 @@ final class EnvironmentTest extends UnitTestCaseTest {
       'method' => 'addFinder',
     ];
 
-    yield 'Serializer' => [
-      'component_interface' => NodeSerializerInterface::class,
+    yield 'SerializerManager' => [
+      'component_interface' => SerializerInterface::class,
       'method' => 'addSerializer',
     ];
 

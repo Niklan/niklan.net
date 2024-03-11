@@ -3,14 +3,14 @@
 namespace Drupal\external_content\Serializer;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Content;
 
 /**
  * Provides serializer for the main document node.
  */
-final class ContentSerializer implements NodeSerializerInterface {
+final class ContentSerializer implements SerializerInterface {
 
   /**
    * {@inheritdoc}

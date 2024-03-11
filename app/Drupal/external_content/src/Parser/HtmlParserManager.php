@@ -3,11 +3,9 @@
 namespace Drupal\external_content\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
-use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
@@ -33,19 +31,16 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
    * {@selfdoc}
    */
   public function parse(Html $html, EnvironmentInterface $environment): Content {
-    $data = new Data(['source' => $html->data()->all()]);
-    $content = $html->contents();
-
-    $pre_parse_event = new HtmlPreParseEvent($content, $data);
+    $pre_parse_event = new HtmlPreParseEvent($html->contents(), $html->data());
     $environment->dispatch($pre_parse_event);
 
-    $document = new Content($pre_parse_event->data);
+    $content = new Content($pre_parse_event->data);
     $crawler = new Crawler($pre_parse_event->content);
     $crawler = $crawler->filter('body');
     $body_node = $crawler->getNode(0);
-    $this->parseChildren($body_node, $document);
+    $this->parseChildren($body_node, $content, $environment);
 
-    return $document;
+    return $content;
   }
 
   /**
@@ -60,7 +55,7 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
       );
     }
 
-    $service = $this->finders[$parser_id]['service'];
+    $service = $this->htmlParsers[$parser_id]['service'];
 
     return $this->container->get($service);
   }
@@ -84,39 +79,38 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
   /**
    * {@selfdoc}
    */
-  protected function parseChildren(\DOMNode $element, NodeInterface $parent): void {
+  protected function parseChildren(\DOMNode $element, NodeInterface $parent, EnvironmentInterface $environment): void {
     foreach ($element->childNodes as $node) {
-      $result = $this->parseNode($node);
+      $result = $this->parseNode($node, $environment);
 
-      if (!$result->hasReplacement()) {
+      if ($result->hasNoReplacement()) {
         continue;
       }
 
-      $child = $result->getReplacement();
-      $parent->addChild($child);
+      $parent->addChild($result->replacement());
 
       if (!$result->shouldContinue()) {
         continue;
       }
 
-      $this->parseChildren($node, $child);
+      $this->parseChildren($node, $result->replacement(), $environment);
     }
   }
 
   /**
    * {@selfdoc}
    */
-  protected function parseNode(\DOMNode $node): HtmlParserResultInterface {
-    foreach ($this->environment->getConfiguration()->get('html.parsers') as $parser) {
+  protected function parseNode(\DOMNode $node, EnvironmentInterface $environment): HtmlParserResult {
+    foreach ($environment->getHtmlParsers() as $parser) {
       \assert($parser instanceof HtmlParserInterface);
       $result = $parser->parseNode($node);
 
-      if ($result->hasReplacement() || !$result->shouldContinue()) {
+      if ($result->hasReplacement() || $result->shouldNotContinue()) {
         return $result;
       }
     }
 
-    return HtmlParserResult::continue();
+    return HtmlParserResult::pass();
   }
 
 }

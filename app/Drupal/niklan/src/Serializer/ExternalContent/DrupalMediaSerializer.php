@@ -3,7 +3,7 @@
 namespace Drupal\niklan\Serializer\ExternalContent;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 
@@ -12,7 +12,7 @@ use Drupal\niklan\Node\ExternalContent\DrupalMedia;
  *
  * @ingroup content_sync
  */
-final class DrupalMediaSerializer implements NodeSerializerInterface {
+final class DrupalMediaSerializer implements SerializerInterface {
 
   /**
    * {@inheritdoc}

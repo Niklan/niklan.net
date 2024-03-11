@@ -5,7 +5,7 @@ namespace Drupal\Tests\external_content\Unit\Extension;
 use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
 use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\BuilderInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\BasicHtmlExtension;
 use Drupal\external_content\Serializer\ElementSerializer;
@@ -29,7 +29,7 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
 
     self::assertCount(2, $environment->getSerializers());
     $serializer_classes = \array_map(
-      static fn (NodeSerializerInterface $serializer) => $serializer::class,
+      static fn (SerializerInterface $serializer) => $serializer::class,
       $environment->getSerializers()->getIterator()->getArrayCopy(),
     );
     self::assertContains(ElementSerializer::class, $serializer_classes);

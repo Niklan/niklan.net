@@ -6,7 +6,7 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\TypedData;
 use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\SerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 
 /**
  * Provides a computed field for "external_content" field type.
@@ -65,8 +65,8 @@ final class ExternalContentComputedProperty extends TypedData {
   /**
    * {@selfdoc}
    */
-  private static function getSerializer(): SerializerInterface {
-    return \Drupal::service(SerializerInterface::class);
+  private static function getSerializer(): SerializerManagerInterface {
+    return \Drupal::service(SerializerManagerInterface::class);
   }
 
 }

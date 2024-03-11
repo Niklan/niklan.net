@@ -18,7 +18,7 @@ final class PlainTextParser implements HtmlParserInterface {
    */
   public function parseNode(\DOMNode $node): HtmlParserResult {
     if (!$node instanceof \DOMText) {
-      return HtmlParserResult::continue();
+      return HtmlParserResult::pass();
     }
 
     // Previously, here was a check for an empty string (e.g. space character).
@@ -40,7 +40,7 @@ final class PlainTextParser implements HtmlParserInterface {
     //
     // This is clearly unwanted behavior. Make sure not to add this check here
     // again.
-    return HtmlParserResult::finalize(new PlainText($node->nodeValue));
+    return HtmlParserResult::replaceAndContinue(new PlainText($node->nodeValue));
   }
 
 }

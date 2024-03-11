@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Serializer;
 
-use Drupal\external_content\Contract\Serializer\SerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Html\Element;
@@ -24,7 +24,7 @@ final class HtmlElementSerializerTest extends ExternalContentTestBase {
     $environment = new Environment();
     $environment->addSerializer(new ElementSerializer());
 
-    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer = $this->container->get(SerializerManagerInterface::class);
     $serializer->setEnvironment($environment);
 
     $attributes = new Attributes();

@@ -10,6 +10,7 @@ use Drupal\external_content\Contract\Finder\FinderManagerInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierManagerInterface;
 use Drupal\external_content\Contract\Loader\LoaderManagerInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 
 /**
  * {@selfdoc}
@@ -55,5 +56,10 @@ interface ExternalContentManagerInterface {
    * {@selfdoc}
    */
   public function getHtmlParserManager(): HtmlParserManagerInterface;
+
+  /**
+   * {@selfdoc}
+   */
+  public function getSerializerManager(): SerializerManagerInterface;
 
 }

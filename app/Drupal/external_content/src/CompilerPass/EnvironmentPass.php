@@ -60,6 +60,12 @@ final class EnvironmentPass implements CompilerPassInterface {
       service_tag: 'external_content.html_parser',
       parameter_name: 'external_content.html_parsers',
     );
+    $this->processComponent(
+      container: $container,
+      type: 'serializer',
+      service_tag: 'external_content.serializer',
+      parameter_name: 'external_content.serializers',
+    );
   }
 
   /**

@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Kernel\Serializer;
 
-use Drupal\external_content\Contract\Serializer\SerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingDeserializerException;
 use Drupal\external_content\Exception\MissingSerializerException;
@@ -17,7 +17,7 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 /**
  * Provides a test for external content serializer.
  *
- * @covers \Drupal\external_content\Serializer\Serializer
+ * @covers \Drupal\external_content\Serializer\SerializerManager
  * @group external_content
  */
 final class SerializerTest extends ExternalContentTestBase {
@@ -50,13 +50,13 @@ final class SerializerTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function prepareSerializer(): SerializerInterface {
+  private function prepareSerializer(): SerializerManagerInterface {
     $environment = new Environment();
     $environment
       ->addSerializer(new PlainTextSerializer())
       ->addSerializer(new ElementSerializer())
       ->addSerializer(new ContentSerializer());
-    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer = $this->container->get(SerializerManagerInterface::class);
     $serializer->setEnvironment($environment);
 
     return $serializer;
@@ -66,7 +66,7 @@ final class SerializerTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testMissingSerializerException(): void {
-    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer = $this->container->get(SerializerManagerInterface::class);
     $serializer->setEnvironment(new Environment());
 
     $document = new Content();
@@ -80,7 +80,7 @@ final class SerializerTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   public function testMissingDeserializerException(): void {
-    $serializer = $this->container->get(SerializerInterface::class);
+    $serializer = $this->container->get(SerializerManagerInterface::class);
     $serializer->setEnvironment(new Environment());
 
     self::expectException(MissingDeserializerException::class);

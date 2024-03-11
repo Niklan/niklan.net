@@ -3,7 +3,7 @@
 namespace Drupal\Tests\external_content\Unit\Exception;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingSerializerException;
 use Drupal\Tests\UnitTestCase;
@@ -20,7 +20,7 @@ final class MissingSerializerExceptionTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testException(): void {
-    $available = $this->prophesize(NodeSerializerInterface::class);
+    $available = $this->prophesize(SerializerInterface::class);
     $available = $available->reveal();
 
     $node = $this->prophesize(NodeInterface::class);

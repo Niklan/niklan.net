@@ -261,8 +261,15 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       input: $identified_source->source,
       environment: $this->environment,
     );
+    $content = $this->externalContentManager->getHtmlParserManager()->parse(
+      html: $html,
+      environment: $this->environment,
+    );
+    $normalized = $this
+      ->externalContentManager
+      ->getSerializerManager()
+      ->normalize($content, $this->environment);
 
-    // @todo Parse.
     return;
 
     $this->replaceMediaNodes($content, $source_dir);

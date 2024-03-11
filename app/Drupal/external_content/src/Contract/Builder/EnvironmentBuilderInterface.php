@@ -9,7 +9,7 @@ use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
-use Drupal\external_content\Contract\Serializer\NodeSerializerInterface;
+use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use League\Config\ConfigurationProviderInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -41,7 +41,7 @@ interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
   /**
    * {@selfdoc}
    */
-  public function addSerializer(NodeSerializerInterface $serializer, int $priority = 0): self;
+  public function addSerializer(SerializerInterface $serializer, int $priority = 0): self;
 
   /**
    * {@selfdoc}
