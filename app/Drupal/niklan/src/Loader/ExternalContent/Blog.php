@@ -48,6 +48,10 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    * {@inheritdoc}
    */
   public function load(IdentifiedSourceBundle $bundle): LoaderResult {
+    \assert(
+      assertion: $this->environment->id(),
+      description: 'An environment must have an ID to be loaded.',
+    );
     $blog_entry = $this->findBlogEntry($bundle->id);
 
     foreach ($bundle->getAllWithAttribute('language')->sources() as $identified_source) {
@@ -265,25 +269,23 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       html: $html,
       environment: $this->environment,
     );
+
+    $this->replaceMediaNodes($content, $this->getSourceDir($identified_source));
+    $this->prepareInternalLinks($content, $this->getSourceDir($identified_source));
     $normalized = $this
       ->externalContentManager
       ->getSerializerManager()
       ->normalize($content, $this->environment);
 
-    return;
-
-    $this->replaceMediaNodes($content, $source_dir);
-    $this->prepareInternalLinks($content, $source_dir);
-
     $additional_info = [
       // For internal links. MD5 is used instead clear value for a smaller size
       // of the stored data.
-      'pathname_md5' => \md5($source_info['pathname']),
+      'pathname_md5' => \md5($identified_source->source->data()->get('pathname')),
     ];
 
     $blog_entry->set('external_content', [
-      'value' => $this->getSerializer()->normalize($content),
-      'environment_id' => 'blog',
+      'value' => $normalized,
+      'environment_id' => $this->environment->id(),
       'data' => \json_encode($additional_info),
     ]);
   }

@@ -74,8 +74,12 @@ services:
   Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier:
     tags:
       - { name: external_content.identifier, id: front_matter }
-  Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer: { }
-  Drupal\niklan\Serializer\ExternalContent\NoteSerializer: { }
+  Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer:
+    tags:
+      - { name: external_content.serializer, id: drupal_media }
+  Drupal\niklan\Serializer\ExternalContent\NoteSerializer:
+    tags:
+      - { name: external_content.serializer, id: note }
   Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia: { }
   Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock: { }
   Drupal\niklan\Builder\ExternalContent\RenderArray\Note: { }
@@ -83,7 +87,6 @@ services:
   Drupal\niklan\Loader\ExternalContent\Blog:
     tags:
       - { name: external_content.loader, id: blog }
-
   Drupal\niklan\Converter\ExternalContent\MarkdownConverter:
     arguments:
       - '@niklan.markdown.converter'
@@ -98,11 +101,5 @@ services:
     class: Drupal\external_content\Environment\Environment
     calls:
       - [addExtension, ['@Drupal\niklan\Extension\ExternalContent\BlogExtension']]
-    #      - [addSerializer, ['@Drupal\niklan\SerializerManager\ExternalContent\DrupalMediaSerializer']]
-    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia']]
-    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock']]
-    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\Note']]
-    #      - [addBuilder, ['@Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder']]
-    #      - [addSerializer, ['@Drupal\niklan\SerializerManager\ExternalContent\NoteSerializer']]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }

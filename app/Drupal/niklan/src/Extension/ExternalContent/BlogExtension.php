@@ -37,6 +37,7 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->getIdentifiersManager();
     $converter_manager = $this->externalContentManager->getConverterManager();
     $loader_manager = $this->externalContentManager->getLoaderManager();
+    $serializer_manager = $this->externalContentManager->getSerializerManager();
 
     $environment
       // @todo Consider to replace by callable subscribers right here. Look
@@ -47,7 +48,9 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->addBundler($bundler_manager->get('same_id'))
       ->addIdentifier($identifier_manager->get('front_matter'))
       ->addConverter($converter_manager->get('niklan_markdown'))
-      ->addLoader($loader_manager->get('blog'));
+      ->addLoader($loader_manager->get('blog'))
+      ->addSerializer($serializer_manager->get('drupal_media'))
+      ->addSerializer($serializer_manager->get('note'));
   }
 
   /**
