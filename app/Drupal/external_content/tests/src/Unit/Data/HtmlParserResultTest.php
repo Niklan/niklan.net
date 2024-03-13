@@ -3,7 +3,7 @@
 namespace Drupal\Tests\external_content\Unit\Data;
 
 use Drupal\external_content\Data\HtmlParserResult;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\PlainText;
 use Drupal\Tests\UnitTestCase;
 
 /**

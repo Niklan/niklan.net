@@ -10,14 +10,12 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 abstract class Node implements NodeInterface {
 
   /**
-   * The parent element.
+   * {@selfdoc}
    */
   protected ?NodeInterface $parent = NULL;
 
   /**
-   * An array with children.
-   *
-   * @var \Drupal\external_content\Contract\Node\NodeInterface[]
+   * {@selfdoc}
    */
   protected array $children = [];
 
@@ -27,6 +25,17 @@ abstract class Node implements NodeInterface {
   public function addChild(NodeInterface $node): NodeInterface {
     $node->setParent($this);
     $this->children[] = $node;
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addChildren(NodeList $node_list): NodeInterface {
+    foreach ($node_list->getChildren() as $node) {
+      $this->addChild($node);
+    }
 
     return $this;
   }

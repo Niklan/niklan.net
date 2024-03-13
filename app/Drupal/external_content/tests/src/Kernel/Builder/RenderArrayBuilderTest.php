@@ -7,8 +7,8 @@ use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Node\Html\Element;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\Element;
+use Drupal\external_content\Node\PlainText;
 use Drupal\external_content_test\Builder\NoneBuilder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 

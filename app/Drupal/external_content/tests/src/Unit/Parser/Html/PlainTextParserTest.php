@@ -5,7 +5,7 @@ namespace Drupal\Tests\external_content\Unit\Parser\Html;
 use Drupal\external_content\Data\HtmlParserResultContinue;
 use Drupal\external_content\Data\HtmlParserResultFinalize;
 use Drupal\external_content\Data\HtmlParserResultStop;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Parser\PlainTextParser;
 use Drupal\Tests\UnitTestCase;
 

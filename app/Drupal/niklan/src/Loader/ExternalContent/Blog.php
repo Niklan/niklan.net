@@ -14,7 +14,7 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\LoaderResult;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Asset\ContentAssetManager;
 use Drupal\niklan\Entity\Node\BlogEntryInterface;

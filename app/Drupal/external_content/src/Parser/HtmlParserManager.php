@@ -3,10 +3,9 @@
 namespace Drupal\external_content\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
-use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\external_content\Event\HtmlPreParseEvent;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Drupal\external_content\Node\Content;
@@ -24,6 +23,7 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
    */
   public function __construct(
     private ContainerInterface $container,
+    private ChildHtmlParserInterface $childHtmlParser,
     private array $htmlParsers = [],
   ) {}
 
@@ -37,8 +37,9 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
     $content = new Content($pre_parse_event->data);
     $crawler = new Crawler($pre_parse_event->content);
     $crawler = $crawler->filter('body');
-    $body_node = $crawler->getNode(0);
-    $this->parseChildren($body_node, $content, $environment);
+    $body = $crawler->getNode(0);
+
+    $this->parseChildren($body, $content, $environment);
 
     return $content;
   }
@@ -79,38 +80,30 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
   /**
    * {@selfdoc}
    */
-  protected function parseChildren(\DOMNode $element, NodeInterface $parent, EnvironmentInterface $environment): void {
-    foreach ($element->childNodes as $node) {
-      $result = $this->parseNode($node, $environment);
+  private function parseChildren(\DOMNode $body, Content $content, EnvironmentInterface $environment): void {
+    $this->childHtmlParser->setEnvironment($environment);
 
-      if ($result->hasNoReplacement()) {
-        continue;
-      }
-
-      $parent->addChild($result->replacement());
-
-      if (!$result->shouldContinue()) {
-        continue;
-      }
-
-      $this->parseChildren($node, $result->replacement(), $environment);
+    foreach ($body->childNodes as $node) {
+      $this->parseChild($node, $content, $environment);
     }
   }
 
   /**
    * {@selfdoc}
    */
-  protected function parseNode(\DOMNode $node, EnvironmentInterface $environment): HtmlParserResult {
+  private function parseChild(\DOMNode $node, Content $content, EnvironmentInterface $environment): void {
     foreach ($environment->getHtmlParsers() as $parser) {
       \assert($parser instanceof HtmlParserInterface);
-      $result = $parser->parseNode($node);
+      $result = $parser->parseNode($node, $this->childHtmlParser);
 
-      if ($result->hasReplacement() || $result->shouldNotContinue()) {
-        return $result;
+      if ($result->hasReplacement()) {
+        $content->addChild($result->replacement());
+      }
+
+      if ($result->shouldNotContinue()) {
+        break;
       }
     }
-
-    return HtmlParserResult::pass();
   }
 
 }

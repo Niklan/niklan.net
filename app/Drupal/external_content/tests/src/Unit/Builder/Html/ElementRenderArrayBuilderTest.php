@@ -5,7 +5,7 @@ namespace Drupal\Tests\external_content\Unit\Builder\Html;
 use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 use Drupal\external_content\Node\Node;
 use Drupal\Tests\UnitTestCaseTest;
 

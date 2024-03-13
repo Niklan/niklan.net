@@ -2,9 +2,10 @@
 
 namespace Drupal\external_content\Parser;
 
+use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\HtmlParserResult;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\PlainText;
 
 /**
  * Provides a parser for a simple text inside HTML elements.
@@ -16,7 +17,7 @@ final class PlainTextParser implements HtmlParserInterface {
   /**
    * {@inheritdoc}
    */
-  public function parseNode(\DOMNode $node): HtmlParserResult {
+  public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     if (!$node instanceof \DOMText) {
       return HtmlParserResult::pass();
     }

@@ -10,7 +10,7 @@ use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 
 /**
  * Provides a simple HTML render array builder.

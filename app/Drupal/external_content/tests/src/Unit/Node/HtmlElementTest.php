@@ -3,13 +3,13 @@
 namespace Drupal\Tests\external_content\Unit\Node;
 
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a HTML element test.
  *
- * @covers \Drupal\external_content\Node\Html\Element
+ * @covers \Drupal\external_content\Node\Element
  * @group external_content
  */
 final class HtmlElementTest extends UnitTestCase {

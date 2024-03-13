@@ -11,8 +11,8 @@ use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\Environm
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Field\ExternalContentComputedProperty;
 use Drupal\external_content\Node\Content;
-use Drupal\external_content\Node\Html\Element;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\Element;
+use Drupal\external_content\Node\PlainText;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 

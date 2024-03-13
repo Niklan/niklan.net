@@ -1,9 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Node\Html;
+namespace Drupal\external_content\Node;
 
 use Drupal\external_content\Data\Attributes;
-use Drupal\external_content\Node\Node;
 
 /**
  * Represents a simple HTML element.

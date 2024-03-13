@@ -34,6 +34,7 @@ final class SourceCollection {
    * {@selfdoc}
    *
    * @return \Drupal\external_content\Contract\Source\SourceInterface[]
+   *   The sources.
    */
   public function items(): array {
     return $this->items;

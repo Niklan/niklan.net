@@ -5,7 +5,7 @@ namespace Drupal\external_content\Serializer;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\PlainText;
 
 /**
  * Provides a serialization for a plain text element.

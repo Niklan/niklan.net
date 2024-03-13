@@ -4,7 +4,7 @@ namespace Drupal\Tests\external_content\Kernel\Serializer;
 
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Serializer\PlainTextSerializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 

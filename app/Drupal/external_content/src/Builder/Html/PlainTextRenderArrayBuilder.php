@@ -7,7 +7,7 @@ use Drupal\external_content\Contract\Builder\BuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
-use Drupal\external_content\Node\Html\PlainText;
+use Drupal\external_content\Node\PlainText;
 
 /**
  * Provides a simple builder for the plain text.

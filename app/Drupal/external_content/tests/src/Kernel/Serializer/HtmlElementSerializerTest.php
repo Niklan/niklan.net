@@ -5,7 +5,7 @@ namespace Drupal\Tests\external_content\Kernel\Serializer;
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 use Drupal\external_content\Serializer\ElementSerializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 

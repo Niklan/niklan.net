@@ -2,6 +2,8 @@
 
 namespace Drupal\external_content\Contract\Node;
 
+use Drupal\external_content\Node\NodeList;
+
 /**
  * Represents a single external content AST node.
  *
@@ -34,6 +36,11 @@ interface NodeInterface {
    *   The child node.
    */
   public function addChild(self $node): self;
+
+  /**
+   * {@selfdoc}
+   */
+  public function addChildren(NodeList $node_list): self;
 
   /**
    * Gets children nodes.

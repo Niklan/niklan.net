@@ -32,6 +32,7 @@ final class IdentifiedSourceBundleCollection {
    * {@selfdoc}
    *
    * @return \Drupal\external_content\Data\IdentifiedSourceBundle[]
+   *   The identified bundles.
    */
   public function bundles(): array {
     return $this->bundles;

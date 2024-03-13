@@ -3,7 +3,7 @@
 namespace Drupal\comment\Tests\external_content\Unit\Parser\Html;
 
 use Drupal\external_content\Data\HtmlParserResultReplace;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 use Drupal\external_content\Parser\ElementParser;
 use Drupal\Tests\UnitTestCase;
 

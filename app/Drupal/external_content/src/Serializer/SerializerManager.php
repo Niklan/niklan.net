@@ -29,7 +29,11 @@ final class SerializerManager implements SerializerManagerInterface {
    * {@inheritdoc}
    */
   public function normalize(NodeInterface $document, EnvironmentInterface $environment): string {
-    return \json_encode($this->normalizeRecursive($document, $environment));
+    return \json_encode(
+      value: $this->normalizeRecursive($document, $environment),
+      // For UTF-8 content it reduces the total size in half.
+      flags: JSON_UNESCAPED_UNICODE,
+    );
   }
 
   /**

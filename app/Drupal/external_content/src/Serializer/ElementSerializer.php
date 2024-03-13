@@ -6,7 +6,7 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\Data;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 
 /**
  * Provides a serializer for HTML element.

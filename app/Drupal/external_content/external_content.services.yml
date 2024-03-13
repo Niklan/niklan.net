@@ -84,6 +84,8 @@ services:
   Drupal\external_content\Parser\HtmlParserManager:
     arguments:
       $htmlParsers: '%external_content.html_parsers%'
+  Drupal\external_content\Contract\Parser\ChildHtmlParserInterface: '@Drupal\external_content\Parser\ChildHtmlParser'
+  Drupal\external_content\Parser\ChildHtmlParser: {}
   Drupal\external_content\Parser\PlainTextParser:
     tags:
       - { name: external_content.html_parser, id: plain_text }

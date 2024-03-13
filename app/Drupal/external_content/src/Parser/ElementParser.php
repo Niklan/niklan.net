@@ -2,9 +2,10 @@
 
 namespace Drupal\external_content\Parser;
 
+use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\HtmlParserResult;
-use Drupal\external_content\Node\Html\Element;
+use Drupal\external_content\Node\Element;
 
 /**
  * Provides a generic HTML element parser.
@@ -14,7 +15,7 @@ final class ElementParser implements HtmlParserInterface {
   /**
    * {@inheritdoc}
    */
-  public function parseNode(\DOMNode $node): HtmlParserResult {
+  public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     $element = new Element($node->nodeName);
 
     if ($node->hasAttributes()) {
@@ -25,6 +26,8 @@ final class ElementParser implements HtmlParserInterface {
           ->setAttribute($attribute->name, $attribute->value);
       }
     }
+
+    $element->addChildren($child_parser->parse($node->childNodes));
 
     return HtmlParserResult::replaceAndContinue($element);
   }

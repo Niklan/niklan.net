@@ -12,6 +12,6 @@ interface HtmlParserInterface {
   /**
    * {@selfdoc}
    */
-  public function parseNode(\DOMNode $node): HtmlParserResult;
+  public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult;
 
 }

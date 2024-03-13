@@ -32,6 +32,7 @@ final class IdentifiedSourceCollection {
    * {@selfdoc}
    *
    * @return \Drupal\external_content\Data\IdentifiedSource[]
+   *   The identified sources.
    */
   public function sources(): array {
     return $this->sources;

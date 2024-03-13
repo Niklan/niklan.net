@@ -4,8 +4,8 @@ namespace Drupal\Tests\external_content\Unit\Builder\Html;
 
 use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
-use Drupal\external_content\Node\Html\PlainText;
 use Drupal\external_content\Node\Node;
+use Drupal\external_content\Node\PlainText;
 use Drupal\Tests\UnitTestCaseTest;
 
 /**
