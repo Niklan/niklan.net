@@ -98,6 +98,8 @@ services:
   Drupal\external_content\Serializer\SerializerManager:
     arguments:
       $serializers: '%external_content.serializers%'
+  Drupal\external_content\Contract\Serializer\ChildSerializerInterface: '@Drupal\external_content\Serializer\ChildSerializer'
+  Drupal\external_content\Serializer\ChildSerializer: {}
   Drupal\external_content\Serializer\ContentSerializer:
     tags:
       - { name: external_content.serializer, id: content }

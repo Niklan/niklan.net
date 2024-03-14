@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Serializer;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\PlainText;
@@ -15,12 +16,12 @@ final class PlainTextSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function normalize(NodeInterface $node): Data {
+  public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof PlainText);
 
-    return new Data([
+    return [
       'text' => $node->getContent(),
-    ]);
+    ];
   }
 
   /**
@@ -47,7 +48,7 @@ final class PlainTextSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data, string $serialized_version): NodeInterface {
+  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new PlainText($data->get('text'));
   }
 

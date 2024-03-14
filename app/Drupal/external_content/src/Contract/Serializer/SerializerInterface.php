@@ -13,7 +13,7 @@ interface SerializerInterface {
   /**
    * {@selfdoc}
    */
-  public function normalize(NodeInterface $node): Data;
+  public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array;
 
   /**
    * {@selfdoc}
@@ -38,6 +38,6 @@ interface SerializerInterface {
   /**
    * {@selfdoc}
    */
-  public function deserialize(Data $data, string $serialized_version): NodeInterface;
+  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface;
 
 }

@@ -31,7 +31,11 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
    * {@selfdoc}
    */
   public function parse(Html $html, EnvironmentInterface $environment): Content {
-    $pre_parse_event = new HtmlPreParseEvent($html->contents(), $html->data());
+    $pre_parse_event = new HtmlPreParseEvent(
+      content: $html->contents(),
+      data: $html->data(),
+      environment: $environment,
+    );
     $environment->dispatch($pre_parse_event);
 
     $content = new Content($pre_parse_event->data);

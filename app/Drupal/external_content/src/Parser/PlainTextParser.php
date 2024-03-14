@@ -22,6 +22,14 @@ final class PlainTextParser implements HtmlParserInterface {
       return HtmlParserResult::pass();
     }
 
+    // @todo Make it configurable.
+    // A single element with a new line in most cases is just useless element.
+    // In a big content it can add ~10-20% for the total content size, but do
+    // not affect markup result.
+    if ($node->textContent === \PHP_EOL) {
+      return HtmlParserResult::stop();
+    }
+
     // Previously, here was a check for an empty string (e.g. space character).
     // It was checked by trim() function and parser returned stop signal for
     // that element. This is wrong, because in cases when multiple consecutive
@@ -41,7 +49,7 @@ final class PlainTextParser implements HtmlParserInterface {
     //
     // This is clearly unwanted behavior. Make sure not to add this check here
     // again.
-    return HtmlParserResult::replaceAndContinue(new PlainText($node->nodeValue));
+    return HtmlParserResult::replace(new PlainText($node->nodeValue));
   }
 
 }

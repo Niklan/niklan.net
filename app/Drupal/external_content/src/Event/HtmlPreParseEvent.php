@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\Event;
 
+use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Data\Data;
 
 /**
@@ -10,11 +11,12 @@ use Drupal\external_content\Data\Data;
 final class HtmlPreParseEvent extends Event {
 
   /**
-   * Constructs a new HtmlPreParseEvent instance.
+   * {@selfdoc}
    */
   public function __construct(
     public string $content,
     public Data $data,
+    public EnvironmentInterface $environment,
   ) {}
 
 }

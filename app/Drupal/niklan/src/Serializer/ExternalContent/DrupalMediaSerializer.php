@@ -3,6 +3,7 @@
 namespace Drupal\niklan\Serializer\ExternalContent;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
@@ -17,14 +18,14 @@ final class DrupalMediaSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function normalize(NodeInterface $node): Data {
+  public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof DrupalMedia);
 
-    return new Data([
+    return [
       'uuid' => $node->uuid,
       'alt' => $node->alt,
       'title' => $node->title,
-    ]);
+    ];
   }
 
   /**
@@ -51,7 +52,7 @@ final class DrupalMediaSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data, string $serialized_version): NodeInterface {
+  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new DrupalMedia(
       $data->get('uuid'),
       $data->get('alt'),

@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Serializer;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\Data;
@@ -16,13 +17,23 @@ final class ElementSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function normalize(NodeInterface $node): Data {
+  public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof Element);
 
-    return new Data([
-      'tag' => $node->getTag(),
-      'attributes' => $node->getAttributes()->all(),
-    ]);
+    $result = ['tag' => $node->getTag()];
+
+    if ($node->getAttributes()->all()) {
+      $result['attributes'] = $node->getAttributes()->all();
+    }
+
+    if ($node->hasChildren()) {
+      $result['children'] = \array_map(
+        static fn (NodeInterface $child) => $child_serializer->normalize($child),
+        $node->getChildren()->getArrayCopy(),
+      );
+    }
+
+    return $result;
   }
 
   /**
@@ -49,7 +60,7 @@ final class ElementSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data, string $serialized_version): NodeInterface {
+  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
     $attributes = new Attributes($data->get('attributes'));
 
     return new Element($data->get('tag'), $attributes);

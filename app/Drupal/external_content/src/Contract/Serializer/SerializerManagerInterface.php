@@ -13,7 +13,7 @@ interface SerializerManagerInterface {
   /**
    * {@selfdoc}
    */
-  public function normalize(NodeInterface $document, EnvironmentInterface $environment): string;
+  public function normalize(NodeInterface $node, EnvironmentInterface $environment): string;
 
   /**
    * {@selfdoc}

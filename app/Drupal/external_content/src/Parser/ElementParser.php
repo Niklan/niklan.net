@@ -29,7 +29,7 @@ final class ElementParser implements HtmlParserInterface {
 
     $element->addChildren($child_parser->parse($node->childNodes));
 
-    return HtmlParserResult::replaceAndContinue($element);
+    return HtmlParserResult::replace($element);
   }
 
 }

@@ -3,6 +3,7 @@
 namespace Drupal\external_content\Serializer;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Content;
@@ -15,10 +16,16 @@ final class ContentSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function normalize(NodeInterface $node): Data {
+  public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof Content);
 
-    return $node->getData();
+    return [
+      'source' => $node->getData()->all(),
+      'children' => \array_map(
+        static fn (NodeInterface $child) => $child_serializer->normalize($child),
+        $node->getChildren()->getArrayCopy(),
+      ),
+    ];
   }
 
   /**
@@ -45,7 +52,7 @@ final class ContentSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data, string $serialized_version): NodeInterface {
+  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new Content($data);
   }
 

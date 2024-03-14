@@ -55,14 +55,7 @@ final readonly class HtmlParserResult {
   /**
    * {@selfdoc}
    */
-  public static function replaceAndContinue(NodeInterface $node): self {
-    return new self(TRUE, $node);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public static function replaceAndStop(NodeInterface $node): self {
+  public static function replace(NodeInterface $node): self {
     return new self(FALSE, $node);
   }
 

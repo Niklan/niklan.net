@@ -53,7 +53,7 @@ services:
     arguments:
       - '@keyvalue.niklan.content_sync_settings'
 
-  Drupal\niklan\EventSubscriber\FileFoundEventSubscriber:
+  Drupal\niklan\EventSubscriber\BlogExtensionEventSubscriber:
     tags:
       - { name: event_subscriber }
 

@@ -1,36 +1,39 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Drupal\external_content\Serializer;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Drupal\external_content\Exception\MissingDeserializerException;
-use Drupal\external_content\Exception\MissingSerializerException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a serializer for external content.
  */
-final class SerializerManager implements SerializerManagerInterface {
+final readonly class SerializerManager implements SerializerManagerInterface {
 
   /**
    * {@selfdoc}
    */
   public function __construct(
     private ContainerInterface $container,
+    private ChildSerializerInterface $childSerializer,
     private array $serializers = [],
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function normalize(NodeInterface $document, EnvironmentInterface $environment): string {
+  public function normalize(NodeInterface $node, EnvironmentInterface $environment): string {
+    $this->childSerializer->setEnvironment($environment);
+
     return \json_encode(
-      value: $this->normalizeRecursive($document, $environment),
+      value: $this->childSerializer->normalize($node),
       // For UTF-8 content it reduces the total size in half.
       flags: JSON_UNESCAPED_UNICODE,
     );
@@ -78,41 +81,6 @@ final class SerializerManager implements SerializerManagerInterface {
   #[\Override]
   public function list(): array {
     return $this->serializers;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function normalizeRecursive(NodeInterface $node, EnvironmentInterface $environment): array {
-    $children = [];
-
-    foreach ($node->getChildren() as $child) {
-      $children[] = $this->normalizeRecursive($child, $environment);
-    }
-
-    return $this->normalizeNode($node, $children, $environment);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function normalizeNode(NodeInterface $node, array $children, EnvironmentInterface $environment): array {
-    foreach ($environment->getSerializers() as $serializer) {
-      \assert($serializer instanceof SerializerInterface);
-
-      if (!$serializer->supportsSerialization($node)) {
-        continue;
-      }
-
-      return [
-        'type' => $serializer->getSerializationBlockType(),
-        'version' => $serializer->getSerializerVersion(),
-        'data' => $serializer->normalize($node)->all(),
-        'children' => $children,
-      ];
-    }
-
-    throw new MissingSerializerException($node, $environment);
   }
 
   /**

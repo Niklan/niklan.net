@@ -3,6 +3,7 @@
 namespace Drupal\niklan\Serializer\ExternalContent;
 
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\niklan\Node\ExternalContent\Note;
@@ -17,13 +18,13 @@ final class NoteSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function normalize(NodeInterface $node): Data {
+  public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof Note);
 
-    return new Data([
+    return [
       'type' => $node->type,
       'heading' => $node->heading,
-    ]);
+    ];
   }
 
   /**
@@ -50,7 +51,7 @@ final class NoteSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data, string $serialized_version): NodeInterface {
+  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new Note($data->get('type'), $data->get('heading'));
   }
 

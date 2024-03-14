@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Converter\ExternalContent;
 
+use Drupal\Component\FrontMatter\FrontMatter;
 use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\ConverterResult;
@@ -31,7 +32,9 @@ final readonly class MarkdownConverter implements ConverterInterface {
       return ConverterResult::pass();
     }
 
-    $result = $this->converter->convert($input->contents());
+    // Remove Front Matter from the source.
+    $front_matter = FrontMatter::create($input->contents());
+    $result = $this->converter->convert($front_matter->getContent());
     $html = new Html($result->getContent(), $input->data());
 
     return ConverterResult::withHtml($html);
