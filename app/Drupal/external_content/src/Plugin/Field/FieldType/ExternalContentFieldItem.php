@@ -29,7 +29,6 @@ final class ExternalContentFieldItem extends FieldItemBase {
 
     $properties['value'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Serialized external content document'))
-      ->addConstraint('ExternalContentValidJson')
       ->setRequired(TRUE);
 
     $properties['environment_id'] = DataDefinition::create('string')
@@ -56,6 +55,7 @@ final class ExternalContentFieldItem extends FieldItemBase {
   #[\Override]
   public function getConstraints(): array {
     $constraints = parent::getConstraints();
+    $constraints['value']['ExternalContentValidJson'] = [];
     $constraints['data']['ExternalContentValidJson'] = [];
 
     return $constraints;
@@ -67,11 +67,15 @@ final class ExternalContentFieldItem extends FieldItemBase {
   public static function schema(FieldStorageDefinitionInterface $field_definition): array {
     return [
       'columns' => [
+        // The content can be big enough and JSON type has limitations which can
+        // be exceeded even on a small content, but with a complex structure.
+        // All the information for which JSON search and manipulation wanted to
+        // be used, should be saved in 'data'.
+        //
+        // @see https://github.com/mysql/mysql-server/blame/4869291f7ee258e136ef03f5a50135fe7329ffb9/sql/json_syntax_check.cc#L80
         'value' => [
-          'type' => 'json',
-          'pgsql_type' => 'json',
-          'mysql_type' => 'json',
-          'sqlite_type' => 'text',
+          'type' => 'text',
+          'size' => 'medium',
           'not null' => FALSE,
         ],
         'environment_id' => [

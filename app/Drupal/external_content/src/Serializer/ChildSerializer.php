@@ -8,6 +8,8 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
+use Drupal\external_content\Data\Data;
+use Drupal\external_content\Exception\MissingDeserializerException;
 use Drupal\external_content\Exception\MissingSerializerException;
 
 /**
@@ -46,8 +48,26 @@ final class ChildSerializer implements ChildSerializerInterface {
    * {@inheritdoc}
    */
   #[\Override]
-  public function deserialize(string $json): NodeInterface {
-    // TODO: Implement deserialize() method.
+  public function deserialize(array $json): NodeInterface {
+    \assert($json['type'], 'Missing data type.');
+    $version = $json['version'] ?? '0.0.0';
+    $data = new Data($json['data'] ?? []);
+
+    foreach ($this->environment->getSerializers() as $serializer) {
+      \assert($serializer instanceof SerializerInterface);
+
+      if (!$serializer->supportsDeserialization($json['type'], $version)) {
+        continue;
+      }
+
+      return $serializer->deserialize($data, $version, $this);
+    }
+
+    throw new MissingDeserializerException(
+      $json['type'],
+      $version,
+      $this->environment,
+    );
   }
 
   /**

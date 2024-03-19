@@ -20,6 +20,6 @@ interface ChildSerializerInterface extends EnvironmentAwareInterface {
   /**
    * {@selfdoc}
    */
-  public function deserialize(string $json): NodeInterface;
+  public function deserialize(array $json): NodeInterface;
 
 }

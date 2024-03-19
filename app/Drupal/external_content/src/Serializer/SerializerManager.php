@@ -43,11 +43,10 @@ final readonly class SerializerManager implements SerializerManagerInterface {
    * {@inheritdoc}
    */
   public function deserialize(string $json, EnvironmentInterface $environment): NodeInterface {
+    $this->childSerializer->setEnvironment($environment);
     $json_array = \json_decode($json, TRUE);
-    $node = $this->deserializeRecursive($json_array, $environment);
-    \assert($node instanceof NodeInterface);
 
-    return $node;
+    return $this->childSerializer->deserialize($json_array);
   }
 
   /**
@@ -81,44 +80,6 @@ final readonly class SerializerManager implements SerializerManagerInterface {
   #[\Override]
   public function list(): array {
     return $this->serializers;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function deserializeRecursive(array $json, EnvironmentInterface $environment): NodeInterface {
-    $element = $this->deserializeNode($json, $environment);
-
-    foreach ($json['children'] as $child) {
-      $element->addChild($this->deserializeRecursive($child, $environment));
-    }
-
-    return $element;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function deserializeNode(array $node_data, EnvironmentInterface $environment): NodeInterface {
-    $version = $node_data['version'] ?? '0.0.0';
-
-    $data = new Data($node_data['data']);
-
-    foreach ($environment->getSerializers() as $serializer) {
-      \assert($serializer instanceof SerializerInterface);
-
-      if (!$serializer->supportsDeserialization($node_data['type'], $version)) {
-        continue;
-      }
-
-      return $serializer->deserialize($data, $version);
-    }
-
-    throw new MissingDeserializerException(
-      $node_data['type'],
-      $version,
-      $environment,
-    );
   }
 
 }
