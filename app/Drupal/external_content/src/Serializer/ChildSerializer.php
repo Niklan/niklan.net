@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Serializer;
 
@@ -48,15 +46,15 @@ final class ChildSerializer implements ChildSerializerInterface {
    * {@inheritdoc}
    */
   #[\Override]
-  public function deserialize(array $json): NodeInterface {
-    \assert($json['type'], 'Missing data type.');
-    $version = $json['version'] ?? '0.0.0';
-    $data = new Data($json['data'] ?? []);
+  public function deserialize(array $element): NodeInterface {
+    \assert($element['type'], 'Missing data type.');
+    $version = $element['version'] ?? '0.0.0';
+    $data = new Data($element['data'] ?? []);
 
     foreach ($this->environment->getSerializers() as $serializer) {
       \assert($serializer instanceof SerializerInterface);
 
-      if (!$serializer->supportsDeserialization($json['type'], $version)) {
+      if (!$serializer->supportsDeserialization($element['type'], $version)) {
         continue;
       }
 
@@ -64,7 +62,7 @@ final class ChildSerializer implements ChildSerializerInterface {
     }
 
     throw new MissingDeserializerException(
-      $json['type'],
+      $element['type'],
       $version,
       $this->environment,
     );

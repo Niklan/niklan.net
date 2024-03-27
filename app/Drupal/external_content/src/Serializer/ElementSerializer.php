@@ -26,12 +26,10 @@ final class ElementSerializer implements SerializerInterface {
       $result['attributes'] = $node->getAttributes()->all();
     }
 
-    if ($node->hasChildren()) {
-      $result['children'] = \array_map(
-        static fn (NodeInterface $child) => $child_serializer->normalize($child),
-        $node->getChildren()->getArrayCopy(),
-      );
-    }
+    $result['children'] = \array_map(
+      static fn (NodeInterface $child) => $child_serializer->normalize($child),
+      $node->getChildren()->getArrayCopy(),
+    );
 
     return $result;
   }
@@ -61,9 +59,14 @@ final class ElementSerializer implements SerializerInterface {
    * {@inheritdoc}
    */
   public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    $attributes = new Attributes($data->get('attributes'));
+    $attributes = new Attributes($data->get('attributes') ?? []);
+    $element = new Element($data->get('tag'), $attributes);
 
-    return new Element($data->get('tag'), $attributes);
+    foreach ($data->get('children') as $child) {
+      $element->addChild($child_serializer->deserialize($child));
+    }
+
+    return $element;
   }
 
   /**

@@ -277,10 +277,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       ->getSerializerManager()
       ->normalize($content, $this->environment);
 
-    $stream = \fopen(\DRUPAL_ROOT . '/../result.json', 'wd');
-    \fputs($stream, $normalized);
-    \fclose($stream);
-
     $additional_info = [
       // For internal links. MD5 is used instead clear value for a smaller size
       // of the stored data.

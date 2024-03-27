@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Serializer;
 
@@ -7,9 +7,7 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
-use Drupal\external_content\Data\Data;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
-use Drupal\external_content\Exception\MissingDeserializerException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -35,7 +33,7 @@ final readonly class SerializerManager implements SerializerManagerInterface {
     return \json_encode(
       value: $this->childSerializer->normalize($node),
       // For UTF-8 content it reduces the total size in half.
-      flags: JSON_UNESCAPED_UNICODE,
+      flags: \JSON_UNESCAPED_UNICODE,
     );
   }
 

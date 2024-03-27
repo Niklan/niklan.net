@@ -53,7 +53,13 @@ final class ContentSerializer implements SerializerInterface {
    * {@inheritdoc}
    */
   public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    return new Content($data);
+    $content = new Content(new Data($data->get('source')));
+
+    foreach ($data->get('children') as $child) {
+      $content->addChild($child_serializer->deserialize($child));
+    }
+
+    return $content;
   }
 
   /**
