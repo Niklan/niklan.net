@@ -28,9 +28,6 @@ final class BlogEntryExtractor {
    *
    * @param \Drupal\niklan\Entity\Node\BlogEntryInterface $blog_entry
    *   The blog entry.
-   *
-   * @return \Drupal\content_export\Data\BlogEntryExport
-   *   The blog entry export.
    */
   public function extract(BlogEntryInterface $blog_entry): BlogEntryExport {
     $front_matter = $this->frontMatterExtractor->extract($blog_entry);

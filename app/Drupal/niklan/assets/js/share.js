@@ -21,8 +21,8 @@
 
     shareElement.addEventListener('click', () => {
       navigator.share({text, url})
-        // eslint-disable no-console
-        .catch((error) => console.error('Sharing failed', error));
+          // eslint-disable no-console
+          .catch((error) => console.error('Sharing failed', error));
     });
   }
 

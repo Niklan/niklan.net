@@ -25,9 +25,6 @@ final class EntitySearchResult {
 
   /**
    * Gets the entity type ID.
-   *
-   * @return string
-   *   The entity type ID.
    */
   public function getEntityTypeId(): string {
     return $this->entityTypeId;
@@ -35,9 +32,6 @@ final class EntitySearchResult {
 
   /**
    * Gets the entity ID.
-   *
-   * @return int|string
-   *   The entity ID.
    */
   public function getEntityId(): int|string {
     return $this->entityId;
@@ -45,9 +39,6 @@ final class EntitySearchResult {
 
   /**
    * Gets the result language.
-   *
-   * @return string
-   *   The langcode.
    */
   public function getLanguage(): string {
     return $this->language;

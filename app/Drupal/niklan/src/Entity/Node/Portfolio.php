@@ -5,6 +5,6 @@ namespace Drupal\niklan\Entity\Node;
 /**
  * Provides a bundle class for 'portfolio' content type.
  */
-final class Portfolio extends Node implements BlogEntryInterface {
+final class Portfolio extends Node implements PortfolioInterface {
 
 }

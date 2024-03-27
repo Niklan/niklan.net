@@ -22,9 +22,6 @@ final class BlogEntryExport {
 
   /**
    * Gets Front Matter.
-   *
-   * @return \Drupal\content_export\Data\FrontMatter
-   *   The Front Matter.
    */
   public function getFrontMatter(): FrontMatter {
     return $this->frontMatter;
@@ -32,9 +29,6 @@ final class BlogEntryExport {
 
   /**
    * Gets content.
-   *
-   * @return \Drupal\content_export\Data\Content
-   *   The content collection.
    */
   public function getContent(): Content {
     return $this->content;

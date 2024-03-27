@@ -66,6 +66,21 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
   }
 
   /**
+   * Warms up result entities.
+   *
+   * @param \Drupal\niklan\Data\EntitySearchResults $results
+   *   The search results.
+   */
+  protected function warmUpResults(EntitySearchResults $results): void {
+    foreach ($results->getEntityIds() as $entity_type_id => $entity_ids) {
+      $this
+        ->entityTypeManager
+        ->getStorage($entity_type_id)
+        ->loadMultiple($entity_ids);
+    }
+  }
+
+  /**
    * Builds a single result.
    *
    * @param \Drupal\niklan\Data\EntitySearchResult $result
@@ -82,21 +97,6 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
     $entity = $storage->load($result->getEntityId());
 
     return $view_builder->view($entity, 'search_result');
-  }
-
-  /**
-   * Warms up result entities.
-   *
-   * @param \Drupal\niklan\Data\EntitySearchResults $results
-   *   The search results.
-   */
-  protected function warmUpResults(EntitySearchResults $results): void {
-    foreach ($results->getEntityIds() as $entity_type_id => $entity_ids) {
-      $this
-        ->entityTypeManager
-        ->getStorage($entity_type_id)
-        ->loadMultiple($entity_ids);
-    }
   }
 
 }

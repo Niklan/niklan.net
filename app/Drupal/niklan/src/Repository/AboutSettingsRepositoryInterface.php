@@ -9,9 +9,6 @@ interface AboutSettingsRepositoryInterface {
 
   /**
    * Gets a photo media entity ID.
-   *
-   * @return string
-   *   The media entity ID.
    */
   public function getPhotoMediaId(): ?string;
 
@@ -27,9 +24,6 @@ interface AboutSettingsRepositoryInterface {
 
   /**
    * Gets a responsive image style ID.
-   *
-   * @return string|null
-   *   The responsive image style ID.
    */
   public function getPhotoResponsiveImageStyleId(): ?string;
 

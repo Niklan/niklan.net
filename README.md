@@ -2,9 +2,12 @@
 
 <img src="./app/Drupal/mechanical/logo.svg" alt="Niklan.net" width="128" align="right">
 
+[![Niklan.net website repository](https://img.shields.io/badge/website-blue?style=flat&logo=github&label=niklan.net)](https://github.com/Niklan/niklan.net)
+[![Niklan.net content repository](https://img.shields.io/badge/content-f4f2ef?style=flat&logo=github&label=niklan.net)](https://github.com/Niklan/niklan.net-content)
+[![Niklan.net examples repository](https://img.shields.io/badge/examples-yellow?style=flat&logo=github&label=niklan.net
+)](https://github.com/Niklan/niklan.net-examples)\
 [![CI](https://github.com/Niklan/niklan.net/actions/workflows/ci.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/ci.yml)
 [![CD](https://github.com/Niklan/niklan.net/actions/workflows/cd.yml/badge.svg)](https://github.com/Niklan/niklan.net/actions/workflows/cd.yml)
-[![Code coverage](https://codecov.io/gh/Niklan/niklan.net/branch/develop/graph/badge.svg)](https://codecov.io/gh/Niklan/niklan.net/)
 
 This is a repository with a source code of <https://niklan.net> website.
 

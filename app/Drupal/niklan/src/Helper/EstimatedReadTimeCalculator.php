@@ -22,9 +22,6 @@ final class EstimatedReadTimeCalculator {
    *
    * @param \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $items
    *   The field with paragraph list.
-   *
-   * @return int
-   *   The estimated read time in minutes.
    */
   public function calculate(EntityReferenceRevisionsFieldItemList $items): int {
     $estimated_read_time = 0;
@@ -51,9 +48,6 @@ final class EstimatedReadTimeCalculator {
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph entity.
-   *
-   * @return int|float
-   *   The estimated read time.
    */
   protected function calculateTextParagraph(ParagraphInterface $paragraph): int|float {
     if ($paragraph->get('field_body')->isEmpty()) {
@@ -72,9 +66,6 @@ final class EstimatedReadTimeCalculator {
    *
    * @param \Drupal\paragraphs\ParagraphInterface $paragraph
    *   The paragraph entity.
-   *
-   * @return int|float
-   *   The estimated read time.
    */
   protected function calculateCodeParagraph(ParagraphInterface $paragraph): int|float {
     if ($paragraph->get('field_body')->isEmpty()) {
@@ -95,9 +86,6 @@ final class EstimatedReadTimeCalculator {
    * @param int|float $multiplier
    *   The speed read multiplier. 2 - means that read time for that part is
    *   expected to be two times slower that usual text.
-   *
-   * @return int|float
-   *   The estimated read time in seconds.
    */
   protected function calculateEstimatedReadTime(int $words_count, int|float $multiplier = 1): int|float {
     return \floor($words_count * $multiplier / $this->wordsPerMinute * 60);

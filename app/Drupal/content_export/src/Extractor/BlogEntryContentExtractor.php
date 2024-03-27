@@ -26,9 +26,6 @@ final class BlogEntryContentExtractor {
    *
    * @param \Drupal\niklan\Entity\Node\BlogEntryInterface $blog_entry
    *   The blog entry entity.
-   *
-   * @return \Drupal\content_export\Data\Content
-   *   The content.
    */
   public function extract(BlogEntryInterface $blog_entry): Content {
     $content = new Content();
@@ -103,7 +100,7 @@ final class BlogEntryContentExtractor {
     );
 
     if ($highlighted_lines) {
-      $front_matter_values['highlight_lines'] = $highlighted_lines;
+      $front_matter_values['highlighted_lines'] = $highlighted_lines;
     }
 
     if (!$paragraph->get('field_title')->isEmpty()) {

@@ -24,8 +24,6 @@ final class WriterState {
    *
    * @param string $working_dir
    *   The working dir.
-   *
-   * @return $this
    */
   public function setWorkingDir(string $working_dir): self {
     $this->workingDir = $working_dir;
@@ -35,9 +33,6 @@ final class WriterState {
 
   /**
    * Gets the working dir.
-   *
-   * @return string
-   *   The working dir.
    */
   public function getWorkingDir(): string {
     return $this->workingDir;
@@ -45,9 +40,6 @@ final class WriterState {
 
   /**
    * Gets the export state.
-   *
-   * @return \Drupal\content_export\Data\ExportState
-   *   The export state.
    */
   public function getExportState(): ExportState {
     return $this->exportState;
@@ -55,9 +47,6 @@ final class WriterState {
 
   /**
    * Gets markdown builder state.
-   *
-   * @return \Drupal\content_export\Data\MarkdownBuilderState
-   *   The markdown builder state.
    */
   public function getMarkdownBuilderState(): MarkdownBuilderState {
     return $this->markdownBuilderState;

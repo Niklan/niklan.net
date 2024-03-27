@@ -21,9 +21,6 @@ final class EmbedContent implements MarkdownSourceInterface {
 
   /**
    * Gets resource URL.
-   *
-   * @return string
-   *   The resource URL.
    */
   public function getUrl(): string {
     return $this->url;

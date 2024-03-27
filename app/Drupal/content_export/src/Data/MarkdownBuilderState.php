@@ -22,8 +22,6 @@ final class MarkdownBuilderState {
    *
    * @param string $uri
    *   The file URI.
-   *
-   * @return $this
    */
   public function trackFileUri(string $uri): self {
     if (!\in_array($uri, $this->fileUris)) {
@@ -48,8 +46,6 @@ final class MarkdownBuilderState {
    *
    * @param string $content
    *   The current content.
-   *
-   * @return $this
    */
   public function setCurrentContent(string $content): self {
     $this->content = $content;
@@ -59,9 +55,6 @@ final class MarkdownBuilderState {
 
   /**
    * Gets the current content.
-   *
-   * @return string
-   *   The content.
    */
   public function getCurrentContent(): string {
     return $this->content;

@@ -24,9 +24,6 @@ final class HeadingContent implements MarkdownSourceInterface {
 
   /**
    * Gets heading level.
-   *
-   * @return int
-   *   The level value.
    */
   public function getLevel(): int {
     return $this->level;
@@ -34,9 +31,6 @@ final class HeadingContent implements MarkdownSourceInterface {
 
   /**
    * Gets heading.
-   *
-   * @return string
-   *   The heading.
    */
   public function getHeading(): string {
     return $this->heading;

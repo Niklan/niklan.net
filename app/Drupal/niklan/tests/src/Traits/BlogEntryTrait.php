@@ -33,9 +33,6 @@ trait BlogEntryTrait {
 
   /**
    * Creates a not type 'blog_entry'.
-   *
-   * @return \Drupal\node\Entity\NodeType
-   *   The node type.
    */
   protected function createBlogEntryType(): NodeType {
     $node_type = NodeType::create([
@@ -69,9 +66,6 @@ trait BlogEntryTrait {
    *
    * @param array $values
    *   An array with entity values.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The node entity.
    */
   protected function createBlogEntry(array $values = []): NodeInterface {
     $default_values = [

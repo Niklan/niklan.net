@@ -36,9 +36,6 @@ interface SearchControllerInterface {
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The current request.
-   *
-   * @return string
-   *   The page title.
    */
   public function pageTitle(Request $request): string;
 

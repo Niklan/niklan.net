@@ -24,9 +24,6 @@ final class ImageContent implements MarkdownSourceInterface {
 
   /**
    * Gets image URI.
-   *
-   * @return string
-   *   The image URI.
    */
   public function getUri(): string {
     return $this->uri;
@@ -34,9 +31,6 @@ final class ImageContent implements MarkdownSourceInterface {
 
   /**
    * Gets image alt.
-   *
-   * @return string
-   *   The image alt.
    */
   public function getAlt(): string {
     return $this->alt;

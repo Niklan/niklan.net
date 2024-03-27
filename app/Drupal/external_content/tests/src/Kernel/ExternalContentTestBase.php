@@ -16,9 +16,4 @@ abstract class ExternalContentTestBase extends KernelTestBase {
     'external_content',
   ];
 
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
 }

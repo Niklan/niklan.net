@@ -36,9 +36,6 @@ final class FrontMatter implements MarkdownSourceInterface {
    *   The value key.
    * @param mixed|NULL $default
    *   The default value if it's missing by key.
-   *
-   * @return mixed
-   *   The result.
    */
   public function getValue(string $key, mixed $default = NULL): mixed {
     return $this->values[$key] ?? $default;

@@ -52,9 +52,6 @@ trait BlogEntryCommentTrait {
    *
    * @param array $values
    *   The comment values.
-   *
-   * @return \Drupal\comment\CommentInterface
-   *   The comment entity.
    */
   protected function createBlogEntryComment(array $values = []): CommentInterface {
     $default_values = [

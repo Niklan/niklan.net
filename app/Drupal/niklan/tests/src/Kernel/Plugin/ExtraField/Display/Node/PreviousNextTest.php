@@ -16,15 +16,6 @@ final class PreviousNextTest extends ExtraFieldTestBase {
   use BlogEntryTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->setUpBlogEntry();
-  }
-
-  /**
    * Tests that field works as expected.
    */
   public function testView(): void {
@@ -39,6 +30,15 @@ final class PreviousNextTest extends ExtraFieldTestBase {
 
     self::assertRaw('Node A');
     self::assertRaw('Node C');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->setUpBlogEntry();
   }
 
 }

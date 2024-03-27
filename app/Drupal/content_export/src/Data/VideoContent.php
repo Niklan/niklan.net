@@ -24,9 +24,6 @@ final class VideoContent implements MarkdownSourceInterface {
 
   /**
    * Gets video URI.
-   *
-   * @return string
-   *   The video URI.
    */
   public function getUri(): string {
     return $this->uri;
@@ -34,9 +31,6 @@ final class VideoContent implements MarkdownSourceInterface {
 
   /**
    * Gets video alt.
-   *
-   * @return string
-   *   The video alt.
    */
   public function getAlt(): string {
     return $this->alt;

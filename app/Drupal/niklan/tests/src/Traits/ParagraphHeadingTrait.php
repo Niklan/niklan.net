@@ -17,9 +17,6 @@ trait ParagraphHeadingTrait {
    *   The paragraph title.
    * @param string $heading_level
    *   The paragraph heading level.
-   *
-   * @return \Drupal\paragraphs\ParagraphInterface
-   *   The paragraph revealed prophecy.
    */
   protected function prepareHeadingParagraph(string $title, string $heading_level): ParagraphInterface {
     $paragraph = $this->prophesize(ParagraphInterface::class);

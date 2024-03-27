@@ -21,9 +21,6 @@ trait SearchTrait {
    *
    * @param array $query_results
    *   The expected search results.
-   *
-   * @return \Drupal\search_api\Utility\QueryHelperInterface
-   *   The revealed query helper.
    */
   protected function prepareSearchApiQueryHelper(array $query_results = []): QueryHelperInterface {
     $result_items = [];
@@ -52,9 +49,6 @@ trait SearchTrait {
 
   /**
    * Builds a prophecy with entity type manager.
-   *
-   * @return \Drupal\Core\Entity\EntityTypeManagerInterface
-   *   The revealed entity type manager.
    */
   protected function prepareEntityTypeManager(): EntityTypeManagerInterface {
     $index = $this->prophesize(IndexInterface::class);

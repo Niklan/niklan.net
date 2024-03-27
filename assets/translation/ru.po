@@ -301,5 +301,20 @@ msgstr "Искать"
 msgid "Subject"
 msgstr "Тема"
 
+msgid "Working directory"
+msgstr "Рабочая директория"
+
+msgid "Directory URI where content source is located. Should be a git directory."
+msgstr "URI директории где находится исходное содержимое. Директория должна содержать git."
+
+msgid "Content synchronization settings"
+msgstr "Настройки синхронизации содержимого"
+
+msgid "Content synchronization"
+msgstr "Синхронизация содержимого"
+
+msgid "Allows to configure content synchronization and track current status."
+msgstr "Позволяет настроить синхронизацию содержимого и отслеживать текущее состояние."
+
 msgid "Development version"
 msgstr "Версия для разработки"

@@ -95,9 +95,6 @@ final class TagController implements TagControllerInterface, ContainerInjectionI
    *
    * @param \Drupal\taxonomy\TermInterface $term
    *   The category term.
-   *
-   * @return array|int
-   *   The blog entry ids.
    */
   protected function getBlogPostIds(TermInterface $term): array|int {
     $query = $this

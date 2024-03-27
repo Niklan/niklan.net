@@ -7,7 +7,7 @@
 ((Drupal) => {
 
   Drupal.behaviors.paragraphCodeHighlightLines = {
-    attach () {
+    attach() {
       const codeParagraphs = document.querySelectorAll('.paragraph-code:not(.paragraph-code--lines-highlighted)');
 
       if (codeParagraphs.length) {
@@ -24,11 +24,11 @@
     },
 
     /**
-     * Parse line to new array.
+     * Parser line to new array.
      *
      * Handle range of lines to be correctly parsed.
      */
-    parseLines (lines) {
+    parseLines(lines) {
       const linesArray = lines.split(',');
       const linesArrayNew = [];
 
@@ -53,9 +53,9 @@
     },
 
     /**
-     * Parse total lines in element.
+     * Parser total lines in element.
      */
-    parseLinesTotal (paragraph) {
+    parseLinesTotal(paragraph) {
       const codeElement = paragraph.querySelector('pre code');
       const codeElementStyles = window.getComputedStyle(codeElement);
       const codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
@@ -70,7 +70,7 @@
     /**
      * Gets line height.
      */
-    getLineHeight (element) {
+    getLineHeight(element) {
       const elementStyles = window.getComputedStyle(element);
 
       return parseFloat(elementStyles.getPropertyValue('line-height'));
@@ -79,7 +79,7 @@
     /**
      * Add elements for highlighting lines.
      */
-    addHighlightElements (paragraph, linesToHighlight, linesTotal) {
+    addHighlightElements(paragraph, linesToHighlight, linesTotal) {
       const codeElement = paragraph.querySelector('pre code');
       const codeElementStyles = window.getComputedStyle(codeElement);
       const codeElementPaddingTop = parseFloat(codeElementStyles.getPropertyValue('padding-top'));
@@ -87,12 +87,12 @@
 
       const highlightElement = document.createElement('div');
       highlightElement.classList.add('paragraph-code__highlight-line');
-      highlightElement.style.height = `${codeLineHeight  }px`;
+      highlightElement.style.height = `${codeLineHeight}px`;
 
       linesToHighlight.forEach(lineNumber => {
         if (lineNumber <= linesTotal) {
           const lineHighlightElement = highlightElement.cloneNode();
-          lineHighlightElement.style.top = `${(codeLineHeight * (lineNumber - 1)) + codeElementPaddingTop  }px`;
+          lineHighlightElement.style.top = `${(codeLineHeight * (lineNumber - 1)) + codeElementPaddingTop}px`;
           codeElement.appendChild(lineHighlightElement);
         }
       });

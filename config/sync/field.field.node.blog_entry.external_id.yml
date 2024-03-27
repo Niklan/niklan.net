@@ -1,0 +1,19 @@
+uuid: 32bb8830-17f0-4f7b-80db-ededb093da19
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.external_id
+    - node.type.blog_entry
+id: node.blog_entry.external_id
+field_name: external_id
+entity_type: node
+bundle: blog_entry
+label: 'Внешний ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

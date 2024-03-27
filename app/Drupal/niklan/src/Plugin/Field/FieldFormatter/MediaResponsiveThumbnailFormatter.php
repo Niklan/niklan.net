@@ -124,16 +124,23 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
   }
 
   /**
+   * {@inheritdoc}
+   *
+   * This has to be overridden because FileFormatterBase expects $item to be
+   * of type \Drupal\file\Plugin\Field\FieldType\FileItem and calls
+   * isDisplayed() which is not in FieldItemInterface.
+   */
+  protected function needsEntityLoad(EntityReferenceItem $item): bool {
+    return !$item->hasNewEntity();
+  }
+
+  /**
    * Get the URL for the media thumbnail.
    *
    * @param \Drupal\media\MediaInterface $media
    *   The media item.
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity that the field belongs to.
-   *
-   * @return \Drupal\Core\Url|null
-   *   The URL object for the media item or null if we don't want to add
-   *   a link.
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
@@ -152,17 +159,6 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     }
 
     return $url;
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * This has to be overridden because FileFormatterBase expects $item to be
-   * of type \Drupal\file\Plugin\Field\FieldType\FileItem and calls
-   * isDisplayed() which is not in FieldItemInterface.
-   */
-  protected function needsEntityLoad(EntityReferenceItem $item): bool {
-    return !$item->hasNewEntity();
   }
 
 }

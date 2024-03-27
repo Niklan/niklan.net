@@ -75,6 +75,19 @@ final class BlogController implements ContainerInjectionInterface {
   }
 
   /**
+   * Builds pager element.
+   *
+   * @return array
+   *   The render array with pager.
+   */
+  protected function buildPager(): array {
+    return [
+      '#type' => 'pager',
+      '#quantity' => 4,
+    ];
+  }
+
+  /**
    * Loads entities.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
@@ -107,19 +120,6 @@ final class BlogController implements ContainerInjectionInterface {
     }
 
     return $query->execute();
-  }
-
-  /**
-   * Builds pager element.
-   *
-   * @return array
-   *   The render array with pager.
-   */
-  protected function buildPager(): array {
-    return [
-      '#type' => 'pager',
-      '#quantity' => 4,
-    ];
   }
 
 }

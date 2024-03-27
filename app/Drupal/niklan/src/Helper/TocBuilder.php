@@ -37,6 +37,33 @@ final class TocBuilder {
   }
 
   /**
+   * Gets headings from the item list.
+   *
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $items
+   *   The entity reference list.
+   *
+   * @return \Drupal\paragraphs\ParagraphInterface[]
+   *   An array with paragraphs.
+   */
+  protected function getHeadings(EntityReferenceFieldItemListInterface $items): array {
+    $headings = [];
+
+    foreach ($items->referencedEntities() as $entity) {
+      if (!$entity instanceof ParagraphInterface) {
+        continue;
+      }
+
+      if ($entity->bundle() !== 'heading') {
+        continue;
+      }
+
+      $headings[] = $entity;
+    }
+
+    return $headings;
+  }
+
+  /**
    * Prepares link from heading paragraph.
    *
    * We need to assign every link some unique ID during the TOC generation
@@ -118,33 +145,6 @@ final class TocBuilder {
     }
 
     return $tree;
-  }
-
-  /**
-   * Gets headings from the item list.
-   *
-   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $items
-   *   The entity reference list.
-   *
-   * @return \Drupal\paragraphs\ParagraphInterface[]
-   *   An array with paragraphs.
-   */
-  protected function getHeadings(EntityReferenceFieldItemListInterface $items): array {
-    $headings = [];
-
-    foreach ($items->referencedEntities() as $entity) {
-      if (!$entity instanceof ParagraphInterface) {
-        continue;
-      }
-
-      if ($entity->bundle() !== 'heading') {
-        continue;
-      }
-
-      $headings[] = $entity;
-    }
-
-    return $headings;
   }
 
 }

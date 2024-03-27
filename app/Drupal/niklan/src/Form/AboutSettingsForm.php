@@ -84,7 +84,7 @@ final class AboutSettingsForm extends FormBase {
       ],
       '#title' => new TranslatableMarkup('Photo'),
       '#description' => new TranslatableMarkup(
-          'Media entity that contains a photo.',
+        'Media entity that contains a photo.',
       ),
       '#default_value' => $default_image,
     ];
@@ -107,6 +107,19 @@ final class AboutSettingsForm extends FormBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
+    $responsive_image_style_id = $form_state->getValue([
+      'photo',
+      'responsive_image_style',
+    ]);
+    $this->settingsRepository
+      ->setPhotoMediaId($form_state->getValue(['photo', 'media_id']))
+      ->setPhotoResponsiveImageStyleId($responsive_image_style_id);
+  }
+
+  /**
    * Gets options for responsive styles.
    *
    * @return array
@@ -122,19 +135,6 @@ final class AboutSettingsForm extends FormBase {
     }
 
     return $responsive_image_style_options;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $responsive_image_style_id = $form_state->getValue([
-      'photo',
-      'responsive_image_style',
-    ]);
-    $this->settingsRepository
-      ->setPhotoMediaId($form_state->getValue(['photo', 'media_id']))
-      ->setPhotoResponsiveImageStyleId($responsive_image_style_id);
   }
 
 }

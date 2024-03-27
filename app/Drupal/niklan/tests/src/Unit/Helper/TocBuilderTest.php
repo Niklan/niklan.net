@@ -19,22 +19,6 @@ final class TocBuilderTest extends UnitTestCase {
   use ParagraphHeadingTrait;
 
   /**
-   * Prepares prophecy for entity reference field.
-   *
-   * @param array $paragraphs
-   *   An array with paragraph items.
-   *
-   * @return \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList
-   *   The revealed prophecy.
-   */
-  protected function prepareFieldItemList(array $paragraphs = []): EntityReferenceRevisionsFieldItemList {
-    $items = $this->prophesize(EntityReferenceRevisionsFieldItemList::class);
-    $items->referencedEntities()->willReturn($paragraphs);
-
-    return $items->reveal();
-  }
-
-  /**
    * Tests that builder properly processing empty field.
    */
   public function testTreeForEmptyField(): void {
@@ -44,6 +28,19 @@ final class TocBuilderTest extends UnitTestCase {
     $tree = $builder->getTree($items);
 
     self::assertEquals([], $tree);
+  }
+
+  /**
+   * Prepares prophecy for entity reference field.
+   *
+   * @param array $paragraphs
+   *   An array with paragraph items.
+   */
+  protected function prepareFieldItemList(array $paragraphs = []): EntityReferenceRevisionsFieldItemList {
+    $items = $this->prophesize(EntityReferenceRevisionsFieldItemList::class);
+    $items->referencedEntities()->willReturn($paragraphs);
+
+    return $items->reveal();
   }
 
   /**

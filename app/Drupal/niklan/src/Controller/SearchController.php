@@ -68,18 +68,6 @@ final class SearchController implements SearchControllerInterface, ContainerInje
   }
 
   /**
-   * Builds a search page header.
-   *
-   * @return array
-   *   The header content.
-   */
-  protected function buildPageHeader(): array {
-    return [
-      'search_form' => $this->formBuilder->getForm(SearchForm::class),
-    ];
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function buildPageContent(?string $keys): array {
@@ -131,6 +119,18 @@ final class SearchController implements SearchControllerInterface, ContainerInje
     }
 
     return (string) $title;
+  }
+
+  /**
+   * Builds a search page header.
+   *
+   * @return array
+   *   The header content.
+   */
+  protected function buildPageHeader(): array {
+    return [
+      'search_form' => $this->formBuilder->getForm(SearchForm::class),
+    ];
   }
 
 }

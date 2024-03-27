@@ -17,6 +17,7 @@ module:
   easy_breadcrumb: 0
   editor: 0
   entity_reference_revisions: 0
+  external_content: 0
   extra_field: 0
   field: 0
   file: 0
@@ -46,16 +47,19 @@ module:
   path: 0
   path_alias: 0
   photoswipe: 0
+  phpass: 0
   rabbit_hole: 0
   redirect: 0
   redirect_404: 0
   responsive_image: 0
   rh_taxonomy: 0
+  sdc: 0
   search_api: 0
   search_api_db: 0
   serialization: 0
   simple_sitemap: 0
   sophron: 0
+  sophron_guesser: 0
   symfony_mailer: 0
   system: 0
   taxonomy: 0

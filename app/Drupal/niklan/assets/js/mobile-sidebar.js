@@ -5,7 +5,7 @@
 ((Drupal) => {
 
   Drupal.behaviors.niklanMobileSidebar = {
-    attach (context) {
+    attach(context) {
       const menuToggle = context.querySelector('.js-mobile-menu-toggle');
       const mobileSidebar = context.querySelector('.js-mobile-sidebar');
       const body = context.querySelector('.js-body');

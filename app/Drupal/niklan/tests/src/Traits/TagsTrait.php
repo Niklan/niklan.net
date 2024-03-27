@@ -27,9 +27,6 @@ trait TagsTrait {
    *
    * @param array $values
    *   The tag values.
-   *
-   * @return \Drupal\taxonomy\TermInterface
-   *   The tag entity.
    */
   protected function createTag(array $values = []): TermInterface {
     $default_values = [

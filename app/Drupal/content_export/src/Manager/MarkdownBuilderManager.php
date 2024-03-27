@@ -36,9 +36,6 @@ final class MarkdownBuilderManager {
    * @param \Drupal\content_export\Data\MarkdownBuilderState $state
    *   The export state.
    *
-   * @return string
-   *   The Markdown content.
-   *
    * @throws \Exception
    */
   public function buildMarkdown(MarkdownSourceInterface $source, MarkdownBuilderState $state): string {
@@ -58,9 +55,6 @@ final class MarkdownBuilderManager {
    *
    * @param \Drupal\content_export\Contract\MarkdownSourceInterface $source
    *   The source data.
-   *
-   * @return \Drupal\content_export\Contract\MarkdownBuilderInterface|null
-   *   The builder instance if found.
    */
   public function getBuilderBySource(MarkdownSourceInterface $source): ?MarkdownBuilderInterface {
     foreach ($this->builders as $builder) {

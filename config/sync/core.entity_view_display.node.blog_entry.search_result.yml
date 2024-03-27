@@ -6,6 +6,8 @@ dependencies:
     - core.entity_view_mode.node.search_result
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
+    - field.field.node.blog_entry.external_content
+    - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
@@ -30,6 +32,8 @@ content:
 hidden:
   comment_node_blog_entry: true
   estimated_read_time: true
+  external_content: true
+  external_id: true
   extra_field_comments_link: true
   extra_field_created_time: true
   extra_field_estimated_reading_time: true

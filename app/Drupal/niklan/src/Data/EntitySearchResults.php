@@ -60,9 +60,6 @@ final class EntitySearchResults implements \IteratorAggregate, \Countable {
 
   /**
    * Gets a total results count.
-   *
-   * @return int|null
-   *   The total results count.
    */
   public function getTotalResultsCount(): ?int {
     return $this->totalResultsCount;

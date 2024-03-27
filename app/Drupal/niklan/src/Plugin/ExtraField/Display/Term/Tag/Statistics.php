@@ -79,9 +79,6 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    *
    * @param array $articles
    *   The array with found articles.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The blog entity.
    */
   protected function loadFirstArticle(array $articles): NodeInterface {
     $id = \array_shift($articles);
@@ -96,9 +93,6 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    *
    * @param array $articles
    *   The array with found articles.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The blog entity.
    */
   protected function loadLastArticle(array $articles): NodeInterface {
     $id = \array_pop($articles);
@@ -140,9 +134,6 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    *   The amount of published articles.
    * @param array $date_range
    *   The date ranges.
-   *
-   * @return string
-   *   The result string.
    */
   protected function buildStatisticsSummary(int $count, array $date_range): string {
     $without_range = (string) new PluralTranslatableMarkup(

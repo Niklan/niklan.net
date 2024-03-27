@@ -62,9 +62,9 @@ final class BlogEntryExporter {
     );
 
     $progress = new ProgressBar($state->getOutput(), \count($blog_entry_ids));
-    $progress->setEmptyBarCharacter('░');
-    $progress->setProgressCharacter('');
-    $progress->setBarCharacter('▓');
+    $progress->setEmptyBarCharacter('.');
+    $progress->setProgressCharacter('>');
+    $progress->setBarCharacter('=');
     $progress->start();
 
     foreach ($blog_entry_ids_chunks as $blog_entry_ids_chunk) {

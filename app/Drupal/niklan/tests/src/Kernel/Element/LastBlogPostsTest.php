@@ -15,15 +15,6 @@ final class LastBlogPostsTest extends NiklanTestBase {
   use BlogEntryTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->setUpBlogEntry();
-  }
-
-  /**
    * Tests that element properly works with no blog posts.
    */
   public function testWithNoBlogPosts(): void {
@@ -75,6 +66,15 @@ final class LastBlogPostsTest extends NiklanTestBase {
 
     self::assertCount(1, $this->cssSelect('.last-content'));
     self::assertCount(5, $this->cssSelect('.last-content article'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->setUpBlogEntry();
   }
 
 }

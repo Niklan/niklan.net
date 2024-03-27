@@ -27,5 +27,5 @@ libraries-override:
   system/base: false
   core/picturefill: false
 libraries-extend:
-  niklan/code-highlight:
+  sdc/niklan--code-block:
     - mechanical/component.javascript.prismjs

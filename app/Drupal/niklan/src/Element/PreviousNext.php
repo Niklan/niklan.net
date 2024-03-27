@@ -90,9 +90,6 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The current entity.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|null
-   *   The previous to current entity.
    */
   protected function findPrevious(EntityInterface $entity): ?EntityInterface {
     if (!\method_exists($entity, 'getCreatedTime')) {
@@ -116,9 +113,6 @@ final class PreviousNext extends RenderElement implements ContainerFactoryPlugin
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The current entity.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|null
-   *   The previous to current entity.
    */
   protected function findNext(EntityInterface $entity): ?EntityInterface {
     if (!\method_exists($entity, 'getCreatedTime')) {

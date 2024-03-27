@@ -15,9 +15,6 @@ interface EntitySearchInterface {
    *
    * @param \Drupal\niklan\Data\SearchParams $params
    *   The search params.
-   *
-   * @return \Drupal\niklan\Data\EntitySearchResults
-   *   The entity search results.
    */
   public function search(SearchParams $params): EntitySearchResults;
 

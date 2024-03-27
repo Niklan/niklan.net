@@ -23,16 +23,6 @@ final class PreviousNextTest extends NiklanTestBase {
   ];
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->setUpBlogEntry();
-    $this->installEntitySchema('entity_test');
-  }
-
-  /**
    * Tests that element behaves properly when no entity provided.
    */
   public function testWithNoEntityProvided(): void {
@@ -154,6 +144,16 @@ final class PreviousNextTest extends NiklanTestBase {
     self::assertCount(0, $this->cssSelect('.previous-next'));
     self::assertCount(0, $this->cssSelect('.previous-next__link--previous'));
     self::assertCount(0, $this->cssSelect('.previous-next__link--next'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->setUpBlogEntry();
+    $this->installEntitySchema('entity_test');
   }
 
 }

@@ -34,9 +34,6 @@ final class GlobalSearchTest extends UnitTestCase {
 
   /**
    * Provides data for testing.
-   *
-   * @return \Generator
-   *   The testing data.
    */
   public function dataProvider(): \Generator {
     yield [new SearchParams(NULL, 10), []];

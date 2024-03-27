@@ -181,7 +181,7 @@ tasks:
       - 'spellcheck'
     cmds:
       - task: cspell
-        vars: { CLI_ARGS: '--config {{.CONFIG_DIR}}/.cspell.json --no-progress "**" {{.CLI_ARGS}}' }
+        vars: { CLI_ARGS: '--config {{.CONFIG_DIR}}/.cspell.json --quiet --no-progress "**" {{.CLI_ARGS}}' }
 
   fix:
     label: Fixing found issues

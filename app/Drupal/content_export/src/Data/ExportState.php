@@ -24,9 +24,6 @@ final class ExportState {
 
   /**
    * Gets output.
-   *
-   * @return \Symfony\Component\Console\Output\OutputInterface
-   *   The output instance.
    */
   public function getOutput(): OutputInterface {
     return $this->output;
@@ -34,9 +31,6 @@ final class ExportState {
 
   /**
    * Gets the export destination.
-   *
-   * @return string
-   *   The destination URI.
    */
   public function getDestination(): string {
     return $this->destination;

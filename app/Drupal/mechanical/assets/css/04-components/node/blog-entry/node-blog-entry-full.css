@@ -13,3 +13,11 @@
 .node-blog-entry-full .previous-next {
   margin: var(--spacing-xl) 0;
 }
+
+.node-blog-entry-external-content video {
+  /* Margin fix. */
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: var(--p-margin--y) 0;
+}

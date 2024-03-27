@@ -14,9 +14,6 @@ interface MarkdownBuilderInterface {
    *
    * @param \Drupal\content_export\Contract\MarkdownSourceInterface $source
    *   The source.
-   *
-   * @return bool
-   *   TRUE if supports it, FALSE otherwise.
    */
   public static function isApplicable(MarkdownSourceInterface $source): bool;
 
@@ -27,9 +24,6 @@ interface MarkdownBuilderInterface {
    *   The Markdown source.
    * @param \Drupal\content_export\Data\MarkdownBuilderState $state
    *   The export state.
-   *
-   * @return string
-   *   The Markdown content.
    */
   public function build(MarkdownSourceInterface $source, MarkdownBuilderState $state): string;
 

@@ -16,15 +16,6 @@ final class CommentControllerTest extends NiklanTestBase {
   use BlogEntryCommentTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->setUpBlogEntryComment();
-  }
-
-  /**
    * Tests a comments controller with empty results.
    */
   public function testEmptyList(): void {
@@ -50,6 +41,15 @@ final class CommentControllerTest extends NiklanTestBase {
     self::assertCount(1, $this->cssSelect('.comments-list'));
     self::assertCount(1, $this->cssSelect('.comments-list__items'));
     self::assertCount(1, $this->cssSelect('.comments-list article'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->setUpBlogEntryComment();
   }
 
 }
