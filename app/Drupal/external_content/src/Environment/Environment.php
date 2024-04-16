@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Environment;
 
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Converter\ConverterInterface;
@@ -267,7 +267,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function addBuilder(BuilderInterface $builder, int $priority = 0): self {
+  public function addRenderArrayBuilder(RenderArrayBuilderInterface $builder, int $priority = 0): self {
     $this->builders->add($builder, $priority);
     $this->injectDependencies($builder);
 

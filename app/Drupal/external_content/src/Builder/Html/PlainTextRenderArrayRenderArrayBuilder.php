@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Builder\Html;
 
 use Drupal\external_content\Builder\RenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -12,7 +12,7 @@ use Drupal\external_content\Node\PlainText;
 /**
  * Provides a simple builder for the plain text.
  */
-final class PlainTextRenderArrayBuilder implements BuilderInterface {
+final class PlainTextRenderArrayRenderArrayBuilder implements RenderArrayBuilderInterface {
 
   /**
    * {@inheritdoc}

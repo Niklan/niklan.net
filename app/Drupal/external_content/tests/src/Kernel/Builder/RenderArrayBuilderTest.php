@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\external_content\Kernel\Builder;
 
-use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
-use Drupal\external_content\Builder\Html\PlainTextRenderArrayBuilder;
+use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
+use Drupal\external_content\Builder\Html\PlainTextRenderArrayRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Element;
 use Drupal\external_content\Node\PlainText;
-use Drupal\external_content_test\Builder\NoneBuilder;
+use Drupal\external_content_test\Builder\NoneRenderArrayBuilder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
@@ -42,9 +42,9 @@ final class RenderArrayBuilderTest extends ExternalContentTestBase {
     $external_content_document->addChild($paragraph);
 
     $environment = new Environment();
-    $environment->addBuilder(new NoneBuilder());
-    $environment->addBuilder(new ElementRenderArrayBuilder());
-    $environment->addBuilder(new PlainTextRenderArrayBuilder());
+    $environment->addRenderArrayBuilder(new NoneRenderArrayBuilder());
+    $environment->addRenderArrayBuilder(new ElementRenderArrayRenderArrayBuilder());
+    $environment->addRenderArrayBuilder(new PlainTextRenderArrayRenderArrayBuilder());
 
     self::assertTrue(
       $this

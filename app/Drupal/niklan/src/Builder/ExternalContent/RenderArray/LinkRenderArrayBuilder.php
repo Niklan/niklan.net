@@ -5,9 +5,9 @@ namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\Core\Url;
-use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -18,7 +18,7 @@ use Drupal\external_content\Node\Element;
  *
  * @ingroup content_sync
  */
-final class LinkBuilder implements BuilderInterface {
+final class LinkRenderArrayBuilder implements RenderArrayBuilderInterface {
 
   /**
    * {@selfdoc}
@@ -44,7 +44,7 @@ final class LinkBuilder implements BuilderInterface {
       ],
       '#pre_render' => [
         [HtmlTag::class, 'preRenderHtmlTag'],
-        [ElementRenderArrayBuilder::class, 'preRenderTag'],
+        [ElementRenderArrayRenderArrayBuilder::class, 'preRenderTag'],
       ],
       '#cache' => [
         'tags' => [

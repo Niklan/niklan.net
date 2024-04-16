@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Builder\Html;
 
-use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Node\Element;
@@ -12,7 +12,7 @@ use Drupal\Tests\UnitTestCaseTest;
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Builder\Html\ElementRenderArrayBuilder
+ * @covers \Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder
  * @group external_content
  */
 final class ElementRenderArrayBuilderTest extends UnitTestCaseTest {
@@ -22,7 +22,7 @@ final class ElementRenderArrayBuilderTest extends UnitTestCaseTest {
    */
   public function testValidElement(): void {
     $element = new Element('div', new Attributes(['foo' => 'bar']));
-    $builder = new ElementRenderArrayBuilder();
+    $builder = new ElementRenderArrayRenderArrayBuilder();
     $result = $builder->build($element, RenderArrayBuilder::class);
     $expected_result = [
       '#type' => 'html_tag',
@@ -42,7 +42,7 @@ final class ElementRenderArrayBuilderTest extends UnitTestCaseTest {
    */
   public function testInvalidElement(): void {
     $element = new class () extends Node {};
-    $builder = new ElementRenderArrayBuilder();
+    $builder = new ElementRenderArrayRenderArrayBuilder();
     self::assertFalse(
       $builder->supportsBuild($element, RenderArrayBuilder::class),
     );

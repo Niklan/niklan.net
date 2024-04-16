@@ -3,7 +3,7 @@
 namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 
 use Drupal\external_content\Builder\RenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -14,7 +14,7 @@ use Drupal\external_content\Node\Element;
  *
  * @ingroup content_sync
  */
-final class CodeBlock implements BuilderInterface {
+final class CodeBlock implements RenderArrayBuilderInterface {
 
   /**
    * {@inheritdoc}

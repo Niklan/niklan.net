@@ -2,7 +2,7 @@
 
 namespace Drupal\external_content\Builder;
 
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
@@ -12,7 +12,7 @@ use Drupal\external_content\Data\BuilderResult;
 /**
  * Provides an external content render array builder.
  */
-final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInterface {
+final class RenderArrayBuilder implements RenderArrayBuilderInterface, EnvironmentAwareInterface {
 
   /**
    * The environment.
@@ -60,7 +60,7 @@ final class RenderArrayBuilder implements BuilderInterface, EnvironmentAwareInte
     $context += ['children' => $children];
 
     foreach ($this->environment->getBuilders() as $builder) {
-      \assert($builder instanceof BuilderInterface);
+      \assert($builder instanceof RenderArrayBuilderInterface);
 
       if (!$builder->supportsBuild($node, self::class, $context)) {
         continue;

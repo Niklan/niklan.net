@@ -36,7 +36,7 @@ interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
   /**
    * {@selfdoc}
    */
-  public function addBuilder(BuilderInterface $builder, int $priority = 0): self;
+  public function addRenderArrayBuilder(RenderArrayBuilderInterface $builder, int $priority = 0): self;
 
   /**
    * {@selfdoc}

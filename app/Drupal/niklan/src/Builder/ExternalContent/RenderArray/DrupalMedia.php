@@ -6,7 +6,7 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\external_content\Builder\RenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -19,7 +19,7 @@ use Drupal\niklan\Node\ExternalContent\DrupalMedia as DrupalMediaNode;
  *
  * @ingroup content_sync
  */
-final class DrupalMedia implements BuilderInterface {
+final class DrupalMedia implements RenderArrayBuilderInterface {
 
   /**
    * {@selfdoc}

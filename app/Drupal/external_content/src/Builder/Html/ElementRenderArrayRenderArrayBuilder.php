@@ -6,7 +6,7 @@ use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\external_content\Builder\RenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\BuilderResult;
@@ -15,7 +15,7 @@ use Drupal\external_content\Node\Element;
 /**
  * Provides a simple HTML render array builder.
  */
-final class ElementRenderArrayBuilder implements BuilderInterface, TrustedCallbackInterface {
+final class ElementRenderArrayRenderArrayBuilder implements RenderArrayBuilderInterface, TrustedCallbackInterface {
 
   /**
    * Removes unwanted 'html_tag' newline character.

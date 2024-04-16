@@ -3,8 +3,8 @@
 namespace Drupal\Tests\external_content\Unit\Environment;
 
 use Drupal\Component\DependencyInjection\ContainerInterface;
-use Drupal\external_content\Builder\Html\ElementRenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\BuilderInterface;
+use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
@@ -23,7 +23,7 @@ use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Exception\MissingContainerException;
 use Drupal\external_content\Serializer\PlainTextSerializer;
-use Drupal\external_content_test\Builder\EmptyRenderArrayBuilder;
+use Drupal\external_content_test\Builder\EmptyRenderArrayRenderArrayBuilder;
 use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
@@ -159,10 +159,10 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testBuilder(): void {
-    $builder = new EmptyRenderArrayBuilder();
+    $builder = new EmptyRenderArrayRenderArrayBuilder();
 
     $environment = new Environment();
-    $environment->addBuilder($builder);
+    $environment->addRenderArrayBuilder($builder);
 
     $expected = [
       0 => $builder,
@@ -256,7 +256,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testExtension(): void {
-    $builder = new ElementRenderArrayBuilder();
+    $builder = new ElementRenderArrayRenderArrayBuilder();
 
     $extension = new class ($builder) implements ExtensionInterface {
 
@@ -264,14 +264,14 @@ final class EnvironmentTest extends UnitTestCaseTest {
        * Constructs a new instance.
        */
       public function __construct(
-        private readonly BuilderInterface $builder,
+        private readonly RenderArrayBuilderInterface $builder,
       ) {}
 
       /**
        * {@inheritdoc}
        */
       public function register(EnvironmentBuilderInterface $environment): void {
-        $environment->addBuilder($this->builder);
+        $environment->addRenderArrayBuilder($this->builder);
       }
 
     };
@@ -344,7 +344,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     ];
 
     yield 'RenderArrayBuilder' => [
-      'component_interface' => BuilderInterface::class,
+      'component_interface' => RenderArrayBuilderInterface::class,
       'method' => 'addBuilder',
     ];
 
