@@ -5,11 +5,10 @@ namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Template\Attribute;
-use Drupal\external_content\Builder\RenderArrayBuilder;
+use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
-use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Data\BuilderResult;
+use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\File\FileInterface;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia as DrupalMediaNode;
@@ -36,12 +35,12 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+  public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof DrupalMediaNode);
     $media = $this->findMedia($node->uuid);
 
     if (!$media instanceof MediaInterface) {
-      return BuilderResult::none();
+      return RenderArrayBuilderResult::empty();
     }
 
     $this->cache = new CacheableMetadata();
@@ -51,15 +50,15 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
       'image' => $this->buildImageRenderArray($media, $node),
       'video' => $this->buildVideoRenderArray($media),
       'remote_video' => $this->buildRemoteVideoRenderArray($media),
-      default => BuilderResult::none(),
+      default => RenderArrayBuilderResult::empty(),
     };
   }
 
   /**
    * {@inheritdoc}
    */
-  public function supportsBuild(NodeInterface $node, string $type, array $context = []): bool {
-    return $type === RenderArrayBuilder::class && $node instanceof DrupalMediaNode;
+  public function supportsBuild(NodeInterface $node): bool {
+    return $node instanceof DrupalMediaNode;
   }
 
   /**
@@ -84,11 +83,11 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
   /**
    * {@selfdoc}
    */
-  private function buildImageRenderArray(MediaInterface $media, DrupalMediaNode $node): BuilderResultInterface {
+  private function buildImageRenderArray(MediaInterface $media, DrupalMediaNode $node): RenderArrayBuilderResult {
     $file = $this->getMediaSourceFile($media);
 
     if (!$file instanceof FileInterface) {
-      return BuilderResult::none();
+      return RenderArrayBuilderResult::empty();
     }
 
     $this->cache->addCacheableDependency($file);
@@ -102,17 +101,17 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     ];
     $this->cache->applyTo($build);
 
-    return BuilderResult::renderArray($build);
+    return RenderArrayBuilderResult::withRenderArray($build);
   }
 
   /**
    * {@selfdoc}
    */
-  private function buildVideoRenderArray(MediaInterface $media): BuilderResultInterface {
+  private function buildVideoRenderArray(MediaInterface $media): RenderArrayBuilderResult {
     $file = $this->getMediaSourceFile($media);
 
     if (!$file instanceof FileInterface) {
-      return BuilderResult::none();
+      return RenderArrayBuilderResult::empty();
     }
 
     $this->cache->addCacheableDependency($file);
@@ -139,16 +138,16 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     ];
     $this->cache->applyTo($build);
 
-    return BuilderResult::renderArray($build);
+    return RenderArrayBuilderResult::withRenderArray($build);
   }
 
   /**
    * {@selfdoc}
    */
-  private function buildRemoteVideoRenderArray(MediaInterface $media): BuilderResultInterface {
+  private function buildRemoteVideoRenderArray(MediaInterface $media): RenderArrayBuilderResult {
     $view_builder = $this->entityTypeManager->getViewBuilder('media');
 
-    return BuilderResult::renderArray($view_builder->view($media));
+    return RenderArrayBuilderResult::withRenderArray($view_builder->view($media));
   }
 
   /**

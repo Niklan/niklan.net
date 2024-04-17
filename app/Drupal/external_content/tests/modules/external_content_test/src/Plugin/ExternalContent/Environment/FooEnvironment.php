@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content_test\Plugin\ExternalContent\Environment;
 
-use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
-use Drupal\external_content\Builder\Html\PlainTextRenderArrayRenderArrayBuilder;
+use Drupal\external_content\Builder\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPlugin;
@@ -28,8 +28,8 @@ final class FooEnvironment extends EnvironmentPlugin {
       'foo' => Expect::string('Oh, hello there!'),
     ]);
     $environment = new Environment($configuration);
-    $environment->addRenderArrayBuilder(new ElementRenderArrayRenderArrayBuilder());
-    $environment->addRenderArrayBuilder(new PlainTextRenderArrayRenderArrayBuilder());
+    $environment->addRenderArrayBuilder(new ElementRenderArrayBuilder());
+    $environment->addRenderArrayBuilder(new PlainTextRenderArrayBuilder());
 
     return $environment;
   }

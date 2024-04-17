@@ -2,8 +2,8 @@
 
 namespace Drupal\external_content\Environment;
 
-use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
@@ -142,7 +142,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@inheritdoc}
    */
-  public function getBuilders(): PrioritizedList {
+  public function getRenderArrayBuilders(): PrioritizedList {
     return $this->builders;
   }
 

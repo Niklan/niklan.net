@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\external_content\Kernel\Builder;
 
-use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
-use Drupal\external_content\Builder\Html\PlainTextRenderArrayRenderArrayBuilder;
+use Drupal\external_content\Builder\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
@@ -43,8 +43,8 @@ final class RenderArrayBuilderTest extends ExternalContentTestBase {
 
     $environment = new Environment();
     $environment->addRenderArrayBuilder(new NoneRenderArrayBuilder());
-    $environment->addRenderArrayBuilder(new ElementRenderArrayRenderArrayBuilder());
-    $environment->addRenderArrayBuilder(new PlainTextRenderArrayRenderArrayBuilder());
+    $environment->addRenderArrayBuilder(new ElementRenderArrayBuilder());
+    $environment->addRenderArrayBuilder(new PlainTextRenderArrayBuilder());
 
     self::assertTrue(
       $this

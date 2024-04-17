@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\external_content\Data;
 
@@ -19,14 +17,14 @@ final class RenderArrayBuilderResult {
   /**
    * {@selfdoc}
    */
-  public function withRenderArray(array $render_array): self {
+  public static function withRenderArray(array $render_array): self {
     return new self($render_array);
   }
 
   /**
    * {@selfdoc}
    */
-  public function empty(): self {
+  public static function empty(): self {
     return new self([]);
   }
 

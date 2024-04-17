@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\external_content\Unit\Extension;
 
-use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
-use Drupal\external_content\Builder\Html\PlainTextRenderArrayRenderArrayBuilder;
+use Drupal\external_content\Builder\ElementRenderArrayBuilder;
+use Drupal\external_content\Builder\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Environment\Environment;
@@ -36,13 +36,13 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     self::assertContains(PlainTextSerializer::class, $serializer_classes);
 
     self::assertCount(1, $environment->getHtmlParsers());
-    self::assertCount(2, $environment->getBuilders());
+    self::assertCount(2, $environment->getRenderArrayBuilders());
     $builder_classes = \array_map(
       static fn (RenderArrayBuilderInterface $builder) => $builder::class,
-      $environment->getBuilders()->getIterator()->getArrayCopy(),
+      $environment->getRenderArrayBuilders()->getIterator()->getArrayCopy(),
     );
-    self::assertContains(ElementRenderArrayRenderArrayBuilder::class, $builder_classes);
-    self::assertContains(PlainTextRenderArrayRenderArrayBuilder::class, $builder_classes);
+    self::assertContains(ElementRenderArrayBuilder::class, $builder_classes);
+    self::assertContains(PlainTextRenderArrayBuilder::class, $builder_classes);
   }
 
 }

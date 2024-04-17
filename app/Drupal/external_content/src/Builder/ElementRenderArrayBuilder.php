@@ -1,21 +1,21 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\external_content\Builder\Html;
+namespace Drupal\external_content\Builder;
 
 use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Security\TrustedCallbackInterface;
-use Drupal\external_content\Builder\RenderArrayBuilder;
+use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
-use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Data\BuilderResult;
+use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\external_content\Node\Element;
+use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 
 /**
  * Provides a simple HTML render array builder.
  */
-final class ElementRenderArrayRenderArrayBuilder implements RenderArrayBuilderInterface, TrustedCallbackInterface {
+final class ElementRenderArrayBuilder implements RenderArrayBuilderInterface, TrustedCallbackInterface {
 
   /**
    * Removes unwanted 'html_tag' newline character.
@@ -93,26 +93,29 @@ final class ElementRenderArrayRenderArrayBuilder implements RenderArrayBuilderIn
   /**
    * {@inheritdoc}
    */
-  public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+  public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof Element);
 
-    return BuilderResult::renderArray([
+    return RenderArrayBuilderResult::withRenderArray([
       '#type' => 'html_tag',
       '#tag' => $node->getTag(),
       '#attributes' => $node->getAttributes()->all(),
       '#pre_render' => [
-        [HtmlTag::class, 'preRenderHtmlTag'],
-        [self::class, 'preRenderTag'],
+        HtmlTag::preRenderHtmlTag(...),
+        self::preRenderTag(...),
       ],
-      'children' => $context['children'] ?? [],
+      'children' => RenderArrayBuilderHelper::buildChildren(
+        node: $node,
+        child_builder: $child_builder,
+      )->result(),
     ]);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function supportsBuild(NodeInterface $node, string $type, array $context = []): bool {
-    return $type === RenderArrayBuilder::class && $node instanceof Element;
+  public function supportsBuild(NodeInterface $node): bool {
+    return $node instanceof Element;
   }
 
 }

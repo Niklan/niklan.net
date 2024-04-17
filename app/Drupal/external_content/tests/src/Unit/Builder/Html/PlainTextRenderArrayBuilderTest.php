@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Builder\Html;
 
-use Drupal\external_content\Builder\Html\PlainTextRenderArrayRenderArrayBuilder;
+use Drupal\external_content\Builder\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;
 use Drupal\external_content\Node\Node;
 use Drupal\external_content\Node\PlainText;
@@ -11,7 +11,7 @@ use Drupal\Tests\UnitTestCaseTest;
 /**
  * {@selfdoc}
  *
- * @covers \Drupal\external_content\Builder\Html\PlainTextRenderArrayRenderArrayBuilder
+ * @covers \Drupal\external_content\Builder\PlainTextRenderArrayBuilder
  * @group external_content
  */
 final class PlainTextRenderArrayBuilderTest extends UnitTestCaseTest {
@@ -21,7 +21,7 @@ final class PlainTextRenderArrayBuilderTest extends UnitTestCaseTest {
    */
   public function testValidElement(): void {
     $element = new PlainText('Hello, World!');
-    $builder = new PlainTextRenderArrayRenderArrayBuilder();
+    $builder = new PlainTextRenderArrayBuilder();
     $result = $builder->build($element, RenderArrayBuilder::class);
     $expected_result = [
       '#markup' => 'Hello, World!',
@@ -36,7 +36,7 @@ final class PlainTextRenderArrayBuilderTest extends UnitTestCaseTest {
    */
   public function testInvalidElement(): void {
     $element = new class () extends Node {};
-    $builder = new PlainTextRenderArrayRenderArrayBuilder();
+    $builder = new PlainTextRenderArrayBuilder();
 
     self::assertFalse(
       $builder->supportsBuild($element, RenderArrayBuilder::class),

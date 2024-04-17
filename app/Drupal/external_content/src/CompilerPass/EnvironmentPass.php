@@ -66,6 +66,12 @@ final class EnvironmentPass implements CompilerPassInterface {
       service_tag: 'external_content.serializer',
       parameter_name: 'external_content.serializers',
     );
+    $this->processComponent(
+      container: $container,
+      type: 'render_array_builder',
+      service_tag: 'external_content.render_array_builder',
+      parameter_name: 'external_content.render_array_builders',
+    );
   }
 
   /**

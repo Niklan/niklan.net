@@ -2,8 +2,6 @@
 
 namespace Drupal\external_content\Extension;
 
-use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
-use Drupal\external_content\Builder\Html\PlainTextRenderArrayRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
@@ -28,12 +26,16 @@ final class BasicHtmlExtension implements ExtensionInterface {
       ->externalContentManager
       ->getHtmlParserManager();
     $serializer_manager = $this->externalContentManager->getSerializerManager();
+    $render_array_builder_manager = $this
+      ->externalContentManager
+      ->getRenderArrayBuilderManager();
 
     $environment
       ->addHtmlParser($html_parser_manager->get('plain_text'), 50)
       ->addHtmlParser($html_parser_manager->get('element'))
-      ->addRenderArrayBuilder(new ElementRenderArrayRenderArrayBuilder())
-      ->addRenderArrayBuilder(new PlainTextRenderArrayRenderArrayBuilder())
+      ->addRenderArrayBuilder($render_array_builder_manager->get('plain_text'))
+      ->addRenderArrayBuilder($render_array_builder_manager->get('element'))
+      ->addRenderArrayBuilder($render_array_builder_manager->get('content'))
       ->addSerializer($serializer_manager->get('element'))
       ->addSerializer($serializer_manager->get('plain_text'))
       ->addSerializer($serializer_manager->get('content'));

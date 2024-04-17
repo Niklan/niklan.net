@@ -35,7 +35,7 @@ interface EnvironmentInterface extends EventDispatcherInterface, ListenerProvide
   /**
    * {@selfdoc}
    */
-  public function getBuilders(): PrioritizedList;
+  public function getRenderArrayBuilders(): PrioritizedList;
 
   /**
    * {@selfdoc}

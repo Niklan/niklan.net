@@ -88,6 +88,8 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
     $this->childHtmlParser->setEnvironment($environment);
 
     foreach ($body->childNodes as $node) {
+      // @todo Consider using child parser for that purpose in all services with
+      //   child processor.
       $this->parseChild($node, $content, $environment);
     }
   }

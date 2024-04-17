@@ -3,9 +3,9 @@
 namespace Drupal\Tests\external_content\Unit\Environment;
 
 use Drupal\Component\DependencyInjection\ContainerInterface;
-use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
-use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
+use Drupal\external_content\Builder\ElementRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
@@ -170,7 +170,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     self::assertEquals(
       $expected,
-      $environment->getBuilders()->getIterator()->getArrayCopy(),
+      $environment->getRenderArrayBuilders()->getIterator()->getArrayCopy(),
     );
   }
 
@@ -256,7 +256,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function testExtension(): void {
-    $builder = new ElementRenderArrayRenderArrayBuilder();
+    $builder = new ElementRenderArrayBuilder();
 
     $extension = new class ($builder) implements ExtensionInterface {
 
@@ -281,7 +281,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     self::assertEquals(
       $builder,
-      $environment->getBuilders()->getIterator()->offsetGet(0),
+      $environment->getRenderArrayBuilders()->getIterator()->offsetGet(0),
     );
   }
 

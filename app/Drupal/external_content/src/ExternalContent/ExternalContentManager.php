@@ -2,6 +2,7 @@
 
 namespace Drupal\external_content\ExternalContent;
 
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderManagerInterface;
 use Drupal\external_content\Contract\Bundler\BundlerManagerInterface;
 use Drupal\external_content\Contract\Converter\ConverterManagerInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
@@ -31,6 +32,7 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
     private LoaderManagerInterface $loaderManager,
     private HtmlParserManagerInterface $htmlParserManager,
     private SerializerManagerInterface $serializerManager,
+    private RenderArrayBuilderManagerInterface $renderArrayBuilderManager,
   ) {}
 
   /**
@@ -103,6 +105,13 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
   #[\Override]
   public function getSerializerManager(): SerializerManagerInterface {
     return $this->serializerManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRenderArrayBuilderManager(): RenderArrayBuilderManagerInterface {
+    return $this->renderArrayBuilderManager;
   }
 
 }

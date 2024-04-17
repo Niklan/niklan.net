@@ -5,38 +5,38 @@ namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\Core\Url;
-use Drupal\external_content\Builder\Html\ElementRenderArrayRenderArrayBuilder;
-use Drupal\external_content\Builder\RenderArrayBuilder;
+use Drupal\external_content\Builder\ElementRenderArrayBuilder;
+use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
-use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Data\BuilderResult;
+use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\external_content\Node\Element;
+use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 
 /**
  * {@selfdoc}
  *
  * @ingroup content_sync
  */
-final class LinkRenderArrayBuilder implements RenderArrayBuilderInterface {
+final readonly class LinkRenderArrayBuilder implements RenderArrayBuilderInterface {
 
   /**
    * {@selfdoc}
    */
   public function __construct(
-    private readonly Connection $connection,
+    private Connection $connection,
   ) {}
 
   /**
    * {@inheritdoc}
    */
-  public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+  public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof Element);
     $attributes = $node->getAttributes();
     $link_checksum = $attributes->getAttribute('data-pathname-md5');
     $destination = $this->findDestination($link_checksum);
 
-    return BuilderResult::renderArray([
+    return RenderArrayBuilderResult::withRenderArray([
       '#type' => 'html_tag',
       '#tag' => 'a',
       '#attributes' => [
@@ -44,22 +44,25 @@ final class LinkRenderArrayBuilder implements RenderArrayBuilderInterface {
       ],
       '#pre_render' => [
         [HtmlTag::class, 'preRenderHtmlTag'],
-        [ElementRenderArrayRenderArrayBuilder::class, 'preRenderTag'],
+        [ElementRenderArrayBuilder::class, 'preRenderTag'],
       ],
       '#cache' => [
         'tags' => [
           'external_content:' . $link_checksum,
         ],
       ],
-      'children' => $context['children'] ?? [],
+      'children' => RenderArrayBuilderHelper::buildChildren(
+        node: $node,
+        child_builder: $child_builder,
+      )->result(),
     ]);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function supportsBuild(NodeInterface $node, string $type, array $context = []): bool {
-    if ($type !== RenderArrayBuilder::class || !$node instanceof Element) {
+  public function supportsBuild(NodeInterface $node): bool {
+    if (!$node instanceof Element) {
       return FALSE;
     }
 

@@ -2,12 +2,12 @@
 
 namespace Drupal\niklan\Builder\ExternalContent\RenderArray;
 
-use Drupal\external_content\Builder\RenderArrayBuilder;
+use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
-use Drupal\external_content\Contract\Builder\BuilderResultInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Data\BuilderResult;
+use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\external_content\Node\Element;
+use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 
 /**
  * {@selfdoc}
@@ -19,7 +19,7 @@ final class CodeBlock implements RenderArrayBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function build(NodeInterface $node, string $type, array $context = []): BuilderResultInterface {
+  public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof Element);
     $attributes = $node->getAttributes();
     $info = [];
@@ -28,20 +28,23 @@ final class CodeBlock implements RenderArrayBuilderInterface {
       $info = \json_decode($attributes->getAttribute('data-info'), TRUE);
     }
 
-    return BuilderResult::renderArray([
+    return RenderArrayBuilderResult::withRenderArray([
       '#theme' => 'niklan_code_block',
       '#language' => $attributes->getAttribute('data-language'),
       '#highlighted_lines' => $info['highlighted_lines'] ?? NULL,
       '#heading' => $info['header'] ?? NULL,
-      '#code' => $context['children'],
+      '#code' => RenderArrayBuilderHelper::buildChildren(
+        node: $node,
+        child_builder: $child_builder,
+      )->result(),
     ]);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function supportsBuild(NodeInterface $node, string $type, array $context = []): bool {
-    return $type === RenderArrayBuilder::class && $node instanceof Element && $node->getTag() === 'pre';
+  public function supportsBuild(NodeInterface $node): bool {
+    return $node instanceof Element && $node->getTag() === 'pre';
   }
 
 }
