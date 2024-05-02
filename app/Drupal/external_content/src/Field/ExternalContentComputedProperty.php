@@ -4,9 +4,8 @@ namespace Drupal\external_content\Field;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\TypedData;
-use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
+use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 
 /**
  * Provides a computed field for "external_content" field type.
@@ -38,19 +37,20 @@ final class ExternalContentComputedProperty extends TypedData {
     $environment_id = $field_item->get('environment_id')->getString();
 
     try {
-      $environment = self::getEnvironmentManager()->get(
-        environment_id: $environment_id,
-      );
+      $environment = self::getExternalContentManager()
+        ->getEnvironmentManager()
+        ->get(environment_id: $environment_id);
     }
     catch (\Exception) {
       return NULL;
     }
 
-    $serializer = self::getSerializer();
-    $serializer->setEnvironment($environment);
-    $element = $serializer->deserialize($field_item->get('value')->getValue());
-
-    $this->value = $element;
+    $this->value = self::getExternalContentManager()
+      ->getSerializerManager()
+      ->deserialize(
+        json: $field_item->get('value')->getValue(),
+        environment: $environment,
+      );
 
     return $this->value;
   }
@@ -58,15 +58,8 @@ final class ExternalContentComputedProperty extends TypedData {
   /**
    * {@selfdoc}
    */
-  private static function getEnvironmentManager(): EnvironmentManagerInterface {
-    return \Drupal::service(EnvironmentManagerInterface::class);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private static function getSerializer(): SerializerManagerInterface {
-    return \Drupal::service(SerializerManagerInterface::class);
+  private static function getExternalContentManager(): ExternalContentManagerInterface {
+    return \Drupal::service(ExternalContentManagerInterface::class);
   }
 
 }

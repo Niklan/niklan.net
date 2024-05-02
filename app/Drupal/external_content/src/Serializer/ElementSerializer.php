@@ -58,7 +58,7 @@ final class ElementSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
+  public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     $attributes = new Attributes($data->get('attributes') ?? []);
     $element = new Element($data->get('tag'), $attributes);
 

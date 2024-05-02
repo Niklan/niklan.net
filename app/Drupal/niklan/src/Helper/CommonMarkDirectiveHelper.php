@@ -217,4 +217,21 @@ final class CommonMarkDirectiveHelper {
     return $cursor->getCurrentCharacter() !== ' ';
   }
 
+  /**
+   * {@selfdoc}
+   */
+  public static function flattenExtraAttributes(array $extra_attributes): array {
+    $attributes = $extra_attributes;
+
+    if (\array_key_exists('key-value', $attributes)) {
+      foreach ($attributes['key-value'] as $key => $value) {
+        $attributes["data-$key"] = $value;
+      }
+
+      unset($attributes['key-value']);
+    }
+
+    return $attributes;
+  }
+
 }

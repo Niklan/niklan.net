@@ -1,0 +1,36 @@
+.alert {
+  --note-color: var(--text-color);
+
+  margin: var(--p-margin--y) 0;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-left: var(--spacing-xxs) solid var(--note-color);
+}
+
+.alert__heading {
+  display: flex;
+  align-items: center;
+  color: var(--note-color);
+  font-weight: bold;
+  gap: var(--spacing-xs);
+  fill: var(--note-color);
+}
+
+.alert--note {
+  --note-color: #046CD3;
+}
+
+.alert--tip {
+  --note-color: #1C7E37;
+}
+
+.alert--important {
+  --note-color: #8453E4;
+}
+
+.alert--warning {
+  --note-color: #9E6D03;
+}
+
+.alert--caution {
+  --note-color: #D12327;
+}

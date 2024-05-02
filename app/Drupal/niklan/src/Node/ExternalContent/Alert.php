@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Node\ExternalContent;
 
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Node\Node;
 
 /**
@@ -9,14 +10,15 @@ use Drupal\external_content\Node\Node;
  *
  * @ingroup content_sync
  */
-final class Note extends Node {
+final class Alert extends Node {
 
   /**
    * {@selfdoc}
    */
   public function __construct(
     public readonly string $type,
-    public readonly ?string $heading,
+    public readonly ?NodeInterface $content,
+    public readonly ?NodeInterface $heading,
   ) {}
 
 }

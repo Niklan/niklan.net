@@ -6,23 +6,26 @@ use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\RenderArrayBuilderResult;
-use Drupal\niklan\Node\ExternalContent\Note as NoteNode;
+use Drupal\niklan\Node\ExternalContent\Alert as AlertNode;
 
 /**
  * {@selfdoc}
  *
  * @ingroup content_sync
  */
-final class Note implements RenderArrayBuilderInterface {
+final class Alert implements RenderArrayBuilderInterface {
 
   /**
    * {@inheritdoc}
    */
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
-    \assert($node instanceof NoteNode);
+    \assert($node instanceof AlertNode);
 
     return RenderArrayBuilderResult::withRenderArray([
-      '#markup' => '@TODO NOTE THEME HOOK',
+      '#theme' => 'niklan_alert',
+      '#type' => $node->type,
+      '#heading' => $node->heading ? $child_builder->build($node->heading)->result() : NULL,
+      '#content' => $node->content ? $child_builder->build($node->content)->result() : NULL,
     ]);
   }
 
@@ -30,7 +33,7 @@ final class Note implements RenderArrayBuilderInterface {
    * {@inheritdoc}
    */
   public function supportsBuild(NodeInterface $node): bool {
-    return $node instanceof NoteNode;
+    return $node instanceof AlertNode;
   }
 
 }

@@ -18,7 +18,7 @@ use Drupal\external_content\Utils\RenderArrayBuilderHelper;
  *
  * @ingroup content_sync
  */
-final readonly class LinkRenderArrayBuilder implements RenderArrayBuilderInterface {
+final readonly class Link implements RenderArrayBuilderInterface {
 
   /**
    * {@selfdoc}

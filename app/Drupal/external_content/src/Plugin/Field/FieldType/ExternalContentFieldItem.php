@@ -55,8 +55,19 @@ final class ExternalContentFieldItem extends FieldItemBase {
   #[\Override]
   public function getConstraints(): array {
     $constraints = parent::getConstraints();
-    $constraints['value']['ExternalContentValidJson'] = [];
-    $constraints['data']['ExternalContentValidJson'] = [];
+
+    $constraint_manager = $this
+      ->getTypedDataManager()
+      ->getValidationConstraintManager();
+
+    $constraints[] = $constraint_manager->create('ComplexData', [
+      'value' => [
+        'ExternalContentValidJson' => [],
+      ],
+      'data' => [
+        'ExternalContentValidJson' => [],
+      ],
+    ]);
 
     return $constraints;
   }

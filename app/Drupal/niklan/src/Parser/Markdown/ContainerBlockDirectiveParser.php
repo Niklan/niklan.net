@@ -36,6 +36,7 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
   ) {
     $info = CommonMarkDirectiveHelper::parseInfoString($this->directiveInfo);
     $attributes = CommonMarkDirectiveHelper::parseExtraAttributes($info['attributes'] ?? '');
+    $attributes = CommonMarkDirectiveHelper::flattenExtraAttributes($attributes);
 
     $this->block = new ContainerBlockDirective(
       type: $info['type'],

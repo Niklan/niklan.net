@@ -25,4 +25,4 @@ $content = $external_content->getSerializerManager()->deserialize($json, $enviro
 $loader_results = $external_content->getLoaderManager()->load($bundle, $environment);
 
 $build = $external_content->getRenderArrayBuilderManager()->build($content, $environment)->result();
-dump(\Drupal::service('renderer')->renderPlain($build));
+//dump(\Drupal::service('renderer')->renderPlain($build));

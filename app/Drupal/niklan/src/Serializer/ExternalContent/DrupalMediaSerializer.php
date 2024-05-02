@@ -52,7 +52,7 @@ final class DrupalMediaSerializer implements SerializerInterface {
   /**
    * {@inheritdoc}
    */
-  public function deserialize(Data $data, string $serialized_version, ChildSerializerInterface $child_serializer): NodeInterface {
+  public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new DrupalMedia(
       $data->get('uuid'),
       $data->get('alt'),

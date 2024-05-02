@@ -38,6 +38,10 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
     $converter_manager = $this->externalContentManager->getConverterManager();
     $loader_manager = $this->externalContentManager->getLoaderManager();
     $serializer_manager = $this->externalContentManager->getSerializerManager();
+    $builder_manager = $this
+      ->externalContentManager
+      ->getRenderArrayBuilderManager();
+    $parser_manager = $this->externalContentManager->getHtmlParserManager();
 
     $environment
       // @todo Consider to replace by callable subscribers right here. Look
@@ -50,7 +54,12 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->addConverter($converter_manager->get('niklan_markdown'))
       ->addLoader($loader_manager->get('blog'))
       ->addSerializer($serializer_manager->get('drupal_media'))
-      ->addSerializer($serializer_manager->get('note'));
+      ->addRenderArrayBuilder($builder_manager->get('drupal_media'))
+      ->addSerializer($serializer_manager->get('alert'))
+      ->addHtmlParser($parser_manager->get('alert'))
+      ->addRenderArrayBuilder($builder_manager->get('alert'))
+      ->addRenderArrayBuilder($builder_manager->get('code_block'))
+      ->addRenderArrayBuilder($builder_manager->get('link'));
   }
 
   /**

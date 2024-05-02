@@ -71,19 +71,35 @@ services:
   Drupal\niklan\Asset\ContentAssetManager:
     arguments:
       $fileUsage: '@file.usage'
+
+  # External content.
+  Drupal\niklan\Extension\ExternalContent\BlogExtension:
+    tags:
+      - { name: external_content.extension, id: blog }
   Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier:
     tags:
       - { name: external_content.identifier, id: front_matter }
   Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer:
     tags:
       - { name: external_content.serializer, id: drupal_media }
-  Drupal\niklan\Serializer\ExternalContent\NoteSerializer:
+  Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia:
     tags:
-      - { name: external_content.serializer, id: note }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia: { }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock: { }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\Note: { }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\LinkBuilder: { }
+      - { name: external_content.render_array_builder, id: drupal_media }
+  Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock:
+    tags:
+      - { name: external_content.render_array_builder, id: code_block }
+  Drupal\niklan\Serializer\ExternalContent\AlertSerializer:
+    tags:
+      - { name: external_content.serializer, id: alert }
+  Drupal\niklan\Parser\ExternalContent\AlertParser:
+    tags:
+      - { name: external_content.html_parser, id: alert }
+  Drupal\niklan\Builder\ExternalContent\RenderArray\Alert:
+    tags:
+      - { name: external_content.render_array_builder, id: alert }
+  Drupal\niklan\Builder\ExternalContent\RenderArray\Link:
+    tags:
+      - { name: external_content.render_array_builder, id: link }
   Drupal\niklan\Loader\ExternalContent\Blog:
     tags:
       - { name: external_content.loader, id: blog }
@@ -92,10 +108,6 @@ services:
       - '@niklan.markdown.converter'
     tags:
       - { name: external_content.converter, id: niklan_markdown }
-
-  Drupal\niklan\Extension\ExternalContent\BlogExtension:
-    tags:
-      - { name: external_content.extension, id: blog }
 
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment

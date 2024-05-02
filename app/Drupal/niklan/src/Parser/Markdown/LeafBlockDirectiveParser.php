@@ -33,6 +33,7 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
   ) {
     $info = CommonMarkDirectiveHelper::parseInfoString($this->directiveInfo);
     $attributes = CommonMarkDirectiveHelper::parseExtraAttributes($info['attributes'] ?? '');
+    $attributes = CommonMarkDirectiveHelper::flattenExtraAttributes($attributes);
 
     $this->block = new LeafBlockDirective(
       type: $info['type'],

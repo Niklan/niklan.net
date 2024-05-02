@@ -203,7 +203,7 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'code' => NULL,
       ],
     ],
-    'niklan_note' => [
+    'niklan_alert' => [
       'variables' => [
         'type' => NULL,
         'heading' => NULL,

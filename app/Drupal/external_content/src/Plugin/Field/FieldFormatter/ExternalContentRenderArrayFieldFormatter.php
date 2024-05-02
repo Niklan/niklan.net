@@ -6,13 +6,13 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\external_content\Builder\RenderArrayBuilder;
+use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'With icon' formatter.
+ * {@selfdoc}
  *
  * @FieldFormatter(
  *   id = "external_content_render_array",
@@ -35,8 +35,7 @@ final class ExternalContentRenderArrayFieldFormatter extends FormatterBase imple
     $label,
     $view_mode,
     array $third_party_settings,
-    private readonly RenderArrayBuilder $renderArrayBuilder,
-    private readonly EnvironmentPluginManagerInterface $environmentPluginManager,
+    private readonly ExternalContentManagerInterface $externalContentManager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
@@ -53,8 +52,7 @@ final class ExternalContentRenderArrayFieldFormatter extends FormatterBase imple
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get(RenderArrayBuilder::class),
-      $container->get(EnvironmentPluginManagerInterface::class),
+      $container->get(ExternalContentManagerInterface::class),
     );
   }
 
@@ -74,26 +72,22 @@ final class ExternalContentRenderArrayFieldFormatter extends FormatterBase imple
       $content = $item->get('content')->getValue();
       \assert($content instanceof NodeInterface);
 
-      $environment_plugin_id = $item->get('environment_plugin_id')->getValue();
-      $environment_plugin = $this
-        ->environmentPluginManager
-        ->createInstance($environment_plugin_id);
-      \assert($environment_plugin instanceof EnvironmentPluginInterface);
+      $environment_id = $item->get('environment_id')->getValue();
 
-      $this
-        ->renderArrayBuilder
-        ->setEnvironment($environment_plugin->getEnvironment());
+      if (!$this->externalContentManager->getEnvironmentManager()->has($environment_id)) {
+        continue;
+      }
 
-      $build = $this->renderArrayBuilder->build(
-        node: $content,
-        context: [
-          'environment_plugin_id' => $environment_plugin_id,
-          'entity_type' => $this->fieldDefinition->getTargetEntityTypeId(),
-          'bundle' => $this->fieldDefinition->getTargetBundle(),
-          'view_mode' => $this->viewMode,
-        ],
-      );
-      $element[] = $build->result();
+      $environment = $this
+        ->externalContentManager
+        ->getEnvironmentManager()
+        ->get($environment_id);
+
+      $element[] = $this
+        ->externalContentManager
+        ->getRenderArrayBuilderManager()
+        ->build(node: $content, environment: $environment)
+        ->result();
     }
 
     return $element;

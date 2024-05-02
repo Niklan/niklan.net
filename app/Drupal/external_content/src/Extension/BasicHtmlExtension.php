@@ -31,14 +31,14 @@ final class BasicHtmlExtension implements ExtensionInterface {
       ->getRenderArrayBuilderManager();
 
     $environment
-      ->addHtmlParser($html_parser_manager->get('plain_text'), 50)
-      ->addHtmlParser($html_parser_manager->get('element'))
-      ->addRenderArrayBuilder($render_array_builder_manager->get('plain_text'))
-      ->addRenderArrayBuilder($render_array_builder_manager->get('element'))
-      ->addRenderArrayBuilder($render_array_builder_manager->get('content'))
-      ->addSerializer($serializer_manager->get('element'))
-      ->addSerializer($serializer_manager->get('plain_text'))
-      ->addSerializer($serializer_manager->get('content'));
+      ->addHtmlParser($html_parser_manager->get('plain_text'))
+      ->addHtmlParser($html_parser_manager->get('element'), -50)
+      ->addRenderArrayBuilder($render_array_builder_manager->get('plain_text'), -50)
+      ->addRenderArrayBuilder($render_array_builder_manager->get('element'), -50)
+      ->addRenderArrayBuilder($render_array_builder_manager->get('content'), -50)
+      ->addSerializer($serializer_manager->get('element'), -50)
+      ->addSerializer($serializer_manager->get('plain_text'), -50)
+      ->addSerializer($serializer_manager->get('content'), -50);
   }
 
 }

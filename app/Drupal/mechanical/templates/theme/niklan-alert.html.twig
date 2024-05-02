@@ -1,0 +1,19 @@
+{% extends '@niklan/niklan-alert.html.twig' %}
+{% do attach_library('mechanical/component.theme.alert') %}
+
+{% block alert_icon %}
+  {% if type == 'tip' %}
+    {% set icon = 'lightbulb_FILL0_wght400_GRAD0_opsz24.svg' %}
+  {% elseif type == 'important' %}
+    {% set icon = 'feedback_FILL0_wght400_GRAD0_opsz24.svg' %}
+  {% elseif type == 'warning' %}
+    {% set icon = 'feedback_FILL0_wght400_GRAD0_opsz24.svg' %}
+  {% elseif type == 'caution' %}
+    {% set icon = 'report_FILL0_wght400_GRAD0_opsz24.svg' %}
+  {% else %}
+    {# Fall back icon + 'note' icon. #}
+    {% set icon = 'info_FILL0_wght400_GRAD0_opsz24.svg' %}
+  {% endif %}
+
+  {% include '@mechanical/../assets/icons/000000/' ~ icon %}
+{% endblock %}

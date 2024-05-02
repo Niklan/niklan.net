@@ -237,6 +237,11 @@ component.theme.code-block:
   dependencies:
     - mechanical/component.javascript.prismjs
 
+component.theme.alert:
+  css:
+    theme:
+      assets/css/04-components/theme/alert.css: { }
+
 component.block.page-title:
   css:
     theme:
