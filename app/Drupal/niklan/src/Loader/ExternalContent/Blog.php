@@ -11,6 +11,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Data\Data;
 use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\LoaderResult;
@@ -21,6 +22,7 @@ use Drupal\niklan\Entity\Node\BlogEntryInterface;
 use Drupal\niklan\Exception\InvalidContentSource;
 use Drupal\niklan\Helper\PathHelper;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
+use Drupal\niklan\Node\ExternalContent\RemoteVideo;
 use Drupal\taxonomy\TermStorageInterface;
 
 /**
@@ -270,7 +272,8 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       environment: $this->environment,
     );
 
-    $this->replaceMediaNodes($content, $this->getSourceDir($identified_source));
+    $this->replaceMediaImages($content, $this->getSourceDir($identified_source));
+    $this->replaceMediaRemoteVideos($content);
     $this->prepareInternalLinks($content, $this->getSourceDir($identified_source));
     $normalized = $this
       ->externalContentManager
@@ -300,10 +303,36 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   /**
    * {@selfdoc}
    */
-  private function replaceMediaNodes(NodeInterface $node, string $source_dir): void {
+  private function replaceMediaRemoteVideos(NodeInterface $node): void {
     foreach ($node->getChildren() as $child) {
       \assert($node instanceof NodeInterface);
-      $this->replaceMediaNodes($child, $source_dir);
+      $this->replaceMediaRemoteVideos($child);
+    }
+
+    if (!$node instanceof RemoteVideo) {
+      return;
+    }
+
+    $media = $this->contentAssetManager->syncWithMedia($node->src);
+
+    if (!$media instanceof MediaInterface) {
+      return;
+    }
+
+    $new_node = new DrupalMedia(
+      type: 'remote_video',
+      uuid: $media->uuid(),
+    );
+    $node->getRoot()->replaceNode($node, $new_node);
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function replaceMediaImages(NodeInterface $node, string $source_dir): void {
+    foreach ($node->getChildren() as $child) {
+      \assert($node instanceof NodeInterface);
+      $this->replaceMediaImages($child, $source_dir);
     }
 
     if (!$node instanceof Element || $node->getTag() !== 'img') {
@@ -323,9 +352,12 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     }
 
     $new_node = new DrupalMedia(
-      $media->uuid(),
-      $node->getAttributes()->getAttribute('alt'),
-      $node->getAttributes()->getAttribute('title'),
+      type: 'image',
+      uuid: $media->uuid(),
+      data: new Data([
+        'alt' => $node->getAttributes()->getAttribute('alt'),
+        'title' => $node->getAttributes()->getAttribute('title'),
+      ]),
     );
     $node->getRoot()->replaceNode($node, $new_node);
   }

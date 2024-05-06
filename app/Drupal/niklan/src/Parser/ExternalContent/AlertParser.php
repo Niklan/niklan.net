@@ -48,11 +48,7 @@ final class AlertParser implements HtmlParserInterface {
     $allowed_types = ['note', 'tip', 'important', 'warning', 'caution'];
     $type = $node->getAttribute('data-type');
 
-    if (!\in_array($type, $allowed_types)) {
-      return FALSE;
-    }
-
-    return TRUE;
+    return \in_array($type, $allowed_types);
   }
 
   /**

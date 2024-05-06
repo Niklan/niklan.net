@@ -22,9 +22,9 @@ final class DrupalMediaSerializer implements SerializerInterface {
     \assert($node instanceof DrupalMedia);
 
     return [
+      'type' => $node->type,
       'uuid' => $node->uuid,
-      'alt' => $node->alt,
-      'title' => $node->title,
+      'data' => $node->data->all(),
     ];
   }
 
@@ -54,9 +54,9 @@ final class DrupalMediaSerializer implements SerializerInterface {
    */
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new DrupalMedia(
+      $data->get('type'),
       $data->get('uuid'),
-      $data->get('alt'),
-      $data->get('title'),
+      new Data($data->get('data')),
     );
   }
 

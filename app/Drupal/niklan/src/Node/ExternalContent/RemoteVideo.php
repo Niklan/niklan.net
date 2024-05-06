@@ -2,7 +2,6 @@
 
 namespace Drupal\niklan\Node\ExternalContent;
 
-use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Node;
 
 /**
@@ -10,15 +9,13 @@ use Drupal\external_content\Node\Node;
  *
  * @ingroup content_sync
  */
-final class DrupalMedia extends Node {
+final class RemoteVideo extends Node {
 
   /**
    * {@selfdoc}
    */
   public function __construct(
-    public readonly string $type,
-    public readonly string $uuid,
-    public readonly Data $data = new Data(),
+    public readonly string $src,
   ) {}
 
 }

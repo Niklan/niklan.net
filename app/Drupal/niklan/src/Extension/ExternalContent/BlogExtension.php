@@ -57,6 +57,7 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->addRenderArrayBuilder($builder_manager->get('drupal_media'))
       ->addSerializer($serializer_manager->get('alert'))
       ->addHtmlParser($parser_manager->get('alert'))
+      ->addHtmlParser($parser_manager->get('remote_video'))
       ->addRenderArrayBuilder($builder_manager->get('alert'))
       ->addRenderArrayBuilder($builder_manager->get('code_block'))
       ->addRenderArrayBuilder($builder_manager->get('link'));

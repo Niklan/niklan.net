@@ -97,6 +97,9 @@ services:
   Drupal\niklan\Builder\ExternalContent\RenderArray\Alert:
     tags:
       - { name: external_content.render_array_builder, id: alert }
+  Drupal\niklan\Parser\ExternalContent\RemoteVideo:
+    tags:
+      - { name: external_content.html_parser, id: remote_video }
   Drupal\niklan\Builder\ExternalContent\RenderArray\Link:
     tags:
       - { name: external_content.render_array_builder, id: link }

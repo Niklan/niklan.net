@@ -94,8 +94,8 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     $build = [
       '#theme' => 'niklan_lightbox_responsive_image',
       '#uri' => $file->getFileUri(),
-      '#alt' => $node->alt,
-      '#title' => $node->title,
+      '#alt' => $node->data->get('alt') ?? NULL,
+      '#title' => $node->data->get('title') ?? NULL,
       '#thumbnail_responsive_image_style_id' => 'paragraph_image_image',
       '#lightbox_image_style_id' => 'big_image',
     ];
