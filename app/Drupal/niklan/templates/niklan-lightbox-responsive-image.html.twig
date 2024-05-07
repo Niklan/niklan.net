@@ -25,19 +25,8 @@
       {{ responsive_image }}
     </div>
 
-    {% if alt %}
-      <div class="lightbox__alt">
-        <div class="lightbox__alt-indicator">alt</div>
-        <div class="lightbox__alt-text">{{ alt }}</div>
-      </div>
-    {% endif %}
-
     <div class="lightbox__magnify">
       {{ include('@niklan/../assets/icons/000000/fullscreen_FILL0_wght400_GRAD0_opsz24.svg') }}
     </div>
   </a>
-
-  {% if title %}
-    <div class="lightbox__title">{{ title }}</div>
-  {% endif %}
 </div>

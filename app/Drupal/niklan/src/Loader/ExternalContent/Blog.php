@@ -359,7 +359,30 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
         'title' => $node->getAttributes()->getAttribute('title'),
       ]),
     );
-    $node->getRoot()->replaceNode($node, $new_node);
+
+    $replace_target = $node;
+
+    // If the image is the only element in the paragraph, it will be an enlarged
+    // image that will be rendered as a separate element with its own container.
+    // Because '<p>' cannot contain block elements, this element will be
+    // replaced directly by the future image.
+    //
+    // Without that, the result will be rendered from:
+    // @code
+    // <p><img src="#"/></p>
+    // @endcode
+    //
+    // to:
+    // @code
+    // <p></p>
+    // <div><img src="#"/></div>
+    // <p></p>
+    // @endcode.
+    if ($node->getParent() instanceof Element && $node->getParent()->getTag() === 'p' && $node->getParent()->getChildren()->count()) {
+      $replace_target = $node->getParent();
+    }
+
+    $node->getRoot()->replaceNode($replace_target, $new_node);
   }
 
   /**

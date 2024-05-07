@@ -58,6 +58,7 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->addSerializer($serializer_manager->get('alert'))
       ->addHtmlParser($parser_manager->get('alert'))
       ->addHtmlParser($parser_manager->get('remote_video'))
+      ->addHtmlParser($parser_manager->get('container'))
       ->addRenderArrayBuilder($builder_manager->get('alert'))
       ->addRenderArrayBuilder($builder_manager->get('code_block'))
       ->addRenderArrayBuilder($builder_manager->get('link'));

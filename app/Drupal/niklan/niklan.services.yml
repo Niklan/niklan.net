@@ -111,6 +111,9 @@ services:
       - '@niklan.markdown.converter'
     tags:
       - { name: external_content.converter, id: niklan_markdown }
+  Drupal\niklan\Parser\ExternalContent\Container:
+    tags:
+      - { name: external_content.html_parser, id: container }
 
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment

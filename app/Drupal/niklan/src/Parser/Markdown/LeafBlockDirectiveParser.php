@@ -56,15 +56,10 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
    */
   #[\Override]
   public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue {
-    // Make sure we at the end for the cursor line. It is moved here at start
-    // parser, but still, make sure this is the case.
-    if ($cursor->isAtEnd()) {
-      return BlockContinue::finished();
-    }
-
-    $cursor->advanceBy(1);
-
-    return BlockContinue::at($cursor);
+    // Since this directive is not a container and the cursor has already been
+    // moved to the end of the line in the initial parser, the continuation is
+    // immediately interrupted.
+    return BlockContinue::none();
   }
 
   /**
