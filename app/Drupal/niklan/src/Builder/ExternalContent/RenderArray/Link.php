@@ -16,6 +16,8 @@ use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 /**
  * {@selfdoc}
  *
+ * @see \Drupal\niklan\Loader\ExternalContent\Blog::prepareInternalLinks
+ *
  * @ingroup content_sync
  */
 final readonly class Link implements RenderArrayBuilderInterface {

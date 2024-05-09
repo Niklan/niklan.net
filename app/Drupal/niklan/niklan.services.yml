@@ -114,6 +114,9 @@ services:
   Drupal\niklan\Parser\ExternalContent\Container:
     tags:
       - { name: external_content.html_parser, id: container }
+  Drupal\niklan\Parser\ExternalContent\Video:
+    tags:
+      - { name: external_content.html_parser, id: video }
 
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment

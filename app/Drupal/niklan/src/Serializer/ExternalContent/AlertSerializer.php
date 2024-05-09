@@ -29,9 +29,10 @@ final class AlertSerializer implements SerializerInterface {
       $data['heading'] = $child_serializer->normalize($node->heading);
     }
 
-    if ($node->content) {
-      $data['content'] = $child_serializer->normalize($node->content);
-    }
+    $data['content'] = \array_map(
+      static fn (NodeInterface $child) => $child_serializer->normalize($child),
+      $node->getChildren()->getArrayCopy(),
+    );
 
     return $data;
   }
@@ -61,11 +62,16 @@ final class AlertSerializer implements SerializerInterface {
    * {@inheritdoc}
    */
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    return new Alert(
+    $alert = new Alert(
       type: $data->get('type'),
-      content: $data->has('content') ? $child_serializer->deserialize($data->get('content')) : NULL,
       heading: $data->has('heading') ? $child_serializer->deserialize($data->get('heading')) : NULL,
     );
+
+    foreach ($data->get('content') as $child) {
+      $alert->addChild($child_serializer->deserialize($child));
+    }
+
+    return $alert;
   }
 
   /**

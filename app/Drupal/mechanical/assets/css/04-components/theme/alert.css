@@ -3,6 +3,7 @@
 
   margin: var(--p-margin--y) 0;
   padding: var(--spacing-xs) var(--spacing-md);
+  padding-right: 0;
   border-left: var(--spacing-xxs) solid var(--note-color);
 }
 

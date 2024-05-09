@@ -6,6 +6,7 @@ use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\RenderArrayBuilderResult;
+use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 use Drupal\niklan\Node\ExternalContent\Alert as AlertNode;
 
 /**
@@ -25,7 +26,7 @@ final class Alert implements RenderArrayBuilderInterface {
       '#theme' => 'niklan_alert',
       '#type' => $node->type,
       '#heading' => $node->heading ? $child_builder->build($node->heading)->result() : NULL,
-      '#content' => $node->content ? $child_builder->build($node->content)->result() : NULL,
+      '#content' => $node->hasChildren() ? RenderArrayBuilderHelper::buildChildren($node, $child_builder)->result() : NULL,
     ]);
   }
 

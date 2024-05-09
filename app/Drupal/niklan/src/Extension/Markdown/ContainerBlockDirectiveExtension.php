@@ -19,7 +19,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  *
  * @code
  *  :::name[inline-content](argument){#id .class key=value}
- *  Note contents.
+ *    Contents of the directive.
  *  :::
  * @endcode
  *

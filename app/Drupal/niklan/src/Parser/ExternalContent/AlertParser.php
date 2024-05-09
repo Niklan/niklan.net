@@ -6,6 +6,7 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Data\HtmlParserResult;
+use Drupal\external_content\Node\NodeList;
 use Drupal\niklan\Node\ExternalContent\Alert;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -26,9 +27,14 @@ final class AlertParser implements HtmlParserInterface {
 
     $alert = new Alert(
       type: $node->getAttribute('data-type'),
-      content: $this->findContent($node, $child_parser),
       heading: $this->findHeading($node, $child_parser),
     );
+
+    $content = $this->findContent($node, $child_parser);
+
+    if ($content) {
+      $alert->addChildren($content);
+    }
 
     return HtmlParserResult::replace($alert);
   }
@@ -71,7 +77,7 @@ final class AlertParser implements HtmlParserInterface {
   /**
    * {@selfdoc}
    */
-  private function findContent(\DOMNode $node, ChildHtmlParserInterface $child_parser): ?NodeInterface {
+  private function findContent(\DOMNode $node, ChildHtmlParserInterface $child_parser): ?NodeList {
     $crawler = new Crawler($node);
     $crawler = $crawler->filter('[data-selector="content"]');
 
@@ -79,10 +85,7 @@ final class AlertParser implements HtmlParserInterface {
       return NULL;
     }
 
-    return $child_parser
-      ->parse($crawler->getNode(0)->childNodes)
-      ->getChildren()
-      ->offsetGet(0);
+    return $child_parser->parse($crawler->getNode(0)->childNodes);
   }
 
 }

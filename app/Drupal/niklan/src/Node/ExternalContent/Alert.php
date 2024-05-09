@@ -17,8 +17,22 @@ final class Alert extends Node {
    */
   public function __construct(
     public readonly string $type,
-    public readonly ?NodeInterface $content,
-    public readonly ?NodeInterface $heading,
-  ) {}
+    public ?NodeInterface $heading,
+  ) {
+    $this->heading?->setParent($this);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function replaceNode(NodeInterface $search, NodeInterface $replace): self {
+    parent::replaceNode($search, $replace);
+
+    if ($this->heading === $search) {
+      $this->heading = $replace;
+    }
+
+    return $this;
+  }
 
 }

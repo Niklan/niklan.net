@@ -23,6 +23,7 @@ use Drupal\niklan\Exception\InvalidContentSource;
 use Drupal\niklan\Helper\PathHelper;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 use Drupal\niklan\Node\ExternalContent\RemoteVideo;
+use Drupal\niklan\Node\ExternalContent\Video;
 use Drupal\taxonomy\TermStorageInterface;
 
 /**
@@ -272,9 +273,12 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       environment: $this->environment,
     );
 
-    $this->replaceMediaImages($content, $this->getSourceDir($identified_source));
+    $source_dir = $this->getSourceDir($identified_source);
+
+    $this->replaceMediaImages($content, $source_dir);
+    $this->replaceMediaVideos($content, $source_dir);
     $this->replaceMediaRemoteVideos($content);
-    $this->prepareInternalLinks($content, $this->getSourceDir($identified_source));
+    $this->prepareInternalLinks($content, $source_dir);
     $normalized = $this
       ->externalContentManager
       ->getSerializerManager()
@@ -323,7 +327,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       type: 'remote_video',
       uuid: $media->uuid(),
     );
-    $node->getRoot()->replaceNode($node, $new_node);
+    $node->getParent()->replaceNode($node, $new_node);
   }
 
   /**
@@ -382,16 +386,19 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       $replace_target = $node->getParent();
     }
 
-    $node->getRoot()->replaceNode($replace_target, $new_node);
+    $replace_target->getParent()->replaceNode($replace_target, $new_node);
   }
 
   /**
-   * {@selfdoc}
+   * Assigning labels to internal links to facilitate content search.
    *
-   * This logic done in loader because it better to be done once. After content
-   * is synced, the source directory can be removed and this logic would fail.
-   * This is why the all required information extracted during loading when
-   * all sources are exist.
+   * This logic is implemented in the loader as it is more efficient to perform
+   * the operation once. Once the content has been synchronized, the source
+   * directory may be deleted and this operation will fail. Therefore, all
+   * necessary information must be extracted during the loading process, when
+   * all sources are accessible.
+   *
+   * @see \Drupal\niklan\Builder\ExternalContent\RenderArray\Link
    */
   private function prepareInternalLinks(NodeInterface $node, string $source_dir): void {
     foreach ($node->getChildren() as $child) {
@@ -418,6 +425,13 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       return;
     }
 
+    // If the link points to a file that already exists in the directory with
+    // the original contents, then disable this link and add additional
+    // information.
+    //
+    // Thanks to the path name hash, the content located at this specific path
+    // will be retrieved from the database when the link is rendered. This
+    // allows for the correct URL to be displayed.
     $attributes->setAttribute('href', '#');
     $attributes->setAttribute('data-selector', 'niklan:external-link');
     $attributes->setAttribute('data-pathname-md5', \md5($pathname));
@@ -428,6 +442,42 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    */
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  private function replaceMediaVideos(NodeInterface $node, string $source_dir): void {
+    foreach ($node->getChildren() as $child) {
+      \assert($child instanceof NodeInterface);
+      $this->replaceMediaVideos($child, $source_dir);
+    }
+
+    if (!$node instanceof Video) {
+      return;
+    }
+
+    $src = $node->src;
+
+    if (!UrlHelper::isExternal($src)) {
+      $src = "$source_dir/$src";
+    }
+
+    $media = $this->contentAssetManager->syncWithMedia($src);
+
+    if (!$media instanceof MediaInterface) {
+      return;
+    }
+
+    $new_node = new DrupalMedia(
+      type: 'video',
+      uuid: $media->uuid(),
+      data: new Data([
+        'title' => $node->title,
+      ]),
+    );
+
+    $node->getParent()->replaceNode($node, $new_node);
   }
 
 }

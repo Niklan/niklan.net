@@ -18,7 +18,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  * Example:
  *
  * @code
- *  :::name[inline-content](argument){#id .class key=value}
+ *  ::name[inline-content](argument){#id .class key=value}
  * @endcode
  *
  * @see \Drupal\niklan\Node\Markdown\BlockDirective

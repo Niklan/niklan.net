@@ -59,6 +59,7 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->addHtmlParser($parser_manager->get('alert'))
       ->addHtmlParser($parser_manager->get('remote_video'))
       ->addHtmlParser($parser_manager->get('container'))
+      ->addHtmlParser($parser_manager->get('video'))
       ->addRenderArrayBuilder($builder_manager->get('alert'))
       ->addRenderArrayBuilder($builder_manager->get('code_block'))
       ->addRenderArrayBuilder($builder_manager->get('link'));
@@ -75,6 +76,7 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
         'directories' => [
           // @todo Check if its needed, provide a documentation and update
           //   scaffold files.
+    //          'private://content',
           Settings::get('external_content_blog_dir', 'private://test'),
         ],
       ],
