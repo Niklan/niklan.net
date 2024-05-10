@@ -19,7 +19,7 @@ final class Video implements HtmlParserInterface {
    * {@inheritdoc}
    */
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
-    if (!$this->isApplicable($node)) {
+    if (!$node instanceof \DOMElement || !$this->isApplicable($node)) {
       return HtmlParserResult::pass();
     }
 
@@ -40,11 +40,7 @@ final class Video implements HtmlParserInterface {
   /**
    * {@selfdoc}
    */
-  private function isApplicable(\DOMNode $node): bool {
-    if (!$node instanceof \DOMElement) {
-      return FALSE;
-    }
-
+  private function isApplicable(\DOMElement $node): bool {
     if (!$node->hasAttribute('data-selector') || $node->getAttribute('data-selector') !== 'niklan:leaf-directive') {
       return FALSE;
     }

@@ -3,7 +3,7 @@
 namespace Drupal\external_content\Exception;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Parser\ParserInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 
 /**
@@ -19,7 +19,7 @@ final class MissingSourceParserException extends \LogicException {
     public readonly EnvironmentInterface $environment,
   ) {
     $available_parsers = \array_map(
-      static fn (ParserInterface $parser): string => $parser::class,
+      static fn (HtmlParserInterface $parser): string => $parser::class,
       \iterator_to_array($this->environment->getHtmlParsers()),
     );
 

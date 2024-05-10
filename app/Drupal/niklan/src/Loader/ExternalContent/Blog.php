@@ -364,29 +364,42 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       ]),
     );
 
-    $replace_target = $node;
+    $replace_target = $this->findMediaImageReplaceTarget($node);
+    $replace_target->getParent()->replaceNode($replace_target, $new_node);
+  }
 
-    // If the image is the only element in the paragraph, it will be an enlarged
-    // image that will be rendered as a separate element with its own container.
-    // Because '<p>' cannot contain block elements, this element will be
-    // replaced directly by the future image.
-    //
-    // Without that, the result will be rendered from:
-    // @code
-    // <p><img src="#"/></p>
-    // @endcode
-    //
-    // to:
-    // @code
-    // <p></p>
-    // <div><img src="#"/></div>
-    // <p></p>
-    // @endcode.
-    if ($node->getParent() instanceof Element && $node->getParent()->getTag() === 'p' && $node->getParent()->getChildren()->count()) {
-      $replace_target = $node->getParent();
+  /**
+   * Find target replacement for media image node.
+   *
+   * If the image is the only element in the paragraph, it will become a
+   * 'lightbox' image, which will be rendered as a separate element with its own
+   * container. Because a '<p>' element cannot contain block-level elements,
+   * this element will be directly replaced by the media image element.
+   *
+   * Without that, the result will be rendered from:
+   * @code
+   *  <p><img src="#"/></p>
+   * @endcode
+   *
+   * to:
+   * @code
+   *  <p></p>
+   *  <div><img src="#"/></div>
+   *  <p></p>
+   * @endcode.
+   */
+  public function findMediaImageReplaceTarget(Element $node): NodeInterface {
+    $replace_target = $node;
+    $parent = $node->getParent();
+
+    // If the parent contains more than one child, this means that we are
+    // processing an inline image. Currently, this is not supported, but if it
+    // is detected, the surrounding contents will not be removed.
+    if ($parent instanceof Element && $parent->getTag() === 'p' && $parent->getChildren()->count() === 1) {
+      $replace_target = $parent;
     }
 
-    $replace_target->getParent()->replaceNode($replace_target, $new_node);
+    return $replace_target;
   }
 
   /**

@@ -6,6 +6,7 @@ use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\IdentifiedSource;
+use Drupal\external_content\Data\IdentifierResult;
 
 /**
  * Provides a bundler based on Front Matter 'id' and 'language' params.
@@ -15,7 +16,7 @@ final class FrontMatterIdLanguageBundler implements IdentifierInterface {
   /**
    * {@inheritdoc}
    */
-  public function identify(SourceInterface $source): IdentifiedSource {
+  public function identify(SourceInterface $source): IdentifierResult {
     $front_matter = $source->data()->get('front_matter');
     $attributes = new Attributes();
 
@@ -23,11 +24,13 @@ final class FrontMatterIdLanguageBundler implements IdentifierInterface {
       $attributes->setAttribute('language', $front_matter['language']);
     }
 
-    return new IdentifiedSource(
+    $identified = new IdentifiedSource(
       source: $source,
       id: $front_matter['id'],
       attributes: $attributes,
     );
+
+    return IdentifierResult::identified($identified);
   }
 
   /**

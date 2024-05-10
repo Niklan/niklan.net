@@ -76,8 +76,7 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
         'directories' => [
           // @todo Check if its needed, provide a documentation and update
           //   scaffold files.
-    //          'private://content',
-          Settings::get('external_content_blog_dir', 'private://test'),
+          Settings::get('external_content_blog_dir', 'private://content'),
         ],
       ],
     ]);
