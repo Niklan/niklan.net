@@ -1,5 +1,0 @@
-name: Content Export
-type: module
-description: Provides a temporary module for exporting content into Markdown.
-package: Custom
-core_version_requirement: ^10

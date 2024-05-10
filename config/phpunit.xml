@@ -45,8 +45,6 @@
       <directory>../app/Drupal/*/tests</directory>
       <!-- There is no reason for test for one-time use code. -->
       <directory>../app/Drupal/*/src/Hook/Deploy</directory>
-      <!-- Exclude temporary module from coverage results. -->
-      <directory>../app/Drupal/content_export</directory>
     </exclude>
 
     <report>
