@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Drupal\Tests\external_content\Unit\Builder\Html;
+namespace Drupal\Tests\external_content\Unit\Builder;
 
 use Drupal\external_content\Builder\PlainTextRenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArrayBuilder;

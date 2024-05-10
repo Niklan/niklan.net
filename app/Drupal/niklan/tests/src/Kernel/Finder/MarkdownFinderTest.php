@@ -53,7 +53,7 @@ final class MarkdownFinderTest extends NiklanTestBase {
     ]);
 
     $markdown_finder = new MarkdownFinder();
-    $markdown_finder->setEnvironment(new Environment($configuration));
+    $markdown_finder->setEnvironment(new Environment($configuration, $configuration));
     $files = $markdown_finder->find();
 
     self::assertCount(7, $files);

@@ -2,11 +2,10 @@
 
 namespace Drupal\Tests\external_content\Unit\Environment;
 
-use Drupal\Component\DependencyInjection\ContainerInterface;
-use Drupal\external_content\Builder\ElementRenderArrayBuilder;
 use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Bundler\BundlerInterface;
+use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Extension\ConfigurableExtensionInterface;
@@ -14,16 +13,9 @@ use Drupal\external_content\Contract\Extension\ExtensionInterface;
 use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Loader\LoaderInterface;
-use Drupal\external_content\Contract\Loader\LoaderResultInterface;
-use Drupal\external_content\Contract\Parser\ParserInterface;
+use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
-use Drupal\external_content\Data\IdentifierSource;
-use Drupal\external_content\Data\LoaderResult;
-use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Environment\Environment;
-use Drupal\external_content\Exception\MissingContainerException;
-use Drupal\external_content\Serializer\PlainTextSerializer;
-use Drupal\external_content_test\Builder\EmptyRenderArrayRenderArrayBuilder;
 use Drupal\external_content_test\Event\BarEvent;
 use Drupal\external_content_test\Event\FooEvent;
 use Drupal\Tests\UnitTestCaseTest;
@@ -33,7 +25,6 @@ use League\Config\ConfigurationInterface;
 use Prophecy\Argument;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * Provides a test for environment.
@@ -46,9 +37,18 @@ final class EnvironmentTest extends UnitTestCaseTest {
   /**
    * {@selfdoc}
    */
+  public function testId(): void {
+    $id = $this->randomString();
+    $environment = new Environment($id);
+    self::assertSame($id, $environment->id());
+  }
+
+  /**
+   * {@selfdoc}
+   */
   public function testEvents(): void {
     $event = new FooEvent();
-    $environment = new Environment();
+    $environment = new Environment('test');
 
     self::assertFalse($environment->getListenersForEvent($event)->valid());
 
@@ -89,124 +89,81 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
   /**
    * {@selfdoc}
+   *
+   * @dataProvider collectionsDataProvider
    */
-  public function testIdentifiers(): void {
-    $identifier = $this->prophesize(IdentifierInterface::class);
-    $identifier = $identifier->reveal();
+  public function testCollections(string $implements, string $setter, string $getter): void {
+    $instance = $this->prophesize($implements);
+    $instance = $instance->reveal();
 
-    $environment = new Environment();
-    $environment->addIdentifier($identifier);
+    $environment = new Environment('test');
+    \call_user_func([$environment, $setter], $instance);
 
-    $expected = [
-      0 => $identifier,
-    ];
+    $result = \call_user_func([$environment, $getter])
+      ->getIterator()
+      ->getArrayCopy();
 
-    self::assertEquals(
-      $expected,
-      $environment->getIdentifiers()->getIterator()->getArrayCopy(),
-    );
+    self::assertSame([0 => $instance], $result);
   }
 
   /**
    * {@selfdoc}
    */
-  public function testParsers(): void {
-    $parser = $this->prophesize(ParserInterface::class);
-    $parser = $parser->reveal();
-
-    $environment = new Environment();
-    $environment->addHtmlParser($parser);
-
-    $expected = [
-      0 => $parser,
+  public function collectionsDataProvider(): \Generator {
+    yield 'identifiers' => [
+      'implements' => IdentifierInterface::class,
+      'setter' => 'addIdentifier',
+      'getter' => 'getIdentifiers',
     ];
 
-    self::assertEquals(
-      $expected,
-      $environment->getHtmlParsers()->getIterator()->getArrayCopy(),
-    );
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function testFinders(): void {
-    $finder = new class implements FinderInterface {
-
-      /**
-       * {@inheritdoc}
-       */
-      public function find(): SourceCollection {
-        return new SourceCollection();
-      }
-
-    };
-
-    $environment = new Environment();
-    $environment->addFinder(new $finder());
-
-    $expected = [
-      0 => $finder,
+    yield 'HTML parsers' => [
+      'implements' => HtmlParserInterface::class,
+      'setter' => 'addHtmlParser',
+      'getter' => 'getHtmlParsers',
     ];
 
-    self::assertEquals(
-      $expected,
-      $environment->getFinders()->getIterator()->getArrayCopy(),
-    );
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function testBuilder(): void {
-    $builder = new EmptyRenderArrayRenderArrayBuilder();
-
-    $environment = new Environment();
-    $environment->addRenderArrayBuilder($builder);
-
-    $expected = [
-      0 => $builder,
+    yield 'finders' => [
+      'implements' => FinderInterface::class,
+      'setter' => 'addFinder',
+      'getter' => 'getFinders',
     ];
 
-    self::assertEquals(
-      $expected,
-      $environment->getRenderArrayBuilders()->getIterator()->getArrayCopy(),
-    );
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function testLoader(): void {
-    $loader = new class implements LoaderInterface {
-
-      /**
-       * {@inheritdoc}
-       */
-      public function load(IdentifierSource $bundle): LoaderResultInterface {
-        return LoaderResult::pass();
-      }
-
-    };
-
-    $environment = new Environment();
-    $environment->addLoader(new $loader());
-
-    $expected = [
-      0 => $loader,
+    yield 'render array builders' => [
+      'implements' => RenderArrayBuilderInterface::class,
+      'setter' => 'addRenderArrayBuilder',
+      'getter' => 'getRenderArrayBuilders',
     ];
 
-    self::assertEquals(
-      $expected,
-      $environment->getLoaders()->getIterator()->getArrayCopy(),
-    );
+    yield 'loaders' => [
+      'implements' => LoaderInterface::class,
+      'setter' => 'addLoader',
+      'getter' => 'getLoaders',
+    ];
+
+    yield 'serializers' => [
+      'implements' => SerializerInterface::class,
+      'setter' => 'addSerializer',
+      'getter' => 'getSerializers',
+    ];
+
+    yield 'bundlers' => [
+      'implements' => BundlerInterface::class,
+      'setter' => 'addBundler',
+      'getter' => 'getBundlers',
+    ];
+
+    yield 'converters' => [
+      'implements' => ConverterInterface::class,
+      'setter' => 'addConverter',
+      'getter' => 'getConverters',
+    ];
   }
 
   /**
    * {@selfdoc}
    */
   public function testConfiguration(): void {
-    $environment = new Environment();
+    $environment = new Environment('test');
 
     self::assertInstanceOf(
       ConfigurationInterface::class,
@@ -228,7 +185,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     $event = $this->prophesize(StoppableEventInterface::class);
     $event = $event->reveal();
 
-    $environment = new Environment();
+    $environment = new Environment('test');
     $environment->setEventDispatcher($event_dispatcher);
     $environment->dispatch($event);
   }
@@ -236,27 +193,9 @@ final class EnvironmentTest extends UnitTestCaseTest {
   /**
    * {@selfdoc}
    */
-  public function testSerializer(): void {
-    $serializer = new PlainTextSerializer();
-
-    $environment = new Environment();
-    $environment->addSerializer($serializer);
-
-    $expected = [
-      0 => $serializer,
-    ];
-
-    self::assertEquals(
-      $expected,
-      $environment->getSerializers()->getIterator()->getArrayCopy(),
-    );
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function testExtension(): void {
-    $builder = new ElementRenderArrayBuilder();
+    $builder = $this->prophesize(RenderArrayBuilderInterface::class);
+    $builder = $builder->reveal();
 
     $extension = new class ($builder) implements ExtensionInterface {
 
@@ -276,7 +215,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     };
 
-    $environment = new Environment();
+    $environment = new Environment('test');
     $environment->addExtension(new $extension($builder));
 
     self::assertEquals(
@@ -294,7 +233,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
     $extension->configureSchema(Argument::cetera())->shouldBeCalled();
     $extension = $extension->reveal();
 
-    $environment = new Environment();
+    $environment = new Environment('test');
     $environment->addExtension($extension);
   }
 
@@ -304,13 +243,10 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * @dataProvider injectDependenciesDataProvider
    */
   public function testInjectDependencies(string $component_interface, string $method): void {
-    $container = $this->prophesize(ContainerInterface::class);
-
     $object = $this
       ->prophesize($component_interface)
       ->willImplement(EnvironmentAwareInterface::class)
-      ->willImplement(ConfigurationAwareInterface::class)
-      ->willImplement(ContainerAwareInterface::class);
+      ->willImplement(ConfigurationAwareInterface::class);
 
     $object
       ->setEnvironment(Argument::type(EnvironmentInterface::class))
@@ -320,12 +256,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
       ->setConfiguration(Argument::type(Configuration::class))
       ->shouldBeCalled();
 
-    $object
-      ->setContainer(Argument::type(ContainerInterface::class))
-      ->shouldBeCalled();
-
-    $environment = new Environment();
-    $environment->setContainer($container->reveal());
+    $environment = new Environment('test', []);
     \call_user_func([$environment, $method], $object->reveal());
   }
 
@@ -333,9 +264,9 @@ final class EnvironmentTest extends UnitTestCaseTest {
    * {@selfdoc}
    */
   public function injectDependenciesDataProvider(): \Generator {
-    yield 'Parser' => [
-      'component_interface' => ParserInterface::class,
-      'method' => 'addParser',
+    yield 'HTML Parser' => [
+      'component_interface' => HtmlParserInterface::class,
+      'method' => 'addHtmlParser',
     ];
 
     yield 'Bundler' => [
@@ -345,7 +276,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
 
     yield 'RenderArrayBuilder' => [
       'component_interface' => RenderArrayBuilderInterface::class,
-      'method' => 'addBuilder',
+      'method' => 'addRenderArrayBuilder',
     ];
 
     yield 'FinderFacade' => [
@@ -362,21 +293,11 @@ final class EnvironmentTest extends UnitTestCaseTest {
       'component_interface' => LoaderInterface::class,
       'method' => 'addLoader',
     ];
-  }
 
-  /**
-   * {@selfdoc}
-   */
-  public function testMissingContainerException(): void {
-    $object = $this
-      ->prophesize(ParserInterface::class)
-      ->willImplement(ContainerAwareInterface::class);
-
-    $environment = new Environment();
-
-    self::expectException(MissingContainerException::class);
-
-    $environment->addHtmlParser($object->reveal());
+    yield 'Converter' => [
+      'component_interface' => ConverterInterface::class,
+      'method' => 'addConverter',
+    ];
   }
 
 }

@@ -56,7 +56,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   /**
    * {@selfdoc}
    */
-  protected PrioritizedList $builders;
+  protected PrioritizedList $renderArrayBuilders;
 
   /**
    * {@selfdoc}
@@ -87,8 +87,8 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * Constructs a new Environment instance.
    */
   public function __construct(
+    private readonly string $id,
     array $configuration = [],
-    private readonly ?string $id = NULL,
   ) {
     $this->configuration = new Configuration();
     $this->configuration->merge($configuration);
@@ -97,7 +97,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->bundlers = new PrioritizedList();
     $this->converters = new PrioritizedList();
     $this->htmlParsers = new PrioritizedList();
-    $this->builders = new PrioritizedList();
+    $this->renderArrayBuilders = new PrioritizedList();
     $this->eventListeners = new PrioritizedList();
     $this->serializers = new PrioritizedList();
     $this->loaders = new PrioritizedList();
@@ -107,7 +107,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   #[\Override]
-  public function id(): ?string {
+  public function id(): string {
     return $this->id;
   }
 
@@ -143,7 +143,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   public function getRenderArrayBuilders(): PrioritizedList {
-    return $this->builders;
+    return $this->renderArrayBuilders;
   }
 
   /**
@@ -268,7 +268,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
    * {@inheritdoc}
    */
   public function addRenderArrayBuilder(RenderArrayBuilderInterface $builder, int $priority = 0): self {
-    $this->builders->add($builder, $priority);
+    $this->renderArrayBuilders->add($builder, $priority);
     $this->injectDependencies($builder);
 
     return $this;

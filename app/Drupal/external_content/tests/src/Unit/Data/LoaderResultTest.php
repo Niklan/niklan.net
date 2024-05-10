@@ -15,43 +15,48 @@ final class LoaderResultTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Data\LoaderResultEntity
    */
-  public function testEntityResult(): void {
-    $result = LoaderResult::entity('node', '1');
+  public function testWithResults(): void {
+    $results = [
+      'node' => '1',
+      'media' => ['1', '2', '3'],
+    ];
+    $result = LoaderResult::withResults('bundle_id', $results);
 
-    self::assertTrue($result->isSuccess());
-    self::assertFalse($result->isNotSuccess());
+    self::assertSame('bundle_id', $result->bundleId());
     self::assertFalse($result->shouldContinue());
-    self::assertEquals('node', $result->getEntityTypeId());
-    self::assertEquals('1', $result->getEntityId());
+    self::assertTrue($result->shouldNotContinue());
+    self::assertSame($results, $result->results());
+    self::assertTrue($result->hasResults());
+    self::assertFalse($result->hasNoResults());
   }
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Data\LoaderResultIgnore
    */
-  public function testIgnoreResult(): void {
-    $result = LoaderResult::stop();
+  public function testPass(): void {
+    $result = LoaderResult::pass('bundle_id');
 
-    self::assertFalse($result->isSuccess());
-    self::assertTrue($result->isNotSuccess());
-    self::assertFalse($result->shouldContinue());
-  }
-
-  /**
-   * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Data\LoaderResultSkip
-   */
-  public function testSkipResult(): void {
-    $result = LoaderResult::pass();
-
-    self::assertFalse($result->isSuccess());
-    self::assertTrue($result->isNotSuccess());
+    self::assertSame('bundle_id', $result->bundleId());
     self::assertTrue($result->shouldContinue());
+    self::assertFalse($result->shouldNotContinue());
+    self::assertEmpty($result->results());
+    self::assertFalse($result->hasResults());
+    self::assertTrue($result->hasNoResults());
+  }
+
+  /**
+   * {@selfdoc}
+   */
+  public function testStop(): void {
+    $result = LoaderResult::stop('bundle_id');
+
+    self::assertSame('bundle_id', $result->bundleId());
+    self::assertFalse($result->shouldContinue());
+    self::assertTrue($result->shouldNotContinue());
+    self::assertEmpty($result->results());
+    self::assertFalse($result->hasResults());
+    self::assertTrue($result->hasNoResults());
   }
 
 }

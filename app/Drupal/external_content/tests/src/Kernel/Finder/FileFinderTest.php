@@ -72,7 +72,7 @@ final class FileFinderTest extends ExternalContentTestBase {
    * {@selfdoc}
    */
   private function buildEnvironment(Configuration $configuration): Environment {
-    $environment = new Environment($configuration);
+    $environment = new Environment($configuration, $configuration);
     $environment->addExtension(new FileFinderExtension());
 
     return $environment;

@@ -46,7 +46,7 @@ final class HtmlParserTest extends ExternalContentTestBase {
     $configuration = new Configuration();
     $configuration->set('html.parsers', $html_parsers);
 
-    $environment = new Environment($configuration);
+    $environment = new Environment($configuration, $configuration);
     $environment->addExtension(new BasicHtmlExtension());
     $this->getParser()->setEnvironment($environment);
 
@@ -122,7 +122,7 @@ final class HtmlParserTest extends ExternalContentTestBase {
     $configuration = new Configuration();
     $configuration->set('html.parsers', new PrioritizedList());
 
-    $environment = new Environment($configuration);
+    $environment = new Environment($configuration, $configuration);
     $environment->addExtension(new BasicHtmlExtension());
     $this->getParser()->setEnvironment($environment);
 

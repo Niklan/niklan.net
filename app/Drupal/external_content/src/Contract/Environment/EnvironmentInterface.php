@@ -15,7 +15,7 @@ interface EnvironmentInterface extends EventDispatcherInterface, ListenerProvide
   /**
    * {@selfdoc}
    */
-  public function id(): ?string;
+  public function id(): string;
 
   /**
    * {@selfdoc}

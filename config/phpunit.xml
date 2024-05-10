@@ -4,7 +4,6 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutChangesToGlobalState="true"
          failOnWarning="true"
-         testdox="true"
          cacheResult="false"
          verbose="true">
   <php>

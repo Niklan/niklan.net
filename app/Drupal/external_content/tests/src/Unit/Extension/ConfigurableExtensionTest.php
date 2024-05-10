@@ -21,6 +21,9 @@ final class ConfigurableExtensionTest extends UnitTestCase {
     $environment = new Environment([
       'foo' => 'bar',
       'bar' => 123,
+    ], [
+      'foo' => 'bar',
+      'bar' => 123,
     ]);
     $environment->addExtension(new ConfigurableExtension());
 
