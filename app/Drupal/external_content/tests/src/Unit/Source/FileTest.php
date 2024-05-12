@@ -36,12 +36,12 @@ final class FileTest extends UnitTestCase {
     self::assertEquals('vfs://root/foo/bar/baz.txt', $instance->getPathname());
     self::assertEquals('vfs://root/foo', $instance->getWorkingDir());
     self::assertEquals('bar/baz.txt', $instance->getRelativePathname());
+    self::assertEquals('baz.txt', $instance->getBasename());
     self::assertEquals('txt', $instance->getExtension());
     self::assertTrue($instance->isReadable());
     self::assertEquals('Hello, World!', $instance->contents());
     self::assertInstanceOf(Data::class, $instance->data());
     self::assertEquals('text', $instance->type());
-    self::assertEquals('bar/baz.txt', $instance->id());
   }
 
 }

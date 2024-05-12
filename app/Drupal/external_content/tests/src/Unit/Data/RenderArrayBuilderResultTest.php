@@ -1,39 +1,36 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Drupal\Tests\external_content\Data;
 
 use Drupal\external_content\Data\BuilderResult;
+use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a tests for builder result instances.
  *
- * @covers \Drupal\external_content\Data\BuilderResult
+ * @covers \Drupal\external_content\Data\RenderArrayBuilderResult
  * @group external_content
  */
-final class BuilderResultTest extends UnitTestCase {
+final class RenderArrayBuilderResultTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Data\BuilderResultNone
    */
-  public function testNone(): void {
-    $result = BuilderResult::none();
+  public function testEmpty(): void {
+    $result = RenderArrayBuilderResult::empty();
 
     self::assertFalse($result->isBuilt());
     self::assertTrue($result->isNotBuild());
-    self::assertNull($result->result());
+    self::assertEmpty($result->result());
   }
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Data\BuilderResultRenderArray
    */
-  public function testRenderArray(): void {
+  public function testWithRenderArray(): void {
     $render_array = ['#markup' => 'Hello, World!'];
-    $result = BuilderResult::renderArray($render_array);
+    $result = RenderArrayBuilderResult::withRenderArray($render_array);
 
     self::assertTrue($result->isBuilt());
     self::assertFalse($result->isNotBuild());

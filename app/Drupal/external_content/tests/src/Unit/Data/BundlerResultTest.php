@@ -16,29 +16,24 @@ final class BundlerResultTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Data\BundlerResultIdentified
    */
-  public function testIdentified(): void {
-    $attributes = new Attributes();
-    $result = BundlerResult::identified('foo', $attributes);
+  public function testBundleAs(): void {
+    $result = BundlerResult::bundleAs('foo');
 
-    self::assertEquals('foo', $result->id());
-    self::assertEquals($attributes, $result->attributes());
-    self::assertTrue($result->isIdentified());
-    self::assertFalse($result->isUnidentified());
+    self::assertEquals('foo', $result->bundleId);
+    self::assertTrue($result->shouldBeBundled());
+    self::assertFalse($result->shouldNotBeBundled());
   }
 
   /**
    * {@selfdoc}
-   *
-   * @covers \Drupal\external_content\Data\BundlerResultUnidentified
    */
-  public function testUnidentified(): void {
-    $result = BundlerResult::unidentified();
+  public function testPass(): void {
+    $result = BundlerResult::pass();
 
-    self::assertTrue($result->isUnidentified());
-    self::assertFalse($result->isIdentified());
+    self::assertNull($result->bundleId);
+    self::assertFalse($result->shouldBeBundled());
+    self::assertTrue($result->shouldNotBeBundled());
   }
 
 }

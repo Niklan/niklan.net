@@ -2,9 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Parser\Html;
 
-use Drupal\external_content\Data\HtmlParserResultContinue;
-use Drupal\external_content\Data\HtmlParserResultFinalize;
-use Drupal\external_content\Data\HtmlParserResultStop;
+use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Node\PlainText;
 use Drupal\external_content\Parser\PlainTextParser;
 use Drupal\Tests\UnitTestCase;
@@ -21,25 +19,31 @@ final class PlainTextParserTest extends UnitTestCase {
    * {@selfdoc}
    */
   public function testParser(): void {
+    $child_parser = $this->prophesize(ChildHtmlParserInterface::class);
+    $child_parser = $child_parser->reveal();
+
     $parser = new PlainTextParser();
 
     $document = new \DOMDocument();
     $generic_element = $document->createElement('div');
-    $result = $parser->parseNode($generic_element);
+    $result = $parser->parseNode($generic_element, $child_parser);
 
-    self::assertInstanceOf(HtmlParserResultContinue::class, $result);
+    self::assertTrue($result->shouldContinue());
+    self::assertFalse($result->shouldNotContinue());
 
     $empty_text = $document->createTextNode('');
-    $result = $parser->parseNode($empty_text);
+    $result = $parser->parseNode($empty_text, $child_parser);
 
-    self::assertInstanceOf(HtmlParserResultStop::class, $result);
+    self::assertTrue($result->shouldNotContinue());
+    self::assertFalse($result->shouldContinue());
 
     $valid_text = $document->createTextNode('Hello, World!');
-    $result = $parser->parseNode($valid_text);
+    $result = $parser->parseNode($valid_text, $child_parser);
 
-    self::assertInstanceOf(HtmlParserResultFinalize::class, $result);
+    self::assertTrue($result->shouldNotContinue());
+    self::assertFalse($result->shouldContinue());
 
-    $replacement = $result->getReplacement();
+    $replacement = $result->replacement();
 
     self::assertInstanceOf(PlainText::class, $replacement);
     self::assertEquals('Hello, World!', $replacement->getContent());
