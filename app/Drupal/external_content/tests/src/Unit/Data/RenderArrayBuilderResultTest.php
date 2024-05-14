@@ -1,8 +1,7 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\Tests\external_content\Data;
 
-use Drupal\external_content\Data\BuilderResult;
 use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\Tests\UnitTestCase;
 

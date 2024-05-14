@@ -2,12 +2,10 @@
 
 namespace Drupal\Tests\external_content\Kernel\Finder;
 
-use Drupal\external_content\Contract\Finder\FinderInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Extension\FileFinderExtension;
-use Drupal\external_content\Finder\FinderManager;
+use Drupal\external_content\Finder\FileFinder;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
-use League\Config\Configuration;
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -24,8 +22,7 @@ final class FileFinderTest extends ExternalContentTestBase {
   public function testFinder(): void {
     $this->prepareDirectory();
 
-    $configuration = new Configuration();
-    $configuration->merge([
+    $configuration = [
       'file_finder' => [
         'extensions' => ['md', 'html'],
         'directories' => [
@@ -34,7 +31,7 @@ final class FileFinderTest extends ExternalContentTestBase {
           vfsStream::url('root/baz'),
         ],
       ],
-    ]);
+    ];
     $environment = $this->buildEnvironment($configuration);
 
     $finder = $this->getFinder();
@@ -43,7 +40,7 @@ final class FileFinderTest extends ExternalContentTestBase {
     // 'root/foo/baz.txt' - is ignored because of different extension.
     // 'root/foo/baz.html' - is directory and should be avoided.
     // 'root/quux/baz.html' - has a valid extension, but not listed directory.
-    self::assertCount(2, $result);
+    self::assertCount(2, $result->results()->items());
   }
 
   /**
@@ -71,9 +68,11 @@ final class FileFinderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function buildEnvironment(Configuration $configuration): Environment {
-    $environment = new Environment($configuration, $configuration);
-    $environment->addExtension(new FileFinderExtension());
+  private function buildEnvironment(array $configuration): Environment {
+    $extension = new FileFinderExtension($this->getFinder());
+
+    $environment = new Environment('test', $configuration);
+    $environment->addExtension($extension);
 
     return $environment;
   }
@@ -81,8 +80,8 @@ final class FileFinderTest extends ExternalContentTestBase {
   /**
    * {@selfdoc}
    */
-  private function getFinder(): FinderManager {
-    return $this->container->get(FinderInterface::class);
+  private function getFinder(): FileFinder {
+    return $this->container->get(FileFinder::class);
   }
 
   /**
@@ -91,21 +90,20 @@ final class FileFinderTest extends ExternalContentTestBase {
   public function testEmptyFinder(): void {
     $this->prepareDirectory();
 
-    $configuration = new Configuration();
-    $configuration->merge([
+    $configuration = [
       'file_finder' => [
         'extensions' => ['md', 'html'],
         'directories' => [
           vfsStream::url('root/empty-dir'),
         ],
       ],
-    ]);
+    ];
     $environment = $this->buildEnvironment($configuration);
 
     $finder = $this->getFinder();
     $finder->setEnvironment($environment);
     $result = $finder->find();
-    self::assertCount(0, $result);
+    self::assertTrue($result->hasNoResults());
   }
 
 }

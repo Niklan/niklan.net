@@ -39,7 +39,7 @@ final readonly class BundlerResult {
    * {@selfdoc}
    */
   public function shouldBeBundled(): bool {
-    return !\is_null($this->bundleId) || \strlen($this->bundleId) > 0;
+    return !\is_null($this->bundleId) && \strlen($this->bundleId) > 0;
   }
 
 }
