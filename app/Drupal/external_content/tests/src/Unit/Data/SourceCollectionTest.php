@@ -20,35 +20,26 @@ final class SourceCollectionTest extends UnitTestCase {
   public function testObject(): void {
     $collection_a = new SourceCollection();
 
-    self::assertCount(0, $collection_a);
-    self::assertEquals([], $collection_a->getIterator()->getArrayCopy());
+    self::assertCount(0, $collection_a->items());
+    self::assertEquals([], $collection_a->items());
 
     $file_a = new File('foo', 'bar', 'html');
     $collection_a->add($file_a);
 
-    self::assertCount(1, $collection_a);
-    self::assertEquals(
-      ['bar' => $file_a],
-      $collection_a->getIterator()->getArrayCopy(),
-    );
+    self::assertCount(1, $collection_a->items());
+    self::assertEquals([$file_a], $collection_a->items());
 
     $collection_b = new SourceCollection();
     $file_b = new File('bar', 'baz', 'html');
     $collection_b->add($file_b);
 
-    self::assertCount(1, $collection_b);
-    self::assertEquals(
-      ['baz' => $file_b],
-      $collection_b->getIterator()->getArrayCopy(),
-    );
+    self::assertCount(1, $collection_b->items());
+    self::assertEquals([$file_b], $collection_b->items());
 
     $collection_a->merge($collection_b);
 
-    self::assertCount(2, $collection_a);
-    self::assertEquals(
-      ['bar' => $file_a, 'baz' => $file_b],
-      $collection_a->getIterator()->getArrayCopy(),
-    );
+    self::assertCount(2, $collection_a->items());
+    self::assertEquals([$file_a, $file_b], $collection_a->items());
   }
 
 }

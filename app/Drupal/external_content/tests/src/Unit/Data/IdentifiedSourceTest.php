@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\external_content\Unit\Data;
 
+use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Attributes;
 use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\Tests\UnitTestCase;
@@ -12,22 +13,24 @@ use Drupal\Tests\UnitTestCase;
  * @covers \Drupal\external_content\Data\IdentifiedSource
  * @group external_content
  */
-final class SourceIdentificationTest extends UnitTestCase {
+final class IdentifiedSourceTest extends UnitTestCase {
 
   /**
    * {@selfdoc}
    */
   public function testObject(): void {
+    $source = $this->prophesize(SourceInterface::class)->reveal();
     $id = $this->randomString();
     $attributes = new Attributes();
+    $instance = new IdentifiedSource($source, $id, $attributes);
 
-    $instance = new IdentifiedSource($id, $attributes);
-
+    self::assertSame($source, $instance->source);
     self::assertEquals($id, $instance->id);
     self::assertEquals($attributes, $instance->attributes);
 
-    // Without attribute.
-    $instance = new IdentifiedSource($id);
+    // Without attributes.
+    $instance = new IdentifiedSource($source, $id);
+    self::assertSame($source, $instance->source);
     self::assertEquals($id, $instance->id);
     self::assertInstanceOf(Attributes::class, $instance->attributes);
   }
