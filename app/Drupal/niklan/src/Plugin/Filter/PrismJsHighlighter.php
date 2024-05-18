@@ -38,6 +38,8 @@ final class PrismJsHighlighter extends FilterBase {
       return $result;
     }
 
+    $result->addAttachments(['library' => ['niklan/code-highlight']]);
+
     return $result;
   }
 
