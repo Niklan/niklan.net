@@ -9,7 +9,7 @@ use Drupal\external_content\Contract\Source\SourceInterface;
 /**
  * Provides an exception when there is no parser for a source.
  */
-final class MissingSourceParserException extends \LogicException {
+final class MissingHtmlParserException extends \LogicException {
 
   /**
    * Constructs a new MissingSourceParserException instance.
@@ -24,7 +24,7 @@ final class MissingSourceParserException extends \LogicException {
     );
 
     $message = \sprintf(
-      "Environment used for parsing source %s doesn't have any suitable parser. Available parsers: %s",
+      "Environment used for parsing source %s doesn't have any suitable HTML parser. Available parsers: %s",
       \get_class($this->source),
       \implode(', ', $available_parsers),
     );

@@ -5,9 +5,7 @@ namespace Drupal\Tests\external_content\Kernel\Field;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\TypedData\TypedDataInterface;
-use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginInterface;
-use Drupal\external_content\Contract\Plugin\ExternalContent\Environment\EnvironmentPluginManagerInterface;
+use Drupal\external_content\Contract\Environment\EnvironmentManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 use Drupal\external_content\Field\ExternalContentComputedProperty;
 use Drupal\external_content\Node\Content;
@@ -61,11 +59,11 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     $violation_list->count()->willReturn($violation_count);
     $violation_list = $violation_list->reveal();
 
-    $environment_plugin_id = $this->prophesize(TypedDataInterface::class);
-    $environment_plugin_id
+    $environment_id = $this->prophesize(TypedDataInterface::class);
+    $environment_id
       ->getString()
-      ->willReturn($this->getFieldItemEnvironmentPluginId());
-    $environment_plugin_id = $environment_plugin_id->reveal();
+      ->willReturn('test');
+    $environment_id = $environment_id->reveal();
 
     $value = $this->prophesize(TypedDataInterface::class);
     $value->getValue()->willReturn($this->prepareFieldItemValue());
@@ -74,8 +72,8 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     $field_item = $this->prophesize(FieldItemInterface::class);
     $field_item->validate()->willReturn($violation_list);
     $field_item
-      ->get('environment_plugin_id')
-      ->willReturn($environment_plugin_id);
+      ->get('environment_id')
+      ->willReturn($environment_id);
     $field_item->get('value')->willReturn($value);
 
     return $field_item->reveal();
@@ -84,34 +82,18 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
   /**
    * {@selfdoc}
    */
-  private function getFieldItemEnvironmentPluginId(): string {
-    return 'field_item';
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function prepareFieldItemValue(): string {
-    $serializer = $this->container->get(SerializerManagerInterface::class);
-    $serializer->setEnvironment($this->getEnvironment());
-
-    return $serializer->normalize($this->prepareDocument());
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getEnvironment(): EnvironmentInterface {
-    $environment_plugin_manager = $this
+    $serializer_manager = $this
       ->container
-      ->get(EnvironmentPluginManagerInterface::class);
-    \assert($environment_plugin_manager instanceof EnvironmentPluginManagerInterface);
+      ->get(SerializerManagerInterface::class);
+    $environment_manager = $this
+      ->container
+      ->get(EnvironmentManagerInterface::class);
 
-    $environment_plugin = $environment_plugin_manager
-      ->createInstance('field_item');
-    \assert($environment_plugin instanceof EnvironmentPluginInterface);
-
-    return $environment_plugin->getEnvironment();
+    return $serializer_manager->normalize(
+      node: $this->prepareDocument(),
+      environment: $environment_manager->get('test'),
+    );
   }
 
   /**

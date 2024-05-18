@@ -1,8 +1,8 @@
 # External Content
 
-This module provides functionality to fetch content from external sources (
-local), process them and then pass it to plugins to do whatever you want with
-it.
+This module provides the ability to retrieve content from external sources, 
+mainly local ones, process it, and then pass it to plugins so that they can use
+it as needed.
 
 - [x] Finder
 - [x] Identifier

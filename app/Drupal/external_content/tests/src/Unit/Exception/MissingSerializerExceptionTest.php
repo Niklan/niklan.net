@@ -26,7 +26,7 @@ final class MissingSerializerExceptionTest extends UnitTestCase {
     $node = $this->prophesize(NodeInterface::class);
     $node = $node->reveal();
 
-    $environment = new Environment();
+    $environment = new Environment('test');
     $environment->addSerializer($available);
 
     $exception = new MissingSerializerException(

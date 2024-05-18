@@ -14,26 +14,31 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * @covers \Drupal\external_content\Serializer\ContentSerializer
  * @group external_content
  */
-final class ExternalContentDocumentSerializerTest extends ExternalContentTestBase {
+final class ContentSerializerTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
    */
   public function testSerialization(): void {
-    $environment = new Environment();
+    $environment = new Environment('test');
     $environment->addSerializer(new ContentSerializer());
 
     $serializer = $this->container->get(SerializerManagerInterface::class);
-    $serializer->setEnvironment($environment);
 
     $document = new Content();
     $expected_json = <<<'JSON'
-    {"type":"external_content:document","version":"1.0.0","data":[],"children":[]}
+    {"type":"external_content:content","version":"1.0.0","data":{"source":[],"children":[]}}
     JSON;
 
-    self::assertEquals($expected_json, $serializer->normalize($document));
+    self::assertEquals(
+      expected: $expected_json,
+      actual: $serializer->normalize($document, $environment),
+    );
 
-    $deserialized_document = $serializer->deserialize($expected_json);
+    $deserialized_document = $serializer->deserialize(
+      json: $expected_json,
+      environment: $environment,
+    );
 
     self::assertEquals($document, $deserialized_document);
   }

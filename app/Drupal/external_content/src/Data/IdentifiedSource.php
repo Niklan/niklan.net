@@ -13,8 +13,8 @@ final readonly class IdentifiedSource {
    * Constructs a new IdentifiedSource instance.
    */
   public function __construct(
-    public SourceInterface $source,
     public string $id,
+    public SourceInterface $source,
     public Attributes $attributes = new Attributes(),
   ) {}
 

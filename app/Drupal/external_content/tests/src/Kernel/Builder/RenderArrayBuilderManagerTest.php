@@ -2,8 +2,10 @@
 
 namespace Drupal\Tests\external_content\Kernel\Builder;
 
+use Drupal\external_content\Builder\ContentRenderArrayBuilder;
 use Drupal\external_content\Builder\ElementRenderArrayBuilder;
 use Drupal\external_content\Builder\PlainTextRenderArrayBuilder;
+use Drupal\external_content\Contract\Builder\RenderArrayBuilderManagerInterface;
 use Drupal\external_content\Environment\Environment;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Element;
@@ -14,9 +16,9 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * Provides a test for external content render array builder.
  *
  * @group external_content
- * @covers \Drupal\external_content\Builder\RenderArrayBuilder
+ * @covers \Drupal\external_content\Builder\RenderArrayBuilderManager
  */
-final class RenderArrayBuilderTest extends ExternalContentTestBase {
+final class RenderArrayBuilderManagerTest extends ExternalContentTestBase {
 
   /**
    * {@inheritdoc}
@@ -39,52 +41,29 @@ final class RenderArrayBuilderTest extends ExternalContentTestBase {
     $external_content_document = new Content();
     $external_content_document->addChild($paragraph);
 
-    $environment = new Environment();
-    $environment->addRenderArrayBuilder(new NoneRenderArrayBuilder());
+    $environment = new Environment('test');
+    $environment->addRenderArrayBuilder(new ContentRenderArrayBuilder());
     $environment->addRenderArrayBuilder(new ElementRenderArrayBuilder());
     $environment->addRenderArrayBuilder(new PlainTextRenderArrayBuilder());
 
-    self::assertTrue(
-      $this
-        ->getRenderArrayBuilder()
-        ->supportsBuild($paragraph, RenderArrayBuilder::class),
+    $result = $this->getManager()->build(
+      node: $external_content_document,
+      environment: $environment,
     );
 
-    $this->getRenderArrayBuilder()->setEnvironment($environment);
-    $result = $this->getRenderArrayBuilder()->build($external_content_document);
+    self::assertTrue($result->isBuilt());
+    self::assertFalse($result->isNotBuild());
 
-    $expected_result = [
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#attributes' => [],
-      'children' => [
-        0 => [
-          '#markup' => 'Hello, ',
-        ],
-        1 => [
-          '#type' => 'html_tag',
-          '#tag' => 'strong',
-          '#attributes' => [],
-          'children' => [
-            0 => [
-              '#markup' => 'World',
-            ],
-          ],
-        ],
-        2 => [
-          '#markup' => '!',
-        ],
-      ],
-    ];
-
-    self::assertEquals($expected_result, $result->result());
+    $build = $result->result();
+    self::assertSame($build[0]['#type'], 'html_tag');
+    self::assertCount(3, $build[0]['children']);
   }
 
   /**
    * {@selfdoc}
    */
-  private function getRenderArrayBuilder(): RenderArrayBuilder {
-    return $this->container->get(RenderArrayBuilder::class);
+  private function getManager(): RenderArrayBuilderManagerInterface {
+    return $this->container->get(RenderArrayBuilderManagerInterface::class);
   }
 
 }

@@ -22,14 +22,14 @@ final class IdentifiedSourceTest extends UnitTestCase {
     $source = $this->prophesize(SourceInterface::class)->reveal();
     $id = $this->randomString();
     $attributes = new Attributes();
-    $instance = new IdentifiedSource($source, $id, $attributes);
+    $instance = new IdentifiedSource($id, $source, $attributes);
 
     self::assertSame($source, $instance->source);
     self::assertEquals($id, $instance->id);
     self::assertEquals($attributes, $instance->attributes);
 
     // Without attributes.
-    $instance = new IdentifiedSource($source, $id);
+    $instance = new IdentifiedSource($id, $source);
     self::assertSame($source, $instance->source);
     self::assertEquals($id, $instance->id);
     self::assertInstanceOf(Attributes::class, $instance->attributes);

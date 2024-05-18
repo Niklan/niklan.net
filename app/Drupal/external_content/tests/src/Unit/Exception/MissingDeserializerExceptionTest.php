@@ -22,7 +22,7 @@ final class MissingDeserializerExceptionTest extends UnitTestCase {
     $available = $this->prophesize(SerializerInterface::class);
     $available = $available->reveal();
 
-    $environment = new Environment();
+    $environment = new Environment('test');
     $environment->addSerializer($available);
 
     $type = $this->randomString();

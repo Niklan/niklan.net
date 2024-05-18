@@ -31,8 +31,8 @@ final class FrontMatterIdentifier implements IdentifierInterface {
     }
 
     $result = new IdentifiedSource(
-      source: $source,
       id: $front_matter['id'],
+      source: $source,
       attributes: $attributes,
     );
 

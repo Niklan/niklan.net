@@ -15,26 +15,33 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  * @covers \Drupal\external_content\Serializer\ElementSerializer
  * @group external_content
  */
-final class HtmlElementSerializerTest extends ExternalContentTestBase {
+final class ElementSerializerTest extends ExternalContentTestBase {
 
   /**
    * {@selfdoc}
    */
   public function testSerialization(): void {
-    $environment = new Environment();
+    $environment = new Environment('test');
     $environment->addSerializer(new ElementSerializer());
 
     $serializer = $this->container->get(SerializerManagerInterface::class);
-    $serializer->setEnvironment($environment);
 
     $attributes = new Attributes();
     $attributes->setAttribute('foo', 'bar');
     $element = new Element('div', $attributes);
-    $expected_json = '{"type":"external_content:html_element","version":"1.0.0","data":{"tag":"div","attributes":{"foo":"bar"}},"children":[]}';
+    $expected_json = <<<'JSON'
+    {"type":"external_content:html_element","version":"1.0.0","data":{"tag":"div","attributes":{"foo":"bar"},"children":[]}}
+    JSON;
 
-    self::assertEquals($expected_json, $serializer->normalize($element));
+    self::assertEquals(
+      expected: $expected_json,
+      actual: $serializer->normalize($element, $environment),
+    );
 
-    $deserialized_element = $serializer->deserialize($expected_json);
+    $deserialized_element = $serializer->deserialize(
+      json: $expected_json,
+      environment: $environment,
+    );
 
     self::assertEquals($element, $deserialized_element);
   }

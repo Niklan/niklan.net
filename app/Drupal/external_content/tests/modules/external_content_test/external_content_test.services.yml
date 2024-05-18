@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+
+  external_content.environment.test:
+    class: Drupal\external_content\Environment\Environment
+    calls:
+      - [addExtension, ['@Drupal\external_content\Extension\BasicHtmlExtension']]
+    tags:
+      - { name: external_content.environment, id: test, label: 'Test environment' }
