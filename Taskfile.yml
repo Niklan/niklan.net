@@ -43,7 +43,8 @@ tasks:
   phpcbf:
     label: PHPCBF
     desc: Runs 'phpcbf' command.
-    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpcbf -ps --colors --standard={{.CONFIG_DIR}}/phpcs.xml {{.CLI_ARGS}}'
+    # @see https://github.com/squizlabs/PHP_CodeSniffer/issues/1818
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpcbf -ps --colors --standard={{.CONFIG_DIR}}/phpcs.xml {{.CLI_ARGS}} || if [ $? -eq 1 ]; then exit 0; fi'
 
   phpstan:
     label: PHPStan
