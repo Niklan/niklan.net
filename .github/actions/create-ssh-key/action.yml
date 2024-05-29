@@ -1,0 +1,46 @@
+name: 'Create SSH key'
+description: 'Setups SSH key for future use.'
+
+inputs:
+  private-key:
+    description: 'Private key contents (id_rsa)'
+    required: true
+
+  host-label:
+    description: 'SSH name'
+    default: 'server'
+
+  host:
+    description: 'Default connection host'
+    required: true
+
+  port:
+    description: 'SSH port'
+    default: '22'
+
+  user:
+    description: 'Default connection user'
+    required: true
+
+  strict-host-key-checking:
+    description: 'Is host key should be strict checked'
+    # Disabled by default for straight forward connection.
+    default: 'no'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create SSH key
+      shell: bash
+      run: |
+        mkdir -p ~/.ssh;
+        echo "${{ inputs.private-key }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        cat >>~/.ssh/config <<END
+        Host ${{ inputs.host-label }}
+          HostName ${{ inputs.host }}
+          Port ${{ inputs.port }}
+          User ${{ inputs.user }}
+          IdentityFile ~/.ssh/id_rsa
+          StrictHostKeyChecking ${{ inputs.strict-host-key-checking }}
+        END
