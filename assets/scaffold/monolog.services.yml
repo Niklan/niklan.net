@@ -1,0 +1,36 @@
+parameters:
+  monolog.channel_handlers:
+    default: ['rotating_file.default']
+    php: ['rotating_file.php']
+    image: ['rotating_file.image']
+    cron: ['rotating_file.cron']
+    file: ['rotating_file.file']
+    security: ['rotating_file.security']
+    mail: ['rotating_file.mail']
+    system: ['rotating_file.system']
+
+services:
+  monolog.handler.rotating_file.default:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/default.log', 7]
+  monolog.handler.rotating_file.php:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/php.log', 7]
+  monolog.handler.rotating_file.image:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/image.log', 7]
+  monolog.handler.rotating_file.cron:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/cron.log', 7]
+  monolog.handler.rotating_file.file:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/file.log', 7]
+  monolog.handler.rotating_file.security:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/security.log', 7]
+  monolog.handler.rotating_file.mail:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/mail.log', 7]
+  monolog.handler.rotating_file.system:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/files/logs/system.log', 7]
