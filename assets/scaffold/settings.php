@@ -6,14 +6,11 @@
 include __DIR__ . '/default.settings.php';
 
 $settings['config_sync_directory'] = '../config/sync';
-$settings['file_private_path'] = '../private';
+$settings['file_private_path'] = '../var/files/private';
+$config['locale.settings']['translation']['path'] = '../var/files/private/translations';
+$settings['file_temp_path'] = '../var/files/temporary';
 $settings['skip_permissions_hardening'] = TRUE;
 
-$settings['database_cache_max_rows']['default'] = 10_000;
-$settings['database_cache_max_rows']['bins']['config'] = 100_000;
-$settings['database_cache_max_rows']['bins']['entity'] = 100_000;
-$settings['database_cache_max_rows']['bins']['page'] = 50_000;
-$settings['database_cache_max_rows']['bins']['dynamic_page_cache'] = 100_000;
-$settings['database_cache_max_rows']['bins']['render'] = 100_000;
+$settings['database_cache_max_rows']['default'] = 100_000;
 
-include __DIR__ . '/local.settings.php';
+include __DIR__ . '/../../../.local/settings.php';

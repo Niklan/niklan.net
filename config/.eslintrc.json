@@ -4,6 +4,7 @@
   "ignorePatterns": [
     "assets/vendor/**/*",
     "config/sync/**/*",
+    "var/**/*",
     "web/**/*",
     "vendor/**/*"
   ],

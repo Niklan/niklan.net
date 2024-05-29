@@ -68,6 +68,11 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "scripts": {
+        "post-install-cmd": [
+            "ln -fs ../../../var/files/public web/sites/default/files"
+        ]
+    },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
@@ -103,15 +108,19 @@
                 "[libraries-root]/prismjs/prism.js": "assets/vendor/prismjs/prism.js",
                 "[project-root]/.editorconfig": false,
                 "[project-root]/.gitattributes": false,
-                "[web-root]/robots.txt": {
-                    "append": "assets/scaffold/robots-txt-additions.txt"
-                },
-                "[web-root]/sites/default/default.settings.php": "web/core/assets/scaffold/files/default.settings.php",
-                "[web-root]/sites/default/local.settings.php": {
+                "[project-root]/.local/settings.php": {
                     "mode": "replace",
                     "path": "assets/scaffold/local.settings.php",
                     "overwrite": false
                 },
+                "[project-root]/var/files/private/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/files/private/translations/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/files/public/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/files/temporary/.keep": "assets/scaffold/.keep",
+                "[web-root]/robots.txt": {
+                    "append": "assets/scaffold/robots-txt-additions.txt"
+                },
+                "[web-root]/sites/default/default.settings.php": "web/core/assets/scaffold/files/default.settings.php",
                 "[web-root]/sites/default/settings.php": "assets/scaffold/settings.php",
                 "[web-root]/sites/development.services.yml": "assets/scaffold/development.services.yml"
             }
