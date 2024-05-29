@@ -8,7 +8,7 @@ on:
 
 jobs:
   production:
-    if: ${{ startsWith(github.ref, 'refs/tags/') || env.GITHUB_EVENT_NAME == 'workflow_dispatch' }}
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     name: Production
     runs-on: ubuntu-latest
     environment:
