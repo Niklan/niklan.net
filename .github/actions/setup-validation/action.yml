@@ -22,6 +22,8 @@ runs:
   steps:
     - name: Task installation
       shell: bash
+      # The dedicated action (arduino/setup-task@v1) for installing the Taskfile
+      # always encounters API limitations.
       run: sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
 
     - name: PHP installation

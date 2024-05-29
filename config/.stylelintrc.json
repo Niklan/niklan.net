@@ -3,6 +3,7 @@
   "ignoreFiles": [
     "../assets/vendor/**/*",
     "*/node_modules/**/*",
+    "../var/**/*",
     "../vendor/**/*",
     "../web/**/*"
   ]

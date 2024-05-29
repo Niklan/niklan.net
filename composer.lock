@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba8f5aebfe072fa97e32935398510dcf",
+    "content-hash": "bd230fb596e5fb06b39a702c96776c2f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1779,6 +1779,10 @@
                     "role": "Maintainer"
                 },
                 {
+                    "name": "Greg Boggs",
+                    "homepage": "https://www.drupal.org/user/153069"
+                },
+                {
                     "name": "hmartens",
                     "homepage": "https://www.drupal.org/user/622826"
                 },
@@ -2390,17 +2394,17 @@
         },
         {
             "name": "drupal/photoswipe",
-            "version": "4.0.1",
+            "version": "3.2.8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/photoswipe.git",
-                "reference": "4.0.1"
+                "reference": "3.2.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/photoswipe-4.0.1.zip",
-                "reference": "4.0.1",
-                "shasum": "9d01589410b2a1c52fae9dc7fcc9cd1ae3b61cba"
+                "url": "https://ftp.drupal.org/files/projects/photoswipe-3.2.8.zip",
+                "reference": "3.2.8",
+                "shasum": "9a809dc3315a791b2e8b6624169b19427c25ad24"
             },
             "require": {
                 "drupal/core": "^9.3 || ^10"
@@ -2411,8 +2415,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.1",
-                    "datestamp": "1691566821",
+                    "version": "3.2.8",
+                    "datestamp": "1677752630",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4408,15 +4412,9 @@
             "dist": {
                 "type": "path",
                 "url": "app/Drupal/external_content",
-                "reference": "c3d10713cf7667197d9a39dcaa25ef984cd3f167"
-            },
-            "require": {
-                "league/config": "^1.2"
+                "reference": "dbc849667781cc80dcea757c83c1c4a90740a68c"
             },
             "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
             "transport-options": {
                 "relative": true
             }
@@ -9735,12 +9733,12 @@
             "version": "v5.2.13",
             "source": {
                 "type": "git",
-                "url": "https://github.com/justinrainbow/json-schema.git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "shasum": ""
             },
@@ -10208,6 +10206,26 @@
                 "source": "https://github.com/nette/neon/tree/v3.4.1"
             },
             "time": "2023-09-27T08:59:11+00:00"
+        },
+        {
+            "name": "niklan/content_export",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/Drupal/content_export",
+                "reference": "adbf26038beabe71d8a6db314f7dcf71532e9a6d"
+            },
+            "type": "drupal-custom-module",
+            "extra": {
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^11"
+                    }
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "niklan/niklan_dev",
@@ -13921,6 +13939,7 @@
         "niklan/niklan": 20,
         "niklan/niklan_installer": 20,
         "chi-teck/drupal-coder-extension": 15,
+        "niklan/content_export": 20,
         "niklan/niklan_dev": 20
     },
     "prefer-stable": true,

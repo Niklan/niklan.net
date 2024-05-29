@@ -17,6 +17,4 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
-  - 'post comments'
-  - 'skip comment approval'
   - 'view media'

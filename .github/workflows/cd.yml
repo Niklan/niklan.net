@@ -3,57 +3,42 @@ name: CD
 on:
   workflow_dispatch:
   push:
-    branches:
-      - production
-
-env:
-  SSH_KEY: ${{ secrets.ci_deploy_key }}
-  SSH_USER: ${{ secrets.ci_production_username }}
-  SSH_HOST: ${{ secrets.ci_production_host }}
-  # The root of an App. This where git root is.
-  APP_ROOT: ${{ secrets.ci_app_root }}
-  # The App located inside project root. Mainly the product root is the folder
-  # with docker-compose.yml.
-  PROJECT_ROOT: ${{ secrets.ci_project_root }}
-  COMPOSER_BIN: docker compose exec -T php composer
-  DRUSH_BIN: docker compose exec -T php drush
-  TASK_BIN: docker compose exec -T php task
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   production:
+    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
     name: Production
     runs-on: ubuntu-latest
     environment:
       name: production
       url: https://niklan.net
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Create SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          cat >>~/.ssh/config <<END
-          Host production
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/id_rsa
-            StrictHostKeyChecking no
-          END
-
-      - name: Pull changes
-        shell: bash
-        run: |
-          ssh production "cd $APP_ROOT && git fetch && git checkout"
-          ssh production "cd $APP_ROOT && git pull origin production"
-
-      - name: Install Composer dependencies
-        run: ssh production "cd $PROJECT_ROOT && $COMPOSER_BIN install --no-dev -o -n"
+        uses: ./.github/actions/create-ssh-key
+        with:
+          private-key: ${{ secrets.cd_production_deploy_key }}
+          user: ${{ secrets.cd_production_user }}
+          host: ${{ secrets.cd_production_host }}
+          port: ${{ secrets.cd_production_port }}
 
       - name: Deploy
-        run: ssh production "cd $PROJECT_ROOT && $DRUSH_BIN deploy"
-
-      - name: Clear PHP cache
-        run: ssh production "cd $PROJECT_ROOT && docker compose exec -T php pkill -USR2 php-fpm"
-
-      - name: Import custom translations
-        run: ssh production "cd $PROJECT_ROOT && $TASK_BIN import-translations"
+        shell: bash
+        run: |
+          ssh server <<< "
+            cd ${{ secrets.cd_production_app_root }};
+            mkdir -p ${{ secrets.cd_production_deploy_files }};
+            drush sql:dump \
+              --gzip \
+              --structure-tables-list=cache,cache_*,flood,history,queue,search_index,search_api_*,semaphore,sequences,sessions,watchdog \
+              > ${{ secrets.cd_production_deploy_files }}/pre-deploy.sql.gz;
+            git fetch;
+            git checkout;
+            git pull;
+            composer install --no-dev -o -n;
+            drush deploy;
+          "

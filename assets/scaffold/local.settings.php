@@ -1,23 +1,27 @@
 <?php
 
+$error_handler = Symfony\Component\ErrorHandler\Debug::enable();
+$error_handler->setExceptionHandler([$error_handler, 'renderException']);
+
 $databases['default']['default'] = [
-  'driver' => 'mysql',
-  'database' => 'drupal',
-  'username' => 'drupal',
-  'password' => 'drupal',
-  'host' => 'mariadb',
-  'port' => 3306,
+  'database' => getenv('MARIADB_DATABASE') ?: 'drupal',
+  'username' => getenv('MARIADB_USERNAME') ?: 'drupal',
+  'password' => getenv('MARIADB_PASSWORD') ?: 'drupal',
+  'host' => getenv('MARIADB_HOST') ?: 'mariadb',
   'prefix' => '',
+  'port' => '3306',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'driver' => 'mysql',
   'init_commands' => [
     // @see https://www.drupal.org/docs/system-requirements/setting-the-mysql-transaction-isolation-level
     'isolation_level' => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
   ],
 ];
 
-$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
 $settings['hash_salt'] = 'localhost';
 
-// $settings['niklan_development_warning'] = TRUE;
+$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
+
 // $config['system.logging']['error_level'] = 'verbose';
 // $config['system.performance']['css']['preprocess'] = FALSE;
 // $config['system.performance']['js']['preprocess'] = FALSE;

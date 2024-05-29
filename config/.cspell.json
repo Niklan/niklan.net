@@ -5,7 +5,7 @@
     "../web/core/.cspell.json"
   ],
   "dictionaries": [
-    "project",
+    "project"
   ],
   "dictionaryDefinitions": [
     {
@@ -20,6 +20,7 @@
     "../assets/translation/**",
     "../config/cspell/**",
     "../config/sync/**",
+    "../var/**",
     "../web/**",
     "../private/**",
     "../vendor/**",
