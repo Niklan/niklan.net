@@ -37,6 +37,7 @@
         "drupal/google_tag": "^1.0",
         "drupal/imagemagick": "^3.0",
         "drupal/metatag": "^1.1",
+        "drupal/monolog": "^3.0",
         "drupal/paragraphs": "^1.2",
         "drupal/pathauto": "^1.0",
         "drupal/photoswipe": "^3.0",
@@ -117,12 +118,14 @@
                 "[project-root]/var/files/private/translations/.keep": "assets/scaffold/.keep",
                 "[project-root]/var/files/public/.keep": "assets/scaffold/.keep",
                 "[project-root]/var/files/temporary/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/files/logs/.keep": "assets/scaffold/.keep",
                 "[web-root]/robots.txt": {
                     "append": "assets/scaffold/robots-txt-additions.txt"
                 },
                 "[web-root]/sites/default/default.settings.php": "web/core/assets/scaffold/files/default.settings.php",
                 "[web-root]/sites/default/settings.php": "assets/scaffold/settings.php",
-                "[web-root]/sites/development.services.yml": "assets/scaffold/development.services.yml"
+                "[web-root]/sites/development.services.yml": "assets/scaffold/development.services.yml",
+                "[web-root]/sites/monolog.services.yml": "assets/scaffold/monolog.services.yml"
             }
         },
         "installer-paths": {
