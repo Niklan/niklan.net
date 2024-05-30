@@ -118,7 +118,7 @@
                 "[project-root]/var/files/private/translations/.keep": "assets/scaffold/.keep",
                 "[project-root]/var/files/public/.keep": "assets/scaffold/.keep",
                 "[project-root]/var/files/temporary/.keep": "assets/scaffold/.keep",
-                "[project-root]/var/files/logs/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/log/.keep": "assets/scaffold/.keep",
                 "[web-root]/robots.txt": {
                     "append": "assets/scaffold/robots-txt-additions.txt"
                 },
