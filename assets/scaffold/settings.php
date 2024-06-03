@@ -5,6 +5,8 @@
 // the changes, additions and removals from core up to date on project.
 include __DIR__ . '/default.settings.php';
 
+$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/monolog.services.yml';
+
 $settings['config_sync_directory'] = '../config/sync';
 $settings['file_private_path'] = '../var/files/private';
 $config['locale.settings']['translation']['path'] = '../var/files/private/translations';
