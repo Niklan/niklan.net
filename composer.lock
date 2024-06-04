@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec72e192f911d3d840e7f6647c03d293",
+    "content-hash": "02569f734cb709fc5a42845aa64c5c39",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1234,53 +1234,6 @@
             "homepage": "https://www.drupal.org/project/antibot",
             "support": {
                 "source": "https://git.drupalcode.org/project/antibot"
-            }
-        },
-        {
-            "name": "drupal/contact_tools",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/contact_tools.git",
-                "reference": "8.x-1.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/contact_tools-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "3957455283cc757c220ba7019d178d338cb81213"
-            },
-            "require": {
-                "drupal/core": "^9 || ^10",
-                "php": ">=7.4"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1693205855",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Niklan (Nikita Malyshev)",
-                    "homepage": "https://niklan.net",
-                    "email": "hello@niklan.net"
-                }
-            ],
-            "description": "Tools for developers to make work with core contact module easy and friendly.",
-            "homepage": "http://drupal.org/project/contact_tools",
-            "support": {
-                "source": "https://git.drupalcode.org/project/contact_tools",
-                "issues": "https://www.drupal.org/project/issues/contact_tools"
             }
         },
         {
