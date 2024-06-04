@@ -51,10 +51,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    * {@inheritdoc}
    */
   public function load(IdentifiedSourceBundle $bundle): LoaderResult {
-    \assert(
-      assertion: $this->environment->id(),
-      description: 'An environment must have an ID to be loaded.',
-    );
     $blog_entry = $this->findBlogEntry($bundle->id);
 
     foreach ($bundle->getAllWithAttribute('language')->sources() as $identified_source) {
