@@ -1,9 +1,4 @@
 services:
-  niklan.event_subscriber:
-    class: Drupal\niklan\EventSubscriber\RouteSubscriber
-    tags:
-      - { name: event_subscriber }
-
   niklan.repository.about_settings:
     class: Drupal\niklan\Repository\AboutSettingsRepository
     arguments: ['@keyvalue']

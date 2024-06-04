@@ -1,0 +1,11 @@
+.contact-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  --p-margin--y: 0;
+}
+
+.contact-page__email {
+  font-size: var(--font-size-h2);
+  font-weight: bold;
+}

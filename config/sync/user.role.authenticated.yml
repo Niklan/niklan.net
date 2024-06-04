@@ -4,7 +4,6 @@ status: true
 dependencies:
   module:
     - comment
-    - contact
     - media
     - system
 _core:
@@ -16,7 +15,6 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
-  - 'access site-wide contact form'
   - 'post comments'
   - 'skip comment approval'
   - 'view media'

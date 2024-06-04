@@ -1,3 +1,0 @@
-configuration:
-  email_subject:
-    value: '[{{ form }}] {{ subject }}'

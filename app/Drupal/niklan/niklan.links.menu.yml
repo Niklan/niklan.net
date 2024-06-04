@@ -58,6 +58,6 @@ niklan.services:
 niklan.contact:
   title: Contact
   title_context: 'menu'
-  route_name: contact.site_page
+  route_name: niklan.contact
   menu_name: main
   weight: 6

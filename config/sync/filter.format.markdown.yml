@@ -3,7 +3,6 @@ langcode: ru
 status: true
 dependencies:
   module:
-    - contact_tools
     - editor
     - media
     - niklan
@@ -11,12 +10,6 @@ name: Markdown
 format: markdown
 weight: -9
 filters:
-  contact_tools_modal_link:
-    id: contact_tools_modal_link
-    provider: contact_tools
-    status: false
-    weight: -45
-    settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor

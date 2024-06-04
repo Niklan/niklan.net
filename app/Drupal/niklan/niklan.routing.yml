@@ -79,3 +79,11 @@ niklan.tags:
     _controller: '\Drupal\niklan\Controller\TagController::collection'
   requirements:
     _permission: 'access content'
+
+niklan.contact:
+  path: '/contact'
+  defaults:
+    _title: "Let's Talk"
+    _controller: '\Drupal\niklan\Controller\StaticPagesController::contact'
+  requirements:
+    _permission: 'access content'

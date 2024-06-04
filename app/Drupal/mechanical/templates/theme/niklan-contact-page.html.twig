@@ -10,21 +10,12 @@
  * @see mechanical_preprocess_niklan_contact_page()
  */
 #}
+{{ attach_library('mechanical/component.theme.contact-page') }}
 {% set email = 'i@niklan.net' %}
 {% set telegram_url = 'https://t.me/niklan' %}
 <div class="contact-page">
   <div class="contact-page__content">
-    <p>{% trans %}You can email me using the form on this page or you can write to me at <a href="mailto:{{ email }}"><strong>{{ email }}</strong></a>.{% endtrans %}</p>
+    <a href="mailto:{{ email }}" class="contact-page__email">{{ email }}</a>
     <p>{% trans %}If it is more convenient, write directly on Telegram - <a href="{{ telegram_url }}" target="_blank" rel="nofollow noopener">@Niklan</a>. Just ask: no need to write «hello» and wait for my reaction, directly write a question; I do not listen voice messages; I do not answer calls.{% endtrans %}</p>
-    <p>{% trans %}My other social media pages:{% endtrans %}</p>
-    <ul>
-      <li><a href="https://github.com/Niklan" target="_blank" rel="nofollow noopener">GitHub</a></li>
-      <li><a href="https://twitter.com/NiklanRUS" target="_blank" rel="nofollow noopener">Twitter</a></li>
-    </ul>
-  </div>
-
-  <div class="contact-page__form">
-    <h2 class="contact-page__form-title">{% trans %}Contact form{% endtrans %}</h2>
-    {{ contact_form_ajax('contact_form') }}
   </div>
 </div>

@@ -225,6 +225,11 @@ component.theme.sidebar-search-form:
     theme:
       assets/css/04-components/theme/sidebar-search-form.css: { }
 
+component.theme.contact-page:
+  css:
+    theme:
+      assets/css/04-components/theme/contact-page.css: { }
+
 component.block.page-title:
   css:
     theme:
