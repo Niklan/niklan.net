@@ -4,7 +4,6 @@ langcode: ru
 module:
   antibot: 0
   block: 0
-  block_content: 0
   breakpoint: 0
   comment: 0
   contact: 0
@@ -23,11 +22,9 @@ module:
   file_mdm: 0
   file_mdm_exif: 0
   filter: 0
-  google_tag: 0
   image: 0
   imagemagick: 0
   language: 0
-  layout_discovery: 0
   link: 0
   locale: 0
   media: 0
@@ -54,7 +51,6 @@ module:
   rh_taxonomy: 0
   search_api: 0
   search_api_db: 0
-  serialization: 0
   simple_sitemap: 0
   sophron: 0
   symfony_mailer: 0
