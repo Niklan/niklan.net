@@ -47,6 +47,7 @@
         "drupal/taxonomy_custom_controller": "^1.0",
         "drupal/token": "^1.0",
         "drupal/twig_tweak": "^3.0",
+        "drupal/warmer": "^2.0",
         "drush/drush": "^12.0",
         "niklan/external_content": "^1.0@dev",
         "niklan/mechanical": "^1.0@dev",
