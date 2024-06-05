@@ -88,6 +88,14 @@ niklan.tags:
   requirements:
     _permission: 'access content'
 
+niklan.contact:
+  path: '/contact'
+  defaults:
+    _title: "Let's Talk"
+    _controller: '\Drupal\niklan\Controller\StaticPagesController::contact'
+  requirements:
+    _permission: 'access content'
+
 niklan.webhook.content_sync:
   path: '/api/webhook/content-sync'
   defaults:

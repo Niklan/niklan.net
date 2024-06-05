@@ -4,12 +4,9 @@ langcode: ru
 module:
   antibot: 0
   block: 0
-  block_content: 0
   breakpoint: 0
   comment: 0
-  contact: 0
-  contact_storage: 0
-  contact_tools: 0
+  csp: 0
   ctools: 0
   datetime: 0
   dynamic_page_cache: 0
@@ -23,16 +20,13 @@ module:
   file_mdm: 0
   file_mdm_exif: 0
   filter: 0
-  google_tag: 0
   image: 0
   imagemagick: 0
   language: 0
-  layout_discovery: 0
   link: 0
   locale: 0
   media: 0
   media_library: 0
-  menu_ui: 0
   metatag: 0
   metatag_facebook: 0
   metatag_mobile: 0
@@ -56,7 +50,6 @@ module:
   sdc: 0
   search_api: 0
   search_api_db: 0
-  serialization: 0
   simple_sitemap: 0
   sophron: 0
   sophron_guesser: 0
@@ -69,7 +62,8 @@ module:
   toolbar: 0
   twig_tweak: 0
   user: 0
-  menu_link_content: 1
+  warmer: 0
+  warmer_entity: 0
   pathauto: 1
   views: 10
   paragraphs: 11

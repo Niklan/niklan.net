@@ -1,5 +1,6 @@
 parameters:
   monolog.channel_handlers:
+    # Drupal's core channels.
     default: ['rotating_file.default']
     php: ['rotating_file.php']
     image: ['rotating_file.image']
@@ -8,6 +9,8 @@ parameters:
     security: ['rotating_file.security']
     mail: ['rotating_file.mail']
     system: ['rotating_file.system']
+    # Third-party channels.
+    csp: ['rotating_file.csp']
 
 services:
   monolog.handler.rotating_file.default:
@@ -34,3 +37,6 @@ services:
   monolog.handler.rotating_file.system:
     class: Monolog\Handler\RotatingFileHandler
     arguments: ['../var/log/system.log', 7]
+  monolog.handler.rotating_file.csp:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/log/csp.log', 7]

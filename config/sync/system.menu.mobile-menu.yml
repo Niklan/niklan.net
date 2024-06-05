@@ -1,8 +1,0 @@
-uuid: 87711c2b-538d-4f0d-9050-939a60b0afe3
-langcode: ru
-status: true
-dependencies: {  }
-id: mobile-menu
-label: 'Мобильное меню'
-description: ''
-locked: false

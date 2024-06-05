@@ -1,8 +1,0 @@
-uuid: e51ab130-3f7b-4ae3-935b-b0e3d50ab4ad
-langcode: ru
-status: true
-dependencies: {  }
-id: about
-label: 'Об авторе'
-description: ''
-locked: false
