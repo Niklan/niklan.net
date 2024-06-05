@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02569f734cb709fc5a42845aa64c5c39",
+    "content-hash": "63531dbf304e0e59af12473a9c878265",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1535,6 +1535,55 @@
             "time": "2024-01-16T21:10:58+00:00"
         },
         {
+            "name": "drupal/csp",
+            "version": "1.31.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/csp.git",
+                "reference": "8.x-1.31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/csp-8.x-1.31.zip",
+                "reference": "8.x-1.31",
+                "shasum": "f5279b78f2edac89d5cb2a731a246da9d429573a"
+            },
+            "require": {
+                "drupal/core": "~10.0.0 || ^10.1.3 || ^11",
+                "ext-json": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.31",
+                    "datestamp": "1714819870",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "gapple",
+                    "homepage": "https://www.drupal.org/user/490940"
+                }
+            ],
+            "description": "Provide Content-Security-Policy headers",
+            "homepage": "https://www.drupal.org/project/csp",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/csp",
+                "issues": "https://www.drupal.org/project/issues/csp"
+            }
+        },
+        {
             "name": "drupal/ctools",
             "version": "4.0.4",
             "source": {
@@ -2297,17 +2346,17 @@
         },
         {
             "name": "drupal/photoswipe",
-            "version": "3.2.8",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/photoswipe.git",
-                "reference": "3.2.8"
+                "reference": "4.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/photoswipe-3.2.8.zip",
-                "reference": "3.2.8",
-                "shasum": "9a809dc3315a791b2e8b6624169b19427c25ad24"
+                "url": "https://ftp.drupal.org/files/projects/photoswipe-4.0.1.zip",
+                "reference": "4.0.1",
+                "shasum": "9d01589410b2a1c52fae9dc7fcc9cd1ae3b61cba"
             },
             "require": {
                 "drupal/core": "^9.3 || ^10"
@@ -2318,8 +2367,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.2.8",
-                    "datestamp": "1677752630",
+                    "version": "4.0.1",
+                    "datestamp": "1691566821",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"

@@ -22,6 +22,7 @@ prismjs:
   license:
     name: MIT
     gpl-compatible: true
+    url: https://github.com/PrismJS/prism/blob/master/LICENSE
   js:
     assets/js/prism.init.js: { weight: -1 }
     /libraries/prismjs/prism.js: {minified: true }
