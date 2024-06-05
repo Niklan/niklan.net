@@ -47,14 +47,6 @@ niklan.about_settings:
   requirements:
     _permission: 'administer site configuration'
 
-niklan.content_sync_settings:
-  path: '/admin/niklan/content-sync'
-  defaults:
-    _title: 'Content synchronization settings'
-    _form: '\Drupal\niklan\Form\ContentSyncSettingsForm'
-  requirements:
-    _permission: 'administer site configuration'
-
 niklan.blog_list:
   path: '/blog'
   defaults:
@@ -95,13 +87,3 @@ niklan.contact:
     _controller: '\Drupal\niklan\Controller\StaticPagesController::contact'
   requirements:
     _permission: 'access content'
-
-niklan.webhook.content_sync:
-  path: '/api/webhook/content-sync'
-  defaults:
-    _title: 'Content Sync Webhook'
-    _controller: '\Drupal\niklan\Controller\ContentSyncWebhookController::handle'
-  requirements:
-    _niklan_github_signature: 'TRUE'
-  methods:
-    - POST
