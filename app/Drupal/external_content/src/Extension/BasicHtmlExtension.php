@@ -8,6 +8,9 @@ use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInter
 
 /**
  * Provides a very basic extension with most useful settings.
+ *
+ * @todo Consider creating dedicated extensions for plain text, code and
+ *   element, and use them here.
  */
 final class BasicHtmlExtension implements ExtensionInterface {
 
@@ -32,12 +35,15 @@ final class BasicHtmlExtension implements ExtensionInterface {
 
     $environment
       ->addHtmlParser($html_parser_manager->get('plain_text'))
+      ->addHtmlParser($html_parser_manager->get('code'), -40)
       ->addHtmlParser($html_parser_manager->get('element'), -50)
       ->addRenderArrayBuilder($render_array_builder_manager->get('plain_text'), -50)
       ->addRenderArrayBuilder($render_array_builder_manager->get('element'), -50)
+      ->addRenderArrayBuilder($render_array_builder_manager->get('code'), -50)
       ->addRenderArrayBuilder($render_array_builder_manager->get('content'), -50)
       ->addSerializer($serializer_manager->get('element'), -50)
       ->addSerializer($serializer_manager->get('plain_text'), -50)
+      ->addSerializer($serializer_manager->get('code'), -50)
       ->addSerializer($serializer_manager->get('content'), -50);
   }
 
