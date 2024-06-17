@@ -6,6 +6,8 @@ use Drupal\Component\Transliteration\PhpTransliteration;
 
 /**
  * Class Text with simple string utility.
+ *
+ * @deprecated Replaced by a Markdown extension.
  */
 final class Anchor {
 

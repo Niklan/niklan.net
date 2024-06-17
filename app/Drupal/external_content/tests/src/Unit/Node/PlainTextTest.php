@@ -20,7 +20,7 @@ final class PlainTextTest extends UnitTestCase {
     $text = 'Hello, World!';
     $instance = new PlainText($text);
 
-    self::assertEquals($text, $instance->getContent());
+    self::assertEquals($text, $instance->getLiteral());
   }
 
 }

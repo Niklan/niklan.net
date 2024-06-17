@@ -110,7 +110,7 @@ final class TocBlockTest extends BlockTestBase {
     $block = $this->blockManager->createInstance('niklan_node_toc');
     \assert($block instanceof BlockPluginInterface);
 
-    self::assertContains('url.path', $block->getCacheContexts());
+    self::assertContains('route', $block->getCacheContexts());
   }
 
 }

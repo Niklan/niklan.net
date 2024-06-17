@@ -2,10 +2,12 @@
 
 namespace Drupal\external_content\Node;
 
+use Drupal\external_content\Contract\Node\StringContainerInterface;
+
 /**
  * Represents a simple plain text inside elements.
  */
-final class PlainText extends Node {
+final class PlainText extends Node implements StringContainerInterface {
 
   /**
    * Constructs a new PlainText object.
@@ -18,9 +20,16 @@ final class PlainText extends Node {
   ) {}
 
   /**
-   * Gets content.
+   * {@inheritdoc}
    */
-  public function getContent(): string {
+  public function setLiteral(string $literal): void {
+    $this->text = $literal;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLiteral(): string {
     return $this->text;
   }
 

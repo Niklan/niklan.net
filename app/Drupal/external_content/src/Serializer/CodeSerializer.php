@@ -7,7 +7,6 @@ use Drupal\external_content\Contract\Serializer\ChildSerializerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerInterface;
 use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Code;
-use Drupal\external_content\Node\PlainText;
 
 /**
  * Provides a serialization for <code> element.
@@ -21,7 +20,7 @@ final class CodeSerializer implements SerializerInterface {
     \assert($node instanceof Code);
 
     return [
-      'code' => $node->code,
+      'code' => $node->getLiteral(),
     ];
   }
 

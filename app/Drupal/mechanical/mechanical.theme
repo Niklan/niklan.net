@@ -267,8 +267,10 @@ function mechanical_preprocess_paragraph__heading(array &$variables): void {
     ->get('field_heading_level',)
     ->getString();
   $variables['title'] = $title;
+  /* @phpstan-ignore-next-line */
   $variables['anchor'] = Anchor::generate(
     $title,
+    /* @phpstan-ignore-next-line */
     Anchor::REUSE,
   );
 

@@ -20,7 +20,7 @@ final class PlainTextSerializer implements SerializerInterface {
     \assert($node instanceof PlainText);
 
     return [
-      'text' => $node->getContent(),
+      'text' => $node->getLiteral(),
     ];
   }
 

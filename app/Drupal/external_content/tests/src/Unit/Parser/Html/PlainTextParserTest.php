@@ -46,7 +46,7 @@ final class PlainTextParserTest extends UnitTestCase {
     $replacement = $result->replacement();
 
     self::assertInstanceOf(PlainText::class, $replacement);
-    self::assertEquals('Hello, World!', $replacement->getContent());
+    self::assertEquals('Hello, World!', $replacement->getLiteral());
   }
 
 }

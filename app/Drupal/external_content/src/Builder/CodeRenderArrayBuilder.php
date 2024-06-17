@@ -2,7 +2,6 @@
 
 namespace Drupal\external_content\Builder;
 
-use Drupal\Core\Render\Markup;
 use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
@@ -23,7 +22,7 @@ final class CodeRenderArrayBuilder implements RenderArrayBuilderInterface {
     return RenderArrayBuilderResult::withRenderArray([
       '#type' => 'html_tag',
       '#tag' => 'code',
-      '#value' => \htmlentities($node->code),
+      '#value' => \htmlentities($node->getLiteral()),
     ]);
   }
 

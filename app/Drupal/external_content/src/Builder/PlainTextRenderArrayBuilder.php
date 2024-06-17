@@ -20,7 +20,7 @@ final class PlainTextRenderArrayBuilder implements RenderArrayBuilderInterface {
     \assert($node instanceof PlainText);
 
     return RenderArrayBuilderResult::withRenderArray([
-      '#markup' => $node->getContent(),
+      '#markup' => $node->getLiteral(),
     ]);
   }
 

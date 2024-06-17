@@ -21,3 +21,22 @@
   height: auto;
   margin: var(--p-margin--y) 0;
 }
+
+.node-blog-entry-external-content__value .heading-permalink {
+  visibility: hidden;
+  margin-left: var(--spacing-sm);
+  scroll-margin-top: var(--spacing-xl);
+}
+
+h1:hover .heading-permalink,
+h2:hover .heading-permalink,
+h3:hover .heading-permalink,
+h4:hover .heading-permalink,
+h5:hover .heading-permalink,
+h6:hover .heading-permalink {
+  visibility: visible;
+}
+
+body:not(.is-using-mouse) .heading-permalink {
+  visibility: visible;
+}
