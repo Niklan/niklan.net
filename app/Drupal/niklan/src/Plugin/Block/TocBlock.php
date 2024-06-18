@@ -54,6 +54,10 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $cacheable_metadata = new CacheableMetadata();
     $cacheable_metadata->addCacheableDependency($node);
 
+    if ($node->get('external_content')->isEmpty()) {
+      return [];
+    }
+
     $content = $node->get('external_content')->first();
     \assert($content instanceof ExternalContentFieldItem);
 

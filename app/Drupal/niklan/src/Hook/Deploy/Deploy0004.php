@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace Drupal\niklan\Hook\Deploy;
 
@@ -8,7 +8,6 @@ use Drupal\Core\Entity\ContentEntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\paragraphs\ParagraphInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -86,7 +85,7 @@ final readonly class Deploy0004 implements ContainerInjectionInterface {
   private function paragraphs(array &$sandbox): \Generator {
     $ids = $this
       ->getQuery()
-      ->range($sandbox['current'], $sandbox['limit'])
+      ->range(0, $sandbox['limit'])
       ->execute();
     $sandbox['current'] += \count($ids);
 
