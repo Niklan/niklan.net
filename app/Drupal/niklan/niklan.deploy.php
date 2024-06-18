@@ -8,6 +8,7 @@
 use Drupal\niklan\Hook\Deploy\Deploy0001;
 use Drupal\niklan\Hook\Deploy\Deploy0002;
 use Drupal\niklan\Hook\Deploy\Deploy0003;
+use Drupal\niklan\Hook\Deploy\Deploy0004;
 
 /**
  * Migrate contact submission values into native fields.
@@ -28,4 +29,11 @@ function niklan_deploy_0002(array &$sandbox): string {
  */
 function niklan_deploy_0003(array &$sandbox): string {
   return \Drupal::classResolver(Deploy0003::class)($sandbox);
+}
+
+/**
+ * Remove paragraphs.
+ */
+function niklan_deploy_0004(array &$sandbox): string {
+  return \Drupal::classResolver(Deploy0004::class)($sandbox);
 }
