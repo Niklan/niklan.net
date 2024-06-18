@@ -4,7 +4,7 @@ namespace Drupal\niklan\Hook\Deploy;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\ContentEntityStorageInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
@@ -64,7 +64,7 @@ final readonly class Deploy0004 implements ContainerInjectionInterface {
   /**
    * {@selfdoc}
    */
-  private function getStorage(): ContentENtityStorageInterface {
+  private function getStorage(): EntityStorageInterface {
     return $this->entityTypeManager->getStorage('paragraph');
   }
 
