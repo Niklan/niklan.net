@@ -62,9 +62,9 @@ final class BasicHtmlExtensionTest extends UnitTestCaseTest {
     $environment = new Environment('test');
     $environment->addExtension($extension);
 
-    self::assertCount(2, $environment->getHtmlParsers());
-    self::assertCount(3, $environment->getRenderArrayBuilders());
-    self::assertCount(3, $environment->getSerializers());
+    self::assertCount(3, $environment->getHtmlParsers());
+    self::assertCount(4, $environment->getRenderArrayBuilders());
+    self::assertCount(4, $environment->getSerializers());
   }
 
 }
