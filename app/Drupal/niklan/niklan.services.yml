@@ -2,6 +2,10 @@ services:
   _defaults:
     autowire: true
 
+  logger.channel.niklan:
+    parent: logger.channel_base
+    arguments: ['niklan']
+
   niklan.repository.about_settings:
     class: Drupal\niklan\Repository\AboutSettingsRepository
     arguments: ['@keyvalue']
@@ -57,6 +61,7 @@ services:
     arguments:
       $fileUsage: '@file.usage'
       $mimeTypeGuesser: '@file.mime_type.guesser'
+      $logger: '@logger.channel.niklan'
 
   # External content.
   Drupal\niklan\Extension\ExternalContent\BlogExtension:
@@ -90,6 +95,8 @@ services:
     tags:
       - { name: external_content.render_array_builder, id: link }
   Drupal\niklan\Loader\ExternalContent\Blog:
+    arguments:
+      $logger: '@logger.channel.niklan'
     tags:
       - { name: external_content.loader, id: blog }
   Drupal\niklan\Converter\ExternalContent\MarkdownConverter:

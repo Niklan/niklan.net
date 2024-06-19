@@ -5,6 +5,7 @@ namespace Drupal\niklan\Loader\ExternalContent;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
@@ -45,12 +46,14 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     private ExternalContentManagerInterface $externalContentManager,
     private EntityTypeManagerInterface $entityTypeManager,
     private ContentAssetManager $contentAssetManager,
+    private LoggerChannelInterface $logger,
   ) {}
 
   /**
    * {@inheritdoc}
    */
   public function load(IdentifiedSourceBundle $bundle): LoaderResult {
+    $this->logger->info('Starting to load blog external content bundle with ID: ' . $bundle->id);
     $blog_entry = $this->findBlogEntry($bundle->id);
 
     foreach ($bundle->getAllWithAttribute('language')->sources() as $identified_source) {
@@ -62,6 +65,11 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
     // @todo Add some checks to avoid unnecessary saving.
     $blog_entry->save();
+    $this->logger->info(\sprintf(
+      'External content bundle %s synced with node:%s',
+      $bundle->id,
+      $blog_entry->id(),
+    ));
 
     return LoaderResult::withResults($bundle->id, [
       'entity_type_id' => $blog_entry->getEntityTypeId(),
@@ -84,6 +92,10 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       ->execute();
 
     if (!$ids) {
+      $this->logger->info(\sprintf(
+        'External content for ID %s not found, creating a new entity.',
+        $external_id,
+      ));
       // Create a new one if nothing is found.
       $blog_entry = $storage->create(['type' => 'blog_entry']);
       \assert($blog_entry instanceof BlogEntryInterface);

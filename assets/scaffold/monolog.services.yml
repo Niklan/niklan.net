@@ -11,6 +11,8 @@ parameters:
     system: ['rotating_file.system']
     # Third-party channels.
     csp: ['rotating_file.csp']
+    # Custom channels.
+    niklan: ['rotating_file.niklan']
 
 services:
   monolog.handler.rotating_file.default:
@@ -40,3 +42,6 @@ services:
   monolog.handler.rotating_file.csp:
     class: Monolog\Handler\RotatingFileHandler
     arguments: ['../var/log/csp.log', 7]
+  monolog.handler.rotating_file.niklan:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/log/niklan.log', 7]

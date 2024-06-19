@@ -7,6 +7,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
@@ -32,6 +33,7 @@ final class ContentAssetManager {
     private UuidInterface $uuid,
     private TimeInterface $time,
     private MimeTypeGuesserInterface $mimeTypeGuesser,
+    private LoggerChannelInterface $logger,
   ) {}
 
   /**
@@ -97,6 +99,11 @@ final class ContentAssetManager {
     // If checksum is not calculated, then file is not exist or not accessible.
     // Either way, this should be ended right here.
     if (!$checksum) {
+      $this->logger->warning(\sprintf(
+        'File checksum calculation failed for: %s',
+        $path,
+      ));
+
       return NULL;
     }
 
