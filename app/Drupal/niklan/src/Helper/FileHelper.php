@@ -15,7 +15,7 @@ final class FileHelper {
       return NULL;
     }
 
-    return \md5_file($uri);
+    return \md5_file($uri) ?: NULL;
   }
 
   /**

@@ -56,6 +56,7 @@ services:
   Drupal\niklan\Asset\ContentAssetManager:
     arguments:
       $fileUsage: '@file.usage'
+      $mimeTypeGuesser: '@file.mime_type.guesser'
 
   # External content.
   Drupal\niklan\Extension\ExternalContent\BlogExtension:

@@ -2,6 +2,7 @@
 
 namespace Drupal\niklan\Asset;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -12,6 +13,7 @@ use Drupal\media\MediaTypeInterface;
 use Drupal\niklan\Entity\File\FileInterface;
 use Drupal\niklan\Helper\FileHelper;
 use Drupal\niklan\Helper\YouTubeHelper;
+use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 /**
  * {@selfdoc}
@@ -28,6 +30,8 @@ final class ContentAssetManager {
     private FileUsageInterface $fileUsage,
     private FileSystemInterface $fileSystem,
     private UuidInterface $uuid,
+    private TimeInterface $time,
+    private MimeTypeGuesserInterface $mimeTypeGuesser,
   ) {}
 
   /**
@@ -189,19 +193,22 @@ final class ContentAssetManager {
    * {@selfdoc}
    */
   private function saveToFile(string $path): ?FileInterface {
-    $destination = $this->prepareDestination($path);
+    $destination = $this->prepareDestination();
 
     if (!$this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
       return NULL;
     }
 
+    $filename = $this->prepareFilename($path);
     $destination_uri = $destination . \DIRECTORY_SEPARATOR . $this->prepareFilename($path);
     $this->fileSystem->copy($path, $destination_uri);
 
     $file_storage = $this->entityTypeManager->getStorage('file');
     $file = $file_storage->create();
     \assert($file instanceof FileInterface);
+    $file->setFilename($filename);
     $file->setFileUri($destination_uri);
+    $file->setMimeType($this->mimeTypeGuesser->guessMimeType($destination_uri));
     $file->setPermanent();
     $file->save();
 
@@ -240,8 +247,9 @@ final class ContentAssetManager {
   /**
    * {@selfdoc}
    */
-  private function prepareDestination(string $path): string {
+  private function prepareDestination(): string {
     $datetime = new \DateTime();
+    $datetime->setTimestamp($this->time->getCurrentTime());
 
     return \implode(\DIRECTORY_SEPARATOR, [
       'public:/',
