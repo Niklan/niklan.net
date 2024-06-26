@@ -39,6 +39,15 @@ niklan.admin:
   requirements:
     _permission: 'access administration pages'
 
+niklan.admin_general:
+  path: '/admin/niklan/general'
+  defaults:
+    link_id: 'niklan.admin_general'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'General settings'
+  requirements:
+    _permission: 'access administration pages'
+
 niklan.about_settings:
   path: '/admin/niklan/about'
   defaults:

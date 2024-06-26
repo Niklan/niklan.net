@@ -255,6 +255,7 @@ display:
             previous: '‹ Назад'
             first: '« Первая'
             last: 'Последняя »'
+          pagination_heading_level: h4
       exposed_form:
         type: basic
         options:

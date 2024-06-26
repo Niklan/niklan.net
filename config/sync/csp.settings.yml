@@ -1,6 +1,5 @@
 _core:
   default_config_hash: yOPH6uEZYRHbg2OFP-bze0jGr06fI-Gr_66W-vA8Faw
-langcode: ru
 report-only:
   enable: true
   directives:

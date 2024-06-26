@@ -1,7 +1,7 @@
-niklan.toolbar:
+niklan.navigation:
   css:
     theme:
-      assets/css/niklan.toolbar.css: { }
+      assets/css/niklan.navigation.css: { }
 
 mobile-sidebar:
   js:

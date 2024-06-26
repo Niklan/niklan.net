@@ -1,6 +1,5 @@
 _core:
   default_config_hash: o53U_2I-21Es-9iqxeUMDRcRxN0spL1OiHuAVQhh2oI
-langcode: ru
 configuration:
   cache:
     override: false

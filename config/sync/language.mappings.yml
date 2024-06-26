@@ -1,6 +1,5 @@
 _core:
   default_config_hash: EMWe7Yu4Q5eD-NUfNuQAWGBvYUNZPIinztEtONSmsDc
-langcode: ru
 map:
   'no': nb
   pt: pt-pt

@@ -1,6 +1,5 @@
 _core:
   default_config_hash: u0ZqkNrnyVSnHXGBP0zlKY9dP1ZARzJZ9VSovzU_eDg
-langcode: ru
 ifd_map:
   0:
     type: 0

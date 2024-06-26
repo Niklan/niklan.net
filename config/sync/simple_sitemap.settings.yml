@@ -1,6 +1,5 @@
 _core:
   default_config_hash: vFARRSP9-YgEArfDNYmRSg0cNFOgZPxqziffIalgLbU
-langcode: ru
 max_links: 2000
 cron_generate: true
 cron_generate_interval: 24

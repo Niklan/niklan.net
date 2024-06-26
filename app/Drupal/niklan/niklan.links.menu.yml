@@ -7,7 +7,7 @@ niklan.admin:
 niklan.admin_general:
   title: General settings
   parent: niklan.admin
-  route_name: niklan.admin
+  route_name: niklan.admin_general
   weight: -10
 
 niklan.about_settings:

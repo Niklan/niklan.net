@@ -1,6 +1,5 @@
 _core:
   default_config_hash: f8-7hVX66ftHnUweoB4XDVx8q1hEr4PiqFvPvFB6yRc
-langcode: ru
 form_ids:
   - comment_comment_form
   - user_login_form

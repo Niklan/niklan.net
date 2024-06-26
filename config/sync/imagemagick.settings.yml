@@ -1,13 +1,11 @@
 _core:
   default_config_hash: BcgWSGd8Ax_rsWPUuZ0J9X4l-N0TBXFIIj3kOIoyCpA
-langcode: ru
 quality: 85
 binaries: imagemagick
 path_to_binaries: ''
 prepend: ''
 log_warnings: true
 debug: false
-locale: en_US.UTF-8
 image_formats:
   PNG:
     mime_type: image/png

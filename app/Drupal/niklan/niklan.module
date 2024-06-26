@@ -238,8 +238,8 @@ function niklan_contact_tools_ajax_response_alter(AjaxResponse &$ajax_response, 
 /**
  * Implements hook_preprocess_HOOK().
  */
-function niklan_preprocess_toolbar(array &$variables): void {
-  $variables['#attached']['library'][] = 'niklan/niklan.toolbar';
+function niklan_preprocess_navigation(array &$variables): void {
+  $variables['#attached']['library'][] = 'niklan/niklan.navigation';
 }
 
 /**

@@ -1,6 +1,5 @@
 _core:
   default_config_hash: hKwDAgwOd6OLr6sVbI4N62jFRoNJxzdykgJA5mPvkzo
-langcode: ru
 photoswipe_always_load_non_admin: false
 options:
   showAnimationDuration: 333
