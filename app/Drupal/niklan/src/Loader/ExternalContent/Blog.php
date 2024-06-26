@@ -6,6 +6,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
@@ -286,7 +287,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $this->replaceMediaImages($content, $source_dir);
     $this->replaceMediaVideos($content, $source_dir);
     $this->replaceMediaRemoteVideos($content);
-    $this->prepareInternalLinks($content, $source_dir);
+    $this->prepareLinks($content, $source_dir);
     $normalized = $this
       ->externalContentManager
       ->getSerializerManager()
@@ -411,19 +412,11 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   }
 
   /**
-   * Assigning labels to internal links to facilitate content search.
-   *
-   * This logic is implemented in the loader as it is more efficient to perform
-   * the operation once. Once the content has been synchronized, the source
-   * directory may be deleted and this operation will fail. Therefore, all
-   * necessary information must be extracted during the loading process, when
-   * all sources are accessible.
-   *
-   * @see \Drupal\niklan\Builder\ExternalContent\RenderArray\Link
+   * {@selfdoc}
    */
-  private function prepareInternalLinks(NodeInterface $node, string $source_dir): void {
+  private function prepareLinks(NodeInterface $node, string $source_dir): void {
     foreach ($node->getChildren() as $child) {
-      $this->prepareInternalLinks($child, $source_dir);
+      $this->prepareLinks($child, $source_dir);
     }
 
     if (!$node instanceof Element || $node->getTag() !== 'a') {
@@ -440,12 +433,51 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $relative_pathname = $source_dir . \DIRECTORY_SEPARATOR . $href;
     $pathname = PathHelper::normalizePath($relative_pathname);
 
-    // Only if the resulted pathname is existing we detected referenced to
-    // another content inside the source.
-    if (!\file_exists($pathname)) {
-      return;
+    if (\is_dir($pathname)) {
+      $this->prepareExternalContentLink($node, $pathname);
     }
+    elseif (\is_file($pathname)) {
+      $this->prepareInternalFileLink($node, $pathname);
+    }
+  }
 
+  /**
+   * Prepare a link to the directory inside the external content.
+   *
+   * Since referencing the directory from the external content means that we
+   * have no related content on the website, we should replace it with the
+   * content repository URL.
+   *
+   * Most likely, it is a reference to some directory containing examples.
+   */
+  private function prepareExternalContentLink(NodeInterface $node, string $pathname): void {
+    $external_content_dir = Settings::get('external_content_directory');
+    $repository_url = Settings::get('external_content_repository_url');
+    $url = \str_replace(
+      search: $external_content_dir,
+      // Since GitHub is requiring that part, it is forced here.
+      // @todo Think how it can be improved to handle without hardcoding.
+      replace: "$repository_url/tree/main",
+      subject: $pathname,
+    );
+
+    $attributes = $node->getAttributes();
+    $attributes->setAttribute('href', $url);
+  }
+
+  /**
+   * Assigning labels to internal links to facilitate content search.
+   *
+   * This logic is implemented in the loader as it is more efficient to perform
+   * the operation once. Once the content has been synchronized, the source
+   * directory may be deleted and this operation will fail. Therefore, all
+   * necessary information must be extracted during the loading process, when
+   * all sources are accessible.
+   *
+   * @see \Drupal\niklan\Builder\ExternalContent\RenderArray\Link
+   */
+  private function prepareInternalFileLink(NodeInterface $node, string $pathname): void {
+    $attributes = $node->getAttributes();
     // If the link points to a file that already exists in the directory with
     // the original contents, then disable this link and add additional
     // information.
