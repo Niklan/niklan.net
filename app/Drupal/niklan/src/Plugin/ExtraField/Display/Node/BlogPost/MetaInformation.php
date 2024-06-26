@@ -51,7 +51,8 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
       '#created' => $this->getCreatedDate($entity),
       '#comment_count' => $this->getCommentCount(),
       '#comments_url' => $this->getCommentsUrl(),
-      '#estimated_read_time' => $this->getEstimatedReadTime(),
+      // @todo Fix it.
+      // '#estimated_read_time' => $this->getEstimatedReadTime(),
     ];
   }
 
