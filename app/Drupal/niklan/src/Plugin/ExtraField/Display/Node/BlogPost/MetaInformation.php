@@ -60,9 +60,6 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node entity.
-   *
-   * @return string
-   *   The created date.
    */
   protected function getCreatedDate(NodeInterface $node): string {
     return $this->dateFormatter->format($node->getCreatedTime(), 'dmy');
@@ -70,9 +67,6 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
 
   /**
    * Gets comment count.
-   *
-   * @return int
-   *   The number of comments added.
    */
   protected function getCommentCount(): int {
     return (int) $this
@@ -85,9 +79,6 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
 
   /**
    * Gets comments URL.
-   *
-   * @return \Drupal\Core\Url
-   *   The URL to comments.
    */
   protected function getCommentsUrl(): Url {
     return $this->getEntity()->toUrl('canonical', ['fragment' => 'comments']);
@@ -95,9 +86,6 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
 
   /**
    * Gets estimated read time in minutes.
-   *
-   * @return int
-   *   The number of minutes.
    */
   protected function getEstimatedReadTime(): int {
     $content = $this->getEntity()->get('field_content');

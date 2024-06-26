@@ -41,6 +41,7 @@ module:
   path: 0
   path_alias: 0
   photoswipe: 0
+  phpass: 0
   rabbit_hole: 0
   redirect: 0
   redirect_404: 0
@@ -50,6 +51,7 @@ module:
   search_api_db: 0
   simple_sitemap: 0
   sophron: 0
+  sophron_guesser: 0
   symfony_mailer: 0
   system: 0
   taxonomy: 0

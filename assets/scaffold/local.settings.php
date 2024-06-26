@@ -51,3 +51,6 @@ $settings['mailer_sendmail_commands'] = [
 
 $settings['trusted_host_patterns'][] = 'nginx';
 $settings['trusted_host_patterns'][] = '^niklan\.localhost$';
+
+$settings['external_content_directory'] = 'private://content';
+$settings['external_content_repository_url'] = 'https://example.com/username/repository';

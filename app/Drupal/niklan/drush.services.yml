@@ -1,0 +1,7 @@
+services:
+  niklan.sync.blog:
+    class: Drupal\niklan\Command\BlogSync
+    arguments:
+      - '@Drupal\external_content\ExternalContent\ExternalContentManager'
+    tags:
+      - { name: console.command }

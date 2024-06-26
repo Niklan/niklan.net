@@ -31,6 +31,29 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
   protected KeyValueFactoryInterface $keyValueFactory;
 
   /**
+   * Tests that repository works as expected.
+   */
+  public function testRepository(): void {
+    $repository = new AboutSettingsRepository($this->keyValueFactory);
+
+    self::assertNull($repository->getPhotoMediaId());
+    self::assertNull($repository->getPhotoResponsiveImageStyleId());
+
+    $repository->setPhotoMediaId('123');
+    self::assertEquals('123', $repository->getPhotoMediaId());
+    $repository->setPhotoMediaId(NULL);
+    self::assertNull($repository->getPhotoMediaId());
+
+    $repository->setPhotoResponsiveImageStyleId('image_style_name');
+    self::assertEquals(
+      'image_style_name',
+      $repository->getPhotoResponsiveImageStyleId(),
+    );
+    $repository->setPhotoResponsiveImageStyleId(NULL);
+    self::assertNull($repository->getPhotoResponsiveImageStyleId());
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -64,29 +87,6 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
       ->willReturn($key_value_store_prophecy->reveal());
 
     $this->keyValueFactory = $key_value_factory_prophecy->reveal();
-  }
-
-  /**
-   * Tests that repository works as expected.
-   */
-  public function testRepository(): void {
-    $repository = new AboutSettingsRepository($this->keyValueFactory);
-
-    self::assertNull($repository->getPhotoMediaId());
-    self::assertNull($repository->getPhotoResponsiveImageStyleId());
-
-    $repository->setPhotoMediaId('123');
-    self::assertEquals('123', $repository->getPhotoMediaId());
-    $repository->setPhotoMediaId(NULL);
-    self::assertNull($repository->getPhotoMediaId());
-
-    $repository->setPhotoResponsiveImageStyleId('image_style_name');
-    self::assertEquals(
-      'image_style_name',
-      $repository->getPhotoResponsiveImageStyleId(),
-    );
-    $repository->setPhotoResponsiveImageStyleId(NULL);
-    self::assertNull($repository->getPhotoResponsiveImageStyleId());
   }
 
 }

@@ -7,6 +7,8 @@ dependencies:
     - core.entity_view_mode.node.search_index
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
+    - field.field.node.blog_entry.external_content
+    - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
@@ -15,6 +17,7 @@ dependencies:
   module:
     - comment
     - entity_reference_revisions
+    - external_content
     - text
     - user
 id: node.blog_entry.search_index
@@ -42,6 +45,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 9
+    region: content
+  external_content:
+    type: external_content_render_array
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
@@ -76,9 +86,10 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
 hidden:
+  external_id: true
   extra_field_comments_link: true
   extra_field_created_time: true
   extra_field_estimated_reading_time: true

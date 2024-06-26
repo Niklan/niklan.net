@@ -1,5 +1,11 @@
 {
     "name": "niklan/external_content",
     "type": "drupal-custom-module",
-    "version": "1.0.0-dev"
+    "version": "1.0.0-dev",
+    "keywords": [
+        "Drupal"
+    ],
+    "require": {
+        "league/config": "^1.2"
+    }
 }

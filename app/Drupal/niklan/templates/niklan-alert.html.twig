@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display content alerts.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - type: The note type.
+ * - heading: (optional) The note heading.
+ * - content: The note content.
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('alert', 'alert--' ~ type|clean_class) }}>
+  {% if heading %}
+    <div class="alert__heading">
+      {% block alert_icon %}{% endblock %}
+      {{ heading }}
+    </div>
+  {% endif %}
+  <div class="alert__content">{{ content }}</div>
+</div>

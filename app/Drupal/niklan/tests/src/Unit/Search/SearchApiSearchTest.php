@@ -36,9 +36,6 @@ final class SearchApiSearchTest extends UnitTestCase {
    *
    * @param array $query_results
    *   The expected query results.
-   *
-   * @return \Drupal\niklan\Search\SearchApiSearch
-   *   The implementation.
    */
   protected function buildImplementation(array $query_results): SearchApiSearch {
     $query_helper = $this->prepareSearchApiQueryHelper($query_results);

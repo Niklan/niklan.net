@@ -238,7 +238,8 @@ function mechanical_preprocess_node(array &$variables): void {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter() for 'comment_comment_node_blog_entry_form'.
+ * Implements hook_form_FORM_ID_alter() for
+ * 'comment_comment_node_blog_entry_form'.
  */
 function mechanical_form_comment_comment_node_blog_entry_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   $form['#attached']['library'][] = 'mechanical/component.form.comment-comment-node-blog-entry-form';
@@ -267,8 +268,10 @@ function mechanical_preprocess_paragraph__heading(array &$variables): void {
     ->get('field_heading_level',)
     ->getString();
   $variables['title'] = $title;
+  /* @phpstan-ignore-next-line */
   $variables['anchor'] = Anchor::generate(
     $title,
+    /* @phpstan-ignore-next-line */
     Anchor::REUSE,
   );
 
@@ -362,4 +365,12 @@ function mechanical_preprocess_niklan_contact_page(array &$variables): void {
   $variables['language'] = \Drupal::languageManager()
     ->getCurrentLanguage()
     ->getId();
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function mechanical_preprocess_html(array &$variables): void {
+  // Assume that user is using mouse by default to avoid flickering.
+  $variables['attributes']['class'][] = 'is-using-mouse';
 }

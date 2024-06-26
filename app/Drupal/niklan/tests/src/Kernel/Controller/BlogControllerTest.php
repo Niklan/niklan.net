@@ -22,19 +22,6 @@ final class BlogControllerTest extends NiklanTestBase {
   protected BlogController $blogController;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-    $this->setUpBlogEntry();
-
-    $this->blogController = $this
-      ->container
-      ->get('class_resolver')
-      ->getInstanceFromDefinition(BlogController::class);
-  }
-
-  /**
    * Tests that controller properly handles empty list.
    */
   public function testEmptyList(): void {
@@ -61,6 +48,19 @@ final class BlogControllerTest extends NiklanTestBase {
 
     self::assertCount(1, $this->cssSelect('.blog-posts'));
     self::assertCount(1, $this->cssSelect('.blog-posts article'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->setUpBlogEntry();
+
+    $this->blogController = $this
+      ->container
+      ->get('class_resolver')
+      ->getInstanceFromDefinition(BlogController::class);
   }
 
 }

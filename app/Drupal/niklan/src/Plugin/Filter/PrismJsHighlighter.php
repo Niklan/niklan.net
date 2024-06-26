@@ -23,6 +23,8 @@ use Drupal\filter\Plugin\FilterBase;
  *   type = \Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
  *   weight = 100,
  * )
+ *
+ * @deprecated Remove it.
  */
 final class PrismJsHighlighter extends FilterBase {
 
@@ -36,9 +38,7 @@ final class PrismJsHighlighter extends FilterBase {
       return $result;
     }
 
-    $result->addAttachments([
-      'library' => ['niklan/code-highlight'],
-    ]);
+    $result->addAttachments(['library' => ['niklan/code-highlight']]);
 
     return $result;
   }
@@ -50,9 +50,6 @@ final class PrismJsHighlighter extends FilterBase {
    *
    * @param string $text
    *   A text to check.
-   *
-   * @return bool
-   *   TRUE if <pre> usage found, FALSE if not.
    */
   protected function isContainCode(string $text): bool {
     return (bool) \stristr($text, '<pre');

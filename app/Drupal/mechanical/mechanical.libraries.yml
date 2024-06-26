@@ -225,6 +225,23 @@ component.theme.sidebar-search-form:
     theme:
       assets/css/04-components/theme/sidebar-search-form.css: { }
 
+component.theme.lightbox-responsive-image:
+  css:
+    theme:
+      assets/css/04-components/theme/lightbox-responsive-image.css: { }
+
+component.theme.code-block:
+  css:
+    theme:
+      assets/css/04-components/theme/code-block.css: { }
+  dependencies:
+    - mechanical/component.javascript.prismjs
+
+component.theme.alert:
+  css:
+    theme:
+      assets/css/04-components/theme/alert.css: { }
+
 component.theme.contact-page:
   css:
     theme:

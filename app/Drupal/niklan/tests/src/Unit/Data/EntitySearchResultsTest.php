@@ -48,9 +48,6 @@ final class EntitySearchResultsTest extends UnitTestCase {
 
   /**
    * Provides data for testing.
-   *
-   * @return \Generator
-   *   The data.
    */
   public function dataProvider(): \Generator {
     yield 'empty' => [

@@ -19,9 +19,11 @@
 .toc__link {
   display: block;
   overflow: hidden;
+  padding: var(--spacing-xxs);
   white-space: nowrap;
   text-overflow: ellipsis;
   color: var(--toc-link-color);
+  border-radius: var(--radius-xs);
 }
 
 .toc__link:hover,
@@ -30,43 +32,21 @@
 
   text-decoration: none;
   color: var(--toc-link-hover-color);
+  background-color: var(--color-black--o-10);
 }
 
-.toc__link--active {
-  color: var(--link-color);
-  font-weight: bold;
+.toc__item--indent-1 .toc__link {
+  padding-left: var(--spacing-sm);
 }
 
-.toc__submenu {
-  position: relative;
+.toc__item--indent-2 .toc__link {
+  padding-left: calc(var(--spacing-sm) * 2);
 }
 
-.toc__submenu::before {
-  position: absolute;
-  left: calc(var(--spacing-sm) * -1);
-  display: block;
-  width: 2px;
-  height: 100%;
-  content: '';
-  background-color: var(--toc-submenu-line-color);
+.toc__item--indent-3 .toc__link {
+  padding-left: calc(var(--spacing-sm) * 3);
 }
 
-.toc ul {
-  counter-reset: item;
-}
-
-.toc ul ul {
-  margin: 0 0 0 var(--spacing-sm);
-  padding-left: unset;
-}
-
-.toc li {
-  display: block;
-  vertical-align: top;
-}
-
-.toc li a::before {
-  content: counters(item, ".") ". ";
-  counter-increment: item;
-  vertical-align: top;
+.toc__item--indent-4 .toc__link {
+  padding-left: calc(var(--spacing-sm) * 4);
 }

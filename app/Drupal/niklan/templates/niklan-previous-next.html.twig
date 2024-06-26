@@ -14,12 +14,14 @@
 {% if previous_url or next_url %}
   <div{{ attributes.addClass('previous-next') }}>
     {% if previous_url and previous_label %}
-      <a href="{{ previous_url }}" class="previous-next__link previous-next__link--previous">
+      <a href="{{ previous_url }}"
+         class="previous-next__link previous-next__link--previous">
         {{ previous_label }}
       </a>
     {% endif %}
     {% if next_url and next_label %}
-      <a href="{{ next_url }}" class="previous-next__link previous-next__link--next">
+      <a href="{{ next_url }}"
+         class="previous-next__link previous-next__link--next">
         {{ next_label }}
       </a>
     {% endif %}

@@ -4,7 +4,6 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutChangesToGlobalState="true"
          failOnWarning="true"
-         testdox="true"
          cacheResult="false"
          verbose="true">
   <php>
@@ -45,13 +44,14 @@
       <directory>../app/Drupal/*/tests</directory>
       <!-- There is no reason for test for one-time use code. -->
       <directory>../app/Drupal/*/src/Hook/Deploy</directory>
-      <!-- Exclude temporary module from coverage results. -->
-      <directory>../app/Drupal/content_export</directory>
+      <!-- There is no point in testing the dev module, as it is not used in production. -->
+      <directory>../app/Drupal/niklan_dev</directory>
     </exclude>
 
     <report>
       <!-- Write it here, because PHPUnit run under web user has no access to write into other directories. -->
       <clover outputFile="../web/sites/default/files/coverage.xml"/>
+      <html outputDirectory="../web/sites/default/files/coverage/html" lowUpperBound="50" highLowerBound="90"/>
     </report>
   </coverage>
 </phpunit>

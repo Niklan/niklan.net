@@ -7,7 +7,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
+use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\niklan\Helper\TocBuilder;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -54,8 +54,12 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $cacheable_metadata = new CacheableMetadata();
     $cacheable_metadata->addCacheableDependency($node);
 
-    $content = $node->get('field_content');
-    \assert($content instanceof EntityReferenceRevisionsFieldItemList);
+    if ($node->get('external_content')->isEmpty()) {
+      return [];
+    }
+
+    $content = $node->get('external_content')->first();
+    \assert($content instanceof ExternalContentFieldItem);
 
     $toc_builder = new TocBuilder();
     $links = $toc_builder->getTree($content);
@@ -80,7 +84,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function getCacheContexts(): array {
-    return Cache::mergeContexts(parent::getCacheContexts(), ['url.path']);
+    return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }
 
 }

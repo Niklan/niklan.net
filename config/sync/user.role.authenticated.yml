@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - comment
+    - file
     - media
     - system
 _core:
@@ -15,6 +16,7 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
+  - 'delete own files'
   - 'post comments'
   - 'skip comment approval'
   - 'view media'

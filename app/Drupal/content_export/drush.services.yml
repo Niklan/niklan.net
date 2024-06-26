@@ -1,6 +1,0 @@
-services:
-  content_export.commands:
-    class: \Drupal\content_export\Commands\ContentExportCommands
-    arguments: ['@content_export.exporter.content']
-    tags:
-      - { name: drush.command }
