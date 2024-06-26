@@ -5,6 +5,7 @@ module:
   block: 0
   breakpoint: 0
   comment: 0
+  contextual: 0
   csp: 0
   ctools: 0
   datetime: 0
@@ -22,6 +23,8 @@ module:
   image: 0
   imagemagick: 0
   language: 0
+  layout_builder: 0
+  layout_discovery: 0
   link: 0
   locale: 0
   media: 0
@@ -33,6 +36,7 @@ module:
   metatag_twitter_cards: 0
   monolog: 0
   mysql: 0
+  navigation: 0
   niklan: 0
   node: 0
   options: 0
@@ -57,7 +61,6 @@ module:
   taxonomy_custom_controller: 0
   text: 0
   token: 0
-  toolbar: 0
   twig_tweak: 0
   user: 0
   warmer: 0
