@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.blog_entry.comment_node_blog_entry
     - field.field.node.blog_entry.external_content
     - field.field.node.blog_entry.external_id
-    - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
     - field.field.node.blog_entry.field_tags
@@ -72,7 +71,6 @@ hidden:
   external_id: true
   extra_field_previous_next: true
   extra_field_share: true
-  field_content: true
   field_media_attachments: true
   field_tags: true
   follow: true

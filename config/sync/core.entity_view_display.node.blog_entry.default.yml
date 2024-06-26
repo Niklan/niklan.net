@@ -8,14 +8,12 @@ dependencies:
     - field.field.node.blog_entry.comment_node_blog_entry
     - field.field.node.blog_entry.external_content
     - field.field.node.blog_entry.external_id
-    - field.field.node.blog_entry.field_content
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
     - field.field.node.blog_entry.field_tags
     - node.type.blog_entry
   module:
     - comment
-    - entity_reference_revisions
     - text
     - user
 id: node.blog_entry.default
@@ -51,15 +49,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 13
-    region: content
-  field_content:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 12
     region: content
   field_media_attachments:
     type: entity_reference_entity_view
