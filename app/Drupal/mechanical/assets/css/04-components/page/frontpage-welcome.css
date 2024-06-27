@@ -1,11 +1,11 @@
 .frontpage-welcome {
   display: grid;
-  grid-gap: var(--spacing-xl)
+  grid-gap: var(--spacing-xl);
 }
 
 @media (min-width: 576px) {
   .frontpage-welcome {
-    grid-template-columns: 2fr 1fr
+    grid-template-columns: 2fr 1fr;
   }
 }
 
@@ -18,12 +18,12 @@
 }
 
 .frontpage-welcome__content {
-  order: 2
+  order: 2;
 }
 
 @media (min-width: 576px) {
   .frontpage-welcome__content {
-    order: initial
+    order: initial;
   }
 }
 

@@ -31,7 +31,8 @@
 }
 
 .button {
-  --button-border: var(--button-border--width) var(--button-border--style) var(--button-border--color);
+  --button-border: var(--button-border--width) var(--button-border--style)
+    var(--button-border--color);
   --button-padding: var(--button-padding--y) var(--button-padding--x);
 
   position: relative;
@@ -126,5 +127,6 @@
   --button-color: var(--color-maximum-red);
   --button-color--disabled: var(--color-roman-silver);
   --button-color--hover: var(--color-maximum-red);
-  --button-padding: calc(var(--button-padding--y) - var(--button-border--width)) calc(var(--button-padding--x) - var(--button-border--width));
+  --button-padding: calc(var(--button-padding--y) - var(--button-border--width))
+    calc(var(--button-padding--x) - var(--button-border--width));
 }

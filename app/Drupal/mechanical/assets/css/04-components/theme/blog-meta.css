@@ -1,45 +1,43 @@
 .blog-meta {
-  --icon-read-time: url('../../../icons/212121/clock-check.svg');
-  --icon-comments: url('../../../icons/212121/comment-multiple.svg');
-  --icon-no-comments: url('../../../icons/212121/comment-multiple-outline.svg');
-  --icon-created: url('../../../icons/212121/calendar-check.svg');
+  --icon-read-time: url("../../../icons/212121/clock-check.svg");
+  --icon-comments: url("../../../icons/212121/comment-multiple.svg");
+  --icon-no-comments: url("../../../icons/212121/comment-multiple-outline.svg");
+  --icon-created: url("../../../icons/212121/calendar-check.svg");
   --color: var(--color-eerie-black);
   --link-color: var(--color);
   --icon-size: 24px;
-  --font-size: var(--font-size-base)
-;
+  --font-size: var(--font-size-base);
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   color: var(--color);
-  font-size: var(--font-size);}
+  font-size: var(--font-size);
+}
 
 @media (min-width: 576px) {
-
   .blog-meta {
     flex-direction: row;
-    align-items: center
+    align-items: center;
   }
 }
 
 [data-theme="dark"] .blog-meta {
-  --icon-read-time: url('../../../icons/FFFFFF/clock-check.svg');
-  --icon-comments: url('../../../icons/FFFFFF/comment-multiple.svg');
-  --icon-no-comments: url('../../../icons/FFFFFF/comment-multiple-outline.svg');
-  --icon-created: url('../../../icons/FFFFFF/calendar-check.svg');
+  --icon-read-time: url("../../../icons/FFFFFF/clock-check.svg");
+  --icon-comments: url("../../../icons/FFFFFF/comment-multiple.svg");
+  --icon-no-comments: url("../../../icons/FFFFFF/comment-multiple-outline.svg");
+  --icon-created: url("../../../icons/FFFFFF/calendar-check.svg");
   --color: var(--color-white);
 }
 
 .blog-meta :not(:last-child) {
-  margin-bottom: var(--spacing-sm)
+  margin-bottom: var(--spacing-sm);
 }
 
 @media (min-width: 576px) {
-
   .blog-meta :not(:last-child) {
     margin-right: var(--spacing-md);
-    margin-bottom: unset
+    margin-bottom: unset;
   }
 }
 

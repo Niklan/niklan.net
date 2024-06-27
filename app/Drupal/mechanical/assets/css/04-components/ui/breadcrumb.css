@@ -13,13 +13,13 @@
   flex-grow: 0;
   flex-shrink: 1;
   white-space: nowrap;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
 }
 
 @media (min-width: 576px) {
   .breadcrumb__path {
     display: inline;
-    overflow: visible
+    overflow: visible;
   }
 }
 
@@ -30,18 +30,18 @@
 .breadcrumb__current {
   display: block;
   flex-grow: 1;
-  flex-shrink: 0
+  flex-shrink: 0;
 }
 
 @media (min-width: 576px) {
   .breadcrumb__current {
-    display: inline
+    display: inline;
   }
 }
 
 .breadcrumb__current::before {
   margin: 0 var(--spacing-xs);
-  content: '/';
+  content: "/";
   color: var(--color-border);
 }
 
@@ -51,7 +51,7 @@
 
 .breadcrumb__delimiter::after {
   margin: 0 var(--spacing-xs);
-  content: '/';
+  content: "/";
   color: var(--color-border);
 }
 

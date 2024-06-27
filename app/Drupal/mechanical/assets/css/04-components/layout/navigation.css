@@ -2,12 +2,12 @@
   --navigation-background: var(--color-alabaster);
   --navigation-width: 80%;
   --navigation-backdrop-width: 20%;
-  --navigation-border-color: var(--color-border)
+  --navigation-border-color: var(--color-border);
 }
 
 @media (min-width: 992px) {
   :root {
-    --navigation-width: 300px
+    --navigation-width: 300px;
   }
 }
 
@@ -27,7 +27,7 @@
 @media (min-width: 992px) {
   .navigation {
     position: sticky;
-    display: block
+    display: block;
   }
 }
 
@@ -85,12 +85,12 @@
 }
 
 .navigation.is-active .navigation__backdrop {
-  display: block
+  display: block;
 }
 
 @media (min-width: 992px) {
   .navigation.is-active .navigation__backdrop {
-    display: none
+    display: none;
   }
 }
 
@@ -101,7 +101,7 @@
   display: block;
   width: 32px;
   height: 32px;
-  background-image: url('../../../icons/FFFFFF/close.svg');
+  background-image: url("../../../icons/FFFFFF/close.svg");
   background-position: center;
   background-size: 32px;
 }

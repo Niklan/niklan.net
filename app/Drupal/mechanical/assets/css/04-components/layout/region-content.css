@@ -1,18 +1,18 @@
 .region-content {
   margin: var(--spacing-md);
-  margin-top: 0
+  margin-top: 0;
 }
 
 @media (min-width: 576px) {
   .region-content {
     margin: var(--spacing-xl);
-    margin-top: 0
+    margin-top: 0;
   }
 }
 
 @media (min-width: 992px) {
   .region-content {
-    margin: var(--spacing-xl)
+    margin: var(--spacing-xl);
   }
 }
 

@@ -1,5 +1,5 @@
 .mobile-header-bar {
-  --menu-icon: url('../../../icons/000000/menu.svg');
+  --menu-icon: url("../../../icons/000000/menu.svg");
 
   display: flex;
   align-items: center;
@@ -7,7 +7,7 @@
 }
 
 [data-theme="dark"] .mobile-header-bar {
-  --menu-icon: url('../../../icons/FFFFFF/menu.svg');
+  --menu-icon: url("../../../icons/FFFFFF/menu.svg");
 }
 
 .mobile-header-bar__logo-and-name {

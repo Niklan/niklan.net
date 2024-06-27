@@ -1,15 +1,15 @@
 :root {
   --dark-mode-toggle-button-background--active: var(--color-platinum);
-  --dark-mode-toggle-button-light-icon: url('../../../icons/000000/white-balance-sunny.svg');
-  --dark-mode-toggle-button-auto-icon: url('../../../icons/000000/theme-light-dark.svg');
-  --dark-mode-toggle-button-dark-icon: url('../../../icons/000000/weather-night.svg');
+  --dark-mode-toggle-button-light-icon: url("../../../icons/000000/white-balance-sunny.svg");
+  --dark-mode-toggle-button-auto-icon: url("../../../icons/000000/theme-light-dark.svg");
+  --dark-mode-toggle-button-dark-icon: url("../../../icons/000000/weather-night.svg");
 }
 
 [data-theme="dark"] {
   --dark-mode-toggle-button-background--active: var(--color-charcoal);
-  --dark-mode-toggle-button-light-icon: url('../../../icons/FFFFFF/white-balance-sunny.svg');
-  --dark-mode-toggle-button-auto-icon: url('../../../icons/FFFFFF/theme-light-dark.svg');
-  --dark-mode-toggle-button-dark-icon: url('../../../icons/FFFFFF/weather-night.svg');
+  --dark-mode-toggle-button-light-icon: url("../../../icons/FFFFFF/white-balance-sunny.svg");
+  --dark-mode-toggle-button-auto-icon: url("../../../icons/FFFFFF/theme-light-dark.svg");
+  --dark-mode-toggle-button-dark-icon: url("../../../icons/FFFFFF/weather-night.svg");
 }
 
 .dark-mode-toggle {

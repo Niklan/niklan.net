@@ -7,14 +7,15 @@
 .comment-comment-node-blog-entry-form__info {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: var(--grid-gap)
+  grid-gap: var(--grid-gap);
 }
 
 @media (min-width: 576px) {
   .comment-comment-node-blog-entry-form__info {
-    grid-template-areas: "name email"
-                         "homepage homepage";
-    grid-template-columns: repeat(2, 1fr)
+    grid-template-areas:
+      "name email"
+      "homepage homepage";
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -28,7 +29,7 @@
 
 @media (min-width: 576px) {
   .comment-comment-node-blog-entry-form .form-item--name-homepage {
-    grid-area: homepage
+    grid-area: homepage;
   }
 }
 
@@ -37,7 +38,7 @@
 }
 
 .comment-comment-node-blog-entry-form #edit-preview {
-  margin-top: var(--spacing-md)
+  margin-top: var(--spacing-md);
 }
 
 @media (min-width: 576px) {
@@ -48,11 +49,11 @@
 }
 
 .comment-comment-node-blog-entry-form .form-actions .form-submit {
-  width: 100%
+  width: 100%;
 }
 
 @media (min-width: 576px) {
   .comment-comment-node-blog-entry-form .form-actions .form-submit {
-    width: auto
+    width: auto;
   }
 }

@@ -1,15 +1,15 @@
 :root {
   --prismjs-background: var(--color-white);
   --prismjs-color: var(--color-black);
-  --prismjs-keyword: #0033B3;
+  --prismjs-keyword: #0033b3;
   --prismjs-punctuation: var(--prismjs-color);
-  --prismjs-tag: #1750EB;
-  --prismjs-string: #067D17;
-  --prismjs-comment: #8C8C8C;
+  --prismjs-tag: #1750eb;
+  --prismjs-string: #067d17;
+  --prismjs-comment: #8c8c8c;
   --prismjs-class-name: var(--color-black);
   --prismjs-variable: #600;
   --prismjs-important: var(--prismjs-keyword);
-  --prismjs-function: #00627A;
+  --prismjs-function: #00627a;
   --prismjs-this: var(--prismjs-variable);
   --prismjs-constant: #871094;
   --prismjs-property: var(--prismjs-constant);
@@ -71,8 +71,8 @@ pre[class*="language-"] {
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-  padding: .1em;
-  border-radius: .3em;
+  padding: 0.1em;
+  border-radius: 0.3em;
 }
 
 .token.comment,
@@ -87,7 +87,7 @@ pre[class*="language-"] {
 }
 
 .namespace {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .token.constant {

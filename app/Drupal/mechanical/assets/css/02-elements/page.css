@@ -14,11 +14,11 @@ body {
 }
 
 body.is-navigation-active {
-  overflow: hidden
+  overflow: hidden;
 }
 
 @media (min-width: 992px) {
   body.is-navigation-active {
-    overflow: initial
+    overflow: initial;
   }
 }

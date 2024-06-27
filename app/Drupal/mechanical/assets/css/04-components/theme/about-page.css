@@ -5,24 +5,22 @@
 .about-welcome {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: var(--spacing-lg)
+  grid-gap: var(--spacing-lg);
 }
 
 @media (min-width: 576px) {
-
   .about-welcome {
-    grid-template-columns: 7fr 3fr
+    grid-template-columns: 7fr 3fr;
   }
 }
 
 .about-welcome__left {
-  order: 2
+  order: 2;
 }
 
 @media (min-width: 576px) {
-
   .about-welcome__left {
-    order: initial
+    order: initial;
   }
 }
 
@@ -45,12 +43,14 @@
   border-radius: var(--radius-sm);
   background-color: var(--color-eerie-black);
   background-image: radial-gradient(
-    circle at top right,
-    var(--color-denim-blue), transparent
-  ),
-  radial-gradient(
-    circle at bottom left,
-    var(--color-egyptian-blue), transparent
-  );
+      circle at top right,
+      var(--color-denim-blue),
+      transparent
+    ),
+    radial-gradient(
+      circle at bottom left,
+      var(--color-egyptian-blue),
+      transparent
+    );
   box-shadow: var(--shadow-xs);
 }

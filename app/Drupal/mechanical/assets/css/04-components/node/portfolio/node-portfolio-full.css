@@ -12,8 +12,8 @@
   width: 18px;
   height: 18px;
   margin-right: var(--spacing-xs);
-  content: '';
-  background-image: url('../../../../icons/000000/calendar.svg');
+  content: "";
+  background-image: url("../../../../icons/000000/calendar.svg");
   background-position: center;
   background-size: 18px;
 }
@@ -25,12 +25,12 @@
 .node-portfolio-field-media-images__items {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: var(--spacing-md)
+  grid-gap: var(--spacing-md);
 }
 
 @media (min-width: 768px) {
   .node-portfolio-field-media-images__items {
-    grid-template-columns: repeat(3, 1fr)
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
