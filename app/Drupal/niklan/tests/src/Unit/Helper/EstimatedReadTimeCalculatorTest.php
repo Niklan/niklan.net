@@ -6,9 +6,7 @@ namespace Drupal\Tests\niklan\Unit\Helper;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Tests\UnitTestCase;
 
 /**
