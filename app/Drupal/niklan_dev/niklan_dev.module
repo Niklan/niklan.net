@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 use Drupal\niklan_dev\Hook\Toolbar\DevelopmentWarningToolbar;
 
