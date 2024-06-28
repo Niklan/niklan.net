@@ -12,7 +12,6 @@ module:
   dynamic_page_cache: 0
   easy_breadcrumb: 0
   editor: 0
-  entity_reference_revisions: 0
   external_content: 0
   extra_field: 0
   field: 0
@@ -67,7 +66,6 @@ module:
   warmer_entity: 0
   pathauto: 1
   views: 10
-  paragraphs: 11
   niklan_installer: 1000
 theme:
   glisseo: 0
