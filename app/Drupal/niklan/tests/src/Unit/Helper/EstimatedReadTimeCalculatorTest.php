@@ -6,6 +6,8 @@ namespace Drupal\Tests\niklan\Unit\Helper;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
+use Drupal\external_content\Node\Code;
+use Drupal\external_content\Node\PlainText;
 use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
 use Drupal\Tests\UnitTestCase;
 
@@ -22,101 +24,32 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
   protected string $fishText;
 
   /**
-   * Tests calculation with empty items.
-   */
-  public function testCalculateEmpty(): void {
-    $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate($this->prepareFieldItemList());
-
-    self::assertEquals(0, $result);
-  }
-
-  /**
-   * Prepares prophecy for entity reference field.
-   *
-   * @param array $paragraphs
-   *   An array with paragraph items.
-   */
-  protected function prepareFieldItemList(array $paragraphs = []): EntityReferenceRevisionsFieldItemList {
-    $items = $this->prophesize(EntityReferenceRevisionsFieldItemList::class);
-    $items->referencedEntities()->willReturn($paragraphs);
-
-    return $items->reveal();
-  }
-
-  /**
-   * Tests that for unknown type it fallbacks into 0.
-   */
-  public function testCalculateFallback(): void {
-    $paragraph = $this->prophesize(ParagraphInterface::class);
-    $paragraph->bundle()->willReturn('some_random_non_expected_bundle_name');
-
-    $items = $this->prepareFieldItemList([$paragraph->reveal()]);
-
-    $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate($items);
-
-    self::assertEquals(0, $result);
-  }
-
-  /**
-   * Tests calculation for 'text' paragraph type with empty body.
+   * {@selfdoc}
    */
   public function testCalculateEmptyText(): void {
-    $field_body = $this->prophesize(FieldItemListInterface::class);
-    $field_body->isEmpty()->willReturn(TRUE);
-
-    $paragraph = $this->prophesize(ParagraphInterface::class);
-    $paragraph->bundle()->willReturn('text');
-    $paragraph->get('field_body')->willReturn($field_body->reveal());
-
-    $items = $this->prepareFieldItemList([$paragraph->reveal()]);
-
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate($items);
+    $result = $calculator->calculate(new PlainText(''));
 
     self::assertEquals(0, $result);
   }
 
   /**
-   * Tests calculation for 'text' paragraph type.
+   * {@selfdoc}
    */
   public function testCalculateText(): void {
-    $field_body_0 = $this->prophesize(TypedDataInterface::class);
-    $field_body_0->getString()->willReturn($this->fishText);
-
-    $field_body = $this->prophesize(FieldItemListInterface::class);
-    $field_body->isEmpty()->willReturn(FALSE);
-    $field_body->first()->willReturn($field_body_0->reveal());
-
-    $paragraph = $this->prophesize(ParagraphInterface::class);
-    $paragraph->bundle()->willReturn('text');
-    $paragraph->get('field_body')->willReturn($field_body->reveal());
-
-    $items = $this->prepareFieldItemList([$paragraph->reveal()]);
-
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate($items);
+    $result = $calculator->calculate(new PlainText($this->fishText));
 
     // Text using multiplier '2'.
-    self::assertEquals(3 * 2, $result);
+    self::assertEquals(3, $result);
   }
 
   /**
-   * Tests calculation for 'code' paragraph type with empty body.
+   * {@selfdoc}
    */
   public function testCalculateEmptyCode(): void {
-    $field_body = $this->prophesize(FieldItemListInterface::class);
-    $field_body->isEmpty()->willReturn(TRUE);
-
-    $paragraph = $this->prophesize(ParagraphInterface::class);
-    $paragraph->bundle()->willReturn('code');
-    $paragraph->get('field_body')->willReturn($field_body->reveal());
-
-    $items = $this->prepareFieldItemList([$paragraph->reveal()]);
-
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate($items);
+    $result = $calculator->calculate(new Code(''));
 
     self::assertEquals(0, $result);
   }
@@ -125,21 +58,8 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
    * Tests calculation for 'code' paragraph type.
    */
   public function testCalculateCode(): void {
-    $field_body_0 = $this->prophesize(TypedDataInterface::class);
-    $field_body_0->getString()->willReturn($this->fishText);
-
-    $field_body = $this->prophesize(FieldItemListInterface::class);
-    $field_body->isEmpty()->willReturn(FALSE);
-    $field_body->first()->willReturn($field_body_0->reveal());
-
-    $paragraph = $this->prophesize(ParagraphInterface::class);
-    $paragraph->bundle()->willReturn('code');
-    $paragraph->get('field_body')->willReturn($field_body->reveal());
-
-    $items = $this->prepareFieldItemList([$paragraph->reveal()]);
-
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate($items);
+    $result = $calculator->calculate(new Code($this->fishText));
 
     // Code using multiplier '3'.
     self::assertEquals(3 * 3, $result);

@@ -434,7 +434,13 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
     $relative_pathname = $source_dir . \DIRECTORY_SEPARATOR . $href;
     $pathname = PathHelper::normalizePath($relative_pathname);
+    $this->prepareLink($node, $pathname);
+  }
 
+  /**
+   * {@selfdoc}
+   */
+  private function prepareLink(Element $node, string $pathname): void {
     if (\is_dir($pathname)) {
       $this->prepareExternalContentLink($node, $pathname);
     }
@@ -452,7 +458,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    *
    * Most likely, it is a reference to some directory containing examples.
    */
-  private function prepareExternalContentLink(NodeInterface $node, string $pathname): void {
+  private function prepareExternalContentLink(Element $node, string $pathname): void {
     $external_content_dir = Settings::get('external_content_directory');
     $repository_url = Settings::get('external_content_repository_url');
     $url = \str_replace(
@@ -478,7 +484,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    *
    * @see \Drupal\niklan\Builder\ExternalContent\RenderArray\Link
    */
-  private function prepareInternalFileLink(NodeInterface $node, string $pathname): void {
+  private function prepareInternalFileLink(Element $node, string $pathname): void {
     $attributes = $node->getAttributes();
     // If the link points to a file that already exists in the directory with
     // the original contents, then disable this link and add additional

@@ -74,8 +74,8 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
     return (int) $this
       ->getEntity()
       ->get('comment_node_blog_entry')
-      ?->first()
-        ->get('comment_count')
+      ->first()
+      ?->get('comment_count')
         ->getValue();
   }
 
@@ -93,7 +93,7 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
     $content = $this
       ->getEntity()
       ->get('external_content')
-      ?->first()
+      ->first()
       ?->get('content')
         ->getValue();
 

@@ -9,15 +9,15 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Attribute\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides an element that prints links to previous and next articles.
- *
- * @RenderElement("niklan_previous_next")
  */
-final class PreviousNext extends RenderElement implements ContainerFactoryPluginInterface {
+#[RenderElement('niklan_previous_next')]
+final class PreviousNext extends RenderElementBase implements ContainerFactoryPluginInterface {
 
   /**
    * The entity type manager.
