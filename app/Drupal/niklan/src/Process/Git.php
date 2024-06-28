@@ -61,6 +61,19 @@ final class Git implements GitInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function describeTags(string $directory): Process {
+    $command = [
+      $this->getGitBin(),
+      'describe',
+      '--tags',
+    ];
+
+    return $this->terminal->createProcess($command, $directory);
+  }
+
+  /**
    * Gets Git binary path.
    */
   protected function getGitBin(): string {
