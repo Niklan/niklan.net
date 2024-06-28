@@ -16,7 +16,8 @@
 }
 
 .form-boolean {
-  --form-boolean-border: var(--form-boolean-border--width) var(--form-boolean-border--style) var(--form-boolean-border--color);
+  --form-boolean-border: var(--form-boolean-border--width)
+    var(--form-boolean-border--style) var(--form-boolean-border--color);
 
   display: inline-block;
   width: var(--form-boolean-width);
@@ -45,7 +46,8 @@
 }
 
 .form-boolean:focus {
-  --form-boolean: inset 0 0 0 1px var(--form-control-border--color), var(--focus-box-shadow);
+  --form-boolean: inset 0 0 0 1px var(--form-control-border--color),
+    var(--focus-box-shadow);
 }
 
 .form-boolean:disabled {

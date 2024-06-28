@@ -17,21 +17,21 @@
 }
 
 .alert--note {
-  --note-color: #046CD3;
+  --note-color: #046cd3;
 }
 
 .alert--tip {
-  --note-color: #1C7E37;
+  --note-color: #1c7e37;
 }
 
 .alert--important {
-  --note-color: #8453E4;
+  --note-color: #8453e4;
 }
 
 .alert--warning {
-  --note-color: #9E6D03;
+  --note-color: #9e6d03;
 }
 
 .alert--caution {
-  --note-color: #D12327;
+  --note-color: #d12327;
 }

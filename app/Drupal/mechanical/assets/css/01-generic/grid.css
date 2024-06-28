@@ -1,17 +1,17 @@
 :root {
   --grid-gap: var(--spacing-sm);
   --grid-container-max-width: 100%;
-  --grid-template-columns-12: repeat(12, [col] 1fr)
+  --grid-template-columns-12: repeat(12, [col] 1fr);
 }
 
 @media (min-width: 992px) {
   :root {
-    --grid-container-max-width: 940px
+    --grid-container-max-width: 940px;
   }
 }
 
 @media (min-width: 1140px) {
   :root {
-    --grid-container-max-width: 1120px
+    --grid-container-max-width: 1120px;
   }
 }

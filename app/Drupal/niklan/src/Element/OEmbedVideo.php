@@ -1,11 +1,14 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\niklan\Element;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Attribute\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 use Drupal\Core\Url;
 use Drupal\media\IFrameUrlHelper;
 use Drupal\media\MediaInterface;
@@ -18,10 +21,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides render element to display OEmbed video.
- *
- * @RenderElement("niklan_oembed_video")
  */
-final class OEmbedVideo extends RenderElement implements ContainerFactoryPluginInterface {
+#[RenderElement('niklan_oembed_video')]
+final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPluginInterface {
 
   /**
    * The oEmbed resource fetcher.

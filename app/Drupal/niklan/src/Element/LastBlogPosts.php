@@ -1,10 +1,13 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\niklan\Element;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Render\Attribute\RenderElement;
+use Drupal\Core\Render\Element\RenderElementBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
@@ -12,10 +15,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides render element to display last blog posts.
- *
- * @RenderElement("niklan_last_blog_posts")
  */
-final class LastBlogPosts extends RenderElement implements ContainerFactoryPluginInterface {
+#[RenderElement('niklan_last_blog_posts')]
+final class LastBlogPosts extends RenderElementBase implements ContainerFactoryPluginInterface {
 
   /**
    * The entity type manager.

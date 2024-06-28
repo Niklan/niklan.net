@@ -1,14 +1,14 @@
 .previous-next {
   --link-border-color: var(--color-border);
-  --subtitle-color: var(--color-roman-silver)
-;
+  --subtitle-color: var(--color-roman-silver);
 
   display: grid;
-  grid-gap: var(--spacing-md);}
+  grid-gap: var(--spacing-md);
+}
 
 @media (min-width: 768px) {
   .previous-next {
-    grid-template-columns: 1fr 1fr
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -38,7 +38,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  content: '';
+  content: "";
 }
 
 .previous-next__link--next {

@@ -9,7 +9,7 @@
   top: 0;
   display: block;
   width: 48px;
-  transition: top .15s ease-in-out;
+  transition: top 0.15s ease-in-out;
 }
 
 .branding__logo:focus {

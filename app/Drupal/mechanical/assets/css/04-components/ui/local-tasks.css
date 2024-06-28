@@ -42,7 +42,7 @@
   left: 0;
   display: block;
   width: 100%;
-  content: '';
+  content: "";
   border-bottom: 3px solid var(--color-persian-blue);
 }
 
@@ -56,6 +56,6 @@ ul.local-tasks--secondary {
   left: 0;
   display: block;
   width: 100%;
-  content: '';
+  content: "";
   border-bottom: 1px solid var(--color-light-gray);
 }

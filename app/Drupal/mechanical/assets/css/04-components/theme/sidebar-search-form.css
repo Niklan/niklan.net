@@ -1,9 +1,9 @@
 :root {
-  --sidebar-search-icon: url('../../../icons/000000/file-search.svg');
+  --sidebar-search-icon: url("../../../icons/000000/file-search.svg");
 }
 
 [data-theme="dark"] {
-  --sidebar-search-icon: url('../../../icons/FFFFFF/file-search.svg');
+  --sidebar-search-icon: url("../../../icons/FFFFFF/file-search.svg");
 }
 
 .sidebar-search-form {

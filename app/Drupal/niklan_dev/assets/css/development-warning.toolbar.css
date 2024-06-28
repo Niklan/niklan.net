@@ -9,13 +9,14 @@
   user-select: none;
   text-indent: -1000px;
   text-transform: uppercase;
-  background: url(../icons/FFFFFF/warning_FILL0_wght400_GRAD0_opsz24.svg) no-repeat center center transparent;
+  background: url(../icons/FFFFFF/warning_FILL0_wght400_GRAD0_opsz24.svg)
+    no-repeat center center transparent;
   background-size: auto 20px;
 }
 
 .toolbar-bar {
-  background-color: #51000F !important;
-  background-image: url('../icons/FFFFFF/devel-symbolic.svg');
+  background-color: #51000f !important;
+  background-image: url("../icons/FFFFFF/devel-symbolic.svg");
   background-repeat: repeat-x;
 }
 
@@ -24,10 +25,10 @@
     padding-right: 1em; /* LTR */
     text-decoration: none;
     text-indent: 0;
-    color: #FFF;
-    border: 2px solid #E40029;
+    color: #fff;
+    border: 2px solid #e40029;
     border-radius: 4px;
-    background-color: #B00020;
+    background-color: #b00020;
     background-position: 0.5em center; /* LTR */
     background-size: auto 18px;
     font-weight: bold;

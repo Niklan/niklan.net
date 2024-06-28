@@ -1,11 +1,11 @@
 .tags-page {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: var(--spacing-md)
+  grid-gap: var(--spacing-md);
 }
 
 @media (min-width: 576px) {
   .tags-page {
-    grid-template-columns: repeat(2, 1fr)
+    grid-template-columns: repeat(2, 1fr);
   }
 }

@@ -1,9 +1,12 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\niklan\Helper;
 
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
-use Drupal\paragraphs\ParagraphInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
+use Drupal\external_content\Contract\Node\StringContainerInterface;
+use Drupal\external_content\Node\Code;
 
 /**
  * Provides calculator for estimated read time for paragraphs.
@@ -18,23 +21,11 @@ final class EstimatedReadTimeCalculator {
   protected int $wordsPerMinute = 143;
 
   /**
-   * Calculates estimated read time for provided paragraph list.
-   *
-   * @param \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $items
-   *   The field with paragraph list.
+   * {@selfdoc}
    */
-  public function calculate(EntityReferenceRevisionsFieldItemList $items): int {
+  public function calculate(NodeInterface $content): int {
     $estimated_read_time = 0;
-
-    foreach ($items->referencedEntities() as $paragraph) {
-      \assert($paragraph instanceof ParagraphInterface);
-      $estimated_read_time += match ($paragraph->bundle()) {
-        default => 0,
-        'text' => $this->calculateTextParagraph($paragraph),
-        'code' => $this->calculateCodeParagraph($paragraph),
-        'image' => 10,
-      };
-    }
+    $this->calculateRecursive($content, $estimated_read_time);
 
     if ($estimated_read_time > 60) {
       return (int) \ceil($estimated_read_time / 60);
@@ -44,38 +35,23 @@ final class EstimatedReadTimeCalculator {
   }
 
   /**
-   * Calculates read time for 'text' paragraph.
-   *
-   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   The paragraph entity.
+   * {@selfdoc}
    */
-  protected function calculateTextParagraph(ParagraphInterface $paragraph): int|float {
-    if ($paragraph->get('field_body')->isEmpty()) {
-      return 0;
+  private function calculateRecursive(NodeInterface $node, int|float &$estimated): void {
+    foreach ($node->getChildren() as $child) {
+      $this->calculateRecursive($child, $estimated);
     }
 
-    $content = $paragraph->get('field_body')->first()->getString();
-    $content = \strip_tags($content);
-    $words_count = \str_word_count($content);
-
-    return $this->calculateEstimatedReadTime($words_count, 2);
-  }
-
-  /**
-   * Calculates read time for 'code' paragraph.
-   *
-   * @param \Drupal\paragraphs\ParagraphInterface $paragraph
-   *   The paragraph entity.
-   */
-  protected function calculateCodeParagraph(ParagraphInterface $paragraph): int|float {
-    if ($paragraph->get('field_body')->isEmpty()) {
-      return 0;
+    if (!($node instanceof StringContainerInterface)) {
+      return;
     }
 
-    $content = $paragraph->get('field_body')->first()->getString();
-    $words_count = \str_word_count($content);
-
-    return $this->calculateEstimatedReadTime($words_count, 3);
+    $words_count = \str_word_count($node->getLiteral());
+    $multiplier = match ($node::class) {
+      default => 1,
+      Code::class => 3,
+    };
+    $estimated += $this->calculateEstimatedReadTime($words_count, $multiplier);
   }
 
   /**

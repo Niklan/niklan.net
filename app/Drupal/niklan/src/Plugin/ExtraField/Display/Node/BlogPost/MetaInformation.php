@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\ExtraField\Display\Node\BlogPost;
 
@@ -6,7 +8,7 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
+use Drupal\external_content\Contract\Node\NodeInterface as ContentNodeInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
 use Drupal\node\NodeInterface;
@@ -51,8 +53,7 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
       '#created' => $this->getCreatedDate($entity),
       '#comment_count' => $this->getCommentCount(),
       '#comments_url' => $this->getCommentsUrl(),
-      // @todo Fix it.
-      // '#estimated_read_time' => $this->getEstimatedReadTime(),
+      '#estimated_read_time' => $this->getEstimatedReadTime(),
     ];
   }
 
@@ -74,8 +75,8 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
       ->getEntity()
       ->get('comment_node_blog_entry')
       ->first()
-      ->get('comment_count')
-      ->getValue();
+      ?->get('comment_count')
+        ->getValue();
   }
 
   /**
@@ -89,8 +90,17 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
    * Gets estimated read time in minutes.
    */
   protected function getEstimatedReadTime(): int {
-    $content = $this->getEntity()->get('field_content');
-    \assert($content instanceof EntityReferenceRevisionsFieldItemList);
+    $content = $this
+      ->getEntity()
+      ->get('external_content')
+      ->first()
+      ?->get('content')
+        ->getValue();
+
+    if (!$content instanceof ContentNodeInterface) {
+      return 0;
+    }
+
     $calculator = new EstimatedReadTimeCalculator();
 
     return $calculator->calculate($content);

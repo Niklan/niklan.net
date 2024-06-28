@@ -30,7 +30,7 @@
 .form-item__label--required::after {
   display: inline-block;
   margin-left: var(--spacing-xxs);
-  content: '*';
+  content: "*";
   color: var(--color-maximum-red);
   font-weight: bold;
 }

@@ -10,8 +10,10 @@
   --font-size-sm: 0.889rem; /* ~14px */
   --font-size-xs: 0.79rem; /* ~13px */
   --font-size-xxs: 0.702rem; /* ~11px */
-  --font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --font-monospace: "JetBrains Mono", "Fira Code", sfmono-regular, menlo, monaco, consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-monospace: "JetBrains Mono", "Fira Code", sfmono-regular, menlo, monaco,
+    consolas, "Liberation Mono", "Courier New", monospace;
   --text-color: var(--color-onyx);
   --mark-background: var(--green-yellow-crayola);
   --code-background: var(--color-isabelline);

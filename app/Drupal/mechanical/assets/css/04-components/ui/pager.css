@@ -65,7 +65,7 @@
   display: inline-block;
   width: 1rem;
   height: 1rem;
-  content: '';
+  content: "";
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -96,11 +96,11 @@
 }
 
 .pager__item:not(.pager__item--previous, .pager__item--next) {
-  display: none
+  display: none;
 }
 
 @media (min-width: 768px) {
   .pager__item:not(.pager__item--previous, .pager__item--next) {
-    display: flex
+    display: flex;
   }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Kernel\Plugin\ExtraField\Display\Node\BlogPost;
 
@@ -7,7 +9,6 @@ use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
 use Drupal\Core\Url;
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\niklan\Kernel\Plugin\ExtraField\ExtraFieldTestBase;
 use Prophecy\Argument;
@@ -23,8 +24,8 @@ final class MetaInformationTest extends ExtraFieldTestBase {
    * Tests that extra field works as expected.
    */
   public function testView(): void {
-    $field_content = $this
-      ->prophesize(EntityReferenceRevisionsFieldItemList::class);
+    $external_content = $this
+      ->prophesize(FieldItemListInterface::class);
 
     $comment_count = $this->prophesize(TypedDataInterface::class);
     $comment_count->getValue()->willReturn(7);
@@ -48,7 +49,7 @@ final class MetaInformationTest extends ExtraFieldTestBase {
       ->get('comment_node_blog_entry')
       ->willReturn($comment_node_blog_entry_list->reveal());
     $node->toUrl(Argument::cetera())->willReturn($comments_url);
-    $node->get('field_content')->willReturn($field_content->reveal());
+    $node->get('external_content')->willReturn($external_content->reveal());
 
     $plugin = $this->createExtraFieldDisplayInstance('meta_information');
     $plugin->setEntity($node->reveal());

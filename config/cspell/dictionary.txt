@@ -19,6 +19,7 @@ opsz
 Photoswipe
 photoswipe
 prismjs
+quux
 Rcmjg
 selfdoc
 sfmono
@@ -26,8 +27,6 @@ sophron
 SSMTP
 Taskfile
 teck
-testdox
 Tinkoff
-Todos
 wght
 youtu
