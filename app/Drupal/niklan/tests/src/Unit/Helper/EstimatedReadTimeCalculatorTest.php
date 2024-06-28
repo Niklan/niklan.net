@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Helper;
 
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\TypedData\TypedDataInterface;
 use Drupal\external_content\Node\Code;
 use Drupal\external_content\Node\PlainText;
 use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
