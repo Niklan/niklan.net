@@ -1,0 +1,5 @@
+@layer utility {
+  .visually-hidden {
+    display: none;
+  }
+}

@@ -4,3 +4,4 @@ global:
       # Make sure that layers comes first, because it defines layers order.
       assets/css/00-base/layers.css: { }
       assets/css/00-base/reset.css: { }
+      assets/css/03-utility/visually-hidden.css: { }
