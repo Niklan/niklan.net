@@ -37,4 +37,12 @@ interface GitInterface {
    */
   public function getFileLastCommitId(string $directory, string $filepath): Process;
 
+  /**
+   * Gets the last available tag from the repository.
+   *
+   * @param string $directory
+   *   The working repository directory.
+   */
+  public function describeTags(string $directory): Process;
+
 }

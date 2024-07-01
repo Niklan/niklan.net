@@ -49,6 +49,7 @@
         "drupal/warmer": "^2.0",
         "drush/drush": "^12.0",
         "niklan/external_content": "^1.0@dev",
+        "niklan/laszlo": "^1.0@dev",
         "niklan/mechanical": "^1.0@dev",
         "niklan/niklan": "^1.0@dev",
         "niklan/niklan_installer": "^1.0@dev"

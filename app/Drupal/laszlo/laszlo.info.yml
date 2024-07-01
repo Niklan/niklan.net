@@ -1,0 +1,19 @@
+# What We Do in the Drupal.
+screenshot: screenshot.png
+name: Laszlo Cravensworth
+description: >-
+  Ah, there we are — blue jeans, and my toothpick. My foolproof human disguise
+  for whenever the shit hits the wind. Make me completely unrecognizable.
+type: theme
+base theme: false
+core_version_requirement: ^10
+regions:
+  content: Content
+  sidebar_first: 'Sidebar first'
+libraries:
+  - laszlo/global
+
+# Disable system libraries.
+libraries-override:
+  system/base: false
+  core/picturefill: false
