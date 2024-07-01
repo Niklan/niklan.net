@@ -1,0 +1,6 @@
+global:
+  css:
+    base:
+      # Make sure that layers comes first, because it defines layers order.
+      assets/css/00-base/layers.css: { }
+      assets/css/00-base/reset.css: { }

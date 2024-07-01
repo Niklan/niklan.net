@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db271472860fddc3372d9213d9ca9a6e",
+    "content-hash": "c4334bfa3b183e018f9a156eb077bbe0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4431,6 +4431,19 @@
             "keywords": [
                 "Drupal"
             ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan/laszlo",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/Drupal/laszlo",
+                "reference": "88208435e1c6e6a50b50761f283c030c1cd92229"
+            },
+            "type": "drupal-custom-theme",
             "transport-options": {
                 "relative": true
             }
@@ -13924,6 +13937,7 @@
         "drupal/redirect": 15,
         "drupal/symfony_mailer": 10,
         "niklan/external_content": 20,
+        "niklan/laszlo": 20,
         "niklan/mechanical": 20,
         "niklan/niklan": 20,
         "niklan/niklan_installer": 20,
