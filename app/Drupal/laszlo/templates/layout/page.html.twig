@@ -34,11 +34,11 @@
  */
 #}
 <section class="page">
-  <header class="page__header">
+  <header class="layout-container page__header">
     HEADER
   </header>
 
-  <main class="page__main">
+  <main class="layout-container page__main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
     <div class="page__content">
       {{ page.content }}
@@ -51,7 +51,7 @@
     {% endif %}
   </main>
 
-  <footer class="page__footer">
+  <footer class="layout-container page__footer">
     FOOTER
   </footer>
 </section>

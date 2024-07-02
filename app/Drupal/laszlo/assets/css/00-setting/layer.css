@@ -1,0 +1,11 @@
+/**
+ * This file defines a layers order.
+ */
+@layer setting,
+  base,
+  element,
+  component,
+  component.layout,
+  component.ui,
+  component.theme,
+  utility;

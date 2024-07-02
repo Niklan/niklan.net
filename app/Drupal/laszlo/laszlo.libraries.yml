@@ -2,6 +2,21 @@ global:
   css:
     base:
       # Make sure that layers comes first, because it defines layers order.
-      assets/css/00-base/layer.css: { }
-      assets/css/00-base/reset.css: { }
-      assets/css/03-utility/visually-hidden.css: { }
+      assets/css/00-setting/layer.css: { }
+      assets/css/00-setting/color.css: { }
+      assets/css/00-setting/elevation.css: { }
+      assets/css/00-setting/spacing.css: { }
+      assets/css/00-setting/typography.css: { }
+      assets/css/01-base/reset.css: { }
+      assets/css/01-base/focus.css: { }
+      assets/css/01-base/selection.css: { }
+      assets/css/02-element/html.css: { }
+      assets/css/02-element/body.css: { }
+      assets/css/02-element/a.css: { }
+      assets/css/02-element/heading.css: { }
+      assets/css/03-component/layout/layout-container.css: { }
+      assets/css/03-component/layout/full-page-container.css: { }
+      assets/css/04-utility/visually-hidden.css: { }
+  js:
+    assets/js/scrollbar-width.js: { }
+    assets/js/keyboard-focus.js: { }

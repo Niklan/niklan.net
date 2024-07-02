@@ -1,0 +1,24 @@
+@layer element {
+  :root {
+    --link-color: var(--color-primary);
+    --link-color-hover: #00e;
+    --link-visited: #551a8b;
+    --link-color-active: #f00;
+  }
+
+  a {
+    color: var(--link-color);
+
+    &:visited {
+      --link-color: var(--link-visited);
+    }
+
+    &:hover {
+      --link-color: var(--link-color-hover);
+    }
+
+    &:active {
+      --link-color: var(--link-color-active);
+    }
+  }
+}

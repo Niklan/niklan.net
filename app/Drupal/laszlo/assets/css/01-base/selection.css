@@ -1,0 +1,11 @@
+@layer base {
+  :root {
+    --selection-background: #00f;
+    --selection-color: #fff;
+  }
+
+  ::selection {
+    color: var(--selection-color);
+    background: var(--selection-background);
+  }
+}
