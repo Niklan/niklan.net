@@ -1,0 +1,29 @@
+.branding {
+  --logo-fill-1: var(--color-surface-dim);
+  --logo-fill-2: var(--logo-fill-1);
+  --logo-fill-3: var(--color-surface);
+  --logo-fill-4: var(--color-primary);
+
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: var(--spacing-5);
+}
+
+.branding svg {
+  width: 64px;
+}
+
+.branding__info {
+  flex-shrink: 0;
+}
+
+.branding__name {
+  color: var(--color-primary);
+  font: var(--typography-headline-medium);
+}
+
+.branding__slogan {
+  color: var(--color-on-primary-container);
+  font: var(--typography-title-small);
+}

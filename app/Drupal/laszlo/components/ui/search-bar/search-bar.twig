@@ -1,0 +1,13 @@
+{% do attributes.setAttribute('action', path('niklan.search_page')) %}
+<form{{ attributes.addClass('search-bar') }}>
+  <input name="q"
+         type="text"
+         aria-label="{{ 'Search query'|t }}"
+         placeholder="{{ placeholder }}"
+         class="search-bar__input">
+  <button type="submit"
+          aria-label="{{ 'Do search'|t }}"
+          class="search-bar__submit">
+    {% include 'laszlo:svg-icon' with { icon: 'search' } only %}
+  </button>
+</form>

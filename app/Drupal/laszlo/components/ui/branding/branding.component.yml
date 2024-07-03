@@ -1,0 +1,20 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Branding
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - url
+    - site_name
+  properties:
+    site_logo_svg:
+      type: string
+      format: iri-reference
+    site_name:
+      type: string
+    site_slogan:
+      type: string
+    url:
+      type: string
+      format: iri-reference

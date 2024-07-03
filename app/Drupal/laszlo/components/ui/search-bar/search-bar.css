@@ -1,0 +1,24 @@
+.search-bar {
+  height: 56px;
+  display: flex;
+  align-items: stretch;
+  border-radius: var(--spacing-7);
+  background-color: var(--color-surface-container-highest);
+  overflow: hidden;
+  position: relative;
+
+  &:focus-within {
+    background-color: var(--color-surface-container-lowest);
+  }
+}
+
+.search-bar__input {
+  background-color: transparent;
+  border: none;
+}
+
+.search-bar__submit {
+  position: absolute;
+  right: 0;
+  height: 100%;
+}

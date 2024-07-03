@@ -8,9 +8,9 @@
   <exclude-pattern>*/fixtures/*</exclude-pattern>
   <exclude-pattern>*\.(css|js)</exclude-pattern>
   <!-- Base ruleset. -->
-  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
+  <rule ref="DrupalExtended"/>
 
-  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+  <rule ref="Drupal">
     <!-- Not supporting param iterable types. Covered by PHPStan. -->
     <exclude name="Drupal.Commenting.FunctionComment.IncorrectParamVarName"/>
     <exclude name="Drupal.Commenting.VariableComment.IncorrectVarType"/>
@@ -19,7 +19,15 @@
     <exclude name="Drupal.Commenting.DocComment.ShortFullStop"/>
     <!-- Todos in a custom project is not only about fixing thing. -->
     <exclude name="Drupal.Commenting.TodoComment.TodoFormat"/>
+    <!-- Embrace strict types. -->
+    <exclude name="Drupal.Commenting.FunctionComment.Missing"/>
+    <exclude name="Drupal.Commenting.ClassComment.Missing"/>
   </rule>
+
+<!--  <rule ref="SlevomatCodingStandard">-->
+<!--    &lt;!&ndash; Embrace strict types. &ndash;&gt;-->
+<!--    <exclude name="SlevomatCodingStandard.Commenting.EmptyComment"/>-->
+<!--  </rule>-->
 
   <!-- Project specific rules. -->
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>

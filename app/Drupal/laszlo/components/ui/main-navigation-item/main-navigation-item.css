@@ -1,0 +1,16 @@
+.main-navigation-item {
+  display: block;
+  padding: var(--spacing-2) var(--spacing-4);
+  text-decoration: none;
+  color: var(--color-on-surface);
+  border-radius: var(--spacing-2);
+  background-color: var(--color-surface-container-highest);
+  font: var(--typography-body-large);
+  transition: all ease-in-out 0.2s;
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+}

@@ -1,0 +1,17 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Main navigation item
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - label
+    - url
+  properties:
+    label:
+      title: Label
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-reference

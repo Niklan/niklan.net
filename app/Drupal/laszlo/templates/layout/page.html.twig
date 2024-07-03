@@ -22,21 +22,17 @@
  *
  * Page content (in order of occurrence in the default page.html.twig):
  * - messages: Status and error messages. Should be displayed prominently.
- * - node: Fully loaded node, if there is an automatically-loaded node
- *   associated with the page and the node ID is the second argument in the
- *   page's path (e.g. node/12345 and node/12345/revisions, but not
- *   comment/reply/12345).
+ * - header: The page header.
  *
  * @see template_preprocess_page()
+ * @see laszlo_preprocess_page()
  * @see html.html.twig
  *
  * @ingroup themeable
  */
 #}
 <section class="page">
-  <header class="layout-container page__header">
-    HEADER
-  </header>
+  <header class="layout-container page__header">{{ header }}</header>
 
   <main class="layout-container page__main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
