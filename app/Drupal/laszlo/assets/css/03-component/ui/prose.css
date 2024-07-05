@@ -10,8 +10,7 @@
   .prose h4,
   .prose h5,
   .prose h6 {
-    margin-top: var(--spacing-6);
-    margin-bottom: var(--spacing-2);
+    margin-top: var(--spacing-8);
     padding-bottom: var(--spacing-2);
     border-bottom: 1px solid var(--color-surface-container-high);
   }
@@ -26,7 +25,8 @@
   .prose .heading-permalink {
     visibility: hidden;
     margin-left: var(--spacing-4);
-    scroll-margin-top: var(--spacing-6);
+    scroll-margin-top: var(--spacing-8);
+    text-decoration: none;
   }
 
   .prose h1:hover .heading-permalink,
@@ -36,6 +36,13 @@
   .prose h5:hover .heading-permalink,
   .prose h6:hover .heading-permalink {
     visibility: visible;
+  }
+
+  .prose ul,
+  .prose ol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
   }
 
   body:not(.is-using-mouse) .prose .heading-permalink {

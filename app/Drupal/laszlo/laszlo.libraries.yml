@@ -16,6 +16,7 @@ global:
       assets/css/02-element/heading.css: { }
       assets/css/02-element/mark.css: { }
       assets/css/02-element/code.css: { }
+      assets/css/02-element/pre.css: { }
       assets/css/03-component/layout/layout-container.css: { }
       assets/css/03-component/layout/page.css: { }
       assets/css/03-component/ui/prose.css: { }
