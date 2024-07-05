@@ -1,0 +1,31 @@
+{% embed 'laszlo:article' with {
+  title: node.label(),
+  url: url,
+  published_timestamp: published_timestamp,
+  estimated_read_time: 1,
+  comment_count,
+  content,
+  } only %}
+  {% block poster %}{{ content.field_media_image }}{% endblock %}
+  {% block summary %}{{ content.body }}{% endblock %}
+  {% block content %}{{ content.external_content }}{% endblock %}
+  {% block sidebar %}
+    {% include 'laszlo:fab' with {
+      attributes: create_attribute(),
+      label: 'Table of Contents'|t,
+      icon: 'toc',
+    } only %}
+    {% include 'laszlo:fab' with {
+      attributes: create_attribute(),
+      label: 'Share'|t,
+      icon: 'share',
+    } only %}
+    {% include 'laszlo:fab' with {
+      attributes: create_attribute(),
+      label: 'Comments'|t,
+      icon: 'forum',
+      url: '#comments',
+      counter: comment_count
+    } only %}
+  {% endblock %}
+{% endembed %}

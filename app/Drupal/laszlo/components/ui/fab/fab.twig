@@ -1,0 +1,12 @@
+{% set element = 'button' %}
+{% if url %}
+  {% set element = 'a' %}
+  {% do attributes.setAttribute('href', url) %}
+{% endif %}
+{% do attributes.setAttribute('aria-label', label) %}
+<{{ element }}{{ attributes.addClass('fab') }}>
+  {% include 'laszlo:svg-icon' with { icon: icon } only %}
+  {% if counter %}
+    <div class="fab__counter">{{ counter }}</div>
+  {% endif %}
+</{{ element }}>

@@ -1,14 +1,14 @@
-uuid: ebe3e73c-e08a-45fe-9763-c61fdef120bf
+uuid: c0c5d0b3-388a-4dfd-8b4b-bd1b0ce3f3a0
 langcode: ru
-status: true
+status: false
 dependencies:
   module:
     - niklan
   theme:
-    - mechanical
-id: follow
-theme: mechanical
-region: footer
+    - laszlo
+id: laszlo_follow
+theme: laszlo
+region: content
 weight: -5
 provider: null
 plugin: niklan_follow_links

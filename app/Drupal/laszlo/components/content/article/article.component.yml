@@ -1,0 +1,33 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Article
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    title:
+      title: Title
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-reference
+    published_timestamp:
+      title: Published
+      type: string
+    estimated_read_time:
+      title: Estimated read time (minutes)
+      type: integer
+slots:
+  poster:
+    title: Poster
+    required: true
+  summary:
+    title: Summary
+    required: true
+  content:
+    title: Content
+    required: true
+  sidebar:
+    title: Sidebar
+    required: true

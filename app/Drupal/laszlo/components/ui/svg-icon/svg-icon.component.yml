@@ -10,3 +10,8 @@ props:
     icon:
       title: Icon name
       type: string
+      enum:
+        - forum
+        - search
+        - share
+        - toc

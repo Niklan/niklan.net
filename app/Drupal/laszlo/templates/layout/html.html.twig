@@ -34,6 +34,8 @@
     <css-placeholder token="{{ placeholder_token }}">
     <js-placeholder token="{{ placeholder_token }}">
   </head>
+  {# /* Assume that mouse is used by default. */ #}
+  {% do attributes.addClass('is-using-mouse') %}
   <body{{ attributes }}>
     {#
       Keyboard navigation/accessibility link to main content section in

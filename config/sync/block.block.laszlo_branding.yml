@@ -1,16 +1,16 @@
-uuid: ea1f4d48-a95d-4875-a3ea-1b1a563cbd30
+uuid: 0be27230-2913-47e4-9117-77925337f627
 langcode: ru
-status: true
+status: false
 dependencies:
   module:
     - system
   theme:
-    - mechanical
+    - laszlo
 _core:
   default_config_hash: NDwadleLD3YVSbDUaakxyYZyINYtkFtOVGShfq4kWy8
-id: mechanical_branding
-theme: mechanical
-region: sidebar_left
+id: laszlo_branding
+theme: laszlo
+region: content
 weight: -4
 provider: null
 plugin: system_branding_block

@@ -1,11 +1,11 @@
 .search-bar {
-  height: 56px;
+  --border-radius: var(--spacing-7);
+
   display: flex;
   align-items: stretch;
-  border-radius: var(--spacing-7);
-  background-color: var(--color-surface-container-highest);
-  overflow: hidden;
-  position: relative;
+  height: 56px;
+  border-radius: var(--border-radius);
+  background-color: var(--color-surface-container-lowest);
 
   &:focus-within {
     background-color: var(--color-surface-container-lowest);
@@ -13,12 +13,37 @@
 }
 
 .search-bar__input {
-  background-color: transparent;
+  width: 100%;
+  padding: 0 var(--spacing-6);
   border: none;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  background-color: transparent;
+
+  &:focus,
+  &:active {
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
 }
 
 .search-bar__submit {
-  position: absolute;
-  right: 0;
-  height: 100%;
+  margin: 0;
+  padding: 0 var(--spacing-6);
+  border: none;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  background: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: var(--color-surface-container-low);
+  }
+
+  &:focus,
+  &:active {
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+}
+
+.search-bar__submit svg {
+  width: 2rem;
 }

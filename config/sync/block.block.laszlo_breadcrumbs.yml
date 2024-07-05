@@ -1,15 +1,15 @@
-uuid: 34f6dd9f-a06f-463a-83e7-f646c0cf8634
+uuid: 4e92a529-2c4d-4f22-b9f9-940b19c921c2
 langcode: ru
 status: true
 dependencies:
   module:
     - system
   theme:
-    - mechanical
+    - laszlo
 _core:
   default_config_hash: oXUb3JZR2WW5VOdw4HrhRicCsq51mCgLfRyvheG68ck
-id: mechanical_breadcrumbs
-theme: mechanical
+id: laszlo_breadcrumbs
+theme: laszlo
 region: content
 weight: -5
 provider: null

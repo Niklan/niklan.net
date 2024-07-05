@@ -14,8 +14,11 @@ global:
       assets/css/02-element/body.css: { }
       assets/css/02-element/a.css: { }
       assets/css/02-element/heading.css: { }
+      assets/css/02-element/mark.css: { }
+      assets/css/02-element/code.css: { }
       assets/css/03-component/layout/layout-container.css: { }
-      assets/css/03-component/layout/full-page-container.css: { }
+      assets/css/03-component/layout/page.css: { }
+      assets/css/03-component/ui/prose.css: { }
       assets/css/04-utility/visually-hidden.css: { }
   js:
     assets/js/scrollbar-width.js: { }
@@ -26,7 +29,7 @@ global:
 google.fonts:
   css:
     theme:
-      //fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&subset=cyrillic&display=swap:
+      //fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&subset=cyrillic&display=swap:
         type: external
         minified: true
         # @see https://csswizardry.com/2020/05/the-fastest-google-fonts/

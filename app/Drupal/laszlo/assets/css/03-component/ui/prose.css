@@ -1,0 +1,44 @@
+@layer component.ui {
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    margin-top: var(--spacing-6);
+    margin-bottom: var(--spacing-2);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid var(--color-surface-container-high);
+  }
+
+  .prose h2 + h3,
+  .prose h3 + h4,
+  .prose h4 + h5,
+  .prose h5 + h6 {
+    margin-top: calc(var(--spacing-3) * -1);
+  }
+
+  .prose .heading-permalink {
+    visibility: hidden;
+    margin-left: var(--spacing-4);
+    scroll-margin-top: var(--spacing-6);
+  }
+
+  .prose h1:hover .heading-permalink,
+  .prose h2:hover .heading-permalink,
+  .prose h3:hover .heading-permalink,
+  .prose h4:hover .heading-permalink,
+  .prose h5:hover .heading-permalink,
+  .prose h6:hover .heading-permalink {
+    visibility: visible;
+  }
+
+  body:not(.is-using-mouse) .prose .heading-permalink {
+    visibility: visible;
+  }
+}

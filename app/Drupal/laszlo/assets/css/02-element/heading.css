@@ -4,23 +4,23 @@
   }
 
   h2 {
-    font: var(--typography-display-medium);
-  }
-
-  h3 {
-    font: var(--typography-display-small);
-  }
-
-  h4 {
     font: var(--typography-headline-large);
   }
 
-  h5 {
+  h3 {
     font: var(--typography-headline-medium);
   }
 
-  h6 {
+  h4 {
     font: var(--typography-headline-small);
+  }
+
+  h5 {
+    font: var(--typography-title-large);
+  }
+
+  h6 {
+    font: var(--typography-title-medium);
   }
 
   h1,

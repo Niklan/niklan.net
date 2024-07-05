@@ -1,15 +1,15 @@
-uuid: d4509227-9158-4b08-9b97-3ae5f95b78ed
+uuid: 30d0e770-4834-4888-93e0-21a72743c4e4
 langcode: ru
 status: true
 dependencies:
   module:
     - system
   theme:
-    - mechanical
+    - laszlo
 _core:
   default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
-id: mechanical_messages
-theme: mechanical
+id: laszlo_messages
+theme: laszlo
 region: content
 weight: -1
 provider: null

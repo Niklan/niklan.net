@@ -8,6 +8,8 @@
 
   a {
     color: var(--link-color);
+    text-underline-offset: 2px;
+    text-decoration-color: var(--color-surface-tint);
 
     &:visited {
       --link-color: var(--link-visited);

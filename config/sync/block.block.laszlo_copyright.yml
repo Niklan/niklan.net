@@ -1,14 +1,14 @@
-uuid: 2b36b944-cd37-42a2-901f-ccc669b4505a
+uuid: 27519945-319d-4f4c-93e4-61e07e5c3767
 langcode: ru
-status: true
+status: false
 dependencies:
   module:
     - niklan
   theme:
-    - mechanical
-id: copyright
-theme: mechanical
-region: footer
+    - laszlo
+id: laszlo_copyright
+theme: laszlo
+region: content
 weight: -4
 provider: null
 plugin: niklan_copyright

@@ -1,4 +1,0 @@
-.full-page-container {
-  width: calc(100vw - (var(--scrollbar-width, 0) * 1px));
-  margin-left: calc((100vw - 100% - (var(--scrollbar-width, 0) * 1px)) / -2);
-}

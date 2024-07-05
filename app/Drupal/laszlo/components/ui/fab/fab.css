@@ -1,0 +1,52 @@
+.fab {
+  --background-color: var(--color-secondary);
+  --color: var(--color-on-secondary);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.15s linear;
+  border: none;
+  border-radius: var(--spacing-4);
+  background-color: var(--background-color);
+  box-shadow: var(--elevation-2);
+
+  &:hover {
+    transform: translateY(calc(var(--spacing-1) * -1));
+  }
+
+  &:focus,
+  &:active {
+    --background-color: var(--color-secondary-container);
+    --color: var(--color-on-secondary-container);
+  }
+}
+
+.fab svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--color);
+}
+
+.fab__counter {
+  position: absolute;
+  z-index: 10;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--background-color);
+  border-radius: 16px;
+  background-color: var(--color);
+  box-shadow: var(--elevation-1);
+  font: var(--typography-label-small);
+}

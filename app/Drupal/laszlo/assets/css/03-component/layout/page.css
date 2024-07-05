@@ -1,0 +1,15 @@
+@layer component.layout {
+  :root {
+    --page-sidebar-width: 365px;
+  }
+
+  .page__main--has-sidebar {
+    display: grid;
+    grid-template-columns: 1fr var(--page-sidebar-width);
+    grid-gap: var(--spacing-8);
+  }
+
+  .page__content {
+    min-width: 0;
+  }
+}

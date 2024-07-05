@@ -1,13 +1,13 @@
-uuid: 2596bd11-818e-4c94-a65d-acd7ebdf7780
+uuid: 719f6f6c-c923-4e62-b34a-0739e30e7f97
 langcode: ru
 status: true
 dependencies:
   theme:
-    - mechanical
+    - laszlo
 _core:
   default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
-id: mechanical_local_actions
-theme: mechanical
+id: laszlo_local_actions
+theme: laszlo
 region: content
 weight: -2
 provider: null

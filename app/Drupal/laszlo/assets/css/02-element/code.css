@@ -1,0 +1,9 @@
+@layer element {
+  :not(pre) > code {
+    padding: var(--spacing-1);
+    border-radius: var(--spacing-1);
+    background: var(--color-surface-container-high);
+    font: var(--typography-body-medium);
+    font-family: var(--font-monospace);
+  }
+}

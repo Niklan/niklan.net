@@ -108,7 +108,7 @@ final readonly class PagePreprocess implements ContainerInjectionInterface {
       '#type' => 'component',
       '#component' => 'laszlo:search-bar',
       '#props' => [
-        'placeholder' => new TranslatableMarkup('Site search')
+        'placeholder' => new TranslatableMarkup('Site search'),
       ],
     ];
   }

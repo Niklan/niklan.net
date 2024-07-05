@@ -1,0 +1,25 @@
+<article{{ attributes.addClass('article') }}>
+  <header class="article__header">
+    <div class="article__poster">
+      {% block poster %}{% endblock %}
+    </div>
+
+    <div class="article__info">
+      <div class="article__breadcrumbs">
+        {{ drupal_breadcrumb() }}
+      </div>
+      <h1 class="article__title">{{ title }}</h1>
+      <div class="article__summary">
+        {% block summary %}{% endblock %}
+      </div>
+    </div>
+  </header>
+  <main class="article__main">
+    <aside class="article__sidebar">
+      {% block sidebar %}{% endblock %}
+    </aside>
+    <div class="prose article__content">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</article>

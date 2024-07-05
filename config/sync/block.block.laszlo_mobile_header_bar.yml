@@ -1,14 +1,14 @@
-uuid: 74e365f3-a655-49fc-b10d-2eb9c156ec2a
+uuid: 310b4177-8a88-4e8d-8aef-0254fbc4d556
 langcode: ru
-status: true
+status: false
 dependencies:
   module:
     - niklan
   theme:
-    - mechanical
-id: mobile_header_bar
-theme: mechanical
-region: content_top
+    - laszlo
+id: laszlo_mobile_header_bar
+theme: laszlo
+region: content
 weight: 0
 provider: null
 plugin: niklan_mobile_header_bar

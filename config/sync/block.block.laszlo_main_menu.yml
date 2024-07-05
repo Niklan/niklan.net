@@ -1,18 +1,18 @@
-uuid: 4e5f629c-81b1-4136-ab14-11ebde7e543b
+uuid: d2eaeb31-83e1-4f53-b8ed-219149951639
 langcode: ru
-status: true
+status: false
 dependencies:
   config:
     - system.menu.main
   module:
     - system
   theme:
-    - mechanical
+    - laszlo
 _core:
   default_config_hash: rx9IrdDv7Ldc4kpalZAxdhIPZfYIeOMh1N-qKoQZwHo
-id: mechanical_main_menu
-theme: mechanical
-region: sidebar_left
+id: laszlo_main_menu
+theme: laszlo
+region: content
 weight: -2
 provider: null
 plugin: 'system_menu_block:main'
