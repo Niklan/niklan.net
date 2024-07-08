@@ -16,7 +16,7 @@
       label: 'Published'|t,
       value: published_timestamp|format_date('dmy'),
     } only %}
-    <span class="article__meta-separator">•</span>
+    {{ _self.meta_separator() }}
     {% include 'laszlo:meta' with {
       icon: 'overview',
       label: 'Time to read'|t,
