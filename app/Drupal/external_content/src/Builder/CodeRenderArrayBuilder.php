@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Builder;
 
+use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
@@ -25,6 +26,11 @@ final class CodeRenderArrayBuilder implements RenderArrayBuilderInterface {
       '#type' => 'html_tag',
       '#tag' => 'code',
       '#value' => \htmlentities($node->getLiteral()),
+      // Make sure that the processing is consistent with the element builder.
+      '#pre_render' => [
+        HtmlTag::preRenderHtmlTag(...),
+        ElementRenderArrayBuilder::preRenderTag(...),
+      ],
     ]);
   }
 

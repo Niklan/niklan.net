@@ -1,20 +1,16 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: Branding
+name: Breadcrumb item
 status: experimental
 group: ui
 props:
   type: object
   required:
-    - url
-    - name
+    - label
   properties:
-    logo_svg:
-      type: string
-      format: iri-reference
-    name:
-      type: string
-    slogan:
+    label:
+      title: Label
       type: string
     url:
+      title: URL
       type: string
       format: iri-reference

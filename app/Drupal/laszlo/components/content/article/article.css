@@ -52,3 +52,13 @@
   flex-direction: column;
   gap: var(--spacing-4);
 }
+
+.article__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.article__meta-separator {
+  color: var(--color-secondary-fixed-dim);
+}

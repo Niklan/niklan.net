@@ -2,8 +2,21 @@
 
 declare(strict_types=1);
 
+use Drupal\laszlo\Hook\Theme\LaszloPageHeaderPreprocess;
 use Drupal\laszlo\Hook\Theme\NodePreprocess;
 use Drupal\laszlo\Hook\Theme\PagePreprocess;
+
+/**
+ * Implements hook_theme().
+ */
+function laszlo_theme(array $existing, string $type, string $theme, string $path): array {
+  return [
+    'laszlo_page_header' => [
+      'variables' => [],
+      'path' => "$path/templates/layout",
+    ],
+  ];
+}
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -17,4 +30,11 @@ function laszlo_preprocess_page(array &$variables): void {
  */
 function laszlo_preprocess_node(array &$variables): void {
   \Drupal::classResolver(NodePreprocess::class)($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_laszlo_page_header(array &$variables): void {
+  \Drupal::classResolver(LaszloPageHeaderPreprocess::class)($variables);
 }

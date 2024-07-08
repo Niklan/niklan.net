@@ -1,20 +1,17 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: SVG icon
+name: Meta
 status: experimental
 group: ui
 props:
   type: object
   required:
     - icon
+    - label
+    - value
   properties:
     icon:
-      title: Icon name
       type: string
-      enum:
-        - forum
-        - search
-        - share
-        - toc
-        - coffee-half-empty-twotone-loop
-        - event
-        - overview
+    label:
+      type: string
+    value:
+      type: string

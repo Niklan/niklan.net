@@ -2,15 +2,15 @@
 {% do attributes.setAttribute('rel', 'Home'|t) %}
 {% do attributes.setAttribute('aria-label', 'Home'|t) %}
 <a{{ attributes.addClass('branding') }}>
-  {% if site_logo_svg %}
-    {{ source(site_logo_svg) }}
+  {% if logo_svg %}
+    {{ source(logo_svg) }}
   {% endif %}
 
   <div class="branding__info">
-    <div class="branding__name">{{ site_name }}</div>
+    <div class="branding__name">{{ name }}</div>
 
-    {% if site_slogan %}
-      <div class="branding__slogan">{{ site_slogan }}</div>
+    {% if slogan %}
+      <div class="branding__slogan">{{ slogan }}</div>
     {% endif %}
   </div>
 </a>

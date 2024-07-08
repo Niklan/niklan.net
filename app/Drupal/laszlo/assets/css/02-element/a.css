@@ -1,15 +1,17 @@
 @layer element {
   :root {
     --link-color: var(--color-primary);
-    --link-color-hover: #00e;
-    --link-visited: #551a8b;
-    --link-color-active: #f00;
+    --link-color-hover: var(--color-primary);
+    --link-visited: var(--color-primary);
+    --link-color-active: var(--color-primary);
   }
 
   a {
+    transition: all 0.15s ease-in;
     color: var(--link-color);
     text-underline-offset: 2px;
     text-decoration-color: var(--color-surface-tint);
+    text-decoration-thickness: 2px;
 
     &:visited {
       --link-color: var(--link-visited);
@@ -21,6 +23,11 @@
 
     &:active {
       --link-color: var(--link-color-active);
+    }
+
+    &:hover,
+    &:active {
+      text-underline-offset: 4px;
     }
   }
 }

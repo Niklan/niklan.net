@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Entity\Node;
 
+use Drupal\external_content\Contract\Node\NodeInterface as ContentNodeInterface;
+use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
+
 /**
  * Provides a bundle class for 'blog_entry' content type.
  */
@@ -52,6 +55,22 @@ final class BlogEntry extends Node implements BlogEntryInterface {
     $data = $this->get('external_content')->first()?->get('data')->getValue();
 
     return $data ? \json_decode($data, TRUE) : [];
+  }
+
+  public function getEstimatedReadTime(): int {
+    $content = $this
+      ->get('external_content')
+      ->first()
+      ?->get('content')
+        ->getValue();
+
+    if (!$content instanceof ContentNodeInterface) {
+      return 0;
+    }
+
+    $calculator = new EstimatedReadTimeCalculator();
+
+    return $calculator->calculate($content);
   }
 
 }

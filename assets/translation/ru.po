@@ -63,8 +63,8 @@ msgstr "Последняя »"
 msgid "Created"
 msgstr "Дата создания"
 
-msgid "min."
-msgstr "мин."
+msgid "@minutes min."
+msgstr "@minutes мин."
 
 msgctxt "color scheme"
 msgid "Light"
@@ -321,3 +321,6 @@ msgstr "Версия для разработки"
 
 msgid "Site search"
 msgstr "Поиск по сайту"
+
+msgid "Time to read"
+msgstr "Время на чтение"

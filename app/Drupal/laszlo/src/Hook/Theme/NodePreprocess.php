@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\NodeInterface;
 
 final readonly class NodePreprocess {
@@ -13,6 +14,11 @@ final readonly class NodePreprocess {
     \assert($node instanceof NodeInterface);
 
     $this->addCommonVariables($node, $variables);
+
+    match ($node::class) {
+      default => NULL,
+      BlogEntry::class => $this->addBlogEntryVariables($node, $variables),
+    };
   }
 
   private function addCommonVariables(NodeInterface $node, array &$variables): void {
@@ -22,6 +28,10 @@ final readonly class NodePreprocess {
       ->first()
       ->get('comment_count')
       ->getValue();
+  }
+
+  private function addBlogEntryVariables(BlogEntry $node, array &$variables): void {
+    $variables['estimated_read_time'] = $node->getEstimatedReadTime();
   }
 
 }

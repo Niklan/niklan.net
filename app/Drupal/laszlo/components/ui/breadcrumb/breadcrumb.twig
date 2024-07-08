@@ -1,0 +1,4 @@
+{% do attributes.setAttribute('aria-label', 'Breadcrumbs'|t) %}
+<nav{{ attributes.addClass('breadcrumb') }}>
+  {% block items %}{% endblock %}
+</nav>
