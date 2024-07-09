@@ -1,0 +1,24 @@
+{% set pre_attributes = create_attribute() %}
+{% if language %}
+  {% do attributes.setAttribute('data-language', language) %}
+{% endif %}
+{% if highlighted_lines %}
+  {% set pre_attributes = pre_attributes.setAttribute('data-highlight', highlighted_lines) %}
+{% endif %}
+{% do attributes.setAttribute('data-highlighted-line-class', 'code-block__highlighted') %}
+{% do attributes.setAttribute('data-selector', 'niklan:code-block') %}
+<section{{ attributes.addClass('code-block') }}>
+  {% if heading %}
+    <header class="code-block__header">
+      <div role="heading" class="code-block__title">{{ heading }}</div>
+    </header>
+  {% endif %}
+
+  <main class="code-block__main">
+    {% apply spaceless %}
+      <pre>
+        {{ code }}
+      </pre>
+    {% endapply %}
+  </main>
+</section>

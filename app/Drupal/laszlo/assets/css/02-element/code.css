@@ -1,9 +1,17 @@
 @layer element {
+  code {
+    font: var(--typography-body-small);
+    font-family: var(--font-monospace);
+  }
+
+  pre > code {
+    font: var(--typography-body-medium);
+    font-family: var(--font-monospace);
+  }
+
   :not(pre) > code {
     padding: var(--spacing-1);
     border-radius: var(--spacing-1);
     background: var(--color-surface-container-high);
-    font: var(--typography-body-medium);
-    font-family: var(--font-monospace);
   }
 }

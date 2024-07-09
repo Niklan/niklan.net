@@ -27,13 +27,14 @@ global:
   dependencies:
     - laszlo/google.fonts
 
+hljs:
+  css:
+    theme:
+      assets/css/03-component/theme/hljs.css: { }
+
 google.fonts:
   css:
     theme:
-      //fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&subset=cyrillic&display=swap:
+      //fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap:
         type: external
         minified: true
-        # @see https://csswizardry.com/2020/05/the-fastest-google-fonts/
-        attributes:
-          media: 'print'
-          onload: "this.media='all'"

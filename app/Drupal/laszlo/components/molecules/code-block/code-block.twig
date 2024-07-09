@@ -1,22 +1,6 @@
-{#
-/**
- * @file
- * Default theme implementation to display code block.
- *
- * Available variables:
- * - attributes: The main wrapper element attributes.
- * - language: The code language.
- * - highlighted_lines: An array with lines to highlight.
- * - heading: The code heading.
- * - code: The code itself.
- *
- * @ingroup themeable
- */
-#}
-{{ attach_library('niklan/code-block') }}
 {% set pre_attributes = create_attribute() %}
 {% if language %}
-  {% set pre_attributes = pre_attributes.addClass('language-' ~ language) %}
+  {% do attributes.setAttribute('data-language', language) %}
 {% endif %}
 {% if highlighted_lines %}
   {% set pre_attributes = pre_attributes.setAttribute('data-highlight', highlighted_lines) %}
@@ -32,10 +16,8 @@
 
   <main class="code-block__main">
     {% apply spaceless %}
-      <pre{{ pre_attributes }}>
-        {% block code %}
-          {{ code }}
-        {% endblock %}
+      <pre>
+        {{ code }}
       </pre>
     {% endapply %}
   </main>

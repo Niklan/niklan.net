@@ -1,9 +1,5 @@
 @layer element {
   pre {
-    padding: var(--spacing-6);
-    border-radius: var(--spacing-4);
-    background-color: var(--color-inverse-on-surface);
-    font: var(--typography-body-medium);
-    font-family: var(--font-monospace);
+    overflow-x: auto;
   }
 }

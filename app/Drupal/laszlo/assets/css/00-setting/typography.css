@@ -1,7 +1,6 @@
 @layer setting {
   :root {
-    --font-family: "Lora", BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto,
-      Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --font-family: "Lora", serif;
     --font-monospace: "JetBrains Mono", "Fira Code", sfmono-regular, menlo,
       monaco, consolas, "Liberation Mono", "Courier New", monospace;
     --font-base: 400 normal 16/24px var(--font-family);

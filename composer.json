@@ -96,6 +96,7 @@
                 "libraries-root": "./web/libraries"
             },
             "file-mapping": {
+                "[libraries-root]/highlight.js/highlight.min.js": "assets/vendor/highlight.js/highlight.min.js",
                 "[libraries-root]/photoswipe/dist/default-skin/default-skin.css": "assets/vendor/photoswipe/dist/default-skin/default-skin.css",
                 "[libraries-root]/photoswipe/dist/default-skin/default-skin.png": "assets/vendor/photoswipe/dist/default-skin/default-skin.png",
                 "[libraries-root]/photoswipe/dist/default-skin/default-skin.svg": "assets/vendor/photoswipe/dist/default-skin/default-skin.svg",
@@ -104,7 +105,6 @@
                 "[libraries-root]/photoswipe/dist/photoswipe.css": "assets/vendor/photoswipe/dist/photoswipe.css",
                 "[libraries-root]/photoswipe/dist/photoswipe.min.js": "assets/vendor/photoswipe/dist/photoswipe.min.js",
                 "[libraries-root]/photoswipe/photoswipe.json": "assets/vendor/photoswipe/photoswipe.json",
-                "[libraries-root]/prismjs/prism.js": "assets/vendor/prismjs/prism.js",
                 "[project-root]/.editorconfig": false,
                 "[project-root]/.gitattributes": false,
                 "[project-root]/.local/settings.php": {

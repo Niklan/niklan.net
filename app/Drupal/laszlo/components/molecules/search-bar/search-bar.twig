@@ -8,6 +8,6 @@
   <button type="submit"
           aria-label="{{ 'Do search'|t }}"
           class="search-bar__submit">
-    {% include 'laszlo:svg-icon' with { icon: 'search' } only %}
+    {{ include('laszlo:svg-icon', { icon: 'search' }, with_context = false) }}
   </button>
 </form>

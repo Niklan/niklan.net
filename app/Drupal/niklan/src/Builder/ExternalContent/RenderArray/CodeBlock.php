@@ -31,14 +31,17 @@ final class CodeBlock implements RenderArrayBuilderInterface {
     }
 
     return RenderArrayBuilderResult::withRenderArray([
-      '#theme' => 'niklan_code_block',
-      '#language' => $attributes->getAttribute('data-language'),
-      '#highlighted_lines' => $info['highlighted_lines'] ?? NULL,
-      '#heading' => $info['header'] ?? NULL,
-      '#code' => RenderArrayBuilderHelper::buildChildren(
-        node: $node,
-        child_builder: $child_builder,
-      )->result(),
+      '#type' => 'component',
+      '#component' => 'niklan:code-block',
+      '#props' => [
+        'language' => $attributes->getAttribute('data-language'),
+        'highlighted_lines' => $info['highlighted_lines'] ?? NULL,
+        'heading' => $info['header'] ?? NULL,
+        'code' => RenderArrayBuilderHelper::buildChildren(
+          node: $node,
+          child_builder: $child_builder,
+        )->result(),
+      ],
     ]);
   }
 
