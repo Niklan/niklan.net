@@ -24,12 +24,28 @@ final class Alert implements RenderArrayBuilderInterface {
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof AlertNode);
 
-    return RenderArrayBuilderResult::withRenderArray([
-      '#theme' => 'niklan_alert',
-      '#type' => $node->type,
-      '#heading' => $node->heading ? $child_builder->build($node->heading)->result() : NULL,
-      '#content' => $node->hasChildren() ? RenderArrayBuilderHelper::buildChildren($node, $child_builder)->result() : NULL,
-    ]);
+    $build = [
+      '#type' => 'component',
+      '#component' => 'niklan:alert',
+      '#props' => [
+        'type' => $node->type,
+      ],
+    ];
+
+    if ($node->heading) {
+      $build['#slots']['heading'] = $child_builder
+        ->build($node->heading)
+        ->result();
+    }
+
+    if ($node->hasChildren()) {
+      $build['#slots']['content'] = RenderArrayBuilderHelper::buildChildren(
+        node: $node,
+        child_builder: $child_builder,
+      )->result();
+    }
+
+    return RenderArrayBuilderResult::withRenderArray($build);
   }
 
   /**

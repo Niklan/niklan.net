@@ -18,3 +18,8 @@ props:
         - coffee-half-empty-twotone-loop
         - event
         - overview
+        - feedback
+        - info
+        - lightbulb
+        - report
+        - warning

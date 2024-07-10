@@ -96,7 +96,7 @@
                 "libraries-root": "./web/libraries"
             },
             "file-mapping": {
-                "[libraries-root]/highlight.js/highlight.min.js": "assets/vendor/highlight.js/highlight.min.js",
+                "[libraries-root]/hljs/highlight.min.js": "assets/vendor/hljs/highlight.min.js",
                 "[libraries-root]/photoswipe/dist/default-skin/default-skin.css": "assets/vendor/photoswipe/dist/default-skin/default-skin.css",
                 "[libraries-root]/photoswipe/dist/default-skin/default-skin.png": "assets/vendor/photoswipe/dist/default-skin/default-skin.png",
                 "[libraries-root]/photoswipe/dist/default-skin/default-skin.svg": "assets/vendor/photoswipe/dist/default-skin/default-skin.svg",

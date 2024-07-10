@@ -1,0 +1,47 @@
+{%
+  set switch = {
+    'note': {
+      'icon': 'info',
+      'label': 'Note'|t,
+    },
+    'tip': {
+      'icon': 'lightbulb',
+      'label': 'Tip'|t,
+    },
+    'important': {
+      'icon': 'feedback',
+      'label': 'Important'|t,
+    },
+    'warning': {
+      'icon': 'warning',
+      'label': 'Warning'|t,
+    },
+    'caution': {
+      'icon': 'report',
+      'label': 'Caution'|t,
+    }
+  }
+%}
+<div{{ attributes.addClass('alert', 'alert--' ~ type|clean_class) }}>
+  <div class="alert__heading">
+    {% include 'laszlo:svg-icon' with { icon: switch[type].icon } only %}
+    {% block heading %}{{ switch[type].label }}{% endblock %}
+  </div>
+  <div class="prose alert__content">
+    {% block content %}{% endblock %}
+  </div>
+</div>
+
+{% include 'foo:responsive-image' with {
+  src: uri|image_style('foo'),
+  sources: {
+    '(min-width: 768px)': {
+      '1x': uri|image_style('foo'),
+      '2x': uri|image_style('foo'),
+    },
+    '(min-width: 0px)': {
+      '1x': uri|image_style('foo'),
+      '2x': uri|image_style('foo'),
+    }
+  }
+} only %}

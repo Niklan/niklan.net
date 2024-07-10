@@ -60,13 +60,13 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
   }
 
   private function alterHighlightJs(array &$libraries, string $extension): void {
-    if ($extension !== 'niklan' || !isset($libraries['highlight.js'])) {
+    if ($extension !== 'niklan' || !isset($libraries['hljs'])) {
       return;
     }
 
     $module_path = $this->moduleExtensionList->getPath('niklan');
-    $worker_path = "/$module_path/assets/js/highlight.js.worker.js";
-    $libraries['highlight.js']['drupalSettings']['highlightJs']['workerPath'] = $worker_path;
+    $worker_path = "/$module_path/assets/js/hljs.worker.js";
+    $libraries['hljs']['drupalSettings']['highlightJs']['workerPath'] = $worker_path;
   }
 
 }

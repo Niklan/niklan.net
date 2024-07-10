@@ -324,3 +324,15 @@ msgstr "Поиск по сайту"
 
 msgid "Time to read"
 msgstr "Время на чтение"
+
+msgid "Note"
+msgstr "Заметка"
+
+msgid "Tip"
+msgstr "Совет"
+
+msgid "Important"
+msgstr "Важно"
+
+msgid "Caution"
+msgstr "Осторожно"

@@ -19,5 +19,5 @@ libraries-override:
   core/picturefill: false
 
 libraries-extend:
-  niklan/highlight.js:
+  niklan/hljs:
     - laszlo/hljs

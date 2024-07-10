@@ -197,13 +197,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'attributes' => [],
       ],
     ],
-    'niklan_alert' => [
-      'variables' => [
-        'type' => NULL,
-        'heading' => NULL,
-        'content' => NULL,
-      ],
-    ],
   ];
 }
 

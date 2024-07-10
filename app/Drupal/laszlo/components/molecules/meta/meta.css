@@ -7,7 +7,6 @@
   font: var(--typography-label-large);
 }
 
-.meta svg {
-  fill: var(--color);
+.meta .svg-icon {
   width: var(--spacing-6);
 }

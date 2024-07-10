@@ -73,6 +73,10 @@ final class OEmbedVideo extends FormatterBase {
       return FALSE;
     }
 
+    if (!$field_definition->getTargetBundle()) {
+      return FALSE;
+    }
+
     $media_type = MediaType::load($field_definition->getTargetBundle());
 
     if (!$media_type instanceof MediaTypeInterface) {

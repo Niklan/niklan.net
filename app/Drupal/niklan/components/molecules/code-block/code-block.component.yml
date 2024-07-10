@@ -13,7 +13,7 @@ props:
     highlighted_lines:
       title: Highlighted lines
       description: An array with lines to highlight.
-      type: [array, 'null']
+      type: [string, 'null']
     heading:
       title: Code heading
       type: [string, 'null']

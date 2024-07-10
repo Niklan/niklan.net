@@ -12,6 +12,7 @@
   padding: 0;
   cursor: pointer;
   transition: all 0.15s linear;
+  color: var(--color);
   border: none;
   border-radius: var(--spacing-4);
   background-color: var(--background-color);
@@ -28,11 +29,9 @@
   }
 }
 
-.fab svg {
+.fab .svg-icon {
   width: 24px;
   height: 24px;
-  fill: var(--color);
-  color: var(--color);
 }
 
 .fab__counter {

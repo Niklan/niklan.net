@@ -1,6 +1,6 @@
 @layer element {
   code {
-    font: var(--typography-body-small);
+    font: var(--typography-body-medium);
     font-family: var(--font-monospace);
   }
 

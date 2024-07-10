@@ -7,7 +7,7 @@ mobile-sidebar:
   js:
     assets/js/mobile-sidebar.js: { }
 
-highlight.js:
+hljs:
   remote: https://highlightjs.org/
   version: 11.9.0
   license:
@@ -15,11 +15,11 @@ highlight.js:
     gpl-compatible: true
     url: https://raw.githubusercontent.com/highlightjs/highlight.js/main/LICENSE
   js:
-    assets/js/highlight.js.init.js: { weight: -1 }
+    assets/js/hljs.init.js: { weight: -1 }
   drupalSettings:
     highlightJs:
       workerPath: null
-      libraryPath: '/libraries/highlight.js/highlight.min.js'
+      libraryPath: '/libraries/hljs/highlight.min.js'
   dependencies:
     - core/drupal
     - core/once
