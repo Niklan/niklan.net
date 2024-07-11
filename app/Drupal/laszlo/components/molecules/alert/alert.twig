@@ -31,17 +31,3 @@
     {% block content %}{% endblock %}
   </div>
 </div>
-
-{% include 'foo:responsive-image' with {
-  src: uri|image_style('foo'),
-  sources: {
-    '(min-width: 768px)': {
-      '1x': uri|image_style('foo'),
-      '2x': uri|image_style('foo'),
-    },
-    '(min-width: 0px)': {
-      '1x': uri|image_style('foo'),
-      '2x': uri|image_style('foo'),
-    }
-  }
-} only %}

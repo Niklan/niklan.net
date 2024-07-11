@@ -24,6 +24,20 @@ hljs:
     - core/drupal
     - core/once
 
+alpinejs:
+  version: 3.14.1
+  remote: https://github.com/alpinejs/alpine
+  license:
+    name: MIT
+    url: https://raw.githubusercontent.com/alpinejs/alpine/master/LICENSE.md
+    gpl-compatible: true
+  js:
+    /libraries/alpinejs/alpinejs.min.js:
+      minified: true
+      preprocess: false
+      attributes:
+        defer: ''
+
 share:
   js:
     assets/js/share.js: { }

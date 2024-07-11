@@ -27,6 +27,16 @@ global:
   dependencies:
     - laszlo/google.fonts
 
+messages:
+  js:
+    assets/js/messages.js: { }
+  css:
+    theme:
+      assets/css/03-component/ui/status-messages.css: { }
+      assets/css/03-component/ui/status-message.css: { }
+  dependencies:
+    - niklan/alpinejs
+
 hljs:
   css:
     theme:

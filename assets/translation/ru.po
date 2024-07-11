@@ -336,3 +336,6 @@ msgstr "Важно"
 
 msgid "Caution"
 msgstr "Осторожно"
+
+msgid "Error"
+msgstr "Ошибка"
