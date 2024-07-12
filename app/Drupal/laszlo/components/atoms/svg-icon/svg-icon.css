@@ -1,0 +1,10 @@
+.svg-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-icon svg {
+  width: 100%;
+  height: 100%;
+}

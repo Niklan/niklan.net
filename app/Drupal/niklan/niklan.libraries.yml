@@ -37,6 +37,12 @@ alpinejs:
       preprocess: false
       attributes:
         defer: ''
+    assets/js/alpinejs.drupal-focus-trap.js:
+      attributes:
+        defer: ''
+      weight: -10
+  dependencies:
+    - core/drupal.tabbingmanager
 
 share:
   js:

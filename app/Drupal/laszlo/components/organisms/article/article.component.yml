@@ -31,3 +31,7 @@ slots:
   sidebar:
     title: Sidebar
     required: true
+  comments:
+    title: Comments
+  extras:
+    title: Extras

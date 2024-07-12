@@ -2,21 +2,21 @@
   --message-color: var(--color-scrim);
   --icon: none;
 
-  padding: var(--spacing-3);
-  background-color: var(--color-surface);
-  box-shadow: var(--elevation-2);
-  width: 256px;
-  border-radius: var(--spacing-1);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  width: 256px;
+  padding: var(--spacing-3);
   border-left: 4px solid var(--message-color);
+  border-radius: var(--spacing-1);
+  background-color: var(--color-surface);
+  box-shadow: var(--elevation-2);
+  gap: var(--spacing-2);
 }
 
 .status-message__icon {
-  background: var(--icon);
   width: 24px;
   height: 24px;
+  background: var(--icon);
   background-size: 24px;
 }
 
@@ -50,18 +50,18 @@
 }
 
 .status-message__close {
-  background: var(--color-surface-container-highest)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='%23111111'%3E%3Cpath d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z'/%3E%3C/svg%3E");
-  border: none;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0;
-  margin-left: auto;
-  border-radius: 50%;
   width: 24px;
   height: 24px;
-  background-size: 16px;
+  margin: 0;
+  margin-left: auto;
   cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-surface-container-highest)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='%23111111'%3E%3Cpath d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
 
   &:hover {
     background-color: var(--color-surface-container-high);

@@ -21,6 +21,7 @@ global:
       assets/css/03-component/layout/page.css: { }
       assets/css/03-component/ui/prose.css: { }
       assets/css/04-utility/visually-hidden.css: { }
+      assets/css/04-utility/scroll-locked.css: { }
   js:
     assets/js/scrollbar-width.js: { }
     assets/js/keyboard-focus.js: { }

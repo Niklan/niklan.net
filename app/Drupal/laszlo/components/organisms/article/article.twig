@@ -18,6 +18,7 @@
       </div>
     </div>
   </header>
+
   <main class="article__main">
     <aside class="article__sidebar">
       {% block sidebar %}{% endblock %}
@@ -26,6 +27,15 @@
       {% block content %}{% endblock %}
     </div>
   </main>
+
+  {% if comments %}
+    <section class="article__comments">
+      <h2>{{ 'Comments'|t }}</h2>
+      {% block comments %}{% endblock %}
+    </section>
+  {% endif %}
+
+  {% block extras %}{% endblock %}
 </article>
 
 {% macro meta_separator() %}

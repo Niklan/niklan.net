@@ -1,0 +1,17 @@
+{% do attributes.addClass('dialog') %}
+{% do attributes.setAttribute('x-data', 'Dialog') %}
+{% do attributes.setAttribute('x-drupal-focus-trap', 'open') %}
+{% do attributes.setAttribute('@click.self', 'close()') %}
+<dialog{{ attributes }}>
+  <header class="dialog__head">
+    <div class="dialog__title">{{ title }}</div>
+    <button class="dialog__close"
+            @click.passive="close()"
+            aria-label="{{ 'Close'|t }}">
+      {% include 'laszlo:svg-icon' with { icon: 'close' } only %}
+    </button>
+  </header>
+  <main class="dialog__content">
+    {% block content %}{% endblock %}
+  </main>
+</dialog>

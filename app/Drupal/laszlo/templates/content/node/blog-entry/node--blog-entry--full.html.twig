@@ -9,6 +9,7 @@
   {% block poster %}{{ content.field_media_image }}{% endblock %}
   {% block summary %}{{ content.body }}{% endblock %}
   {% block content %}{{ content.external_content }}{% endblock %}
+  {% block comments %}{{ dd(content) }}{% endblock %}
 
   {% block meta %}
     {% include 'laszlo:meta' with {
@@ -31,16 +32,31 @@
       icon: 'toc',
     } only %}
     {% include 'laszlo:fab' with {
-      attributes: create_attribute(),
+      attributes: create_attribute({
+        'x-data': '',
+        '@click.prevent': "$dispatch('show-share')",
+      }),
       label: 'Share'|t,
       icon: 'share',
     } only %}
     {% include 'laszlo:fab' with {
-      attributes: create_attribute(),
       label: 'Comments'|t,
       icon: 'forum',
       url: '#comments',
-      counter: comment_count
+      counter: comment_count,
     } only %}
+  {% endblock %}
+
+  {% block extras %}
+    {% embed 'laszlo:dialog' with {
+      title: 'Share'|t,
+      attributes: create_attribute({
+        '@show-share.window': 'show()',
+      }),
+    } only %}
+      {% block content %}
+        SHARE
+      {% endblock %}
+    {% endembed %}
   {% endblock %}
 {% endembed %}
