@@ -1,0 +1,41 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Input
+status: experimental
+group: atoms
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: Wrapper attributes.
+    id:
+      type: string
+    autocapitalize:
+      type: string
+    spellcheck:
+      type: boolean
+    # @see https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
+    autocomplete:
+      type: string
+    autofocus:
+      type: string
+    disabled:
+      type: boolean
+    full_width:
+      type: boolean
+    multiline:
+      type: boolean
+    rows:
+      type: [number, string]
+    name:
+      type: string
+    placeholder:
+      type: string
+    required:
+      type: boolean
+    type:
+      type: string
+      default: text
+    value:
+      type: [integer, string, number]

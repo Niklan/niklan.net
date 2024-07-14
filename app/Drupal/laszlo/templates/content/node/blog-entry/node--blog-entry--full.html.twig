@@ -1,6 +1,7 @@
 {% embed 'laszlo:article' with {
   title: node.label(),
   url,
+  url_absolute,
   published_timestamp,
   estimated_read_time,
   comment_count,
@@ -53,9 +54,14 @@
       attributes: create_attribute({
         '@show-share.window': 'show()',
       }),
+      content_title: title,
+      content_url: url_absolute,
     } only %}
       {% block content %}
-        SHARE
+        {% include 'laszlo:share-dialog' with {
+          title: content_title,
+          url: content_url,
+        } only %}
       {% endblock %}
     {% endembed %}
   {% endblock %}

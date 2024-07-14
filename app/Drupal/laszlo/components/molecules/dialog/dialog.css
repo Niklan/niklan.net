@@ -48,9 +48,14 @@
   margin: 0;
   padding: var(--spacing-2);
   cursor: pointer;
+  transition: all 200ms ease-in;
   border: 0;
   border-radius: 50%;
   background-color: var(--color-surface-container-high);
+
+  &:hover {
+    background-color: var(--color-surface-container-highest);
+  }
 }
 
 .dialog__close .svg-icon {

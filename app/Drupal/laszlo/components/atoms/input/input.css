@@ -1,0 +1,25 @@
+.input {
+  --input-border-color: var(--color-outline-variant);
+  --input-background-color: var(--color-surface-container-low);
+  --input-color: var(--color-on-surface);
+  --input-box-shadow: none;
+
+  margin: 0;
+  padding: var(--spacing-2) var(--spacing-3);
+  transition: all 100ms ease-in;
+  color: var(--input-color);
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--spacing-1);
+  background-color: var(--input-background-color);
+  box-shadow: var(--input-box-shadow);
+
+  &:hover,
+  &:focus {
+    --input-border-color: var(--color-primary);
+    --input-box-shadow: 0 0 0 2px var(--color-secondary-fixed-dim);
+  }
+}
+
+.input--full-width {
+  width: 100%;
+}

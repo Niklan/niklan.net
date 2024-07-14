@@ -1,0 +1,23 @@
+{% set links = {
+  'telegram': 'https://telegram.me/share/url?url=' ~ url ~ '&text=' ~ title,
+  'twitter': 'https://twitter.com/intent/tweet?url=' ~ url ~ '&text=' ~ title,
+  'vk': 'https://vk.com/share.php?url=' ~ url ~ '&title=' ~ title,
+  'facebook': 'https://facebook.com/sharer/sharer.php?u=' ~ url,
+  'mail': 'mailto:?subject=' ~ title ~ '&body=' ~ url,
+} %}
+<div{{ attributes.addClass('share-dialog') }}>
+  <div class="share-dialog__section">
+    <div class="share-dialog__section-title">{{ 'URL'|t }}</div>
+    {{ url }} [copy-button]
+  </div>
+
+  <div class="share-dialog__links">
+    {% for type, href in links %}
+      <a href="{{ href }}"
+         class="share-dialog__link share-dialog__link--{{ type }}"
+         rel="nofollow noopener"
+         aria-label="{{ 'Share in @type'|t({'@type': type}) }}"
+         target="_blank"></a>
+    {% endfor %}
+  </div>
+</div>

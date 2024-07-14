@@ -1,0 +1,17 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Share Dialog
+status: experimental
+group: molecules
+props:
+  type: object
+  required:
+    - title
+    - url
+  properties:
+    title:
+      title: Title
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-string

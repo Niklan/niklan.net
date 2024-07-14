@@ -22,6 +22,7 @@ final readonly class NodePreprocess {
   }
 
   private function addCommonVariables(NodeInterface $node, array &$variables): void {
+    $variables['url_absolute'] = $node->toUrl()->setAbsolute()->toString();
     $variables['published_timestamp'] = $node->getCreatedTime();
     $variables['comment_count'] = $node
       ->get('comment_node_blog_entry')
