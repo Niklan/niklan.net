@@ -10,17 +10,3 @@ props:
     icon:
       title: Icon name
       type: string
-      enum:
-        - forum
-        - search
-        - share
-        - toc
-        - coffee-half-empty-twotone-loop
-        - event
-        - overview
-        - feedback
-        - info
-        - lightbulb
-        - report
-        - warning
-        - close

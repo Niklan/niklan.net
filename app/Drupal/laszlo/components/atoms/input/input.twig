@@ -1,35 +1,12 @@
 {%
   set classes = [
     'input',
-    'input--type--' ~ type|clean_class,
-    multiline ? 'input--multiline',
-    required ? 'input--required',
+    'input--variant--' ~ variant|default('plain'),
+    'input--color--' ~ color|default('primary'),
+    'input--size--' ~ size|default('md'),
     full_width ? 'input--full-width',
   ]
 %}
-{% do attributes.addClass(classes) %}
-{%
-  set props_to_attribute = [
-    'id', 'autocapitalize', 'spellcheck', 'autocomplete', 'autofocus',
-    'disabled', 'name', 'placeholder',
-  ]
-%}
-{% for prop in props_to_attribute %}
-  {% do prop and _context[prop] is defined ? attributes.setAttribute(prop, _context[prop]) %}
-{% endfor %}
-
-{% if required %}
-  {% do attributes.setAttribute('required', 'required') %}
-  {% do attributes.setAttribute('aria-required', 'true') %}
-{% endif %}
-
-{% if multiline %}
-  {% do rows ? attributes.setAttribute('rows', rows) %}
-  <textarea{{ attributes }}>{{ value }}</textarea>
-{% else %}
-  {% do value ? attributes.setAttribute('value', value) %}
-  {% do size ? attributes.setAttribute('size', size) %}
-  {% do maxlength ? attributes.setAttribute('maxlength', maxlength) %}
-  {% do attributes.setAttribute('type', type) %}
-  <input{{ attributes }}/>
-{% endif %}
+<div{{ attributes.addClass(classes) }}>
+  <input{{ input_attributes.addClass('input__input') }}/>
+</div>

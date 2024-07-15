@@ -2,7 +2,8 @@ global:
   css:
     base:
       # Make sure that layers comes first, because it defines layers order.
-      assets/css/00-setting/layer.css: { }
+      assets/css/00-setting/layer.css:
+        weight: -1000
       assets/css/00-setting/color.css: { }
       assets/css/00-setting/elevation.css: { }
       assets/css/00-setting/spacing.css: { }

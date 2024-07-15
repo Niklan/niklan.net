@@ -13,4 +13,13 @@
  * @ingroup themeable
  */
 #}
-{% include 'laszlo:input' with { input_attributes: attributes } only %}{{ children }}
+{% embed 'laszlo:button' with {
+  attributes,
+  type: 'submit',
+  variant: 'solid',
+  value: element['#value'],
+} only %}
+  {% block children %}
+    {{ value }}
+  {% endblock %}
+{% endembed %}

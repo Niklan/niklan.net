@@ -1,0 +1,101 @@
+{#
+/**
+ * @code
+ * {% include '@laszlo/../components/atoms/button/button.test.twig' %}
+ * @endcode
+ */
+#}
+{% set buttons = {
+  'plain': {
+    title: 'Plain variants',
+    variants: {
+      'plain': {},
+      'plain-secondary': { color: 'secondary' },
+      'plain-tertiary': { color: 'tertiary' },
+      'plain-danger': { color: 'danger' },
+    }
+  },
+  'outlined': {
+    title: 'Outlined variants',
+    variants: {
+      'outlined': { variant: 'outlined' },
+      'outlined-secondary': { variant: 'outlined', color: 'secondary' },
+      'outlined-tertiary': { variant: 'outlined', color: 'tertiary' },
+      'outlined-danger': { variant: 'outlined', color: 'danger' },
+    }
+  },
+  'soft': {
+    title: 'Soft variants',
+    variants: {
+      'soft': { variant: 'soft' },
+      'soft-secondary': { variant: 'soft', color: 'secondary' },
+      'soft-tertiary': { variant: 'soft', color: 'tertiary' },
+      'soft-danger': { variant: 'soft', color: 'danger' },
+    }
+  },
+  'solid': {
+    title: 'Solid variants',
+    variants: {
+      'solid': { variant: 'solid' },
+      'solid-secondary': { variant: 'solid', color: 'secondary' },
+      'solid-tertiary': { variant: 'solid', color: 'tertiary' },
+      'solid-danger': { variant: 'solid', color: 'danger' },
+    }
+  },
+  'link': {
+    title: 'Link variants',
+    variants: {
+      'link': { component: 'a', href: '#' },
+      'link-secondary': { component: 'a', href: '#', color: 'secondary' },
+      'link-tertiary': { component: 'a', href: '#', color: 'tertiary' },
+      'link-danger': { component: 'a', href: '#', color: 'danger' },
+    }
+  },
+  'sizes': {
+    title: 'Sizes',
+    variants: {
+      'sm': { size: 'sm' },
+      'md': { size: 'md' },
+      'lg': { size: 'lg' },
+    }
+  },
+  'disabled': {
+    title: 'Disabled',
+    variants: {
+      'plain': { disabled: true },
+      'outlined': { variant: 'outlined', disabled: true },
+      'soft': { variant: 'soft', disabled: true },
+      'solid': { variant: 'solid', disabled: true },
+      'link': { component: 'a', href: '#', disabled: true },
+    }
+  },
+  'icons': {
+    title: 'Icons',
+    variants: {
+      'plain': { start_icon: 'forum' },
+      'plain-end': { end_icon: 'share' },
+      'outlined': { variant: 'outlined', start_icon: 'forum' },
+      'outlined-end': { variant: 'outlined', end_icon: 'share' },
+      'soft': { variant: 'soft', start_icon: 'forum' },
+      'soft-end': { variant: 'soft', end_icon: 'share' },
+      'solid': { variant: 'solid', start_icon: 'forum' },
+      'solid-end': { variant: 'solid', end_icon: 'share' },
+      'link': { component: 'a', href: '#', start_icon: 'forum' },
+      'link-end': { component: 'a', href: '#', end_icon: 'share' },
+    }
+  }
+} %}
+{% for group in buttons %}
+  <div style="padding: 16px; display: flex; gap: 16px; flex-direction: column">
+    <h2>{{ group.title }}</h2>
+    <div style="gap: 16px; display: flex; flex-flow: wrap">
+      {% for key, variant in group.variants %}
+        {% embed 'laszlo:button' with variant|merge({test_type: key}) only %}
+          {% block children %}
+            Hello, World! ({{ test_type }})
+          {% endblock %}
+        {% endembed %}
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}

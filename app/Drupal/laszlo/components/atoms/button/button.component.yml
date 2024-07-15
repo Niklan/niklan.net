@@ -1,0 +1,74 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Button
+status: experimental
+group: atoms
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: Button attributes.
+    variant:
+      title: Variant
+      type: string
+      enum:
+        - plain
+        - outlined
+        - soft
+        - solid
+      default: plain
+    color:
+      title: Color
+      type: string
+      enum:
+        - primary
+        - secondary
+        - tertiary
+        - danger
+      default: primary
+    size:
+      title: Size
+      type: string
+      enum:
+        - sm
+        - md
+        - lg
+      default: md
+    disabled:
+      title: Disabled
+      type: boolean
+    component:
+      title: Component
+      type: string
+      enum:
+        - a
+        - button
+      default: button
+    href:
+      title: URL
+      type: string
+    start_icon:
+      title: Start icon
+      type: string
+    end_icon:
+      title: End icon
+      type: string
+    type:
+      title: Type
+      type: string
+      enum:
+        - submit
+        - reset
+        - button
+      default: button
+    value:
+      title: Value
+      type: string
+    name:
+      title: Name
+      type: string
+slots:
+  children:
+    required: true
+    title: Children content

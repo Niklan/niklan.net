@@ -1,13 +1,22 @@
 {% do attributes.setAttribute('action', path('niklan.search_page')) %}
 <form{{ attributes.addClass('search-bar') }}>
-  <input name="q"
-         type="text"
-         aria-label="{{ 'Search query'|t }}"
-         placeholder="{{ placeholder }}"
-         class="search-bar__input">
-  <button type="submit"
-          aria-label="{{ 'Do search'|t }}"
-          class="search-bar__submit">
-    {{ include('laszlo:svg-icon', { icon: 'search' }, with_context = false) }}
-  </button>
+  {% include 'laszlo:input' with {
+   attributes: create_attribute({
+      'class': ['search-bar__input'],
+    }),
+    input_attributes: create_attribute({
+      'name': 'q',
+      'type': 'text',
+      'placeholder': placeholder
+    }),
+    full_width: true,
+  } only %}
+  {% include 'laszlo:button' with {
+    attributes: create_attribute({
+      'class': ['search-bar__button'],
+      'aria-label': 'Do search'|t,
+    }),
+    type: 'submit',
+    start_icon: 'search',
+  } only %}
 </form>

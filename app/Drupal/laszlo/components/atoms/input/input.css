@@ -1,23 +1,45 @@
 .input {
   --input-border-color: var(--color-outline-variant);
-  --input-background-color: var(--color-surface-container-low);
+  --input-background-color: var(--color-surface-container-lowest);
   --input-color: var(--color-on-surface);
   --input-box-shadow: none;
+  --input-border-radius: var(--spacing-1);
 
+  display: inline-flex;
   margin: 0;
-  padding: var(--spacing-2) var(--spacing-3);
-  transition: all 100ms ease-in;
+  padding: 0 var(--spacing-3);
+  cursor: text;
   color: var(--input-color);
   border: 1px solid var(--input-border-color);
-  border-radius: var(--spacing-1);
+  border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
   box-shadow: var(--input-box-shadow);
 
-  &:hover,
+  &:hover {
+    --input-border-color: var(--color-primary);
+  }
+
   &:focus {
     --input-border-color: var(--color-primary);
-    --input-box-shadow: 0 0 0 2px var(--color-secondary-fixed-dim);
+    --input-box-shadow: 0 0 0 4px var(--color-secondary-fixed-dim);
   }
+}
+
+.input--size--md {
+  height: var(--spacing-10);
+  font: var(--typography-body-medium);
+}
+
+.input__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  color: inherit;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font: inherit;
 }
 
 .input--full-width {

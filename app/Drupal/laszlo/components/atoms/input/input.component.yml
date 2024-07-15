@@ -7,35 +7,36 @@ props:
   properties:
     attributes:
       type: Drupal\Core\Template\Attribute
-      title: Attributes
-      description: Wrapper attributes.
-    id:
+      title: Wrapper attributes
+    input_attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Input attributes
+    variant:
+      title: Variant
       type: string
-    autocapitalize:
+      enum:
+        - plain
+        - outlined
+        - soft
+        - solid
+      default: plain
+    color:
+      title: Color
       type: string
-    spellcheck:
-      type: boolean
-    # @see https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
-    autocomplete:
+      enum:
+        - primary
+        - secondary
+        - tertiary
+        - danger
+      default: primary
+    size:
+      title: Size
       type: string
-    autofocus:
-      type: string
-    disabled:
-      type: boolean
+      enum:
+        - sm
+        - md
+        - lg
+      default: md
     full_width:
+      title: Full width
       type: boolean
-    multiline:
-      type: boolean
-    rows:
-      type: [number, string]
-    name:
-      type: string
-    placeholder:
-      type: string
-    required:
-      type: boolean
-    type:
-      type: string
-      default: text
-    value:
-      type: [integer, string, number]
