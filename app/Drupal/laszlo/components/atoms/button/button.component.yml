@@ -17,14 +17,12 @@ props:
         - outlined
         - soft
         - solid
-      default: plain
+      default: solid
     color:
       title: Color
       type: string
       enum:
         - primary
-        - secondary
-        - tertiary
         - danger
       default: primary
     size:

@@ -1,0 +1,82 @@
+{#
+/**
+ * @code
+ * {% include '@laszlo/../components/atoms/input/input.test.twig' %}
+ * @endcode
+ */
+#}
+{% set decorator %}
+  {% include 'laszlo:svg-icon' with { icon: 'forum' } only %}
+{% endset %}
+{%
+  set components = {
+    'plain': {
+      title: 'Plain variants',
+      variants: {
+        'primary': { variant: 'plain', color: 'primary' },
+        'danger': { variant: 'plain', color: 'danger' },
+        'decorator': { variant: 'plain', decorator },
+      },
+    },
+    'outlined': {
+      title: 'Outlined variants',
+      variants: {
+        'primary': { variant: 'outlined', color: 'primary' },
+        'danger': { variant: 'outlined', color: 'danger' },
+        'decorator': { variant: 'outlined', decorator },
+      },
+    },
+    'size-sm': {
+      title: 'Size SM',
+      variants: {
+        'plain': { variant: 'plain', size: 'sm' },
+        'outlined': { variant: 'outlined', size: 'sm'},
+        'decorator': { variant: 'outlined', size: 'sm', decorator },
+      }
+    },
+    'size-md': {
+      title: 'Size MD',
+      variants: {
+        'plain': { variant: 'plain', size: 'md' },
+        'outlined': { variant: 'outlined', size: 'md'},
+        'decorator': { variant: 'outlined', size: 'md', decorator },
+      }
+    },
+    'size-lg': {
+      title: 'Size LG',
+      variants: {
+        'plain': { variant: 'plain', size: 'lg' },
+        'outlined': { variant: 'outlined', size: 'lg'},
+        'decorator': { variant: 'outlined', size: 'lg', decorator },
+      }
+    },
+    'disabled': {
+      title: 'Disabled',
+      variants: {
+        'primary': { variant: 'plain', color: 'primary', disabled: true, },
+        'danger': { variant: 'plain', color: 'danger', disabled: true, },
+        'decorator': { variant: 'plain', decorator, disabled: true, },
+      },
+    },
+  }
+%}
+{% for group in components %}
+  <div style="padding: 16px; display: flex; gap: 16px; flex-direction: column">
+    <h2>{{ group.title }}</h2>
+    <div style="gap: 16px; display: flex; flex-flow: wrap">
+      {% for key, variant in group.variants %}
+        {% set input_attributes = create_attribute({
+          'placeholder': 'Foo bar (' ~ key ~ ')',
+        }) %}
+        {% embed 'laszlo:input' with variant|merge({input_attributes}) only %}
+          {% block start_decorator %}
+            {{ decorator|raw }}
+          {% endblock %}
+          {% block end_decorator %}
+            {{ decorator|raw }}
+          {% endblock %}
+        {% endembed %}
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}

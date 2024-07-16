@@ -1,33 +1,60 @@
 .input {
-  --input-border-color: var(--color-outline-variant);
+  --input-border-color: transparent;
+  --input-border-color-hover: transparent;
+  --input-border-width: 1px;
   --input-background-color: var(--color-surface-container-lowest);
   --input-color: var(--color-on-surface);
+  --input-placeholder-color: var(--color-outline);
   --input-box-shadow: none;
+  --input-box-shadow-focus: none;
   --input-border-radius: var(--spacing-1);
+  --input-height: var(--spacing-10);
+  --input-font: var(--typography-body-medium);
+  --input-padding-inline: var(--spacing-3);
+  --input-gap: var(--spacing-3);
+  --input-icon-size: 24px;
 
   display: inline-flex;
+  gap: var(--spacing-3);
   margin: 0;
-  padding: 0 var(--spacing-3);
+  padding-inline: var(--input-padding-inline);
   cursor: text;
   color: var(--input-color);
-  border: 1px solid var(--input-border-color);
+  border: var(--input-border-width) solid var(--input-border-color);
   border-radius: var(--input-border-radius);
   background-color: var(--input-background-color);
   box-shadow: var(--input-box-shadow);
+  position: relative;
+  font: var(--input-font);
+  box-sizing: border-box;
+  height: var(--input-height);
 
   &:hover {
-    --input-border-color: var(--color-primary);
+    --input-border-color: var(--input-border-color-hover);
   }
 
   &:focus {
-    --input-border-color: var(--color-primary);
-    --input-box-shadow: 0 0 0 4px var(--color-secondary-fixed-dim);
+    --input-border-color: var(--input-border-color-hover);
   }
 }
 
-.input--size--md {
-  height: var(--spacing-10);
-  font: var(--typography-body-medium);
+.input::before {
+  content: "";
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: var(--input-box-shadow);
+  margin: calc(var(--input-border-width) * -1);
+}
+
+.input:focus-within::before {
+  --input-box-shadow: var(--input-box-shadow-focus);
 }
 
 .input__input {
@@ -40,8 +67,70 @@
   outline: none;
   background-color: transparent;
   font: inherit;
+  --focus-box-shadow: none;
+}
+
+.input__input::placeholder {
+  color: var(--input-placeholder-color);
 }
 
 .input--full-width {
   width: 100%;
+}
+
+.input .svg-icon {
+  height: var(--input-icon-size);
+  pointer-events: none;
+  align-self: center;
+}
+
+/* Disabled. */
+.input--disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+  filter: grayscale(1);
+}
+
+.input__input[disabled] {
+  cursor: not-allowed;
+}
+
+/* Sizes. */
+.input--size--sm {
+  --input-height: var(--spacing-9);
+  --input-font: var(--typography-body-small);
+  --input-icon-size: var(--spacing-4);
+}
+
+.input--size--md {
+  --input-font: var(--typography-body-medium);
+}
+
+.input--size--lg {
+  --input-height: var(--spacing-12);
+  --input-font: var(--typography-body-large);
+}
+
+/* Plain variants. */
+.input--variant--plain.input--color--primary {
+  --input-color: var(--color-primary);
+  --input-box-shadow-focus: inset 0 0 0 2px var(--color-primary);
+}
+
+.input--variant--plain.input--color--danger {
+  --input-color: var(--color-error);
+  --input-box-shadow-focus: inset 0 0 0 2px var(--color-error);
+}
+
+/* Outlined variants. */
+.input--variant--outlined.input--color--primary {
+  --input-color: var(--color-primary);
+  --input-border-color: var(--color-primary);
+  --input-box-shadow-focus: inset 0 0 0 2px var(--color-primary);
+}
+
+.input--variant--outlined.input--color--danger {
+  --input-color: var(--color-error);
+  --input-border-color: var(--color-error);
+  --input-box-shadow-focus: inset 0 0 0 2px var(--color-error);
 }

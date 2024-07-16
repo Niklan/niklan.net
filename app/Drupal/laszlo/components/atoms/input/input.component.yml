@@ -17,16 +17,12 @@ props:
       enum:
         - plain
         - outlined
-        - soft
-        - solid
-      default: plain
+      default: outlined
     color:
       title: Color
       type: string
       enum:
         - primary
-        - secondary
-        - tertiary
         - danger
       default: primary
     size:
@@ -40,3 +36,11 @@ props:
     full_width:
       title: Full width
       type: boolean
+    disabled:
+      title: Disabled
+      type: boolean
+slots:
+  start_decorator:
+    title: Start decorator
+  end_decorator:
+    title: End decorator

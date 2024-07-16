@@ -5,64 +5,77 @@
  * @endcode
  */
 #}
-{% set buttons = {
+{% set components = {
   'plain': {
     title: 'Plain variants',
     variants: {
-      'plain': {},
-      'plain-secondary': { color: 'secondary' },
-      'plain-tertiary': { color: 'tertiary' },
-      'plain-danger': { color: 'danger' },
+      'primary': { variant: 'plain', color: 'primary' },
+      'danger': { variant: 'plain', color: 'danger' },
+      'primary-link': { component: 'a', href: '#', variant: 'plain', color: 'primary' },
+      'danger-link': { component: 'a', href: '#', variant: 'plain', color: 'danger' },
     }
   },
   'outlined': {
     title: 'Outlined variants',
     variants: {
-      'outlined': { variant: 'outlined' },
-      'outlined-secondary': { variant: 'outlined', color: 'secondary' },
-      'outlined-tertiary': { variant: 'outlined', color: 'tertiary' },
-      'outlined-danger': { variant: 'outlined', color: 'danger' },
+      'primary': { variant: 'outlined', color: 'primary' },
+      'danger': { variant: 'outlined', color: 'danger' },
+      'primary-link': { component: 'a', href: '#', variant: 'outlined', color: 'primary' },
+      'danger-link': { component: 'a', href: '#', variant: 'outlined', color: 'danger' },
     }
   },
   'soft': {
     title: 'Soft variants',
     variants: {
-      'soft': { variant: 'soft' },
-      'soft-secondary': { variant: 'soft', color: 'secondary' },
-      'soft-tertiary': { variant: 'soft', color: 'tertiary' },
-      'soft-danger': { variant: 'soft', color: 'danger' },
+      'primary': { variant: 'soft', color: 'primary' },
+      'danger': { variant: 'soft', color: 'danger' },
+      'primary-link': { component: 'a', href: '#', variant: 'soft', color: 'primary' },
+      'danger-link': { component: 'a', href: '#', variant: 'soft', color: 'danger' },
     }
   },
   'solid': {
     title: 'Solid variants',
     variants: {
-      'solid': { variant: 'solid' },
-      'solid-secondary': { variant: 'solid', color: 'secondary' },
-      'solid-tertiary': { variant: 'solid', color: 'tertiary' },
-      'solid-danger': { variant: 'solid', color: 'danger' },
+      'primary': { variant: 'solid', color: 'primary' },
+      'danger': { variant: 'solid', color: 'danger' },
+      'primary-link': { component: 'a', href: '#', variant: 'solid', color: 'primary' },
+      'danger-link': { component: 'a', href: '#', variant: 'solid', color: 'danger' },
     }
   },
-  'link': {
-    title: 'Link variants',
+  'size-sm': {
+    title: 'Size SM',
     variants: {
-      'link': { component: 'a', href: '#' },
-      'link-secondary': { component: 'a', href: '#', color: 'secondary' },
-      'link-tertiary': { component: 'a', href: '#', color: 'tertiary' },
-      'link-danger': { component: 'a', href: '#', color: 'danger' },
+      'plain': { size: 'sm' },
+      'outlined': { variant: 'outlined', size: 'sm' },
+      'soft': { variant: 'soft', size: 'sm' },
+      'solid': { variant: 'solid', size: 'sm' },
+      'link': { component: 'a', href: '#', size: 'sm' },
     }
   },
-  'sizes': {
-    title: 'Sizes',
+  'size-md': {
+    title: 'Size MD',
     variants: {
-      'sm': { size: 'sm' },
-      'md': { size: 'md' },
-      'lg': { size: 'lg' },
+      'plain': { size: 'md' },
+      'outlined': { variant: 'outlined', size: 'md' },
+      'soft': { variant: 'soft', size: 'md' },
+      'solid': { variant: 'solid', size: 'md' },
+      'link': { component: 'a', href: '#', size: 'md' },
+    }
+  },
+  'size-lg': {
+    title: 'Size LG',
+    variants: {
+      'plain': { size: 'lg' },
+      'outlined': { variant: 'outlined', size: 'lg' },
+      'soft': { variant: 'soft', size: 'lg' },
+      'solid': { variant: 'solid', size: 'lg' },
+      'link': { component: 'a', href: '#', size: 'lg' },
     }
   },
   'disabled': {
     title: 'Disabled',
     variants: {
-      'plain': { disabled: true },
+      'plain': { disabled: true, size: 'sm' },
       'outlined': { variant: 'outlined', disabled: true },
       'soft': { variant: 'soft', disabled: true },
       'solid': { variant: 'solid', disabled: true },
@@ -85,7 +98,7 @@
     }
   }
 } %}
-{% for group in buttons %}
+{% for group in components %}
   <div style="padding: 16px; display: flex; gap: 16px; flex-direction: column">
     <h2>{{ group.title }}</h2>
     <div style="gap: 16px; display: flex; flex-flow: wrap">

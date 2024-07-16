@@ -1,13 +1,13 @@
 {% set element = component|default('button') %}
 {% do element == 'a' ? attributes.setAttribute('href', href) %}
 {% do disabled ? attributes.setAttribute('disabled', 'disabled') %}
-{% do attributes.setAttribute('type', type|default('button')) %}
+{% do element == 'button' ? attributes.setAttribute('type', type|default('button')) %}
 {% do value ? attributes.setAttribute('value', value) %}
 {% do name ? attributes.setAttribute('name', name) %}
 {%
   set classes = [
     'button',
-    'button--variant--' ~ variant|default('plain'),
+    'button--variant--' ~ variant|default('solid'),
     'button--color--' ~ color|default('primary'),
     'button--size--' ~ size|default('md'),
   ]

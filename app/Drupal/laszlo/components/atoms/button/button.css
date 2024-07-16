@@ -51,20 +51,8 @@
 /* Plain variants. */
 .button--variant--plain.button--color--primary {
   --button-color: var(--color-primary);
-  --button-color-hover: var(--color-primary);
-  --button-background-color-hover: var(--color-surface);
-}
-
-.button--variant--plain.button--color--secondary {
-  --button-color: var(--color-secondary);
-  --button-color-hover: var(--color-secondary);
-  --button-background-color-hover: var(--color-surface);
-}
-
-.button--variant--plain.button--color--tertiary {
-  --button-color: var(--color-tertiary);
-  --button-color-hover: var(--color-tertiary);
-  --button-background-color-hover: var(--color-surface);
+  --button-color-hover: var(--color-on-primary-container);
+  --button-background-color-hover: var(--color-inverse-primary);
 }
 
 .button--variant--plain.button--color--danger {
@@ -80,22 +68,6 @@
   --button-border-color: var(--color-primary);
   --button-background-color: transparent;
   --button-background-color-hover: var(--color-primary);
-}
-
-.button--variant--outlined.button--color--secondary {
-  --button-color: var(--color-secondary);
-  --button-color-hover: var(--color-on-secondary);
-  --button-border-color: var(--color-secondary);
-  --button-background-color: transparent;
-  --button-background-color-hover: var(--color-secondary);
-}
-
-.button--variant--outlined.button--color--tertiary {
-  --button-color: var(--color-tertiary);
-  --button-color-hover: var(--color-on-tertiary);
-  --button-border-color: var(--color-tertiary);
-  --button-background-color: transparent;
-  --button-background-color-hover: var(--color-tertiary);
 }
 
 .button--variant--outlined.button--color--danger {
@@ -114,20 +86,6 @@
   --button-background-color-hover: var(--color-surface);
 }
 
-.button--variant--soft.button--color--secondary {
-  --button-color: var(--color-on-secondary-container);
-  --button-color-hover: var(--color-on-secondary-container);
-  --button-background-color: var(--color-secondary-fixed-dim);
-  --button-background-color-hover: var(--color-surface);
-}
-
-.button--variant--soft.button--color--tertiary {
-  --button-color: var(--color-on-tertiary-container);
-  --button-color-hover: var(--color-on-tertiary-container);
-  --button-background-color: var(--color-tertiary-fixed-dim);
-  --button-background-color-hover: var(--color-surface);
-}
-
 .button--variant--soft.button--color--danger {
   --button-color: var(--color-on-error-container);
   --button-color-hover: var(--color-on-error-container);
@@ -141,20 +99,6 @@
   --button-color-hover: var(--color-on-primary-fixed-variant);
   --button-background-color: var(--color-primary);
   --button-background-color-hover: var(--color-primary-fixed-dim);
-}
-
-.button--variant--solid.button--color--secondary {
-  --button-color: var(--color-on-secondary);
-  --button-color-hover: var(--color-on-secondary-fixed-variant);
-  --button-background-color: var(--color-secondary);
-  --button-background-color-hover: var(--color-secondary-fixed-dim);
-}
-
-.button--variant--solid.button--color--tertiary {
-  --button-color: var(--color-on-tertiary);
-  --button-color-hover: var(--color-on-tertiary-fixed-variant);
-  --button-background-color: var(--color-tertiary);
-  --button-background-color-hover: var(--color-tertiary-fixed-dim);
 }
 
 .button--variant--solid.button--color--danger {

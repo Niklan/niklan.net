@@ -1,12 +1,16 @@
 {%
   set classes = [
     'input',
-    'input--variant--' ~ variant|default('plain'),
+    'input--variant--' ~ variant|default('outlined'),
     'input--color--' ~ color|default('primary'),
     'input--size--' ~ size|default('md'),
+    disabled ? 'input--disabled',
     full_width ? 'input--full-width',
   ]
 %}
+{% do disabled ? input_attributes.setAttribute('disabled', 'disabled') %}
 <div{{ attributes.addClass(classes) }}>
+  {% block start_decorator %}{% endblock %}
   <input{{ input_attributes.addClass('input__input') }}/>
+  {% block end_decorator %}{% endblock %}
 </div>
