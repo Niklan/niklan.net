@@ -1,0 +1,7 @@
+.form-helper-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  color: var(--color-on-surface-variant);
+  font: var(--typography-label-small);
+}

@@ -1,0 +1,9 @@
+.form-label {
+  font: var(--typography-label-large);
+}
+
+.form-label--required::after {
+  content: '*';
+  display: inline;
+  color: var(--color-error);
+}

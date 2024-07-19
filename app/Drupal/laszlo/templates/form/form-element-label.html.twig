@@ -14,15 +14,12 @@
  * @ingroup themeable
  */
 #}
-TODO LABEL
-{%
-  set classes = [
-    title_display == 'after' ? 'option',
-    title_display == 'invisible' ? 'visually-hidden',
-    required ? 'js-form-required',
-    required ? 'form-required',
-  ]
-%}
 {% if title is not empty or required -%}
-  <label{{ attributes.addClass(classes) }}>{{ title }}</label>
+  {% embed 'laszlo:form-label' with {
+    attributes,
+    required,
+    title,
+  } only %}
+    {% block children %}{{ title }}{% endblock %}
+  {% endembed %}
 {%- endif %}
