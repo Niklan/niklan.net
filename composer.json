@@ -127,6 +127,15 @@
                 "[web-root]/sites/monolog.services.yml": "assets/scaffold/monolog.services.yml"
             }
         },
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "patches": {
+            "drupal/core": {
+                "Unhelpful PHP error with NULL type property (dgo.to/3462156)": "https://git.drupalcode.org/project/drupal/-/merge_requests/8807.patch",
+                "Unhelpful error message with enumeration problem (dgo.to/3462700)": "https://git.drupalcode.org/project/drupal/-/merge_requests/8846.patch"
+            }
+        },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],

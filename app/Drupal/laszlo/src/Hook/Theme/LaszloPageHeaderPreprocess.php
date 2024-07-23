@@ -31,11 +31,6 @@ final readonly class LaszloPageHeaderPreprocess implements ContainerInjectionInt
     );
   }
 
-  public function __invoke(array &$variables): void {
-    $this->prepareBrandingVariables($variables);
-    $this->prepareNavigationVariables($variables);
-  }
-
   private function prepareBrandingVariables(array &$variables): void {
     $cache = CacheableMetadata::createFromRenderArray($variables);
 
@@ -70,6 +65,11 @@ final readonly class LaszloPageHeaderPreprocess implements ContainerInjectionInt
     );
 
     $cache->applyTo($variables);
+  }
+
+  public function __invoke(array &$variables): void {
+    $this->prepareBrandingVariables($variables);
+    $this->prepareNavigationVariables($variables);
   }
 
 }

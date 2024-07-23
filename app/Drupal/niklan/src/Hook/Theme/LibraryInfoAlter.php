@@ -21,11 +21,6 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
     );
   }
 
-  public function __invoke(array &$libraries, string $extension): void {
-    $this->alterDrupalAjax($libraries, $extension);
-    $this->alterHighlightJs($libraries, $extension);
-  }
-
   protected function alterDrupalAjax(array &$libraries, string $extension): void {
     if ($extension !== 'core' || !isset($libraries['drupal.ajax'])) {
       return;
@@ -45,6 +40,11 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
     $module_path = $this->moduleExtensionList->getPath('niklan');
     $worker_path = "/$module_path/assets/js/hljs.worker.js";
     $libraries['hljs']['drupalSettings']['highlightJs']['workerPath'] = $worker_path;
+  }
+
+  public function __invoke(array &$libraries, string $extension): void {
+    $this->alterDrupalAjax($libraries, $extension);
+    $this->alterHighlightJs($libraries, $extension);
   }
 
 }

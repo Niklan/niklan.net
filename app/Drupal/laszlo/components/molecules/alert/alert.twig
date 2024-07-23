@@ -24,7 +24,7 @@
 %}
 <div{{ attributes.addClass('alert', 'alert--' ~ type|clean_class) }}>
   <div class="alert__heading">
-    {% include 'laszlo:svg-icon' with { icon: switch[type].icon } only %}
+    {% include 'laszlo:icon' with { icon: switch[type].icon } only %}
     {% block heading %}{{ switch[type].label }}{% endblock %}
   </div>
   <div class="prose alert__content">

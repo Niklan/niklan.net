@@ -14,10 +14,10 @@
 %}
 <{{ element }}{{ attributes.addClass(classes) }}>
   {% if start_icon %}
-    {% include 'laszlo:svg-icon' with { icon: start_icon } only %}
+    {% include 'laszlo:icon' with { icon: start_icon } only %}
   {% endif %}
   {% block children %}{% endblock %}
   {% if end_icon %}
-    {% include 'laszlo:svg-icon' with { icon: end_icon } only %}
+    {% include 'laszlo:icon' with { icon: end_icon } only %}
   {% endif %}
 </{{ element }}>

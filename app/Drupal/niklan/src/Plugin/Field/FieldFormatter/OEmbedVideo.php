@@ -27,19 +27,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 final class OEmbedVideo extends FormatterBase {
 
-  /**
-   * The responsive image style storage.
-   */
   protected EntityStorageInterface $responsiveImageStyleStorage;
-
-  /**
-   * The link generator.
-   */
   protected LinkGeneratorInterface $linkGenerator;
-
-  /**
-   * The current user.
-   */
   protected AccountInterface $currentUser;
 
   #[\Override]
@@ -58,37 +47,6 @@ final class OEmbedVideo extends FormatterBase {
     $instance->currentUser = $container->get('current_user');
 
     return $instance;
-  }
-
-  #[\Override]
-  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
-    if ($field_definition->getTargetEntityTypeId() !== 'media') {
-      return FALSE;
-    }
-
-    if (!$field_definition->getTargetBundle()) {
-      return FALSE;
-    }
-
-    $media_type = MediaType::load($field_definition->getTargetBundle());
-
-    if (!$media_type instanceof MediaTypeInterface) {
-      return FALSE;
-    }
-
-    $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
-    $is_oembed = $media_type->getSource() instanceof OEmbedInterface;
-
-    return $is_oembed && $is_video;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultSettings(): array {
-    return [
-      'responsive_image_style' => '',
-    ] + parent::defaultSettings();
   }
 
   /**
@@ -174,6 +132,10 @@ final class OEmbedVideo extends FormatterBase {
       return FALSE;
     }
 
+    if (!$field_definition->getTargetBundle()) {
+      return FALSE;
+    }
+
     $media_type = MediaType::load($field_definition->getTargetBundle());
 
     if (!$media_type instanceof MediaTypeInterface) {
@@ -186,7 +148,9 @@ final class OEmbedVideo extends FormatterBase {
     return $is_oembed && $is_video;
   }
 
-  #[\Override]
+  /**
+   * {@inheritdoc}
+   */
   public static function defaultSettings(): array {
     return [
       'responsive_image_style' => '',

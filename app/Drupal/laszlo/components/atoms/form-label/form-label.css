@@ -3,7 +3,7 @@
 }
 
 .form-label--required::after {
-  content: '*';
   display: inline;
+  content: "*";
   color: var(--color-error);
 }

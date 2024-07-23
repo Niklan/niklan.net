@@ -6,7 +6,7 @@
  */
 #}
 {% set decorator %}
-  {% include 'laszlo:svg-icon' with { icon: 'forum' } only %}
+  {% include 'laszlo:icon' with { icon: 'forum' } only %}
 {% endset %}
 {%
   set components = {
@@ -68,7 +68,7 @@
         {% set input_attributes = create_attribute({
           'placeholder': 'Foo bar (' ~ key ~ ')',
         }) %}
-        {% embed 'laszlo:input' with variant|merge({input_attributes}) only %}
+        {% embed 'laszlo:text-input' with variant|merge({input_attributes}) only %}
           {% block start_decorator %}
             {{ decorator|raw }}
           {% endblock %}
