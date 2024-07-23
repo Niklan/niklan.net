@@ -9,8 +9,6 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\node\NodeInterface;
 
 /**
- * Previous next links.
- *
  * @ExtraFieldDisplay(
  *   id = "previous_next",
  *   label = @Translation("Previous, Next links"),

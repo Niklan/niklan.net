@@ -10,19 +10,8 @@ use Drupal\niklan\Data\EntitySearchResult;
 use Drupal\niklan\Data\EntitySearchResults;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides theme hook preprocess for search results.
- *
- * @see template_preprocess_niklan_search_results()
- */
 final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface {
 
-  /**
-   * Constructs a new NiklanSearchResultsPreprocess instance.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager.
-   */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
@@ -34,27 +23,12 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
     );
   }
 
-  /**
-   * Builds search results.
-   *
-   * @param \Drupal\niklan\Data\EntitySearchResults $results
-   *   The search result set.
-   *
-   * @return array
-   *   An array with search results.
-   */
   protected function buildResults(EntitySearchResults $results): array {
     $this->warmUpResults($results);
 
     return \array_map([$this, 'buildResult'], $results->getItems());
   }
 
-  /**
-   * Warms up result entities.
-   *
-   * @param \Drupal\niklan\Data\EntitySearchResults $results
-   *   The search results.
-   */
   protected function warmUpResults(EntitySearchResults $results): void {
     foreach ($results->getEntityIds() as $entity_type_id => $entity_ids) {
       $this
@@ -64,15 +38,6 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
     }
   }
 
-  /**
-   * Builds a single result.
-   *
-   * @param \Drupal\niklan\Data\EntitySearchResult $result
-   *   The entity search result.
-   *
-   * @return array
-   *   A render array with result.
-   */
   protected function buildResult(EntitySearchResult $result): array {
     $storage = $this->entityTypeManager->getStorage($result->getEntityTypeId());
     $view_builder = $this->entityTypeManager->getViewBuilder(
@@ -83,9 +48,6 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
     return $view_builder->view($entity, 'search_result');
   }
 
-  /**
-   * Implements hook_preprocess_HOOK().
-   */
   public function __invoke(array &$variables): void {
     $results = $variables['results'];
 

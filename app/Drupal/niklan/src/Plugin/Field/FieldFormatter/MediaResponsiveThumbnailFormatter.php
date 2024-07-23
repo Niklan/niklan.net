@@ -7,6 +7,7 @@ namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -17,17 +18,11 @@ use Drupal\Core\Url;
 use Drupal\media\MediaInterface;
 use Drupal\responsive_image\Plugin\Field\FieldFormatter\ResponsiveImageFormatter;
 
-/**
- * Plugin implementation of the media responsive thumbnail formatter.
- *
- * @FieldFormatter(
- *   id = "niklan_responsive_media_thumbnail",
- *   label = @Translation("Responsive thumbnail"),
- *   field_types = {
- *     "entity_reference"
- *   }
- * )
- */
+#[FieldFormatter(
+  id: 'niklan_responsive_media_thumbnail',
+  label: new TranslatableMarkup('Responsive thumbnail'),
+  field_types: ['entity_reference'],
+)]
 final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
 
   #[\Override]

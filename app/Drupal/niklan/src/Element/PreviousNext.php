@@ -13,15 +13,9 @@ use Drupal\Core\Render\Attribute\RenderElement;
 use Drupal\Core\Render\Element\RenderElementBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides an element that prints links to previous and next articles.
- */
 #[RenderElement('niklan_previous_next')]
 final class PreviousNext extends RenderElementBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The entity type manager.
-   */
   protected EntityTypeManagerInterface $entityTypeManager;
 
   #[\Override]
@@ -43,15 +37,6 @@ final class PreviousNext extends RenderElementBase implements ContainerFactoryPl
     ];
   }
 
-  /**
-   * Prepares links for the template.
-   *
-   * @param array $element
-   *   The current element.
-   *
-   * @return array
-   *   The updated element.
-   */
   public function prepareLinks(array $element): array {
     $entity = $element['#entity'];
 
@@ -83,12 +68,6 @@ final class PreviousNext extends RenderElementBase implements ContainerFactoryPl
     return $element;
   }
 
-  /**
-   * Looking for previously published article.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The current entity.
-   */
   protected function findPrevious(EntityInterface $entity): ?EntityInterface {
     if (!\method_exists($entity, 'getCreatedTime')) {
       return NULL;
@@ -106,12 +85,6 @@ final class PreviousNext extends RenderElementBase implements ContainerFactoryPl
     return $id ? $storage->load(\reset($id)) : NULL;
   }
 
-  /**
-   * Looking for next published article.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The current entity.
-   */
   protected function findNext(EntityInterface $entity): ?EntityInterface {
     if (!\method_exists($entity, 'getCreatedTime')) {
       return NULL;

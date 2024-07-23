@@ -11,8 +11,6 @@ use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifierResult;
 
 /**
- * Provides a bundler based on Front Matter 'id' and 'language' params.
- *
  * @ingroup external_content
  */
 final class FrontMatterIdentifier implements IdentifierInterface {

@@ -14,24 +14,13 @@ use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides render element to display last blog posts.
+ * @todo Consider remove that element.
  */
 #[RenderElement('niklan_last_blog_posts')]
 final class LastBlogPosts extends RenderElementBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The entity type manager.
-   */
   protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
-   * The amount of blog posts to load.
-   */
   protected int $limit;
-
-  /**
-   * The view mode used to render items.
-   */
   protected string $viewMode;
 
   #[\Override]
@@ -57,15 +46,6 @@ final class LastBlogPosts extends RenderElementBase implements ContainerFactoryP
     ];
   }
 
-  /**
-   * Prepare element for rendering.
-   *
-   * @param array $element
-   *   An array with element.
-   *
-   * @return array
-   *   An array with modifier element.
-   */
   public function preRenderElement(array $element): array {
     $this->limit = $element['#limit'];
     $this->viewMode = $element['#view_mode'];
@@ -82,12 +62,6 @@ final class LastBlogPosts extends RenderElementBase implements ContainerFactoryP
     return $element;
   }
 
-  /**
-   * Builds items array.
-   *
-   * @return array
-   *   An array with items to render. Empty if nothing found.
-   */
   protected function prepareResults(): array {
     $results = [];
     $ids = $this->findResults();
@@ -107,15 +81,6 @@ final class LastBlogPosts extends RenderElementBase implements ContainerFactoryP
     return $results;
   }
 
-  /**
-   * Find last blog post IDs.
-   *
-   * @return array
-   *   An array with last blog post IDs.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
   protected function findResults(): array {
     $query = $this
       ->entityTypeManager

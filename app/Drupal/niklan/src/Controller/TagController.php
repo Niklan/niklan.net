@@ -11,9 +11,6 @@ use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides controller for tags.
- */
 final class TagController implements TagControllerInterface, ContainerInjectionInterface {
 
   /**

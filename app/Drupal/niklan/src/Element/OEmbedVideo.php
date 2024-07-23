@@ -19,35 +19,13 @@ use Drupal\media\OEmbed\UrlResolverInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides render element to display OEmbed video.
- */
 #[RenderElement('niklan_oembed_video')]
 final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The oEmbed resource fetcher.
-   */
   protected ResourceFetcherInterface $oEmbedFetcher;
-
-  /**
-   * The oEmbed URL resolver.
-   */
   protected UrlResolverInterface $oEmbedResolver;
-
-  /**
-   * The config factory.
-   */
   protected ConfigFactoryInterface $configFactory;
-
-  /**
-   * The media iframe Url helper.
-   */
   protected IFrameUrlHelper $iFrameUrlHelper;
-
-  /**
-   * The responsive image style storage.
-   */
   protected EntityStorageInterface $responsiveImageStyleStorage;
 
   #[\Override]
@@ -77,15 +55,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     ];
   }
 
-  /**
-   * Prepare element for rendering.
-   *
-   * @param array $element
-   *   An array with element.
-   *
-   * @return array
-   *   An array with modifier element.
-   */
   public function preRenderOembedVideo(array $element): array {
     if (!$this->validateElement($element)) {
       return [];
@@ -97,12 +66,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     return $element;
   }
 
-  /**
-   * Validates that element can be processed and all values are valid.
-   *
-   * @param array $element
-   *   An array with element.
-   */
   protected function validateElement(array $element): bool {
     $media = $element['#media'];
 
@@ -128,15 +91,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     return $this->validateResponsiveImageStyle($element);
   }
 
-  /**
-   * Builds preview for OEmbed video.
-   *
-   * @param array $element
-   *   An array with element.
-   *
-   * @return array
-   *   An array with preview element.
-   */
   protected function buildPreview(array $element): array {
     $media = $element['#media'];
     \assert($media instanceof MediaInterface);
@@ -152,15 +106,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     ];
   }
 
-  /**
-   * Builds content for OEmbed video.
-   *
-   * @param array $element
-   *   An array with element.
-   *
-   * @return array
-   *   An array with content element.
-   */
   protected function buildContent(array $element): array {
     $media = $element['#media'];
     \assert($media instanceof MediaInterface);
@@ -178,12 +123,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     );
   }
 
-  /**
-   * Validates resource availability.
-   *
-   * @param string $video_url
-   *   The video URL.
-   */
   protected function validateResource(string $video_url): bool {
     try {
       $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);
@@ -196,12 +135,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     }
   }
 
-  /**
-   * Validates responsive image style.
-   *
-   * @param array $element
-   *   The render element.
-   */
   protected function validateResponsiveImageStyle(array $element): bool {
     if (!$element['#preview_responsive_image_style']) {
       return FALSE;
@@ -219,14 +152,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     return $responsive_image_style->hasImageStyleMappings();
   }
 
-  /**
-   * Builds iframe URL.
-   *
-   * @param string $video_url
-   *   The remote video URL.
-   * @param \Drupal\media\OEmbed\Resource $resource
-   *   The oEmbed resource.
-   */
   protected function buildIframeUrl(string $video_url, Resource $resource): Url {
     if ($resource->getProvider()->getName() === 'YouTube') {
       // Default controller 'media.oembed_iframe' is not used because YouTube
@@ -258,21 +183,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     return $url;
   }
 
-  /**
-   * Builds an iframe element.
-   *
-   * @param string $src
-   *   The iframe URL.
-   * @param int $width
-   *   The iframe width.
-   * @param int $height
-   *   The iframe height.
-   * @param string|null $title
-   *   The iframe title.
-   *
-   * @return array
-   *   An array with iframe element.
-   */
   protected function buildIframe(string $src, int $width, int $height, ?string $title): array {
     $element = [
       '#type' => 'html_tag',
@@ -302,12 +212,6 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     return $element;
   }
 
-  /**
-   * Parser YouTube video ID from the URL.
-   *
-   * @param string $url
-   *   The video URL.
-   */
   protected function parseYouTubeVideoId(string $url): ?string {
     \preg_match(
       "/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'<> ]+)/",

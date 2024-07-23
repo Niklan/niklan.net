@@ -10,19 +10,8 @@ use Drupal\niklan\Entity\File\File;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\Portfolio;
 
-/**
- * Alters entity bundle information.
- *
- * @see niklan_entity_bundle_info_alter()
- */
 final class BundleInfoAlter {
 
-  /**
-   * Alters bundle classes for entities.
-   *
-   * @param array $bundles
-   *   The array with entity bundle formation.
-   */
   protected function alterBundleClasses(array &$bundles): void {
     $bundle_classes_map = [
       'node' => [
@@ -46,9 +35,6 @@ final class BundleInfoAlter {
     $bundles = NestedArray::mergeDeep($bundles, $bundle_classes_map);
   }
 
-  /**
-   * Implements hook_entity_bundle_info_alter().
-   */
   public function __invoke(array &$bundles): void {
     $this->alterBundleClasses($bundles);
   }

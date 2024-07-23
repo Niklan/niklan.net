@@ -15,28 +15,10 @@ use Drupal\niklan\Search\EntitySearchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Provides search page controller.
- */
 final class SearchController implements SearchControllerInterface, ContainerInjectionInterface {
 
-  /**
-   * The amount of results per page.
-   */
   protected const RESULT_LIMIT = 10;
 
-  /**
-   * Constructs a new SearchController instance.
-   *
-   * @param \Drupal\niklan\Search\EntitySearchInterface $entitySearch
-   *   The entity search.
-   * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
-   *   The form builder.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager.
-   * @param \Drupal\Core\Pager\PagerManagerInterface $pagerManager
-   *   The pager manager.
-   */
   public function __construct(
     protected EntitySearchInterface $entitySearch,
     protected FormBuilderInterface $formBuilder,
@@ -115,12 +97,6 @@ final class SearchController implements SearchControllerInterface, ContainerInje
     return (string) $title;
   }
 
-  /**
-   * Builds a search page header.
-   *
-   * @return array
-   *   The header content.
-   */
   protected function buildPageHeader(): array {
     return [
       'search_form' => $this->formBuilder->getForm(SearchForm::class),

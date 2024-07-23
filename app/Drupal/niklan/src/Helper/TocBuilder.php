@@ -10,9 +10,6 @@ use Drupal\external_content\Node\Content;
 use Drupal\external_content\Node\Element;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 
-/**
- * Builds Table of Contents from paragraphs.
- */
 final class TocBuilder {
 
   public function getTree(ExternalContentFieldItem $item): array {

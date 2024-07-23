@@ -15,8 +15,6 @@ use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Blog meta information.
- *
  * @ExtraFieldDisplay(
  *   id = "meta_information",
  *   label = @Translation("Meta information"),
@@ -27,9 +25,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The date formatter.
-   */
   protected DateFormatterInterface $dateFormatter;
 
   #[\Override]
@@ -53,19 +48,10 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
     ];
   }
 
-  /**
-   * Builds created element.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node entity.
-   */
   protected function getCreatedDate(NodeInterface $node): string {
     return $this->dateFormatter->format($node->getCreatedTime(), 'dmy');
   }
 
-  /**
-   * Gets comment count.
-   */
   protected function getCommentCount(): int {
     return (int) $this
       ->getEntity()
@@ -75,16 +61,10 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
         ->getValue();
   }
 
-  /**
-   * Gets comments URL.
-   */
   protected function getCommentsUrl(): Url {
     return $this->getEntity()->toUrl('canonical', ['fragment' => 'comments']);
   }
 
-  /**
-   * Gets estimated read time in minutes.
-   */
   protected function getEstimatedReadTime(): int {
     $content = $this
       ->getEntity()

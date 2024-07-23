@@ -13,8 +13,6 @@ use League\CommonMark\Util\HtmlElement;
 use League\CommonMark\Util\Xml;
 
 /**
- * Provides custom fenced code renderer.
- *
  * @ingroup markdown
  */
 final class FencedCodeRenderer implements NodeRendererInterface {

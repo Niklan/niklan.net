@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
-/**
- * Provides a sidebar search form block.
- *
- * @Block(
- *   id = "niklan_node_sidebar_search_form",
- *   admin_label = @Translation("Sidebar search form"),
- *   category = @Translation("Custom")
- * )
- */
+#[Block(
+  id: 'niklan_node_sidebar_search_form',
+  admin_label: new TranslatableMarkup('Sidebar search form'),
+  category: new TranslatableMarkup('Custom'),
+)]
 final class SidebarSearchFormBlock extends BlockBase {
 
   #[\Override]

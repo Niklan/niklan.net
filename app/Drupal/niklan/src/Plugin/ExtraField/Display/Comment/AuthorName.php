@@ -9,8 +9,6 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 
 /**
- * The author name.
- *
  * @ExtraFieldDisplay(
  *   id = "author_name",
  *   label = @Translation("Author name"),

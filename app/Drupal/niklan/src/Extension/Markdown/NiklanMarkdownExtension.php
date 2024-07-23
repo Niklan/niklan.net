@@ -13,8 +13,6 @@ use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\Config\ConfigurationBuilderInterface;
 
 /**
- * Provides a custom Markdown extension.
- *
  * @ingroup markdown
  */
 final class NiklanMarkdownExtension implements ConfigurableExtensionInterface {

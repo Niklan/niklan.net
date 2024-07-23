@@ -8,17 +8,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
-/**
- * Provides a basie fields for entities.
- */
 final class BaseFieldInfo {
 
-  /**
-   * Adds base fields for 'file' entity type.
-   *
-   * @return array
-   *   The base field definitions.
-   */
   protected function file(): array {
     $fields = [];
 
@@ -30,9 +21,6 @@ final class BaseFieldInfo {
     return $fields;
   }
 
-  /**
-   * Implements hook_entity_base_field_info().
-   */
   public function __invoke(EntityTypeInterface $entity_type): array {
     return match ($entity_type->id()) {
       'file' => $this->file(),

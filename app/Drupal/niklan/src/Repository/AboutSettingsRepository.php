@@ -7,22 +7,10 @@ namespace Drupal\niklan\Repository;
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
 
-/**
- * Provides storage for about page settings.
- */
 final class AboutSettingsRepository implements AboutSettingsRepositoryInterface {
 
-  /**
-   * The key/value store.
-   */
   protected KeyValueStoreInterface $store;
 
-  /**
-   * Constructs a new AboutSettingsRepository object.
-   *
-   * @param \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $key_value_factory
-   *   The key/value store factory.
-   */
   public function __construct(KeyValueFactoryInterface $key_value_factory) {
     $this->store = $key_value_factory->get('niklan.about_settings');
   }

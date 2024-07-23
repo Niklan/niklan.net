@@ -13,24 +13,10 @@ use Drupal\media\MediaStorage;
 use Drupal\niklan\Repository\AboutSettingsRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides a setting form for about page contents.
- */
 final class AboutSettingsForm extends FormBase {
 
-  /**
-   * The media storage.
-   */
   protected MediaStorage $mediaStorage;
-
-  /**
-   * The responsive image style storage.
-   */
   protected ConfigEntityStorageInterface $responsiveImageStyleStorage;
-
-  /**
-   * The settings storage.
-   */
   protected AboutSettingsRepositoryInterface $settingsRepository;
 
   #[\Override]
@@ -113,13 +99,6 @@ final class AboutSettingsForm extends FormBase {
       ->setPhotoResponsiveImageStyleId($responsive_image_style_id);
   }
 
-  /**
-   * Gets options for responsive styles.
-   *
-   * @return array
-   *   The array contains responsive image styles, where key is responsive image
-   *   style id, and the value is label.
-   */
   protected function getResponsiveImageStyleOptions(): array {
     $responsive_image_styles = $this->responsiveImageStyleStorage->loadMultiple();
     $responsive_image_style_options = [];

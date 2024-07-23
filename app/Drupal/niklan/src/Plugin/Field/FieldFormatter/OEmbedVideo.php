@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -19,15 +20,11 @@ use Drupal\media\Plugin\media\Source\OEmbedInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Plugin implementation of the optimized oEmbed video formatter.
- *
- * @FieldFormatter(
- *   id = "niklan_media_remote_video_optimized",
- *   label = @Translation("oEmbed video optimized responsive"),
- *   field_types = {"string"},
- * )
- */
+#[FieldFormatter(
+  id: 'niklan_media_remote_video_optimized',
+  label: new TranslatableMarkup('oEmbed video optimized responsive'),
+  field_types: ['string'],
+)]
 final class OEmbedVideo extends FormatterBase {
 
   /**

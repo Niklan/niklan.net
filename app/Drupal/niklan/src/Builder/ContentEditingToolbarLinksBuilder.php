@@ -12,19 +12,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\Core\Url;
 
-/**
- * Provides a builder for content editing toolbar links.
- */
 final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterface {
 
-  /**
-   * Constructs a new ContentEditingToolbarLinksBuilder object.
-   *
-   * @param \Drupal\Core\Menu\LocalTaskManagerInterface $localTaskManager
-   *   The local task manager.
-   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
-   *   The current route match.
-   */
   public function __construct(
     protected LocalTaskManagerInterface $localTaskManager,
     protected RouteMatchInterface $routeMatch,

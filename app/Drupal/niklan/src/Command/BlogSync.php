@@ -30,9 +30,6 @@ final class BlogSync extends Command {
 
   private NiklanStyle $io;
 
-  /**
-   * Constructs a new BlogSync instance.
-   */
   public function __construct(
     private readonly ExternalContentManagerInterface $externalContentManager,
   ) {

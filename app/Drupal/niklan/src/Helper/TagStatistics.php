@@ -6,17 +6,8 @@ namespace Drupal\niklan\Helper;
 
 use Drupal\Core\Database\Connection;
 
-/**
- * Provides class for statistics of tags.
- */
 final class TagStatistics implements TagStatisticsInterface {
 
-  /**
-   * Constructs a new TagStatistics object.
-   *
-   * @param \Drupal\Core\Database\Connection $connection
-   *   The database connection.
-   */
   public function __construct(
     protected Connection $connection,
   ) {}

@@ -12,14 +12,8 @@ use Drupal\photoswipe\PhotoswipeAssetsManagerInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * @see template_preprocess_niklan_lightbox_responsive_image()
- */
 final readonly class NiklanLightboxResponsiveImagePreprocess implements ContainerInjectionInterface {
 
-  /**
-   * Constructs a new NiklanPhotoswipeResponsiveImagePreprocess instance.
-   */
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private ImageFactory $imageFactory,

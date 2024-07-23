@@ -4,32 +4,28 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\niklan\Helper\TocBuilder;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a node toc block.
- *
- * @Block(
- *   id = "niklan_node_toc",
- *   admin_label = @Translation("Node TOC"),
- *   category = @Translation("Content")
- * )
- *
- * @todo rework as it done on Druki.
+ * @todo Rework or remove.
  */
+#[Block(
+  id: 'niklan_node_toc',
+  admin_label: new TranslatableMarkup('TOC'),
+  category: new TranslatableMarkup('Custom'),
+)]
 final class TocBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The current route match.
-   */
   protected RouteMatchInterface $routeMatch;
 
   #[\Override]

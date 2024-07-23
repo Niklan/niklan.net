@@ -23,9 +23,6 @@ use Symfony\Component\Mime\MimeTypeGuesserInterface;
  */
 final class ContentAssetManager {
 
-  /**
-   * Constructs a new ContentAssetManager instance.
-   */
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private FileUsageInterface $fileUsage,

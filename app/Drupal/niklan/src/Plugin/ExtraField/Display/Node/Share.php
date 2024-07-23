@@ -9,8 +9,6 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\node\NodeInterface;
 
 /**
- * Provides a field with share buttons.
- *
  * @ExtraFieldDisplay(
  *   id = "share",
  *   label = @Translation("Share"),

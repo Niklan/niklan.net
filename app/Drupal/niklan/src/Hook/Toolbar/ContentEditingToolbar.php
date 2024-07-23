@@ -10,19 +10,9 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides additional toolbar items for content editing.
- */
 final class ContentEditingToolbar implements ContainerInjectionInterface {
 
-  /**
-   * The toolbar items added by this class.
-   */
   protected array $items = [];
-
-  /**
-   * The current route match.
-   */
   protected RouteMatchInterface $routeMatch;
 
   #[\Override]
@@ -33,11 +23,6 @@ final class ContentEditingToolbar implements ContainerInjectionInterface {
     return $instance;
   }
 
-  /**
-   * Adds special «Edit» tab in toolbar for content editing.
-   *
-   * This will allow to remove tabs block from the page.
-   */
   protected function prepareContentEditingToolbar(): void {
     $this->items['niklan_content_editing'] = [
       '#type' => 'toolbar_item',
@@ -72,9 +57,6 @@ final class ContentEditingToolbar implements ContainerInjectionInterface {
     ];
   }
 
-  /**
-   * Implements hook_toolbar().
-   */
   public function __invoke(): array {
     $supported_content_routes = [
       'entity.node.canonical',

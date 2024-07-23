@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Helper;
 
-/**
- * Provides system path utils.
- */
 final class PathHelper {
 
   // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase

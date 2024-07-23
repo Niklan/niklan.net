@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
-/**
- * Provides a copyright block.
- *
- * @Block(
- *   id = "niklan_copyright",
- *   admin_label = @Translation("Copyright"),
- *   category = @Translation("Custom")
- * )
- */
+#[Block(
+  id: 'niklan_copyright',
+  admin_label: new TranslatableMarkup('Copyright'),
+  category: new TranslatableMarkup('Custom'),
+)]
 final class CopyrightBlock extends BlockBase {
 
   #[\Override]

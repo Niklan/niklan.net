@@ -9,22 +9,10 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides a custom controller for comment related routes.
- */
 final class CommentController implements ContainerInjectionInterface {
 
-  /**
-   * The amount of comments per page.
-   */
-  protected const LIMIT = 10;
+  protected const int LIMIT = 10;
 
-  /**
-   * Constructs a new CommentController instance.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager.
-   */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}

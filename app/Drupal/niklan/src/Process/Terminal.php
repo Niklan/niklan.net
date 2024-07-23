@@ -19,12 +19,6 @@ use Symfony\Component\Process\Process;
  */
 final class Terminal implements TerminalInterface {
 
-  /**
-   * Constructs a new Terminal object.
-   *
-   * @param \Drupal\Core\File\FileSystemInterface $fileSystem
-   *   The file system.
-   */
   public function __construct(
     protected FileSystemInterface $fileSystem,
   ) {}
@@ -44,9 +38,6 @@ final class Terminal implements TerminalInterface {
    * Symfony's Process doesn't aware about Stream Wrappers. This leads to
    * process run fails when using schemes like 'public://'. This fix it by
    * preprocess directory before it passed to Process.
-   *
-   * @param string $directory
-   *   The directory.
    */
   protected function realpath(string $directory): string {
     $realpath = $this->fileSystem->realpath($directory);

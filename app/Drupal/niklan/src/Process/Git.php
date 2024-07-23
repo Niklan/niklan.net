@@ -7,19 +7,8 @@ namespace Drupal\niklan\Process;
 use Drupal\Core\Site\Settings;
 use Symfony\Component\Process\Process;
 
-/**
- * Provides object to work with Git repositories.
- */
 final class Git implements GitInterface {
 
-  /**
-   * Constructs a new Git object.
-   *
-   * @param \Drupal\niklan\Process\TerminalInterface $terminal
-   *   The terminal process.
-   * @param string $gitBinary
-   *   The git binary.
-   */
   public function __construct(
     protected TerminalInterface $terminal,
     protected string $gitBinary = 'git',
@@ -54,9 +43,6 @@ final class Git implements GitInterface {
     return $this->terminal->createProcess($command, $directory);
   }
 
-  /**
-   * Gets Git binary path.
-   */
   protected function getGitBin(): string {
     return Settings::get('niklan_git_binary', $this->gitBinary);
   }

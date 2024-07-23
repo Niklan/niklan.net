@@ -8,9 +8,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\file\Entity\File as CoreFile;
 use Drupal\niklan\Helper\FileHelper;
 
-/**
- * Provides a bundle class for 'file' entity.
- */
 final class File extends CoreFile implements FileInterface {
 
   #[\Override]

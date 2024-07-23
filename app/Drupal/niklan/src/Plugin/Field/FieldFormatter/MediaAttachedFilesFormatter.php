@@ -5,32 +5,25 @@ declare(strict_types=1);
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\ByteSizeMarkup;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\file\FileInterface;
 use Drupal\media\MediaInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Plugin implementation of the 'With icon' formatter.
- *
- * @FieldFormatter(
- *   id = "niklan_attached_files",
- *   label = @Translation("Attached files"),
- *   field_types = {
- *     "entity_reference"
- *   }
- * )
- */
+#[FieldFormatter(
+  id: 'niklan_attached_files',
+  label: new TranslatableMarkup('Attached files'),
+  field_types: ['entity_reference'],
+)]
 final class MediaAttachedFilesFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The entity type manager service.
-   */
   protected EntityTypeManagerInterface $entityTypeManager;
 
   #[\Override]
