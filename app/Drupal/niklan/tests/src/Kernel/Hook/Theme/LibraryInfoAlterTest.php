@@ -68,9 +68,7 @@ final class LibraryInfoAlterTest extends NiklanTestBase {
     self::assertEquals($expected_libraries, $libraries);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

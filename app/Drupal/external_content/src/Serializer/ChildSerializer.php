@@ -12,19 +12,10 @@ use Drupal\external_content\Data\Data;
 use Drupal\external_content\Exception\MissingDeserializerException;
 use Drupal\external_content\Exception\MissingSerializerException;
 
-/**
- * {@selfdoc}
- */
 final class ChildSerializer implements ChildSerializerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   private EnvironmentInterface $environment;
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function normalize(NodeInterface $node): array {
     foreach ($this->environment->getSerializers() as $serializer) {
@@ -44,9 +35,6 @@ final class ChildSerializer implements ChildSerializerInterface {
     throw new MissingSerializerException($node, $this->environment);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function deserialize(array $element): NodeInterface {
     \assert($element['type'], 'Missing data type.');
@@ -70,9 +58,6 @@ final class ChildSerializer implements ChildSerializerInterface {
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;

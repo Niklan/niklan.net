@@ -10,15 +10,11 @@ use Drupal\external_content\Data\HtmlParserResult;
 use Drupal\niklan\Node\ExternalContent\RemoteVideo as RemoteVideoNode;
 
 /**
- * {@selfdoc}
- *
  * @ingroup external_content
  */
 final class RemoteVideo implements HtmlParserInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     if (!$node instanceof \DOMElement || !$this->isApplicable($node)) {
       return HtmlParserResult::pass();
@@ -31,9 +27,6 @@ final class RemoteVideo implements HtmlParserInterface {
     return HtmlParserResult::replace($node);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function isApplicable(\DOMElement $node): bool {
     if (!$node->hasAttribute('data-selector') || $node->getAttribute('data-selector') !== 'niklan:leaf-directive') {
       return FALSE;

@@ -8,14 +8,9 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\file\Entity\File as CoreFile;
 use Drupal\niklan\Helper\FileHelper;
 
-/**
- * Provides a bundle class for 'file' entity.
- */
 final class File extends CoreFile implements FileInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getChecksum(): ?string {
     if ($this->get('niklan_checksum')->isEmpty()) {
       return NULL;
@@ -24,17 +19,13 @@ final class File extends CoreFile implements FileInterface {
     return $this->get('niklan_checksum')->getString();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function calculateChecksum(): void {
     $checksum = FileHelper::checksum($this->getFileUri());
     $this->set('niklan_checksum', $checksum);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function preSave(EntityStorageInterface $storage): void {
     parent::preSave($storage);
 

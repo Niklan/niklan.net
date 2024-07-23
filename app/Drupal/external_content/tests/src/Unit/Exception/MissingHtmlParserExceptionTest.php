@@ -11,16 +11,11 @@ use Drupal\external_content\Exception\MissingHtmlParserException;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Exception\MissingHtmlParserException
  * @ingroup external_content
  */
 final class MissingHtmlParserExceptionTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testException(): void {
     $available = $this->prophesize(HtmlParserInterface::class);
     $available = $available->reveal();

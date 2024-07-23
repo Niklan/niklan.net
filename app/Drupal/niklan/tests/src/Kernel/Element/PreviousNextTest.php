@@ -148,9 +148,7 @@ final class PreviousNextTest extends NiklanTestBase {
     self::assertCount(0, $this->cssSelect('.previous-next__link--next'));
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

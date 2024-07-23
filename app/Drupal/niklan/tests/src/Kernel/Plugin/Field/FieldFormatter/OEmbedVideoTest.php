@@ -84,26 +84,6 @@ final class OEmbedVideoTest extends NiklanTestBase {
   }
 
   /**
-   * Gets formatter instance.
-   */
-  protected function getFormatterInstance(): OEmbedVideo {
-    $field_definitions = $this
-      ->container
-      ->get('entity_field.manager')
-      ->getFieldDefinitions('media', 'video');
-
-    return $this
-      ->container
-      ->get('plugin.manager.field.formatter')
-      ->getInstance([
-        'configuration' => [
-          'type' => 'niklan_media_remote_video_optimized',
-        ],
-        'field_definition' => $field_definitions['field_media_oembed_video'],
-      ]);
-  }
-
-  /**
    * Tests that settings form skips responsive image styles without mapping.
    */
   public function testSettingsFormSkipImageStylesWithoutMapping(): void {
@@ -208,6 +188,26 @@ final class OEmbedVideoTest extends NiklanTestBase {
   }
 
   /**
+   * Gets formatter instance.
+   */
+  protected function getFormatterInstance(): OEmbedVideo {
+    $field_definitions = $this
+      ->container
+      ->get('entity_field.manager')
+      ->getFieldDefinitions('media', 'video');
+
+    return $this
+      ->container
+      ->get('plugin.manager.field.formatter')
+      ->getInstance([
+        'configuration' => [
+          'type' => 'niklan_media_remote_video_optimized',
+        ],
+        'field_definition' => $field_definitions['field_media_oembed_video'],
+      ]);
+  }
+
+  /**
    * Updates formatter settings for tested field.
    *
    * @param array $settings
@@ -225,9 +225,7 @@ final class OEmbedVideoTest extends NiklanTestBase {
       ->save();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

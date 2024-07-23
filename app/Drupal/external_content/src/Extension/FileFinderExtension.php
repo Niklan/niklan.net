@@ -15,23 +15,16 @@ use Nette\Schema\Expect;
  */
 final readonly class FileFinderExtension implements ConfigurableExtensionInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private FileFinder $fileFinder,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
     $environment->addFinder($this->fileFinder);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function configureSchema(ConfigurationBuilderInterface $builder): void {
     $builder->addSchema('file_finder', Expect::structure([
       'extensions' => Expect::arrayOf('string')->required(),

@@ -45,9 +45,7 @@ final class CommentControllerTest extends NiklanTestBase {
     self::assertCount(1, $this->cssSelect('.comments-list article'));
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

@@ -7,9 +7,6 @@ namespace Drupal\external_content\Contract\Identifier;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\IdentifierResult;
 
-/**
- * {@selfdoc}
- */
 interface IdentifierInterface {
 
   /**

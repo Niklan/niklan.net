@@ -10,16 +10,11 @@ use Drupal\external_content\Node\PlainText;
 use Drupal\Tests\UnitTestCaseTest;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Builder\PlainTextRenderArrayBuilder
  * @group external_content
  */
 final class PlainTextRenderArrayBuilderTest extends UnitTestCaseTest {
 
-  /**
-   * {@selfdoc}
-   */
   public function testValidElement(): void {
     $child_builder = $this->prophesize(ChildRenderArrayBuilderInterface::class);
     $child_builder = $child_builder->reveal();

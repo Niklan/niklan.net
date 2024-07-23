@@ -16,16 +16,11 @@ use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInter
  */
 final class BasicHtmlExtension implements ExtensionInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ExternalContentManagerInterface $externalContentManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
     $html_parser_manager = $this
       ->externalContentManager

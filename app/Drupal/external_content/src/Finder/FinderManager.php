@@ -11,22 +11,14 @@ use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * {@selfdoc}
- */
 final readonly class FinderManager implements FinderManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ContainerInterface $container,
     private array $finders = [],
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function find(EnvironmentInterface $environment): SourceCollection {
     $collection = new SourceCollection();
 
@@ -44,9 +36,6 @@ final readonly class FinderManager implements FinderManagerInterface {
     return $collection;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function get(string $finder_id): FinderInterface {
     if (!$this->has($finder_id)) {
@@ -61,17 +50,11 @@ final readonly class FinderManager implements FinderManagerInterface {
     return $this->container->get($service);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function has(string $finder_id): bool {
     return \array_key_exists($finder_id, $this->finders);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function list(): array {
     return $this->finders;

@@ -14,8 +14,6 @@ use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Share links.
- *
  * @ExtraFieldDisplay(
  *   id = "niklan_taxonomy_tag_statistics",
  *   label = @Translation("Tag statistics"),
@@ -26,14 +24,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class Statistics extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The entity type manager.
-   */
   protected EntityTypeManagerInterface $entityTypeManager;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -41,9 +34,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     $articles = $this->findArticles();
 
@@ -76,12 +67,6 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
       ->execute();
   }
 
-  /**
-   * Loads first article from the list of found.
-   *
-   * @param array $articles
-   *   The array with found articles.
-   */
   protected function loadFirstArticle(array $articles): NodeInterface {
     $id = \array_shift($articles);
     $node = $this->entityTypeManager->getStorage('node')->load($id);
@@ -90,12 +75,6 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     return $node;
   }
 
-  /**
-   * Loads last article from the list of found.
-   *
-   * @param array $articles
-   *   The array with found articles.
-   */
   protected function loadLastArticle(array $articles): NodeInterface {
     $id = \array_pop($articles);
     $node = $this->entityTypeManager->getStorage('node')->load($id);
@@ -104,17 +83,6 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     return $node;
   }
 
-  /**
-   * Builds date range string for provided articles.
-   *
-   * @param \Drupal\node\NodeInterface $first_article
-   *   The first published article.
-   * @param \Drupal\node\NodeInterface $last_article
-   *   The last published article.
-   *
-   * @return array
-   *   An array with first and last created dates.
-   */
   protected function buildDateRange(NodeInterface $first_article, NodeInterface $last_article): array {
     $first_created = DrupalDateTime::createFromTimestamp(
       $first_article->getCreatedTime(),
@@ -129,14 +97,6 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     ];
   }
 
-  /**
-   * Builds summary for statistics.
-   *
-   * @param int $count
-   *   The amount of published articles.
-   * @param array $date_range
-   *   The date ranges.
-   */
   protected function buildStatisticsSummary(int $count, array $date_range): string {
     $without_range = (string) new PluralTranslatableMarkup(
       $count,

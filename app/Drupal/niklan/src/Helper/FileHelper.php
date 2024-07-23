@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Helper;
 
-/**
- * {@selfdoc}
- */
 final class FileHelper {
 
-  /**
-   * {@selfdoc}
-   */
   public static function checksum(string $uri): ?string {
     if (!\file_exists($uri)) {
       return NULL;
@@ -20,9 +14,6 @@ final class FileHelper {
     return \md5_file($uri) ?: NULL;
   }
 
-  /**
-   * {@selfdoc}
-   */
   public static function extension(string $filename, ?string $suffix = NULL): string {
     $extension = \pathinfo($filename, \PATHINFO_EXTENSION);
 

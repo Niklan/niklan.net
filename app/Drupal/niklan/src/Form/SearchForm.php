@@ -18,40 +18,25 @@ use Drupal\niklan\Ajax\HistoryReplaceStateCommand;
 use Drupal\niklan\Controller\SearchController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides a search form for the search page.
- */
 final class SearchForm extends FormBase {
 
-  /**
-   * Constructs a new SearchForm instance.
-   *
-   * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $classResolver
-   *   The class resolver.
-   */
   public function __construct(
     protected ClassResolverInterface $classResolver,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('class_resolver'),
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getFormId(): string {
     return 'niklan_search';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['query'] = [
       '#type' => 'textfield',
@@ -77,21 +62,11 @@ final class SearchForm extends FormBase {
     return $form;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $form_state->setRedirectUrl($this->buildResultsUrl($form_state));
   }
 
-  /**
-   * Process AJAX request for search.
-   *
-   * @param array $form
-   *   The form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   */
   public function onAjax(array $form, FormStateInterface $form_state): AjaxResponse {
     $search_query = $form_state->getValue('query');
     $current_request = $this->getRequest();
@@ -133,12 +108,6 @@ final class SearchForm extends FormBase {
     return $response;
   }
 
-  /**
-   * Builds a results URL.
-   *
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   */
   public function buildResultsUrl(FormStateInterface $form_state): Url {
     $url_options = [];
 

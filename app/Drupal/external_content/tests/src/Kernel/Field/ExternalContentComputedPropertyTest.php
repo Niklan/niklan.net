@@ -17,8 +17,6 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Field\ExternalContentComputedProperty
  * @group external_content
  */
@@ -31,18 +29,21 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     'external_content_test',
   ];
 
-  /**
-   * {@selfdoc}
-   */
   public function testInvalidField(): void {
     $property = $this->preparePropertyInstance(violation_count: 1);
 
     self::assertNull($property->getValue());
   }
 
-  /**
-   * {@selfdoc}
-   */
+  public function testValidField(): void {
+    $property = $this->preparePropertyInstance(violation_count: 0);
+
+    $value = $property->getValue();
+    self::assertEquals($this->prepareDocument(), $value);
+    // Make sure consecutive call returns previous result.
+    self::assertSame($value, $property->getValue());
+  }
+
   private function preparePropertyInstance(int $violation_count): ExternalContentComputedProperty {
     $data_definition = DataDefinition::createFromDataType('any');
 
@@ -53,9 +54,6 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareFieldItem(int $violation_count): FieldItemInterface {
     $violation_list = $this->prophesize(ConstraintViolationListInterface::class);
     $violation_list->count()->willReturn($violation_count);
@@ -81,9 +79,6 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     return $field_item->reveal();
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareFieldItemValue(): string {
     $serializer_manager = $this
       ->container
@@ -98,9 +93,6 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareDocument(): Content {
     $document = new Content();
     $p = new Element('p');
@@ -108,18 +100,6 @@ final class ExternalContentComputedPropertyTest extends ExternalContentTestBase 
     $document->addChild($p);
 
     return $document;
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function testValidField(): void {
-    $property = $this->preparePropertyInstance(violation_count: 0);
-
-    $value = $property->getValue();
-    self::assertEquals($this->prepareDocument(), $value);
-    // Make sure consecutive call returns previous result.
-    self::assertSame($value, $property->getValue());
   }
 
 }

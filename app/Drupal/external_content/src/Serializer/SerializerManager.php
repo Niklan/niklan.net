@@ -17,18 +17,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final readonly class SerializerManager implements SerializerManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ContainerInterface $container,
     private ChildSerializerInterface $childSerializer,
     private array $serializers = [],
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function normalize(NodeInterface $node, EnvironmentInterface $environment): string {
     $this->childSerializer->setEnvironment($environment);
 
@@ -39,9 +34,7 @@ final readonly class SerializerManager implements SerializerManagerInterface {
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function deserialize(string $json, EnvironmentInterface $environment): NodeInterface {
     $this->childSerializer->setEnvironment($environment);
     $json_array = \json_decode($json, TRUE);
@@ -49,9 +42,6 @@ final readonly class SerializerManager implements SerializerManagerInterface {
     return $this->childSerializer->deserialize($json_array);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function get(string $serializer_id): SerializerInterface {
     if (!$this->has($serializer_id)) {
@@ -66,17 +56,11 @@ final readonly class SerializerManager implements SerializerManagerInterface {
     return $this->container->get($service);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function has(string $serializer_id): bool {
     return \array_key_exists($serializer_id, $this->serializers);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function list(): array {
     return $this->serializers;

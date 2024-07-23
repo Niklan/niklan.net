@@ -36,18 +36,12 @@ use Psr\EventDispatcher\StoppableEventInterface;
  */
 final class EnvironmentTest extends UnitTestCaseTest {
 
-  /**
-   * {@selfdoc}
-   */
   public function testId(): void {
     $id = $this->randomString();
     $environment = new Environment($id);
     self::assertSame($id, $environment->id());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testEvents(): void {
     $event = new FooEvent();
     $environment = new Environment('test');
@@ -90,8 +84,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
   }
 
   /**
-   * {@selfdoc}
-   *
    * @dataProvider collectionsDataProvider
    */
   public function testCollections(string $implements, string $setter, string $getter): void {
@@ -108,9 +100,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
     self::assertSame([0 => $instance], $result);
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function collectionsDataProvider(): \Generator {
     yield 'identifiers' => [
       'implements' => IdentifierInterface::class,
@@ -161,9 +150,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
     ];
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testConfiguration(): void {
     $environment = new Environment('test');
 
@@ -173,9 +159,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testCustomEventDispatcher(): void {
     $event_dispatcher = $this->prophesize(EventDispatcherInterface::class);
     $event_dispatcher
@@ -192,9 +175,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
     $environment->dispatch($event);
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testExtension(): void {
     $builder = $this->prophesize(RenderArrayBuilderInterface::class);
     $builder = $builder->reveal();
@@ -208,9 +188,7 @@ final class EnvironmentTest extends UnitTestCaseTest {
         private readonly RenderArrayBuilderInterface $builder,
       ) {}
 
-      /**
-       * {@inheritdoc}
-       */
+      #[\Override]
       public function register(EnvironmentBuilderInterface $environment): void {
         $environment->addRenderArrayBuilder($this->builder);
       }
@@ -226,9 +204,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testExtensionConfigureSchema(): void {
     $extension = $this->prophesize(ConfigurableExtensionInterface::class);
     $extension->register(Argument::cetera())->shouldBeCalled();
@@ -240,8 +215,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
   }
 
   /**
-   * {@selfdoc}
-   *
    * @dataProvider injectDependenciesDataProvider
    */
   public function testInjectDependencies(string $component_interface, string $method): void {
@@ -262,9 +235,6 @@ final class EnvironmentTest extends UnitTestCaseTest {
     \call_user_func([$environment, $method], $object->reveal());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function injectDependenciesDataProvider(): \Generator {
     yield 'HTML Parser' => [
       'component_interface' => HtmlParserInterface::class,

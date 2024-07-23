@@ -8,15 +8,10 @@ use Drupal\external_content\Data\Data;
 use Drupal\external_content\Node\Node;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class DrupalMedia extends Node {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     public readonly string $type,
     public readonly string $uuid,

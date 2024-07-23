@@ -16,9 +16,7 @@ abstract class Event implements StoppableEventInterface {
    */
   protected bool $propagationStopped = FALSE;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   final public function isPropagationStopped(): bool {
     return $this->propagationStopped;
   }

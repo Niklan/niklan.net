@@ -28,16 +28,12 @@ final class ContentCollection implements \Countable, \IteratorAggregate {
     $this->items[] = $document;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->items);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function count(): int {
     return \count($this->items);
   }

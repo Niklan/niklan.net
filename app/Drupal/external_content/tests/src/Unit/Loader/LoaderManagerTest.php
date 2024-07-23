@@ -15,16 +15,11 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Loader\LoaderManager
  * @group external_content
  */
 final class LoaderManagerTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testLoad(): void {
     $loader_skip = $this->prophesize(LoaderInterface::class);
     $loader_skip
@@ -74,9 +69,6 @@ final class LoaderManagerTest extends UnitTestCase {
     self::assertEquals($result, $second_result->results());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testCollection(): void {
     $loaders = ['test' => ['service' => 'loader.service']];
 

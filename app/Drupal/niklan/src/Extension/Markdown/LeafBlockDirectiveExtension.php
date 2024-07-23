@@ -11,14 +11,13 @@ use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ExtensionInterface;
 
 /**
- * {@selfdoc}
+ * Provides leaf directive for Markdown.
  *
  * Leaf Directive is very similar to Container Directive, the only difference is
  * that leaf block has no closing part and can only contain content using
  * inline value.
  *
  * Example:
- *
  * @code
  *  ::name[inline-content](argument){#id .class key=value}
  * @endcode
@@ -29,9 +28,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  */
 final class LeafBlockDirectiveExtension implements ExtensionInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
     $environment->addBlockStartParser(new LeafBlockDirectiveStartParser(), 70);
     $environment->addRenderer(

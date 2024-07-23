@@ -10,30 +10,10 @@ use Drupal\external_content\Event\HtmlPreParseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * {@selfdoc}
- *
  * @ingroup external_content
  */
 final class BlogExtensionEventSubscriber implements EventSubscriberInterface {
 
-  /**
-   * {@inheritdoc}
-   */
-  #[\Override]
-  public static function getSubscribedEvents(): array {
-    return [
-      FileFoundEvent::class => [
-        ['onBlogSourceFileFound'],
-      ],
-      HtmlPreParseEvent::class => [
-        ['onHtmlPreParseEvent'],
-      ],
-    ];
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function onBlogSourceFileFound(FileFoundEvent $event): void {
     if ($event->environment->id() !== 'blog') {
       return;
@@ -44,9 +24,6 @@ final class BlogExtensionEventSubscriber implements EventSubscriberInterface {
     $event->file->data()->set('front_matter', $front_matter->getData());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function onHtmlPreParseEvent(HtmlPreParseEvent $event): void {
     if ($event->environment->id() !== 'blog') {
       return;
@@ -55,6 +32,18 @@ final class BlogExtensionEventSubscriber implements EventSubscriberInterface {
     // Remove Front Matter from the content.
     $front_matter = FrontMatter::create($event->content);
     $event->content = $front_matter->getContent();
+  }
+
+  #[\Override]
+  public static function getSubscribedEvents(): array {
+    return [
+      FileFoundEvent::class => [
+        ['onBlogSourceFileFound'],
+      ],
+      HtmlPreParseEvent::class => [
+        ['onHtmlPreParseEvent'],
+      ],
+    ];
   }
 
 }

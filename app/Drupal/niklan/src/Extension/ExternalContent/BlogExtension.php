@@ -13,23 +13,15 @@ use League\Config\ConfigurationBuilderInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
- * {@selfdoc}
- *
  * @ingroup external_content
  */
 final readonly class BlogExtension implements ExtensionInterface, ConfigurableExtensionInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ExternalContentManagerInterface $externalContentManager,
     private EventDispatcherInterface $eventDispatcher,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
     $extension_manager = $this->externalContentManager->getExtensionManager();
@@ -67,9 +59,6 @@ final readonly class BlogExtension implements ExtensionInterface, ConfigurableEx
       ->addRenderArrayBuilder($builder_manager->get('link'));
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function configureSchema(ConfigurationBuilderInterface $builder): void {
     $builder->merge([

@@ -9,8 +9,6 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\node\NodeInterface;
 
 /**
- * Previous next links.
- *
  * @ExtraFieldDisplay(
  *   id = "previous_next",
  *   label = @Translation("Previous, Next links"),
@@ -21,9 +19,7 @@ use Drupal\node\NodeInterface;
  */
 final class PreviousNext extends ExtraFieldDisplayBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     \assert($entity instanceof NodeInterface);
 

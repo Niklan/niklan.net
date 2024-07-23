@@ -10,16 +10,11 @@ use Drupal\external_content\Exception\MissingDeserializerException;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Exception\MissingDeserializerException
  * @ingroup external_content
  */
 final class MissingDeserializerExceptionTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testException(): void {
     $available = $this->prophesize(SerializerInterface::class);
     $available = $available->reveal();

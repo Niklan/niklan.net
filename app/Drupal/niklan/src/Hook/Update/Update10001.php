@@ -27,6 +27,13 @@ final class Update10001 implements ContainerInjectionInterface {
     protected EntityDefinitionUpdateManagerInterface $entityDefinitionUpdateManager,
   ) {}
 
+  #[\Override]
+  public static function create(ContainerInterface $container): self {
+    return new self(
+      $container->get('entity.definition_update_manager'),
+    );
+  }
+
   /**
    * Implements hook_update_N().
    */
@@ -44,15 +51,6 @@ final class Update10001 implements ContainerInjectionInterface {
     );
 
     return 'File checksum field has been installed.';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get('entity.definition_update_manager'),
-    );
   }
 
 }

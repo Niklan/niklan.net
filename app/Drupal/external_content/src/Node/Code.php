@@ -11,23 +11,16 @@ use Drupal\external_content\Contract\Node\StringContainerInterface;
  */
 final class Code extends Node implements StringContainerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     protected string $code,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setLiteral(string $literal): void {
     $this->code = $literal;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getLiteral(): string {
     return $this->code;
   }

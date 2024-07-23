@@ -8,9 +8,6 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Node\StringContainerInterface;
 use Drupal\external_content\Node\Code;
 
-/**
- * Provides calculator for estimated read time for paragraphs.
- */
 final class EstimatedReadTimeCalculator {
 
   /**
@@ -20,9 +17,6 @@ final class EstimatedReadTimeCalculator {
    */
   protected int $wordsPerMinute = 143;
 
-  /**
-   * {@selfdoc}
-   */
   public function calculate(NodeInterface $content): int {
     $estimated_read_time = 0;
     $this->calculateRecursive($content, $estimated_read_time);
@@ -34,9 +28,10 @@ final class EstimatedReadTimeCalculator {
     return 0;
   }
 
-  /**
-   * {@selfdoc}
-   */
+  protected function calculateEstimatedReadTime(int $words_count, int|float $read_time_multiplier = 1): int|float {
+    return \floor($words_count * $read_time_multiplier / $this->wordsPerMinute * 60);
+  }
+
   private function calculateRecursive(NodeInterface $node, int|float &$estimated): void {
     foreach ($node->getChildren() as $child) {
       $this->calculateRecursive($child, $estimated);
@@ -46,25 +41,14 @@ final class EstimatedReadTimeCalculator {
       return;
     }
 
-    $words_count = \str_word_count($node->getLiteral());
-    $multiplier = match ($node::class) {
+    $read_time_multiplier = match ($node::class) {
       default => 1,
       Code::class => 3,
     };
-    $estimated += $this->calculateEstimatedReadTime($words_count, $multiplier);
-  }
-
-  /**
-   * Calculates estimated read time on words count.
-   *
-   * @param int $words_count
-   *   The words count.
-   * @param int|float $multiplier
-   *   The speed read multiplier. 2 - means that read time for that part is
-   *   expected to be two times slower that usual text.
-   */
-  protected function calculateEstimatedReadTime(int $words_count, int|float $multiplier = 1): int|float {
-    return \floor($words_count * $multiplier / $this->wordsPerMinute * 60);
+    $estimated += $this->calculateEstimatedReadTime(
+      words_count: \str_word_count($node->getLiteral()),
+      read_time_multiplier: $read_time_multiplier,
+    );
   }
 
 }

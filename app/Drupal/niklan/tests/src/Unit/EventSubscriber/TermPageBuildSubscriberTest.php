@@ -48,6 +48,20 @@ final class TermPageBuildSubscriberTest extends UnitTestCase {
   }
 
   /**
+   * Tests that subscriber set build result.
+   */
+  public function testOnTermPageBuildWithValidTerm(): void {
+    $term = $this->prophesize(TermInterface::class);
+    $term->bundle()->willReturn('tags');
+
+    $subscriber = new TermPageBuildSubscriber($this->getClassResolver());
+    $event = new TermPageBuildEvent($term->reveal());
+    $subscriber->onTermPageBuild($event);
+
+    self::assertEquals(['#markup' => 'Hello, World!'], $event->getBuildArray());
+  }
+
+  /**
    * Prepares class resolver for event testing.
    */
   protected function getClassResolver(): ClassResolverInterface {
@@ -62,20 +76,6 @@ final class TermPageBuildSubscriberTest extends UnitTestCase {
       ->willReturn($tag_controller->reveal());
 
     return $class_resolver->reveal();
-  }
-
-  /**
-   * Tests that subscriber set build result.
-   */
-  public function testOnTermPageBuildWithValidTerm(): void {
-    $term = $this->prophesize(TermInterface::class);
-    $term->bundle()->willReturn('tags');
-
-    $subscriber = new TermPageBuildSubscriber($this->getClassResolver());
-    $event = new TermPageBuildEvent($term->reveal());
-    $subscriber->onTermPageBuild($event);
-
-    self::assertEquals(['#markup' => 'Hello, World!'], $event->getBuildArray());
   }
 
 }

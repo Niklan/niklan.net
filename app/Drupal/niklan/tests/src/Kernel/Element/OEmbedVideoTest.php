@@ -112,37 +112,6 @@ final class OEmbedVideoTest extends NiklanTestBase {
   }
 
   /**
-   * Builds a valid OEmbed video media entity prophecy.
-   *
-   * @param string $resource_url
-   *   The resource URL,.
-   */
-  protected function buildOembedVideoMedia(string $resource_url): MediaInterface {
-    $source = $this->prophesize(MediaSourceInterface::class);
-    $source->getPluginId()->willReturn('oembed:video');
-    $source
-      ->getSourceFieldValue(Argument::any())
-      ->willReturn($resource_url);
-
-    $media = $this->prophesize(MediaInterface::class);
-    $media->getSource()->willReturn($source->reveal());
-
-    $thumbnail_item_0_entity = $this->prophesize(FileInterface::class);
-    $thumbnail_item_0_entity->getFileUri()->willReturn('public://image.jpg');
-
-    $thumbnail_item_0 = new \stdClass();
-    $thumbnail_item_0->entity = $thumbnail_item_0_entity->reveal();
-
-    $thumbnail_items = $this->prophesize(FieldItemListInterface::class);
-    $thumbnail_items->first()->willReturn($thumbnail_item_0);
-
-    $media->get('thumbnail')->willReturn($thumbnail_items->reveal());
-    $media->getCacheTags()->willReturn([]);
-
-    return $media->reveal();
-  }
-
-  /**
    * Tests that validation checks for responsive image style.
    */
   public function testResponsiveImagePropertyValidation(): void {
@@ -247,8 +216,37 @@ final class OEmbedVideoTest extends NiklanTestBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Builds a valid OEmbed video media entity prophecy.
+   *
+   * @param string $resource_url
+   *   The resource URL,.
    */
+  protected function buildOembedVideoMedia(string $resource_url): MediaInterface {
+    $source = $this->prophesize(MediaSourceInterface::class);
+    $source->getPluginId()->willReturn('oembed:video');
+    $source
+      ->getSourceFieldValue(Argument::any())
+      ->willReturn($resource_url);
+
+    $media = $this->prophesize(MediaInterface::class);
+    $media->getSource()->willReturn($source->reveal());
+
+    $thumbnail_item_0_entity = $this->prophesize(FileInterface::class);
+    $thumbnail_item_0_entity->getFileUri()->willReturn('public://image.jpg');
+
+    $thumbnail_item_0 = new \stdClass();
+    $thumbnail_item_0->entity = $thumbnail_item_0_entity->reveal();
+
+    $thumbnail_items = $this->prophesize(FieldItemListInterface::class);
+    $thumbnail_items->first()->willReturn($thumbnail_item_0);
+
+    $media->get('thumbnail')->willReturn($thumbnail_items->reveal());
+    $media->getCacheTags()->willReturn([]);
+
+    return $media->reveal();
+  }
+
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

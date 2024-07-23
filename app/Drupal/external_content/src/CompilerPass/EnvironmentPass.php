@@ -9,14 +9,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
-/**
- * {@selfdoc}
- */
 final class EnvironmentPass implements CompilerPassInterface {
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function process(ContainerBuilder $container): void {
     $this->processEnvironments($container);
@@ -76,9 +70,6 @@ final class EnvironmentPass implements CompilerPassInterface {
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function processEnvironments(ContainerBuilder $container): void {
     $environments = [];
 
@@ -99,9 +90,6 @@ final class EnvironmentPass implements CompilerPassInterface {
     $container->setParameter('external_content.environments', $environments);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function processComponent(ContainerBuilder $container, string $type, string $service_tag, string $parameter_name): void {
     $results = [];
 
@@ -118,9 +106,6 @@ final class EnvironmentPass implements CompilerPassInterface {
     $container->setParameter($parameter_name, $results);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function addEnvironment(string $service, mixed $attributes, array &$environments): void {
     if (\array_key_exists($attributes['id'], $environments)) {
       throw new DuplicatedContainerDefinition(
@@ -139,7 +124,7 @@ final class EnvironmentPass implements CompilerPassInterface {
   }
 
   /**
-   * {@selfdoc}
+   * Sets the environment id argument.
    *
    * If an environment definition doesn't set '$id' value, then do it
    * automatically from the tag 'id' value.
@@ -154,9 +139,6 @@ final class EnvironmentPass implements CompilerPassInterface {
     $definition->setArgument('$id', $id);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function addExtension(string $type, string $service, mixed $attributes, array &$results): void {
     if (\array_key_exists($attributes['id'], $results)) {
       throw new DuplicatedContainerDefinition(

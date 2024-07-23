@@ -16,27 +16,17 @@ use Drupal\niklan\Entity\File\FileInterface;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia as DrupalMediaNode;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class DrupalMedia implements RenderArrayBuilderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   private CacheableMetadata $cache;
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private readonly EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof DrupalMediaNode);
     $media = $this->findMedia($node->uuid);
@@ -56,16 +46,11 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     };
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsBuild(NodeInterface $node): bool {
     return $node instanceof DrupalMediaNode;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function findMedia(string $uuid): ?MediaInterface {
     $storage = $this->entityTypeManager->getStorage('media');
 
@@ -82,9 +67,6 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     return $storage->load(\reset($ids));
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function buildImageRenderArray(MediaInterface $media, DrupalMediaNode $node): RenderArrayBuilderResult {
     $file = $this->getMediaSourceFile($media);
 
@@ -106,9 +88,6 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     return RenderArrayBuilderResult::withRenderArray($build);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function buildVideoRenderArray(MediaInterface $media): RenderArrayBuilderResult {
     $file = $this->getMediaSourceFile($media);
 
@@ -143,18 +122,12 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     return RenderArrayBuilderResult::withRenderArray($build);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function buildRemoteVideoRenderArray(MediaInterface $media): RenderArrayBuilderResult {
     $view_builder = $this->entityTypeManager->getViewBuilder('media');
 
     return RenderArrayBuilderResult::withRenderArray($view_builder->view($media));
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getMediaSourceFile(MediaInterface $media): ?FileInterface {
     $source_field = $media->getSource()->getConfiguration()['source_field'];
 

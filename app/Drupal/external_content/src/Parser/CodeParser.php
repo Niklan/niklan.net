@@ -17,9 +17,7 @@ use Drupal\external_content\Node\Code;
  */
 final class CodeParser implements HtmlParserInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     if (!$node instanceof \DOMElement || $node->tagName !== 'code') {
       return HtmlParserResult::pass();

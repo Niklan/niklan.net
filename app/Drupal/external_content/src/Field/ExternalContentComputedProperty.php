@@ -16,14 +16,9 @@ use Drupal\external_content\Contract\Node\NodeInterface;
  */
 final class ExternalContentComputedProperty extends TypedData {
 
-  /**
-   * {@selfdoc}
-   */
   protected ?NodeInterface $value = NULL;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getValue(): ?NodeInterface {
     if ($this->value) {
       return $this->value;
@@ -57,9 +52,6 @@ final class ExternalContentComputedProperty extends TypedData {
     return $this->value;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private static function getExternalContentManager(): ExternalContentManagerInterface {
     return \Drupal::service(ExternalContentManagerInterface::class);
   }

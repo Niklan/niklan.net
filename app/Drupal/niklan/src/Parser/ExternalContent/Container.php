@@ -12,15 +12,11 @@ use Drupal\external_content\Node\NodeList;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * {@selfdoc}
- *
  * @ingroup external_content
  */
 final class Container implements HtmlParserInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     if (!$node instanceof \DOMElement || !$this->isApplicable($node)) {
       return HtmlParserResult::pass();
@@ -38,9 +34,6 @@ final class Container implements HtmlParserInterface {
     return HtmlParserResult::replace($element);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function isApplicable(\DOMElement $node): bool {
     if (!$node->hasAttribute('data-selector') || $node->getAttribute('data-selector') !== 'niklan:container-directive') {
       return FALSE;
@@ -51,9 +44,6 @@ final class Container implements HtmlParserInterface {
     return \in_array($node->getAttribute('data-type'), $allowed_types);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function findContent(\DOMNode $node, ChildHtmlParserInterface $child_parser): ?NodeList {
     $crawler = new Crawler($node);
     $crawler = $crawler->filter('[data-selector="content"]');

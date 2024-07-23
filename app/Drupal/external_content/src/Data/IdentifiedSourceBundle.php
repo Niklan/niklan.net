@@ -4,26 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Data;
 
-/**
- * {@selfdoc}
- */
 final class IdentifiedSourceBundle {
 
-  /**
-   * {@selfdoc}
-   */
   private array $sources = [];
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     public readonly string $id,
   ) {}
 
   /**
-   * {@selfdoc}
-   *
    * @return \Drupal\external_content\Data\IdentifiedSource[]
    *   The identified sources.
    */
@@ -31,9 +20,6 @@ final class IdentifiedSourceBundle {
     return $this->sources;
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function getAllWithAttribute(string $attribute): self {
     $bundle = new self($this->id);
 
@@ -50,18 +36,12 @@ final class IdentifiedSourceBundle {
     return $bundle;
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function add(IdentifiedSource $source): self {
     $this->sources[] = $source;
 
     return $this;
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function getAllWithAttributeValue(string $attribute, string $value): self {
     $bundle = new self($this->id);
 

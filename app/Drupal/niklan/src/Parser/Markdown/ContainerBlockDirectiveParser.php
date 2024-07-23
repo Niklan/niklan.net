@@ -17,20 +17,12 @@ use League\CommonMark\Parser\InlineParserEngineInterface;
 use League\CommonMark\Util\RegexHelper;
 
 /**
- * {@selfdoc}
- *
  * @ingroup markdown
  */
 final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser implements BlockContinueParserWithInlinesInterface {
 
-  /**
-   * {@selfdoc}
-   */
   private readonly BlockDirective $block;
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     public readonly int $colonLength,
     public readonly int $offset,
@@ -48,17 +40,11 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   #[\Override]
   public function getBlock(): AbstractBlock {
     return $this->block;
   }
 
-  /**
-   * {@selfdoc}
-   */
   #[\Override]
   public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue {
     if ($cursor->getNextNonSpaceCharacter() === ':') {
@@ -84,24 +70,16 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
     return BlockContinue::at($cursor);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function canContain(AbstractBlock $childBlock): bool {
     return TRUE;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function isContainer(): bool {
     return TRUE;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function parseInlines(InlineParserEngineInterface $inlineParser): void {
     if (!$this->block->inlineContentRaw) {

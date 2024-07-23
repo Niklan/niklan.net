@@ -55,9 +55,7 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
     self::assertNull($repository->getPhotoResponsiveImageStyleId());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

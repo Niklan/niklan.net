@@ -16,9 +16,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class SourceCollectionTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testObject(): void {
     $collection_a = new SourceCollection();
 

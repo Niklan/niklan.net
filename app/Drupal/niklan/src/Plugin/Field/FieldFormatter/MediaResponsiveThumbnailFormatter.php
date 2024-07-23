@@ -7,6 +7,7 @@ namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -17,33 +18,14 @@ use Drupal\Core\Url;
 use Drupal\media\MediaInterface;
 use Drupal\responsive_image\Plugin\Field\FieldFormatter\ResponsiveImageFormatter;
 
-/**
- * Plugin implementation of the media responsive thumbnail formatter.
- *
- * @FieldFormatter(
- *   id = "niklan_responsive_media_thumbnail",
- *   label = @Translation("Responsive thumbnail"),
- *   field_types = {
- *     "entity_reference"
- *   }
- * )
- */
+#[FieldFormatter(
+  id: 'niklan_responsive_media_thumbnail',
+  label: new TranslatableMarkup('Responsive thumbnail'),
+  field_types: ['entity_reference'],
+)]
 final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
-    // This formatter is only available for entity types that reference
-    // media items.
-    return $field_definition
-      ->getFieldStorageDefinition()
-      ->getSetting('target_type') === 'media';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::settingsForm($form, $form_state);
 
@@ -56,9 +38,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     return $element;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function settingsSummary(): array {
     $summary = parent::settingsSummary();
 
@@ -76,9 +56,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     return $summary;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     \assert($items instanceof EntityReferenceFieldItemListInterface);
 
@@ -125,6 +103,15 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
     return $elements;
   }
 
+  #[\Override]
+  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
+    // This formatter is only available for entity types that reference
+    // media items.
+    return $field_definition
+      ->getFieldStorageDefinition()
+      ->getSetting('target_type') === 'media';
+  }
+
   /**
    * {@inheritdoc}
    *
@@ -132,6 +119,7 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
    * of type \Drupal\file\Plugin\Field\FieldType\FileItem and calls
    * isDisplayed() which is not in FieldItemInterface.
    */
+  #[\Override]
   protected function needsEntityLoad(EntityReferenceItem $item): bool {
     return !$item->hasNewEntity();
   }

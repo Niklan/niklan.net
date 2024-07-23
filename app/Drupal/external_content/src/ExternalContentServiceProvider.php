@@ -8,14 +8,9 @@ use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderInterface;
 use Drupal\external_content\CompilerPass\EnvironmentPass;
 
-/**
- * {@selfdoc}
- */
 final class ExternalContentServiceProvider implements ServiceProviderInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function register(ContainerBuilder $container): void {
     $container->addCompilerPass(new EnvironmentPass());
   }

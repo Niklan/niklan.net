@@ -26,9 +26,6 @@ final class SerializerManagerTest extends ExternalContentTestBase {
     'external_content_test',
   ];
 
-  /**
-   * {@selfdoc}
-   */
   public function testSerialization(): void {
     $environment = $this->getEnvironmentManager()->get('test');
 
@@ -54,16 +51,10 @@ final class SerializerManagerTest extends ExternalContentTestBase {
     self::assertEquals($document, $document_from_json);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getSerializerManager(): SerializerManagerInterface {
     return $this->container->get(SerializerManagerInterface::class);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getEnvironmentManager(): EnvironmentManagerInterface {
     return $this->container->get(EnvironmentManagerInterface::class);
   }

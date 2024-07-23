@@ -11,23 +11,16 @@ use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\external_content\Node\Content;
 use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 
-/**
- * {@selfdoc}
- */
 final class ContentRenderArrayBuilder implements RenderArrayBuilderInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof Content);
 
     return RenderArrayBuilderHelper::buildChildren($node, $child_builder);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsBuild(NodeInterface $node): bool {
     return $node instanceof Content;
   }

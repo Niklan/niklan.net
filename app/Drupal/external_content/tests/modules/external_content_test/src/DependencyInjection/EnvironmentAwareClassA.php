@@ -12,21 +12,13 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
  */
 final class EnvironmentAwareClassA implements EnvironmentAwareInterface {
 
-  /**
-   * {@selfdoc}
-   */
   private EnvironmentInterface $environment;
 
-  /**
-   * {@inheritdoc}
-   */
   public function getEnvironment(): EnvironmentInterface {
     return $this->environment;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
   }

@@ -24,21 +24,13 @@ use Symfony\Component\Mime\MimeTypeGuesserInterface;
  */
 final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
 
-  /**
-   * {@selfdoc}
-   */
   protected EnvironmentInterface $environment;
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private readonly MimeTypeGuesserInterface $mimeTypeGuesser,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function find(): FinderResult {
     $files = new SourceCollection();
     $configuration = $this->environment->getConfiguration();
@@ -89,9 +81,7 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
     return FinderResult::withSources($files);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
   }

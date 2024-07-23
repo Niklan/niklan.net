@@ -46,9 +46,7 @@ final class GitTest extends NiklanTestBase {
     $this->assertEquals('/foo/bar', $process->getWorkingDirectory());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
     $this->git = $this->container->get('niklan.process.git');

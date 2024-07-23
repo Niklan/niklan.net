@@ -12,15 +12,11 @@ use Drupal\external_content\Node\Element;
 use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class CodeBlock implements RenderArrayBuilderInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof Element);
     $attributes = $node->getAttributes();
@@ -45,9 +41,7 @@ final class CodeBlock implements RenderArrayBuilderInterface {
     ]);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsBuild(NodeInterface $node): bool {
     return $node instanceof Element && $node->getTag() === 'pre';
   }

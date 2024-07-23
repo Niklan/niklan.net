@@ -7,8 +7,6 @@ namespace Drupal\niklan\Utility;
 use Drupal\Component\Transliteration\PhpTransliteration;
 
 /**
- * Class Text with simple string utility.
- *
  * @deprecated Replaced by a Markdown extension.
  */
 final class Anchor {
@@ -30,17 +28,6 @@ final class Anchor {
    */
   protected static array $cache = [];
 
-  /**
-   * Generates anchor for string.
-   *
-   * @param string $text
-   *   The string to generate anchor from.
-   * @param int $mode
-   *   The mode used when anchor for provided text and id is already exists.
-   *   Available values:
-   *   - COUNTER: Each new anchor will have suffix "-N".
-   *   - REUSE: Will return already generated anchor.
-   */
   public static function generate(string $text, int $mode = self::COUNTER): string {
     $anchor = self::prepareAnchor($text);
 
@@ -50,12 +37,6 @@ final class Anchor {
     };
   }
 
-  /**
-   * Prepares anchor string.
-   *
-   * @param string $text
-   *   The text from which to create an anchor.
-   */
   protected static function prepareAnchor(string $text): string {
     $transliteration = new PhpTransliteration();
     $anchor = $transliteration->transliterate($text);
@@ -70,12 +51,6 @@ final class Anchor {
     return \preg_replace('/-{2,}/', '-', $anchor);
   }
 
-  /**
-   * Generates anchor with counter mode.
-   *
-   * @param string $anchor
-   *   The processed anchor.
-   */
   protected static function generateWithCounter(string $anchor): string {
     $iteration = 0;
 

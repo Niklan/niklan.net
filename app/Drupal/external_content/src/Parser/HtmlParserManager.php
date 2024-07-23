@@ -20,18 +20,13 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 final class HtmlParserManager implements HtmlParserManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ContainerInterface $container,
     private ChildHtmlParserInterface $childHtmlParser,
     private array $htmlParsers = [],
   ) {}
 
-  /**
-   * {@selfdoc}
-   */
+  #[\Override]
   public function parse(Html $html, EnvironmentInterface $environment): Content {
     $pre_parse_event = new HtmlPreParseEvent(
       content: $html->contents(),
@@ -50,9 +45,6 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
     return $content;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function get(string $parser_id): HtmlParserInterface {
     if (!$this->has($parser_id)) {
@@ -67,25 +59,16 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
     return $this->container->get($service);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function has(string $parser_id): bool {
     return \array_key_exists($parser_id, $this->htmlParsers);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function list(): array {
     return $this->htmlParsers;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function parseChildren(\DOMNode $body, Content $content, EnvironmentInterface $environment): void {
     $this->childHtmlParser->setEnvironment($environment);
 
@@ -96,9 +79,6 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
     }
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function parseChild(\DOMNode $node, Content $content, EnvironmentInterface $environment): void {
     foreach ($environment->getHtmlParsers() as $parser) {
       \assert($parser instanceof HtmlParserInterface);

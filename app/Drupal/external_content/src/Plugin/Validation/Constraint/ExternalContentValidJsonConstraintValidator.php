@@ -12,9 +12,7 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 final class ExternalContentValidJsonConstraintValidator extends ConstraintValidator {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function validate(mixed $value, Constraint $constraint): void {
     \assert($constraint instanceof ExternalContentValidJsonConstraint);
 
@@ -37,9 +35,6 @@ final class ExternalContentValidJsonConstraintValidator extends ConstraintValida
     $this->addInvalidJsonViolation($constraint);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function addInvalidJsonViolation(ExternalContentValidJsonConstraint $constraint): void {
     $this
       ->context

@@ -12,25 +12,14 @@ use Drupal\photoswipe\PhotoswipeAssetsManagerInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * {@selfdoc}
- *
- * @see template_preprocess_niklan_lightbox_responsive_image()
- */
 final readonly class NiklanLightboxResponsiveImagePreprocess implements ContainerInjectionInterface {
 
-  /**
-   * Constructs a new NiklanPhotoswipeResponsiveImagePreprocess instance.
-   */
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private ImageFactory $imageFactory,
     private PhotoswipeAssetsManagerInterface $photoswipeAssetsManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
@@ -40,18 +29,6 @@ final readonly class NiklanLightboxResponsiveImagePreprocess implements Containe
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
-  public function __invoke(array &$variables): void {
-    $this->photoswipeAssetsManager->attach($variables);
-    $this->prepareResponsiveImage($variables);
-    $this->prepareFullImageUrl($variables);
-  }
-
-  /**
-   * {@selfdoc}
-   */
   private function prepareResponsiveImage(array &$variables): void {
     \assert($variables['thumbnail_responsive_image_style_id']);
     $storage = $this->entityTypeManager->getStorage('responsive_image_style');
@@ -82,9 +59,6 @@ final readonly class NiklanLightboxResponsiveImagePreprocess implements Containe
     $variables['responsive_image']['#attributes']['title'] = $variables['title'];
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareFullImageUrl(array &$variables): void {
     \assert($variables['lightbox_image_style_id']);
     $storage = $this->entityTypeManager->getStorage('image_style');
@@ -94,6 +68,12 @@ final readonly class NiklanLightboxResponsiveImagePreprocess implements Containe
     // Prepare size for zoom aspect ratio.
     $image = $this->imageFactory->get($style->buildUri($variables['uri']));
     $variables['size'] = "{$image->getWidth()}x{$image->getHeight()}";
+  }
+
+  public function __invoke(array &$variables): void {
+    $this->photoswipeAssetsManager->attach($variables);
+    $this->prepareResponsiveImage($variables);
+    $this->prepareFullImageUrl($variables);
   }
 
 }

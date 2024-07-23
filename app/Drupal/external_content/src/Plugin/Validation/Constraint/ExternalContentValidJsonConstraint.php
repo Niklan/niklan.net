@@ -16,9 +16,6 @@ use Symfony\Component\Validator\Constraint;
  */
 final class ExternalContentValidJsonConstraint extends Constraint {
 
-  /**
-   * {@selfdoc}
-   */
   public string $invalidJsonMessage = 'The supplied string is not a valid JSON value.';
 
 }

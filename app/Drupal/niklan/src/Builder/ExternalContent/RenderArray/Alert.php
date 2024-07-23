@@ -12,15 +12,11 @@ use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 use Drupal\niklan\Node\ExternalContent\Alert as AlertNode;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class Alert implements RenderArrayBuilderInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof AlertNode);
 
@@ -48,9 +44,7 @@ final class Alert implements RenderArrayBuilderInterface {
     return RenderArrayBuilderResult::withRenderArray($build);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsBuild(NodeInterface $node): bool {
     return $node instanceof AlertNode;
   }

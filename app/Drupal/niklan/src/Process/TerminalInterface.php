@@ -6,9 +6,6 @@ namespace Drupal\niklan\Process;
 
 use Symfony\Component\Process\Process;
 
-/**
- * Provides an interface for terminal processor.
- */
 interface TerminalInterface {
 
   /**

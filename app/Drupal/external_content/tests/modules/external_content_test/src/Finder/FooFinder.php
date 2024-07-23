@@ -14,9 +14,7 @@ use Drupal\external_content\Source\File;
  */
 final class FooFinder implements FinderInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function find(): FinderResult {
     $files = new SourceCollection();
     $files->add(new File('foo/bar', 'foo/bar/baz.txt', 'text'));

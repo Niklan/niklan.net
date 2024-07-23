@@ -19,17 +19,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final readonly class BundlerManager implements BundlerManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ContainerInterface $container,
     private array $bundlers = [],
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function bundle(IdentifiedSourceCollection $source_collection, EnvironmentInterface $environment): IdentifiedSourceBundleCollection {
     $bundles = [];
 
@@ -41,9 +36,6 @@ final readonly class BundlerManager implements BundlerManagerInterface {
     return $this->packBundles($bundles);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function get(string $bundler_id): BundlerInterface {
     if (!$this->has($bundler_id)) {
@@ -58,41 +50,16 @@ final readonly class BundlerManager implements BundlerManagerInterface {
     return $this->container->get($service);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function has(string $bundler_id): bool {
     return \array_key_exists($bundler_id, $this->bundlers);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function list(): array {
     return $this->bundlers;
   }
 
-  /**
-   * {@selfdoc}
-   */
-  private function bundleSource(IdentifiedSource $source, array &$bundles, EnvironmentInterface $environment): void {
-    foreach ($environment->getBundlers() as $bundler) {
-      \assert($bundler instanceof BundlerInterface);
-      $result = $bundler->bundle($source);
-
-      if ($result->shouldNotBeBundled()) {
-        continue;
-      }
-
-      $bundles[$result->bundleId][] = $source;
-    }
-  }
-
-  /**
-   * {@selfdoc}
-   */
   protected function packBundles(array $identified_bundles): IdentifiedSourceBundleCollection {
     $bundle_collection = new IdentifiedSourceBundleCollection();
 
@@ -107,6 +74,19 @@ final readonly class BundlerManager implements BundlerManagerInterface {
     }
 
     return $bundle_collection;
+  }
+
+  private function bundleSource(IdentifiedSource $source, array &$bundles, EnvironmentInterface $environment): void {
+    foreach ($environment->getBundlers() as $bundler) {
+      \assert($bundler instanceof BundlerInterface);
+      $result = $bundler->bundle($source);
+
+      if ($result->shouldNotBeBundled()) {
+        continue;
+      }
+
+      $bundles[$result->bundleId][] = $source;
+    }
   }
 
 }

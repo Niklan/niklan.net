@@ -23,9 +23,35 @@ use Drupal\external_content\Field\ExternalContentComputedProperty;
  */
 final class ExternalContentFieldItem extends FieldItemBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
+  public function getConstraints(): array {
+    $constraints = parent::getConstraints();
+
+    $constraint_manager = $this
+      ->getTypedDataManager()
+      ->getValidationConstraintManager();
+
+    $constraints[] = $constraint_manager->create('ComplexData', [
+      'value' => [
+        'ExternalContentValidJson' => [],
+      ],
+      'data' => [
+        'ExternalContentValidJson' => [],
+      ],
+    ]);
+
+    return $constraints;
+  }
+
+  #[\Override]
+  public function isEmpty(): bool {
+    return match ($this->get('value')->getValue()) {
+      NULL, '', '{}' => TRUE,
+      default => FALSE,
+    };
+  }
+
+  #[\Override]
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
     $properties = [];
 
@@ -51,32 +77,7 @@ final class ExternalContentFieldItem extends FieldItemBase {
     return $properties;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
-  public function getConstraints(): array {
-    $constraints = parent::getConstraints();
-
-    $constraint_manager = $this
-      ->getTypedDataManager()
-      ->getValidationConstraintManager();
-
-    $constraints[] = $constraint_manager->create('ComplexData', [
-      'value' => [
-        'ExternalContentValidJson' => [],
-      ],
-      'data' => [
-        'ExternalContentValidJson' => [],
-      ],
-    ]);
-
-    return $constraints;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function schema(FieldStorageDefinitionInterface $field_definition): array {
     return [
       'columns' => [
@@ -105,16 +106,6 @@ final class ExternalContentFieldItem extends FieldItemBase {
         ],
       ],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isEmpty(): bool {
-    return match ($this->get('value')->getValue()) {
-      NULL, '', '{}' => TRUE,
-      default => FALSE,
-    };
   }
 
 }

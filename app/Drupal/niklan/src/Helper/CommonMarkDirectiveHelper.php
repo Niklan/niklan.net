@@ -7,41 +7,20 @@ namespace Drupal\niklan\Helper;
 use League\CommonMark\Parser\Cursor;
 
 /**
- * {@selfdoc}
- *
  * @ingroup markdown
  */
 final class CommonMarkDirectiveHelper {
 
-  /**
-   * {@selfdoc}
-   */
   // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string TYPE_REGEX = '/^\s*([a-zA-Z]+)/';
-
-  /**
-   * {@selfdoc}
-   */
-  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string CSS_SELECTORS_REGEX = '/[#.\-_:a-zA-Z0-9=]+/';
-
-  /**
-   * {@selfdoc}
-   */
-  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string ATTRIBUTES_KEY_REGEX = '/([a-zA-Z-]+)/';
-
-  /**
-   * {@selfdoc}
-   */
-  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string ESCAPE_CHAR = '\\';
 
   /**
-   * {@selfdoc}
+   * Parses info string.
    *
    * The info string is:
-   *
    * @code
    * name[inline-content](argument){#id .class key=value}
    * @endcode
@@ -99,30 +78,10 @@ final class CommonMarkDirectiveHelper {
   }
 
   /**
-   * {@selfdoc}
-   */
-  private static function parseGroup(Cursor $cursor, string $closing_char, ?string &$result): void {
-    if (!$result) {
-      $result = '';
-    }
-
-    $cursor->advanceBy(1);
-
-    do {
-      $result .= $cursor->getCurrentCharacter();
-      $cursor->advanceBy(1);
-    } while (!$cursor->isAtEnd() && !($cursor->getCurrentCharacter() === $closing_char && $cursor->peek(-1) !== self::ESCAPE_CHAR));
-
-    // Remove escaping.
-    $result = \str_replace("\\$closing_char", $closing_char, $result);
-  }
-
-  /**
-   * {@selfdoc}
+   * Parses extra attributes.
    *
    * Extra attributes is a set of additional information which can contain ID
    * and class CSS selector, as wel ass key/value pairs.
-   *
    * @code
    * #id .class key=value foo="bar baz"
    * @endcode
@@ -166,9 +125,36 @@ final class CommonMarkDirectiveHelper {
     return $result;
   }
 
-  /**
-   * {@selfdoc}
-   */
+  public static function flattenExtraAttributes(array $extra_attributes): array {
+    $attributes = $extra_attributes;
+
+    if (\array_key_exists('key-value', $attributes)) {
+      foreach ($attributes['key-value'] as $key => $value) {
+        $attributes["data-$key"] = $value;
+      }
+
+      unset($attributes['key-value']);
+    }
+
+    return $attributes;
+  }
+
+  private static function parseGroup(Cursor $cursor, string $closing_char, ?string &$result): void {
+    if (!$result) {
+      $result = '';
+    }
+
+    $cursor->advanceBy(1);
+
+    do {
+      $result .= $cursor->getCurrentCharacter();
+      $cursor->advanceBy(1);
+    } while (!$cursor->isAtEnd() && !($cursor->getCurrentCharacter() === $closing_char && $cursor->peek(-1) !== self::ESCAPE_CHAR));
+
+    // Remove escaping.
+    $result = \str_replace("\\$closing_char", $closing_char, $result);
+  }
+
   private static function parseKeyValuePairs(Cursor $cursor, array &$key_value): void {
     $key = $cursor->match(self::ATTRIBUTES_KEY_REGEX);
 
@@ -190,9 +176,6 @@ final class CommonMarkDirectiveHelper {
     $key_value[$key] = $value;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private static function parseValue(Cursor $cursor, bool $has_string_opening): string {
     $value = '';
 
@@ -204,9 +187,6 @@ final class CommonMarkDirectiveHelper {
     return $value;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private static function shouldContinueParseValue(Cursor $cursor, bool $has_string_opening): bool {
     if ($cursor->isAtEnd()) {
       return FALSE;
@@ -217,23 +197,6 @@ final class CommonMarkDirectiveHelper {
     }
 
     return $cursor->getCurrentCharacter() !== ' ';
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public static function flattenExtraAttributes(array $extra_attributes): array {
-    $attributes = $extra_attributes;
-
-    if (\array_key_exists('key-value', $attributes)) {
-      foreach ($attributes['key-value'] as $key => $value) {
-        $attributes["data-$key"] = $value;
-      }
-
-      unset($attributes['key-value']);
-    }
-
-    return $attributes;
   }
 
 }
