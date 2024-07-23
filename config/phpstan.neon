@@ -4,6 +4,7 @@ parameters:
   excludePaths:
     - *Test.php
     - *TestBase.php
+    - ../app/Drupal/mechanical/*
   level: 5
   drupal:
     # Some tools (e.g. PHPStorm) can execute PHPStan from different directories,

@@ -41,9 +41,7 @@ final class AuthorNameTest extends ExtraFieldTestBase {
     self::assertRaw($this->author->getAccountName());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

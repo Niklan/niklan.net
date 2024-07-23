@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Helper;
 
-/**
- * Provides system path utils.
- */
 final class PathHelper {
 
-  /**
-   * {@selfdoc}
-   */
   // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string SCHEME_PLACEHOLDER = '__scheme__';
 

@@ -13,6 +13,8 @@ use Drupal\Tests\niklan\Kernel\NiklanTestBase;
  */
 abstract class ExtraFieldTestBase extends NiklanTestBase {
 
+  protected ?ExtraFieldDisplayManagerInterface $extraFieldDisplayManager;
+
   /**
    * {@inheritdoc}
    */
@@ -20,14 +22,7 @@ abstract class ExtraFieldTestBase extends NiklanTestBase {
     'extra_field',
   ];
 
-  /**
-   * The extra field display plugin manager.
-   */
-  protected ?ExtraFieldDisplayManagerInterface $extraFieldDisplayManager;
-
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

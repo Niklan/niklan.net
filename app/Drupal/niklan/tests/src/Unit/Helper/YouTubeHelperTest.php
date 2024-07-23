@@ -7,15 +7,11 @@ namespace Drupal\niklan\Helper;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * {@selfdoc}
- *
  * @coversDefaultClass \Drupal\niklan\Helper\YouTubeHelper
  */
 final class YouTubeHelperTest extends UnitTestCase {
 
   /**
-   * {@selfdoc}
-   *
    * @dataProvider youTubeUrlsProvider
    */
   public function testHelper(string $url, bool $is_youtube_url, ?string $video_id): void {
@@ -23,9 +19,6 @@ final class YouTubeHelperTest extends UnitTestCase {
     self::assertSame($video_id, YouTubeHelper::extractVideoId($url));
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function youTubeUrlsProvider(): \Generator {
     // https://www.youtube.com/watch?v=Y1I7zGn6F-w
     yield [

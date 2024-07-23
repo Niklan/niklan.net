@@ -20,59 +20,26 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  */
 interface EnvironmentBuilderInterface extends ConfigurationProviderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function addHtmlParser(HtmlParserInterface $parser, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addIdentifier(IdentifierInterface $identifier, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addFinder(FinderInterface $finder, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addRenderArrayBuilder(RenderArrayBuilderInterface $builder, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addSerializer(SerializerInterface $serializer, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addEventListener(string $event_class, callable $listener, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function setEventDispatcher(EventDispatcherInterface $event_dispatcher): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addExtension(ExtensionInterface $extension): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addLoader(LoaderInterface $loader, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addConverter(ConverterInterface $converter, int $priority = 0): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addBundler(BundlerInterface $bundler, int $priority = 0): self;
 
 }

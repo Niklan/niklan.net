@@ -108,9 +108,7 @@ final class SearchFormTest extends NiklanTestBase {
     self::assertCount(3, $commands);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

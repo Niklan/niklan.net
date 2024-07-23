@@ -29,9 +29,6 @@ final class RenderArrayBuilderManagerTest extends ExternalContentTestBase {
     'external_content_test',
   ];
 
-  /**
-   * {@selfdoc}
-   */
   public function testBuild(): void {
     $paragraph = new Element('p');
     $paragraph->addChild(new PlainText('Hello, '));
@@ -61,9 +58,6 @@ final class RenderArrayBuilderManagerTest extends ExternalContentTestBase {
     self::assertCount(3, $build[0]['children']);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getManager(): RenderArrayBuilderManagerInterface {
     return $this->container->get(RenderArrayBuilderManagerInterface::class);
   }

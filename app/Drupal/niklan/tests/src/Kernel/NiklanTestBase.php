@@ -14,6 +14,11 @@ abstract class NiklanTestBase extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'breakpoint',
     'niklan',
@@ -34,10 +39,5 @@ abstract class NiklanTestBase extends KernelTestBase {
     'twig_tweak',
     'external_content',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
 
 }

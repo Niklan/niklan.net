@@ -16,9 +16,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class HtmlParserResultTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testReplace(): void {
     $replacement = new PlainText('foo');
     $result = HtmlParserResult::replace($replacement);
@@ -30,9 +27,6 @@ final class HtmlParserResultTest extends UnitTestCase {
     self::assertEquals($replacement, $result->replacement());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testStop(): void {
     $result = HtmlParserResult::stop();
 
@@ -43,9 +37,6 @@ final class HtmlParserResultTest extends UnitTestCase {
     self::assertNull($result->replacement());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testPass(): void {
     $result = HtmlParserResult::pass();
 

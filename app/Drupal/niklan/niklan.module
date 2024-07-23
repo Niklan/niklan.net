@@ -19,7 +19,6 @@ use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\NiklanLightboxResponsiveImagePreprocess;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 
@@ -388,16 +387,6 @@ function niklan_preprocess_comment(array &$variables): void {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for 'paragraph--important.html.twig'.
- */
-function niklan_preprocess_paragraph__important(array &$variables): void {
-  $paragraph = $variables['elements']['#paragraph'];
-  \assert($paragraph instanceof ParagraphInterface);
-  $type = $paragraph->get('field_important_type')->getString();
-  $variables['attributes']['class'][] = 'paragraph-important--' . $type;
-}
-
-/**
  * Prepares variables for search results.
  *
  * Default template: niklan-search-results.html.twig.
@@ -433,9 +422,6 @@ function niklan_entity_base_field_info(EntityTypeInterface $entity_type): array 
   return \Drupal::classResolver(BaseFieldInfo::class)($entity_type);
 }
 
-/**
- * {@selfdoc}
- */
 function template_preprocess_niklan_lightbox_responsive_image(array &$variables): void {
   \Drupal::classResolver(NiklanLightboxResponsiveImagePreprocess::class)($variables);
 }

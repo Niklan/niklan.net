@@ -11,9 +11,6 @@ use Drupal\external_content\Contract\Builder\EnvironmentBuilderInterface;
  */
 interface ExtensionInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function register(EnvironmentBuilderInterface $environment): void;
 
 }

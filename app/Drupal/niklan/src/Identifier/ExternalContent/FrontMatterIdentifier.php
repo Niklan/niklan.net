@@ -11,15 +11,11 @@ use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifierResult;
 
 /**
- * Provides a bundler based on Front Matter 'id' and 'language' params.
- *
  * @ingroup external_content
  */
 final class FrontMatterIdentifier implements IdentifierInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function identify(SourceInterface $source): IdentifierResult {
     if (!$this->supportsIdentification($source)) {
       return IdentifierResult::notIdentified();
@@ -41,9 +37,6 @@ final class FrontMatterIdentifier implements IdentifierInterface {
     return IdentifierResult::identified($result);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function supportsIdentification(SourceInterface $source): bool {
     $data = $source->data();
 

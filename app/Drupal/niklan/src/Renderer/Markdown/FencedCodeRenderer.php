@@ -13,15 +13,11 @@ use League\CommonMark\Util\HtmlElement;
 use League\CommonMark\Util\Xml;
 
 /**
- * Provides custom fenced code renderer.
- *
  * @ingroup markdown
  */
 final class FencedCodeRenderer implements NodeRendererInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable {
     \assert($node instanceof FencedCode);
 

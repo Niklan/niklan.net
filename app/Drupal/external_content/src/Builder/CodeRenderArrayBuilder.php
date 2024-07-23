@@ -15,9 +15,7 @@ use Drupal\external_content\Node\Code;
  */
 final class CodeRenderArrayBuilder implements RenderArrayBuilderInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof Code);
 
@@ -28,9 +26,7 @@ final class CodeRenderArrayBuilder implements RenderArrayBuilderInterface {
     ]);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsBuild(NodeInterface $node): bool {
     return $node instanceof Code;
   }

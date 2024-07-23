@@ -10,32 +10,16 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides controller for blog list route.
- */
 final class BlogController implements ContainerInjectionInterface {
 
-  /**
-   * The amount of articles per page.
-   */
   protected int $limit = 10;
 
-  /**
-   * Constructs a new BlogController instance.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
-   */
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected RendererInterface $renderer,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),

@@ -36,30 +36,21 @@ final class File implements SourceInterface {
     return $this->pathname;
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function getBasename(): string {
     return \basename($this->getPathname());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function contents(): string {
     return \file_get_contents($this->getPathname());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function type(): string {
     return $this->type;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function data(): Data {
     $this->data->set('type', $this->type());
     $this->data->set('working_dir', $this->getWorkingDir());

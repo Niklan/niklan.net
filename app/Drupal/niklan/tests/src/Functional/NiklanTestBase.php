@@ -14,6 +14,11 @@ abstract class NiklanTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'niklan',
     'media',
@@ -24,10 +29,5 @@ abstract class NiklanTestBase extends BrowserTestBase {
     'block',
     'external_content',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
 
 }

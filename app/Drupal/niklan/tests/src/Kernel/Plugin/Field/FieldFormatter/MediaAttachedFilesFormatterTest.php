@@ -71,9 +71,7 @@ final class MediaAttachedFilesFormatterTest extends NiklanTestBase {
     self::assertRaw($media_image->label());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

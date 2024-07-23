@@ -9,14 +9,8 @@ namespace Drupal\external_content\Contract\Node;
  */
 interface StringContainerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function setLiteral(string $literal): void;
 
-  /**
-   * {@selfdoc}
-   */
   public function getLiteral(): string;
 
 }

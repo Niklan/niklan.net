@@ -17,9 +17,6 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
  */
 final class FinderManagerTest extends ExternalContentTestBase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testEmptyFinder(): void {
     $environment = new Environment('test');
     $result = $this->getManager()->find($environment);
@@ -27,22 +24,16 @@ final class FinderManagerTest extends ExternalContentTestBase {
     self::assertCount(0, $result->items());
   }
 
-  /**
-   * {@selfdoc}
-   */
-  private function getManager(): FinderManagerInterface {
-    return $this->container->get(FinderManagerInterface::class);
-  }
-
-  /**
-   * {@selfdoc}
-   */
   public function testFooFinder(): void {
     $environment = new Environment('test');
     $environment->addFinder(new FooFinder());
     $result = $this->getManager()->find($environment);
 
     self::assertCount(1, $result->items());
+  }
+
+  private function getManager(): FinderManagerInterface {
+    return $this->container->get(FinderManagerInterface::class);
   }
 
 }

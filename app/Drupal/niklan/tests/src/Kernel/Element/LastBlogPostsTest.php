@@ -70,9 +70,7 @@ final class LastBlogPostsTest extends NiklanTestBase {
     self::assertCount(5, $this->cssSelect('.last-content article'));
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

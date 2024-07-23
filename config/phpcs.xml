@@ -8,23 +8,59 @@
   <exclude-pattern>*/fixtures/*</exclude-pattern>
   <exclude-pattern>*\.(css|js)</exclude-pattern>
   <!-- Base ruleset. -->
-  <rule ref="vendor/chi-teck/drupal-coder-extension/DrupalExtended"/>
+  <rule ref="DrupalExtended"/>
 
-  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+  <rule ref="Drupal">
     <!-- Not supporting param iterable types. Covered by PHPStan. -->
     <exclude name="Drupal.Commenting.FunctionComment.IncorrectParamVarName"/>
     <exclude name="Drupal.Commenting.VariableComment.IncorrectVarType"/>
-    <!-- Conflicts with {@selfdoc} phpdoc. -->
-    <exclude name="Drupal.Commenting.DocComment.ShortNotCapital"/>
-    <exclude name="Drupal.Commenting.DocComment.ShortFullStop"/>
     <!-- Todos in a custom project is not only about fixing thing. -->
     <exclude name="Drupal.Commenting.TodoComment.TodoFormat"/>
+    <!-- Embrace strict types. -->
+    <exclude name="Drupal.Commenting.FunctionComment.Missing"/>
+    <exclude name="Drupal.Commenting.FunctionComment.ThrowsComment"/>
+    <exclude name="Drupal.Commenting.ClassComment.Missing"/>
+    <exclude name="Drupal.Commenting.VariableComment.Missing"/>
+    <exclude name="Drupal.Commenting.DocComment.MissingShort"/>
+    <!-- It forces to declare all params even only if a single one is needed. -->
+    <exclude name="Drupal.Commenting.FunctionComment.ParamMissingDefinition"/>
   </rule>
 
   <!-- Project specific rules. -->
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
-  <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing"/>
-  <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
+  <rule ref="SlevomatCodingStandard.Classes.ClassStructure"/>
+  <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
+    <properties>
+      <property name="jumpStatements" type="array">
+        <element value="return"/>
+      </property>
+    </properties>
+  </rule>
   <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>
+  <rule ref="SlevomatCodingStandard.Classes.PropertySpacing">
+    <properties>
+      <property name="minLinesCountBeforeWithoutComment" value="0"/>
+      <property name="maxLinesCountBeforeWithoutComment" value="0"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.Classes.ConstantSpacing">
+    <properties>
+      <property name="minLinesCountBeforeWithoutComment" value="0"/>
+      <property name="maxLinesCountBeforeWithoutComment" value="0"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.Classes.EnumCaseSpacing">
+    <properties>
+      <property name="minLinesCountBeforeWithoutComment" value="0"/>
+      <property name="maxLinesCountBeforeWithoutComment" value="0"/>
+    </properties>
+  </rule>
+  <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+    <properties>
+      <property name="linesCountAfterOpeningBrace" value="1"/>
+      <property name="linesCountBeforeClosingBrace" value="1"/>
+    </properties>
+  </rule>
 </ruleset>

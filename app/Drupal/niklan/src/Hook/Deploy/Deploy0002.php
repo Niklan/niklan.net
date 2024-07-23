@@ -29,33 +29,11 @@ final class Deploy0002 implements ContainerInjectionInterface {
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),
     );
-  }
-
-  /**
-   * Implements hook_deploy_HOOK().
-   */
-  public function __invoke(array &$sandbox): string {
-    $this->prepareBatch($sandbox);
-
-    if ($sandbox['total'] === 0) {
-      $sandbox['#finished'] = 1;
-
-      return 'No blog posts were found.';
-    }
-
-    $this->processBatch($sandbox);
-
-    return (string) new FormattableMarkup('@current of @total blog posts are processed.', [
-      '@current' => $sandbox['current'],
-      '@total' => $sandbox['total'],
-    ]);
   }
 
   /**
@@ -117,9 +95,6 @@ final class Deploy0002 implements ContainerInjectionInterface {
       ->sort('nid');
   }
 
-  /**
-   * {@selfdoc}
-   */
   protected function getExternalIdMapping(): array {
     // 'nid' => 'external-id'.
     /* spellchecker: disable */
@@ -280,6 +255,26 @@ final class Deploy0002 implements ContainerInjectionInterface {
       '216' => 'drupal-warmer-2',
     ];
     /* spellchecker: enable */
+  }
+
+  /**
+   * Implements hook_deploy_HOOK().
+   */
+  public function __invoke(array &$sandbox): string {
+    $this->prepareBatch($sandbox);
+
+    if ($sandbox['total'] === 0) {
+      $sandbox['#finished'] = 1;
+
+      return 'No blog posts were found.';
+    }
+
+    $this->processBatch($sandbox);
+
+    return (string) new FormattableMarkup('@current of @total blog posts are processed.', [
+      '@current' => $sandbox['current'],
+      '@total' => $sandbox['total'],
+    ]);
   }
 
 }

@@ -21,37 +21,26 @@ final class Content extends Node {
     $this->data ??= new Data();
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function getData(): Data {
     return $this->data;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function hasParent(): bool {
     return FALSE;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setParent(NodeInterface $node): NodeInterface {
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getParent(): ?NodeInterface {
     return NULL;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getRoot(): NodeInterface {
     return $this;
   }

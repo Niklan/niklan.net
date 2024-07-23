@@ -9,8 +9,6 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
 use Drupal\node\NodeInterface;
 
 /**
- * Provides a field with share buttons.
- *
  * @ExtraFieldDisplay(
  *   id = "share",
  *   label = @Translation("Share"),
@@ -21,9 +19,7 @@ use Drupal\node\NodeInterface;
  */
 final class Share extends ExtraFieldDisplayBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     \assert($entity instanceof NodeInterface);
 

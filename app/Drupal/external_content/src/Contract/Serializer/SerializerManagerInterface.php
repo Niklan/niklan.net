@@ -12,29 +12,15 @@ use Drupal\external_content\Contract\Node\NodeInterface;
  */
 interface SerializerManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function normalize(NodeInterface $node, EnvironmentInterface $environment): string;
 
-  /**
-   * {@selfdoc}
-   */
   public function deserialize(string $json, EnvironmentInterface $environment): NodeInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function get(string $serializer_id): SerializerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function has(string $serializer_id): bool;
 
   /**
-   * {@selfdoc}
-   *
    * @return array{
    *   service: string,
    *   id: string,

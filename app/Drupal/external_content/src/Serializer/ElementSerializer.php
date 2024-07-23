@@ -16,9 +16,7 @@ use Drupal\external_content\Node\Element;
  */
 final class ElementSerializer implements SerializerInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof Element);
 
@@ -36,30 +34,22 @@ final class ElementSerializer implements SerializerInterface {
     return $result;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getSerializationBlockType(): string {
     return 'external_content:html_element';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsSerialization(NodeInterface $node): bool {
     return $node instanceof Element;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     $attributes = new Attributes($data->get('attributes') ?? []);
     $element = new Element($data->get('tag'), $attributes);
@@ -71,9 +61,7 @@ final class ElementSerializer implements SerializerInterface {
     return $element;
   }
 
-  /**
-   * {@selfdoc}
-   */
+  #[\Override]
   public function getSerializerVersion(): string {
     return '1.0.0';
   }

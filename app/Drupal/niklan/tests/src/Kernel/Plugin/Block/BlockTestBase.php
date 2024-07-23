@@ -17,9 +17,7 @@ abstract class BlockTestBase extends NiklanTestBase {
    */
   protected BlockManagerInterface $blockManager;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

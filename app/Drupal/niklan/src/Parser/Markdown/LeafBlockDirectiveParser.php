@@ -16,20 +16,12 @@ use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\InlineParserEngineInterface;
 
 /**
- * {@selfdoc}
- *
  * @ingroup markdown
  */
 final class LeafBlockDirectiveParser extends AbstractBlockContinueParser implements BlockContinueParserWithInlinesInterface {
 
-  /**
-   * {@selfdoc}
-   */
   private readonly BlockDirective $block;
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     public readonly string $directiveInfo,
   ) {
@@ -45,17 +37,11 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   #[\Override]
   public function getBlock(): AbstractBlock {
     return $this->block;
   }
 
-  /**
-   * {@selfdoc}
-   */
   #[\Override]
   public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue {
     // Since this directive is not a container and the cursor has already been
@@ -64,17 +50,11 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
     return BlockContinue::none();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function isContainer(): bool {
     return FALSE;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function parseInlines(InlineParserEngineInterface $inlineParser): void {
     if (!$this->block->inlineContentRaw) {

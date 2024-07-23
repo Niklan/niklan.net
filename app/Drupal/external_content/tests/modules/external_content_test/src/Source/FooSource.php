@@ -7,9 +7,6 @@ namespace Drupal\external_content_test\Source;
 use Drupal\external_content\Contract\Source\SourceInterface;
 use Drupal\external_content\Data\Data;
 
-/**
- * {@selfdoc}
- */
 final readonly class FooSource implements SourceInterface {
 
   /**
@@ -21,23 +18,17 @@ final readonly class FooSource implements SourceInterface {
     private Data $data = new Data(),
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function data(): Data {
     return $this->data;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function type(): string {
     return $this->type;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function contents(): string {
     return $this->contents;
   }

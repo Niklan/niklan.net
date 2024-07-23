@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\Filter;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\filter\Attribute\Filter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\filter\Plugin\FilterInterface;
 use League\CommonMark\CommonMarkConverter;
 
-/**
- * Provides a 'Markdown' filter.
- *
- * @Filter(
- *   id = "niklan_markdown",
- *   title = @Translation("Markdown"),
- *   type = \Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
- *   weight = -10
- * )
- */
+#[Filter(
+  id: 'niklan_markdown',
+  title: new TranslatableMarkup('Markdown'),
+  type: FilterInterface::TYPE_MARKUP_LANGUAGE,
+  weight: -10,
+)]
 final class Markdown extends FilterBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function process($text, $langcode): FilterProcessResult {
     $converter = new CommonMarkConverter();
     $rendered_content = $converter->convert($text);

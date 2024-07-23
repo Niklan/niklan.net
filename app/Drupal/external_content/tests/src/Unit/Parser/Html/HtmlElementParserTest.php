@@ -19,9 +19,6 @@ use Prophecy\Argument;
  */
 final class HtmlElementParserTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testParse(): void {
     $child = new Element('foo');
     $children = new NodeList();

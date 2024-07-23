@@ -11,15 +11,11 @@ use Drupal\niklan\Node\ExternalContent\Video as VideoNode;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * {@selfdoc}
- *
  * @ingroup external_content
  */
 final class Video implements HtmlParserInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     if (!$node instanceof \DOMElement || !$this->isApplicable($node)) {
       return HtmlParserResult::pass();
@@ -39,9 +35,6 @@ final class Video implements HtmlParserInterface {
     return HtmlParserResult::replace($node);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function isApplicable(\DOMElement $node): bool {
     if (!$node->hasAttribute('data-selector') || $node->getAttribute('data-selector') !== 'niklan:leaf-directive') {
       return FALSE;
@@ -54,9 +47,6 @@ final class Video implements HtmlParserInterface {
     return $node->hasAttribute('data-argument');
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function findTitle(\DOMNode $node): ?string {
     $crawler = new Crawler($node);
     $crawler = $crawler->filter('[data-selector="inline-content"]');

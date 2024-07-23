@@ -15,9 +15,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class EventListenerTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testObject(): void {
     $callback = static fn () => 'bar';
     $event = new EventListener('foo', $callback);

@@ -8,45 +8,19 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides alters for already existed libraries.
- */
 final class LibraryInfoAlter implements ContainerInjectionInterface {
 
-  /**
-   * Constructs a new LibraryInfoAlter instance.
-   *
-   * @param \Drupal\Core\Extension\ModuleExtensionList $moduleExtensionList
-   *   The module extension list.
-   */
   public function __construct(
     protected ModuleExtensionList $moduleExtensionList,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('extension.list.module'),
     );
   }
 
-  /**
-   * Implements hook_library_info_alter().
-   */
-  public function __invoke(array &$libraries, string $extension): void {
-    $this->alterDrupalAjax($libraries, $extension);
-  }
-
-  /**
-   * Alters core/drupal.ajax library.
-   *
-   * @param array $libraries
-   *   The libraries.
-   * @param string $extension
-   *   The extension.
-   */
   protected function alterDrupalAjax(array &$libraries, string $extension): void {
     if ($extension !== 'core' || !isset($libraries['drupal.ajax'])) {
       return;
@@ -56,6 +30,10 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
 
     $js_path = "/$module_path/assets/js/command.ajax.js";
     $libraries['drupal.ajax']['js'][$js_path] = [];
+  }
+
+  public function __invoke(array &$libraries, string $extension): void {
+    $this->alterDrupalAjax($libraries, $extension);
   }
 
 }

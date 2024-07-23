@@ -20,8 +20,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 #[AsCommand(
@@ -30,23 +28,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class BlogSync extends Command {
 
-  /**
-   * {@selfdoc}
-   */
   private NiklanStyle $io;
 
-  /**
-   * Constructs a new BlogSync instance.
-   */
   public function __construct(
     private readonly ExternalContentManagerInterface $externalContentManager,
   ) {
     parent::__construct();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function execute(InputInterface $input, OutputInterface $output): int {
     $this->io = new NiklanStyle($input, $output);
     $environment = $this
@@ -62,9 +52,6 @@ final class BlogSync extends Command {
     return self::SUCCESS;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function find(EnvironmentInterface $environment): SourceCollection {
     $this->io->title("Start searching for sources…");
     Timer::start('find');
@@ -83,9 +70,6 @@ final class BlogSync extends Command {
     return $sources;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function identify(SourceCollection $sources, EnvironmentInterface $environment): IdentifiedSourceCollection {
     $this->io->title("Start identifying sources…");
     Timer::start('identify');
@@ -119,9 +103,6 @@ final class BlogSync extends Command {
     return $identified_sources;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function bundle(IdentifiedSourceCollection $identified_sources, EnvironmentInterface $environment): IdentifiedSourceBundleCollection {
     $this->io->title("Start bundling sources…");
     Timer::start('bundle');
@@ -167,9 +148,6 @@ final class BlogSync extends Command {
     return $bundled_sources;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function load(IdentifiedSourceBundleCollection $bundle_collection, EnvironmentInterface $environment): void {
     $this->io->title("Start loading bundles…");
     $loader_manager = $this->externalContentManager->getLoaderManager();

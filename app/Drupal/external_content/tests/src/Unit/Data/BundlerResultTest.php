@@ -15,9 +15,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class BundlerResultTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testBundleAs(): void {
     $result = BundlerResult::bundleAs('foo');
 
@@ -26,9 +23,6 @@ final class BundlerResultTest extends UnitTestCase {
     self::assertFalse($result->shouldNotBeBundled());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testPass(): void {
     $result = BundlerResult::pass();
 

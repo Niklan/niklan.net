@@ -16,9 +16,7 @@ use Drupal\external_content\Node\PlainText;
  */
 final class PlainTextParser implements HtmlParserInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     if (!$node instanceof \DOMText) {
       return HtmlParserResult::pass();

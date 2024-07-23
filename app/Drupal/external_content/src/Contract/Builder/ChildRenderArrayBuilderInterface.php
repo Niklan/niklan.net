@@ -8,14 +8,8 @@ use Drupal\external_content\Contract\Environment\EnvironmentAwareInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\RenderArrayBuilderResult;
 
-/**
- * {@selfdoc}
- */
 interface ChildRenderArrayBuilderInterface extends EnvironmentAwareInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function build(NodeInterface $node): RenderArrayBuilderResult;
 
 }

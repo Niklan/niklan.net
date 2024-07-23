@@ -36,9 +36,7 @@ final class ShareTest extends ExtraFieldTestBase {
     self::assertRaw('mailto:?subject');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

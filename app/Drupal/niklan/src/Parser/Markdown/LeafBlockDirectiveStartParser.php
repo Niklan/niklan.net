@@ -11,17 +11,12 @@ use League\CommonMark\Parser\MarkdownParserStateInterface;
 use League\CommonMark\Util\RegexHelper;
 
 /**
- * {@selfdoc}
- *
  * @see \Drupal\niklan\Extension\Markdown\LeafBlockDirectiveExtension
  *
  * @ingroup markdown
  */
 final class LeafBlockDirectiveStartParser implements BlockStartParserInterface {
 
-  /**
-   * {@selfdoc}
-   */
   #[\Override]
   public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart {
     if ($cursor->getNextNonSpaceCharacter() !== ':') {

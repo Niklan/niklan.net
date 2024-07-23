@@ -18,15 +18,12 @@ use Drupal\Tests\niklan\Kernel\NiklanTestBase;
  */
 final class NiklanSearchResultsPreprocessTest extends NiklanTestBase {
 
+  protected NiklanSearchResultsPreprocess $implementation;
+
   /**
    * {@inheritdoc}
    */
   protected static $modules = ['node'];
-
-  /**
-   * The hook implementation.
-   */
-  protected NiklanSearchResultsPreprocess $implementation;
 
   /**
    * Tests implementation when no search results provided.
@@ -73,9 +70,7 @@ final class NiklanSearchResultsPreprocessTest extends NiklanTestBase {
     self::assertArrayHasKey('pager', $variables);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

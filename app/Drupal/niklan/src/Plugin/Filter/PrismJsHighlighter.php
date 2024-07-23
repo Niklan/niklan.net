@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\Filter;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\filter\Attribute\Filter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\filter\Plugin\FilterInterface;
 
 /**
  * Provides a 'Prism.js' filter.
@@ -19,42 +22,27 @@ use Drupal\filter\Plugin\FilterBase;
  * content doesn't contains any of such paragraphs, so library wont be attached.
  * But this material can has code to highlight inside comments.
  *
- * @Filter(
- *   id = "niklan_prismjs",
- *   title = @Translation("Prism.js"),
- *   type = \Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
- *   weight = 100,
- * )
- *
  * @deprecated Remove it.
  */
+#[Filter(
+  id: 'niklan_prismjs',
+  title: new TranslatableMarkup('Prism.js'),
+  type: FilterInterface::TYPE_MARKUP_LANGUAGE,
+  weight: 100,
+)]
 final class PrismJsHighlighter extends FilterBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function process($text, $langcode): FilterProcessResult {
     $result = new FilterProcessResult($text);
 
-    if (!$this->isContainCode($text)) {
+    if (!\stristr($text, '<pre')) {
       return $result;
     }
 
     $result->addAttachments(['library' => ['niklan/code-highlight']]);
 
     return $result;
-  }
-
-  /**
-   * Checks is text contains code.
-   *
-   * This is lite and fast way to ensure the text contains or not <pre> tag.
-   *
-   * @param string $text
-   *   A text to check.
-   */
-  protected function isContainCode(string $text): bool {
-    return (bool) \stristr($text, '<pre');
   }
 
 }

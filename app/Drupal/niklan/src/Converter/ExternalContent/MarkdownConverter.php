@@ -12,22 +12,14 @@ use Drupal\external_content\Source\Html;
 use League\CommonMark\MarkdownConverter as LeagueMarkdownConverter;
 
 /**
- * {@selfdoc}
- *
  * @ingroup external_content
  */
 final readonly class MarkdownConverter implements ConverterInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private LeagueMarkdownConverter $converter,
   ) {}
 
-  /**
-   * {@selfdoc}
-   */
   #[\Override]
   public function convert(SourceInterface $input): ConverterResult {
     if ($input->type() !== 'text/markdown') {

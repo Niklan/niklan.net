@@ -13,29 +13,13 @@ use Drupal\media\MediaStorage;
 use Drupal\niklan\Repository\AboutSettingsRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides a setting form for about page contents.
- */
 final class AboutSettingsForm extends FormBase {
 
-  /**
-   * The media storage.
-   */
   protected MediaStorage $mediaStorage;
-
-  /**
-   * The responsive image style storage.
-   */
   protected ConfigEntityStorageInterface $responsiveImageStyleStorage;
-
-  /**
-   * The settings storage.
-   */
   protected AboutSettingsRepositoryInterface $settingsRepository;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     $entity_type_manager = $container->get('entity_type.manager');
 
@@ -49,16 +33,12 @@ final class AboutSettingsForm extends FormBase {
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getFormId(): string {
     return 'niklan_about_settings';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['#tree'] = TRUE;
 
@@ -108,9 +88,7 @@ final class AboutSettingsForm extends FormBase {
     return $form;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $responsive_image_style_id = $form_state->getValue([
       'photo',
@@ -121,13 +99,6 @@ final class AboutSettingsForm extends FormBase {
       ->setPhotoResponsiveImageStyleId($responsive_image_style_id);
   }
 
-  /**
-   * Gets options for responsive styles.
-   *
-   * @return array
-   *   The array contains responsive image styles, where key is responsive image
-   *   style id, and the value is label.
-   */
   protected function getResponsiveImageStyleOptions(): array {
     $responsive_image_styles = $this->responsiveImageStyleStorage->loadMultiple();
     $responsive_image_style_options = [];

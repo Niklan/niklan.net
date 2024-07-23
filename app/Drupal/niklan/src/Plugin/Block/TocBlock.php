@@ -4,37 +4,31 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\niklan\Helper\TocBuilder;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a node toc block.
- *
- * @Block(
- *   id = "niklan_node_toc",
- *   admin_label = @Translation("Node TOC"),
- *   category = @Translation("Content")
- * )
- *
- * @todo rework as it done on Druki.
+ * @todo Rework or remove.
  */
+#[Block(
+  id: 'niklan_node_toc',
+  admin_label: new TranslatableMarkup('TOC'),
+  category: new TranslatableMarkup('Custom'),
+)]
 final class TocBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The current route match.
-   */
   protected RouteMatchInterface $routeMatch;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
@@ -42,9 +36,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(): array {
     $build = [];
     $node = $this->routeMatch->getParameter('node');
@@ -82,9 +74,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     return $build;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getCacheContexts(): array {
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }

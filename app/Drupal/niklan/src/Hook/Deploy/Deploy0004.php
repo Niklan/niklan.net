@@ -19,25 +19,39 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final readonly class Deploy0004 implements ContainerInjectionInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(EntityTypeManagerInterface::class),
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
+  private function getStorage(): EntityStorageInterface {
+    return $this->entityTypeManager->getStorage('paragraph');
+  }
+
+  private function getQuery(): QueryInterface {
+    return $this
+      ->getStorage()
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->sort('id');
+  }
+
+  private function paragraphs(array &$sandbox): \Generator {
+    $ids = $this
+      ->getQuery()
+      ->range(0, $sandbox['limit'])
+      ->execute();
+    $sandbox['current'] += \count($ids);
+
+    yield from $this->getStorage()->loadMultiple($ids);
+  }
+
   public function __invoke(array &$sandbox): string {
     if (!isset($sandbox['total'])) {
       $sandbox['total'] = $this->getQuery()->count()->execute();
@@ -61,37 +75,6 @@ final readonly class Deploy0004 implements ContainerInjectionInterface {
       '@count' => $sandbox['current'],
       '@total' => $sandbox['total'],
     ]);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getStorage(): EntityStorageInterface {
-    return $this->entityTypeManager->getStorage('paragraph');
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getQuery(): QueryInterface {
-    return $this
-      ->getStorage()
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->sort('id');
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function paragraphs(array &$sandbox): \Generator {
-    $ids = $this
-      ->getQuery()
-      ->range(0, $sandbox['limit'])
-      ->execute();
-    $sandbox['current'] += \count($ids);
-
-    yield from $this->getStorage()->loadMultiple($ids);
   }
 
 }

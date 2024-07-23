@@ -21,9 +21,6 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
    */
   protected string $fishText;
 
-  /**
-   * {@selfdoc}
-   */
   public function testCalculateEmptyText(): void {
     $calculator = new EstimatedReadTimeCalculator();
     $result = $calculator->calculate(new PlainText(''));
@@ -31,9 +28,6 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
     self::assertEquals(0, $result);
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testCalculateText(): void {
     $calculator = new EstimatedReadTimeCalculator();
     $result = $calculator->calculate(new PlainText($this->fishText));
@@ -42,9 +36,6 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
     self::assertEquals(3, $result);
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testCalculateEmptyCode(): void {
     $calculator = new EstimatedReadTimeCalculator();
     $result = $calculator->calculate(new Code(''));
@@ -63,9 +54,7 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
     self::assertEquals(3 * 3, $result);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

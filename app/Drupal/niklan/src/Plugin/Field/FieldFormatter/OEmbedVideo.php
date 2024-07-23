@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -19,15 +20,11 @@ use Drupal\media\Plugin\media\Source\OEmbedInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Plugin implementation of the optimized oEmbed video formatter.
- *
- * @FieldFormatter(
- *   id = "niklan_media_remote_video_optimized",
- *   label = @Translation("oEmbed video optimized responsive"),
- *   field_types = {"string"},
- * )
- */
+#[FieldFormatter(
+  id: 'niklan_media_remote_video_optimized',
+  label: new TranslatableMarkup('oEmbed video optimized responsive'),
+  field_types: ['string'],
+)]
 final class OEmbedVideo extends FormatterBase {
 
   /**
@@ -45,9 +42,7 @@ final class OEmbedVideo extends FormatterBase {
    */
   protected AccountInterface $currentUser;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = parent::create(
       $container,
@@ -65,38 +60,7 @@ final class OEmbedVideo extends FormatterBase {
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
-    if ($field_definition->getTargetEntityTypeId() !== 'media') {
-      return FALSE;
-    }
-
-    $media_type = MediaType::load($field_definition->getTargetBundle());
-
-    if (!$media_type instanceof MediaTypeInterface) {
-      return FALSE;
-    }
-
-    $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
-    $is_oembed = $media_type->getSource() instanceof OEmbedInterface;
-
-    return $is_oembed && $is_video;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultSettings(): array {
-    return [
-      'responsive_image_style' => '',
-    ] + parent::defaultSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::settingsForm($form, $form_state);
 
@@ -132,9 +96,7 @@ final class OEmbedVideo extends FormatterBase {
     return $element;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function settingsSummary(): array {
     $summary = [];
 
@@ -155,9 +117,7 @@ final class OEmbedVideo extends FormatterBase {
     return $summary;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $elements = [];
 
@@ -172,6 +132,31 @@ final class OEmbedVideo extends FormatterBase {
     }
 
     return $elements;
+  }
+
+  #[\Override]
+  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
+    if ($field_definition->getTargetEntityTypeId() !== 'media') {
+      return FALSE;
+    }
+
+    $media_type = MediaType::load($field_definition->getTargetBundle());
+
+    if (!$media_type instanceof MediaTypeInterface) {
+      return FALSE;
+    }
+
+    $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
+    $is_oembed = $media_type->getSource() instanceof OEmbedInterface;
+
+    return $is_oembed && $is_video;
+  }
+
+  #[\Override]
+  public static function defaultSettings(): array {
+    return [
+      'responsive_image_style' => '',
+    ] + parent::defaultSettings();
   }
 
 }

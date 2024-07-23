@@ -11,15 +11,12 @@ use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
 
 /**
- * {@selfdoc}
- *
  * @ingroup markdown
  */
 abstract class BlockDirectiveRenderer implements NodeRendererInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  abstract protected function directiveSelector(): string;
+
   #[\Override]
   public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable {
     \assert($node instanceof BlockDirective);
@@ -31,9 +28,6 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareElementAttributes(BlockDirective $node): array {
     $attributes = [
       'data-selector' => $this->directiveSelector(),
@@ -51,9 +45,6 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
     return \array_filter($attributes);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareContents(BlockDirective $node, ChildNodeRendererInterface $childRenderer): string {
     $contents = $this->wrapContents(
       selector: 'inline-content',
@@ -69,14 +60,6 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
     return $contents;
   }
 
-  /**
-   * {@selfdoc}
-   */
-  abstract protected function directiveSelector(): string;
-
-  /**
-   * {@selfdoc}
-   */
   private function wrapContents(string $selector, Node $node, ChildNodeRendererInterface $childRenderer): string {
     if (!$node->hasChildren()) {
       return '';

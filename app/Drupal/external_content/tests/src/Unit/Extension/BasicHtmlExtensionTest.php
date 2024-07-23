@@ -17,16 +17,11 @@ use Drupal\Tests\UnitTestCaseTest;
 use Prophecy\Argument;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Extension\BasicHtmlExtension
  * @group external_content
  */
 final class BasicHtmlExtensionTest extends UnitTestCaseTest {
 
-  /**
-   * {@selfdoc}
-   */
   public function testExtension(): void {
     $manager = $this->prophesize(ExternalContentManagerInterface::class);
 

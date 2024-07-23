@@ -23,18 +23,15 @@ final class BundlerManagerTest extends ExternalContentTestBase {
   /**
    * {@inheritdoc}
    */
+  protected BundlerManagerInterface $bundler;
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'external_content_test',
   ];
 
-  /**
-   * The external content bundler.
-   */
-  protected BundlerManagerInterface $bundler;
-
-  /**
-   * {@selfdoc}
-   */
   public function testBundler(): void {
     $environment = new Environment('test');
     $environment->addBundler(new SameIdBundler());
@@ -76,9 +73,7 @@ final class BundlerManagerTest extends ExternalContentTestBase {
     self::assertCount(1, $bundles[1]->sources());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

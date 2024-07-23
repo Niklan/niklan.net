@@ -4,30 +4,20 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Entity\Node;
 
-/**
- * Provides a bundle class for 'blog_entry' content type.
- */
 final class BlogEntry extends Node implements BlogEntryInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setExternalId(string $external_id): BlogEntryInterface {
     $this->set('external_id', $external_id);
 
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getExternalId(): string {
     return $this->get('external_id')->getString();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getCacheTagsToInvalidate(): array {
     $cache_tags = parent::getCacheTagsToInvalidate();
@@ -41,9 +31,6 @@ final class BlogEntry extends Node implements BlogEntryInterface {
     return $cache_tags;
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function getExternalContentData(): array {
     if (!$this->hasField('external_content') || $this->get('external_content')->isEmpty()) {
       return [];

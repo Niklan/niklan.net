@@ -78,9 +78,7 @@ final class PortfolioControllerTest extends NiklanTestBase {
     self::assertRaw('Portfolio 3');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

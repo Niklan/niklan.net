@@ -49,39 +49,6 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
   }
 
   /**
-   * Updates formatter settings for tested field.
-   *
-   * @param array $settings
-   *   The formatter settings.
-   */
-  protected function setFormatterSettings(array $settings): void {
-    $this
-      ->container
-      ->get('entity_display.repository')
-      ->getViewDisplay('node', 'blog_entry', 'default')
-      ->setComponent('field_media_reference', [
-        'type' => 'niklan_responsive_media_thumbnail',
-        'settings' => $settings,
-      ])
-      ->save();
-  }
-
-  /**
-   * Renders a node in default view mode.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node entity.
-   */
-  protected function renderNode(NodeInterface $node): void {
-    $build = $this
-      ->container
-      ->get('entity_type.manager')
-      ->getViewBuilder('node')
-      ->view($node, 'default');
-    $this->render($build);
-  }
-
-  /**
    * Tests that formatter works with link to a content.
    */
   public function testFormatterLinkedToContent(): void {
@@ -164,26 +131,6 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
   }
 
   /**
-   * Gets formatter instance.
-   */
-  protected function getFormatterInstance(): MediaResponsiveThumbnailFormatter {
-    $field_definitions = $this
-      ->container
-      ->get('entity_field.manager')
-      ->getFieldDefinitions('node', 'blog_entry');
-
-    return $this
-      ->container
-      ->get('plugin.manager.field.formatter')
-      ->getInstance([
-        'configuration' => [
-          'type' => 'niklan_responsive_media_thumbnail',
-        ],
-        'field_definition' => $field_definitions['field_media_reference'],
-      ]);
-  }
-
-  /**
    * Tests that settings summary contains all expected summary.
    *
    * @param string|null $setting_name
@@ -227,8 +174,59 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Updates formatter settings for tested field.
+   *
+   * @param array $settings
+   *   The formatter settings.
    */
+  protected function setFormatterSettings(array $settings): void {
+    $this
+      ->container
+      ->get('entity_display.repository')
+      ->getViewDisplay('node', 'blog_entry', 'default')
+      ->setComponent('field_media_reference', [
+        'type' => 'niklan_responsive_media_thumbnail',
+        'settings' => $settings,
+      ])
+      ->save();
+  }
+
+  /**
+   * Renders a node in default view mode.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node entity.
+   */
+  protected function renderNode(NodeInterface $node): void {
+    $build = $this
+      ->container
+      ->get('entity_type.manager')
+      ->getViewBuilder('node')
+      ->view($node, 'default');
+    $this->render($build);
+  }
+
+  /**
+   * Gets formatter instance.
+   */
+  protected function getFormatterInstance(): MediaResponsiveThumbnailFormatter {
+    $field_definitions = $this
+      ->container
+      ->get('entity_field.manager')
+      ->getFieldDefinitions('node', 'blog_entry');
+
+    return $this
+      ->container
+      ->get('plugin.manager.field.formatter')
+      ->getInstance([
+        'configuration' => [
+          'type' => 'niklan_responsive_media_thumbnail',
+        ],
+        'field_definition' => $field_definitions['field_media_reference'],
+      ]);
+  }
+
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

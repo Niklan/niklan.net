@@ -10,24 +10,12 @@ use Drupal\node\NodeInterface;
 use Drupal\node\NodeStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Provides portfolio page controller.
- */
 final class PortfolioController implements ContainerInjectionInterface {
 
-  /**
-   * The node storage.
-   */
   protected NodeStorageInterface $nodeStorage;
-
-  /**
-   * The node view builder.
-   */
   protected EntityViewBuilderInterface $nodeViewBuilder;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     $entity_type_manager = $container->get('entity_type.manager');
 
@@ -38,12 +26,6 @@ final class PortfolioController implements ContainerInjectionInterface {
     return $instance;
   }
 
-  /**
-   * Builds result for page.
-   *
-   * @return array
-   *   The render array.
-   */
   public function list(): array {
     return [
       '#theme' => 'niklan_portfolio_list',
@@ -51,9 +33,6 @@ final class PortfolioController implements ContainerInjectionInterface {
     ];
   }
 
-  /**
-   * Builds list of entities.
-   */
   protected function buildItems(): array {
     $items = [];
 
@@ -65,8 +44,6 @@ final class PortfolioController implements ContainerInjectionInterface {
   }
 
   /**
-   * Loads entities.
-   *
    * @return \Drupal\node\NodeInterface[]
    *   The nodes.
    */
@@ -74,12 +51,6 @@ final class PortfolioController implements ContainerInjectionInterface {
     return $this->nodeStorage->loadMultiple($this->getEntityIds());
   }
 
-  /**
-   * Gets entity ids.
-   *
-   * @return array
-   *   The list of ids.
-   */
   protected function getEntityIds(): array {
     $query = $this->nodeStorage->getQuery()->accessCheck(FALSE);
     $query

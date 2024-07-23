@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Validation;
 final class ValidJsonConstraintValidatorTest extends UnitTestCase {
 
   /**
-   * {@selfdoc}
-   *
    * @dataProvider validateData
    */
   public function testValidate(mixed $input, int $expected_violations): void {
@@ -30,9 +28,6 @@ final class ValidJsonConstraintValidatorTest extends UnitTestCase {
     self::assertCount($expected_violations, $violations);
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function validateData(): \Generator {
     yield 'Not a JSON string' => [
       'input' => 'random string',

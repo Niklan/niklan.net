@@ -32,9 +32,7 @@ final class PrioritizedList implements \IteratorAggregate {
     $this->sorted = NULL;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getIterator(): \ArrayIterator {
     if ($this->sorted) {
       return $this->sorted;

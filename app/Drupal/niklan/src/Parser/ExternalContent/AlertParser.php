@@ -13,15 +13,11 @@ use Drupal\niklan\Node\ExternalContent\Alert;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * {@selfdoc}
- *
  * @ingroup external_content
  */
 final class AlertParser implements HtmlParserInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     if (!$node instanceof \DOMElement || !$this->isApplicable($node)) {
       return HtmlParserResult::pass();
@@ -41,9 +37,6 @@ final class AlertParser implements HtmlParserInterface {
     return HtmlParserResult::replace($alert);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function isApplicable(\DOMElement $node): bool {
     if (!$node->hasAttribute('data-selector') || $node->getAttribute('data-selector') !== 'niklan:container-directive') {
       return FALSE;
@@ -55,9 +48,6 @@ final class AlertParser implements HtmlParserInterface {
     return \in_array($type, $allowed_types);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function findHeading(\DOMNode $node, ChildHtmlParserInterface $child_parser): ?NodeInterface {
     $crawler = new Crawler($node);
     $crawler = $crawler->filter('[data-selector="inline-content"]');
@@ -72,9 +62,6 @@ final class AlertParser implements HtmlParserInterface {
       ->offsetGet(0);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function findContent(\DOMNode $node, ChildHtmlParserInterface $child_parser): ?NodeList {
     $crawler = new Crawler($node);
     $crawler = $crawler->filter('[data-selector="content"]');

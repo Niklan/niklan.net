@@ -91,9 +91,7 @@ final class TagControllerTest extends NiklanTestBase {
     self::assertCount(1, $this->cssSelect('.tag-page article'));
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

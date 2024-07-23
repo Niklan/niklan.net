@@ -15,9 +15,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class NodeTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testObject(): void {
     $instance_a = new SimpleNode();
 

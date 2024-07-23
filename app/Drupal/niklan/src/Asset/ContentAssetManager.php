@@ -19,15 +19,10 @@ use Drupal\niklan\Helper\YouTubeHelper;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class ContentAssetManager {
 
-  /**
-   * Constructs a new ContentAssetManager instance.
-   */
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private FileUsageInterface $fileUsage,
@@ -38,9 +33,6 @@ final class ContentAssetManager {
     private LoggerChannelInterface $logger,
   ) {}
 
-  /**
-   * {@selfdoc}
-   */
   public function syncWithMedia(string $path): ?MediaInterface {
     // Replace spaces '%20' with an actual space. Without that, it can lead to
     // a wrong file detection.
@@ -77,9 +69,6 @@ final class ContentAssetManager {
     return $this->createMediaForFile($file);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function syncExternal(string $url): ?MediaInterface {
     // External URLs are partially supported. Only YouTube URLs are
     // supported at this point. If you are interested in implementation that
@@ -92,9 +81,6 @@ final class ContentAssetManager {
     return $this->syncYouTubeMedia($url);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function syncWithFile(string $path): ?FileInterface {
     $checksum = FileHelper::checksum($path);
 
@@ -126,9 +112,6 @@ final class ContentAssetManager {
     return $file_storage->load(\reset($file_ids));
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function createMediaForFile(FileInterface $file): ?MediaInterface {
     // Key - fnmatch pattern.
     // Value - the media type to save into.
@@ -162,9 +145,6 @@ final class ContentAssetManager {
     };
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function syncYouTubeMedia(string $url): ?MediaInterface {
     $video_id = YouTubeHelper::extractVideoId($url);
 
@@ -198,9 +178,6 @@ final class ContentAssetManager {
     return $media;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function saveToFile(string $path): ?FileInterface {
     $destination = $this->prepareDestination();
 
@@ -224,9 +201,6 @@ final class ContentAssetManager {
     return $file;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function saveFileToMediaWithFileReference(FileInterface $file, string $type): MediaInterface {
     $media = $this
       ->entityTypeManager
@@ -240,9 +214,6 @@ final class ContentAssetManager {
     return $media;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getMediaTypeSourceField(string $media_type_id): string {
     $media_type = $this
       ->entityTypeManager
@@ -253,9 +224,6 @@ final class ContentAssetManager {
     return $media_type->getSource()->getConfiguration()['source_field'];
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareDestination(): string {
     $datetime = new \DateTime();
     $datetime->setTimestamp($this->time->getCurrentTime());
@@ -266,9 +234,6 @@ final class ContentAssetManager {
     ]);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function prepareFilename(string $path): string {
     $extension = FileHelper::extension($path);
 

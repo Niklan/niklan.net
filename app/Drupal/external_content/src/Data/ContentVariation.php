@@ -6,9 +6,6 @@ namespace Drupal\external_content\Data;
 
 use Drupal\external_content\Node\Content;
 
-/**
- * {@selfdoc}
- */
 final readonly class ContentVariation {
 
   /**

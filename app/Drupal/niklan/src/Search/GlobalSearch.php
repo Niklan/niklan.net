@@ -8,14 +8,9 @@ use Drupal\niklan\Data\EntitySearchResults;
 use Drupal\niklan\Data\SearchParams;
 use Drupal\niklan\Helper\SearchApiResultItemsHelper;
 
-/**
- * Provides a global site search.
- */
 final class GlobalSearch extends SearchApiSearch implements EntitySearchInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function search(SearchParams $params): EntitySearchResults {
     $query = $this->getQuery();
     $query->keys($params->getKeys());
@@ -30,9 +25,7 @@ final class GlobalSearch extends SearchApiSearch implements EntitySearchInterfac
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function getIndexId(): string {
     return 'global_index';
   }

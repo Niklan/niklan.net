@@ -16,14 +16,8 @@ use Drupal\external_content\Contract\Loader\LoaderManagerInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 
-/**
- * {@selfdoc}
- */
 final readonly class ExternalContentManager implements ExternalContentManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private EnvironmentManagerInterface $environmentManager,
     private ExtensionManagerInterface $extensionManager,
@@ -37,81 +31,52 @@ final readonly class ExternalContentManager implements ExternalContentManagerInt
     private RenderArrayBuilderManagerInterface $renderArrayBuilderManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getEnvironmentManager(): EnvironmentManagerInterface {
     return $this->environmentManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getFinderManager(): FinderManagerInterface {
     return $this->finderManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getIdentifiersManager(): IdentifierManagerInterface {
     return $this->identifierManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getBundlerManager(): BundlerManagerInterface {
     return $this->bundlerManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getExtensionManager(): ExtensionManagerInterface {
     return $this->extensionManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getConverterManager(): ConverterManagerInterface {
     return $this->converterManager;
   }
 
-  /**
-   * {@selfdoc}
-   */
   #[\Override]
   public function getLoaderManager(): LoaderManagerInterface {
     return $this->loaderManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getHtmlParserManager(): HtmlParserManagerInterface {
     return $this->htmlParserManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getSerializerManager(): SerializerManagerInterface {
     return $this->serializerManager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getRenderArrayBuilderManager(): RenderArrayBuilderManagerInterface {
     return $this->renderArrayBuilderManager;
   }

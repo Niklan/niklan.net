@@ -34,9 +34,7 @@ final class PreviousNextTest extends ExtraFieldTestBase {
     self::assertRaw('Node C');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

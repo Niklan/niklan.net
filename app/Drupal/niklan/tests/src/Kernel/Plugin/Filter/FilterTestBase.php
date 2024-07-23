@@ -12,6 +12,8 @@ use Drupal\Tests\niklan\Functional\NiklanTestBase;
  */
 abstract class FilterTestBase extends NiklanTestBase {
 
+  protected FilterPluginManager $filterManager;
+
   /**
    * {@inheritdoc}
    */
@@ -19,14 +21,7 @@ abstract class FilterTestBase extends NiklanTestBase {
     'extra_field',
   ];
 
-  /**
-   * The filter plugin manager.
-   */
-  protected FilterPluginManager $filterManager;
-
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 
