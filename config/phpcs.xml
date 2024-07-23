@@ -22,6 +22,8 @@
     <exclude name="Drupal.Commenting.ClassComment.Missing"/>
     <exclude name="Drupal.Commenting.VariableComment.Missing"/>
     <exclude name="Drupal.Commenting.DocComment.MissingShort"/>
+    <!-- It forces to declare all params even only if a single one is needed. -->
+    <exclude name="Drupal.Commenting.FunctionComment.ParamMissingDefinition"/>
   </rule>
 
   <!-- Project specific rules. -->
