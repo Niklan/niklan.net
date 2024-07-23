@@ -24,9 +24,7 @@ final class PreviousNext extends RenderElementBase implements ContainerFactoryPl
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -34,9 +32,7 @@ final class PreviousNext extends RenderElementBase implements ContainerFactoryPl
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getInfo(): array {
     return [
       '#theme' => 'niklan_previous_next',

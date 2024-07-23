@@ -33,20 +33,21 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
-    $target_type = $field_definition
-      ->getFieldStorageDefinition()
-      ->getSetting('target_type');
+  #[\Override]
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
+    $instance = parent::create(
+      $container,
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+    );
 
-    return $target_type === 'media';
+    $instance->entityTypeManager = $container->get('entity_type.manager');
+
+    return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $element = [];
 
@@ -72,20 +73,13 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
     return $element;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    $instance = parent::create(
-      $container,
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-    );
+  #[\Override]
+  public static function isApplicable(FieldDefinitionInterface $field_definition): bool {
+    $target_type = $field_definition
+      ->getFieldStorageDefinition()
+      ->getSetting('target_type');
 
-    $instance->entityTypeManager = $container->get('entity_type.manager');
-
-    return $instance;
+    return $target_type === 'media';
   }
 
 }

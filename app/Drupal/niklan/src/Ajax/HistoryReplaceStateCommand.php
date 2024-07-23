@@ -24,9 +24,7 @@ final class HistoryReplaceStateCommand implements CommandInterface {
     protected ?array $stateObj = NULL,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function render(): array {
     return [
       'command' => 'niklanHistoryReplaceState',

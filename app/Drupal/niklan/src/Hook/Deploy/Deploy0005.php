@@ -21,25 +21,60 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final readonly class Deploy0005 implements ContainerInjectionInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(EntityTypeManagerInterface::class),
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
+  private function getStorage(): EntityStorageInterface {
+    return $this->entityTypeManager->getStorage('media');
+  }
+
+  private function getQuery(): QueryInterface {
+    return $this
+      ->getStorage()
+      ->getQuery()
+      ->condition('bundle', 'file')
+      ->accessCheck(FALSE)
+      ->sort('mid');
+  }
+
+  private function media(array &$sandbox): \Generator {
+    $ids = $this
+      ->getQuery()
+      ->range(0, $sandbox['limit'])
+      ->execute();
+    $sandbox['current'] += \count($ids);
+
+    yield from $this->getStorage()->loadMultiple($ids);
+  }
+
+  private function process(MediaInterface $media): void {
+    $file = $media
+      ->get($media->getSource()->getConfiguration()['source_field'])
+      ->first()
+      ?->get('entity')
+        ->getValue();
+
+    if (!$file instanceof FileInterface) {
+      return;
+    }
+
+    if (!\str_starts_with($file->getMimeType(), 'image/')) {
+      return;
+    }
+
+    // Just delete the media, next time content is syncing, it will create
+    // a proper media for the file.
+    $media->delete();
+  }
+
   public function __invoke(array &$sandbox): string {
     if (!isset($sandbox['total'])) {
       $sandbox['total'] = $this->getQuery()->count()->execute();
@@ -63,61 +98,6 @@ final readonly class Deploy0005 implements ContainerInjectionInterface {
       '@count' => $sandbox['current'],
       '@total' => $sandbox['total'],
     ]);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getStorage(): EntityStorageInterface {
-    return $this->entityTypeManager->getStorage('media');
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function getQuery(): QueryInterface {
-    return $this
-      ->getStorage()
-      ->getQuery()
-      ->condition('bundle', 'file')
-      ->accessCheck(FALSE)
-      ->sort('mid');
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function media(array &$sandbox): \Generator {
-    $ids = $this
-      ->getQuery()
-      ->range(0, $sandbox['limit'])
-      ->execute();
-    $sandbox['current'] += \count($ids);
-
-    yield from $this->getStorage()->loadMultiple($ids);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  private function process(MediaInterface $media): void {
-    $file = $media
-      ->get($media->getSource()->getConfiguration()['source_field'])
-      ->first()
-      ?->get('entity')
-        ->getValue();
-
-    if (!$file instanceof FileInterface) {
-      return;
-    }
-
-    if (!\str_starts_with($file->getMimeType(), 'image/')) {
-      return;
-    }
-
-    // Just delete the media, next time content is syncing, it will create
-    // a proper media for the file.
-    $media->delete();
   }
 
 }

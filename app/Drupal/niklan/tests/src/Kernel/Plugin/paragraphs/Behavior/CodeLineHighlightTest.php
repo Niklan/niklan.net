@@ -120,9 +120,7 @@ final class CodeLineHighlightTest extends BehaviorTest {
     self::assertEquals('10;20', $plugin_form['highlighted_lines']['#default_value']);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

@@ -29,9 +29,7 @@ final class Terminal implements TerminalInterface {
     protected FileSystemInterface $fileSystem,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function createProcess(array $command, ?string $cwd = NULL, ?array $env = NULL, mixed $input = NULL, ?float $timeout = 60): Process {
     if ($cwd) {
       $cwd = $this->realpath($cwd);

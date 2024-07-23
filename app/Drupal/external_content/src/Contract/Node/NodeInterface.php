@@ -39,9 +39,6 @@ interface NodeInterface {
    */
   public function addChild(self $node): self;
 
-  /**
-   * {@selfdoc}
-   */
   public function addChildren(NodeList $node_list): self;
 
   /**

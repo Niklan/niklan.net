@@ -20,9 +20,7 @@ use League\CommonMark\CommonMarkConverter;
  */
 final class Markdown extends FilterBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function process($text, $langcode): FilterProcessResult {
     $converter = new CommonMarkConverter();
     $rendered_content = $converter->convert($text);

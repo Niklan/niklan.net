@@ -11,15 +11,11 @@ use Drupal\external_content\Data\Data;
 use Drupal\niklan\Node\ExternalContent\Alert;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class AlertSerializer implements SerializerInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof Alert);
 
@@ -39,30 +35,22 @@ final class AlertSerializer implements SerializerInterface {
     return $data;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsSerialization(NodeInterface $node): bool {
     return $node instanceof Alert;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getSerializationBlockType(): string {
     return 'niklan:alert';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     $alert = new Alert(
       type: $data->get('type'),
@@ -76,9 +64,7 @@ final class AlertSerializer implements SerializerInterface {
     return $alert;
   }
 
-  /**
-   * {@selfdoc}
-   */
+  #[\Override]
   public function getSerializerVersion(): string {
     return '1.0.0';
   }

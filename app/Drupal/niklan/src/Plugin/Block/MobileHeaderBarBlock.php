@@ -17,9 +17,7 @@ use Drupal\Core\Block\BlockBase;
  */
 final class MobileHeaderBarBlock extends BlockBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(): array {
     return [
       '#theme' => 'niklan_mobile_header_bar',

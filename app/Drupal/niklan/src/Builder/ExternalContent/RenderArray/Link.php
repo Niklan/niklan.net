@@ -16,24 +16,17 @@ use Drupal\external_content\Node\Element;
 use Drupal\external_content\Utils\RenderArrayBuilderHelper;
 
 /**
- * {@selfdoc}
- *
  * @see \Drupal\niklan\Loader\ExternalContent\Blog::prepareInternalLinks
  *
  * @ingroup content_sync
  */
 final readonly class Link implements RenderArrayBuilderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private Connection $connection,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof Element);
     $attributes = $node->getAttributes();
@@ -62,9 +55,7 @@ final readonly class Link implements RenderArrayBuilderInterface {
     ]);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsBuild(NodeInterface $node): bool {
     if (!$node instanceof Element) {
       return FALSE;
@@ -78,9 +69,6 @@ final readonly class Link implements RenderArrayBuilderInterface {
     return $is_link && $is_external_link && $is_has_md5;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function findDestination(string $link_checksum): ?Url {
     $query = $this
       ->connection

@@ -31,13 +31,6 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
   ) {}
 
   /**
-   * {@inheritdoc}
-   */
-  public static function trustedCallbacks(): array {
-    return ['buildLinks'];
-  }
-
-  /**
    * Builds menu links for content editing toolbar tab.
    *
    * @return array
@@ -78,6 +71,11 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
     $cache->applyTo($build);
 
     return $build;
+  }
+
+  #[\Override]
+  public static function trustedCallbacks(): array {
+    return ['buildLinks'];
   }
 
   /**

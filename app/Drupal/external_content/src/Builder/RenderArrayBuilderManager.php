@@ -13,32 +13,22 @@ use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * {@selfdoc}
- */
 final class RenderArrayBuilderManager implements RenderArrayBuilderManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ContainerInterface $container,
     private ChildRenderArrayBuilderInterface $childRenderArrayBuilder,
     private array $renderArrayBuilders = [],
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, EnvironmentInterface $environment): RenderArrayBuilderResult {
     $this->childRenderArrayBuilder->setEnvironment($environment);
 
     return $this->childRenderArrayBuilder->build($node);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function get(string $builder_id): RenderArrayBuilderInterface {
     if (!$this->has($builder_id)) {
       throw new MissingContainerDefinitionException(
@@ -52,16 +42,12 @@ final class RenderArrayBuilderManager implements RenderArrayBuilderManagerInterf
     return $this->container->get($service);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function has(string $builder_id): bool {
     return \array_key_exists($builder_id, $this->renderArrayBuilders);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function list(): array {
     return $this->renderArrayBuilders;
   }

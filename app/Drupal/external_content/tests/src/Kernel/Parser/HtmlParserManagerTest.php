@@ -27,9 +27,6 @@ final class HtmlParserManagerTest extends ExternalContentTestBase {
     'external_content_test',
   ];
 
-  /**
-   * {@selfdoc}
-   */
   public function testParse(): void {
     $event_dispatcher = $this->prophesize(EventDispatcherInterface::class);
     $event_dispatcher
@@ -49,16 +46,10 @@ final class HtmlParserManagerTest extends ExternalContentTestBase {
     self::assertCount(1, $result->getChildren());
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getHtmlParserManager(): HtmlParserManagerInterface {
     return $this->container->get(HtmlParserManagerInterface::class);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getEnvironmentManager(): EnvironmentManagerInterface {
     return $this->container->get(EnvironmentManagerInterface::class);
   }

@@ -9,9 +9,6 @@ namespace Drupal\niklan\Helper;
  */
 final class PathHelper {
 
-  /**
-   * {@selfdoc}
-   */
   // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
   private const string SCHEME_PLACEHOLDER = '__scheme__';
 

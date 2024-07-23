@@ -33,9 +33,7 @@ final class BlogController implements ContainerInjectionInterface {
     protected RendererInterface $renderer,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),

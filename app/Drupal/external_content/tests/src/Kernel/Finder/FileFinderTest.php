@@ -11,16 +11,11 @@ use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Finder\FileFinder
  * @group external_content
  */
 final class FileFinderTest extends ExternalContentTestBase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testFinder(): void {
     $this->prepareDirectory();
 
@@ -45,9 +40,25 @@ final class FileFinderTest extends ExternalContentTestBase {
     self::assertCount(2, $result->results()->items());
   }
 
-  /**
-   * {@selfdoc}
-   */
+  public function testEmptyFinder(): void {
+    $this->prepareDirectory();
+
+    $configuration = [
+      'file_finder' => [
+        'extensions' => ['md', 'html'],
+        'directories' => [
+          vfsStream::url('root/empty-dir'),
+        ],
+      ],
+    ];
+    $environment = $this->buildEnvironment($configuration);
+
+    $finder = $this->getFinder();
+    $finder->setEnvironment($environment);
+    $result = $finder->find();
+    self::assertTrue($result->hasNoResults());
+  }
+
   private function prepareDirectory(): void {
     vfsStream::setup(structure: [
       'foo' => [
@@ -67,9 +78,6 @@ final class FileFinderTest extends ExternalContentTestBase {
     ]);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function buildEnvironment(array $configuration): Environment {
     $extension = new FileFinderExtension($this->getFinder());
 
@@ -79,33 +87,8 @@ final class FileFinderTest extends ExternalContentTestBase {
     return $environment;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function getFinder(): FileFinder {
     return $this->container->get(FileFinder::class);
-  }
-
-  /**
-   * {@selfdoc}
-   */
-  public function testEmptyFinder(): void {
-    $this->prepareDirectory();
-
-    $configuration = [
-      'file_finder' => [
-        'extensions' => ['md', 'html'],
-        'directories' => [
-          vfsStream::url('root/empty-dir'),
-        ],
-      ],
-    ];
-    $environment = $this->buildEnvironment($configuration);
-
-    $finder = $this->getFinder();
-    $finder->setEnvironment($environment);
-    $result = $finder->find();
-    self::assertTrue($result->hasNoResults());
   }
 
 }

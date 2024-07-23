@@ -15,9 +15,6 @@ use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
  */
 final class TocBuilder {
 
-  /**
-   * {@selfdoc}
-   */
   public function getTree(ExternalContentFieldItem $item): array {
     $headings = $this->getHeadings($item);
 
@@ -28,9 +25,6 @@ final class TocBuilder {
     return $headings;
   }
 
-  /**
-   * {@selfdoc}
-   */
   protected function getHeadings(ExternalContentFieldItem $item): array {
     $content = $item->get('content')->getValue();
     \assert($content instanceof Content);
@@ -40,9 +34,6 @@ final class TocBuilder {
     return $headings;
   }
 
-  /**
-   * {@selfdoc}
-   */
   protected function recursiveGetHeadings(NodeInterface $content, array &$headings): void {
     foreach ($content->getChildren() as $child) {
       \assert($child instanceof NodeInterface);
@@ -50,9 +41,6 @@ final class TocBuilder {
     }
   }
 
-  /**
-   * {@selfdoc}
-   */
   protected function processNode(NodeInterface $node, array &$headings): void {
     if ($node->hasChildren()) {
       $this->recursiveGetHeadings($node, $headings);
@@ -65,9 +53,6 @@ final class TocBuilder {
     $this->processPermalink($node, $headings);
   }
 
-  /**
-   * {@selfdoc}
-   */
   protected function processPermalink(Element $link, array &$headings): void {
     $heading = $link->getParent();
     \assert($heading instanceof Element);

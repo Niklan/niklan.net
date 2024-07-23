@@ -15,9 +15,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class PlainTextTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testObject(): void {
     $text = 'Hello, World!';
     $instance = new PlainText($text);

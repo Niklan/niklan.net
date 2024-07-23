@@ -25,42 +25,12 @@ final class ContentEditingToolbar implements ContainerInjectionInterface {
    */
   protected RouteMatchInterface $routeMatch;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     $instance = new self();
     $instance->routeMatch = $container->get('current_route_match');
 
     return $instance;
-  }
-
-  /**
-   * Implements hook_toolbar().
-   */
-  public function __invoke(): array {
-    $supported_content_routes = [
-      'entity.node.canonical',
-      'entity.taxonomy_term.canonical',
-      'entity.user.canonical',
-    ];
-
-    if (\in_array($this->routeMatch->getRouteName(), $supported_content_routes)) {
-      $this->prepareContentEditingToolbar();
-    }
-    else {
-      // If current route is not supported we still add element with cache
-      // context. This will cover cases when after clearing the cache the first
-      // opened page doesn't contain this element and because of this the others
-      // will not contain it as well.
-      $this->items['niklan_content_editing'] = [
-        '#cache' => [
-          'contexts' => ['route'],
-        ],
-      ];
-    }
-
-    return $this->items;
   }
 
   /**
@@ -100,6 +70,34 @@ final class ContentEditingToolbar implements ContainerInjectionInterface {
       ],
       '#create_placeholder' => TRUE,
     ];
+  }
+
+  /**
+   * Implements hook_toolbar().
+   */
+  public function __invoke(): array {
+    $supported_content_routes = [
+      'entity.node.canonical',
+      'entity.taxonomy_term.canonical',
+      'entity.user.canonical',
+    ];
+
+    if (\in_array($this->routeMatch->getRouteName(), $supported_content_routes)) {
+      $this->prepareContentEditingToolbar();
+    }
+    else {
+      // If current route is not supported we still add element with cache
+      // context. This will cover cases when after clearing the cache the first
+      // opened page doesn't contain this element and because of this the others
+      // will not contain it as well.
+      $this->items['niklan_content_editing'] = [
+        '#cache' => [
+          'contexts' => ['route'],
+        ],
+      ];
+    }
+
+    return $this->items;
   }
 
 }

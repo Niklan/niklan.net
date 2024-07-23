@@ -8,9 +8,6 @@ use Drupal\external_content\Contract\Converter\ConverterInterface;
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
 
-/**
- * {@selfdoc}
- */
 final class MissingConverterException extends \LogicException {
 
   /**

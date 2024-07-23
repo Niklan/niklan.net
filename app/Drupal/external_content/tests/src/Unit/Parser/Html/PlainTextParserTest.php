@@ -17,9 +17,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class PlainTextParserTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testParser(): void {
     $child_parser = $this->prophesize(ChildHtmlParserInterface::class);
     $child_parser = $child_parser->reveal();

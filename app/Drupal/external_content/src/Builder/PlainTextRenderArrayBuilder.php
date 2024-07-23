@@ -15,9 +15,7 @@ use Drupal\external_content\Node\PlainText;
  */
 final class PlainTextRenderArrayBuilder implements RenderArrayBuilderInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
     \assert($node instanceof PlainText);
 
@@ -26,9 +24,7 @@ final class PlainTextRenderArrayBuilder implements RenderArrayBuilderInterface {
     ]);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsBuild(NodeInterface $node): bool {
     return $node instanceof PlainText;
   }

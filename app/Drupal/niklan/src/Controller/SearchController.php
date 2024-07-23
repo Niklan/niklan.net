@@ -44,9 +44,7 @@ final class SearchController implements SearchControllerInterface, ContainerInje
     protected PagerManagerInterface $pagerManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('niklan.search.global'),
@@ -56,9 +54,7 @@ final class SearchController implements SearchControllerInterface, ContainerInje
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function page(Request $request): array {
     $keys = $request->query->get('q');
 
@@ -69,9 +65,7 @@ final class SearchController implements SearchControllerInterface, ContainerInje
     ];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function buildPageContent(?string $keys): array {
     $build = [
       '#theme' => 'niklan_search_results',
@@ -105,9 +99,7 @@ final class SearchController implements SearchControllerInterface, ContainerInje
     return $build + ['#results' => $search_results];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function pageTitle(Request $request): string {
     $keys = $request->query->get('q');
 

@@ -27,29 +27,11 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),
     );
-  }
-
-  /**
-   * Implements hook_preprocess_HOOK().
-   */
-  public function __invoke(array &$variables): void {
-    $results = $variables['results'];
-
-    if (!$results instanceof EntitySearchResults) {
-      return;
-    }
-
-    $variables['results'] = $this->buildResults($results);
-    $variables['pager'] = [
-      '#type' => 'pager',
-    ];
   }
 
   /**
@@ -99,6 +81,22 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
     $entity = $storage->load($result->getEntityId());
 
     return $view_builder->view($entity, 'search_result');
+  }
+
+  /**
+   * Implements hook_preprocess_HOOK().
+   */
+  public function __invoke(array &$variables): void {
+    $results = $variables['results'];
+
+    if (!$results instanceof EntitySearchResults) {
+      return;
+    }
+
+    $variables['results'] = $this->buildResults($results);
+    $variables['pager'] = [
+      '#type' => 'pager',
+    ];
   }
 
 }

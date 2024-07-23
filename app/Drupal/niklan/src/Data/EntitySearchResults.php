@@ -67,16 +67,12 @@ final class EntitySearchResults implements \IteratorAggregate, \Countable {
     return $this->totalResultsCount;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->items);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function count(): int {
     return \count($this->items);
   }

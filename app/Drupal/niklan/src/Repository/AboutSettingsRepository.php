@@ -27,16 +27,12 @@ final class AboutSettingsRepository implements AboutSettingsRepositoryInterface 
     $this->store = $key_value_factory->get('niklan.about_settings');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getPhotoMediaId(): ?string {
     return $this->store->get('photo_media_id');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setPhotoMediaId(?string $id): AboutSettingsRepositoryInterface {
     $id
       ? $this->store->set('photo_media_id', $id)
@@ -45,16 +41,12 @@ final class AboutSettingsRepository implements AboutSettingsRepositoryInterface 
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getPhotoResponsiveImageStyleId(): ?string {
     return $this->store->get('photo_responsive_image_style');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setPhotoResponsiveImageStyleId(?string $id): AboutSettingsRepositoryInterface {
     // Consider an empty string as NULL.
     $id

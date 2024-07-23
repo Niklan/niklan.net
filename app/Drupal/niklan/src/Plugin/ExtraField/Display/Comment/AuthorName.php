@@ -21,9 +21,7 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
  */
 final class AuthorName extends ExtraFieldDisplayBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     \assert($entity instanceof CommentInterface);
 

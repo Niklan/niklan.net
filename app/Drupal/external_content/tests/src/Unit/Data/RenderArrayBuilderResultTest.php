@@ -15,9 +15,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class RenderArrayBuilderResultTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testEmpty(): void {
     $result = RenderArrayBuilderResult::empty();
 
@@ -26,9 +23,6 @@ final class RenderArrayBuilderResultTest extends UnitTestCase {
     self::assertEmpty($result->result());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testWithRenderArray(): void {
     $render_array = ['#markup' => 'Hello, World!'];
     $result = RenderArrayBuilderResult::withRenderArray($render_array);

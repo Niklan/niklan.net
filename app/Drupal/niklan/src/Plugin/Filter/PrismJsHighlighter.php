@@ -30,9 +30,7 @@ use Drupal\filter\Plugin\FilterBase;
  */
 final class PrismJsHighlighter extends FilterBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function process($text, $langcode): FilterProcessResult {
     $result = new FilterProcessResult($text);
 

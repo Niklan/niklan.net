@@ -6,9 +6,6 @@ namespace Drupal\external_content\Data;
 
 use Drupal\external_content\Contract\Source\SourceInterface;
 
-/**
- * {@selfdoc}
- */
 final readonly class IdentifiedSource {
 
   /**

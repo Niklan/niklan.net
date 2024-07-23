@@ -12,14 +12,8 @@ use Drupal\external_content\Data\RenderArrayBuilderResult;
  */
 interface RenderArrayBuilderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult;
 
-  /**
-   * {@selfdoc}
-   */
   public function supportsBuild(NodeInterface $node): bool;
 
 }

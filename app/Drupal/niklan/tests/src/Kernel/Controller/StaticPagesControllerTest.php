@@ -59,9 +59,7 @@ final class StaticPagesControllerTest extends NiklanTestBase {
     self::assertEquals(['#theme' => 'niklan_contact_page'], $result);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

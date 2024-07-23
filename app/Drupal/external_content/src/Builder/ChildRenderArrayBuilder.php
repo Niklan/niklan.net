@@ -10,19 +10,11 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\RenderArrayBuilderResult;
 
-/**
- * {@selfdoc}
- */
 final class ChildRenderArrayBuilder implements ChildRenderArrayBuilderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   private EnvironmentInterface $environment;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(NodeInterface $node): RenderArrayBuilderResult {
     $build = [];
 
@@ -47,9 +39,7 @@ final class ChildRenderArrayBuilder implements ChildRenderArrayBuilderInterface 
     return RenderArrayBuilderResult::withRenderArray($build);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
   }

@@ -15,9 +15,7 @@ use Drupal\external_content\Node\Content;
  */
 final class ContentSerializer implements SerializerInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof Content);
 
@@ -30,30 +28,22 @@ final class ContentSerializer implements SerializerInterface {
     ];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsSerialization(NodeInterface $node): bool {
     return $node instanceof Content;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getSerializationBlockType(): string {
     return 'external_content:content';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     $content = new Content(new Data($data->get('source')));
 
@@ -64,9 +54,7 @@ final class ContentSerializer implements SerializerInterface {
     return $content;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getSerializerVersion(): string {
     return '1.0.0';
   }

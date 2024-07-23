@@ -50,9 +50,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
    */
   protected EntityStorageInterface $responsiveImageStyleStorage;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->oEmbedFetcher = $container->get('media.oembed.resource_fetcher');
@@ -67,9 +65,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getInfo(): array {
     return [
       '#theme' => 'niklan_oembed_video',

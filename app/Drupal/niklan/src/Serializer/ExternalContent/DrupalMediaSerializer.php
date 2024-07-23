@@ -11,15 +11,11 @@ use Drupal\external_content\Data\Data;
 use Drupal\niklan\Node\ExternalContent\DrupalMedia;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class DrupalMediaSerializer implements SerializerInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof DrupalMedia);
 
@@ -30,30 +26,22 @@ final class DrupalMediaSerializer implements SerializerInterface {
     ];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsSerialization(NodeInterface $node): bool {
     return $node instanceof DrupalMedia;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getSerializationBlockType(): string {
     return 'niklan:drupal_media';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new DrupalMedia(
       $data->get('type'),
@@ -62,9 +50,7 @@ final class DrupalMediaSerializer implements SerializerInterface {
     );
   }
 
-  /**
-   * {@selfdoc}
-   */
+  #[\Override]
   public function getSerializerVersion(): string {
     return '1.0.0';
   }

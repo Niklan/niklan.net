@@ -46,13 +46,6 @@ final class SearchApiSearchTest extends UnitTestCase {
     return new class($query_helper, $entity_type_manger) extends SearchApiSearch {
 
       /**
-       * {@inheritdoc}
-       */
-      protected function getIndexId(): string {
-        return 'test';
-      }
-
-      /**
        * Gets results from query.
        *
        * @return array
@@ -60,6 +53,14 @@ final class SearchApiSearchTest extends UnitTestCase {
        */
       public function getResults(): array {
         return parent::getQuery()->execute()->getResultItems();
+      }
+
+      /**
+       * {@inheritdoc}
+       */
+      #[\Override]
+      protected function getIndexId(): string {
+        return 'test';
       }
 
     };

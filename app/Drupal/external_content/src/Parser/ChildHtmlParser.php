@@ -9,19 +9,10 @@ use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Node\NodeList;
 
-/**
- * {@selfdoc}
- */
 final class ChildHtmlParser implements ChildHtmlParserInterface {
 
-  /**
-   * {@selfdoc}
-   */
   private EnvironmentInterface $environment;
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function parse(\DOMNodeList $children): NodeList {
     $list = new NodeList();
@@ -34,17 +25,11 @@ final class ChildHtmlParser implements ChildHtmlParserInterface {
     return $list;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function setEnvironment(EnvironmentInterface $environment): void {
     $this->environment = $environment;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function parseChild(\DOMNode $child, NodeList $list): void {
     foreach ($this->environment->getHtmlParsers() as $parser) {
       \assert($parser instanceof HtmlParserInterface);

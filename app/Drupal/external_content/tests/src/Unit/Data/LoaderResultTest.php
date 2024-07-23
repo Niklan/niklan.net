@@ -15,9 +15,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class LoaderResultTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testWithResults(): void {
     $results = [
       'node' => '1',
@@ -33,9 +30,6 @@ final class LoaderResultTest extends UnitTestCase {
     self::assertFalse($result->hasNoResults());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testPass(): void {
     $result = LoaderResult::pass('bundle_id');
 
@@ -47,9 +41,6 @@ final class LoaderResultTest extends UnitTestCase {
     self::assertTrue($result->hasNoResults());
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testStop(): void {
     $result = LoaderResult::stop('bundle_id');
 

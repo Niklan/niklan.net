@@ -17,15 +17,12 @@ final class TagStatisticsTest extends NiklanTestBase {
   use BlogEntryTrait;
   use TagsTrait;
 
+  protected TagStatistics $tagStatistics;
+
   /**
    * {@inheritdoc}
    */
   protected static $modules = ['text'];
-
-  /**
-   * The tag statistics.
-   */
-  protected TagStatistics $tagStatistics;
 
   /**
    * Tests statistics for an empty result.
@@ -113,9 +110,7 @@ final class TagStatisticsTest extends NiklanTestBase {
     self::assertEquals('2', $result[2]->count);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

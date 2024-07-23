@@ -27,15 +27,6 @@ final class TermPageBuildSubscriber implements EventSubscriberInterface {
   ) {}
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getSubscribedEvents(): array {
-    return [
-      TaxonomyCustomControllerEvents::PAGE_BUILD => 'onTermPageBuild',
-    ];
-  }
-
-  /**
    * Reacts on term page build.
    *
    * @param \Drupal\taxonomy_custom_controller\Event\TermPageBuildEvent $event
@@ -53,6 +44,13 @@ final class TermPageBuildSubscriber implements EventSubscriberInterface {
       ->getInstanceFromDefinition(TagController::class);
     \assert($controller instanceof TagControllerInterface);
     $event->setBuildArray($controller->page($taxonomy_term));
+  }
+
+  #[\Override]
+  public static function getSubscribedEvents(): array {
+    return [
+      TaxonomyCustomControllerEvents::PAGE_BUILD => 'onTermPageBuild',
+    ];
   }
 
 }

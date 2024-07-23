@@ -21,9 +21,7 @@ use Drupal\node\NodeInterface;
  */
 final class Share extends ExtraFieldDisplayBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     \assert($entity instanceof NodeInterface);
 

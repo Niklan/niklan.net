@@ -19,6 +19,30 @@ use Drupal\external_content\Utils\RenderArrayBuilderHelper;
  */
 final class ElementRenderArrayBuilder implements RenderArrayBuilderInterface, TrustedCallbackInterface {
 
+  #[\Override]
+  public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
+    \assert($node instanceof Element);
+
+    return RenderArrayBuilderResult::withRenderArray([
+      '#type' => 'html_tag',
+      '#tag' => $node->getTag(),
+      '#attributes' => $node->getAttributes()->all(),
+      '#pre_render' => [
+        HtmlTag::preRenderHtmlTag(...),
+        self::preRenderTag(...),
+      ],
+      'children' => RenderArrayBuilderHelper::buildChildren(
+        node: $node,
+        child_builder: $child_builder,
+      )->result(),
+    ]);
+  }
+
+  #[\Override]
+  public function supportsBuild(NodeInterface $node): bool {
+    return $node instanceof Element;
+  }
+
   /**
    * Removes unwanted 'html_tag' newline character.
    *
@@ -83,41 +107,11 @@ final class ElementRenderArrayBuilder implements RenderArrayBuilderInterface, Tr
     return $element;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function trustedCallbacks(): array {
     return [
       'preRenderTag',
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function build(NodeInterface $node, ChildRenderArrayBuilderInterface $child_builder): RenderArrayBuilderResult {
-    \assert($node instanceof Element);
-
-    return RenderArrayBuilderResult::withRenderArray([
-      '#type' => 'html_tag',
-      '#tag' => $node->getTag(),
-      '#attributes' => $node->getAttributes()->all(),
-      '#pre_render' => [
-        HtmlTag::preRenderHtmlTag(...),
-        self::preRenderTag(...),
-      ],
-      'children' => RenderArrayBuilderHelper::buildChildren(
-        node: $node,
-        child_builder: $child_builder,
-      )->result(),
-    ]);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function supportsBuild(NodeInterface $node): bool {
-    return $node instanceof Element;
   }
 
 }

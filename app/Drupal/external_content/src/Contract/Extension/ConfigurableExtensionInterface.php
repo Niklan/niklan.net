@@ -11,9 +11,6 @@ use League\Config\ConfigurationBuilderInterface;
  */
 interface ConfigurableExtensionInterface extends ExtensionInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function configureSchema(ConfigurationBuilderInterface $builder): void;
 
 }

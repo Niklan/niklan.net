@@ -15,59 +15,26 @@ use Drupal\external_content\Contract\Loader\LoaderManagerInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 
-/**
- * {@selfdoc}
- */
 interface ExternalContentManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function getEnvironmentManager(): EnvironmentManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getExtensionManager(): ExtensionManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getFinderManager(): FinderManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getIdentifiersManager(): IdentifierManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getBundlerManager(): BundlerManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getConverterManager(): ConverterManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getLoaderManager(): LoaderManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getHtmlParserManager(): HtmlParserManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getSerializerManager(): SerializerManagerInterface;
 
-  /**
-   * {@selfdoc}
-   */
   public function getRenderArrayBuilderManager(): RenderArrayBuilderManagerInterface;
 
 }

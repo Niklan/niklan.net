@@ -14,9 +14,7 @@ use Drupal\external_content\Node\Element;
  */
 final class ElementParser implements HtmlParserInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult {
     $element = new Element($node->nodeName);
 

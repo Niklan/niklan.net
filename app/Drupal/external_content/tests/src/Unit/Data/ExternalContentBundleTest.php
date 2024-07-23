@@ -18,9 +18,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class ExternalContentBundleTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testGetByAttribute(): void {
     $bundle = new ContentBundle('hooks');
 
@@ -58,9 +55,6 @@ final class ExternalContentBundleTest extends UnitTestCase {
     self::assertCount(0, $not_existing_data);
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function testGetByAttributeValue(): void {
     $bundle = new ContentBundle('hooks');
     $bundle->add(new ContentVariation(

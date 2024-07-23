@@ -13,22 +13,13 @@ use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * {@selfdoc}
- */
 final readonly class IdentifierManager implements IdentifierManagerInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     private ContainerInterface $container,
     private array $identifiers = [],
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function identify(SourceCollection $source_collection, EnvironmentInterface $environment): IdentifiedSourceCollection {
     $identified_sources = new IdentifiedSourceCollection();
@@ -41,9 +32,6 @@ final readonly class IdentifierManager implements IdentifierManagerInterface {
     return $identified_sources;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function get(string $identifier_id): IdentifierInterface {
     if (!$this->has($identifier_id)) {
@@ -58,25 +46,16 @@ final readonly class IdentifierManager implements IdentifierManagerInterface {
     return $this->container->get($service);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function has(string $identifier_id): bool {
     return \array_key_exists($identifier_id, $this->identifiers);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function list(): array {
     return $this->identifiers;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function identifySource(SourceInterface $source, IdentifiedSourceCollection $identified_sources, EnvironmentInterface $environment): void {
     foreach ($environment->getIdentifiers() as $identifier) {
       \assert($identifier instanceof IdentifierInterface);

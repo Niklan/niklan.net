@@ -23,20 +23,11 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
     protected ModuleExtensionList $moduleExtensionList,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('extension.list.module'),
     );
-  }
-
-  /**
-   * Implements hook_library_info_alter().
-   */
-  public function __invoke(array &$libraries, string $extension): void {
-    $this->alterDrupalAjax($libraries, $extension);
   }
 
   /**
@@ -56,6 +47,13 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
 
     $js_path = "/$module_path/assets/js/command.ajax.js";
     $libraries['drupal.ajax']['js'][$js_path] = [];
+  }
+
+  /**
+   * Implements hook_library_info_alter().
+   */
+  public function __invoke(array &$libraries, string $extension): void {
+    $this->alterDrupalAjax($libraries, $extension);
   }
 
 }

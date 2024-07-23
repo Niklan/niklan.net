@@ -17,9 +17,7 @@ use Drupal\Core\Block\BlockBase;
  */
 final class CopyrightBlock extends BlockBase {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(): array {
     return [
       '#theme' => 'niklan_copyright',

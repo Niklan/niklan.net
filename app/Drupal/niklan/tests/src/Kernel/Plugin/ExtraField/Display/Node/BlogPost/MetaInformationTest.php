@@ -62,9 +62,7 @@ final class MetaInformationTest extends ExtraFieldTestBase {
     self::assertRaw('7 comments');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

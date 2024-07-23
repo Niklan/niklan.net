@@ -8,15 +8,10 @@ use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Node\Node;
 
 /**
- * {@selfdoc}
- *
  * @ingroup content_sync
  */
 final class Alert extends Node {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     public readonly string $type,
     public ?NodeInterface $heading,
@@ -24,9 +19,7 @@ final class Alert extends Node {
     $this->heading?->setParent($this);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function replaceNode(NodeInterface $search, NodeInterface $replace): self {
     parent::replaceNode($search, $replace);
 

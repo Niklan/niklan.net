@@ -21,16 +21,12 @@ final class PlainText extends Node implements StringContainerInterface {
     protected string $text,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setLiteral(string $literal): void {
     $this->text = $literal;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getLiteral(): string {
     return $this->text;
   }

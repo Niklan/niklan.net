@@ -52,9 +52,7 @@ final class BlogControllerTest extends NiklanTestBase {
     self::assertCount(1, $this->cssSelect('.blog-posts article'));
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
     $this->setUpBlogEntry();

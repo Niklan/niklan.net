@@ -17,9 +17,7 @@ use Drupal\external_content\Data\IdentifierResult;
  */
 final class FrontMatterIdentifier implements IdentifierInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function identify(SourceInterface $source): IdentifierResult {
     if (!$this->supportsIdentification($source)) {
       return IdentifierResult::notIdentified();
@@ -41,9 +39,6 @@ final class FrontMatterIdentifier implements IdentifierInterface {
     return IdentifierResult::identified($result);
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function supportsIdentification(SourceInterface $source): bool {
     $data = $source->data();
 

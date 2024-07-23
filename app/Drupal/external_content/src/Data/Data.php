@@ -9,9 +9,6 @@ namespace Drupal\external_content\Data;
  */
 final class Data {
 
-  /**
-   * {@selfdoc}
-   */
   public function __construct(
     protected array $store = [],
   ) {}
@@ -54,9 +51,6 @@ final class Data {
     return \array_key_exists($key, $this->store);
   }
 
-  /**
-   * {@selfdoc}
-   */
   public function all(): array {
     return $this->store;
   }

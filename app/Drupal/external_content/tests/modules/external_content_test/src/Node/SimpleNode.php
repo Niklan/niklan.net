@@ -13,18 +13,12 @@ use Drupal\external_content\Node\Node;
  */
 final class SimpleNode extends Node {
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function deserialize(Data $data): NodeInterface {
-    return new self();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function serialize(): Data {
     return new Data([]);
+  }
+
+  public static function deserialize(Data $data): NodeInterface {
+    return new self();
   }
 
 }

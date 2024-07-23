@@ -29,33 +29,11 @@ final class Deploy0001 implements ContainerInjectionInterface {
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),
     );
-  }
-
-  /**
-   * Implements hook_deploy_HOOK().
-   */
-  public function __invoke(array &$sandbox): string {
-    $this->prepareBatch($sandbox);
-
-    if ($sandbox['total'] === 0) {
-      $sandbox['#finished'] = 1;
-
-      return 'No contact messages found.';
-    }
-
-    $this->processBatch($sandbox);
-
-    return (string) new FormattableMarkup('@current of @total contact message processed.', [
-      '@current' => $sandbox['current'],
-      '@total' => $sandbox['total'],
-    ]);
   }
 
   /**
@@ -124,6 +102,26 @@ final class Deploy0001 implements ContainerInjectionInterface {
       ->getQuery()
       ->accessCheck(FALSE)
       ->sort('id');
+  }
+
+  /**
+   * Implements hook_deploy_HOOK().
+   */
+  public function __invoke(array &$sandbox): string {
+    $this->prepareBatch($sandbox);
+
+    if ($sandbox['total'] === 0) {
+      $sandbox['#finished'] = 1;
+
+      return 'No contact messages found.';
+    }
+
+    $this->processBatch($sandbox);
+
+    return (string) new FormattableMarkup('@current of @total contact message processed.', [
+      '@current' => $sandbox['current'],
+      '@total' => $sandbox['total'],
+    ]);
   }
 
 }

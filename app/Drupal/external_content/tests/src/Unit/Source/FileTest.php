@@ -17,9 +17,6 @@ use org\bovigo\vfs\vfsStream;
  */
 final class FileTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testObject(): void {
     vfsStream::setup(structure: [
       'foo' => [

@@ -25,9 +25,7 @@ final class PortfolioController implements ContainerInjectionInterface {
    */
   protected EntityViewBuilderInterface $nodeViewBuilder;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     $entity_type_manager = $container->get('entity_type.manager');
 

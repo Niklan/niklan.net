@@ -12,16 +12,11 @@ use Drupal\external_content\Serializer\ElementSerializer;
 use Drupal\Tests\external_content\Kernel\ExternalContentTestBase;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Serializer\ElementSerializer
  * @group external_content
  */
 final class ElementSerializerTest extends ExternalContentTestBase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testSerialization(): void {
     $environment = new Environment('test');
     $environment->addSerializer(new ElementSerializer());

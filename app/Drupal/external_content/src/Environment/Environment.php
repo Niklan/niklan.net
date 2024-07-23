@@ -30,59 +30,16 @@ use Psr\EventDispatcher\StoppableEventInterface;
  */
 final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $htmlParsers;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $identifiers;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $finders;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $eventListeners;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $serializers;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $renderArrayBuilders;
-
-  /**
-   * {@selfdoc}
-   */
   protected ?EventDispatcherInterface $eventDispatcher = NULL;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $loaders;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $converters;
-
-  /**
-   * {@selfdoc}
-   */
   protected Configuration $configuration;
-
-  /**
-   * {@selfdoc}
-   */
   protected PrioritizedList $bundlers;
 
   /**
@@ -105,52 +62,37 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     $this->loaders = new PrioritizedList();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function id(): string {
     return $this->id;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getHtmlParsers(): PrioritizedList {
     return $this->htmlParsers;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getIdentifiers(): PrioritizedList {
     return $this->identifiers;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getConfiguration(): ConfigurationInterface {
     return $this->configuration->reader();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getFinders(): PrioritizedList {
     return $this->finders;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getRenderArrayBuilders(): PrioritizedList {
     return $this->renderArrayBuilders;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function dispatch(object $event): object {
     if ($this->eventDispatcher) {
       return $this->eventDispatcher->dispatch($event);
@@ -167,9 +109,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $event;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getListenersForEvent(object $event): \Generator {
     foreach ($this->eventListeners as $event_listener) {
       \assert($event_listener instanceof EventListener);
@@ -185,39 +125,27 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     }
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getSerializers(): PrioritizedList {
     return $this->serializers;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getLoaders(): PrioritizedList {
     return $this->loaders;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getConverters(): PrioritizedList {
     return $this->converters;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function getBundlers(): PrioritizedList {
     return $this->bundlers;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addHtmlParser(HtmlParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface {
     $this->htmlParsers->add($parser, $priority);
     $this->injectDependencies($parser);
@@ -225,9 +153,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addIdentifier(IdentifierInterface $identifier, int $priority = 0): EnvironmentBuilderInterface {
     $this->identifiers->add($identifier, $priority);
     $this->injectDependencies($identifier);
@@ -235,9 +161,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addFinder(FinderInterface $finder, int $priority = 0): EnvironmentBuilderInterface {
     $this->finders->add($finder, $priority);
     $this->injectDependencies($finder);
@@ -245,9 +169,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addEventListener(string $event_class, callable $listener, int $priority = 0): self {
     $this->eventListeners->add(
       item: new EventListener($event_class, $listener),
@@ -257,18 +179,14 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setEventDispatcher(EventDispatcherInterface $event_dispatcher): self {
     $this->eventDispatcher = $event_dispatcher;
 
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addRenderArrayBuilder(RenderArrayBuilderInterface $builder, int $priority = 0): self {
     $this->renderArrayBuilders->add($builder, $priority);
     $this->injectDependencies($builder);
@@ -276,9 +194,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addSerializer(SerializerInterface $serializer, int $priority = 0): self {
     $this->serializers->add($serializer, $priority);
     $this->injectDependencies($serializer);
@@ -286,9 +202,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addExtension(ExtensionInterface $extension): self {
     if ($extension instanceof ConfigurableExtensionInterface) {
       $extension->configureSchema($this->configuration);
@@ -299,9 +213,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addLoader(LoaderInterface $loader, int $priority = 0): self {
     $this->loaders->add($loader, $priority);
     $this->injectDependencies($loader);
@@ -309,9 +221,6 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function addConverter(ConverterInterface $converter, int $priority = 0): self {
     $this->converters->add($converter, $priority);
@@ -320,9 +229,6 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function addBundler(BundlerInterface $bundler, int $priority = 0): self {
     $this->bundlers->add($bundler, $priority);
@@ -331,9 +237,6 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $this;
   }
 
-  /**
-   * {@selfdoc}
-   */
   private function injectDependencies(object $object): void {
     if ($object instanceof EnvironmentAwareInterface) {
       $object->setEnvironment($this);

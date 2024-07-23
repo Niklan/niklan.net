@@ -19,9 +19,7 @@ use League\Config\ConfigurationBuilderInterface;
  */
 final class NiklanMarkdownExtension implements ConfigurableExtensionInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
     $environment->addExtension(new CommonMarkCoreExtension());
     $environment->addExtension(new HeadingPermalinkExtension());
@@ -31,9 +29,7 @@ final class NiklanMarkdownExtension implements ConfigurableExtensionInterface {
     $environment->addRenderer(FencedCode::class, new FencedCodeRenderer(), 50);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function configureSchema(ConfigurationBuilderInterface $builder): void {
     $builder->set('heading_permalink/insert', 'after');
   }

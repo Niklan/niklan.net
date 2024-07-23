@@ -19,9 +19,7 @@ use League\CommonMark\Util\Xml;
  */
 final class FencedCodeRenderer implements NodeRendererInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable {
     \assert($node instanceof FencedCode);
 

@@ -32,9 +32,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
    */
   protected RouteMatchInterface $routeMatch;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->routeMatch = $container->get('current_route_match');
@@ -42,9 +40,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function build(): array {
     $build = [];
     $node = $this->routeMatch->getParameter('node');
@@ -82,9 +78,7 @@ final class TocBlock extends BlockBase implements ContainerFactoryPluginInterfac
     return $build;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getCacheContexts(): array {
     return Cache::mergeContexts(parent::getCacheContexts(), ['route']);
   }

@@ -67,9 +67,7 @@ final class StatisticsTest extends ExtraFieldTestBase {
     self::assertRaw('2 publications from 3 March 1973 to 4 May 1976');
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

@@ -11,19 +11,10 @@ use Drupal\external_content\Contract\Node\NodeInterface;
  */
 abstract class Node implements NodeInterface {
 
-  /**
-   * {@selfdoc}
-   */
   protected ?NodeInterface $parent = NULL;
-
-  /**
-   * {@selfdoc}
-   */
   protected array $children = [];
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addChild(NodeInterface $node): NodeInterface {
     $node->setParent($this);
     $this->children[] = $node;
@@ -31,9 +22,7 @@ abstract class Node implements NodeInterface {
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function addChildren(NodeList $node_list): NodeInterface {
     foreach ($node_list->getChildren() as $node) {
       $this->addChild($node);
@@ -42,23 +31,17 @@ abstract class Node implements NodeInterface {
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getChildren(): \ArrayIterator {
     return new \ArrayIterator($this->children);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function hasChildren(): bool {
     return (bool) \count($this->children);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function replaceNode(NodeInterface $search, NodeInterface $replace): self {
     foreach ($this->children as &$child) {
       if ($child === $search) {
@@ -74,9 +57,7 @@ abstract class Node implements NodeInterface {
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getRoot(): NodeInterface {
     if (!$this->hasParent()) {
       return $this;
@@ -91,23 +72,17 @@ abstract class Node implements NodeInterface {
     return $node;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function hasParent(): bool {
     return !\is_null($this->parent);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getParent(): ?NodeInterface {
     return $this->parent;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function setParent(NodeInterface $node): NodeInterface {
     $this->parent = $node;
 

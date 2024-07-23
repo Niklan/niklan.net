@@ -16,9 +16,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class HtmlElementTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testObject(): void {
     $attributes = new Attributes();
     $attributes->setAttribute('foo', 'bar');

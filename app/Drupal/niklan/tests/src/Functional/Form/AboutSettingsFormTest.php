@@ -73,9 +73,7 @@ final class AboutSettingsFormTest extends NiklanTestBase {
     self::assertEquals('1', $photo_media_id_default_value->id());
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

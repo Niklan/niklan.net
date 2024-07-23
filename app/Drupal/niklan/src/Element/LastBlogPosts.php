@@ -34,9 +34,7 @@ final class LastBlogPosts extends RenderElementBase implements ContainerFactoryP
    */
   protected string $viewMode;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -44,9 +42,7 @@ final class LastBlogPosts extends RenderElementBase implements ContainerFactoryP
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getInfo(): array {
     return [
       '#theme' => 'niklan_last_content',

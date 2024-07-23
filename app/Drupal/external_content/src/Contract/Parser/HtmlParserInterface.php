@@ -11,9 +11,6 @@ use Drupal\external_content\Data\HtmlParserResult;
  */
 interface HtmlParserInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function parseNode(\DOMNode $node, ChildHtmlParserInterface $child_parser): HtmlParserResult;
 
 }

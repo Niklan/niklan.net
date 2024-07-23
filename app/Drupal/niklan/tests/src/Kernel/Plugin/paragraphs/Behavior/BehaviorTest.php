@@ -15,6 +15,8 @@ use Drupal\Tests\niklan\Kernel\NiklanTestBase;
  */
 abstract class BehaviorTest extends NiklanTestBase {
 
+  protected ParagraphsBehaviorManager $behaviorPluginManager;
+
   /**
    * {@inheritdoc}
    */
@@ -22,14 +24,7 @@ abstract class BehaviorTest extends NiklanTestBase {
     'paragraphs',
   ];
 
-  /**
-   * The behavior plugin manager.
-   */
-  protected ParagraphsBehaviorManager $behaviorPluginManager;
-
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   protected function setUp(): void {
     parent::setUp();
 

@@ -16,6 +16,11 @@ use Drupal\search_api\Utility\QueryHelperInterface;
 abstract class SearchApiSearch implements CacheableDependencyInterface {
 
   /**
+   * Gets a Search API index.
+   */
+  abstract protected function getIndexId(): string;
+
+  /**
    * Constructs a new SearchApiSearch instance.
    *
    * @param \Drupal\search_api\Utility\QueryHelperInterface $queryHelper
@@ -28,33 +33,22 @@ abstract class SearchApiSearch implements CacheableDependencyInterface {
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getCacheContexts(): array {
     return [];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getCacheTags(): array {
     return [
       'search_api_list:' . $this->getIndexId(),
     ];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getCacheMaxAge(): int {
     return Cache::PERMANENT;
   }
-
-  /**
-   * Gets a Search API index.
-   */
-  abstract protected function getIndexId(): string;
 
   /**
    * Builds base query.

@@ -33,25 +33,19 @@ final class SearchForm extends FormBase {
     protected ClassResolverInterface $classResolver,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('class_resolver'),
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getFormId(): string {
     return 'niklan_search';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['query'] = [
       '#type' => 'textfield',
@@ -77,9 +71,7 @@ final class SearchForm extends FormBase {
     return $form;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $form_state->setRedirectUrl($this->buildResultsUrl($form_state));
   }

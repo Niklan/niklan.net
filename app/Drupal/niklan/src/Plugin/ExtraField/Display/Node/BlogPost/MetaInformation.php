@@ -32,9 +32,7 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
    */
   protected DateFormatterInterface $dateFormatter;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->dateFormatter = $container->get('date.formatter');
@@ -42,9 +40,7 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     \assert($entity instanceof NodeInterface);
 

@@ -31,9 +31,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
    */
   protected EntityTypeManagerInterface $entityTypeManager;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     $instance = new self($configuration, $plugin_id, $plugin_definition);
     $instance->entityTypeManager = $container->get('entity_type.manager');
@@ -41,9 +39,7 @@ final class Statistics extends ExtraFieldDisplayBase implements ContainerFactory
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function view(ContentEntityInterface $entity): array {
     $articles = $this->findArticles();
 

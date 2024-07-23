@@ -20,9 +20,6 @@ final class EstimatedReadTimeCalculator {
    */
   protected int $wordsPerMinute = 143;
 
-  /**
-   * {@selfdoc}
-   */
   public function calculate(NodeInterface $content): int {
     $estimated_read_time = 0;
     $this->calculateRecursive($content, $estimated_read_time);
@@ -35,8 +32,18 @@ final class EstimatedReadTimeCalculator {
   }
 
   /**
-   * {@selfdoc}
+   * Calculates estimated read time on words count.
+   *
+   * @param int $words_count
+   *   The words count.
+   * @param int|float $multiplier
+   *   The speed read multiplier. 2 - means that read time for that part is
+   *   expected to be two times slower that usual text.
    */
+  protected function calculateEstimatedReadTime(int $words_count, int|float $multiplier = 1): int|float {
+    return \floor($words_count * $multiplier / $this->wordsPerMinute * 60);
+  }
+
   private function calculateRecursive(NodeInterface $node, int|float &$estimated): void {
     foreach ($node->getChildren() as $child) {
       $this->calculateRecursive($child, $estimated);
@@ -52,19 +59,6 @@ final class EstimatedReadTimeCalculator {
       Code::class => 3,
     };
     $estimated += $this->calculateEstimatedReadTime($words_count, $multiplier);
-  }
-
-  /**
-   * Calculates estimated read time on words count.
-   *
-   * @param int $words_count
-   *   The words count.
-   * @param int|float $multiplier
-   *   The speed read multiplier. 2 - means that read time for that part is
-   *   expected to be two times slower that usual text.
-   */
-  protected function calculateEstimatedReadTime(int $words_count, int|float $multiplier = 1): int|float {
-    return \floor($words_count * $multiplier / $this->wordsPerMinute * 60);
   }
 
 }

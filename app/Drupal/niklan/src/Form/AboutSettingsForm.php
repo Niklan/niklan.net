@@ -33,9 +33,7 @@ final class AboutSettingsForm extends FormBase {
    */
   protected AboutSettingsRepositoryInterface $settingsRepository;
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     $entity_type_manager = $container->get('entity_type.manager');
 
@@ -49,16 +47,12 @@ final class AboutSettingsForm extends FormBase {
     return $instance;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getFormId(): string {
     return 'niklan_about_settings';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['#tree'] = TRUE;
 
@@ -108,9 +102,7 @@ final class AboutSettingsForm extends FormBase {
     return $form;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $responsive_image_style_id = $form_state->getValue([
       'photo',

@@ -14,8 +14,6 @@ use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * {@selfdoc}
- *
  * @FieldFormatter(
  *   id = "external_content_render_array",
  *   label = @Translation("Render array builder"),
@@ -26,9 +24,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class ExternalContentRenderArrayFieldFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * {@inheritdoc}
-   */
   public function __construct(
     $plugin_id,
     $plugin_definition,
@@ -42,9 +37,7 @@ final class ExternalContentRenderArrayFieldFormatter extends FormatterBase imple
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     return new self(
       $plugin_id,
@@ -58,9 +51,7 @@ final class ExternalContentRenderArrayFieldFormatter extends FormatterBase imple
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
     $element = [];
 

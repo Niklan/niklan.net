@@ -17,9 +17,6 @@ use Drupal\Tests\UnitTestCase;
  */
 final class ContentTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testObject(): void {
     $instance = new Content();
 

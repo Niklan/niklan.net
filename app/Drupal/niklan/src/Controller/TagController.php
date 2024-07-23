@@ -29,9 +29,7 @@ final class TagController implements TagControllerInterface, ContainerInjectionI
     protected TagStatisticsInterface $tagStatistics,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),
@@ -39,9 +37,7 @@ final class TagController implements TagControllerInterface, ContainerInjectionI
     );
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function collection(): array {
     $tag_ids = \array_keys($this->tagStatistics->getBlogEntryUsage());
     $terms = $this
@@ -59,9 +55,7 @@ final class TagController implements TagControllerInterface, ContainerInjectionI
     ];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function page(TermInterface $term): array {
     return [
       '#theme' => 'niklan_tag_page',

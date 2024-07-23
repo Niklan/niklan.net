@@ -21,9 +21,7 @@ final class TagStatistics implements TagStatisticsInterface {
     protected Connection $connection,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getBlogEntryUsage(?int $limit = NULL): array {
     $query = $this->connection->select('taxonomy_term_field_data', 'terms');
     $query->leftJoin(

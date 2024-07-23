@@ -14,49 +14,22 @@ use Psr\EventDispatcher\ListenerProviderInterface;
  */
 interface EnvironmentInterface extends EventDispatcherInterface, ListenerProviderInterface, ConfigurationProviderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function id(): string;
 
-  /**
-   * {@selfdoc}
-   */
   public function getHtmlParsers(): PrioritizedList;
 
-  /**
-   * {@selfdoc}
-   */
   public function getIdentifiers(): PrioritizedList;
 
-  /**
-   * {@selfdoc}
-   */
   public function getFinders(): PrioritizedList;
 
-  /**
-   * {@selfdoc}
-   */
   public function getRenderArrayBuilders(): PrioritizedList;
 
-  /**
-   * {@selfdoc}
-   */
   public function getSerializers(): PrioritizedList;
 
-  /**
-   * {@selfdoc}
-   */
   public function getLoaders(): PrioritizedList;
 
-  /**
-   * {@selfdoc}
-   */
   public function getConverters(): PrioritizedList;
 
-  /**
-   * {@selfdoc}
-   */
   public function getBundlers(): PrioritizedList;
 
 }

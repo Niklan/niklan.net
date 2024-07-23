@@ -11,9 +11,6 @@ use Drupal\external_content\Data\FinderResult;
  */
 interface FinderInterface {
 
-  /**
-   * {@selfdoc}
-   */
   public function find(): FinderResult;
 
 }

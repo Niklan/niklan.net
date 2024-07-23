@@ -15,9 +15,7 @@ use Drupal\external_content\Node\PlainText;
  */
 final class PlainTextSerializer implements SerializerInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function normalize(NodeInterface $node, ChildSerializerInterface $child_serializer): array {
     \assert($node instanceof PlainText);
 
@@ -26,37 +24,27 @@ final class PlainTextSerializer implements SerializerInterface {
     ];
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsSerialization(NodeInterface $node): bool {
     return $node instanceof PlainText;
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function supportsDeserialization(string $block_type, string $serialized_version): bool {
     return $block_type === $this->getSerializationBlockType();
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getSerializationBlockType(): string {
     return 'external_content:plain_text';
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
     return new PlainText($data->get('text'));
   }
 
-  /**
-   * {@selfdoc}
-   */
+  #[\Override]
   public function getSerializerVersion(): string {
     return '1.0.0';
   }

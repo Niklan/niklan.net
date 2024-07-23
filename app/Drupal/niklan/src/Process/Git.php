@@ -25,9 +25,7 @@ final class Git implements GitInterface {
     protected string $gitBinary = 'git',
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function pull(string $directory): Process {
     // @see https://stackoverflow.com/a/62653400/4751623
     $command = [$this->getGitBin(), 'pull', '--ff-only'];
@@ -35,18 +33,14 @@ final class Git implements GitInterface {
     return $this->terminal->createProcess($command, $directory);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getLastCommitId(string $directory): Process {
     $command = [$this->getGitBin(), 'log', '--format="%H"', '-n 1'];
 
     return $this->terminal->createProcess($command, $directory);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function getFileLastCommitId(string $directory, string $filepath): Process {
     $command = [
       $this->getGitBin(),

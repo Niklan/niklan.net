@@ -11,16 +11,11 @@ use Drupal\Tests\UnitTestCase;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 /**
- * {@selfdoc}
- *
  * @covers \Drupal\external_content\Extension\FileFinderExtension
  * @group external_content
  */
 final class FileFinderExtensionTest extends UnitTestCase {
 
-  /**
-   * {@selfdoc}
-   */
   public function testExtension(): void {
     $environment = new Environment('test');
     self::assertCount(0, $environment->getFinders());

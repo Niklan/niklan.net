@@ -18,13 +18,6 @@ use Drupal\niklan\Entity\Node\Portfolio;
 final class BundleInfoAlter {
 
   /**
-   * Implements hook_entity_bundle_info_alter().
-   */
-  public function __invoke(array &$bundles): void {
-    $this->alterBundleClasses($bundles);
-  }
-
-  /**
    * Alters bundle classes for entities.
    *
    * @param array $bundles
@@ -51,6 +44,13 @@ final class BundleInfoAlter {
     ];
 
     $bundles = NestedArray::mergeDeep($bundles, $bundle_classes_map);
+  }
+
+  /**
+   * Implements hook_entity_bundle_info_alter().
+   */
+  public function __invoke(array &$bundles): void {
+    $this->alterBundleClasses($bundles);
   }
 
 }

@@ -14,16 +14,6 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 final class BaseFieldInfo {
 
   /**
-   * Implements hook_entity_base_field_info().
-   */
-  public function __invoke(EntityTypeInterface $entity_type): array {
-    return match ($entity_type->id()) {
-      'file' => $this->file(),
-      default => [],
-    };
-  }
-
-  /**
    * Adds base fields for 'file' entity type.
    *
    * @return array
@@ -38,6 +28,16 @@ final class BaseFieldInfo {
       ->setSetting('max_length', 255);
 
     return $fields;
+  }
+
+  /**
+   * Implements hook_entity_base_field_info().
+   */
+  public function __invoke(EntityTypeInterface $entity_type): array {
+    return match ($entity_type->id()) {
+      'file' => $this->file(),
+      default => [],
+    };
   }
 
 }

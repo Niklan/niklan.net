@@ -11,14 +11,12 @@ use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ExtensionInterface;
 
 /**
- * {@selfdoc}
+ * Provides container directive for Markdown.
  *
  * Container Directive it is a simply Markdown Syntax that can be used to
- * create
- * different types of containers using similar syntax.
+ * create different types of containers using similar syntax.
  *
  * Example:
- *
  * @code
  *  :::name[inline-content](argument){#id .class key=value}
  *    Contents of the directive.
@@ -37,9 +35,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  */
 final class ContainerBlockDirectiveExtension implements ExtensionInterface {
 
-  /**
-   * {@inheritdoc}
-   */
+  #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
     $environment->addBlockStartParser(new ContainerBlockDirectiveStartParser(), 70);
     $environment->addRenderer(
