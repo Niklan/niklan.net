@@ -6,108 +6,51 @@
  */
 #}
 {% set components = {
-  'plain': {
-    title: 'Plain variants',
+  'basic': {
+    title: 'Basic button',
     variants: {
-      'primary': { variant: 'plain', color: 'primary' },
-      'danger': { variant: 'plain', color: 'danger' },
-      'primary-link': { component: 'a', href: '#', variant: 'plain', color: 'primary' },
-      'danger-link': { component: 'a', href: '#', variant: 'plain', color: 'danger' },
+      'Text': { variant: 'text' },
+      'Contained': { variant: 'contained' },
+      'Outlined': { variant: 'outlined' },
+    }
+  },
+  'text': {
+    title: 'Text button',
+    variants: {
+      'Primary': { variant: 'text' },
+      'Disabled': { variant: 'text', disabled: true },
+      'Link': { variant: 'text', href: '#foo' }
+    }
+  },
+  'contained': {
+    title: 'Contained button',
+    variants: {
+      'Contained': { variant: 'contained' },
+      'Disabled': { variant: 'contained', disabled: true },
+      'Link': { variant: 'contained',  href: '#foo' }
     }
   },
   'outlined': {
-    title: 'Outlined variants',
+    title: 'Outlined button',
     variants: {
-      'primary': { variant: 'outlined', color: 'primary' },
-      'danger': { variant: 'outlined', color: 'danger' },
-      'primary-link': { component: 'a', href: '#', variant: 'outlined', color: 'primary' },
-      'danger-link': { component: 'a', href: '#', variant: 'outlined', color: 'danger' },
-    }
-  },
-  'soft': {
-    title: 'Soft variants',
-    variants: {
-      'primary': { variant: 'soft', color: 'primary' },
-      'danger': { variant: 'soft', color: 'danger' },
-      'primary-link': { component: 'a', href: '#', variant: 'soft', color: 'primary' },
-      'danger-link': { component: 'a', href: '#', variant: 'soft', color: 'danger' },
-    }
-  },
-  'solid': {
-    title: 'Solid variants',
-    variants: {
-      'primary': { variant: 'solid', color: 'primary' },
-      'danger': { variant: 'solid', color: 'danger' },
-      'primary-link': { component: 'a', href: '#', variant: 'solid', color: 'primary' },
-      'danger-link': { component: 'a', href: '#', variant: 'solid', color: 'danger' },
-    }
-  },
-  'size-sm': {
-    title: 'Size SM',
-    variants: {
-      'plain': { size: 'sm' },
-      'outlined': { variant: 'outlined', size: 'sm' },
-      'soft': { variant: 'soft', size: 'sm' },
-      'solid': { variant: 'solid', size: 'sm' },
-      'link': { component: 'a', href: '#', size: 'sm' },
-    }
-  },
-  'size-md': {
-    title: 'Size MD',
-    variants: {
-      'plain': { size: 'md' },
-      'outlined': { variant: 'outlined', size: 'md' },
-      'soft': { variant: 'soft', size: 'md' },
-      'solid': { variant: 'solid', size: 'md' },
-      'link': { component: 'a', href: '#', size: 'md' },
-    }
-  },
-  'size-lg': {
-    title: 'Size LG',
-    variants: {
-      'plain': { size: 'lg' },
-      'outlined': { variant: 'outlined', size: 'lg' },
-      'soft': { variant: 'soft', size: 'lg' },
-      'solid': { variant: 'solid', size: 'lg' },
-      'link': { component: 'a', href: '#', size: 'lg' },
-    }
-  },
-  'disabled': {
-    title: 'Disabled',
-    variants: {
-      'plain': { disabled: true, size: 'sm' },
-      'outlined': { variant: 'outlined', disabled: true },
-      'soft': { variant: 'soft', disabled: true },
-      'solid': { variant: 'solid', disabled: true },
-      'link': { component: 'a', href: '#', disabled: true },
-    }
-  },
-  'icons': {
-    title: 'Icons',
-    variants: {
-      'plain': { start_icon: 'forum' },
-      'plain-end': { end_icon: 'share' },
-      'outlined': { variant: 'outlined', start_icon: 'forum' },
-      'outlined-end': { variant: 'outlined', end_icon: 'share' },
-      'soft': { variant: 'soft', start_icon: 'forum' },
-      'soft-end': { variant: 'soft', end_icon: 'share' },
-      'solid': { variant: 'solid', start_icon: 'forum' },
-      'solid-end': { variant: 'solid', end_icon: 'share' },
-      'link': { component: 'a', href: '#', start_icon: 'forum' },
-      'link-end': { component: 'a', href: '#', end_icon: 'share' },
+      'Primary': { variant: 'outlined' },
+      'Disabled': { variant: 'outlined', disabled: true },
+      'Link': { variant: 'outlined', href: '#foo' }
     }
   }
 } %}
 {% for group in components %}
   <div style="padding: 16px; display: flex; gap: 16px; flex-direction: column">
     <h2>{{ group.title }}</h2>
-    <div style="gap: 16px; display: flex; flex-flow: wrap">
+    <div style="gap: 16px; display: flex; flex-flow: wrap; align-items: center;">
       {% for key, variant in group.variants %}
-        {% embed 'laszlo:button' with variant|merge({test_type: key}) only %}
-          {% block children %}
-            Hello, World! ({{ test_type }})
-          {% endblock %}
-        {% endembed %}
+        <div>
+          {% embed 'laszlo:button' with variant|merge({test_type: key}) only %}
+            {% block children %}
+              {{ test_type }}
+            {% endblock %}
+          {% endembed %}
+        </div>
       {% endfor %}
     </div>
   </div>

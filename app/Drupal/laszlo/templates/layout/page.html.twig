@@ -31,6 +31,8 @@
  * @ingroup themeable
  */
 #}
+{% include '@laszlo/../components/atoms/button/button.test.twig' %}
+
 {% set is_has_sidebar_first = page.sidebar_first|render|trim is not empty %}
 <section{{ attributes.addClass('page') }}>
   <header class="layout-container page__header">{{ header }}</header>

@@ -13,11 +13,10 @@ props:
       title: Variant
       type: string
       enum:
-        - plain
+        - text
+        - contained
         - outlined
-        - soft
-        - solid
-      default: solid
+      default: text
     color:
       title: Color
       type: string
@@ -36,13 +35,6 @@ props:
     disabled:
       title: Disabled
       type: boolean
-    component:
-      title: Component
-      type: string
-      enum:
-        - a
-        - button
-      default: button
     href:
       title: URL
       type: string
