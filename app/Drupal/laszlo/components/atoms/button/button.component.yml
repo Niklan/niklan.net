@@ -28,21 +28,15 @@ props:
       title: Size
       type: string
       enum:
-        - sm
-        - md
-        - lg
-      default: md
+        - small
+        - medium
+        - large
+      default: medium
     disabled:
       title: Disabled
       type: boolean
     href:
       title: URL
-      type: string
-    start_icon:
-      title: Start icon
-      type: string
-    end_icon:
-      title: End icon
       type: string
     type:
       title: Type
@@ -62,3 +56,7 @@ slots:
   children:
     required: true
     title: Children content
+  start_icon:
+    title: Start icon
+  end_icon:
+    title: End icon
