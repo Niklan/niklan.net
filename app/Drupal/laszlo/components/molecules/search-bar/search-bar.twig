@@ -7,16 +7,19 @@
     input_attributes: create_attribute({
       'name': 'q',
       'type': 'text',
-      'placeholder': placeholder
+      'placeholder': placeholder,
     }),
     full_width: true,
   } only %}
-  {% include 'laszlo:button' with {
+  {% embed 'laszlo:button' with {
     attributes: create_attribute({
       'class': ['search-bar__button'],
       'aria-label': 'Do search'|t,
     }),
     type: 'submit',
-    start_icon: 'search',
   } only %}
+    {% block start_icon %}
+      {% include 'laszlo:icon' with { icon: 'search' } only %}
+    {% endblock %}
+  {% endembed %}
 </form>

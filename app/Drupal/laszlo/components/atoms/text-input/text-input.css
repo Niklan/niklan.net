@@ -79,7 +79,7 @@
   width: 100%;
 }
 
-.text-input .svg-icon {
+.text-input .icon {
   align-self: center;
   height: var(--input-icon-size);
   pointer-events: none;

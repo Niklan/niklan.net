@@ -54,7 +54,6 @@ props:
       type: string
 slots:
   children:
-    required: true
     title: Children content
   start_icon:
     title: Start icon

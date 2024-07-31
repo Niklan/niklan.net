@@ -1,12 +1,13 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Search bar
 status: experimental
-group: ui
+group: molecules
 props:
   type: object
-  required:
-    - placeholder
+  # @todo Uncomment when resolved: https://www.drupal.org/project/drupal/issues/3464719
+  #required:
+  #  - placeholder
   properties:
     placeholder:
-      title: Label
+      title: Placeholder
       type: string

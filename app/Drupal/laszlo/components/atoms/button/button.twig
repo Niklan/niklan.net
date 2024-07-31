@@ -13,7 +13,7 @@
   ]
 %}
 <{{ element }}{{ attributes.addClass(classes) }}>
-  {% if start_icon %}{{ start_icon }}{% endif %}
+  {% block start_icon %}{% endblock %}
   {% block children %}{% endblock %}
-  {% if end_icon %}{{ end_icon }}{% endif %}
+  {% block end_icon %}{% endblock %}
 </{{ element }}>

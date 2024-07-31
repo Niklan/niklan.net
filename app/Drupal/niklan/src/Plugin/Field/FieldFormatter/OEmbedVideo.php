@@ -98,8 +98,8 @@ final class OEmbedVideo extends FormatterBase {
 
     if ($responsive_image_style) {
       $summary[] = (string) new TranslatableMarkup(
-        'Responsive image style: @responsive_image_style',
-        ['@responsive_image_style' => $responsive_image_style->label()],
+        string: 'Responsive image style: @responsive_image_style',
+        arguments: ['@responsive_image_style' => $responsive_image_style->label()],
       );
     }
     else {

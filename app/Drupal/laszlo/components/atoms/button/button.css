@@ -58,10 +58,10 @@
 }
 
 .button--variant--contained.button--color--danger {
-  --button-background-color: transparent;
-  --button-background-color-hover: var(--color-error-container);
-  --button-color: var(--color-error);
-  --button-color-hover: var(--button-color);
+  --button-background-color: var(--color-error);
+  --button-background-color-hover: var(--button-background-color);
+  --button-color: var(--color-on-error);
+  --button-color-hover: var(--color-error-container);
 }
 
 .button--variant--outlined.button--color--primary {

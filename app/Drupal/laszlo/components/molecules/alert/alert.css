@@ -20,7 +20,7 @@
   gap: var(--spacing-2);
 }
 
-.alert__heading .svg-icon {
+.alert__heading .icon {
   color: var(--note-color);
 }
 
