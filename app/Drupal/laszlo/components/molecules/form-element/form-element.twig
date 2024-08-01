@@ -1,0 +1,10 @@
+{%
+  set classes = [
+    'form-element',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% block label %}{% endblock %}
+  {% block children %}{% endblock %}
+  {% block description %}{% endblock %}
+</div>

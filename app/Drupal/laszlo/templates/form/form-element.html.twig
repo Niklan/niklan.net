@@ -46,51 +46,24 @@
  * @ingroup themeable
  */
 #}
-{%
-  set classes = [
-    'js-form-item',
-    'form-item',
-    'js-form-type-' ~ type|clean_class,
-    'form-item-' ~ name|clean_class,
-    'js-form-item-' ~ name|clean_class,
-    title_display not in ['after', 'before'] ? 'form-no-label',
-    disabled == 'disabled' ? 'form-disabled',
-    errors ? 'form-item--error',
-  ]
-%}
-{%
-  set description_classes = [
-    'description',
-    description_display == 'invisible' ? 'visually-hidden',
-  ]
-%}
-<div{{ attributes.addClass(classes) }}>
-  {% if label_display in ['before', 'invisible'] %}
-    {{ label }}
-  {% endif %}
-  {% if prefix is not empty %}
-    <span class="field-prefix">{{ prefix }}</span>
-  {% endif %}
-  {% if description_display == 'before' and description.content %}
-    {% embed 'laszlo:form-helper-text' with { content: description.content } only %}
-      {% block children %}{{ content }}{% endblock %}
-    {% endembed %}
-  {% endif %}
-  {{ children }}
-  {% if suffix is not empty %}
-    <span class="field-suffix">{{ suffix }}</span>
-  {% endif %}
-  {% if label_display == 'after' %}
-    {{ label }}
-  {% endif %}
-  {% if errors %}
-    <div class="form-item--error-message">
-      {{ errors }}
-    </div>
-  {% endif %}
-  {% if description_display in ['after', 'invisible'] and description.content %}
-    {% embed 'laszlo:form-helper-text' with { content: description.content } only %}
-      {% block children %}{{ content }}{% endblock %}
-    {% endembed %}
-  {% endif %}
-</div>
+{% embed 'laszlo:form-element' with {
+  required,
+  disabled,
+  description: description.content,
+  label,
+  children,
+} only %}
+  {% block label %}
+    {% if label %}
+      {{ label }}
+    {% endif %}
+  {% endblock %}
+  {% block children %}{{ children }}{% endblock %}
+  {% block description %}
+    {% if description %}
+      {% embed 'laszlo:form-helper-text' with { content: description } only %}
+        {% block children %}{{ content }}{% endblock %}
+      {% endembed %}
+    {% endif %}
+  {% endblock %}
+{% endembed %}

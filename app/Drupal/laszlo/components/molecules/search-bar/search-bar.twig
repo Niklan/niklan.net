@@ -1,6 +1,7 @@
 {% do attributes.setAttribute('action', path('niklan.search_page')) %}
 <form{{ attributes.addClass('search-bar') }}>
   {% include 'laszlo:text-input' with {
+    variant: 'plain',
     attributes: create_attribute({
       'class': ['search-bar__input'],
     }),
