@@ -1,20 +1,24 @@
 .button {
-  --_button-spacing-x: var(--button-spacing-x, var(--spacing-4));
+  --_button-padding-inline: var(--button-padding-inline, var(--spacing-3));
+  --_button-height: var(--button-height, var(--spacing-10));
   --_button-spacing-y: var(--button-spacing-y, var(--spacing-2));
   --_button-gap: var(--button-gap, var(--spacing-2));
   --_button-background-color: var(--button-background-color, transparent);
-  --_button-background-color-hover: var(--button-background-color-hover, transparent);
+  --_button-background-color-hover: var(
+    --button-background-color-hover,
+    transparent
+  );
   --_button-border-color: var(--button-border-color, transparent);
   --_button-border-color-hover: var(--button-border-color-hover, transparent);
   --_button-color: var(--button-color, black);
   --_button-color-hover: var(--button-color-hover, black);
   --_button-font: var(--button-font, var(--typography-body-medium));
-  --_button-border-radius: var(--button-border-radius, var(--spacing-10));
+  --_button-border-radius: var(--button-border-radius, var(--spacing-2));
 
   display: inline-flex;
   align-items: center;
+  height: var(--_button-height);
   margin: 0;
-  padding: var(--_button-spacing-y) var(--_button-spacing-x);
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
   text-decoration: none;
@@ -24,7 +28,7 @@
   background: var(--_button-background-color);
   font: var(--_button-font);
   font-weight: bold;
-  line-height: 1;
+  padding-inline: var(--_button-padding-inline);
   gap: var(--_button-gap);
 
   &:focus,
@@ -84,20 +88,16 @@
 
 /* Sizes. */
 .button--size--small {
-  --button-spacing-x: var(--spacing-3);
-  --button-spacing-y: var(--spacing-2);
+  --button-height: var(--spacing-9);
   --button-font: var(--typography-body-small);
 }
 
 .button--size--medium {
-  --button-spacing-x: var(--spacing-4);
-  --button-spacing-y: var(--spacing-3);
   --button-font: var(--typography-body-medium);
 }
 
 .button--size--large {
-  --button-spacing-x: var(--spacing-5);
-  --button-spacing-y: var(--spacing-4);
+  --button-height: var(--spacing-12);
   --button-font: var(--typography-body-large);
 }
 

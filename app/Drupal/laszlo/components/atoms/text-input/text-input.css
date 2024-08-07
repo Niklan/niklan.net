@@ -1,40 +1,49 @@
 .text-input {
-  --input-border-color: transparent;
-  --input-border-color-hover: transparent;
-  --input-border-width: 1px;
-  --input-background-color: var(--color-surface-container-lowest);
-  --input-color: var(--color-on-surface);
-  --input-placeholder-color: var(--color-outline);
-  --input-box-shadow: none;
-  --input-box-shadow-focus: none;
-  --input-border-radius: var(--spacing-1);
-  --input-height: var(--spacing-10);
-  --input-font: var(--typography-body-medium);
-  --input-padding-inline: var(--spacing-3);
-  --input-gap: var(--spacing-3);
-  --input-icon-size: 24px;
+  --_input-border-color: var(--input-border-color, transparent);
+  --_input-border-color-hover: var(
+    --input-border-color-hover,
+    var(--input-border-color, transparent)
+  );
+  --_input-border-width: var(--input-border-width, 1px);
+  --_input-background-color: var(
+    --input-background-color,
+    var(--color-surface-container-lowest)
+  );
+  --_input-color: var(--input-color, var(--color-on-surface));
+  --_input-placeholder-color: var(
+    --input-placeholder-color,
+    var(--color-outline)
+  );
+  --_input-box-shadow: var(--input-box-shadow, none);
+  --_input-box-shadow-focus: var(--input-box-shadow-focus, none);
+  --_input-border-radius: var(--input-border-radius, var(--spacing-2));
+  --_input-height: var(--input-height, var(--spacing-10));
+  --_input-font: var(--input-font, var(--typography-body-medium));
+  --_input-padding-inline: var(--input-padding-inline, var(--spacing-3));
+  --_input-gap: var(--input-gap, var(--spacing-2));
+  --_input-icon-size: var(--input-icon-size, 24px);
 
   position: relative;
   display: inline-flex;
   box-sizing: border-box;
-  height: var(--input-height);
+  height: var(--_input-height);
   margin: 0;
   cursor: text;
-  color: var(--input-color);
-  border: var(--input-border-width) solid var(--input-border-color);
-  border-radius: var(--input-border-radius);
-  background-color: var(--input-background-color);
-  box-shadow: var(--input-box-shadow);
-  font: var(--input-font);
-  gap: var(--spacing-3);
-  padding-inline: var(--input-padding-inline);
+  color: var(--_input-color);
+  border: var(--_input-border-width) solid var(--_input-border-color);
+  border-radius: var(--_input-border-radius);
+  background-color: var(--_input-background-color);
+  box-shadow: var(--_input-box-shadow);
+  font: var(--_input-font);
+  gap: var(--_input-gap);
+  padding-inline: var(--_input-padding-inline);
 
   &:hover {
-    --input-border-color: var(--input-border-color-hover);
+    --_input-border-color: var(--_input-border-color-hover);
   }
 
   &:focus {
-    --input-border-color: var(--input-border-color-hover);
+    --_input-border-color: var(--_input-border-color-hover);
   }
 }
 
@@ -46,15 +55,15 @@
   bottom: 0;
   left: 0;
   display: block;
-  margin: calc(var(--input-border-width) * -1);
+  margin: calc(var(--_input-border-width) * -1);
   content: "";
   pointer-events: none;
   border-radius: inherit;
-  box-shadow: var(--input-box-shadow);
+  box-shadow: var(--_input-box-shadow);
 }
 
 .text-input:focus-within::before {
-  --input-box-shadow: var(--input-box-shadow-focus);
+  --_input-box-shadow: var(--_input-box-shadow-focus);
 }
 
 .text-input__input {
@@ -72,7 +81,7 @@
 }
 
 .text-input__input::placeholder {
-  color: var(--input-placeholder-color);
+  color: var(--_input-placeholder-color);
 }
 
 .text-input--full-width {
@@ -81,7 +90,7 @@
 
 .text-input .icon {
   align-self: center;
-  height: var(--input-icon-size);
+  height: var(--_input-icon-size);
   pointer-events: none;
 }
 
@@ -97,24 +106,23 @@
 }
 
 /* Sizes. */
-.text-input--size--sm {
+.text-input--size--small {
   --input-height: var(--spacing-9);
   --input-font: var(--typography-body-small);
   --input-icon-size: var(--spacing-4);
 }
 
-.text-input--size--md {
+.text-input--size--medium {
   --input-font: var(--typography-body-medium);
 }
 
-.text-input--size--lg {
+.text-input--size--large {
   --input-height: var(--spacing-12);
   --input-font: var(--typography-body-large);
 }
 
 /* Plain variants. */
 .text-input--variant--plain.text-input--color--primary {
-  --input-color: var(--color-primary);
   --input-box-shadow-focus: inset 0 0 0 2px var(--color-primary);
 }
 
@@ -125,7 +133,6 @@
 
 /* Outlined variants. */
 .text-input--variant--outlined.text-input--color--primary {
-  --input-color: var(--color-primary);
   --input-border-color: var(--color-primary);
   --input-box-shadow-focus: inset 0 0 0 2px var(--color-primary);
 }

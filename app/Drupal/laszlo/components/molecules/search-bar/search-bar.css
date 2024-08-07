@@ -1,22 +1,20 @@
 .search-bar {
   --border-radius: var(--spacing-7);
-  --height: 56px;
+  --_height: 56px;
   --background: var(--color-surface-container-lowest);
-
-  display: flex;
-  align-items: stretch;
-  height: var(--height);
-  border-radius: var(--border-radius);
-  background-color: var(--background);
-}
-
-.search-bar__input {
   --input-border-color: transparent;
   --input-border-radius: var(--border-radius) 0 0 var(--border-radius);
-  --input-height: var(--height);
+  --input-height: var(--_height);
   --input-font: var(--typography-body-large);
   --input-background-color: var(--background);
   --input-padding-inline: var(--spacing-6);
+  --button-height: var(--_height);
+
+  display: flex;
+  align-items: stretch;
+  height: var(--_height);
+  border-radius: var(--border-radius);
+  background-color: var(--background);
 }
 
 .search-bar__button {

@@ -6,9 +6,39 @@
   'mail': 'mailto:?subject=' ~ title ~ '&body=' ~ url,
 } %}
 <div{{ attributes.addClass('share-dialog') }}>
-  <div class="share-dialog__section">
-    <div class="share-dialog__section-title">{{ 'URL'|t }}</div>
-    {{ url }} [copy-button]
+  <div class="share-dialog__section share-dialog__section--url">
+    {% embed 'laszlo:form-element' with {
+      attributes: create_attribute({
+        'class': 'share-dialog__url',
+      }),
+      url,
+      size: 'large',
+    } only %}
+      {% block children %}
+        {% include 'laszlo:text-input' with {
+          input_attributes: create_attribute({
+            'type': 'text',
+            'value': url,
+            'readonly': 'readonly',
+          }),
+          full_width: true,
+          size,
+        } only %}
+        {% embed 'laszlo:button' with {
+          attributes: create_attribute({
+            'class': ['share-dialog__copy'],
+            'aria-label': 'Copy URL'|t,
+          }),
+          variant: 'contained',
+          type: 'submit',
+          size,
+        } only %}
+          {% block start_icon %}
+            {% include 'laszlo:icon' with { icon: 'copy' } only %}
+          {% endblock %}
+        {% endembed %}
+      {% endblock %}
+    {% endembed %}
   </div>
 
   <div class="share-dialog__links">

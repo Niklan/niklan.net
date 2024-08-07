@@ -5,8 +5,8 @@ group: molecules
 props:
   type: object
   # @todo Uncomment when resolved: https://www.drupal.org/project/drupal/issues/3464719
-  #required:
-  #  - placeholder
+  required:
+    - placeholder
   properties:
     placeholder:
       title: Placeholder

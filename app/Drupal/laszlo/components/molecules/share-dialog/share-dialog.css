@@ -1,0 +1,7 @@
+.share-dialog__url {
+  display: flex;
+  flex-flow: nowrap;
+  align-items: stretch;
+  width: 100%;
+  gap: var(--spacing-2);
+}

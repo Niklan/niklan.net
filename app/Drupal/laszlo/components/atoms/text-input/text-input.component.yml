@@ -29,10 +29,10 @@ props:
       title: Size
       type: string
       enum:
-        - sm
-        - md
-        - lg
-      default: md
+        - small
+        - medium
+        - large
+      default: medium
     full_width:
       title: Full width
       type: boolean
