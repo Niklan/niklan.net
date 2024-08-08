@@ -8,6 +8,15 @@ props:
     attributes:
       type: Drupal\Core\Template\Attribute
       title: Wrapper attributes
+    label_attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Label wrapper attributes
+    children_attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Children wrapper attributes
+    description_attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Description wrapper attributes
 slots:
   label:
     title: Label

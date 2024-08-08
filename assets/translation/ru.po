@@ -339,3 +339,6 @@ msgstr "Осторожно"
 
 msgid "Error"
 msgstr "Ошибка"
+
+msgid "Copied!"
+msgstr "Скопировано!"

@@ -1,10 +1,20 @@
-{%
-  set classes = [
-    'form-element',
-  ]
-%}
-<div{{ attributes.addClass(classes) }}>
-  {% block label %}{% endblock %}
-  {% block children %}{% endblock %}
-  {% block description %}{% endblock %}
+{% set label_attributes = label_attributes ?? create_attribute() %}
+{% set children_attributes = children_attributes ?? create_attribute() %}
+{% set description_attributes = description_attributes ?? create_attribute() %}
+<div{{ attributes.addClass('form-element') }}>
+  {% if block('label') is not empty %}
+    <div{{ label_attributes.addClass('form-element__label') }}>
+      {% block label %}{% endblock %}
+    </div>
+  {% endif %}
+  {% if block('children') is not empty %}
+    <div{{ children_attributes.addClass('form-element__children') }}>
+      {% block children %}{% endblock %}
+    </div>
+  {% endif %}
+  {% if block('description') is not empty %}
+    <div{{ description_attributes.addClass('form-element__description') }}>
+      {% block description %}{% endblock %}
+    </div>
+  {% endif %}
 </div>

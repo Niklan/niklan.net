@@ -15,3 +15,6 @@ props:
       title: URL
       type: string
       format: iri-string
+libraryOverrides:
+  dependencies:
+    - niklan/alpinejs

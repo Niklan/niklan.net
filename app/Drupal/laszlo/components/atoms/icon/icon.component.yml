@@ -7,6 +7,9 @@ props:
   required:
     - icon
   properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
     icon:
       title: Icon name
       type: string

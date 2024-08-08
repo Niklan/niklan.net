@@ -5,17 +5,21 @@
   'facebook': 'https://facebook.com/sharer/sharer.php?u=' ~ url,
   'mail': 'mailto:?subject=' ~ title ~ '&body=' ~ url,
 } %}
+{% do attributes.setAttribute('x-data', '{ copied: false }') %}
 <div{{ attributes.addClass('share-dialog') }}>
-  <div class="share-dialog__section share-dialog__section--url">
+  <div class="share-dialog__section">
     {% embed 'laszlo:form-element' with {
       attributes: create_attribute({
         'class': 'share-dialog__url',
+      }),
+      children_attributes: create_attribute({
+        'class': 'share-dialog__copy-element',
       }),
       url,
       size: 'large',
     } only %}
       {% block children %}
-        {% include 'laszlo:text-input' with {
+        {% embed 'laszlo:text-input' with {
           input_attributes: create_attribute({
             'type': 'text',
             'value': url,
@@ -24,10 +28,22 @@
           full_width: true,
           size,
         } only %}
+          {% block end_decorator %}
+            <template x-if="copied">
+              {% include 'laszlo:icon' with {
+                icon: 'clipboard-check',
+                attributes: create_attribute({
+                  'class': 'share-dialog__copied',
+                }),
+              } only %}
+            </template>
+          {% endblock %}
+        {% endembed %}
         {% embed 'laszlo:button' with {
           attributes: create_attribute({
             'class': ['share-dialog__copy'],
             'aria-label': 'Copy URL'|t,
+            '@click.passive': 'navigator.clipboard.writeText(\'' ~ url ~ '\'); copied = true; setTimeout(() => copied = false, 3000);',
           }),
           variant: 'contained',
           type: 'submit',
