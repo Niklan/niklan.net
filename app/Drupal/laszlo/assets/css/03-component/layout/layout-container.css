@@ -1,0 +1,13 @@
+@layer component.layout {
+  :root {
+    --layout-container-max-width: 1440px;
+    --layout-container-side-gap: var(--spacing-4);
+  }
+
+  .layout-container {
+    width: 100%;
+    max-width: var(--layout-container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--layout-container-side-gap);
+  }
+}

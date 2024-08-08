@@ -1,0 +1,50 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Checkbox
+status: experimental
+group: atoms
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: Button attributes.
+    input_attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Input attributes
+    color:
+      title: Color
+      type: string
+      enum:
+        - primary
+        - danger
+      default: primary
+    size:
+      title: Size
+      type: string
+      enum:
+        - sm
+        - md
+        - lg
+      default: md
+    checked:
+      title: Checked
+      type: boolean
+    disabled:
+      title: Disabled
+      type: boolean
+    label:
+      title: Label
+      type: string
+    required:
+      title: Required
+      type: boolean
+    value:
+      title: Value
+      type: string
+    name:
+      title: Name
+      type: string
+slots:
+  description:
+    title: Description

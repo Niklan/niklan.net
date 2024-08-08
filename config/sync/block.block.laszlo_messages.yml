@@ -1,0 +1,22 @@
+uuid: 30d0e770-4834-4888-93e0-21a72743c4e4
+langcode: ru
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - laszlo
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: laszlo_messages
+theme: laszlo
+region: content
+weight: -1
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

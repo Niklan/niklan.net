@@ -1,0 +1,12 @@
+.meta {
+  --color: var(--color-on-surface-variant);
+
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font: var(--typography-label-large);
+}
+
+.meta .icon {
+  width: var(--spacing-6);
+}

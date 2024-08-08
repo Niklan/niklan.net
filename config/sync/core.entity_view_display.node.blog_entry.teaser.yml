@@ -12,9 +12,7 @@ dependencies:
     - field.field.node.blog_entry.field_media_image
     - field.field.node.blog_entry.field_tags
     - node.type.blog_entry
-    - responsive_image.styles.node_blog_entry_teaser_promo
   module:
-    - niklan
     - text
     - user
 id: node.blog_entry.teaser
@@ -55,16 +53,6 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_media_image:
-    type: niklan_responsive_media_thumbnail
-    label: hidden
-    settings:
-      image_link: content
-      responsive_image_style: node_blog_entry_teaser_promo
-      image_limit: '0'
-    third_party_settings: {  }
-    weight: 2
-    region: content
 hidden:
   comment_node_blog_entry: true
   external_content: true
@@ -72,6 +60,7 @@ hidden:
   extra_field_previous_next: true
   extra_field_share: true
   field_media_attachments: true
+  field_media_image: true
   field_tags: true
   follow: true
   langcode: true

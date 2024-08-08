@@ -1,0 +1,52 @@
+global:
+  css:
+    base:
+      # Make sure that layers comes first, because it defines layers order.
+      assets/css/00-setting/layer.css:
+        weight: -1000
+      assets/css/00-setting/color.css: { }
+      assets/css/00-setting/elevation.css: { }
+      assets/css/00-setting/spacing.css: { }
+      assets/css/00-setting/typography.css: { }
+      assets/css/01-base/reset.css: { }
+      assets/css/01-base/focus.css: { }
+      assets/css/01-base/selection.css: { }
+      assets/css/02-element/html.css: { }
+      assets/css/02-element/body.css: { }
+      assets/css/02-element/a.css: { }
+      assets/css/02-element/heading.css: { }
+      assets/css/02-element/mark.css: { }
+      assets/css/02-element/code.css: { }
+      assets/css/02-element/pre.css: { }
+      assets/css/03-component/layout/layout-container.css: { }
+      assets/css/03-component/layout/page.css: { }
+      assets/css/03-component/ui/prose.css: { }
+      assets/css/04-utility/visually-hidden.css: { }
+      assets/css/04-utility/scroll-locked.css: { }
+  js:
+    assets/js/scrollbar-width.js: { }
+    assets/js/keyboard-focus.js: { }
+  dependencies:
+    - laszlo/google.fonts
+
+messages:
+  js:
+    assets/js/messages.js: { }
+  css:
+    theme:
+      assets/css/03-component/ui/status-messages.css: { }
+      assets/css/03-component/ui/status-message.css: { }
+  dependencies:
+    - niklan/alpinejs
+
+hljs:
+  css:
+    theme:
+      assets/css/03-component/theme/hljs.css: { }
+
+google.fonts:
+  css:
+    theme:
+      //fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap:
+        type: external
+        minified: true

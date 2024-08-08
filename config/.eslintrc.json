@@ -17,5 +17,8 @@
     "prettier/prettier": "off",
     "valid-jsdoc": "off",
     "no-console": ["error", {"allow": ["warn", "error"]}]
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022
   }
 }

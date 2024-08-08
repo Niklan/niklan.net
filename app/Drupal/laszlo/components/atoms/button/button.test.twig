@@ -1,0 +1,82 @@
+{#
+/**
+ * @code
+ * {% include '@laszlo/../components/atoms/button/button.test.twig' %}
+ * @endcode
+ */
+#}
+{% set components = {
+  'basic': {
+    title: 'Basic button',
+    variants: {
+      'Text': { variant: 'text' },
+      'Contained': { variant: 'contained' },
+      'Outlined': { variant: 'outlined' },
+    }
+  },
+  'text': {
+    title: 'Text button',
+    variants: {
+      'Primary': { variant: 'text' },
+      'Disabled': { variant: 'text', disabled: true },
+      'Link': { variant: 'text', href: '#foo' }
+    }
+  },
+  'contained': {
+    title: 'Contained button',
+    variants: {
+      'Contained': { variant: 'contained' },
+      'Disabled': { variant: 'contained', disabled: true },
+      'Link': { variant: 'contained',  href: '#foo' }
+    }
+  },
+  'outlined': {
+    title: 'Outlined button',
+    variants: {
+      'Primary': { variant: 'outlined' },
+      'Disabled': { variant: 'outlined', disabled: true },
+      'Link': { variant: 'outlined', href: '#foo' },
+    }
+  },
+  'colors': {
+    title: 'Colors',
+    variants: {
+      'text-primary': { variant: 'text', color: 'primary' },
+      'text-danger': { variant: 'text', color: 'danger' },
+      'contained-primary': { variant: 'contained', color: 'primary' },
+      'contained-danger': { variant: 'contained', color: 'danger' },
+      'outlined-primary': { variant: 'outlined', color: 'primary' },
+      'outlined-danger': { variant: 'outlined', color: 'danger' },
+    },
+  },
+  'sizes': {
+    title: 'Sizes',
+    variants: {
+      'text-small': { variant: 'text', size: 'small' },
+      'text-medium': { variant: 'text', size: 'medium' },
+      'text-large': { variant: 'text', size: 'large' },
+      'contained-small': { variant: 'contained', size: 'small' },
+      'contained-medium': { variant: 'contained', size: 'medium' },
+      'contained-large': { variant: 'contained', size: 'large' },
+      'outlined-small': { variant: 'outlined', size: 'small' },
+      'outlined-medium': { variant: 'outlined', size: 'medium' },
+      'outlined-large': { variant: 'outlined', size: 'large' },
+    }
+  }
+} %}
+{% for group in components %}
+  <div style="padding: 16px; display: flex; gap: 16px; flex-direction: column">
+    <h2>{{ group.title }}</h2>
+    <div style="gap: 16px; display: flex; flex-flow: wrap; align-items: center;">
+      {% for key, variant in group.variants %}
+        <div>
+          {% embed 'laszlo:button' with variant|merge({test_type: key}) only %}
+            {% block children %}
+              {{ test_type }}
+            {% endblock %}
+          {% endembed %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}

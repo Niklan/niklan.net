@@ -17,11 +17,11 @@ niklan.about_settings:
   parent: niklan.admin_general
   weight: 10
 
-niklan.frontpage:
-  title: Home
-  route_name: <front>
-  menu_name: main
-  weight: 0
+#niklan.frontpage:
+#  title: Home
+#  route_name: <front>
+#  menu_name: main
+#  weight: 0
 
 niklan.blog:
   title: Blog
@@ -29,11 +29,11 @@ niklan.blog:
   menu_name: main
   weight: 1
 
-niklan.comments:
-  title: Comments
-  route_name: niklan.comments
-  menu_name: main
-  weight: 2
+#niklan.comments:
+#  title: Comments
+#  route_name: niklan.comments
+#  menu_name: main
+#  weight: 2
 
 niklan.tags:
   title: Tags
@@ -48,12 +48,12 @@ niklan.about:
   menu_name: main
   weight: 4
 
-niklan.services:
-  title: Services
-  title_context: 'work'
-  route_name: niklan.services
-  menu_name: main
-  weight: 5
+#niklan.services:
+#  title: Services
+#  title_context: 'work'
+#  route_name: niklan.services
+#  menu_name: main
+#  weight: 5
 
 niklan.contact:
   title: Contact

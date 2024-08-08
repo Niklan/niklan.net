@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if breadcrumb %}
+  {% embed 'laszlo:breadcrumb' with { breadcrumb } only %}
+    {% block items %}
+      {% for item in breadcrumb %}
+        {% include 'laszlo:breadcrumb-item' with {
+          label: item.text,
+          url: item.url,
+        } only %}
+      {% endfor %}
+    {% endblock %}
+  {% endembed %}
+{% endif %}
