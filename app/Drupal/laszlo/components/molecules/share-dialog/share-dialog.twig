@@ -1,9 +1,10 @@
 {% set links = {
+  'mail': 'mailto:?subject=' ~ title ~ '&body=' ~ url,
   'telegram': 'https://telegram.me/share/url?url=' ~ url ~ '&text=' ~ title,
   'twitter': 'https://twitter.com/intent/tweet?url=' ~ url ~ '&text=' ~ title,
   'vk': 'https://vk.com/share.php?url=' ~ url ~ '&title=' ~ title,
   'facebook': 'https://facebook.com/sharer/sharer.php?u=' ~ url,
-  'mail': 'mailto:?subject=' ~ title ~ '&body=' ~ url,
+  'youtube': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
 } %}
 {% do attributes.setAttribute('x-data', '{ copied: false }') %}
 <div{{ attributes.addClass('share-dialog') }}>
@@ -59,11 +60,20 @@
 
   <div class="share-dialog__links">
     {% for type, href in links %}
-      <a href="{{ href }}"
-         class="share-dialog__link share-dialog__link--{{ type }}"
-         rel="nofollow noopener"
-         aria-label="{{ 'Share in @type'|t({'@type': type}) }}"
-         target="_blank"></a>
+      {% embed 'laszlo:button' with {
+        attributes: create_attribute({
+          'class': ['share-dialog__link', 'share-dialog__link--' ~ type],
+          'aria-label': 'Share in @type'|t({'@type': type}),
+          '_target': 'blank',
+        }),
+        variant: 'contained',
+        color: 'custom',
+        href,
+      } only %}
+        {% block start_icon %}
+          {% include 'laszlo:icon' with { icon: 'copy' } only %}
+        {% endblock %}
+      {% endembed %}
     {% endfor %}
   </div>
 </div>

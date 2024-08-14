@@ -23,6 +23,7 @@ props:
       enum:
         - primary
         - danger
+        - custom
       default: primary
     size:
       title: Size
