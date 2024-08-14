@@ -1,7 +1,7 @@
 {% set links = {
   'mail': 'mailto:?subject=' ~ title ~ '&body=' ~ url,
   'telegram': 'https://telegram.me/share/url?url=' ~ url ~ '&text=' ~ title,
-  'twitter': 'https://twitter.com/intent/tweet?url=' ~ url ~ '&text=' ~ title,
+  'twitter-x': 'https://x.com/intent/tweet?url=' ~ url ~ '&text=' ~ title,
   'vk': 'https://vk.com/share.php?url=' ~ url ~ '&title=' ~ title,
   'facebook': 'https://facebook.com/sharer/sharer.php?u=' ~ url,
   'youtube': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
@@ -62,16 +62,17 @@
     {% for type, href in links %}
       {% embed 'laszlo:button' with {
         attributes: create_attribute({
-          'class': ['share-dialog__link', 'share-dialog__link--' ~ type],
-          'aria-label': 'Share in @type'|t({'@type': type}),
-          '_target': 'blank',
+          'class': ['share-dialog__link'],
+          'aria-label': 'Share in @type'|t({'@typeg': type}),
+          'target': '_blank',
         }),
         variant: 'contained',
-        color: 'custom',
+        color: 'secondary',
         href,
+        icon: type,
       } only %}
         {% block start_icon %}
-          {% include 'laszlo:icon' with { icon: 'copy' } only %}
+          {% include 'laszlo:icon' with { icon } only %}
         {% endblock %}
       {% endembed %}
     {% endfor %}

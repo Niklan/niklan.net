@@ -22,8 +22,8 @@ props:
       type: string
       enum:
         - primary
+        - secondary
         - danger
-        - custom
       default: primary
     size:
       title: Size

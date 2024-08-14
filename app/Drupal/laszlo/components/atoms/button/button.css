@@ -61,6 +61,13 @@
   --button-color-hover: var(--button-color);
 }
 
+.button--variant--contained.button--color--secondary {
+  --button-background-color: var(--color-secondary);
+  --button-background-color-hover: var(--color-on-secondary-fixed-variant);
+  --button-color: var(--color-on-secondary);
+  --button-color-hover: var(--button-color);
+}
+
 .button--variant--contained.button--color--danger {
   --button-background-color: var(--color-error);
   --button-background-color-hover: var(--button-background-color);

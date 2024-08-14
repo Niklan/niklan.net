@@ -23,7 +23,6 @@
   justify-content: center;
 }
 
-.share-dialog__link--mail {
-  --button-background-color: #ffc107;
-  --button-background-color-hover: #ffb300;
+.share-dialog__link .icon {
+  width: 2rem;
 }
