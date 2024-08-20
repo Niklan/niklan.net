@@ -1,6 +1,6 @@
 .breadcrumb-item {
   --arrow-size: var(--spacing-3);
-  --arrow-background-color: var(--color-surface-container-highest);
+  --arrow-background-color: var(--color-surface-bright);
   --arrow-color: var(--color-on-surface);
   --arrow-border-radius: var(--spacing-1);
   --arrow-padding: var(--spacing-2);

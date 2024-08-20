@@ -5,14 +5,14 @@
     background-color ease-in-out 0.2s,
     color ease-in-out 0.2s;
   text-decoration: none;
-  color: var(--color-on-secondary);
+  color: var(--color-on-surface);
   border-radius: var(--spacing-2);
-  background-color: var(--color-secondary);
+  background-color: var(--color-surface);
   font: var(--typography-body-large);
 
   &:hover,
   &:focus {
-    color: var(--color-on-primary);
-    background-color: var(--color-primary);
+    color: var(--color-on-secondary-container);
+    background-color: var(--color-surface-container-low);
   }
 }
