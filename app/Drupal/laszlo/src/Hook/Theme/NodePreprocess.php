@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\NodeInterface;
+use Drupal\niklan\Helper\TocBuilder;
 
 final readonly class NodePreprocess {
 
@@ -21,6 +23,23 @@ final readonly class NodePreprocess {
 
   private function addBlogEntryVariables(BlogEntry $node, array &$variables): void {
     $variables['estimated_read_time'] = $node->getEstimatedReadTime();
+
+    match ($variables['view_mode']) {
+      default => NULL,
+      'full' => $this->addBlogEntryFullVariables($node, $variables),
+    };
+  }
+
+  private function addBlogEntryFullVariables(BlogEntry $node, array &$variables): void {
+    if ($node->get('external_content')->isEmpty()) {
+      return;
+    }
+
+    $content = $node->get('external_content')->first();
+    \assert($content instanceof ExternalContentFieldItem);
+
+    $toc_builder = new TocBuilder();
+    $variables['toc_links'] = $toc_builder->getTree($content);
   }
 
   public function __invoke(array &$variables): void {

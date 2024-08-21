@@ -6,6 +6,7 @@
   estimated_read_time,
   comment_count,
   content,
+  toc_links,
   } only %}
   {% block poster %}{{ content.field_media_image }}{% endblock %}
   {% block summary %}{{ content.body }}{% endblock %}
@@ -27,11 +28,16 @@
   {% endblock %}
 
   {% block sidebar %}
-    {% include 'laszlo:fab' with {
-      attributes: create_attribute(),
-      label: 'Table of Contents'|t,
-      icon: 'toc',
-    } only %}
+    {% if toc_links %}
+      {% include 'laszlo:fab' with {
+        attributes: create_attribute({
+          'x-data': '',
+          '@click.prevent': "$dispatch('show-toc')",
+        }),
+        label: 'Table of Contents'|t,
+        icon: 'toc',
+      } only %}
+    {% endif %}
     {% include 'laszlo:fab' with {
       attributes: create_attribute({
         'x-data': '',
@@ -64,5 +70,19 @@
         } only %}
       {% endblock %}
     {% endembed %}
+
+    {% if toc_links %}
+      {% embed 'laszlo:dialog' with {
+        title: 'Table of contents'|t,
+        attributes: create_attribute({
+          '@show-toc.window': 'show()',
+        }),
+        toc_links,
+      } only %}
+        {% block content %}
+          {% include 'laszlo:toc-dialog' with { toc_links } %}
+        {% endblock %}
+      {% endembed %}
+    {% endif %}
   {% endblock %}
 {% endembed %}

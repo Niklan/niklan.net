@@ -1,0 +1,30 @@
+<div{{ attributes.addClass('toc-dialog') }}>
+  <div class="toc-dialog__section">
+    {% embed 'laszlo:form-element' with {
+      attributes: create_attribute({
+        'class': 'share-dialog__url',
+      }),
+      children_attributes: create_attribute({
+        'class': 'share-dialog__copy-element',
+      }),
+      url,
+      size: 'large',
+    } only %}
+      {% block children %}
+        {% include 'laszlo:text-input' with {
+          input_attributes: create_attribute({
+            'type': 'text',
+            'value': url,
+            'readonly': 'readonly',
+          }),
+          full_width: true,
+          size,
+        } only %}
+      {% endblock %}
+    {% endembed %}
+  </div>
+
+  {% for toc_link in toc_links %}
+    {{ toc_link.text }} {{ toc_link.anchor }} {{ toc_link.indent }}
+  {% endfor %}
+</div>

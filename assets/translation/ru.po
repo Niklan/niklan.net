@@ -342,3 +342,6 @@ msgstr "Ошибка"
 
 msgid "Copied!"
 msgstr "Скопировано!"
+
+msgid "Table of contents"
+msgstr "Содержание"
