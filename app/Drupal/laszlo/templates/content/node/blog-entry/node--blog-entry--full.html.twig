@@ -80,7 +80,7 @@
         toc_links,
       } only %}
         {% block content %}
-          {% include 'laszlo:toc-dialog' with { toc_links } %}
+          {% include 'laszlo:toc-dialog' with { toc_links } only %}
         {% endblock %}
       {% endembed %}
     {% endif %}

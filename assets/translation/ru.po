@@ -345,3 +345,6 @@ msgstr "Скопировано!"
 
 msgid "Table of contents"
 msgstr "Содержание"
+
+msgid "Filter headings"
+msgstr "Фильтрация по заголовкам"

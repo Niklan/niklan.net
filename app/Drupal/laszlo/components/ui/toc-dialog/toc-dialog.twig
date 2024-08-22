@@ -14,8 +14,8 @@
         {% include 'laszlo:text-input' with {
           input_attributes: create_attribute({
             'type': 'text',
-            'value': url,
-            'readonly': 'readonly',
+            'placeholder': 'Filter headings'|t,
+            'autofocus': '',
           }),
           full_width: true,
           size,
@@ -25,6 +25,11 @@
   </div>
 
   {% for toc_link in toc_links %}
-    {{ toc_link.text }} {{ toc_link.anchor }} {{ toc_link.indent }}
+    <div class="toc-dialog__headings">
+      <a href="{{ toc_link.anchor }}"
+         class="toc-dialog__link toc-dialog__link--indent-{{ toc_link.indent }}">
+        {{ toc_link.text }}
+      </a>
+    </div>
   {% endfor %}
 </div>
