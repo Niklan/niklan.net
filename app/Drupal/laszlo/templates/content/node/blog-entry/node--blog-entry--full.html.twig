@@ -58,7 +58,7 @@
     {% embed 'laszlo:dialog' with {
       title: 'Share'|t,
       attributes: create_attribute({
-        '@show-share.window': 'show()',
+        '@show-share.window': 'show',
       }),
       content_title: title,
       content_url: url_absolute,
@@ -75,7 +75,7 @@
       {% embed 'laszlo:dialog' with {
         title: 'Table of contents'|t,
         attributes: create_attribute({
-          '@show-toc.window': 'show()',
+          '@show-toc.window': 'show',
         }),
         toc_links,
       } only %}

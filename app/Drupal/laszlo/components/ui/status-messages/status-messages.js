@@ -50,25 +50,30 @@
     const initialMessages = JSON.parse(this.$root.dataset.messages);
     Object.keys(initialMessages).forEach(type => {
       initialMessages[type].forEach(message => {
-        this.addMessage(message, { type, closeDelay: 511000 });
+        this.addMessage(message, { type, closeDelay: 5000 });
       });
     });
   }
 
-  function registerComponent() {
-    window.Alpine.data('Messages', () => ({
+  function buildClass(baseClass, message) {
+    return baseClass + '--' + message.options.type;
+  }
+
+  function register() {
+    Alpine.data('StatusMessages', () => ({
       messageList: [],
       init,
       addMessage,
       removeMessage,
+      buildClass,
     }));
   }
 
   if (window.Alpine) {
-    registerComponent();
+    register();
   }
   else {
-    document.addEventListener('alpine:initializing', registerComponent);
+    document.addEventListener('alpine:initializing', register);
   }
 
 })();

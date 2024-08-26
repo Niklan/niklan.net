@@ -1,3 +1,4 @@
+{% do attributes.setAttribute('x-data', 'ToCDialog') %}
 <div{{ attributes.addClass('toc-dialog') }}>
   <div class="toc-dialog__section">
     {% embed 'laszlo:form-element' with {
@@ -16,6 +17,7 @@
             'type': 'text',
             'placeholder': 'Filter headings'|t,
             'autofocus': '',
+            'x-model': 'query',
           }),
           full_width: true,
           size,
@@ -25,7 +27,8 @@
   </div>
 
   {% for toc_link in toc_links %}
-    <div class="toc-dialog__headings">
+    <div class="toc-dialog__headings"
+         x-show="isVisible($el)">
       <a href="{{ toc_link.anchor }}"
          class="toc-dialog__link toc-dialog__link--indent-{{ toc_link.indent }}">
         {{ toc_link.text }}

@@ -21,5 +21,4 @@ libraries-override:
 libraries-extend:
   niklan/hljs:
     - laszlo/hljs
-  core/drupal.message:
-    - laszlo/messages
+  core/drupal.message: false
