@@ -6,7 +6,6 @@
 
       isVisible(element) {
         const regex = new RegExp(`${this.query}`, 'i');
-        console.log(regex, this.query)
 
         if (element.textContent.search(regex) === -1) {
           return false;

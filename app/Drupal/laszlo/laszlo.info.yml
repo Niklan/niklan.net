@@ -9,7 +9,6 @@ base theme: false
 core_version_requirement: ^10
 regions:
   content: Content
-  sidebar_first: 'Sidebar first'
 libraries:
   - laszlo/global
 

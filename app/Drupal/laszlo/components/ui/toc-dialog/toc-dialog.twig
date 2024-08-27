@@ -26,13 +26,15 @@
     {% endembed %}
   </div>
 
-  {% for toc_link in toc_links %}
-    <div class="toc-dialog__headings"
-         x-show="isVisible($el)">
+
+  <div class="toc-dialog__headings">
+    {% for toc_link in toc_links %}
       <a href="{{ toc_link.anchor }}"
+         x-show="isVisible($el)"
+         @click.passive="$dispatch('dialog:close')"
          class="toc-dialog__link toc-dialog__link--indent-{{ toc_link.indent }}">
         {{ toc_link.text }}
       </a>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 </div>

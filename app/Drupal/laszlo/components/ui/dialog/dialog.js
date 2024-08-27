@@ -6,6 +6,7 @@
 
     init() {
       this.$root.addEventListener('close', () => this.close());
+      window.addEventListener('dialog:close', () => this.close());
     }
 
     show() {

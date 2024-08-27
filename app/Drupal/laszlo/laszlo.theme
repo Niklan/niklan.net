@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Drupal\laszlo\Hook\Theme\ElementInfoAlter;
 use Drupal\laszlo\Hook\Theme\InputPreprocess;
 use Drupal\laszlo\Hook\Theme\LaszloPageHeaderPreprocess;
 use Drupal\laszlo\Hook\Theme\NodePreprocess;
@@ -17,6 +18,13 @@ function laszlo_theme(array $existing, string $type, string $theme, string $path
       'path' => "$path/templates/layout",
     ],
   ];
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function laszlo_element_info_alter(array &$info): void {
+  \Drupal::classResolver(ElementInfoAlter::class)($info);
 }
 
 /**
