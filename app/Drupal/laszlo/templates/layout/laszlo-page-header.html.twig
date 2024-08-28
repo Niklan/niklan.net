@@ -34,8 +34,9 @@
         {% for item in navigation  %}
           {% include 'laszlo:main-navigation-item' with {
             label: item.label,
-            url: item.url
-          } %}
+            url: item.url,
+            icon: item.icon
+          } only %}
         {% endfor %}
       {% endblock %}
     {% endembed %}

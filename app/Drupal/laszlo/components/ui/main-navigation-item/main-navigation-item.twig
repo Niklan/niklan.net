@@ -1,4 +1,7 @@
 {% do attributes.setAttribute('href', url) %}
 <a{{ attributes.addClass('main-navigation-item') }}>
+  {% if icon %}
+    {% include 'laszlo:icon' with { icon } only %}
+  {% endif %}
   {{ label }}
 </a>

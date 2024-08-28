@@ -1,18 +1,24 @@
 .main-navigation-item {
-  display: block;
-  padding: var(--spacing-2) var(--spacing-4);
-  transition:
-    background-color ease-in-out 0.2s,
-    color ease-in-out 0.2s;
+  --icon-wrapper-width: 60px;
+  --icon-wrapper-height: 44px;
+  --icon-width: 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
   text-decoration: none;
-  color: var(--color-on-surface);
-  border-radius: var(--spacing-2);
-  background-color: var(--color-surface);
-  font: var(--typography-body-large);
+  align-items: center;
+  font: var(--typography-body-medium);
 
   &:hover,
   &:focus {
-    color: var(--color-on-secondary-container);
-    background-color: var(--color-surface-container-low);
+    --_icon-background: var(--color-primary-container);
+    --focus-box-shadow: none;
+    color: var(--color-on-primary-container);
   }
+}
+
+.main-navigation-item .icon {
+  border-radius: 22px;
+  background-color: var(--_icon-background, transparent);
 }

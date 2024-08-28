@@ -28,6 +28,8 @@ niklan.blog:
   route_name: niklan.blog_list
   menu_name: main
   weight: 1
+  metadata:
+    main_navigation_icon: 'article-t'
 
 #niklan.comments:
 #  title: Comments
@@ -40,6 +42,8 @@ niklan.tags:
   route_name: niklan.tags
   menu_name: main
   weight: 3
+  metadata:
+    main_navigation_icon: 'tags'
 
 niklan.about:
   title: About
@@ -47,6 +51,8 @@ niklan.about:
   route_name: niklan.about
   menu_name: main
   weight: 4
+  metadata:
+    main_navigation_icon: 'user-id'
 
 #niklan.services:
 #  title: Services
@@ -61,3 +67,5 @@ niklan.contact:
   route_name: niklan.contact
   menu_name: main
   weight: 6
+  metadata:
+    main_navigation_icon: 'contact-card-link'

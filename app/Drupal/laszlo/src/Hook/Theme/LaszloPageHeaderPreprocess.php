@@ -60,6 +60,7 @@ final readonly class LaszloPageHeaderPreprocess implements ContainerInjectionInt
       callback: static fn (MenuLinkTreeElement $element): array => [
         'label' => $element->link->getTitle(),
         'url' => $element->link->getUrlObject()->toString(),
+        'icon' => isset($element->link->getPluginDefinition()['metadata']['main_navigation_icon']) ? $element->link->getPluginDefinition()['metadata']['main_navigation_icon'] : NULL,
       ],
       array: $this->menuLinkTree->transform($tree, $manipulators),
     );
