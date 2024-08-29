@@ -1,5 +1,6 @@
 .alert {
   --note-color: var(--color-scrim);
+  --icon-width: 24px;
 
   display: flex;
   flex-direction: column;

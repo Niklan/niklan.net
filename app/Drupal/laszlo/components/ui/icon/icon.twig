@@ -1,3 +1,5 @@
-<div{{ attributes.addClass('icon').setAttribute('aria-hidden', 'true') }}>
+{% do attributes.setAttribute('aria-hidden', 'true') %}
+{% do attributes.setAttribute('data-icon', icon) %}
+<div{{ attributes.addClass('icon') }}>
   {{ source(componentMetadata.path ~ '/icons/' ~ icon ~ '.svg') }}
 </div>

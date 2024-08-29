@@ -12,11 +12,12 @@ dependencies:
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
     - field.field.node.blog_entry.field_tags
+    - image.style.210x280
     - node.type.blog_entry
   module:
     - comment
     - external_content
-    - niklan
+    - media
     - text
     - user
 id: node.blog_entry.full
@@ -29,7 +30,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
   comment_node_blog_entry:
     type: comment_default
@@ -38,7 +39,7 @@ content:
       view_mode: full
       pager_id: 0
     third_party_settings: {  }
-    weight: 7
+    weight: 3
     region: content
   estimated_read_time:
     settings: {  }
@@ -62,35 +63,16 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  extra_field_meta_information:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  extra_field_previous_next:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  extra_field_share:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_media_attachments:
-    type: niklan_attached_files
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_tags:
-    type: entity_reference_label
+  field_media_image:
+    type: media_thumbnail
     label: hidden
     settings:
-      link: true
+      image_link: ''
+      image_style: 210x280
+      image_loading:
+        attribute: eager
     third_party_settings: {  }
-    weight: 4
+    weight: 0
     region: content
   previous_next:
     settings: {  }
@@ -105,7 +87,11 @@ content:
 hidden:
   external_id: true
   extra_field_comments_link: true
-  field_media_image: true
+  extra_field_meta_information: true
+  extra_field_previous_next: true
+  extra_field_share: true
+  field_media_attachments: true
+  field_tags: true
   follow: true
   langcode: true
   links: true

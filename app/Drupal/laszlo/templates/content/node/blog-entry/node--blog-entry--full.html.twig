@@ -15,13 +15,13 @@
 
   {% block meta %}
     {% include 'laszlo:meta' with {
-      icon: 'event',
+      icon: 'calendar',
       label: 'Published'|t,
       value: published_timestamp|format_date('dmy'),
     } only %}
     {{ _self.meta_separator() }}
     {% include 'laszlo:meta' with {
-      icon: 'overview',
+      icon: 'read-time',
       label: 'Time to read'|t,
       value: '@minutes min.'|t({'@minutes': estimated_read_time}),
     } only %}
@@ -35,7 +35,7 @@
           '@click.prevent': "$dispatch('show-toc')",
         }),
         label: 'Table of Contents'|t,
-        icon: 'toc',
+        icon: 'notebook-bookmark-bold-duotone',
       } only %}
     {% endif %}
     {% include 'laszlo:fab' with {
@@ -44,11 +44,11 @@
         '@click.prevent': "$dispatch('show-share')",
       }),
       label: 'Share'|t,
-      icon: 'share',
+      icon: 'square-share-line-bold-duotone',
     } only %}
     {% include 'laszlo:fab' with {
       label: 'Comments'|t,
-      icon: 'forum',
+      icon: 'chat-round-dots-bold-duotone',
       url: '#comments',
       counter: comment_count,
     } only %}

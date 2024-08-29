@@ -1,6 +1,7 @@
 .fab {
-  --background-color: var(--color-secondary-container);
-  --color: var(--color-on-secondary-container);
+  --_background-color: var(--color-secondary-container);
+  --_color: var(--color-on-secondary-container);
+  --icon-width: 32px;
 
   position: relative;
   display: flex;
@@ -12,26 +13,21 @@
   padding: 0;
   cursor: pointer;
   transition: all 0.15s linear;
-  color: var(--color);
+  color: var(--_color);
   border: none;
   border-radius: var(--spacing-4);
-  background-color: var(--background-color);
+  background-color: var(--_background-color);
   box-shadow: var(--elevation-1);
 
   &:focus,
   &:active,
   &:hover {
-    --background-color: var(--color-secondary-fixed-dim);
-    --color: var(--color-on-secondary-container);
+    --_background-color: var(--color-secondary-fixed-dim);
+    --_color: var(--color-on-secondary-container);
 
     transform: translateY(calc(var(--spacing-1) * -1));
     box-shadow: var(--elevation-3);
   }
-}
-
-.fab .icon {
-  width: 24px;
-  height: 24px;
 }
 
 .fab__counter {
@@ -44,9 +40,9 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: var(--background-color);
+  color: var(--_background-color);
   border-radius: 16px;
-  background-color: var(--color);
+  background-color: var(--_color);
   box-shadow: var(--elevation-1);
   font: var(--typography-label-small);
 }

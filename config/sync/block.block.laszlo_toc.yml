@@ -10,7 +10,7 @@ dependencies:
 id: laszlo_toc
 theme: laszlo
 region: content
-weight: 0
+weight: -6
 provider: null
 plugin: niklan_node_toc
 settings:

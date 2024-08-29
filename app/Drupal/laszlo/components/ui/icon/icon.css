@@ -1,6 +1,6 @@
 .icon {
-  --_wrapper-width: var(--icon-wrapper-width, auto);
-  --_wrapper-height: var(--icon-wrapper-height, auto);
+  --_wrapper-width: var(--icon-wrapper-width, 24px);
+  --_wrapper-height: var(--icon-wrapper-height, 24px);
   --_width: var(--icon-width, 100%);
   --_height: var(--icon-height, var(--icon-width, 100%));
 
