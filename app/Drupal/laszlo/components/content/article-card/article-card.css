@@ -1,0 +1,31 @@
+.article-card {
+  position: relative;
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  border-radius: var(--spacing-2);
+  padding: var(--spacing-6);
+  display: flex;
+  gap: var(--spacing-6);
+  flex-direction: column;
+  transition: all 0.25s linear;
+
+  &:focus-within,
+  &:hover {
+    background-color: var(--color-primary-fixed);
+    color: var(--color-on-primary-fixed);
+  }
+}
+
+.article-card__link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  border-radius: var(--spacing-2);
+}
+
+.article-card__title {
+  font: var(--typography-title-medium);
+}

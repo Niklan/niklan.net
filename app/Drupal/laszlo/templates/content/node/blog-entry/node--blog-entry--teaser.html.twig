@@ -1,0 +1,12 @@
+{% embed 'laszlo:article-card' with {
+  title: node.label(),
+  summary: content.body,
+  url,
+  published_timestamp,
+  estimated_read_time,
+  comment_count,
+  } only %}
+  {% block summary %}
+    {{ summary }}
+  {% endblock %}
+{% endembed %}

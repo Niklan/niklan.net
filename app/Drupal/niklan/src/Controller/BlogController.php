@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class BlogController implements ContainerInjectionInterface {
 
-  protected int $limit = 10;
+  protected int $limit = 9;
 
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,

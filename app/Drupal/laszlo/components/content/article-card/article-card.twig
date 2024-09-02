@@ -1,0 +1,12 @@
+<article{{ attributes.addClass('article-card') }}>
+  <h3 class="article-card__title">{{ title }}</h3>
+  {{ published_timestamp }}
+  {{ estimated_read_time }}
+  {% if summary %}
+    <div class="article-card__summary">{{ summary }}</div>
+  {% endif %}
+
+  <a href="{{ url }}"
+     class="article-card__link"
+     aria-label="{{ title }}"></a>
+</article>

@@ -19,14 +19,14 @@
     </div>
   </header>
 
-  <main class="article__main">
+  <div class="article__main">
     <aside class="article__sidebar">
       {% block sidebar %}{% endblock %}
     </aside>
     <div class="prose article__content">
       {% block content %}{% endblock %}
     </div>
-  </main>
+  </div>
 
   {% if comments %}
     <section class="article__comments">

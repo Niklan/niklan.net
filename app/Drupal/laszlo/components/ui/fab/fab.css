@@ -1,6 +1,6 @@
 .fab {
-  --_background-color: var(--color-secondary-container);
-  --_color: var(--color-on-secondary-container);
+  --_background-color: var(--color-surface-variant);
+  --_color: var(--color-on-surface-variant);
   --icon-width: 32px;
 
   position: relative;

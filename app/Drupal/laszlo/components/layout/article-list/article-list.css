@@ -1,0 +1,5 @@
+.article-list__items {
+  display: grid;
+  grid-gap: var(--spacing-6);
+  grid-template-columns: repeat(2, 1fr);
+}
