@@ -117,3 +117,7 @@ services:
       - [addExtension, ['@Drupal\niklan\Extension\ExternalContent\BlogExtension']]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }
+
+  Drupal\niklan\Extension\Twig\ImageDimensionsExtension:
+    tags:
+      - { name: twig.extension }

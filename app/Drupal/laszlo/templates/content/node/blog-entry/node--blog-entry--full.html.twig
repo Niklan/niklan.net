@@ -7,8 +7,16 @@
   comment_count,
   content,
   toc_links,
+  poster_uri,
   } only %}
-  {% block poster %}{{ content.field_media_image }}{% endblock %}
+  {% block poster %}
+    {% include 'laszlo:image' with {
+      uri: poster_uri,
+      style_name: '210x280',
+      alt: title,
+      loading: 'eager',
+    } only %}
+  {% endblock %}
   {% block summary %}{{ content.body }}{% endblock %}
   {% block content %}{{ content.external_content }}{% endblock %}
   {% block comments %}{{ dd(content) }}{% endblock %}

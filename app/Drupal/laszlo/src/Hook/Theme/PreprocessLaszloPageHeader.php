@@ -14,7 +14,7 @@ use Drupal\Core\Theme\ThemeManagerInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class LaszloPageHeaderPreprocess implements ContainerInjectionInterface {
+final readonly class PreprocessLaszloPageHeader implements ContainerInjectionInterface {
 
   public function __construct(
     private ConfigFactoryInterface $configFactory,

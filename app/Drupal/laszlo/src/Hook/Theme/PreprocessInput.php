@@ -6,7 +6,7 @@ namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\Template\Attribute;
 
-final readonly class InputPreprocess {
+final readonly class PreprocessInput {
 
   private function preprocessCheckbox(array &$variables): void {
     $element = &$variables['element'];

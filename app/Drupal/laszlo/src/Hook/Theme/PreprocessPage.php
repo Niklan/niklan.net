@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
-final readonly class PagePreprocess {
+final readonly class PreprocessPage {
 
   private function prepareHeader(array &$variables): void {
     $variables['header'] = [

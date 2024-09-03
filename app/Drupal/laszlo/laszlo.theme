@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Drupal\laszlo\Hook\Theme\ElementInfoAlter;
-use Drupal\laszlo\Hook\Theme\InputPreprocess;
-use Drupal\laszlo\Hook\Theme\LaszloPageHeaderPreprocess;
-use Drupal\laszlo\Hook\Theme\NodePreprocess;
-use Drupal\laszlo\Hook\Theme\PagePreprocess;
+use Drupal\laszlo\Hook\Theme\PreprocessInput;
+use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader;
+use Drupal\laszlo\Hook\Theme\PreprocessNode;
+use Drupal\laszlo\Hook\Theme\PreprocessPage;
 
 /**
  * Implements hook_theme().
@@ -31,26 +31,26 @@ function laszlo_element_info_alter(array &$info): void {
  * Implements hook_preprocess_HOOK().
  */
 function laszlo_preprocess_page(array &$variables): void {
-  \Drupal::classResolver(PagePreprocess::class)($variables);
+  \Drupal::classResolver(PreprocessPage::class)($variables);
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function laszlo_preprocess_node(array &$variables): void {
-  \Drupal::classResolver(NodePreprocess::class)($variables);
+  \Drupal::classResolver(PreprocessNode::class)($variables);
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function laszlo_preprocess_laszlo_page_header(array &$variables): void {
-  \Drupal::classResolver(LaszloPageHeaderPreprocess::class)($variables);
+  \Drupal::classResolver(PreprocessLaszloPageHeader::class)($variables);
 }
 
 /**
  * Implements hook_preprocess_HOOK().
  */
 function laszlo_preprocess_input(array &$variables): void {
-  \Drupal::classResolver(InputPreprocess::class)($variables);
+  \Drupal::classResolver(PreprocessInput::class)($variables);
 }

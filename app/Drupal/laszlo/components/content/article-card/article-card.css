@@ -6,7 +6,8 @@
   padding: var(--spacing-6);
   display: flex;
   gap: var(--spacing-6);
-  flex-direction: column;
+  grid-template-columns: max-content 1fr;
+  flex-flow: nowrap;
   transition: all 0.25s linear;
 
   &:focus-within,
@@ -14,6 +15,13 @@
     background-color: var(--color-primary-fixed);
     color: var(--color-on-primary-fixed);
   }
+}
+
+.article-card__poster {
+  border-radius: var(--spacing-2);
+  overflow: hidden;
+  flex-shrink: 0;
+  align-self: flex-start;
 }
 
 .article-card__link {
@@ -26,6 +34,17 @@
   border-radius: var(--spacing-2);
 }
 
+.article-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
 .article-card__title {
-  font: var(--typography-title-medium);
+  font: var(--typography-headline-small);
+}
+
+.article-card__summary {
+  font: var(--typography-label-large);
+  color: var(--color-on-surface-variant);
 }
