@@ -24,7 +24,7 @@ final class ImageDimensionsExtension extends AbstractExtension {
     ];
   }
 
-  public function getImageDimensions(string $uri, ?string $style_name): array {
+  public function getImageDimensions(string $uri, ?string $style_name = NULL): array {
     $dimensions = [
       'width' => NULL,
       'height' => NULL,

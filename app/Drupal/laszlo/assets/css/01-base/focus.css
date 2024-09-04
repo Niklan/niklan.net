@@ -1,14 +1,15 @@
 @layer base {
   :root {
-    --focus-box-shadow: 0 0 0 2px #000;
+    --focus-box-shadow: 0 0 0 2px var(--color-primary);
+    --_focus-box-shadow: var(--focus-box-shadow, none);
   }
 
   :focus {
     outline: none;
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--_focus-box-shadow);
   }
 
   .is-using-mouse {
-    --focus-box-shadow: none;
+    --_focus-box-shadow: none;
   }
 }

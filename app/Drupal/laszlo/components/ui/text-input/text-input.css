@@ -123,22 +123,22 @@
 
 /* Plain variants. */
 .text-input--variant--plain.text-input--color--primary {
-  --input-box-shadow-focus: inset 0 0 0 2px var(--color-primary);
+  --input-box-shadow-focus: 0 0 0 2px var(--color-primary);
 }
 
 .text-input--variant--plain.text-input--color--danger {
   --input-color: var(--color-error);
-  --input-box-shadow-focus: inset 0 0 0 2px var(--color-error);
+  --input-box-shadow-focus: 0 0 0 2px var(--color-error);
 }
 
 /* Outlined variants. */
 .text-input--variant--outlined.text-input--color--primary {
   --input-border-color: var(--color-primary);
-  --input-box-shadow-focus: inset 0 0 0 2px var(--color-primary);
+  --input-box-shadow-focus: 0 0 0 2px var(--color-primary);
 }
 
 .text-input--variant--outlined.text-input--color--danger {
   --input-color: var(--color-error);
   --input-border-color: var(--color-error);
-  --input-box-shadow-focus: inset 0 0 0 2px var(--color-error);
+  --input-box-shadow-focus: 0 0 0 2px var(--color-error);
 }

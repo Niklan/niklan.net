@@ -5,19 +5,49 @@
     }),
     uri: poster_uri,
     style_name: '150x200',
+    width: 150,
+    height: 200,
     alt: title,
   } only %}
 
   <div class="article-card__content">
     <h3 class="article-card__title">{{ title }}</h3>
-    {#  {{ published_timestamp }}#}
-    {#  {{ estimated_read_time }}#}
+
     {% if summary %}
       <div class="article-card__summary">{{ summary }}</div>
     {% endif %}
+
+    <div class="article-card__meta">
+      {% include 'laszlo:meta' with {
+        icon: 'calendar',
+        value: published_timestamp|format_date('dmy'),
+      } only %}
+      {{ _self.meta_separator() }}
+      {% include 'laszlo:meta' with {
+        icon: 'read-time',
+        value: '@minutes min.'|t({'@minutes': estimated_read_time}),
+      } only %}
+      {{ _self.meta_separator() }}
+      {% set value %}
+        {% set count = comment_count %}
+        {% trans %}
+          @count comment
+        {% plural count %}
+          @count comments
+        {% endtrans %}
+      {% endset %}
+      {% include 'laszlo:meta' with {
+        icon: 'chat-round-dots-bold-duotone',
+        value,
+      } only %}
+    </div>
   </div>
 
   <a href="{{ url }}"
      class="article-card__link"
      aria-label="{{ title }}"></a>
 </article>
+
+{% macro meta_separator() %}
+  <span class="article-card__meta-separator">•</span>
+{% endmacro %}

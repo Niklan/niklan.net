@@ -6,7 +6,7 @@
   --input-border-radius: var(--border-radius) 0 0 var(--border-radius);
   --input-height: var(--_height);
   --input-font: var(--typography-body-large);
-  --input-background-color: var(--background);
+  --input-background-color: transparent;
   --input-padding-inline: var(--spacing-6);
   --button-height: var(--_height);
 

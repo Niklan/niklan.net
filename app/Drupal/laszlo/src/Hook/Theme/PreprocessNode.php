@@ -6,10 +6,8 @@ namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Entity\Node\NodeInterface;
-use Drupal\niklan\Helper\TocBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessNode implements ContainerInjectionInterface {
@@ -46,9 +44,11 @@ final readonly class PreprocessNode implements ContainerInjectionInterface {
       BlogEntry::class => PreprocessNodeBlogEntry::class,
     };
 
-    if ($class) {
-      $this->classResolver->getInstanceFromDefinition($class)($variables);
+    if (!$class) {
+      return;
     }
+
+    $this->classResolver->getInstanceFromDefinition($class)($variables);
   }
 
 }

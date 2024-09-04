@@ -56,7 +56,7 @@
   }
 
   function buildClass(baseClass, message) {
-    return baseClass + '--' + message.options.type;
+    return `${baseClass  }--${  message.options.type}`;
   }
 
   function register() {

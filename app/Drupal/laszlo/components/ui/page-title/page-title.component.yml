@@ -1,16 +1,12 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: Meta
+name: Page title
 status: experimental
 group: ui
 props:
   type: object
   required:
-    - icon
-    - value
+    - title
   properties:
-    icon:
-      type: string
-    label:
-      type: string
-    value:
+    title:
+      title: Title
       type: string
