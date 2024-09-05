@@ -19,19 +19,11 @@ props:
       title: Estimated read time (minutes)
       type: integer
 slots:
-  poster:
-    title: Poster
-    required: true
   summary:
     title: Summary
     required: true
   content:
     title: Content
     required: true
-  sidebar:
-    title: Sidebar
-    required: true
   comments:
     title: Comments
-  extras:
-    title: Extras

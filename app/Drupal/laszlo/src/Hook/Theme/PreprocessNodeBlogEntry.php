@@ -13,22 +13,15 @@ use Drupal\niklan\Helper\TocBuilder;
 final readonly class PreprocessNodeBlogEntry {
 
   private function addFullVariables(BlogEntry $node, array &$variables): void {
-    if ($node->get('external_content')->isEmpty()) {
-      return;
-    }
-
-    $content = $node->get('external_content')->first();
-    \assert($content instanceof ExternalContentFieldItem);
-
-    $toc_builder = new TocBuilder();
-    $variables['toc_links'] = $toc_builder->getTree($content);
+    $this->addAttachments($node, $variables);
+    $this->addTableOfContents($node, $variables);
   }
 
   private function addEstimatedReadTime(BlogEntry $node, array &$variables): void {
     $variables['estimated_read_time'] = $node->getEstimatedReadTime();
   }
 
-  private function assPosterUri(BlogEntry $node, array &$variables): void {
+  private function addPosterUri(BlogEntry $node, array &$variables): void {
     $variables['poster_uri'] = NULL;
 
     if ($node->get('field_media_image')->isEmpty()) {
@@ -55,11 +48,31 @@ final readonly class PreprocessNodeBlogEntry {
     $variables['poster_uri'] = $file->getFileUri();
   }
 
+  private function addAttachments(BlogEntry $node, array &$variables): void {
+    if ($node->get('field_media_attachments')->isEmpty()) {
+      return;
+    }
+
+    // @todo Complete. Maybe create a helper + VO to make it simpler.
+  }
+
+  private function addTableOfContents(BlogEntry $node, array &$variables): void {
+    if ($node->get('external_content')->isEmpty()) {
+      return;
+    }
+
+    $content = $node->get('external_content')->first();
+    \assert($content instanceof ExternalContentFieldItem);
+
+    $toc_builder = new TocBuilder();
+    $variables['toc_links'] = $toc_builder->getTree($content);
+  }
+
   public function __invoke(array &$variables): void {
     $node = $variables['node'];
     \assert($node instanceof BlogEntry);
     $this->addEstimatedReadTime($node, $variables);
-    $this->assPosterUri($node, $variables);
+    $this->addPosterUri($node, $variables);
 
     match ($variables['view_mode']) {
       default => NULL,

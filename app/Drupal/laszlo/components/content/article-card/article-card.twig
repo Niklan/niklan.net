@@ -22,12 +22,12 @@
         icon: 'calendar',
         value: published_timestamp|format_date('dmy'),
       } only %}
-      {{ _self.meta_separator() }}
+      <span class="article-card__meta-separator">•</span>
       {% include 'laszlo:meta' with {
         icon: 'read-time',
         value: '@minutes min.'|t({'@minutes': estimated_read_time}),
       } only %}
-      {{ _self.meta_separator() }}
+      <span class="article-card__meta-separator">•</span>
       {% set value %}
         {% set count = comment_count %}
         {% trans %}
@@ -47,7 +47,3 @@
      class="article-card__link"
      aria-label="{{ title }}"></a>
 </article>
-
-{% macro meta_separator() %}
-  <span class="article-card__meta-separator">•</span>
-{% endmacro %}

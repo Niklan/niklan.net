@@ -1,8 +1,16 @@
 <article{{ attributes.addClass('article') }}>
   <header class="article__header">
-    <div class="article__poster">
-      {% block poster %}{% endblock %}
-    </div>
+    {% include 'laszlo:image' with {
+      attributes: create_attribute({
+        class: ['article__poster'],
+      }),
+      uri: poster_uri,
+      style_name: '210x280',
+      width: 210,
+      height: 280,
+      alt: title,
+      loading: 'eager',
+    } only %}
 
     <div class="article__info">
       <div class="article__breadcrumbs">
@@ -14,14 +22,47 @@
       </div>
 
       <div class="article__meta">
-        {% block meta %}{% endblock %}
+        {% include 'laszlo:meta' with {
+          icon: 'calendar',
+          label: 'Published'|t,
+          value: published_timestamp|format_date('dmy'),
+        } only %}
+        <span class="article__meta-separator">•</span>
+        {% include 'laszlo:meta' with {
+          icon: 'read-time',
+          label: 'Time to read'|t,
+          value: '@minutes min.'|t({'@minutes': estimated_read_time}),
+        } only %}
       </div>
     </div>
   </header>
 
   <div class="article__main">
     <aside class="article__sidebar">
-      {% block sidebar %}{% endblock %}
+      {% if toc_links %}
+        {% include 'laszlo:fab' with {
+          attributes: create_attribute({
+            'x-data': '',
+            '@click.prevent': "$dispatch('show-toc')",
+          }),
+          label: 'Table of Contents'|t,
+          icon: 'notebook-bookmark-bold-duotone',
+        } only %}
+      {% endif %}
+      {% include 'laszlo:fab' with {
+        attributes: create_attribute({
+          'x-data': '',
+          '@click.prevent': "$dispatch('show-share')",
+        }),
+        label: 'Share'|t,
+        icon: 'square-share-line-bold-duotone',
+      } only %}
+      {% include 'laszlo:fab' with {
+        label: 'Comments'|t,
+        icon: 'chat-round-dots-bold-duotone',
+        url: '#comments',
+        counter: comment_count,
+      } only %}
     </aside>
     <div class="prose article__content">
       {% block content %}{% endblock %}
@@ -35,9 +76,33 @@
     </section>
   {% endif %}
 
-  {% block extras %}{% endblock %}
-</article>
+  {% embed 'laszlo:dialog' with {
+    title: 'Share'|t,
+    attributes: create_attribute({
+      '@show-share.window': 'show',
+    }),
+    content_title: title,
+    content_url: url_absolute,
+  } only %}
+    {% block content %}
+      {% include 'laszlo:share-dialog' with {
+        title: content_title,
+        url: content_url,
+      } only %}
+    {% endblock %}
+  {% endembed %}
 
-{% macro meta_separator() %}
-  <span class="article__meta-separator">•</span>
-{% endmacro %}
+  {% if toc_links %}
+    {% embed 'laszlo:dialog' with {
+      title: 'Table of contents'|t,
+      attributes: create_attribute({
+        '@show-toc.window': 'show',
+      }),
+      toc_links,
+    } only %}
+      {% block content %}
+        {% include 'laszlo:toc-dialog' with { toc_links } only %}
+      {% endblock %}
+    {% endembed %}
+  {% endif %}
+</article>
