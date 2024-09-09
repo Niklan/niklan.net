@@ -1,0 +1,9 @@
+{% do attributes.addClass('attachment-file') %}
+{% do attributes.setAttribute('href', file_uri|file_url) %}
+<a{{ attributes }}>
+  <div class="attachment-file__label">{{ label }}</div>
+  <div class="attachment-file__filename" aria-hidden="true">{{ filename }}</div>
+  <div class="attachment-file__size" aria-hidden="true">
+    {{ size|format_size }}
+  </div>
+</a>

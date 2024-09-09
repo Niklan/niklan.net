@@ -60,7 +60,7 @@
   }
 
   function register() {
-    Alpine.data('StatusMessages', () => ({
+    window.Alpine.data('StatusMessages', () => ({
       messageList: [],
       init,
       addMessage,

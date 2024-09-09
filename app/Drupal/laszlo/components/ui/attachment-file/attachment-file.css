@@ -1,0 +1,21 @@
+.attachment-file {
+  border-radius: var(--spacing-4);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-outline-variant);
+  text-decoration: none;
+  background-color: var(--color-surface-container-lowest);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.attachment-file__label {
+  color: var(--color-on-surface);
+  font: var(--typography-title-medium);
+}
+
+.attachment-file__filename,
+.attachment-file__size {
+  color: var(--color-on-surface-variant);
+  font: var(--typography-label-large);
+}

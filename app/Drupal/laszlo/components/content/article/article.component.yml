@@ -18,6 +18,9 @@ props:
     estimated_read_time:
       title: Estimated read time (minutes)
       type: integer
+    attachments:
+      title: Attachments
+      type: ['null', array]
 slots:
   summary:
     title: Summary

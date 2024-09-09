@@ -98,6 +98,7 @@ final class OEmbedVideo extends FormatterBase {
 
     if ($responsive_image_style) {
       $summary[] = (string) new TranslatableMarkup(
+        // phpcs:disable Drupal.Semantics.FunctionT.NotLiteralString
         string: 'Responsive image style: @responsive_image_style',
         arguments: ['@responsive_image_style' => $responsive_image_style->label()],
       );

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\File\FileInterface;
@@ -49,11 +50,26 @@ final readonly class PreprocessNodeBlogEntry {
   }
 
   private function addAttachments(BlogEntry $node, array &$variables): void {
-    if ($node->get('field_media_attachments')->isEmpty()) {
-      return;
-    }
+    $variables['attachments'] = [];
 
-    // @todo Complete. Maybe create a helper + VO to make it simpler.
+    foreach ($node->get('field_media_attachments') as $attachment_item) {
+      \assert($attachment_item instanceof FieldItemInterface);
+      $media = $attachment_item->get('entity')->getValue();
+      $source_field = $media?->getSource()->getConfiguration()['source_field'];
+      $file = $media?->get($source_field)->first()?->get('entity')->getValue();
+
+      if (!$file instanceof FileInterface) {
+        continue;
+      }
+
+      $variables['attachments'][] = [
+        'media_label' => $media->label(),
+        'filename' => $file->getFilename(),
+        'file_uri' => $file->getFileUri(),
+        'size' => $file->getSize(),
+        'mimetype' => $file->getMimeType(),
+      ];
+    }
   }
 
   private function addTableOfContents(BlogEntry $node, array &$variables): void {

@@ -64,5 +64,5 @@
 }
 
 .article-card__meta-separator {
-  font: var(--meta-font)
+  font: var(--meta-font);
 }

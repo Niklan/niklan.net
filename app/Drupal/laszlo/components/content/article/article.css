@@ -62,3 +62,9 @@
 .article__meta-separator {
   color: var(--color-secondary-fixed-dim);
 }
+
+.article__attachments {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}

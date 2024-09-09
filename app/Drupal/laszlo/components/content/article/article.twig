@@ -64,9 +64,24 @@
         counter: comment_count,
       } only %}
     </aside>
-    <div class="prose article__content">
+
+    <section class="prose article__content">
       {% block content %}{% endblock %}
-    </div>
+
+      {% if attachments %}
+        <h2>{{ 'Files'|t }}</h2>
+        <div class="article__attachments">
+          {% for attachment in attachments %}
+            {% include 'laszlo:attachment-file' with {
+              label: attachment.media_label,
+              filename: attachment.filename,
+              file_uri: attachment.file_uri,
+              size: attachment.size,
+            } only %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </section>
   </div>
 
   {% if comments %}
