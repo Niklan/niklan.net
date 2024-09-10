@@ -1,0 +1,15 @@
+.lightbox {
+  position: relative;
+}
+
+.lightbox__icon {
+  --icon-wrapper-width: 40px;
+  --icon-width: 24px;
+
+  position: absolute;
+  z-index: 5;
+  top: var(--spacing-5);
+  right: var(--spacing-5);
+  border-radius: var(--spacing-2);
+  background-color: var(--color-surface-container-low);
+}

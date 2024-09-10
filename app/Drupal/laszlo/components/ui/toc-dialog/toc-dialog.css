@@ -9,21 +9,21 @@
 
 .toc-dialog__headings {
   display: flex;
+  overflow: auto;
   flex-direction: column;
   height: 400px;
-  overflow: auto;
 }
 
 .toc-dialog__link {
   padding: var(--_link-padding-y) var(--_link-padding-x);
+  text-decoration: none;
   border-radius: var(--spacing-1);
   font: var(--typography-title-small);
-  text-decoration: none;
 
   &:hover,
   &:focus {
-    background-color: var(--color-secondary-container);
     color: var(--color-on-secondary-container);
+    background-color: var(--color-secondary-container);
   }
 }
 

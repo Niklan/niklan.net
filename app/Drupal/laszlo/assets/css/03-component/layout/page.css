@@ -2,10 +2,9 @@
   .page {
     display: grid;
     gap: var(--spacing-4) 0;
-    grid-template-columns: [full-start] 1fr [main-start] minmax(
-        0,
-        var(--layout-container-max-width)
-      ) [main-end] 1fr [full-end];
+    grid-template-columns:
+      [full-start] 1fr [main-start] minmax(0, var(--layout-container-max-width))
+      [main-end] 1fr [full-end];
   }
 
   .page > :not(:empty) {

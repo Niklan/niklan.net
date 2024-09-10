@@ -1,12 +1,19 @@
 .attachment-file {
-  border-radius: var(--spacing-4);
-  padding: var(--spacing-4);
-  border: 1px solid var(--color-outline-variant);
-  text-decoration: none;
-  background-color: var(--color-surface-container-lowest);
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-4);
+  text-decoration: none;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--spacing-2);
+  background-color: var(--color-surface-container-lowest);
   gap: var(--spacing-2);
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: var(--color-primary);
+    background-color: var(--color-surface-container-low);
+  }
 }
 
 .attachment-file__label {
@@ -14,8 +21,10 @@
   font: var(--typography-title-medium);
 }
 
-.attachment-file__filename,
-.attachment-file__size {
+.attachment-file__extra {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
   color: var(--color-on-surface-variant);
   font: var(--typography-label-large);
 }

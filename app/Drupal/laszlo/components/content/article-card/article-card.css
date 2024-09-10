@@ -3,36 +3,36 @@
   --meta-icon-size: var(--spacing-4);
 
   position: relative;
-  background: var(--color-surface);
+  display: flex;
+  flex-flow: nowrap;
+  padding: var(--spacing-6);
+  transition: all 0.25s linear;
   color: var(--color-on-surface);
   border-radius: var(--spacing-4);
-  padding: var(--spacing-6);
-  display: flex;
+  background: var(--color-surface);
   gap: var(--spacing-6);
-  flex-flow: nowrap;
-  transition: all 0.25s linear;
 
   &:focus-within,
   &:hover {
-    background-color: var(--color-primary-fixed);
     color: var(--color-on-primary-fixed);
+    background-color: var(--color-primary-fixed);
   }
 }
 
 .article-card__poster {
-  border-radius: var(--spacing-2);
   overflow: hidden;
   flex-shrink: 0;
   align-self: flex-start;
+  border-radius: var(--spacing-2);
 }
 
 .article-card__link {
   position: absolute;
+  z-index: 5;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 5;
   border-radius: var(--spacing-4);
 
   &:active {
@@ -47,13 +47,13 @@
 }
 
 .article-card__title {
-  font: var(--typography-title-large);
   color: var(--color-scrim);
+  font: var(--typography-title-large);
 }
 
 .article-card__summary {
-  font: var(--typography-label-large);
   color: var(--color-on-surface-variant);
+  font: var(--typography-label-large);
 }
 
 .article-card__meta {
