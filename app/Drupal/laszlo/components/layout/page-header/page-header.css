@@ -1,6 +1,6 @@
 .page-header {
-  display: grid;
-  grid-template-columns: max-content 1fr max-content;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: var(--spacing-8) 0;
   gap: var(--spacing-4);

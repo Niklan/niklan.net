@@ -28,20 +28,6 @@
     } only %}
   {% endblock %}
 
-  {% block navigation %}
-    {% embed 'laszlo:main-navigation' with { navigation } only %}
-      {% block items %}
-        {% for item in navigation  %}
-          {% include 'laszlo:main-navigation-item' with {
-            label: item.label,
-            url: item.url,
-            icon: item.icon
-          } only %}
-        {% endfor %}
-      {% endblock %}
-    {% endembed %}
-  {% endblock %}
-
   {% block search %}
     {% include 'laszlo:search-bar' with { placeholder: 'Site search'|t } only %}
   {% endblock %}

@@ -1,7 +1,11 @@
 {% do attributes.setAttribute('href', url) %}
+{% do attributes.setAttribute('title', label) %}
+@todo implement custom active-link.js
 <a{{ attributes.addClass('main-navigation-item') }}>
   {% if icon %}
     {% include 'laszlo:icon' with { icon } only %}
   {% endif %}
-  {{ label }}
+  <span class="main-navigation-item__label">
+    {{ label }}
+  </span>
 </a>

@@ -1,3 +1,9 @@
 <nav{{ attributes.addClass('main-navigation') }}>
-  {% block items %}{% endblock %}
+  {% for item in items  %}
+    {% include 'laszlo:main-navigation-item' with {
+      label: item.label,
+      url: item.url,
+      icon: item.icon,
+    } only %}
+  {% endfor %}
 </nav>

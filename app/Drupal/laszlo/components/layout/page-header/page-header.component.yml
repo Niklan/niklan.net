@@ -2,13 +2,16 @@ $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schema
 name: Page header
 status: experimental
 group: layout
+props:
+  type: object
+  properties:
+    navigation:
+      title: Navigation
+      type: array
 slots:
   branding:
     title: Branding
     description: The website branding.
-  navigation:
-    title: Navigation
-    description: The website navigation.
   search:
     title: Search
     description: The website search.

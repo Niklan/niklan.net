@@ -1,5 +1,5 @@
 <header{{ attributes.addClass('page-header') }}>
+  {% include 'laszlo:main-navigation' with { items: navigation } only %}
   {% block branding %}{% endblock %}
-  {% block navigation %}{% endblock %}
   {% block search %}{% endblock %}
 </header>

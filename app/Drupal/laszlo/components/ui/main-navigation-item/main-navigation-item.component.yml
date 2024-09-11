@@ -18,3 +18,6 @@ props:
     icon:
       title: Icon
       type: [string, 'null']
+    system_path:
+      title: System path
+      type: ['null', string]

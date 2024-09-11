@@ -1,25 +1,27 @@
 .main-navigation-item {
-  --icon-wrapper-width: 60px;
-  --icon-wrapper-height: 44px;
-  --icon-width: 32px;
+  --_color: var(--main-navigation-item-color, inherit);
+  --icon-wrapper-width: 32px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  font: var(--typography-body-medium);
-  gap: var(--spacing-1);
+  font: var(--typography-body-small);
+  padding: var(--spacing-2) var(--spacing-6);
+  border-radius: var(--spacing-10);
+  gap: var(--spacing-2);
+  color: var(--_color);
 
   &:hover,
-  &:focus {
-    --_icon-background: var(--color-primary-container);
+  &:focus,
+  &.is-active {
     --focus-box-shadow: none;
 
-    color: var(--color-on-primary-container);
+    color: var(--color-primary);
+    background: var(--color-primary-container);
   }
 }
 
-.main-navigation-item .icon {
-  border-radius: 22px;
-  background-color: var(--_icon-background, transparent);
+.main-navigation-item__label {
+  display: none;
 }

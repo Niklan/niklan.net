@@ -1,5 +1,7 @@
-.lightbox {
+.lightbox__link {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .lightbox__icon {

@@ -17,6 +17,14 @@ niklan.about_settings:
   parent: niklan.admin_general
   weight: 10
 
+niklan.home:
+  title: Home
+  route_name: <front>
+  menu_name: main
+  weight: 0
+  metadata:
+    main_navigation_icon: 'home'
+
 niklan.blog:
   title: Blog
   route_name: niklan.blog_list

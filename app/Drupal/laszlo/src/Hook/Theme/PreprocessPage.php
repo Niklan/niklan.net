@@ -15,8 +15,18 @@ final readonly class PreprocessPage {
     ];
   }
 
+  private function prepareFooter(array &$variables): void {
+    $variables['footer'] = [
+      '#theme' => 'laszlo_page_footer',
+      '#cache' => [
+        'keys' => ['laszlo', 'page', 'footer'],
+      ],
+    ];
+  }
+
   public function __invoke(array &$variables): void {
     $this->prepareHeader($variables);
+    $this->prepareFooter($variables);
   }
 
 }
