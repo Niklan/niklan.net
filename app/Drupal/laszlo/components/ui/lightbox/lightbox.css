@@ -2,6 +2,13 @@
   position: relative;
   display: flex;
   justify-content: center;
+  padding: var(--spacing-4);
+  border-radius: var(--spacing-2);
+  background: var(--color-surface-container);
+}
+
+.lightbox__link img {
+  border-radius: var(--spacing-2);
 }
 
 .lightbox__icon {
@@ -10,8 +17,9 @@
 
   position: absolute;
   z-index: 5;
-  top: var(--spacing-5);
-  right: var(--spacing-5);
+  top: var(--spacing-8);
+  right: var(--spacing-8);
   border-radius: var(--spacing-2);
   background-color: var(--color-surface-container-low);
+  box-shadow: var(--elevation-1);
 }

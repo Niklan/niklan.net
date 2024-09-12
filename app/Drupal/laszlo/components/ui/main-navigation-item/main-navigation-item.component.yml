@@ -21,3 +21,10 @@ props:
     system_path:
       title: System path
       type: ['null', string]
+    active_trail_pattern:
+      title: Active trail pattern
+      type: ['null', string]
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - core/once

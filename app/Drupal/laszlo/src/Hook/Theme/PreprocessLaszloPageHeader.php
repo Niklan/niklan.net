@@ -61,6 +61,7 @@ final readonly class PreprocessLaszloPageHeader implements ContainerInjectionInt
         'label' => $element->link->getTitle(),
         'url' => $element->link->getUrlObject()->toString(),
         'icon' => $element->link->getPluginDefinition()['metadata']['main_navigation_icon'] ?? NULL,
+        'active_trail_pattern' => $element->link->getPluginDefinition()['metadata']['active_trail_pattern'] ?? NULL,
       ],
       array: $this->menuLinkTree->transform($tree, $manipulators),
     );

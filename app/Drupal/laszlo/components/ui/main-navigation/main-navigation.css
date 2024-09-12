@@ -1,17 +1,18 @@
 .main-navigation {
   --main-navigation-item-color: var(--color-on-primary);
 
+  position: fixed;
+  z-index: 50;
+  bottom: var(--spacing-4);
+  left: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  bottom: var(--spacing-4);
-  z-index: 50;
-  left: 50%;
-  transform: translateX(-50%);
-  background: color-mix(in srgb, var(--color-scrim), transparent 50%);
-  border-radius: var(--spacing-16);
-  backdrop-filter: blur(var(--spacing-16));
-  transition: all .3s ease;
   padding: var(--spacing-2);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: var(--spacing-16);
+  background: color-mix(in sRGB, var(--color-scrim), transparent 50%);
+  backdrop-filter: blur(var(--spacing-16));
+  gap: var(--spacing-1);
 }

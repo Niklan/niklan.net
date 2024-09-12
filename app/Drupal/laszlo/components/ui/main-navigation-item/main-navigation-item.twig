@@ -1,6 +1,7 @@
 {% do attributes.setAttribute('href', url) %}
 {% do attributes.setAttribute('title', label) %}
-@todo implement custom active-link.js
+{% do active_trail_pattern ? attributes.setAttribute('data-navigation-active-trail-pattern', active_trail_pattern) %}
+{% do active_trail_pattern ? attributes.setAttribute('data-navigation-active-trail-class', 'main-navigation-item--active-trail') %}
 <a{{ attributes.addClass('main-navigation-item') }}>
   {% if icon %}
     {% include 'laszlo:icon' with { icon } only %}

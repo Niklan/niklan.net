@@ -5,21 +5,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-decoration: none;
-  font: var(--typography-body-small);
   padding: var(--spacing-2) var(--spacing-6);
-  border-radius: var(--spacing-10);
-  gap: var(--spacing-2);
+  text-decoration: none;
   color: var(--_color);
+  border-radius: var(--spacing-10);
+  font: var(--typography-body-small);
+  gap: var(--spacing-2);
+}
 
-  &:hover,
-  &:focus,
-  &.is-active {
-    --focus-box-shadow: none;
+.main-navigation-item:hover,
+.main-navigation-item:focus,
+.main-navigation-item--active-trail {
+  --focus-box-shadow: none;
 
-    color: var(--color-primary);
-    background: var(--color-primary-container);
-  }
+  color: var(--color-primary);
+  background: var(--color-primary-container);
 }
 
 .main-navigation-item__label {

@@ -24,6 +24,7 @@ niklan.home:
   weight: 0
   metadata:
     main_navigation_icon: 'home'
+    active_trail_pattern: '<front>'
 
 niklan.blog:
   title: Blog
@@ -32,6 +33,7 @@ niklan.blog:
   weight: 1
   metadata:
     main_navigation_icon: 'document-add-bold-duotone'
+    active_trail_pattern: '\/(blog$|blog\/?)'
 
 niklan.tags:
   title: Tags
@@ -40,6 +42,7 @@ niklan.tags:
   weight: 3
   metadata:
     main_navigation_icon: 'hashtag-square-bold-duotone'
+    active_trail_pattern: '\/(tags$|tags\/?)'
 
 niklan.about:
   title: About
@@ -49,6 +52,7 @@ niklan.about:
   weight: 4
   metadata:
     main_navigation_icon: 'user-id-bold-duotone'
+    active_trail_pattern: '\/(about$|services$)'
 
 niklan.contact:
   title: Contact
@@ -57,4 +61,5 @@ niklan.contact:
   menu_name: main
   weight: 6
   metadata:
-    main_navigation_icon: 'mailbox-bold-duotone'
+    main_navigation_icon: 'contact'
+    active_trail_pattern: '\/contact$'

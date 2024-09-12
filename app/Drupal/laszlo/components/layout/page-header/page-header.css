@@ -1,7 +1,7 @@
 .page-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding: var(--spacing-8) 0;
   gap: var(--spacing-4);
 }
