@@ -21,6 +21,9 @@ props:
     attachments:
       title: Attachments
       type: ['null', array]
+    tags:
+      title: Tags
+      type: ['null', array]
 slots:
   summary:
     title: Summary

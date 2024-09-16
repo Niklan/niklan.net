@@ -32,6 +32,11 @@
   font: var(--typography-body-large);
 }
 
+.article__tags {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
 .article__main {
   display: flex;
   align-items: flex-start;

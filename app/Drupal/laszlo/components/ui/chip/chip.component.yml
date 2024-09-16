@@ -1,0 +1,38 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Chip
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - href
+    - label
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: Button attributes.
+    href:
+      title: URL
+      type: string
+    label:
+      title: Label
+      type: string
+    variant:
+      title: Variant
+      type: string
+      enum:
+        - filled
+      default: filled
+    color:
+      title: Color
+      type: string
+      enum:
+        - default
+      default: default
+    size:
+      title: Size
+      type: string
+      enum:
+        - medium
+      default: medium

@@ -1,0 +1,38 @@
+.chip {
+  --_chip-padding-inline: var(--chip-padding-inline, var(--spacing-3));
+  --_chip-height: var(--chip-height, var(--spacing-8));
+  --_chip-gap: var(--chip-gap, var(--spacing-2));
+  --_chip-background-color: var(
+    --chip-background-color,
+    var(--color-surface-bright, transparent)
+  );
+  --_chip-background-color-hover: var(
+    --chip-background-color-hover,
+    var(--color-surface-container-lowest, transparent)
+  );
+  --_chip-border-radius: var(--chip-border-radius, var(--spacing-5));
+  --_chip-color: var(--chip-color, var(--color-on-surface, black));
+  --_chip-color-hover: var(--chip-color-hover, black);
+  --_chip-font: var(--chip-font, var(--typography-label-medium));
+
+  display: inline-flex;
+  align-items: center;
+  height: var(--_chip-height);
+  margin: 0;
+  cursor: pointer;
+  transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
+  text-decoration: none;
+  color: var(--_chip-color);
+  border-radius: var(--_chip-border-radius);
+  background: var(--_chip-background-color);
+  font: var(--_chip-font);
+  font-weight: bold;
+  padding-inline: var(--_chip-padding-inline);
+  gap: var(--_chip-gap);
+
+  &:focus,
+  &:hover {
+    color: var(--_chip-color-hover);
+    background-color: var(--_chip-background-color-hover);
+  }
+}

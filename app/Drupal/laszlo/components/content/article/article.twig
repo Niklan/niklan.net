@@ -21,6 +21,12 @@
         {% block summary %}{% endblock %}
       </div>
 
+      {% if tags %}
+        <div class="article__tags">
+          {{ tags }}
+        </div>
+      {% endif %}
+
       <div class="article__meta">
         {% include 'laszlo:meta' with {
           icon: 'calendar',

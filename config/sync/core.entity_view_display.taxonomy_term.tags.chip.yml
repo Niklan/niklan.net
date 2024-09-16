@@ -1,0 +1,30 @@
+uuid: 6eb98342-f35e-4cac-9c52-32179488ff32
+langcode: ru
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.chip
+    - taxonomy.vocabulary.tags
+  module:
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: taxonomy_term.tags.chip
+targetEntityType: taxonomy_term
+bundle: tags
+mode: chip
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  extra_field_niklan_taxonomy_tag_statistics: true
+  langcode: true
+  search_api_excerpt: true

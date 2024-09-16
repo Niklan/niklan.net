@@ -4,18 +4,34 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Entity\File\FileInterface;
 use Drupal\niklan\Entity\Node\BlogEntry;
 use Drupal\niklan\Helper\TocBuilder;
+use Drupal\taxonomy\TermInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class PreprocessNodeBlogEntry {
+final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterface {
+
+  public function __construct(
+    private EntityTypeManagerInterface $entityTypeManager,
+  ) {}
+
+  #[\Override]
+  public static function create(ContainerInterface $container): self {
+    return new self(
+      $container->get(EntityTypeManagerInterface::class),
+    );
+  }
 
   private function addFullVariables(BlogEntry $node, array &$variables): void {
     $this->addAttachments($node, $variables);
     $this->addTableOfContents($node, $variables);
+    $this->addTags($node, $variables);
   }
 
   private function addEstimatedReadTime(BlogEntry $node, array &$variables): void {
@@ -82,6 +98,17 @@ final readonly class PreprocessNodeBlogEntry {
 
     $toc_builder = new TocBuilder();
     $variables['toc_links'] = $toc_builder->getTree($content);
+  }
+
+  private function addTags(BlogEntry $node, array &$variables): void {
+    $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+    $variables['tags'] = \array_map(
+      callback: static fn (TermInterface $term): array => $view_builder->view(
+        entity: $term,
+        view_mode: 'chip',
+      ),
+      array: $node->get('field_tags')->referencedEntities(),
+    );
   }
 
   public function __invoke(array &$variables): void {

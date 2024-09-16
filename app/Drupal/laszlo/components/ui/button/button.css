@@ -1,7 +1,6 @@
 .button {
   --_button-padding-inline: var(--button-padding-inline, var(--spacing-3));
   --_button-height: var(--button-height, var(--spacing-10));
-  --_button-spacing-y: var(--button-spacing-y, var(--spacing-2));
   --_button-gap: var(--button-gap, var(--spacing-2));
   --_button-background-color: var(--button-background-color, transparent);
   --_button-background-color-hover: var(

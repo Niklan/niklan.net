@@ -8,6 +8,7 @@ use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageFooter;
 use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader;
 use Drupal\laszlo\Hook\Theme\PreprocessNode;
 use Drupal\laszlo\Hook\Theme\PreprocessPage;
+use Drupal\laszlo\Hook\Theme\ThemeSuggestionsTaxonomyTermAlter;
 
 /**
  * Implements hook_theme().
@@ -65,4 +66,11 @@ function laszlo_preprocess_laszlo_page_footer(array &$variables): void {
  */
 function laszlo_preprocess_input(array &$variables): void {
   \Drupal::classResolver(PreprocessInput::class)($variables);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function laszlo_theme_suggestions_taxonomy_term_alter(array &$suggestions, array &$variables): void {
+  \Drupal::classResolver(ThemeSuggestionsTaxonomyTermAlter::class)($suggestions, $variables);
 }

@@ -13,7 +13,9 @@
         <div class="status-message__label" x-html="message.options.label"></div>
         <button class="status-message__close"
                 @click="removeMessage(message.options.id)"
-                aria-label="{{ 'Close'|t }}"></button>
+                aria-label="{{ 'Close'|t }}">
+          {% include 'laszlo:icon' with { icon: 'close' } only %}
+        </button>
       </header>
       <div class="status-message__content" x-html="message.message"></div>
     </div>
