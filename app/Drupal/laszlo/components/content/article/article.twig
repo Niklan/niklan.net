@@ -90,6 +90,31 @@
     </section>
   </div>
 
+  {% if next_link or previous_link %}
+    <div class="article__previous-next">
+      {% if previous_link %}
+        {% include 'laszlo:previous-next-link' with {
+          attributes: create_attribute({
+            class: ['article__next'],
+          }),
+          type: 'next',
+          text: previous_link.text,
+          href: previous_link.url,
+        } only %}
+      {% endif %}
+      {% if next_link %}
+        {% include 'laszlo:previous-next-link' with {
+          attributes: create_attribute({
+            class: ['article__previous'],
+          }),
+          type: 'previous',
+          text: next_link.text,
+          href: next_link.url,
+        } only %}
+      {% endif %}
+    </div>
+  {% endif %}
+
   {% if comments %}
     <section class="article__comments">
       <h2>{{ 'Comments'|t }}</h2>

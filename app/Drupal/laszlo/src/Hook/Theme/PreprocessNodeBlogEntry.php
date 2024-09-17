@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
@@ -32,6 +35,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     $this->addAttachments($node, $variables);
     $this->addTableOfContents($node, $variables);
     $this->addTags($node, $variables);
+    $this->addPreviousNext($node, $variables);
   }
 
   private function addEstimatedReadTime(BlogEntry $node, array &$variables): void {
@@ -109,6 +113,71 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
       ),
       array: $node->get('field_tags')->referencedEntities(),
     );
+  }
+
+  private function addPreviousNext(BlogEntry $node, array &$variables): void {
+    $variables['previous_link'] = $variables['next_link'] = NULL;
+
+    $this->preparePreviousLink($node, $variables);
+    $this->prepareNextLink($node, $variables);
+  }
+
+  private function preparePreviousNextQuery(BlogEntry $node, string $created_operator): QueryInterface {
+    return $this
+      ->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('type', $node->bundle())
+      ->condition('created', $node->getCreatedTime(), $created_operator)
+      ->range(0, 1)
+      ->sort('created', $created_operator === '<' ? 'DESC' : 'ASC');
+  }
+
+  private function preparePreviousLink(BlogEntry $node, array &$variables): void {
+    $id = $this->preparePreviousNextQuery($node, '>')->execute();
+
+    if (!$id) {
+      return;
+    }
+
+    $storage = $this->entityTypeManager->getStorage('node');
+    $previous = $storage->load(\reset($id));
+    \assert($previous instanceof EntityInterface);
+
+    $variables['previous_link'] = [
+      'url' => $previous->toUrl()->toString(),
+      'text' => $previous->label(),
+    ];
+
+    $cache = CacheableMetadata::createFromRenderArray($variables);
+    $cache->addCacheableDependency($previous);
+    $cache->applyTo($variables);
+  }
+
+  private function prepareNextLink(BlogEntry $node, array &$variables): void {
+    $cache = CacheableMetadata::createFromRenderArray($variables);
+    $id = $this->preparePreviousNextQuery($node, '<')->execute();
+
+    if (!$id) {
+      // Ensure it is updated when a new content is added.
+      $cache->addCacheTags(['node_list:blog-entry']);
+      $cache->applyTo($variables);
+
+      return;
+    }
+
+    $storage = $this->entityTypeManager->getStorage('node');
+    $next = $storage->load(\reset($id));
+    \assert($next instanceof EntityInterface);
+
+    $variables['next_link'] = [
+      'url' => $next->toUrl()->toString(),
+      'text' => $next->label(),
+    ];
+
+    $cache->addCacheableDependency($next);
+    $cache->applyTo($variables);
   }
 
   public function __invoke(array &$variables): void {

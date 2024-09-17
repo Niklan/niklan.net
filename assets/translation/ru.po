@@ -348,3 +348,9 @@ msgstr "Содержание"
 
 msgid "Filter headings"
 msgstr "Фильтрация по заголовкам"
+
+msgid "Previous article"
+msgstr "Предыдущий материал"
+
+msgid "Next article"
+msgstr "Следующий материал"

@@ -73,3 +73,19 @@
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-4);
 }
+
+.article__previous-next {
+  margin: var(--spacing-8) 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "next previous";
+  gap: var(--spacing-6);
+}
+
+.article__previous {
+  grid-area: previous;
+}
+
+.article__next {
+  grid-area: next;
+}
