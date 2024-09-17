@@ -3,11 +3,11 @@
 
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
   padding: var(--spacing-6);
-  background: var(--color-surface);
-  border-radius: var(--spacing-4);
   text-decoration: none;
+  border-radius: var(--spacing-4);
+  background: var(--color-surface);
+  gap: var(--spacing-4);
 
   &:hover,
   &:active,
@@ -26,18 +26,18 @@
 }
 
 .previous-next-link__content {
-  width: 100%;
   display: flex;
-  gap: var(--spacing-2);
   flex-direction: column;
+  width: 100%;
+  gap: var(--spacing-2);
 }
 
 .previous-next-link__label {
-  font: var(--typography-label-large);
   color: var(--color-on-surface-variant);
+  font: var(--typography-label-large);
 }
 
 .previous-next-link__text {
-  font: var(--typography-body-large);
   color: var(--color-on-surface);
+  font: var(--typography-body-large);
 }

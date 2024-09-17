@@ -4,8 +4,22 @@
   align-items: flex-start;
   padding: var(--spacing-12);
   border-radius: var(--spacing-4) var(--spacing-4) 0 0;
-  background-color: var(--color-surface-container-high);
+  background-color: color-mix(in sRGB, var(--color-surface-container-high), transparent 15%);
   gap: var(--spacing-8);
+  position: relative;
+}
+
+.article__backdrop {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(var(--spacing-10));
 }
 
 .article__poster {
@@ -75,10 +89,10 @@
 }
 
 .article__previous-next {
-  margin: var(--spacing-8) 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-template-areas: "next previous";
+  grid-template-columns: repeat(2, 1fr);
+  margin: var(--spacing-8) 0;
   gap: var(--spacing-6);
 }
 

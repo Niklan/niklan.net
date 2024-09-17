@@ -2,6 +2,19 @@
   <header class="article__header">
     {% include 'laszlo:image' with {
       attributes: create_attribute({
+        class: ['article__backdrop'],
+        'aria-hidden': 'true',
+      }),
+      uri: poster_uri,
+      style_name: '210x280',
+      width: 210,
+      height: 280,
+      alt: title,
+      loading: 'eager',
+    } only %}
+
+    {% include 'laszlo:image' with {
+      attributes: create_attribute({
         class: ['article__poster'],
       }),
       uri: poster_uri,
