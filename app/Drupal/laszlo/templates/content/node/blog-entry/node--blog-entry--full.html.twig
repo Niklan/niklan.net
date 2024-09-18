@@ -15,5 +15,5 @@
   } only %}
   {% block summary %}{{ content.body }}{% endblock %}
   {% block content %}{{ content.external_content }}{% endblock %}
-  {% block comments %}{{ dd(content) }}{% endblock %}
+  {% block comments %}{{ content.comment_node_blog_entry }}{% endblock %}
 {% endembed %}

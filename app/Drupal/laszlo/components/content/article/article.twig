@@ -128,10 +128,12 @@
     </div>
   {% endif %}
 
-  {% if comments %}
+  {% if block('comments') is defined and block('comments')|trim is not empty %}
     <section class="article__comments">
-      <h2>{{ 'Comments'|t }}</h2>
-      {% block comments %}{% endblock %}
+      <h2 id="comments" class="article__comments-title">{{ 'Comments'|t }}</h2>
+      <div class="article__comment-items">
+        {{ block('comments') }}
+      </div>
     </section>
   {% endif %}
 
