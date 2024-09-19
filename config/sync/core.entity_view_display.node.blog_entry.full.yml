@@ -3,7 +3,6 @@ langcode: ru
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment_node_blog_entry.full
     - core.entity_view_mode.node.full
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
@@ -12,12 +11,10 @@ dependencies:
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
     - field.field.node.blog_entry.field_tags
-    - image.style.210x280
     - node.type.blog_entry
   module:
-    - comment
     - external_content
-    - media
+    - niklan
     - text
     - user
 id: node.blog_entry.full
@@ -30,16 +27,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   comment_node_blog_entry:
-    type: comment_default
+    type: niklan_comment
     label: above
-    settings:
-      view_mode: full
-      pager_id: 0
+    settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   estimated_read_time:
     settings: {  }
@@ -51,7 +46,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   extra_field_created_time:
     settings: {  }
@@ -62,17 +57,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
-    region: content
-  field_media_image:
-    type: media_thumbnail
-    label: hidden
-    settings:
-      image_link: ''
-      image_style: 210x280
-      image_loading:
-        attribute: eager
-    third_party_settings: {  }
-    weight: 0
     region: content
   previous_next:
     settings: {  }
@@ -91,6 +75,7 @@ hidden:
   extra_field_previous_next: true
   extra_field_share: true
   field_media_attachments: true
+  field_media_image: true
   field_tags: true
   follow: true
   langcode: true

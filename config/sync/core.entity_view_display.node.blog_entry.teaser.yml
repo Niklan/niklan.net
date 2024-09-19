@@ -48,15 +48,11 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  extra_field_meta_information:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
 hidden:
   comment_node_blog_entry: true
   external_content: true
   external_id: true
+  extra_field_meta_information: true
   extra_field_previous_next: true
   extra_field_share: true
   field_media_attachments: true

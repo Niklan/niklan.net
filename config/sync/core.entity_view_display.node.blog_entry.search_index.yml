@@ -3,7 +3,6 @@ langcode: ru
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment_node_blog_entry.full
     - core.entity_view_mode.node.search_index
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
@@ -14,7 +13,6 @@ dependencies:
     - field.field.node.blog_entry.field_tags
     - node.type.blog_entry
   module:
-    - comment
     - external_content
     - text
     - user
@@ -30,15 +28,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  comment_node_blog_entry:
-    type: comment_default
-    label: hidden
-    settings:
-      view_mode: full
-      pager_id: 0
-    third_party_settings: {  }
-    weight: 1
-    region: content
   estimated_read_time:
     settings: {  }
     third_party_settings: {  }
@@ -49,35 +38,10 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
-    region: content
-  field_media_attachments:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  field_media_image:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_tags:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
 hidden:
+  comment_node_blog_entry: true
   external_id: true
   extra_field_comments_link: true
   extra_field_created_time: true
@@ -85,6 +49,9 @@ hidden:
   extra_field_meta_information: true
   extra_field_previous_next: true
   extra_field_share: true
+  field_media_attachments: true
+  field_media_image: true
+  field_tags: true
   follow: true
   langcode: true
   layout_builder__layout: true
