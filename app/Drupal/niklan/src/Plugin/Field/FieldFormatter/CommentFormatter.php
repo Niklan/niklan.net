@@ -12,10 +12,9 @@ use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\user\Plugin\views\argument_default\CurrentUser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 #[FieldFormatter(
@@ -64,14 +63,11 @@ final class CommentFormatter extends FormatterBase {
       return [];
     }
 
-    $comments = $this->prepareComments($items);
-
     $element = [
       '#comment_type' => $this->getFieldSetting('comment_type'),
       '#comment_display_mode' => $this->getFieldSetting('default_mode'),
-      'comments' => [
-        'items' => $comments,
-      ],
+      'comments' => $this->prepareComments($items),
+      // @todo Add form.
       'comment_form' => NULL,
     ];
 
@@ -97,15 +93,13 @@ final class CommentFormatter extends FormatterBase {
     );
 
     $view_builder = $this->entityTypeManager->getViewBuilder('comment');
-    $comments = [];
+    $comments = $view_builder->viewMultiple($thread, $this->viewMode);
 
-    foreach ($thread as $comment) {
-      \assert($comment instanceof CommentInterface);
-      $comments[] = [
-        'entity' => $comment,
-        'comment' => $view_builder->view($comment, $this->viewMode),
-        'parent_id' => $comment->getParentComment()?->id() ?? 0,
-      ];
+    foreach (Element::children($comments) as $delta) {
+      // Disable 'indented' wrapper from
+      // \Drupal\comment\CommentViewBuilder::alterBuild.
+      $comments[$delta]['#comment_threaded'] = FALSE;
+      $comments[$delta]['#comment_indent_final'] = FALSE;
     }
 
     return $comments;
