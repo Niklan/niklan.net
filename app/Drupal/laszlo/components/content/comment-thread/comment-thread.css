@@ -1,0 +1,26 @@
+.comment-thread {
+  --_indent: var(--comment-thread-indent, var(--spacing-6));
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: var(--color-surface-dim);
+  }
+}
+
+.comment-thread--depth--1,
+.comment-thread--depth--2,
+.comment-thread--depth--3,
+.comment-thread--depth--4 {
+  padding-left: var(--_indent);
+}

@@ -196,6 +196,13 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'attributes' => [],
       ],
     ],
+    'niklan_comment_thread' => [
+      'variables' => [
+        'depth' => 0,
+        'thread_id' => NULL,
+        'comments' => [],
+      ],
+    ],
   ];
 }
 

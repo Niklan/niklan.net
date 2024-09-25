@@ -82,6 +82,12 @@ final class CommentFormatter extends FormatterBase {
   }
 
   private function prepareComments(CommentFieldItemList $items): array {
+    $comments_data = $this->loadCommentsData($items);
+
+    return $this->buildTree($comments_data, 0);
+  }
+
+  private function loadCommentsData(CommentFieldItemList $items):  array {
     $commented_entity = $items->getEntity();
 
     $storage = $this->entityTypeManager->getStorage('comment');
@@ -93,16 +99,49 @@ final class CommentFormatter extends FormatterBase {
     );
 
     $view_builder = $this->entityTypeManager->getViewBuilder('comment');
-    $comments = $view_builder->viewMultiple($thread, $this->viewMode);
+    $comments_data = [];
 
-    foreach (Element::children($comments) as $delta) {
+    foreach ($thread as $comment) {
+      \assert($comment instanceof CommentInterface);
+      $build = $view_builder->view($comment, $this->viewMode);
       // Disable 'indented' wrapper from
       // \Drupal\comment\CommentViewBuilder::alterBuild.
-      $comments[$delta]['#comment_threaded'] = FALSE;
-      $comments[$delta]['#comment_indent_final'] = FALSE;
+      $build['#comment_threaded'] = FALSE;
+      $build['#comment_indent_final'] = FALSE;
+
+      $comments_data[] = [
+        'parent_id' => (int) $comment->getParentComment()?->id(),
+        'comment_id' => (int) $comment->id(),
+        'comment' => $build,
+        'comment_thread_depth' => \count(\explode('.', $comment->getThread())),
+        'comment_thread' => $comment->getThread(),
+      ];
     }
 
-    return $comments;
+    return $comments_data;
+  }
+
+  private function buildTree(array $comments_data, int $parent_id): array {
+    $tree = [];
+
+    foreach ($comments_data as $comment_data) {
+      if ($comment_data['parent_id'] !== $parent_id) {
+        continue;
+      }
+
+      $replies = $this->buildTree($comments_data, $comment_data['comment_id']);
+      $tree[] = [
+        'comment' => $comment_data['comment'],
+        'replies' => !$replies ? NULL : [
+          '#theme' => 'niklan_comment_thread',
+          '#depth' => $comment_data['comment_thread_depth'],
+          '#thread_id' => $comment_data['comment_thread'],
+          '#comments' => $replies,
+        ],
+      ];
+    }
+
+    return $tree;
   }
 
 }
