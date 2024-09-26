@@ -128,7 +128,12 @@
   gap: var(--spacing-4);
 }
 
+.article__comments-title {
+  text-align: center;
+}
+
 .article__comments-title,
 .article__comment-items {
   max-width: 900px;
+  width: 100%;
 }

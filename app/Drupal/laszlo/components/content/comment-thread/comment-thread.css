@@ -1,5 +1,5 @@
 .comment-thread {
-  --_indent: var(--comment-thread-indent, var(--spacing-6));
+  --_indent: var(--comment-thread-indent, var(--spacing-4));
 
   position: relative;
   display: flex;
@@ -13,8 +13,8 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 2px;
-    background: var(--color-surface-dim);
+    width: 0;
+    border-left: 1px dashed var(--color-outline-variant);
   }
 }
 

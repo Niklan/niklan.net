@@ -1,0 +1,6 @@
+{% embed 'laszlo:comment' with {
+  content,
+} only %}
+  {% block body %}{{ content|without('links') }}{% endblock %}
+  {% block actions %}{{ content.links }}{% endblock %}
+{% endembed %}

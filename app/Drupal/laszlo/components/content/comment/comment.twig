@@ -1,0 +1,7 @@
+{% do attributes.addClass('comment') %}
+<article{{ attributes }}>
+  <div class="comment__body">{% block body %}{% endblock %}</div>
+  <footer class="comment__actions">
+    {% block actions %}{% endblock %}
+  </footer>
+</article>
