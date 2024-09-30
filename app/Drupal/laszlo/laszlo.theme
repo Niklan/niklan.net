@@ -7,6 +7,7 @@ use Drupal\laszlo\Hook\Theme\PreprocessComment;
 use Drupal\laszlo\Hook\Theme\PreprocessInput;
 use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageFooter;
 use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader;
+use Drupal\laszlo\Hook\Theme\PreprocessLinks;
 use Drupal\laszlo\Hook\Theme\PreprocessNode;
 use Drupal\laszlo\Hook\Theme\PreprocessPage;
 use Drupal\laszlo\Hook\Theme\ThemeSuggestionsTaxonomyTermAlter;
@@ -81,4 +82,11 @@ function laszlo_theme_suggestions_taxonomy_term_alter(array &$suggestions, array
  */
 function laszlo_preprocess_comment(array &$variables): void {
   \Drupal::classResolver(PreprocessComment::class)($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_links(array &$variables): void {
+  \Drupal::classResolver(PreprocessLinks::class)($variables);
 }
