@@ -1,7 +1,19 @@
 {% do attributes.addClass('comment') %}
 <article{{ attributes }}>
-  <div class="comment__body">{% block body %}{% endblock %}</div>
-  <footer class="comment__actions">
-    {% block actions %}{% endblock %}
-  </footer>
+  {{ author_name }}
+  {{ permalink_url }}
+  {{ permalink }}
+  {{ homepage }}
+  {{ created }}
+  {{ submitted }}
+
+  <div class="prose comment__body">{% block body %}{% endblock %}</div>
+  {#
+    /**
+     * ".comment__actions" class is added in links--comment.html.twig.
+     * This is because links are built using lazy builders and we can't pass it
+     * here.
+     */
+  #}
+  {% block actions %}{% endblock %}
 </article>

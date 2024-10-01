@@ -12,7 +12,11 @@
   align-items: flex-start;
   padding: var(--spacing-12);
   border-radius: var(--spacing-4) var(--spacing-4) 0 0;
-  background-color: color-mix(in sRGB, var(--color-surface-container-high), transparent 5%);
+  background-color: color-mix(
+    in sRGB,
+    var(--color-surface-container-high),
+    transparent 5%
+  );
   gap: var(--spacing-8);
   position: relative;
 }

@@ -1,10 +1,13 @@
 .comment {
+  --_comment-gap: var(--spacing-4);
+
   padding: var(--spacing-6);
   border-radius: var(--spacing-2);
   background: var(--color-surface-container-low);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--_comment-gap);
+  border: 1px solid var(--color-surface-container-high);
 }
 
 .comment__body {
@@ -12,4 +15,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
+}
+
+.comment__actions {
+  --button-background-color: var(--color-surface-container-high);
+  --button-background-color-hover: var(--color-surface-container-highest);
+  --button-color: var(--color-on-surface-variant);
+
+  padding-top: var(--_comment-gap);
+  border-top: 1px solid var(--color-surface-container-high);
 }

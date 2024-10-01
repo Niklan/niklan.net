@@ -12,7 +12,6 @@ use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -87,7 +86,7 @@ final class CommentFormatter extends FormatterBase {
     return $this->buildTree($comments_data, 0);
   }
 
-  private function loadCommentsData(CommentFieldItemList $items):  array {
+  private function loadCommentsData(CommentFieldItemList $items): array {
     $commented_entity = $items->getEntity();
 
     $storage = $this->entityTypeManager->getStorage('comment');

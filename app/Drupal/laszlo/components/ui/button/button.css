@@ -94,12 +94,14 @@
 
 /* Sizes. */
 .button--size--small {
-  --button-height: var(--spacing-9);
-  --button-font: var(--typography-body-small);
+  --button-height: var(--spacing-8);
+  --button-font: var(--typography-label-small);
+  --button-padding-inline: var(--spacing-3);
+  --icon-wrapper-width: var(--spacing-4);
 }
 
 .button--size--medium {
-  --button-font: var(--typography-body-medium);
+  --button-font: var(--typography-label-large);
 }
 
 .button--size--large {
