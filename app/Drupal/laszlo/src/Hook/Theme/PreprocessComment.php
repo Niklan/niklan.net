@@ -12,6 +12,15 @@ final readonly class PreprocessComment {
     $comment = $variables['comment'];
     \assert($comment instanceof CommentInterface);
     $variables['author_name'] = $comment->getAuthorName();
+    $variables['created_timestamp'] = $comment->getCreatedTime();
+
+    $variables['homepage'] = NULL;
+
+    if ($comment->get('homepage')->isEmpty()) {
+      return;
+    }
+
+    $variables['homepage'] = $comment->get('homepage')->getString();
   }
 
 }

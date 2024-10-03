@@ -7,11 +7,13 @@
   }
 
   a {
+    --_link-text-decoration-thickness: var(--link-text-decoration-thickness, 2px);
+
     transition: all 0.15s ease-in;
     color: var(--link-color);
     text-underline-offset: 2px;
     text-decoration-color: var(--color-surface-tint);
-    text-decoration-thickness: 2px;
+    text-decoration-thickness: var(--_link-text-decoration-thickness);
 
     &:visited {
       --link-color: var(--link-visited);

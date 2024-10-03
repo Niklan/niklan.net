@@ -8,9 +8,19 @@ props:
     attributes:
       type: Drupal\Core\Template\Attribute
       title: Wrapper attributes
-    permalink_url:
-      title: Permanent link URL
+    id:
+      title: Comment ID
+      # ID is missing for comments in preview.
+      type: ['null', string]
+    author_name:
+      title: Author name
       type: string
+    created_timestamp:
+      title: Created timestamp
+      type: [integer, string]
+    homepage:
+      title: Author homepage
+      type: ['null', string]
 slots:
   body:
     title: Comment body

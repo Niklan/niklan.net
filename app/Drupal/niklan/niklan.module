@@ -351,34 +351,6 @@ function niklan_preprocess_username(array &$variables): void {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for comment.html.twig.
- */
-function niklan_preprocess_comment(array &$variables): void {
-  $comment = $variables['comment'];
-  \assert($comment instanceof CommentInterface);
-
-  $commented_entity = $comment->getCommentedEntity();
-
-  if (!$commented_entity) {
-    return;
-  }
-
-  $commented_url = $commented_entity
-    ->toUrl('canonical', ['absolute' => TRUE])
-    ->toString();
-  $comment_anchor = '#comment-' . $comment->id();
-  $variables['commented_entity_url'] = $commented_url;
-  $variables['permalink_url'] = $commented_url . $comment_anchor;
-  $variables['homepage'] = NULL;
-
-  if ($comment->get('homepage')->isEmpty()) {
-    return;
-  }
-
-  $variables['homepage'] = $comment->get('homepage')->getString();
-}
-
-/**
  * Prepares variables for search results.
  *
  * Default template: niklan-search-results.html.twig.

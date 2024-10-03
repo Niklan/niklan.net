@@ -66,9 +66,12 @@ final class CommentFormatter extends FormatterBase {
       '#comment_type' => $this->getFieldSetting('comment_type'),
       '#comment_display_mode' => $this->getFieldSetting('default_mode'),
       'comments' => $this->prepareComments($items),
-      // @todo Add form.
-      'comment_form' => NULL,
+      'comment_form' => $this->prepareCommentForm($items),
     ];
+
+    if ($element['comment_form']) {
+      $element['#cache']['contexts'][] = 'user.roles';
+    }
 
     return [$element];
   }
@@ -141,6 +144,30 @@ final class CommentFormatter extends FormatterBase {
     }
 
     return $tree;
+  }
+
+  private function prepareCommentForm(CommentFieldItemList $items): array {
+    $is_open = $items->first()->get('status')->getValue() !== CommentItemInterface::OPEN;
+    $is_user_allowed_to_comment = $this->currentUser->hasPermission('post comments');
+
+    if (!$is_open || !$is_user_allowed_to_comment) {
+      return [];
+    }
+
+    $commented_entity = $items->getEntity();
+
+    return [
+      '#lazy_builder' => [
+        'comment.lazy_builders:renderForm',
+        [
+          $commented_entity->getEntityTypeId(),
+          $commented_entity->id(),
+          $this->fieldDefinition->getName(),
+          $this->getFieldSetting('comment_type'),
+        ],
+      ],
+      '#create_placeholder' => TRUE,
+    ];
   }
 
 }

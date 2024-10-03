@@ -1,11 +1,18 @@
 {% do attributes.addClass('comment') %}
+{% if id %}
+  {% set anchor = 'comment-' ~ id %}
+  {% do attributes.setAttribute('id', anchor) %}
+{% endif %}
 <article{{ attributes }}>
-  {{ author_name }}
-  {{ permalink_url }}
-  {{ permalink }}
-  {{ homepage }}
-  {{ created }}
-  {{ submitted }}
+  <header class="comment__attribution">
+    {% if homepage %}
+      <a href="{{ homepage }}" rel="nofollow noopener" target="_blank" class="comment__author-name">{{ author_name }}</a>
+    {% else %}
+      <div class="comment__author-name">{{ author_name }}</div>
+    {% endif %}
+    <span class="comment__attribution-separator">•</span>
+    <a href="#{{ anchor }}" class="comment__created">{{ created_timestamp|format_date('medium') }}</a>
+  </header>
 
   <div class="prose comment__body">{% block body %}{% endblock %}</div>
   {#

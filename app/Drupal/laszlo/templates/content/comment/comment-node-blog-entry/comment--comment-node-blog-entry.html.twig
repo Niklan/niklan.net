@@ -1,11 +1,10 @@
 {% embed 'laszlo:comment' with {
+  id: comment.id,
   content,
   author_name,
   permalink_url,
-  permalink,
+  created_timestamp,
   homepage,
-  created,
-  submitted,
 } only %}
   {% block body %}{{ content|without('links') }}{% endblock %}
   {% block actions %}{{ content.links }}{% endblock %}

@@ -1,5 +1,6 @@
 .comment {
   --_comment-gap: var(--spacing-4);
+  --link-text-decoration-thickness: 1px;
 
   padding: var(--spacing-6);
   border-radius: var(--spacing-2);
@@ -24,4 +25,22 @@
 
   padding-top: var(--_comment-gap);
   border-top: 1px solid var(--color-surface-container-high);
+}
+
+.comment__attribution {
+  border-bottom: 1px solid var(--color-surface-container-high);
+  padding-bottom: var(--_comment-gap);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font: var(--typography-body-small);
+}
+
+.comment__created {
+  color: var(--color-outline);
+  text-decoration: none;
+}
+
+.comment__attribution-separator {
+  color: var(--color-outline-variant);
 }
