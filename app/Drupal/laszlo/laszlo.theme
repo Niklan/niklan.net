@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\laszlo\Hook\Form\FormCommentFormAlter;
 use Drupal\laszlo\Hook\Theme\ElementInfoAlter;
 use Drupal\laszlo\Hook\Theme\PreprocessComment;
 use Drupal\laszlo\Hook\Theme\PreprocessInput;
@@ -24,6 +26,11 @@ function laszlo_theme(array $existing, string $type, string $theme, string $path
     'laszlo_page_footer' => [
       'variables' => [],
       'path' => "$path/templates/layout",
+    ],
+    'comment_form__node__blog_entry__comment_node_blog_entry' => [
+      'render element' => 'form',
+      'path' => "$path/templates/form",
+      'template' => 'comment-comment-node-blog-entry-form',
     ],
   ];
 }
@@ -89,4 +96,11 @@ function laszlo_preprocess_comment(array &$variables): void {
  */
 function laszlo_preprocess_links(array &$variables): void {
   \Drupal::classResolver(PreprocessLinks::class)($variables);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function laszlo_form_comment_comment_node_blog_entry_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  \Drupal::classResolver(FormCommentFormAlter::class)($form, $form_state, $form_id);
 }

@@ -1,0 +1,52 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Textarea
+status: experimental
+group: ui
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
+    input_attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Input attributes
+    variant:
+      title: Variant
+      type: string
+      enum:
+        - plain
+        - outlined
+      default: outlined
+    color:
+      title: Color
+      type: string
+      enum:
+        - primary
+        - danger
+      default: primary
+    size:
+      title: Size
+      type: string
+      enum:
+        - small
+        - medium
+        - large
+      default: medium
+    full_width:
+      title: Full width
+      type: boolean
+    disabled:
+      title: Disabled
+      type: boolean
+    value:
+      title: Value
+      type: ['null', string]
+    autoresize:
+      title: Autoresize
+      type: boolean
+      default: true
+libraryOverrides:
+  dependencies:
+    - core/once
+    - core/drupal

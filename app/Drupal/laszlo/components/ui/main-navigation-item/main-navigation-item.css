@@ -16,7 +16,7 @@
 .main-navigation-item:hover,
 .main-navigation-item:focus,
 .main-navigation-item--active-trail {
-  --focus-box-shadow: none;
+  --default-focus-box-shadow: none;
 
   color: var(--color-primary);
   background: var(--color-primary-container);

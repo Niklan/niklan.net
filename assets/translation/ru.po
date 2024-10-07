@@ -354,3 +354,6 @@ msgstr "Предыдущий материал"
 
 msgid "Next article"
 msgstr "Следующий материал"
+
+msgid "Add comment"
+msgstr "Добавить комментарий"

@@ -17,9 +17,9 @@
   --_input-box-shadow: var(--input-box-shadow, none);
   --_input-box-shadow-focus: var(--input-box-shadow-focus, none);
   --_input-border-radius: var(--input-border-radius, var(--spacing-2));
-  --_input-height: var(--input-height, var(--spacing-10));
+  --_input-height: var(--input-height, var(--spacing-12));
   --_input-font: var(--input-font, var(--typography-body-medium));
-  --_input-padding-inline: var(--input-padding-inline, var(--spacing-3));
+  --_input-padding-inline: var(--input-padding-inline, var(--spacing-4));
   --_input-gap: var(--input-gap, var(--spacing-2));
   --_input-icon-size: var(--input-icon-size, 24px);
 
@@ -107,7 +107,7 @@
 
 /* Sizes. */
 .text-input--size--small {
-  --input-height: var(--spacing-9);
+  --input-height: var(--spacing-10);
   --input-font: var(--typography-body-small);
   --input-icon-size: var(--spacing-4);
 }
@@ -117,7 +117,7 @@
 }
 
 .text-input--size--large {
-  --input-height: var(--spacing-12);
+  --input-height: var(--spacing-14);
   --input-font: var(--typography-body-large);
 }
 

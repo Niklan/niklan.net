@@ -1,6 +1,6 @@
 .button {
-  --_button-padding-inline: var(--button-padding-inline, var(--spacing-3));
-  --_button-height: var(--button-height, var(--spacing-10));
+  --_button-padding-inline: var(--button-padding-inline, var(--spacing-4));
+  --_button-height: var(--button-height, var(--spacing-12));
   --_button-gap: var(--button-gap, var(--spacing-2));
   --_button-background-color: var(--button-background-color, transparent);
   --_button-background-color-hover: var(
@@ -94,7 +94,7 @@
 
 /* Sizes. */
 .button--size--small {
-  --button-height: var(--spacing-8);
+  --button-height: var(--spacing-10);
   --button-font: var(--typography-label-small);
   --button-padding-inline: var(--spacing-3);
   --icon-wrapper-width: var(--spacing-4);
@@ -105,7 +105,7 @@
 }
 
 .button--size--large {
-  --button-height: var(--spacing-12);
+  --button-height: var(--spacing-14);
   --button-font: var(--typography-body-large);
 }
 

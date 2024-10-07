@@ -5,10 +5,15 @@
 {% endif %}
 <article{{ attributes }}>
   <header class="comment__attribution">
+    <div class="comment__author-name">{{ author_name }}</div>
     {% if homepage %}
-      <a href="{{ homepage }}" rel="nofollow noopener" target="_blank" class="comment__author-name">{{ author_name }}</a>
-    {% else %}
-      <div class="comment__author-name">{{ author_name }}</div>
+      <span class="comment__attribution-separator">•</span>
+      <a href="{{ homepage }}"
+         rel="nofollow noopener"
+         target="_blank"
+         class="comment__author-homepage">
+        {{ 'Homepage'|t }}
+      </a>
     {% endif %}
     <span class="comment__attribution-separator">•</span>
     <a href="#{{ anchor }}" class="comment__created">{{ created_timestamp|format_date('medium') }}</a>

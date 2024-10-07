@@ -23,37 +23,6 @@ use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 
 /**
- * Implements hook_form_FORM_ID_alter().
- */
-function niklan_form_comment_comment_node_blog_entry_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
-  $form['author']['name']['#attributes']['placeholder'] = 'Harry Potter';
-  $form['author']['mail']['#attributes']['placeholder'] = 'gryffindor@hogwarts.com';
-  unset($form['author']['mail']['#description']);
-  $form['author']['homepage']['#attributes']['placeholder'] = 'https://harrypotter.com';
-
-  $form['#after_build'][] = 'niklan_form_comment_comment_node_blog_entry_form_after_build';
-}
-
-/**
- * After build for removing formatting tips.
- */
-function niklan_form_comment_comment_node_blog_entry_form_after_build(array $form, FormStateInterface $form_state): array {
-  $form['comment_body']['widget'][0]['format']['#access'] = FALSE;
-
-  return $form;
-}
-
-/**
- * Implements hook_form_FORM_ID_alter() for 'contact_message_contact_form_form'.
- */
-function niklan_form_contact_message_contact_form_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
-  $form['field_email']['widget'][0]['value']['#placeholder'] = 'example@example.com';
-  $form['field_email']['widget'][0]['value']['#description'] = new TranslatableMarkup(
-    "I'll send a reply to the specified address.",
-  );
-}
-
-/**
  * Implements hook_theme().
  */
 function niklan_theme(array $existing, string $type, string $theme, string $path): array {

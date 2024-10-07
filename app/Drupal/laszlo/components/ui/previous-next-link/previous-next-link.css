@@ -16,7 +16,7 @@
   }
 
   &:active {
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--default-focus-box-shadow);
   }
 }
 

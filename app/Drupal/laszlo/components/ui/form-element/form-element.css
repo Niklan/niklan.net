@@ -4,3 +4,7 @@
   gap: var(--spacing-2);
   align-items: flex-start;
 }
+
+.form-element__label {
+  user-select: none;
+}

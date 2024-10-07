@@ -1,0 +1,21 @@
+@TODO styles
+<h2 class="comment-comment-node-blog-entry-form__title">
+  {{ 'Add comment'|t }}
+</h2>
+
+<div class="comment-comment-node-blog-entry-form__author">
+  {{ form.author.name }}
+  {{ form.author.mail }}
+  {{ form.author.homepage }}
+</div>
+
+<div class="comment-comment-node-blog-entry-form__body">
+  {{ form.comment_body }}
+</div>
+
+<div class="comment-comment-node-blog-entry-form__actions">
+  {{ form.actions }}
+</div>
+
+{{ form.author|without('name', 'mail', 'homepage') }}
+{{ form|without('author', 'comment_body', 'actions') }}
