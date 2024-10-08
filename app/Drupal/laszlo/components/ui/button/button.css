@@ -83,6 +83,15 @@
   --button-border-color-hover: var(--button-color);
 }
 
+.button--variant--outlined.button--color--secondary {
+  --button-background-color: transparent;
+  --button-background-color-hover: var(--color-surface-container);
+  --button-color: var(--color-secondary);
+  --button-color-hover: var(--button-color);
+  --button-border-color: var(--button-color);
+  --button-border-color-hover: var(--button-color);
+}
+
 .button--variant--outlined.button--color--danger {
   --button-background-color: transparent;
   --button-background-color-hover: var(--color-error-container);

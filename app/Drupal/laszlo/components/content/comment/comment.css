@@ -2,19 +2,19 @@
   --_comment-gap: var(--spacing-4);
   --link-text-decoration-thickness: 1px;
 
-  padding: var(--spacing-6);
-  border-radius: var(--spacing-2);
-  background: var(--color-surface-container-low);
   display: flex;
   flex-direction: column;
-  gap: var(--_comment-gap);
+  padding: var(--spacing-6);
   border: 1px solid var(--color-surface-container-high);
+  border-radius: var(--spacing-2);
+  background: var(--color-surface-container-low);
+  gap: var(--_comment-gap);
 }
 
 .comment__body {
-  font: var(--typography-body-medium);
   display: flex;
   flex-direction: column;
+  font: var(--typography-body-medium);
   gap: var(--spacing-4);
 }
 
@@ -28,17 +28,17 @@
 }
 
 .comment__attribution {
-  border-bottom: 1px solid var(--color-surface-container-high);
-  padding-bottom: var(--_comment-gap);
   display: flex;
   align-items: center;
-  gap: var(--spacing-2);
+  padding-bottom: var(--_comment-gap);
+  border-bottom: 1px solid var(--color-surface-container-high);
   font: var(--typography-body-small);
+  gap: var(--spacing-2);
 }
 
 .comment__created {
-  color: var(--color-outline);
   text-decoration: none;
+  color: var(--color-outline);
 }
 
 .comment__attribution-separator {

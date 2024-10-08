@@ -19,7 +19,7 @@
   --default-focus-box-shadow: none;
 
   color: var(--color-primary);
-  background: var(--color-primary-container);
+  background: var(--color-primary-fixed);
 }
 
 .main-navigation-item__label {

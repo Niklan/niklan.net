@@ -9,11 +9,11 @@
           return;
         }
 
-        textareaEl.style.height = textareaEl.scrollHeight + 'px';
+        textareaEl.style.height = `${textareaEl.scrollHeight  }px`;
 
         textareaEl.addEventListener('input', function () {
           this.style.height = 'auto';
-          this.style.height = this.scrollHeight + 'px';
+          this.style.height = `${this.scrollHeight  }px`;
         });
       });
   }

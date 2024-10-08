@@ -19,11 +19,11 @@
 }
 
 .branding__name {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   font: var(--typography-headline-medium);
 }
 
 .branding__slogan {
-  color: var(--color-on-primary-container);
+  color: var(--color-outline);
   font: var(--typography-title-small);
 }

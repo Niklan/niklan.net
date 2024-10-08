@@ -4,7 +4,10 @@
   }
 
   :focus {
-    --_focus-box-shadow: var(--focus-box-shadow, var(--default-focus-box-shadow, none));
+    --_focus-box-shadow: var(
+      --focus-box-shadow,
+      var(--default-focus-box-shadow, none)
+    );
 
     outline: none;
     box-shadow: var(--_focus-box-shadow);

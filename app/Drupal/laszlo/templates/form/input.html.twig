@@ -13,4 +13,21 @@
  * @ingroup themeable
  */
 #}
-{% include 'laszlo:text-input' with { input_attributes: attributes } only %}{{ children }}
+{%- embed 'laszlo:text-input' with {
+  input_attributes: attributes,
+  start_decorator,
+  end_decorator,
+} only %}
+  {% block start_decorator -%}
+    {%- if start_decorator -%}
+      {{- start_decorator -}}
+    {%- endif -%}
+  {%- endblock %}
+
+  {% block end_decorator -%}
+    {%- if end_decorator -%}
+      {{- end_decorator -}}
+    {%- endif -%}
+  {%- endblock %}
+{% endembed -%}
+{{- children }}

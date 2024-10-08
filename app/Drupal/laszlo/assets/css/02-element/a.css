@@ -7,7 +7,10 @@
   }
 
   a {
-    --_link-text-decoration-thickness: var(--link-text-decoration-thickness, 2px);
+    --_link-text-decoration-thickness: var(
+      --link-text-decoration-thickness,
+      2px
+    );
 
     transition: all 0.15s ease-in;
     color: var(--link-color);
