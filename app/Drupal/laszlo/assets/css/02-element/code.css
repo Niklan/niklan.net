@@ -1,12 +1,6 @@
 @layer element {
   code {
-    font: var(--typography-body-medium);
-    font-family: var(--font-monospace);
-  }
-
-  pre > code {
-    font: var(--typography-body-medium);
-    font-family: var(--font-monospace);
+    font: var(--typography-code);
   }
 
   :not(pre) > code {

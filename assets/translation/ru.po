@@ -357,3 +357,6 @@ msgstr "Следующий материал"
 
 msgid "Add comment"
 msgstr "Добавить комментарий"
+
+msgid "Laszlo Cravensworth"
+msgstr "Ласло Крейвенсворт"

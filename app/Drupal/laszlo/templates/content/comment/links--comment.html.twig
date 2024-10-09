@@ -13,7 +13,7 @@
   </footer>
 {% endif %}
 
-{% macro action(label, href, icon, color = 'custom') %}
+{% macro action(label, href, icon, color = 'secondary') %}
   {% embed 'laszlo:button' with {
     attributes: create_attribute({
       'class': ['comment-action'],

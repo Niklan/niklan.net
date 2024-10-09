@@ -46,6 +46,13 @@
   --button-color-hover: var(--button-color);
 }
 
+.button--variant--text.button--color--secondary {
+  --button-background-color: transparent;
+  --button-background-color-hover: var(--color-surface-container);
+  --button-color: var(--color-secondary);
+  --button-color-hover: var(--button-color);
+}
+
 .button--variant--text.button--color--danger {
   --button-background-color: transparent;
   --button-background-color-hover: var(--color-error-container);
@@ -54,17 +61,17 @@
 }
 
 .button--variant--contained.button--color--primary {
-  --button-background-color: var(--color-primary);
-  --button-background-color-hover: var(--color-on-primary-fixed-variant);
-  --button-color: var(--color-on-primary);
-  --button-color-hover: var(--button-color);
+  --button-background-color: var(--color-primary-container);
+  --button-background-color-hover: var(--color-primary);
+  --button-color: var(--color-on-primary-container);
+  --button-color-hover: var(--color-on-primary);
 }
 
 .button--variant--contained.button--color--secondary {
-  --button-background-color: var(--color-secondary);
-  --button-background-color-hover: var(--color-on-secondary-fixed-variant);
-  --button-color: var(--color-on-secondary);
-  --button-color-hover: var(--button-color);
+  --button-background-color: var(--color-secondary-container);
+  --button-background-color-hover: var(--color-secondary);
+  --button-color: var(--color-on-secondary-container);
+  --button-color-hover: var(--color-on-secondary);
 }
 
 .button--variant--contained.button--color--danger {
@@ -103,9 +110,9 @@
 
 /* Sizes. */
 .button--size--small {
-  --button-height: var(--spacing-10);
+  --button-height: var(--spacing-8);
   --button-font: var(--typography-label-small);
-  --button-padding-inline: var(--spacing-3);
+  --button-padding-inline: var(--spacing-2);
   --icon-wrapper-width: var(--spacing-4);
 }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\laszlo\Hook\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 final readonly class FormCommentFormAlter {
 
@@ -15,9 +16,9 @@ final readonly class FormCommentFormAlter {
   }
 
   public function __invoke(array &$form, FormStateInterface $form_state, string $form_id): void {
-    $form['author']['name']['#attributes']['placeholder'] = 'Laszlo Cravensworth';
+    $form['author']['name']['#placeholder'] = new TranslatableMarkup('Laszlo Cravensworth');
     $form['author']['name']['#size'] = NULL;
-    $form['author']['name']['#start_decorator'] = [
+    $form['author']['name']['#component_data']['start_decorator'] = [
       '#type' => 'component',
       '#component' => 'laszlo:icon',
       '#props' => [
@@ -25,20 +26,20 @@ final readonly class FormCommentFormAlter {
       ],
     ];
 
-    $form['author']['mail']['#attributes']['placeholder'] = 'jackie@daytona.sport';
+    $form['author']['mail']['#placeholder'] = 'jackie@daytona.sport';
     $form['author']['mail']['#size'] = NULL;
-    $form['author']['mail']['#start_decorator'] = [
+    $form['author']['mail']['#component_data']['start_decorator'] = [
       '#type' => 'component',
       '#component' => 'laszlo:icon',
       '#props' => [
-        'icon' => 'dialog',
+        'icon' => 'mail',
       ],
     ];
 
     unset($form['author']['mail']['#description']);
-    $form['author']['homepage']['#attributes']['placeholder'] = '';
+    $form['author']['homepage']['#placeholder'] = 'https://skcus.olzsal';
     $form['author']['homepage']['#size'] = NULL;
-    $form['author']['homepage']['#start_decorator'] = [
+    $form['author']['homepage']['#component_data']['start_decorator'] = [
       '#type' => 'component',
       '#component' => 'laszlo:icon',
       '#props' => [
@@ -47,8 +48,7 @@ final readonly class FormCommentFormAlter {
     ];
 
     if (isset($form['actions']['preview'])) {
-      $form['actions']['preview']['#button_type'] = 'secondary';
-      $form['actions']['preview']['#button_variant'] = 'outlined';
+      $form['actions']['preview']['#component_data']['color'] = 'secondary';
     }
 
     $form['#after_build'][] = [self::class, 'afterBuild'];

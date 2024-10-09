@@ -14,7 +14,7 @@
     width: 0;
     height: 100%;
     content: "";
-    border-left: 1px dashed var(--color-surface-container-high);
+    border-left: 1px solid var(--color-surface-container-high);
   }
 }
 

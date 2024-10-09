@@ -16,8 +16,8 @@
 {% embed 'laszlo:button' with {
   attributes,
   type: 'submit',
-  variant,
-  color,
+  variant: variant|default('contained'),
+  color: element['#button_type'] ?? color|default('primary'),
   value: element['#value'],
 } only %}
   {% block children %}

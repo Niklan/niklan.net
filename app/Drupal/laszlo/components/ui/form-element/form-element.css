@@ -3,8 +3,13 @@
   flex-direction: column;
   gap: var(--spacing-2);
   align-items: flex-start;
+  min-width: 0;
 }
 
 .form-element__label {
   user-select: none;
+}
+
+.form-element__children {
+  width: 100%;
 }

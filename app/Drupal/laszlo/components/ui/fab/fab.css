@@ -1,11 +1,11 @@
 .fab {
-  --_background-color: var(--fab-background-color, var(--color-secondary));
+  --_background-color: var(--fab-background-color, var(--color-primary-fixed));
   --_background-color-hover: var(
     --fab-background-color-hover,
-    var(--color-secondary-fixed-dim)
+    var(--color-primary-fixed-dim)
   );
-  --_color: var(--fab-color, var(--color-on-secondary));
-  --_color-hover: var(--fab-color-hover, var(--color-on-secondary-container));
+  --_color: var(--fab-color, var(--color-on-primary-fixed));
+  --_color-hover: var(--fab-color-hover, var(--color-on-primary-fixed-variant));
   --icon-width: 32px;
 
   position: relative;

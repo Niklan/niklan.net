@@ -21,7 +21,6 @@ props:
       title: Color
       type: string
       enum:
-        - custom
         - primary
         - secondary
         - danger

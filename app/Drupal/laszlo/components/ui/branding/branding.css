@@ -2,7 +2,7 @@
   --logo-fill-1: var(--color-surface-dim);
   --logo-fill-2: var(--logo-fill-1);
   --logo-fill-3: var(--color-surface);
-  --logo-fill-4: var(--color-primary);
+  --logo-fill-4: var(--color-primary-container);
 
   display: flex;
   align-items: center;

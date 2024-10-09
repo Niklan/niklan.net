@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\laszlo\Hook\Form\FormCommentFormAlter;
 use Drupal\laszlo\Hook\Theme\ElementInfoAlter;
+use Drupal\laszlo\Hook\Theme\Preprocess;
 use Drupal\laszlo\Hook\Theme\PreprocessComment;
 use Drupal\laszlo\Hook\Theme\PreprocessInput;
 use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageFooter;
@@ -40,6 +41,13 @@ function laszlo_theme(array $existing, string $type, string $theme, string $path
  */
 function laszlo_element_info_alter(array &$info): void {
   \Drupal::classResolver(ElementInfoAlter::class)($info);
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function laszlo_preprocess(array &$variables, string $hook): void {
+  \Drupal::classResolver(Preprocess::class)($variables, $hook);
 }
 
 /**
