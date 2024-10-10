@@ -1,0 +1,4 @@
+.version-link {
+  display: flex;
+  gap: var(--spacing-1);
+}

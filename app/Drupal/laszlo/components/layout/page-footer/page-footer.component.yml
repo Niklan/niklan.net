@@ -5,6 +5,6 @@ group: layout
 props:
   type: object
   properties:
-    navigation:
-      title: Navigation
+    versions:
+      title: Versions
       type: array

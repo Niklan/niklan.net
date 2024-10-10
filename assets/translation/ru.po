@@ -360,3 +360,9 @@ msgstr "Добавить комментарий"
 
 msgid "Laszlo Cravensworth"
 msgstr "Ласло Крейвенсворт"
+
+msgid "Website version"
+msgstr "Версия сайта"
+
+msgid "Content version"
+msgstr "Версия содержимого"

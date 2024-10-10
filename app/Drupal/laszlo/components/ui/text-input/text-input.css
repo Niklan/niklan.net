@@ -19,7 +19,7 @@
     var(--color-outline)
   );
   --_input-box-shadow: var(--input-box-shadow, none);
-  --_input-box-shadow-focus: var(--input-box-shadow-focus, none);
+  --_input-box-shadow-focus: var(--input-box-shadow-focus, var(--default-focus-box-shadow));
   --_input-border-radius: var(--input-border-radius, var(--spacing-2));
   --_input-height: var(--input-height, var(--spacing-12));
   --_input-font: var(--input-font, var(--typography-body-medium));
@@ -124,10 +124,6 @@
 }
 
 /* Plain variants. */
-.text-input--variant--plain.text-input--color--primary {
-  --input-box-shadow-focus: 0 0 0 2px var(--color-primary);
-}
-
 .text-input--variant--plain.text-input--color--danger {
   --input-color: var(--color-error);
   --input-box-shadow-focus: 0 0 0 2px var(--color-error);
@@ -138,7 +134,6 @@
   --input-border-color: var(--color-outline);
   --input-border-color-hover: var(--color-primary);
   --input-border-color-focus: transparent;
-  --input-box-shadow-focus: 0 0 0 2px var(--color-primary);
 }
 
 .text-input--variant--outlined.text-input--color--danger {

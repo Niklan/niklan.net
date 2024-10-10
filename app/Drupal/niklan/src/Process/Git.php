@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Drupal\niklan\Process;
 
 use Drupal\Core\Site\Settings;
+use Override;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Process\Process;
 
 final class Git implements GitInterface {
 
   public function __construct(
+    #[Autowire(service: 'niklan.process.terminal')]
     protected TerminalInterface $terminal,
     protected string $gitBinary = 'git',
   ) {}
@@ -43,9 +46,7 @@ final class Git implements GitInterface {
     return $this->terminal->createProcess($command, $directory);
   }
 
-  /**
-   * {@inheritdoc}
-   */
+  #[Override]
   public function describeTags(string $directory): Process {
     $command = [
       $this->getGitBin(),
@@ -56,9 +57,6 @@ final class Git implements GitInterface {
     return $this->terminal->createProcess($command, $directory);
   }
 
-  /**
-   * Gets Git binary path.
-   */
   protected function getGitBin(): string {
     return Settings::get('niklan_git_binary', $this->gitBinary);
   }

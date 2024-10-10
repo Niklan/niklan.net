@@ -1,0 +1,26 @@
+.color-scheme {
+  display: flex;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2);
+  border-radius: var(--spacing-10);
+  background-color: var(--color-surface);
+}
+
+.color-scheme input {
+  display: none;
+}
+
+.color-scheme__option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2);
+  border-radius: var(--spacing-10);
+  background-color: var(--color-surface-container-highest);
+  cursor: pointer;
+}
+
+.color-scheme input:checked + .color-scheme__option {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}

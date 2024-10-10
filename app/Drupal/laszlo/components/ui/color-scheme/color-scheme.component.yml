@@ -1,0 +1,15 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Color Scheme
+status: experimental
+group: ui
+libraryOverrides:
+  js:
+    color-scheme.init.js:
+      # The earlier it is initialized, the better, as it will help avoid
+      # blinking on page load. However, since a component can define a
+      # single library, it is not possible to use the 'scope' property, which
+      # would affect all assets and dependencies.
+      weight: -9999
+    color-scheme.js: { }
+  dependencies:
+    - core/drupal

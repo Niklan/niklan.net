@@ -1,0 +1,38 @@
+{% do attributes.addClass('color-scheme') %}
+{% do attributes.setAttribute('data-selector', 'color-scheme') %}
+<form{{ attributes }}>
+  <input type="radio"
+         id="color-scheme-light"
+         name="color_scheme"
+         value="light"
+         data-mode-option>
+  <label for="color-scheme-light"
+         class="color-scheme__option color-scheme__option--light"
+         aria-label="{{ 'Light'|t([], {'context': 'color scheme'}) }}"
+         title="{{ 'Light'|t([], {'context': 'color scheme'}) }}">
+    {% include 'laszlo:icon' with { icon: 'sun' } only %}
+  </label>
+  <input type="radio"
+         id="dark-scheme-system"
+         name="color_scheme"
+         value="system"
+         data-mode-option>
+  <label for="dark-scheme-system"
+         class="color-scheme__option color-scheme__option--system"
+         aria-label="{{ 'Inherit from the system'|t([], {'context': 'color scheme'}) }}"
+         title="{{ 'Inherit from the system'|t([], {'context': 'color scheme'}) }}">
+    {% include 'laszlo:icon' with { icon: 'repeat' } only %}
+  </label>
+  <input
+    type="radio"
+    id="color-scheme-dark"
+    name="color_scheme"
+    value="dark"
+    data-mode-option>
+  <label for="color-scheme-dark"
+         class="color-scheme__option color-scheme__option--dark"
+         aria-label="{{ 'Dark'|t([], {'context': 'color scheme'}) }}"
+         title="{{ 'Dark'|t([], {'context': 'color scheme'}) }}">
+    {% include 'laszlo:icon' with { icon: 'moon' } only %}
+  </label>
+</form>

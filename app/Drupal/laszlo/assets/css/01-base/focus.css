@@ -1,6 +1,6 @@
 @layer base {
   :root {
-    --default-focus-box-shadow: 0 0 0 2px var(--color-primary);
+    --default-focus-box-shadow: 0 0 0 2px var(--color-primary-container);
   }
 
   :focus {

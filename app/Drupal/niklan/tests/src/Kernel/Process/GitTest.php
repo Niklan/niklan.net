@@ -49,7 +49,7 @@ final class GitTest extends NiklanTestBase {
   #[\Override]
   protected function setUp(): void {
     parent::setUp();
-    $this->git = $this->container->get('niklan.process.git');
+    $this->git = $this->container->get(GitInterface::class);
   }
 
 }

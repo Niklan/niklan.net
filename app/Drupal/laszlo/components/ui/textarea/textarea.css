@@ -19,7 +19,7 @@
     var(--color-outline)
   );
   --_textarea-box-shadow: var(--textarea-box-shadow, none);
-  --_textarea-box-shadow-focus: var(--textarea-box-shadow-focus, none);
+  --_textarea-box-shadow-focus: var(--textarea-box-shadow-focus, var(--default-focus-box-shadow));
   --_textarea-border-radius: var(--textarea-border-radius, var(--spacing-2));
   --_textarea-font: var(--textarea-font, var(--typography-body-medium));
   --_textarea-padding-inline: var(--textarea-padding-inline, var(--spacing-4));
@@ -122,10 +122,6 @@
 }
 
 /* Plain variants. */
-.textarea--variant--plain.textarea--color--primary {
-  --textarea-box-shadow-focus: 0 0 0 2px var(--color-primary);
-}
-
 .textarea--variant--plain.textarea--color--danger {
   --textarea-color: var(--color-error);
   --textarea-box-shadow-focus: 0 0 0 2px var(--color-error);
@@ -136,7 +132,6 @@
   --textarea-border-color: var(--color-outline);
   --textarea-border-color-hover: var(--color-primary);
   --textarea-border-color-focus: transparent;
-  --textarea-box-shadow-focus: 0 0 0 2px var(--color-primary);
 }
 
 .textarea--variant--outlined.textarea--color--danger {
