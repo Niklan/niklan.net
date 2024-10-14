@@ -1,3 +1,9 @@
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
 .article-list__items {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

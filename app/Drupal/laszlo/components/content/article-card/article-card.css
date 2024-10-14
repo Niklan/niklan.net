@@ -9,13 +9,12 @@
   transition: all 0.25s linear;
   color: var(--color-on-surface);
   border-radius: var(--spacing-4);
-  background: var(--color-surface);
+  background: var(--color-surface-container);
   gap: var(--spacing-6);
 
   &:focus-within,
   &:hover {
-    color: var(--color-on-primary-fixed);
-    background-color: var(--color-primary-fixed);
+    background-color: var(--color-surface-container-high);
   }
 }
 
@@ -47,7 +46,7 @@
 }
 
 .article-card__title {
-  color: var(--color-scrim);
+  color: var(--color-on-surface);
   font: var(--typography-title-large);
 }
 

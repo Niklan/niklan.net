@@ -1,5 +1,7 @@
 .article {
   --_article-spacing: var(--spacing-8);
+  --_article-header-background: var(--article-header-background, var(--color-surface-container, transparent));
+  --_article-main-background: var(--article-main-background, var(--color-surface-container-low, transparent));
 
   display: flex;
   flex-direction: column;
@@ -15,7 +17,7 @@
   border-radius: var(--spacing-4) var(--spacing-4) 0 0;
   background-color: color-mix(
     in sRGB,
-    var(--color-surface-container-high),
+    var(--_article-header-background),
     transparent 20%
   );
   gap: var(--spacing-8);
@@ -69,7 +71,7 @@
   margin-top: calc(var(--_article-spacing) * -1);
   padding: var(--spacing-16) var(--spacing-12);
   border-radius: 0 0 var(--spacing-4) var(--spacing-4);
-  background-color: var(--color-surface);
+  background-color: var(--_article-main-background);
   gap: var(--spacing-12);
 }
 
@@ -98,7 +100,7 @@
 .article__attachments {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-4);
+  gap: var(--spacing-6);
 }
 
 .article__previous-next {
@@ -122,14 +124,14 @@
   align-items: center;
   padding: var(--spacing-16) var(--spacing-12);
   border-radius: var(--spacing-4);
-  background-color: var(--color-surface);
+  background-color: var(--_article-main-background);
   gap: var(--_article-spacing);
 }
 
 .article__comment-items {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--spacing-6);
 }
 
 .article__comments-title {

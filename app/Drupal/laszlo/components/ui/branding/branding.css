@@ -1,8 +1,8 @@
 .branding {
-  --logo-fill-1: var(--color-surface-dim);
-  --logo-fill-2: var(--logo-fill-1);
-  --logo-fill-3: var(--color-surface);
-  --logo-fill-4: var(--color-primary-container);
+  --logo-fill-1: var(--color-surface-container-high);
+  --logo-fill-2: var(--color-surface-container-highest);
+  --logo-fill-3: var(--color-surface-container-low);
+  --logo-fill-4: var(--color-outline);
 
   display: flex;
   align-items: center;

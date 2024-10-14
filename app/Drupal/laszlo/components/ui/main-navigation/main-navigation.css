@@ -1,6 +1,4 @@
 .main-navigation {
-  --main-navigation-item-color: var(--color-on-primary);
-
   position: fixed;
   z-index: 50;
   bottom: var(--spacing-4);
@@ -12,7 +10,7 @@
   transition: all 0.3s ease;
   transform: translateX(-50%);
   border-radius: var(--spacing-16);
-  background: color-mix(in sRGB, var(--color-scrim), transparent 50%);
+  background: color-mix(in sRGB, var(--color-surface-tint), transparent 50%);
   backdrop-filter: blur(var(--spacing-16));
   gap: var(--spacing-1);
 }

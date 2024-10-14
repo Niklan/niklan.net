@@ -11,7 +11,7 @@
   --_textarea-border-width: var(--textarea-border-width, 1px);
   --_textarea-background-color: var(
     --textarea-background-color,
-    var(--color-surface-container-lowest)
+    var(--color-surface-container-low)
   );
   --_textarea-color: var(--textarea-color, var(--color-on-surface));
   --_textarea-placeholder-color: var(
@@ -129,7 +129,7 @@
 
 /* Outlined variants. */
 .textarea--variant--outlined.textarea--color--primary {
-  --textarea-border-color: var(--color-outline);
+  --textarea-border-color: var(--color-outline-variant);
   --textarea-border-color-hover: var(--color-primary);
   --textarea-border-color-focus: transparent;
 }

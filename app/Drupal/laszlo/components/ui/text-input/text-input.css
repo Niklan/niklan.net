@@ -11,7 +11,7 @@
   --_input-border-width: var(--input-border-width, 1px);
   --_input-background-color: var(
     --input-background-color,
-    var(--color-surface-container-lowest)
+    var(--color-surface-container-low)
   );
   --_input-color: var(--input-color, var(--color-on-surface));
   --_input-placeholder-color: var(
@@ -131,7 +131,7 @@
 
 /* Outlined variants. */
 .text-input--variant--outlined.text-input--color--primary {
-  --input-border-color: var(--color-outline);
+  --input-border-color: var(--color-outline-variant);
   --input-border-color-hover: var(--color-primary);
   --input-border-color-focus: transparent;
 }
