@@ -1,5 +1,8 @@
 .main-navigation-item {
-  --_color: var(--main-navigation-item-color, var(--color-on-primary-fixed, inherit));
+  --_color: var(
+    --main-navigation-item-color,
+    var(--color-on-primary-fixed, inherit)
+  );
   --icon-wrapper-width: 32px;
 
   display: flex;

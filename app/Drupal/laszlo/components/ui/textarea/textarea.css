@@ -19,7 +19,10 @@
     var(--color-outline)
   );
   --_textarea-box-shadow: var(--textarea-box-shadow, none);
-  --_textarea-box-shadow-focus: var(--textarea-box-shadow-focus, var(--default-focus-box-shadow));
+  --_textarea-box-shadow-focus: var(
+    --textarea-box-shadow-focus,
+    var(--default-focus-box-shadow)
+  );
   --_textarea-border-radius: var(--textarea-border-radius, var(--spacing-2));
   --_textarea-font: var(--textarea-font, var(--typography-body-medium));
   --_textarea-padding-inline: var(--textarea-padding-inline, var(--spacing-4));

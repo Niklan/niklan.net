@@ -1,5 +1,8 @@
 .fab {
-  --_background-color: var(--fab-background-color, var(--color-surface-variant));
+  --_background-color: var(
+    --fab-background-color,
+    var(--color-surface-variant)
+  );
   --_background-color-hover: var(
     --fab-background-color-hover,
     var(--color-surface-dim)

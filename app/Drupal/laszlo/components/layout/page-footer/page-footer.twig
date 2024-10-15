@@ -1,6 +1,19 @@
 {% do attributes.addClass('page-footer') %}
 <footer{{ attributes }}>
-  <div class="page-footer__legal">
+  <div class="page-footer__main">
+    <div class="page-footer__versions">
+      {% include 'laszlo:version-link' with {
+        label: 'Website version'|t,
+        url: versions.website.source_url,
+        version: versions.website.version,
+      } only %}
+      {% include 'laszlo:version-link' with {
+        label: 'Content version'|t,
+        url: versions.content.source_url,
+        version: versions.content.version,
+      } only %}
+    </div>
+
     {% set license_url = 'https://creativecommons.org/licenses/by-sa/4.0/legalcode.ru' %}
     <div class="page-footer__license">
       {%- trans -%}
@@ -15,18 +28,5 @@
 
   <div class="page-footer__extra">
     {% include 'laszlo:color-scheme' only %}
-
-    <div class="page-footer__versions">
-      {% include 'laszlo:version-link' with {
-        label: 'Website version'|t,
-        url: versions.website.source_url,
-        version: versions.website.version,
-      } only %}
-      {% include 'laszlo:version-link' with {
-        label: 'Content version'|t,
-        url: versions.content.source_url,
-        version: versions.content.version,
-      } only %}
-    </div>
   </div>
 </footer>

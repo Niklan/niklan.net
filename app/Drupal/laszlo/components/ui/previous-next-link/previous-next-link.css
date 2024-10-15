@@ -11,8 +11,8 @@
 
   &:hover,
   &:focus {
-    color: var(--color-on-primary-fixed);
-    background-color: var(--color-primary-fixed);
+    color: var(--color-on-surface);
+    background-color: var(--color-surface-container-highest);
   }
 
   &:active {

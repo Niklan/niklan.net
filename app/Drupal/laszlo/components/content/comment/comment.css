@@ -1,6 +1,5 @@
 .comment {
   --_comment-gap: var(--spacing-4);
-  --link-text-decoration-thickness: 1px;
 
   display: flex;
   flex-direction: column;
@@ -34,6 +33,7 @@
 }
 
 .comment__author-homepage {
+  text-decoration: none;
   text-transform: uppercase;
   font: var(--typography-label-small);
 }

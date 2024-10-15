@@ -8,10 +8,10 @@
   font: var(--typography-label-large);
 }
 
-.page-footer__legal {
+.page-footer__main {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  gap: var(--spacing-6);
 }
 
 .page-footer__versions {

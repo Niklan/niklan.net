@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\Process;
 
 use Drupal\Core\Site\Settings;
-use Override;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Process\Process;
 
@@ -46,7 +45,7 @@ final class Git implements GitInterface {
     return $this->terminal->createProcess($command, $directory);
   }
 
-  #[Override]
+  #[\Override]
   public function describeTags(string $directory): Process {
     $command = [
       $this->getGitBin(),

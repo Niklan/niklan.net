@@ -49,7 +49,7 @@ props:
       default: button
     value:
       title: Value
-      type: string
+      type: [string, integer]
     name:
       title: Name
       type: string
