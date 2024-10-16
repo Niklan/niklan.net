@@ -1,0 +1,19 @@
+{% embed 'laszlo:article' with {
+  title: node.label(),
+  url,
+  url_absolute,
+  published_timestamp,
+  estimated_read_time,
+  comment_count,
+  content,
+  toc_links,
+  poster_uri,
+  attachments,
+  tags,
+  next_link,
+  previous_link,
+  } only %}
+  {% block summary %}{{ content.body }}{% endblock %}
+  {% block content %}{{ content.external_content }}{% endblock %}
+  {% block comments %}{{ content.comment_node_blog_entry }}{% endblock %}
+{% endembed %}

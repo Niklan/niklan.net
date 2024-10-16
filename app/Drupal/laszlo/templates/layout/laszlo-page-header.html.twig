@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display page header.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - site_logo_svg: (optional) The SVG logo path.
+ * - site_name: The site name.
+ * - site_slogan: (optional) The site slogan.
+ * - site_url: The site URL (basically home page).
+ * - navigation: An array with navigation items, contains:
+ *   - label: The link label.
+ *   - url: The link URL.
+ *
+ * @ingroup themeable
+ * @see laszlo_preprocess_laszlo_page_header()
+ * @see \Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader
+ */
+#}
+{% embed 'laszlo:page-header' %}
+  {% block branding %}
+    {% include 'laszlo:branding' with {
+      logo_svg: site_logo_svg,
+      name: site_name,
+      slogan: site_slogan,
+      url: site_url,
+    } only %}
+  {% endblock %}
+
+  {% block search %}
+    {% include 'laszlo:search-bar' with { placeholder: 'Site search'|t } only %}
+  {% endblock %}
+{% endembed %}

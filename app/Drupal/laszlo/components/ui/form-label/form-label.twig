@@ -1,0 +1,8 @@
+{%
+  set classes = [
+    'form-label',
+    required ? 'form-label--required',
+  ]
+%}
+{% do attributes.addClass(classes) %}
+<label{{ attributes }}>{% block children %}{% endblock %}</label>

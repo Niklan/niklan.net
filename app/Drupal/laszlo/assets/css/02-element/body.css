@@ -1,0 +1,11 @@
+@layer element {
+  :root {
+    --page-background-color: var(--color-surface);
+  }
+
+  body {
+    color: var(--color-on-surface);
+    background: var(--page-background-color);
+    font: var(--typography-body-large);
+  }
+}

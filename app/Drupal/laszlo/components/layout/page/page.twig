@@ -1,0 +1,7 @@
+{% do attributes.addClass('page') %}
+{# Replacement for 'off_canvas_page_wrapper' #}
+{% do attributes.addClass('dialog-off-canvas-main-canvas') %}
+{% do attributes.setAttribute('data-off-canvas-main-canvas', '') %}
+<section{{ attributes }}>
+  {% block children %}{% endblock %}
+</section>

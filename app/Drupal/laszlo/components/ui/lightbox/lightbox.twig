@@ -1,0 +1,14 @@
+{% do attributes.addClass(['photoswipe-gallery', 'lightbox']) %}
+<span{{ attributes }}>
+  <a href="{{ uri|image_style('big_image') }}"
+     class="photoswipe lightbox__link"
+     data-size="{{ size }}">
+    {% block thumbnail %}{% endblock %}
+    {% include 'laszlo:icon' with {
+      attributes: create_attribute({
+        class: ['lightbox__icon'],
+      }),
+      icon: 'magnifer-zoom',
+    } only %}
+  </a>
+</span>

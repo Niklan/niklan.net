@@ -1,0 +1,8 @@
+{% do attributes.addClass([
+  'comment-thread',
+  'comment-thread--depth--' ~ depth,
+]) %}
+{% do attributes.setAttribute('data-thread-id', thread_id) %}
+<div{{ attributes }}>
+  {% block comments %}{% endblock %}
+</div>

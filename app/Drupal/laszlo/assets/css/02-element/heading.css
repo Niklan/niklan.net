@@ -1,0 +1,34 @@
+@layer element {
+  h1 {
+    font: var(--typography-display-large);
+  }
+
+  h2 {
+    font: var(--typography-headline-large);
+  }
+
+  h3 {
+    font: var(--typography-headline-medium);
+  }
+
+  h4 {
+    font: var(--typography-headline-small);
+  }
+
+  h5 {
+    font: var(--typography-title-large);
+  }
+
+  h6 {
+    font: var(--typography-title-medium);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: unset;
+  }
+}

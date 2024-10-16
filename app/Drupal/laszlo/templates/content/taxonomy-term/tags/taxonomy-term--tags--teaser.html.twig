@@ -1,0 +1,7 @@
+{% include 'laszlo:chip' with {
+  attributes: create_attribute({
+    'rel': 'tag',
+  }),
+  label: term.label(),
+  href: url,
+} only %}

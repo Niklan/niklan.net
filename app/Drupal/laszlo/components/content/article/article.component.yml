@@ -1,0 +1,41 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Article
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    title:
+      title: Title
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-reference
+    published_timestamp:
+      title: Published
+      type: string
+    estimated_read_time:
+      title: Estimated read time (minutes)
+      type: integer
+    attachments:
+      title: Attachments
+      type: [ 'null', array ]
+    tags:
+      title: Tags
+      type: [ 'null', array ]
+    next_link:
+      title: Next link
+      type: [ 'null', array ]
+    previous_link:
+      title: Previous link
+      type: [ 'null', array ]
+slots:
+  summary:
+    title: Summary
+    required: true
+  content:
+    title: Content
+    required: true
+  comments:
+    title: Comments

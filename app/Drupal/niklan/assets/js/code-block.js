@@ -1,6 +1,8 @@
 /**
  * @file
  * Provides code for highlighting the code blocks.
+ *
+ * @todo Port it for Highlight JS.
  */
 
 ((Drupal, once) => {

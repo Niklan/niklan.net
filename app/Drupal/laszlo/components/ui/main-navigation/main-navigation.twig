@@ -1,0 +1,10 @@
+<nav{{ attributes.addClass('main-navigation') }}>
+  {% for item in items  %}
+    {% include 'laszlo:main-navigation-item' with {
+      label: item.label,
+      url: item.url,
+      icon: item.icon,
+      active_trail_pattern: item.active_trail_pattern,
+    } only %}
+  {% endfor %}
+</nav>

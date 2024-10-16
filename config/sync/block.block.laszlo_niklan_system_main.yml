@@ -1,0 +1,22 @@
+uuid: b04d173b-f848-4a75-94d6-361607a648f1
+langcode: ru
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - laszlo
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: laszlo_niklan_system_main
+theme: laszlo
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -17,29 +17,32 @@ niklan.about_settings:
   parent: niklan.admin_general
   weight: 10
 
-niklan.frontpage:
+niklan.home:
   title: Home
   route_name: <front>
   menu_name: main
   weight: 0
+  metadata:
+    main_navigation_icon: 'home'
+    active_trail_pattern: '<front>'
 
 niklan.blog:
   title: Blog
   route_name: niklan.blog_list
   menu_name: main
   weight: 1
-
-niklan.comments:
-  title: Comments
-  route_name: niklan.comments
-  menu_name: main
-  weight: 2
+  metadata:
+    main_navigation_icon: 'document-add-bold-duotone'
+    active_trail_pattern: '\/(blog$|blog\/?)'
 
 niklan.tags:
   title: Tags
   route_name: niklan.tags
   menu_name: main
   weight: 3
+  metadata:
+    main_navigation_icon: 'hashtag-square-bold-duotone'
+    active_trail_pattern: '\/(tags$|tags\/?)'
 
 niklan.about:
   title: About
@@ -47,13 +50,9 @@ niklan.about:
   route_name: niklan.about
   menu_name: main
   weight: 4
-
-niklan.services:
-  title: Services
-  title_context: 'work'
-  route_name: niklan.services
-  menu_name: main
-  weight: 5
+  metadata:
+    main_navigation_icon: 'user-id-bold-duotone'
+    active_trail_pattern: '\/(about$|services$)'
 
 niklan.contact:
   title: Contact
@@ -61,3 +60,6 @@ niklan.contact:
   route_name: niklan.contact
   menu_name: main
   weight: 6
+  metadata:
+    main_navigation_icon: 'contact'
+    active_trail_pattern: '\/contact$'

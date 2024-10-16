@@ -1,0 +1,24 @@
+uuid: 1badd67a-2d90-452a-ac4c-0b938c20250a
+langcode: ru
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - laszlo
+id: page_title
+theme: laszlo
+region: content
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Заголовок страницы'
+  label_display: '0'
+  provider: core
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '/blog/*'

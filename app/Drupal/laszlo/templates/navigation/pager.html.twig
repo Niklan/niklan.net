@@ -1,0 +1,6 @@
+{% if items %}
+  {% include 'laszlo:pager' with {
+    items,
+    current_page: current,
+  } only %}
+{% endif %}

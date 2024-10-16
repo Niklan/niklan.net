@@ -83,9 +83,10 @@ niklan.search_page:
 
 niklan.tags:
   path: '/tags'
+  methods: [GET]
   defaults:
     _title: 'Tags'
-    _controller: '\Drupal\niklan\Controller\TagController::collection'
+    _controller: '\Drupal\niklan\Controller\Tags'
   requirements:
     _permission: 'access content'
 

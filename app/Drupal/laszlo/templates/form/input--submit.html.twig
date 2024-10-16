@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ * @see laszlo_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+{% embed 'laszlo:button' with {
+  attributes,
+  type: 'submit',
+  variant: variant|default('contained'),
+  color: element['#button_type'] ?? color|default('primary'),
+  value: element['#value'],
+} only %}
+  {% block children %}
+    {{ value }}
+  {% endblock %}
+{% endembed %}

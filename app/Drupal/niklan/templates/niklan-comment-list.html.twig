@@ -13,7 +13,7 @@
   <header class="comments-list__head">
     <p>{% trans %}Find out what publications are being discussed.{% endtrans %}</p>
   </header>
-  <main class="comments-list__main">
+  <div class="comments-list__main">
     {% if not comments is empty %}
       <div class="comments-list__items">
         {% for comment in comments %}
@@ -30,5 +30,5 @@
         </div>
       {% endif %}
     {% endif %}
-  </main>
+  </div>
 </section>

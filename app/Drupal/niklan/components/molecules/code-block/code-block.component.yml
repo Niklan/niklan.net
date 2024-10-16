@@ -1,0 +1,25 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Code block
+status: experimental
+group: molecules
+props:
+  type: object
+  required:
+    - code
+  properties:
+    language:
+      title: Language
+      type: [string, 'null']
+    highlighted_lines:
+      title: Highlighted lines
+      description: An array with lines to highlight.
+      type: [string, 'null']
+    heading:
+      title: Code heading
+      type: [string, 'null']
+    code:
+      title: Code
+      type: string
+libraryOverrides:
+  dependencies:
+    - niklan/highlight.js

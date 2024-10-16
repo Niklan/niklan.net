@@ -1,0 +1,21 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Pager
+status: experimental
+group: ui
+props:
+  type: object
+  properties:
+    show_first_last:
+      type: boolean
+      title: Show First/Last
+      default: true
+    show_previous_next:
+      type: boolean
+      title: Show Previous/Next
+      default: true
+    current_page:
+      type: [ integer, number ]
+      title: Current Page
+    items:
+      type: array
+      title: Items

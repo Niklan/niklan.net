@@ -1,0 +1,7 @@
+{% do attributes.addClass('version-link') %}
+<div{{ attributes }}>
+  {% if label %}
+    <div class="version-link__label">{{ label }}:</div>
+  {% endif %}
+  <a href="{{ url }}" class="version-link__link">{{ version }}</a>
+</div>

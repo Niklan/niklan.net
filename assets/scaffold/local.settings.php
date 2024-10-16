@@ -1,6 +1,7 @@
 <?php
+use Symfony\Component\ErrorHandler\Debug;
 
-$error_handler = Symfony\Component\ErrorHandler\Debug::enable();
+$error_handler = Debug::enable();
 $error_handler->setExceptionHandler([$error_handler, 'renderException']);
 
 $databases['default']['default'] = [
@@ -29,7 +30,6 @@ $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml'
 // $settings['cache']['bins']['render'] = 'cache.backend.null';
 // $settings['cache']['bins']['page'] = 'cache.backend.null';
 // $settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
-
 $settings['config_exclude_modules'] = [
   'devel',
   'field_ui',
@@ -54,3 +54,4 @@ $settings['trusted_host_patterns'][] = '^niklan\.localhost$';
 
 $settings['external_content_directory'] = 'private://content';
 $settings['external_content_repository_url'] = 'https://example.com/username/repository';
+$settings['website_repository_url'] = 'https://example.com/username/repository';

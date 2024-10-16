@@ -10,7 +10,7 @@
  * @see template_preprocess_niklan_about_page()
  */
 #}
-<main{{ attributes.addClass('about-page') }}>
+<div{{ attributes.addClass('about-page') }}>
   {% if photo %}
     <div class="about-welcome__photo">
       {{ photo }}
@@ -18,4 +18,4 @@
   {% endif %}
 
   {% trans %}Hello, world!{% endtrans %}
-</main>
+</div>

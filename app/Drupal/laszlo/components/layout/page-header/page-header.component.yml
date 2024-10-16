@@ -1,0 +1,17 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Page header
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    navigation:
+      title: Navigation
+      type: array
+slots:
+  branding:
+    title: Branding
+    description: The website branding.
+  search:
+    title: Search
+    description: The website search.

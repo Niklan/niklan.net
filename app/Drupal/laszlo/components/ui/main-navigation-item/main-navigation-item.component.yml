@@ -1,0 +1,30 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Main navigation item
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - label
+    - url
+  properties:
+    label:
+      title: Label
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-reference
+    icon:
+      title: Icon
+      type: [string, 'null']
+    system_path:
+      title: System path
+      type: ['null', string]
+    active_trail_pattern:
+      title: Active trail pattern
+      type: ['null', string]
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - core/once

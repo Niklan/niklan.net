@@ -1,0 +1,8 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Tag list
+status: experimental
+group: layout
+slots:
+  items:
+    title: Articles
+    type: array
