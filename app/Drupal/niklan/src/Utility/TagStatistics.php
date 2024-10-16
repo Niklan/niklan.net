@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Helper;
+namespace Drupal\niklan\Utility;
 
 use Drupal\Core\Database\Connection;
+use Drupal\niklan\Contract\Utility\TagStatisticsInterface;
 
 final class TagStatistics implements TagStatisticsInterface {
 

@@ -141,12 +141,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'estimated_read_time' => NULL,
       ],
     ],
-    'niklan_tag_page' => [
-      'variables' => [
-        'items' => [],
-        'pager' => NULL,
-      ],
-    ],
     'niklan_tag_list' => [
       'variables' => [
         'items' => [],

@@ -13,6 +13,7 @@ use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader;
 use Drupal\laszlo\Hook\Theme\PreprocessLinks;
 use Drupal\laszlo\Hook\Theme\PreprocessNode;
 use Drupal\laszlo\Hook\Theme\PreprocessPage;
+use Drupal\laszlo\Hook\Theme\PreprocessTaxonomyTerm;
 use Drupal\laszlo\Hook\Theme\ThemeSuggestionsTaxonomyTermAlter;
 
 /**
@@ -111,4 +112,11 @@ function laszlo_preprocess_links(array &$variables): void {
  */
 function laszlo_form_comment_comment_node_blog_entry_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
   \Drupal::classResolver(FormCommentFormAlter::class)($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_taxonomy_term(array &$variables): void {
+  \Drupal::classResolver(PreprocessTaxonomyTerm::class)($variables);
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Helper;
+namespace Drupal\niklan\Contract\Utility;
 
 interface TagStatisticsInterface {
 

@@ -10,9 +10,8 @@ services:
     class: Drupal\niklan\Repository\AboutSettingsRepository
     arguments: ['@keyvalue']
 
-  niklan.helper.tag_statistics:
-    class: Drupal\niklan\Helper\TagStatistics
-    arguments: ['@database']
+  Drupal\niklan\Utility\TagStatistics: {}
+  Drupal\niklan\Contract\Utility\TagStatisticsInterface: '@Drupal\niklan\Utility\TagStatistics'
 
   niklan.event_subscriber.term_page_build:
     class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
