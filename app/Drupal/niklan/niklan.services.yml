@@ -6,9 +6,8 @@ services:
     parent: logger.channel_base
     arguments: ['niklan']
 
-  niklan.repository.about_settings:
-    class: Drupal\niklan\Repository\AboutSettingsRepository
-    arguments: ['@keyvalue']
+  Drupal\niklan\Repository\AboutSettings: {}
+  Drupal\niklan\Contract\Repository\AboutSettings: '@Drupal\niklan\Repository\AboutSettings'
 
   Drupal\niklan\Utility\TagStatistics: {}
   Drupal\niklan\Contract\Utility\TagStatisticsInterface: '@Drupal\niklan\Utility\TagStatistics'

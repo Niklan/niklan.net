@@ -1,7 +1,7 @@
-{% include 'laszlo:chip' with {
-  attributes: create_attribute({
-    'rel': 'tag',
-  }),
-  label: term.label(),
-  href: url,
+{% include 'laszlo:tag-card' with {
+  title: term.label(),
+  url: url,
+  publications_count,
+  first_publication_date,
+  last_publication_date,
 } only %}

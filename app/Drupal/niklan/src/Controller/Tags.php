@@ -26,7 +26,7 @@ final readonly class Tags implements ContainerInjectionInterface {
   }
 
   private function buildItems(): array {
-    $ids = \array_keys($this->statistics->getBlogEntryUsage());
+    $ids = \array_keys($this->statistics->usage());
     $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
 
     return \array_map(

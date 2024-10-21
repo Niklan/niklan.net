@@ -4,7 +4,7 @@
 ]) %}
 {% do attributes.setAttribute('href', href) %}
 {% do attributes.setAttribute('title', text) %}
-{% do attributes.setAttribute('aria-label', text) %}
+{% do attributes.setAttribute('aria-label', type == 'previous' ? 'Previous article'|t : 'Next article'|t) %}
 {% do attributes.setAttribute('rel', 'bookmark') %}
 <a{{ attributes }}>
   {% include 'laszlo:icon' with {

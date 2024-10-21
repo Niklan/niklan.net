@@ -1,1 +1,27 @@
-TAG CARD
+<article{{ attributes.addClass('tag-card') }}>
+  <h2 class="tag-card__title">{{ title }}</h2>
+  <div class="tag-card__publications-count">
+    {% include 'laszlo:icon' with { icon: 'documents-bold' } only %}
+    {% set count = publications_count %}
+    {% trans %}
+      @count publication
+    {% plural count %}
+      @count publications
+    {% endtrans %}
+  </div>
+
+  {% if first_publication_date and last_publication_date %}
+    <div class="tag-card__publications-dates">
+      {% include 'laszlo:icon' with { icon: 'calendar' } only %}
+      {%- if first_publication_date == last_publication_date -%}
+        {{ first_publication_date|format_date('dmy') }}
+      {%- else -%}
+        {{ first_publication_date|format_date('dmy') }} — {{ last_publication_date|format_date('dmy') }}
+      {%- endif -%}
+    </div>
+  {% endif %}
+  <a href="{{ url }}"
+     class="tag-card__link"
+     aria-label="{{ 'Open the list of publications'|t }}">
+  </a>
+</article>

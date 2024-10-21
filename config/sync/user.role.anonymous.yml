@@ -2,8 +2,11 @@ uuid: 99ee3b6b-054a-4482-8772-fdd682bab74c
 langcode: ru
 status: true
 dependencies:
+  config:
+    - filter.format.comments
   module:
     - comment
+    - filter
     - media
     - system
 _core:
@@ -16,4 +19,5 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'post comments'
+  - 'use text format comments'
   - 'view media'

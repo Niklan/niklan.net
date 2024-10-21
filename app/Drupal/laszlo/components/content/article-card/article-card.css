@@ -14,7 +14,7 @@
 
   &:focus-within,
   &:hover {
-    background-color: var(--color-surface-container-high);
+    background-color: var(--color-surface-container-highest);
   }
 }
 

@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace Drupal\niklan\Utility;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\niklan\Contract\Utility\TagStatisticsInterface;
+use Drupal\node\NodeInterface;
 
 final class TagStatistics implements TagStatisticsInterface {
 
   public function __construct(
-    protected Connection $connection,
+    private Connection $connection,
+    private EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
   #[\Override]
-  public function getBlogEntryUsage(?int $limit = NULL): array {
+  public function usage(?int $limit = NULL): array {
     $query = $this->connection->select('taxonomy_term_field_data', 'terms');
     $query->leftJoin(
       'node__field_tags',
@@ -38,6 +41,60 @@ final class TagStatistics implements TagStatisticsInterface {
     }
 
     return $query->execute()->fetchAllAssoc('tid');
+  }
+
+  #[\Override]
+  public function count(int $tag_id): int {
+    return $this
+      ->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('type', 'blog_entry')
+      ->condition('status', NodeInterface::PUBLISHED)
+      ->condition('field_tags', $tag_id)
+      ->count()
+      ->execute();
+  }
+
+  #[\Override]
+  public function firstPublicationDate(int $tag_id): ?int {
+    $query = $this
+      ->connection
+      ->select('node_field_data', 'nd')
+      ->fields('nd', ['created']);
+    $query->leftJoin('node__field_tags', 'nft', 'nd.nid = nft.entity_id');
+    $query
+      ->condition('nft.field_tags_target_id', $tag_id)
+      ->orderBy('nid',)
+      ->range(0, 1);
+    $result = $query->execute()->fetch();
+
+    if (!$result) {
+      return NULL;
+    }
+
+    return (int) $result->created;
+  }
+
+  #[\Override]
+  public function lastPublicationDate(int $tag_id): ?int {
+    $query = $this
+      ->connection
+      ->select('node_field_data', 'nd')
+      ->fields('nd', ['created']);
+    $query->leftJoin('node__field_tags', 'nft', 'nd.nid = nft.entity_id');
+    $query
+      ->condition('nft.field_tags_target_id', $tag_id)
+      ->orderBy('nid', 'DESC')
+      ->range(0, 1);
+    $result = $query->execute()->fetch();
+
+    if (!$result) {
+      return NULL;
+    }
+
+    return (int) $result->created;
   }
 
 }

@@ -52,14 +52,14 @@ niklan.about:
   weight: 4
   metadata:
     main_navigation_icon: 'user-id-bold-duotone'
-    active_trail_pattern: '\/(about$|services$)'
+    active_trail_pattern: '\/(about$|services$|contact$)'
 
-niklan.contact:
-  title: Contact
-  title_context: 'menu'
-  route_name: niklan.contact
-  menu_name: main
-  weight: 6
-  metadata:
-    main_navigation_icon: 'contact'
-    active_trail_pattern: '\/contact$'
+#niklan.contact:
+#  title: Contact
+#  title_context: 'menu'
+#  route_name: niklan.contact
+#  menu_name: main
+#  weight: 6
+#  metadata:
+#    main_navigation_icon: 'contact'
+#    active_trail_pattern: '\/contact$'

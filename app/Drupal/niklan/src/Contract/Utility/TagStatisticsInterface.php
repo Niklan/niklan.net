@@ -10,6 +10,12 @@ interface TagStatisticsInterface {
    * @return \stdClass[]
    *   An array with term results.
    */
-  public function getBlogEntryUsage(?int $limit = NULL): array;
+  public function usage(?int $limit = NULL): array;
+
+  public function count(int $tag_id): int;
+
+  public function firstPublicationDate(int $tag_id): ?int;
+
+  public function lastPublicationDate(int $tag_id): ?int;
 
 }

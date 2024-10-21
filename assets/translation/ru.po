@@ -366,3 +366,15 @@ msgstr "Версия сайта"
 
 msgid "Content version"
 msgstr "Версия содержимого"
+
+msgid "@count publication"
+msgid_plural "@count publications"
+msgstr[0] "@count публикация"
+msgstr[1] "@count публикации"
+msgstr[2] "@count публикаций"
+
+msgid "Open the list of publications"
+msgstr "Открыть список публикаций"
+
+msgid "Publications with the @name tag"
+msgstr "Материалы по теме @name"

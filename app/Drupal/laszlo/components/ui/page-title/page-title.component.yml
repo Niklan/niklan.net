@@ -9,4 +9,4 @@ props:
   properties:
     title:
       title: Title
-      type: string
+      type: [integer, number, array, string]

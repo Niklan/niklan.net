@@ -52,7 +52,7 @@ niklan.about_settings:
   path: '/admin/niklan/about'
   defaults:
     _title: 'About settings'
-    _form: 'Drupal\niklan\Form\AboutSettingsForm'
+    _form: 'Drupal\niklan\Form\AboutSettings'
   requirements:
     _permission: 'administer site configuration'
 

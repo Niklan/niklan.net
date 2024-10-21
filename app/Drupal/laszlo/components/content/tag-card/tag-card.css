@@ -1,0 +1,45 @@
+.tag-card {
+  padding: var(--spacing-4);
+  border-radius: var(--spacing-2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s linear;
+  color: var(--color-on-surface);
+  background: var(--color-surface-container);
+  gap: var(--spacing-2);
+
+  &:focus-within,
+  &:hover {
+    background-color: var(--color-surface-container-highest);
+  }
+}
+
+.tag-card__link {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: var(--spacing-4);
+
+  &:active {
+    box-shadow: var(--default-focus-box-shadow);
+  }
+}
+
+.tag-card__title {
+  font: var(--typography-title-medium);
+}
+
+.tag-card__publications-count,
+.tag-card__publications-dates {
+  --icon-wrapper-width: 1rem;
+
+  font: var(--typography-label-medium);
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
