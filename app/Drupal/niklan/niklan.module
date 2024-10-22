@@ -77,8 +77,14 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'more_label' => NULL,
       ],
     ],
-    'niklan_about_page' => [
-      'variables' => [],
+    'niklan_about' => [
+      'variables' => [
+        'photo_uri' => NULL,
+        'heading' => NULL,
+        'subtitle' => NULL,
+        'summary' => NULL,
+        'description' => NULL,
+      ],
     ],
     'niklan_services_page' => [
       'variables' => [],

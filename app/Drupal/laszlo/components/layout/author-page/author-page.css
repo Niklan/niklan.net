@@ -1,0 +1,19 @@
+.author-page {
+  display: grid;
+  gap: var(--spacing-6);
+  grid-template-columns: 1fr 320px;
+}
+
+.author-page__content {
+  background-color: var(--color-surface-container-low);
+  padding: var(--spacing-16) var(--spacing-12);
+  border-radius: var(--spacing-4);
+}
+
+.author-page__navigation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  position: sticky;
+  top: var(--spacing-6);
+}

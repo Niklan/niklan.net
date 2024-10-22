@@ -1,7 +1,7 @@
 ((Drupal, once) => {
 
   function initActiveTrail(settings) {
-    once('main-navigation-item', '[data-navigation-active-trail-pattern]')
+    once('navigation-active-trail', '[data-navigation-active-trail-pattern]')
       .forEach(itemElement => {
         const pattern = itemElement.dataset.navigationActiveTrailPattern;
         const activeTrailClass = itemElement.dataset.navigationActiveTrailClass;

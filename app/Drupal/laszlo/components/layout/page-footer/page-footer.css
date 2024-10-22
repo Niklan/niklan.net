@@ -1,11 +1,11 @@
 .page-footer {
+  display: grid;
+  grid-template-columns: 1fr 300px;
   /* Add extra bottom padding to avoid overlap with nav. */
   padding: var(--spacing-10) 0 calc(var(--spacing-10) * 3) 0;
   color: var(--color-on-surface-variant);
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: var(--spacing-4);
   font: var(--typography-label-large);
+  gap: var(--spacing-4);
 }
 
 .page-footer__main {

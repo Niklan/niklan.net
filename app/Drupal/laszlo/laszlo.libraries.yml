@@ -51,6 +51,13 @@ google.fonts:
         type: external
         minified: true
 
+navigation-active-trail:
+  js:
+    assets/js/navigation-active-trail.js: { }
+  dependencies:
+    - core/drupal
+    - core/once
+
 comment-comment-node-blog-entry-form:
   css:
     theme:

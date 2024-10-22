@@ -15,12 +15,12 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-2);
+  cursor: pointer;
   border-radius: var(--spacing-10);
   background-color: var(--color-surface-container-lowest);
-  cursor: pointer;
 }
 
 .color-scheme input:checked + .color-scheme__option {
-  background-color: var(--color-primary-container);
   color: var(--color-on-primary-container);
+  background-color: var(--color-primary-container);
 }

@@ -1,0 +1,16 @@
+{% do attributes.setAttribute('href', url) %}
+{% do attributes.setAttribute('title', label) %}
+{% do active_trail_pattern ? attributes.setAttribute('data-navigation-active-trail-pattern', active_trail_pattern) %}
+{% do active_trail_pattern ? attributes.setAttribute('data-navigation-active-trail-class', 'author-page-navigation-item--active-trail') %}
+<a{{ attributes.addClass('author-page-navigation-item') }}>
+  {% include 'laszlo:icon' with {
+    attributes: create_attribute({
+      class: 'author-page-navigation-item__icon',
+    }),
+    icon,
+  } only %}
+
+  <span class="author-page-navigation-item__label">
+    {{ label }}
+  </span>
+</a>

@@ -2,7 +2,7 @@ niklan.about:
   path: '/about'
   defaults:
     _title: 'Niklan — freelance Drupal web-developer'
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::about'
+    _controller: '\Drupal\niklan\Controller\About'
   requirements:
     _access: 'TRUE'
 

@@ -1,0 +1,29 @@
+.author-page-navigation-item {
+  padding: var(--spacing-2);
+  background-color: var(--color-surface-variant);
+  border-radius: var(--spacing-3);
+  display: flex;
+  gap: var(--spacing-3);
+  text-decoration: none;
+  color: var(--color-on-surface-variant);
+  align-items: center;
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-primary-fixed);
+    color: var(--color-on-primary-fixed);
+  }
+}
+
+.author-page-navigation-item__icon {
+  width: 3rem;
+  background-color: var(--color-surface-container-low);
+  border-radius: var(--spacing-2);
+  padding: var(--spacing-2);
+  color: var(--color-primary);
+}
+
+.author-page-navigation-item--active-trail {
+  background-color: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}

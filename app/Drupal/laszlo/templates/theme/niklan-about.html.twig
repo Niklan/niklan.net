@@ -1,0 +1,11 @@
+{% embed 'laszlo:author-page' %}
+  {% block children %}
+    {% include 'laszlo:about' with {
+      title: heading,
+      subtitle,
+      summary,
+      description,
+      photo_uri,
+    } only %}
+  {% endblock %}
+{% endembed %}

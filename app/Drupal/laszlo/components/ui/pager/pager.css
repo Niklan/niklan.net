@@ -1,9 +1,9 @@
 .pager__items {
   display: flex;
-  gap: var(--spacing-2);
   align-items: center;
-  list-style: none;
   justify-content: center;
+  list-style: none;
+  gap: var(--spacing-2);
 }
 
 .pager__page {
