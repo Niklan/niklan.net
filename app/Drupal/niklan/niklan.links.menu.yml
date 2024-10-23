@@ -10,12 +10,19 @@ niklan.admin_general:
   route_name: niklan.admin_general
   weight: -10
 
-niklan.about_settings:
-  title: About page
-  description: The about page settings.
-  route_name: niklan.about_settings
+niklan.about.settings:
+  title: About page settings
+  description: Configure an about page with an author biography and photo.
+  route_name: niklan.about.settings
   parent: niklan.admin_general
   weight: 10
+
+niklan.support.settings:
+  title: Support page settings
+  description: Configure a support page with a description and a link to donate.
+  route_name: niklan.support.settings
+  parent: niklan.admin_general
+  weight: 30
 
 niklan.home:
   title: Home

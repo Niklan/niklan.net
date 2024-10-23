@@ -1,10 +1,12 @@
 allowtransparency
+alpinejs
 atrule
+Autoresize
+autoresize
 bazz
 Cravensworth
 Dflydev
 doctag
-Druki
 druki
 flexboxes
 fullscreen
@@ -15,6 +17,7 @@ Inlines
 isabelline
 Laszlo
 laszlo
+Lightbox
 lightbox
 MAILHUB
 Nette

@@ -37,6 +37,7 @@ final readonly class Tag implements ContainerInjectionInterface {
     $view_builder = $this->entityTypeManager->getViewBuilder('node');
 
     return \array_map(
+      // @phpstan-ignore-next-line
       callback: static fn (NodeInterface $node): array => $view_builder->view(
         entity: $node,
         view_mode: 'teaser',

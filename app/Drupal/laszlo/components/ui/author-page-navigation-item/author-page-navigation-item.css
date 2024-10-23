@@ -1,29 +1,29 @@
 .author-page-navigation-item {
-  padding: var(--spacing-2);
-  background-color: var(--color-surface-variant);
-  border-radius: var(--spacing-3);
   display: flex;
-  gap: var(--spacing-3);
+  align-items: center;
+  padding: var(--spacing-2);
   text-decoration: none;
   color: var(--color-on-surface-variant);
-  align-items: center;
+  border-radius: var(--spacing-3);
+  background-color: var(--color-surface-variant);
+  gap: var(--spacing-3);
 
   &:hover,
   &:focus {
-    background-color: var(--color-primary-fixed);
     color: var(--color-on-primary-fixed);
+    background-color: var(--color-primary-fixed);
   }
 }
 
 .author-page-navigation-item__icon {
   width: 3rem;
-  background-color: var(--color-surface-container-low);
-  border-radius: var(--spacing-2);
   padding: var(--spacing-2);
   color: var(--color-primary);
+  border-radius: var(--spacing-2);
+  background-color: var(--color-surface-container-low);
 }
 
 .author-page-navigation-item--active-trail {
-  background-color: var(--color-primary-container);
   color: var(--color-on-primary-container);
+  background-color: var(--color-primary-container);
 }

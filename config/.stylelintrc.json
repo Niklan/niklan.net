@@ -8,6 +8,7 @@
     "../web/**/*"
   ],
   "rules": {
-    "custom-property-pattern": "^_{0,1}[a-z][-a-z0-9]*$"
+    "custom-property-pattern": "^_{0,1}[a-z][-a-z0-9]*$",
+    "color-function-notation": "modern"
   }
 }

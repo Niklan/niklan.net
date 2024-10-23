@@ -5,15 +5,22 @@
 }
 
 .author-page__content {
-  background-color: var(--color-surface-container-low);
+  display: flex;
+  flex-direction: column;
   padding: var(--spacing-16) var(--spacing-12);
   border-radius: var(--spacing-4);
+  background-color: var(--color-surface-container-low);
+  gap: var(--spacing-12);
 }
 
 .author-page__navigation {
+  position: sticky;
+  top: var(--spacing-6);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
-  position: sticky;
-  top: var(--spacing-6);
+}
+
+.author-page__title {
+  font: var(--typography-display-medium);
 }

@@ -8,6 +8,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Contract\Repository\AboutSettings as AboutSettingsInterface;
 use Drupal\niklan\Repository\AboutSettings as AboutSettingsRepository;
@@ -18,13 +19,15 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
   use DependencySerializationTrait;
 
   public function __construct(
-    private AboutSettingsInterface $settingsRepository,
+    private AboutSettingsInterface $settings,
+    private MessengerInterface $messenger,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(AboutSettingsRepository::class),
+      $container->get(MessengerInterface::class),
     );
   }
 
@@ -53,12 +56,16 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
-      ->settingsRepository
+      ->settings
       ->setPhotoMediaId($form_state->getValue(['photo', 'media_id']))
       ->setTitle($form_state->getValue(['content', 'title']))
       ->setSubtitle($form_state->getValue(['content', 'subtitle', 'value']))
       ->setSummary($form_state->getValue(['content', 'summary', 'value']))
       ->setDescription($form_state->getValue(['content', 'description', 'value']));
+
+    $this
+      ->messenger
+      ->addStatus(new TranslatableMarkup('Settings successfully saved.'));
   }
 
   #[\Override]
@@ -76,7 +83,7 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
       '#type' => 'textfield',
       '#title' => new TranslatableMarkup('Title'),
       '#description' => new TranslatableMarkup('The title of the about page.'),
-      '#default_value' => $this->settingsRepository->getTitle(),
+      '#default_value' => $this->settings->getTitle(),
       '#required' => TRUE,
     ];
 
@@ -85,7 +92,7 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
       '#base_type' => 'textfield',
       '#title' => new TranslatableMarkup('Subtitle'),
       '#description' => new TranslatableMarkup('The subtitle of the about page.'),
-      '#default_value' => $this->settingsRepository->getSubtitle(),
+      '#default_value' => $this->settings->getSubtitle(),
       '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
       '#required' => TRUE,
     ];
@@ -94,7 +101,7 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
       '#type' => 'text_format',
       '#title' => new TranslatableMarkup('Summary'),
       '#description' => new TranslatableMarkup('The summary of the about page.'),
-      '#default_value' => $this->settingsRepository->getSummary(),
+      '#default_value' => $this->settings->getSummary(),
       '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
@@ -104,7 +111,7 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
       '#type' => 'text_format',
       '#title' => new TranslatableMarkup('Description'),
       '#description' => new TranslatableMarkup('The description of the about page.'),
-      '#default_value' => $this->settingsRepository->getDescription(),
+      '#default_value' => $this->settings->getDescription(),
       '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
@@ -122,7 +129,7 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
       '#allowed_bundles' => ['image'],
       '#title' => new TranslatableMarkup('Photo'),
       '#description' => new TranslatableMarkup('Media entity that contains a photo.'),
-      '#default_value' => $this->settingsRepository->getPhotoMediaId(),
+      '#default_value' => $this->settings->getPhotoMediaId(),
     ];
   }
 

@@ -1,6 +1,6 @@
 ((Drupal, once) => {
 
-  function initAutoresize(settings) {
+  function initAutoresize() {
     once('textarea-autoresize', '[data-textarea-autoresize]')
       .forEach(componentEl => {
         const textareaEl = componentEl.querySelector('textarea');
@@ -11,7 +11,7 @@
 
         textareaEl.style.height = `${textareaEl.scrollHeight  }px`;
 
-        textareaEl.addEventListener('input', function () {
+        textareaEl.addEventListener('input', () => {
           this.style.height = 'auto';
           this.style.height = `${this.scrollHeight  }px`;
         });

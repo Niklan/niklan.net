@@ -10,7 +10,7 @@ use Drupal\niklan\Contract\Utility\TagStatisticsInterface;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class Tags implements ContainerInjectionInterface {
+final readonly class TagList implements ContainerInjectionInterface {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,

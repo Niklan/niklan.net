@@ -11,7 +11,7 @@
   --_textarea-border-width: var(--textarea-border-width, 1px);
   --_textarea-background-color: var(
     --textarea-background-color,
-    var(--color-surface-container-low)
+    var(--color-surface)
   );
   --_textarea-color: var(--textarea-color, var(--color-on-surface));
   --_textarea-placeholder-color: var(

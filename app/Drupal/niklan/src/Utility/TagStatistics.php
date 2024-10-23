@@ -74,6 +74,7 @@ final class TagStatistics implements TagStatisticsInterface {
       return NULL;
     }
 
+    // @phpstan-ignore-next-line
     return (int) $result->created;
   }
 
@@ -94,6 +95,7 @@ final class TagStatistics implements TagStatisticsInterface {
       return NULL;
     }
 
+    // @phpstan-ignore-next-line
     return (int) $result->created;
   }
 

@@ -16,6 +16,7 @@
 
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
   height: var(--_button-height);
   margin: 0;
   cursor: pointer;

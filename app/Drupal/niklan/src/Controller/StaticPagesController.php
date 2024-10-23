@@ -21,10 +21,4 @@ final class StaticPagesController {
     ];
   }
 
-  public function support(): array {
-    return [
-      '#theme' => 'niklan_support_page',
-    ];
-  }
-
 }

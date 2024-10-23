@@ -6,12 +6,11 @@
     "config/sync/**/*",
     "var/**/*",
     "web/**/*",
-    "vendor/**/*"
+    "vendor/**/*",
+    "app/Drupal/mechanical/**/*"
   ],
   "globals": {
-    "App": true,
-    "Prism": true,
-    "DarkMode": true
+    "ColorScheme": true
   },
   "rules": {
     "prettier/prettier": "off",

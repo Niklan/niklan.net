@@ -63,9 +63,10 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'attributes' => [],
       ],
     ],
-    'niklan_support_page' => [
+    'niklan_support' => [
       'variables' => [
-        'attributes' => [],
+        'body' => NULL,
+        'donate_url' => NULL,
       ],
     ],
     'niklan_last_content' => [

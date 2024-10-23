@@ -119,3 +119,6 @@ services:
   Drupal\niklan\Extension\Twig\ImageDimensionsExtension:
     tags:
       - { name: twig.extension }
+
+  Drupal\niklan\Repository\SupportSettings: {}
+  Drupal\niklan\Contract\Repository\SupportSettings: '@Drupal\niklan\Repository\SupportSettings'

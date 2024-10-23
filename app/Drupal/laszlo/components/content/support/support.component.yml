@@ -1,14 +1,16 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: Author page
+name: Support
 status: experimental
 group: layout
 props:
   type: object
   properties:
-    show_title:
-      title: Show page title
-      type: boolean
-      default: true
-slots:
-  children:
-    title: Children content
+    title:
+      title: Title
+      type: string
+    body:
+      title: Body
+      type: [string, array]
+    donate_url:
+      title: Donate URL
+      type: string

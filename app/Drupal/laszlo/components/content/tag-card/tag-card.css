@@ -1,11 +1,11 @@
 .tag-card {
-  padding: var(--spacing-4);
-  border-radius: var(--spacing-2);
   position: relative;
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-4);
   transition: all 0.25s linear;
   color: var(--color-on-surface);
+  border-radius: var(--spacing-2);
   background: var(--color-surface-container);
   gap: var(--spacing-2);
 
@@ -37,9 +37,9 @@
 .tag-card__publications-dates {
   --icon-wrapper-width: 1rem;
 
-  font: var(--typography-label-medium);
-  color: var(--color-on-surface-variant);
   display: flex;
   align-items: center;
+  color: var(--color-on-surface-variant);
+  font: var(--typography-label-medium);
   gap: var(--spacing-2);
 }

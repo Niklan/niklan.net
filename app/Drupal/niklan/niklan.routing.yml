@@ -6,19 +6,35 @@ niklan.about:
   requirements:
     _access: 'TRUE'
 
+niklan.about.settings:
+  path: '/admin/niklan/about'
+  defaults:
+    _title: 'About settings'
+    _form: 'Drupal\niklan\Form\AboutSettings'
+  requirements:
+    _permission: 'administer site configuration'
+
 niklan.support:
   path: '/support'
   defaults:
     _title: 'Support'
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::support'
+    _controller: '\Drupal\niklan\Controller\Support'
   requirements:
     _access: 'TRUE'
+
+niklan.support.settings:
+  path: '/admin/niklan/support'
+  defaults:
+    _title: 'Support settings'
+    _form: '\Drupal\niklan\Form\SupportSettings'
+  requirements:
+    _permission: 'administer site configuration'
 
 niklan.services:
   path: '/services'
   defaults:
     _title: "Let's Work Together"
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::services'
+    _controller: '\Drupal\niklan\Controller\Support'
   requirements:
     _access: 'TRUE'
 
@@ -47,14 +63,6 @@ niklan.admin_general:
     _title: 'General settings'
   requirements:
     _permission: 'access administration pages'
-
-niklan.about_settings:
-  path: '/admin/niklan/about'
-  defaults:
-    _title: 'About settings'
-    _form: 'Drupal\niklan\Form\AboutSettings'
-  requirements:
-    _permission: 'administer site configuration'
 
 niklan.blog_list:
   path: '/blog'
@@ -86,7 +94,7 @@ niklan.tags:
   methods: [GET]
   defaults:
     _title: 'Tags'
-    _controller: '\Drupal\niklan\Controller\Tags'
+    _controller: '\Drupal\niklan\Controller\TagList'
   requirements:
     _permission: 'access content'
 

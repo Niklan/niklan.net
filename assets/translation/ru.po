@@ -378,3 +378,6 @@ msgstr "Открыть список публикаций"
 
 msgid "Publications with the @name tag"
 msgstr "Материалы по теме @name"
+
+msgid "Donate"
+msgstr "Пожертвовать"

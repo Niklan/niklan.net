@@ -25,18 +25,22 @@
 }
 
 .about__photo {
+  border-radius: var(--spacing-4);
   background: var(--color-primary-container);
   background-image: radial-gradient(
       circle at top right,
       var(--color-on-primary-fixed),
       transparent
     ),
-    radial-gradient(circle at bottom left, var(--color-on-primary-fixed-variant), transparent);
-  border-radius: var(--spacing-4);
+    radial-gradient(
+      circle at bottom left,
+      var(--color-on-primary-fixed-variant),
+      transparent
+    );
   box-shadow: var(--elevation-1);
 }
 
 .about__cta {
-  width: 100%;
   justify-content: center;
+  width: 100%;
 }

@@ -58,14 +58,6 @@ oembed-video:
     - core/drupal
     - core/once
 
-code-block:
-  js:
-    assets/js/code-block.js: { }
-  dependencies:
-    - core/drupal
-    - core/once
-    - niklan/highlight.js
-
 content-editing.toolbar:
   css:
     theme:

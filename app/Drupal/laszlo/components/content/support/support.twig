@@ -1,0 +1,26 @@
+<div{{ attributes.addClass('support') }}>
+  <h1 class="support__title">{{ title }}</h1>
+
+  <div class="prose support__body">
+    {{ body }}
+  </div>
+
+  <footer class="support__footer">
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['support__cta'],
+      }),
+      component: 'a',
+      href: donate_url,
+      variant: 'contained',
+      size: 'large',
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'wallet-money' } only %}
+      {% endblock %}
+      {% block children %}
+        {{ 'Donate'|t }}
+      {% endblock %}
+    {% endembed %}
+  </footer>
+</div>
