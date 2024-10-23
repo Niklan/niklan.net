@@ -10,7 +10,7 @@ niklan.about.settings:
   path: '/admin/niklan/about'
   defaults:
     _title: 'About settings'
-    _form: 'Drupal\niklan\Form\AboutSettings'
+    _form: '\Drupal\niklan\Form\AboutSettingsForm'
   requirements:
     _permission: 'administer site configuration'
 
@@ -18,7 +18,7 @@ niklan.support:
   path: '/support'
   defaults:
     _title: 'Support'
-    _controller: '\Drupal\niklan\Controller\Support'
+    _controller: '\Drupal\niklan\Form\SupportSettingsForm'
   requirements:
     _access: 'TRUE'
 

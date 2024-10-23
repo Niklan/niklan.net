@@ -6,11 +6,11 @@ services:
     parent: logger.channel_base
     arguments: ['niklan']
 
-  Drupal\niklan\Repository\AboutSettings: {}
-  Drupal\niklan\Contract\Repository\AboutSettings: '@Drupal\niklan\Repository\AboutSettings'
+  Drupal\niklan\Repository\AboutSettingsKeyValueStore: {}
+  Drupal\niklan\Contract\Repository\AboutSettings: '@Drupal\niklan\Repository\AboutSettingsKeyValueStore'
 
-  Drupal\niklan\Utility\TagStatistics: {}
-  Drupal\niklan\Contract\Utility\TagStatisticsInterface: '@Drupal\niklan\Utility\TagStatistics'
+  \Drupal\niklan\Utility\DatabaseTagUsageStatistics: {}
+  Drupal\niklan\Contract\Utility\TagUsageStatistics: '@Drupal\niklan\Utility\DatabaseTagUsageStatistics'
 
   niklan.event_subscriber.term_page_build:
     class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
@@ -120,5 +120,5 @@ services:
     tags:
       - { name: twig.extension }
 
-  Drupal\niklan\Repository\SupportSettings: {}
-  Drupal\niklan\Contract\Repository\SupportSettings: '@Drupal\niklan\Repository\SupportSettings'
+  Drupal\niklan\Repository\SupportSettingsKeyValueStore: {}
+  Drupal\niklan\Contract\Repository\SupportSettings: '@Drupal\niklan\Repository\SupportSettingsKeyValueStore'

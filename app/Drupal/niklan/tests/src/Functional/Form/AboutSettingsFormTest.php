@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormState;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Form\AboutSettings;
+use Drupal\niklan\Form\AboutSettingsForm;
 use Drupal\niklan\Repository\AboutSettingsInterface;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
@@ -20,7 +20,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 /**
  * Provides a test for about settings form.
  *
- * @coversDefaultClass \Drupal\niklan\Form\AboutSettings
+ * @coversDefaultClass \Drupal\niklan\Form\AboutSettingsForm
  */
 final class AboutSettingsFormTest extends NiklanTestBase {
 
@@ -52,7 +52,7 @@ final class AboutSettingsFormTest extends NiklanTestBase {
         'responsive_image_style' => 'foo',
       ],
     ]);
-    $this->formBuilder->submitForm(AboutSettings::class, $form_state);
+    $this->formBuilder->submitForm(AboutSettingsForm::class, $form_state);
 
     self::assertCount(0, $form_state->getErrors());
     self::assertEquals('1', $this->settings->getPhotoMediaId());
@@ -63,7 +63,7 @@ final class AboutSettingsFormTest extends NiklanTestBase {
 
     $form = $this
       ->formBuilder
-      ->buildForm(AboutSettings::class, $form_state);
+      ->buildForm(AboutSettingsForm::class, $form_state);
 
     $photo_media_id_default_value = $form['photo']['media_id']['#default_value'];
     self::assertInstanceOf(

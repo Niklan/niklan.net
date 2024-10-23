@@ -6,10 +6,10 @@ namespace Drupal\niklan\Repository;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
-use Drupal\niklan\Contract\Repository\SupportSettings as SupportSettingsInterface;
+use Drupal\niklan\Contract\Repository\SupportSettings;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-final readonly class SupportSettings implements SupportSettingsInterface {
+final readonly class SupportSettingsKeyValueStore implements SupportSettings {
 
   protected const string STORE_ID = 'niklan.support_settings';
 

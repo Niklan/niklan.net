@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Contract\Utility\TagStatisticsInterface;
+use Drupal\niklan\Contract\Utility\TagUsageStatistics;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessTaxonomyTermTags implements ContainerInjectionInterface {
 
   public function __construct(
-    private TagStatisticsInterface $statistics,
+    private TagUsageStatistics $statistics,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(TagStatisticsInterface::class),
+      $container->get(TagUsageStatistics::class),
     );
   }
 

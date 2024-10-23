@@ -10,22 +10,22 @@ use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Contract\Repository\SupportSettings as SupportSettingsInterface;
+use Drupal\niklan\Contract\Repository\SupportSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class SupportSettings implements FormInterface, ContainerInjectionInterface {
+final class SupportSettingsForm implements FormInterface, ContainerInjectionInterface {
 
   use DependencySerializationTrait;
 
   public function __construct(
-    private SupportSettingsInterface $settings,
+    private SupportSettings $settings,
     private MessengerInterface $messenger,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(SupportSettingsInterface::class),
+      $container->get(SupportSettings::class),
       $container->get(MessengerInterface::class),
     );
   }
@@ -44,7 +44,7 @@ final class SupportSettings implements FormInterface, ContainerInjectionInterfac
       '#title' => new TranslatableMarkup('Body'),
       '#description' => new TranslatableMarkup('The body of the support page.'),
       '#default_value' => $this->settings->getBody(),
-      '#allowed_formats' => [SupportSettingsInterface::TEXT_FORMAT],
+      '#allowed_formats' => [SupportSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];

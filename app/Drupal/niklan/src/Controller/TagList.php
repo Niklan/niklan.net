@@ -6,7 +6,7 @@ namespace Drupal\niklan\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Contract\Utility\TagStatisticsInterface;
+use Drupal\niklan\Contract\Utility\TagUsageStatistics;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -14,14 +14,14 @@ final readonly class TagList implements ContainerInjectionInterface {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
-    private TagStatisticsInterface $statistics,
+    private TagUsageStatistics $statistics,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(EntityTypeManagerInterface::class),
-      $container->get(TagStatisticsInterface::class),
+      $container->get(TagUsageStatistics::class),
     );
   }
 

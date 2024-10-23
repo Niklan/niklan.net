@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Contract\Utility;
 
-interface TagStatisticsInterface {
+interface TagUsageStatistics {
 
   /**
    * @return \stdClass[]

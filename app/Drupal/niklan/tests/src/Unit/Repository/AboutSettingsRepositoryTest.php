@@ -6,7 +6,7 @@ namespace Drupal\Tests\niklan\Unit\Repository;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
-use Drupal\niklan\Repository\AboutSettings;
+use Drupal\niklan\Repository\AboutSettingsKeyValueStore;
 use Drupal\Tests\UnitTestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -14,7 +14,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 /**
  * Provides a test for about settings repository.
  *
- * @coversDefaultClass \Drupal\niklan\Repository\AboutSettings
+ * @coversDefaultClass \Drupal\niklan\Repository\AboutSettingsKeyValueStore
  */
 final class AboutSettingsRepositoryTest extends UnitTestCase {
 
@@ -36,7 +36,7 @@ final class AboutSettingsRepositoryTest extends UnitTestCase {
    * Tests that repository works as expected.
    */
   public function testRepository(): void {
-    $repository = new AboutSettings($this->keyValueFactory);
+    $repository = new AboutSettingsKeyValueStore($this->keyValueFactory);
 
     self::assertNull($repository->getPhotoMediaId());
     self::assertNull($repository->getPhotoResponsiveImageStyleId());

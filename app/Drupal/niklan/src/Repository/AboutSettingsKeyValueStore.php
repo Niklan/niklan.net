@@ -6,10 +6,10 @@ namespace Drupal\niklan\Repository;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
-use Drupal\niklan\Contract\Repository\AboutSettings as AboutSettingsInterface;
+use Drupal\niklan\Contract\Repository\AboutSettings;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-final class AboutSettings implements AboutSettingsInterface {
+final class AboutSettingsKeyValueStore implements AboutSettings {
 
   protected const string STORE_ID = 'niklan.about_settings';
 

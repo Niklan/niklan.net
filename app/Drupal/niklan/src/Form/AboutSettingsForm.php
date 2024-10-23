@@ -11,10 +11,10 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Contract\Repository\AboutSettings as AboutSettingsInterface;
-use Drupal\niklan\Repository\AboutSettings as AboutSettingsRepository;
+use Drupal\niklan\Repository\AboutSettingsKeyValueStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class AboutSettings implements FormInterface, ContainerInjectionInterface {
+final class AboutSettingsForm implements FormInterface, ContainerInjectionInterface {
 
   use DependencySerializationTrait;
 
@@ -26,7 +26,7 @@ final class AboutSettings implements FormInterface, ContainerInjectionInterface 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(AboutSettingsRepository::class),
+      $container->get(AboutSettingsKeyValueStore::class),
       $container->get(MessengerInterface::class),
     );
   }

@@ -6,10 +6,10 @@ namespace Drupal\niklan\Utility;
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Contract\Utility\TagStatisticsInterface;
+use Drupal\niklan\Contract\Utility\TagUsageStatistics;
 use Drupal\node\NodeInterface;
 
-final class TagStatistics implements TagStatisticsInterface {
+final class DatabaseTagUsageStatistics implements TagUsageStatistics {
 
   public function __construct(
     private Connection $connection,
