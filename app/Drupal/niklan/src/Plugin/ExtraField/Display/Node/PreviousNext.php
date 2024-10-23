@@ -16,6 +16,8 @@ use Drupal\node\NodeInterface;
  *     "node.*",
  *   }
  * )
+ *
+ * @deprecated Remove after new theme is deployed.
  */
 final class PreviousNext extends ExtraFieldDisplayBase {
 

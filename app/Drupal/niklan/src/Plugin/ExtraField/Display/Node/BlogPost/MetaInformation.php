@@ -22,6 +22,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *     "node.blog_entry",
  *   }
  * )
+ *
+ * @deprecated Remove after a new theme is deployed
  */
 final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
 

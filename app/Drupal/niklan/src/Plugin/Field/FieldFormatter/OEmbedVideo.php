@@ -27,19 +27,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 final class OEmbedVideo extends FormatterBase {
 
-  /**
-   * The responsive image style storage.
-   */
   protected EntityStorageInterface $responsiveImageStyleStorage;
-
-  /**
-   * The link generator.
-   */
   protected LinkGeneratorInterface $linkGenerator;
-
-  /**
-   * The current user.
-   */
   protected AccountInterface $currentUser;
 
   #[\Override]
@@ -60,6 +49,9 @@ final class OEmbedVideo extends FormatterBase {
     return $instance;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   #[\Override]
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::settingsForm($form, $form_state);
@@ -106,8 +98,9 @@ final class OEmbedVideo extends FormatterBase {
 
     if ($responsive_image_style) {
       $summary[] = (string) new TranslatableMarkup(
-        'Responsive image style: @responsive_image_style',
-        ['@responsive_image_style' => $responsive_image_style->label()],
+        // phpcs:disable Drupal.Semantics.FunctionT.NotLiteralString
+        string: 'Responsive image style: @responsive_image_style',
+        arguments: ['@responsive_image_style' => $responsive_image_style->label()],
       );
     }
     else {
@@ -140,6 +133,10 @@ final class OEmbedVideo extends FormatterBase {
       return FALSE;
     }
 
+    if (!$field_definition->getTargetBundle()) {
+      return FALSE;
+    }
+
     $media_type = MediaType::load($field_definition->getTargetBundle());
 
     if (!$media_type instanceof MediaTypeInterface) {
@@ -152,7 +149,9 @@ final class OEmbedVideo extends FormatterBase {
     return $is_oembed && $is_video;
   }
 
-  #[\Override]
+  /**
+   * {@inheritdoc}
+   */
   public static function defaultSettings(): array {
     return [
       'responsive_image_style' => '',

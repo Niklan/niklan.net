@@ -1,0 +1,10 @@
+.support {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.support__cta {
+  justify-content: center;
+  width: 100%;
+}

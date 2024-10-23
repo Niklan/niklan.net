@@ -1,0 +1,8 @@
+@layer element {
+  mark {
+    padding: var(--spacing-1);
+    color: var(--color-on-primary-container);
+    border-radius: var(--spacing-1);
+    background-color: var(--color-primary-container);
+  }
+}

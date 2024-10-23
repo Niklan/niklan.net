@@ -1,0 +1,18 @@
+.code-block {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-6);
+  border: 1px solid var(--color-surface-dim);
+  border-radius: var(--spacing-2);
+  background-color: var(--color-surface);
+  gap: var(--spacing-4);
+  font: var(--typography-body-small);
+}
+
+.code-block__header {
+  padding-bottom: var(--spacing-4);
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-surface-dim);
+  font: var(--typography-title-small);
+  font-family: var(--font-monospace);
+}

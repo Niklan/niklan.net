@@ -1,0 +1,5 @@
+{% if url %}
+  {% set tag = 'a' %}
+  {% do attributes.setAttribute('href', url) %}
+{% endif %}
+<{{ tag }}{{ attributes.addClass('breadcrumb-item') }}>{{ label }}</{{ tag }}>

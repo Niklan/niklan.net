@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Previous next link
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - type
+    - text
+    - href
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
+    type:
+      title: Type
+      type: string
+      enum:
+        - previous
+        - next
+    text:
+      title: Text
+      type: string
+    href:
+      title: Link
+      type: string

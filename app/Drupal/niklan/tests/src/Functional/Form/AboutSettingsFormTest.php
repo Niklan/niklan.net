@@ -10,7 +10,7 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\Form\AboutSettingsForm;
-use Drupal\niklan\Repository\AboutSettingsRepositoryInterface;
+use Drupal\niklan\Repository\AboutSettingsInterface;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
 use Drupal\Tests\niklan\Functional\NiklanTestBase;
@@ -36,7 +36,7 @@ final class AboutSettingsFormTest extends NiklanTestBase {
   /**
    * The about settings repository.
    */
-  protected ?AboutSettingsRepositoryInterface $settings;
+  protected ?AboutSettingsInterface $settings;
 
   /**
    * Tests that form works as expected.

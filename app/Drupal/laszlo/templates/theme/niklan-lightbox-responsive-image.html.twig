@@ -1,0 +1,9 @@
+{% embed 'laszlo:lightbox' with {
+  uri,
+  size,
+  responsive_image,
+} only %}
+  {% block thumbnail %}
+    {{ responsive_image }}
+  {% endblock %}
+{% endembed %}

@@ -1,0 +1,22 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: About
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    title:
+      title: Title
+      type: string
+    subtitle:
+      title: Subtitle
+      type: [string, array]
+    summary:
+      title: Summary
+      type: [string, array]
+    description:
+      title: Description
+      type: [string, array]
+    photo_uri:
+      title: Photo URI
+      type: [string, 'null']

@@ -1,0 +1,22 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Tag Card
+status: experimental
+group: content
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+    url:
+      title: URL
+      type: string
+    publications_count:
+      type: ['null', integer]
+      title: Publications count
+    first_publication_date:
+      type: ['null', string, integer]
+      title: First publication date
+    last_publication_date:
+      type: ['null', string, integer]
+      title: Last publication date

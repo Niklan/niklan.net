@@ -1,0 +1,80 @@
+{% set links = {
+  'mail': 'mailto:?subject=' ~ title ~ '&body=' ~ url,
+  'telegram': 'https://telegram.me/share/url?url=' ~ url ~ '&text=' ~ title,
+  'twitter-x': 'https://x.com/intent/tweet?url=' ~ url ~ '&text=' ~ title,
+  'vk': 'https://vk.com/share.php?url=' ~ url ~ '&title=' ~ title,
+  'facebook': 'https://facebook.com/sharer/sharer.php?u=' ~ url,
+  'youtube': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+} %}
+{% do attributes.setAttribute('x-data', '{ copied: false }') %}
+<div{{ attributes.addClass('share-dialog') }}>
+  <div class="share-dialog__section">
+    {% embed 'laszlo:form-element' with {
+      attributes: create_attribute({
+        'class': 'share-dialog__url',
+      }),
+      children_attributes: create_attribute({
+        'class': 'share-dialog__copy-element',
+      }),
+      url,
+      size: 'large',
+    } only %}
+      {% block children %}
+        {% embed 'laszlo:text-input' with {
+          input_attributes: create_attribute({
+            'type': 'text',
+            'value': url,
+            'readonly': 'readonly',
+          }),
+          full_width: true,
+          size,
+        } only %}
+          {% block end_decorator %}
+            <template x-if="copied">
+              {% include 'laszlo:icon' with {
+                icon: 'clipboard-check',
+                attributes: create_attribute({
+                  'class': 'share-dialog__copied',
+                }),
+              } only %}
+            </template>
+          {% endblock %}
+        {% endembed %}
+        {% embed 'laszlo:button' with {
+          attributes: create_attribute({
+            'class': ['share-dialog__copy'],
+            'aria-label': 'Copy URL'|t,
+            '@click.passive': 'navigator.clipboard.writeText(\'' ~ url ~ '\'); copied = true; setTimeout(() => copied = false, 3000);',
+          }),
+          variant: 'contained',
+          type: 'submit',
+          size,
+        } only %}
+          {% block start_icon %}
+            {% include 'laszlo:icon' with { icon: 'copy' } only %}
+          {% endblock %}
+        {% endembed %}
+      {% endblock %}
+    {% endembed %}
+  </div>
+
+  <div class="share-dialog__links">
+    {% for type, href in links %}
+      {% embed 'laszlo:button' with {
+        attributes: create_attribute({
+          'class': ['share-dialog__link'],
+          'aria-label': 'Share in @type'|t({'@type': type}),
+          'target': '_blank',
+        }),
+        variant: 'contained',
+        color: 'primary',
+        href,
+        icon: type,
+      } only %}
+        {% block start_icon %}
+          {% include 'laszlo:icon' with { icon } only %}
+        {% endblock %}
+      {% endembed %}
+    {% endfor %}
+  </div>
+</div>

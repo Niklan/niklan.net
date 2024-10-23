@@ -1,0 +1,16 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Status messages
+status: experimental
+group: molecules
+props:
+  type: object
+  required:
+    - messages
+  properties:
+    messages:
+      title: Messages list
+      description: An array with messages.
+      type: array
+libraryOverrides:
+  dependencies:
+    - niklan/alpinejs

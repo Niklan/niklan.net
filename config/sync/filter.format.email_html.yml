@@ -6,5 +6,5 @@ _core:
   default_config_hash: u5MXordtBE3SIs1x4qEUEBUFctQ0jjSn2vbPtgxvXuM
 name: 'Электронная почта в формате HTML'
 format: email_html
-weight: 0
+weight: -7
 filters: {  }

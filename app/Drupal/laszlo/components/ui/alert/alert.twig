@@ -1,0 +1,33 @@
+{%
+  set switch = {
+    'note': {
+      'icon': 'info',
+      'label': 'Note'|t,
+    },
+    'tip': {
+      'icon': 'lightbulb',
+      'label': 'Tip'|t,
+    },
+    'important': {
+      'icon': 'warning',
+      'label': 'Important'|t,
+    },
+    'warning': {
+      'icon': 'warning',
+      'label': 'Warning'|t,
+    },
+    'caution': {
+      'icon': 'warning',
+      'label': 'Caution'|t,
+    }
+  }
+%}
+<div{{ attributes.addClass('alert', 'alert--' ~ type|clean_class) }}>
+  <div class="alert__heading">
+    {% include 'laszlo:icon' with { icon: switch[type].icon } only %}
+    {% block heading %}{{ switch[type].label }}{% endblock %}
+  </div>
+  <div class="prose alert__content">
+    {% block content %}{% endblock %}
+  </div>
+</div>

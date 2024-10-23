@@ -4,33 +4,31 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Form;
 
-use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
+use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\media\MediaInterface;
-use Drupal\media\MediaStorage;
-use Drupal\niklan\Repository\AboutSettingsRepositoryInterface;
+use Drupal\niklan\Contract\Repository\AboutSettings as AboutSettingsInterface;
+use Drupal\niklan\Repository\AboutSettingsKeyValueStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class AboutSettingsForm extends FormBase {
+final class AboutSettingsForm implements FormInterface, ContainerInjectionInterface {
 
-  protected MediaStorage $mediaStorage;
-  protected ConfigEntityStorageInterface $responsiveImageStyleStorage;
-  protected AboutSettingsRepositoryInterface $settingsRepository;
+  use DependencySerializationTrait;
+
+  public function __construct(
+    private AboutSettingsInterface $settings,
+    private MessengerInterface $messenger,
+  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
-    $entity_type_manager = $container->get('entity_type.manager');
-
-    $instance = new self();
-    $instance->settingsRepository = $container
-      ->get('niklan.repository.about_settings');
-    $instance->mediaStorage = $entity_type_manager->getStorage('media');
-    $instance->responsiveImageStyleStorage = $entity_type_manager
-      ->getStorage('responsive_image_style');
-
-    return $instance;
+    return new self(
+      $container->get(AboutSettingsKeyValueStore::class),
+      $container->get(MessengerInterface::class),
+    );
   }
 
   #[\Override]
@@ -42,41 +40,8 @@ final class AboutSettingsForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['#tree'] = TRUE;
 
-    $form['photo'] = [
-      '#type' => 'fieldset',
-      '#title' => new TranslatableMarkup('Photo'),
-    ];
-
-    $default_image = NULL;
-    $photo_media_id = $this->settingsRepository->getPhotoMediaId();
-
-    if ($photo_media_id) {
-      $image_media = $this->mediaStorage->load($photo_media_id);
-
-      if ($image_media instanceof MediaInterface) {
-        $default_image = $image_media;
-      }
-    }
-
-    $form['photo']['media_id'] = [
-      '#type' => 'entity_autocomplete',
-      '#target_type' => 'media',
-      '#selection_settings' => [
-        'target_bundles' => ['image'],
-      ],
-      '#title' => new TranslatableMarkup('Photo'),
-      '#description' => new TranslatableMarkup(
-        'Media entity that contains a photo.',
-      ),
-      '#default_value' => $default_image,
-    ];
-
-    $form['photo']['responsive_image_style'] = [
-      '#type' => 'select',
-      '#options' => $this->getResponsiveImageStyleOptions(),
-      '#default_value' => $this->settingsRepository->getPhotoResponsiveImageStyleId(),
-      '#title' => new TranslatableMarkup('Photo image style'),
-    ];
+    $this->buildPhotoSettings($form, $form_state);
+    $this->buildContentSettings($form, $form_state);
 
     $form['actions']['#type'] = 'actions';
     $form['actions']['save'] = [
@@ -90,24 +55,82 @@ final class AboutSettingsForm extends FormBase {
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $responsive_image_style_id = $form_state->getValue([
-      'photo',
-      'responsive_image_style',
-    ]);
-    $this->settingsRepository
+    $this
+      ->settings
       ->setPhotoMediaId($form_state->getValue(['photo', 'media_id']))
-      ->setPhotoResponsiveImageStyleId($responsive_image_style_id);
+      ->setTitle($form_state->getValue(['content', 'title']))
+      ->setSubtitle($form_state->getValue(['content', 'subtitle', 'value']))
+      ->setSummary($form_state->getValue(['content', 'summary', 'value']))
+      ->setDescription($form_state->getValue(['content', 'description', 'value']));
+
+    $this
+      ->messenger
+      ->addStatus(new TranslatableMarkup('Settings successfully saved.'));
   }
 
-  protected function getResponsiveImageStyleOptions(): array {
-    $responsive_image_styles = $this->responsiveImageStyleStorage->loadMultiple();
-    $responsive_image_style_options = [];
+  #[\Override]
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
+    // Not needed.
+  }
 
-    foreach ($responsive_image_styles as $responsive_image_style) {
-      $responsive_image_style_options[$responsive_image_style->id()] = $responsive_image_style->label();
-    }
+  public function buildContentSettings(array &$form, FormStateInterface $form_state): void {
+    $form['content'] = [
+      '#type' => 'fieldset',
+      '#title' => new TranslatableMarkup('Content'),
+    ];
 
-    return $responsive_image_style_options;
+    $form['content']['title'] = [
+      '#type' => 'textfield',
+      '#title' => new TranslatableMarkup('Title'),
+      '#description' => new TranslatableMarkup('The title of the about page.'),
+      '#default_value' => $this->settings->getTitle(),
+      '#required' => TRUE,
+    ];
+
+    $form['content']['subtitle'] = [
+      '#type' => 'text_format',
+      '#base_type' => 'textfield',
+      '#title' => new TranslatableMarkup('Subtitle'),
+      '#description' => new TranslatableMarkup('The subtitle of the about page.'),
+      '#default_value' => $this->settings->getSubtitle(),
+      '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
+      '#required' => TRUE,
+    ];
+
+    $form['content']['summary'] = [
+      '#type' => 'text_format',
+      '#title' => new TranslatableMarkup('Summary'),
+      '#description' => new TranslatableMarkup('The summary of the about page.'),
+      '#default_value' => $this->settings->getSummary(),
+      '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
+      '#rows' => 3,
+      '#required' => TRUE,
+    ];
+
+    $form['content']['description'] = [
+      '#type' => 'text_format',
+      '#title' => new TranslatableMarkup('Description'),
+      '#description' => new TranslatableMarkup('The description of the about page.'),
+      '#default_value' => $this->settings->getDescription(),
+      '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
+      '#rows' => 3,
+      '#required' => TRUE,
+    ];
+  }
+
+  private function buildPhotoSettings(array &$form, FormStateInterface $form_state): void {
+    $form['photo'] = [
+      '#type' => 'fieldset',
+      '#title' => new TranslatableMarkup('Photo'),
+    ];
+
+    $form['photo']['media_id'] = [
+      '#type' => 'media_library',
+      '#allowed_bundles' => ['image'],
+      '#title' => new TranslatableMarkup('Photo'),
+      '#description' => new TranslatableMarkup('Media entity that contains a photo.'),
+      '#default_value' => $this->settings->getPhotoMediaId(),
+    ];
   }
 
 }

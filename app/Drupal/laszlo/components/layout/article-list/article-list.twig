@@ -1,0 +1,11 @@
+<section{{ attributes.addClass('article-list') }}>
+  <div class="article-list__items">
+    {% block items %}{% endblock %}
+  </div>
+
+  {% if pager %}
+    <footer class="article-list__pager">
+      {% block pager %}{% endblock %}
+    </footer>
+  {% endif %}
+</section>

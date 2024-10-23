@@ -8,6 +8,9 @@ use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
+/**
+ * @deprecated Remove after new theme is deployed.
+ */
 #[Block(
   id: 'niklan_copyright',
   admin_label: new TranslatableMarkup('Copyright'),

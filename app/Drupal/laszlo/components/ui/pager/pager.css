@@ -1,0 +1,15 @@
+.pager__items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  gap: var(--spacing-2);
+}
+
+.pager__page {
+  --button-height: 2rem;
+  --button-padding-inline: 0;
+
+  aspect-ratio: 1;
+  justify-content: center;
+}

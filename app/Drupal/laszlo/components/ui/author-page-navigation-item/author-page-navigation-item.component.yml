@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Author page navigation item
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - label
+    - url
+  properties:
+    label:
+      title: Label
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-reference
+    icon:
+      title: Icon
+      type: [string, 'null']
+    active_trail_pattern:
+      title: Active trail pattern
+      type: ['null', string]
+libraryOverrides:
+  dependencies:
+    - laszlo/navigation-active-trail

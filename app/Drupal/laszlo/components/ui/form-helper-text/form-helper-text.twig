@@ -1,0 +1,7 @@
+{%
+  set classes = [
+    'form-helper-text',
+  ]
+%}
+{% do attributes.addClass(classes) %}
+<div{{ attributes }}>{% block children %}{% endblock %}</div>

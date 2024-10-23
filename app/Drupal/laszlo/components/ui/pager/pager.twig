@@ -1,0 +1,110 @@
+{% set show_first_last = show_first_last ?? true %}
+{% set show_previous_next = show_previous_next ?? true %}
+{% do attributes.addClass('pager') %}
+<nav{{ attributes }}>
+  <ul class="pager__items">
+    {% if show_first_last and items.first %}
+      <li class="pager__item pager__item--first">
+        {% embed 'laszlo:button' with {
+          attributes: create_attribute({
+            'class': ['pager__page'],
+            'title': 'Go to first page'|t,
+            'aria-label': 'Go to first page'|t,
+          }),
+          component: 'a',
+          href: items.first.href,
+          variant: 'text',
+        } only %}
+          {% block start_icon %}
+            {% include 'laszlo:icon' with { icon: 'arrow-left-outline-bold' } only %}
+          {% endblock %}
+        {% endembed %}
+      </li>
+    {% endif %}
+
+    {% if show_previous_next and items.previous %}
+      <li class="pager__item pager__item--previous">
+        {% embed 'laszlo:button' with {
+          attributes: create_attribute({
+            'class': ['pager__page'],
+            'title': 'Go to previous page'|t,
+            'aria-label': 'Go to previous page'|t,
+            'rel': 'prev',
+          }),
+          component: 'a',
+          href: items.previous.href,
+          variant: 'text',
+        } only %}
+          {% block start_icon %}
+            {% include 'laszlo:icon' with { icon: 'arrow-left-outline-double' } only %}
+          {% endblock %}
+        {% endembed %}
+      </li>
+    {% endif %}
+
+    {% for key, item in items.pages %}
+      <li
+        class="pager__item{{ current_page == key ? ' pager__item--active' : '' }}">
+        {% if current_page == key %}
+          {% set title = 'Current page'|t %}
+        {% else %}
+          {% set title = 'Go to page @key'|t({'@key': key}) %}
+        {% endif %}
+        {% embed 'laszlo:button' with {
+          attributes: create_attribute({
+            'class': ['pager__page'],
+            'title': title,
+            'aria-label': title,
+          }),
+          component: 'a',
+          href: item.href,
+          variant: 'contained',
+          color: current_page == key ? 'primary' : 'secondary',
+          value: key,
+        } only %}
+          {% block children %}{{ value }}{% endblock %}
+        {% endembed %}
+      </li>
+    {% endfor %}
+
+    {% if show_previous_next and items.next %}
+      <li class="pager__item pager__item--next">
+        {% embed 'laszlo:button' with {
+          attributes: create_attribute({
+            'class': ['pager__page'],
+            'title': 'Go to next page'|t,
+            'aria-label': 'Go to next page'|t,
+            'rel': 'next',
+          }),
+          component: 'a',
+          href: items.next.href,
+          variant: 'contained',
+          variant: 'text',
+        } only %}
+          {% block end_icon %}
+            {% include 'laszlo:icon' with { icon: 'arrow-right-outline-double' } only %}
+          {% endblock %}
+        {% endembed %}
+      </li>
+    {% endif %}
+
+    {% if show_first_last and items.last %}
+      <li class="pager__item pager__item--last">
+        {% embed 'laszlo:button' with {
+          attributes: create_attribute({
+            'class': ['pager__page'],
+            'title': 'Go to last page'|t,
+            'aria-label': 'Go to last page'|t,
+          }),
+          component: 'a',
+          href: items.last.href,
+          variant: 'text',
+        } only %}
+          {% block start_icon %}
+            {% include 'laszlo:icon' with { icon: 'arrow-right-outline-bold' } only %}
+          {% endblock %}
+        {% endembed %}
+      </li>
+    {% endif %}
+  </ul>
+</nav>

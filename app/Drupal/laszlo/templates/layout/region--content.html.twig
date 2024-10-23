@@ -1,0 +1,7 @@
+{% if content %}
+  {% embed 'laszlo:main-content' with { content } only %}
+    {% block children %}
+      {{ content }}
+    {% endblock %}
+  {% endembed %}
+{% endif %}

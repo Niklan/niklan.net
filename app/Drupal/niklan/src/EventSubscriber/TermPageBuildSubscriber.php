@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\EventSubscriber;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\niklan\Controller\TagController;
-use Drupal\niklan\Controller\TagControllerInterface;
+use Drupal\niklan\Controller\Tag;
 use Drupal\taxonomy_custom_controller\Event\TaxonomyCustomControllerEvents;
 use Drupal\taxonomy_custom_controller\Event\TermPageBuildEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,9 +25,9 @@ final class TermPageBuildSubscriber implements EventSubscriberInterface {
 
     $controller = $this
       ->classResolver
-      ->getInstanceFromDefinition(TagController::class);
-    \assert($controller instanceof TagControllerInterface);
-    $event->setBuildArray($controller->page($taxonomy_term));
+      ->getInstanceFromDefinition(Tag::class);
+    \assert($controller instanceof Tag);
+    $event->setBuildArray($controller($taxonomy_term));
   }
 
   #[\Override]

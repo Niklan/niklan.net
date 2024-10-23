@@ -1,6 +1,6 @@
 uuid: 27c02a2f-48c9-49a7-9806-c8c3f30e6f51
 langcode: ru
-status: true
+status: false
 dependencies:
   module:
     - editor

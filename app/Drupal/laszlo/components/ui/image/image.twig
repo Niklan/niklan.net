@@ -1,0 +1,15 @@
+{% if not width and not height %}
+  {% set dimensions = uri|image_dimensions(style_name) %}
+  {% set width = dimensions.width %}
+  {% set height = dimensions.height %}
+{% endif %}
+{% if style_name %}
+  {% do attributes.setAttribute('src', uri|image_style(style_name)) %}
+{% else %}
+  {% do attributes.setAttribute('src', uri|file_url) %}
+{% endif %}
+{% do alt ? attributes.setAttribute('alt', alt) %}
+{% do width ? attributes.setAttribute('width', width) %}
+{% do height ? attributes.setAttribute('height', height) %}
+{% do attributes.setAttribute('loading', loading|default('lazy')) %}
+<img{{ attributes }}/>

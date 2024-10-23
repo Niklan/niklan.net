@@ -1,0 +1,5 @@
+@layer element {
+  pre {
+    overflow-x: auto;
+  }
+}
