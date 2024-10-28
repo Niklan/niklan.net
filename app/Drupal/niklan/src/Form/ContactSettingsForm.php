@@ -11,15 +11,15 @@ use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Repository\SupportSettings;
+use Drupal\niklan\Repository\ContactSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class SupportSettingsForm implements FormInterface, ContainerInjectionInterface {
+final class ContactSettingsForm implements FormInterface, ContainerInjectionInterface {
 
   use DependencySerializationTrait;
 
   public function __construct(
-    private readonly SupportSettings $settings,
+    private readonly ContactSettings $settings,
     private readonly MessengerInterface $messenger,
     private readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
   ) {}
@@ -27,7 +27,7 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(SupportSettings::class),
+      $container->get(ContactSettings::class),
       $container->get(MessengerInterface::class),
       $container->get(CacheTagsInvalidatorInterface::class),
     );
@@ -35,28 +35,34 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
 
   #[\Override]
   public function getFormId(): string {
-    return 'niklan_support_settings';
+    return 'niklan_contact_settings_form';
   }
 
   #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['#tree'] = TRUE;
 
-    $form['body'] = [
-      '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Body'),
-      '#description' => new TranslatableMarkup('The body of the support page.'),
-      '#default_value' => $this->settings->getBody(),
-      '#allowed_formats' => [SupportSettings::TEXT_FORMAT],
-      '#rows' => 3,
+    $form['email'] = [
+      '#type' => 'email',
+      '#title' => new TranslatableMarkup('Email'),
+      '#default_value' => $this->settings->getEmail(),
       '#required' => TRUE,
     ];
 
-    $form['donate_url'] = [
+    $form['telegram'] = [
       '#type' => 'url',
-      '#title' => new TranslatableMarkup('Donate URL'),
-      '#description' => new TranslatableMarkup('The URL of the donate page.'),
-      '#default_value' => $this->settings->getDonateUrl(),
+      '#title' => new TranslatableMarkup('Telegram'),
+      '#default_value' => $this->settings->getTelegram(),
+      '#required' => TRUE,
+    ];
+
+    $form['description'] = [
+      '#type' => 'text_format',
+      '#title' => new TranslatableMarkup('Description'),
+      '#description' => new TranslatableMarkup('The description of the about page.'),
+      '#default_value' => $this->settings->getDescription(),
+      '#allowed_formats' => [ContactSettings::TEXT_FORMAT],
+      '#rows' => 3,
       '#required' => TRUE,
     ];
 
@@ -71,11 +77,17 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
   }
 
   #[\Override]
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
+    // Not needed.
+  }
+
+  #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
       ->settings
-      ->setBody($form_state->getValue(['body', 'value']))
-      ->setDonateUrl($form_state->getValue(['donate_url']));
+      ->setEmail($form_state->getValue('email'))
+      ->setTelegram($form_state->getValue('telegram'))
+      ->setDescription($form_state->getValue(['description', 'value']));
 
     $this
       ->messenger
@@ -84,11 +96,6 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
     $this
       ->cacheTagsInvalidator
       ->invalidateTags($this->settings->getCacheTags());
-  }
-
-  #[\Override]
-  public function validateForm(array &$form, FormStateInterface $form_state): void {
-    // Not needed.
   }
 
 }

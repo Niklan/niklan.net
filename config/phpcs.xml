@@ -30,7 +30,6 @@
   <!-- Project specific rules. -->
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
-  <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
   <rule ref="SlevomatCodingStandard.Classes.ClassStructure"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
     <properties>

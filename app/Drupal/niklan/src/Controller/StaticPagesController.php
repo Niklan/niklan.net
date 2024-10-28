@@ -9,12 +9,6 @@ namespace Drupal\niklan\Controller;
  */
 final class StaticPagesController {
 
-  public function contact(): array {
-    return [
-      '#theme' => 'niklan_contact_page',
-    ];
-  }
-
   public function services(): array {
     return [
       '#theme' => 'niklan_services_page',

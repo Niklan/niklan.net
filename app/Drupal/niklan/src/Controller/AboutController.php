@@ -9,10 +9,10 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\filter\Plugin\FilterInterface;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Contract\Repository\AboutSettings;
+use Drupal\niklan\Repository\AboutSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class About implements ContainerInjectionInterface {
+final readonly class AboutController implements ContainerInjectionInterface {
 
   public function __construct(
     private AboutSettings $settings,

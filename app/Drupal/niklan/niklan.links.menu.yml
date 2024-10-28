@@ -24,6 +24,13 @@ niklan.support.settings:
   parent: niklan.admin_general
   weight: 30
 
+niklan.contact.settings:
+  title: Contact page settings
+  description: Configure a contact page.
+  route_name: niklan.contact.settings
+  parent: niklan.admin_general
+  weight: 40
+
 niklan.home:
   title: Home
   route_name: <front>
@@ -59,14 +66,4 @@ niklan.about:
   weight: 4
   metadata:
     main_navigation_icon: 'user-id-bold-duotone'
-    active_trail_pattern: '\/(about$|services$|contact$)'
-
-#niklan.contact:
-#  title: Contact
-#  title_context: 'menu'
-#  route_name: niklan.contact
-#  menu_name: main
-#  weight: 6
-#  metadata:
-#    main_navigation_icon: 'contact'
-#    active_trail_pattern: '\/contact$'
+    active_trail_pattern: '\/(about$|services$|support$|contact$)'

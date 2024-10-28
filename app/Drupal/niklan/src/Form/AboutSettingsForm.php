@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Form;
 
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Contract\Repository\AboutSettings as AboutSettingsInterface;
-use Drupal\niklan\Repository\AboutSettingsKeyValueStore;
+use Drupal\niklan\Repository\AboutSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class AboutSettingsForm implements FormInterface, ContainerInjectionInterface {
@@ -19,15 +19,17 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
   use DependencySerializationTrait;
 
   public function __construct(
-    private AboutSettingsInterface $settings,
-    private MessengerInterface $messenger,
+    private readonly AboutSettings $settings,
+    private readonly MessengerInterface $messenger,
+    private readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(AboutSettingsKeyValueStore::class),
+      $container->get(AboutSettings::class),
       $container->get(MessengerInterface::class),
+      $container->get(CacheTagsInvalidatorInterface::class),
     );
   }
 
@@ -66,6 +68,10 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
     $this
       ->messenger
       ->addStatus(new TranslatableMarkup('Settings successfully saved.'));
+
+    $this
+      ->cacheTagsInvalidator
+      ->invalidateTags($this->settings->getCacheTags());
   }
 
   #[\Override]
@@ -93,7 +99,7 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
       '#title' => new TranslatableMarkup('Subtitle'),
       '#description' => new TranslatableMarkup('The subtitle of the about page.'),
       '#default_value' => $this->settings->getSubtitle(),
-      '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
+      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#required' => TRUE,
     ];
 
@@ -102,7 +108,7 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
       '#title' => new TranslatableMarkup('Summary'),
       '#description' => new TranslatableMarkup('The summary of the about page.'),
       '#default_value' => $this->settings->getSummary(),
-      '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
+      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
@@ -112,7 +118,7 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
       '#title' => new TranslatableMarkup('Description'),
       '#description' => new TranslatableMarkup('The description of the about page.'),
       '#default_value' => $this->settings->getDescription(),
-      '#allowed_formats' => [AboutSettingsInterface::TEXT_FORMAT],
+      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];

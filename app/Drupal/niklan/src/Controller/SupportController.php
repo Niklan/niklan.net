@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Controller;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Contract\Repository\AboutSettings;
-use Drupal\niklan\Contract\Repository\SupportSettings;
+use Drupal\niklan\Repository\SupportSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class Support implements ContainerInjectionInterface {
+final readonly class SupportController implements ContainerInjectionInterface {
 
   public function __construct(
     private SupportSettings $settings,
@@ -23,15 +23,21 @@ final readonly class Support implements ContainerInjectionInterface {
   }
 
   public function __invoke(): array {
-    return [
+    $build = [
       '#theme' => 'niklan_support',
       '#body' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getBody(),
-        '#format' => AboutSettings::TEXT_FORMAT,
+        '#format' => SupportSettings::TEXT_FORMAT,
       ],
       '#donate_url' => $this->settings->getDonateUrl(),
     ];
+
+    $cache = new CacheableMetadata();
+    $cache->addCacheableDependency($this->settings);
+    $cache->applyTo($build);
+
+    return $build;
   }
 
 }

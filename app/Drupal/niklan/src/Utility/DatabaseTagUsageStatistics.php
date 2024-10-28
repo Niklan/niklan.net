@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\niklan\Contract\Utility\TagUsageStatistics;
 use Drupal\node\NodeInterface;
 
-final class DatabaseTagUsageStatistics implements TagUsageStatistics {
+final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {
 
   public function __construct(
     private Connection $connection,

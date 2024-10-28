@@ -2,7 +2,7 @@ niklan.about:
   path: '/about'
   defaults:
     _title: 'Niklan — freelance Drupal web-developer'
-    _controller: '\Drupal\niklan\Controller\About'
+    _controller: '\Drupal\niklan\Controller\AboutController'
   requirements:
     _access: 'TRUE'
 
@@ -18,7 +18,7 @@ niklan.support:
   path: '/support'
   defaults:
     _title: 'Support'
-    _controller: '\Drupal\niklan\Form\SupportSettingsForm'
+    _controller: '\Drupal\niklan\Controller\SupportController'
   requirements:
     _access: 'TRUE'
 
@@ -26,7 +26,15 @@ niklan.support.settings:
   path: '/admin/niklan/support'
   defaults:
     _title: 'Support settings'
-    _form: '\Drupal\niklan\Form\SupportSettings'
+    _form: '\Drupal\niklan\Form\SupportSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+niklan.contact.settings:
+  path: '/admin/niklan/contact'
+  defaults:
+    _title: 'Contact settings'
+    _form: '\Drupal\niklan\Form\ContactSettingsForm'
   requirements:
     _permission: 'administer site configuration'
 
@@ -100,8 +108,9 @@ niklan.tags:
 
 niklan.contact:
   path: '/contact'
+  methods: [GET]
   defaults:
     _title: "Let's Talk"
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::contact'
+    _controller: '\Drupal\niklan\Controller\ContactController'
   requirements:
     _permission: 'access content'
