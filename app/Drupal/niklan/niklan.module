@@ -49,8 +49,12 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'links' => NULL,
       ],
     ],
-    'niklan_contact_page' => [
-      'variables' => [],
+    'niklan_contact' => [
+      'variables' => [
+        'description' => NULL,
+        'email' => NULL,
+        'telegram' => NULL,
+      ],
     ],
     'niklan_form_success' => [
       'variables' => [

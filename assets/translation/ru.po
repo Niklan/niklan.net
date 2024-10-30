@@ -379,5 +379,8 @@ msgstr "Открыть список публикаций"
 msgid "Publications with the @name tag"
 msgstr "Материалы по теме @name"
 
-msgid "Donate"
-msgstr "Пожертвовать"
+msgid "Buy a cup of coffee"
+msgstr "Купить чашку кофе"
+
+msgid "Write to Telegram"
+msgstr "Написать в Телеграм"

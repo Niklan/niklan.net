@@ -1,3 +1,4 @@
+{% set as_template = as_template is defined ? as_template : false %}
 {% set element = href ? 'a' : 'button' %}
 {% do element == 'button' ? attributes.setAttribute('type', type|default('button')) %}
 {% do href  ? attributes.setAttribute('href', href) %}
@@ -7,9 +8,9 @@
 {%
   set classes = [
     'button',
-    'button--variant--' ~ variant|default('solid'),
-    'button--color--' ~ color|default('primary'),
-    'button--size--' ~ size|default('medium'),
+    not as_template ? 'button--variant--' ~ variant|default('solid'),
+    not as_template ? 'button--color--' ~ color|default('primary'),
+    not as_template ? 'button--size--' ~ size|default('medium'),
   ]
 %}
 <{{ element }}{{ attributes.addClass(classes) }}>

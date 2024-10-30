@@ -1,0 +1,10 @@
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.contact__items {
+  display: flex;
+  gap: var(--spacing-4);
+}

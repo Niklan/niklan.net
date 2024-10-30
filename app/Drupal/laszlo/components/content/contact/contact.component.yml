@@ -1,0 +1,16 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Contact
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    description:
+      title: Description
+      type: [array, string]
+    email:
+      title: Email
+      type: string
+    telegram:
+      title: Telegram URL
+      type: string

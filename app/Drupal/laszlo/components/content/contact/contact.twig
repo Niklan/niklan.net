@@ -1,0 +1,45 @@
+<div{{ attributes.addClass('contact') }}>
+  <div class="prose contact__description">
+    {{ description }}
+  </div>
+
+  <div class="contact__items">
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['contact__item', 'contact__item--email'],
+      }),
+      variant: 'contained',
+      color: 'primary',
+      component: 'a',
+      href: 'mailto:' ~ email,
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'envelope' } only %}
+      {% endblock %}
+
+      {% block children %}
+        {{ 'Send email'|t }}
+      {% endblock %}
+    {% endembed %}
+
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['contact__item', 'contact__item--telegram'],
+        'target': '_blank',
+        'rel': 'noopener nofollow',
+      }),
+      variant: 'contained',
+      color: 'primary',
+      component: 'a',
+      href: telegram,
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'telegram' } only %}
+      {% endblock %}
+
+      {% block children %}
+        {{ 'Write to Telegram'|t }}
+      {% endblock %}
+    {% endembed %}
+  </div>
+</div>

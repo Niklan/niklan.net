@@ -1,18 +1,10 @@
 .author-page-navigation-item {
-  display: flex;
-  align-items: center;
-  padding: var(--spacing-2);
-  text-decoration: none;
-  color: var(--color-on-surface-variant);
-  border-radius: var(--spacing-3);
-  background-color: var(--color-surface-variant);
-  gap: var(--spacing-3);
-
-  &:hover,
-  &:focus {
-    color: var(--color-on-primary-fixed);
-    background-color: var(--color-primary-fixed);
-  }
+  --button-background-color: var(--color-surface-variant);
+  --button-background-color-hover: var(--color-surface-tint);
+  --button-color: var(--color-on-surface-variant);
+  --button-color-hover: var(--color-surface);
+  --button-height: var(--spacing-15);
+  --button-gap: var(--spacing-4);
 }
 
 .author-page-navigation-item__icon {
@@ -25,5 +17,5 @@
 
 .author-page-navigation-item--active-trail {
   color: var(--color-on-primary-container);
-  background-color: var(--color-primary-container);
+  background-color: var(--button-background-color-hover);
 }

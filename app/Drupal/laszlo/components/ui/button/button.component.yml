@@ -9,6 +9,13 @@ props:
       type: Drupal\Core\Template\Attribute
       title: Attributes
       description: Button attributes.
+    as_template:
+      title: Render as template
+      description: >
+        If marked as a template, the variant, color and size have no effect.
+        Use CSS variables and other tools to customize the button!
+      type: boolean
+      default: false
     variant:
       title: Variant
       type: string
