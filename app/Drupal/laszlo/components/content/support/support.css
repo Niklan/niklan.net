@@ -1,7 +1,7 @@
 .support {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-6);
+  gap: var(--author-page-content-gap, var(--spacing-12));
 }
 
 .support__cta {

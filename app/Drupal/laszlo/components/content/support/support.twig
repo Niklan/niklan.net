@@ -7,6 +7,8 @@
     {% embed 'laszlo:button' with {
       attributes: create_attribute({
         'class': ['support__cta'],
+        'target': '_blank',
+        'rel': 'noopener noreferrer',
       }),
       component: 'a',
       href: donate_url,
