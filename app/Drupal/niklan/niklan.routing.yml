@@ -38,11 +38,20 @@ niklan.contact.settings:
   requirements:
     _permission: 'administer site configuration'
 
+niklan.services.settings:
+  path: '/admin/niklan/services'
+  defaults:
+    _title: 'Services settings'
+    _form: '\Drupal\niklan\Form\ServicesSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
 niklan.services:
   path: '/services'
+  methods: [GET]
   defaults:
     _title: "Let's Work Together"
-    _controller: '\Drupal\niklan\Controller\Support'
+    _controller: '\Drupal\niklan\Controller\ServicesController'
   requirements:
     _access: 'TRUE'
 

@@ -16,14 +16,14 @@ final class SupportSettings extends KeyValueSettingsStore {
     private readonly KeyValueFactoryInterface $keyValueFactory,
   ) {}
 
-  public function setBody(string $body): self {
-    $this->getStore()->set('body', $body);
+  public function setDescription(string $body): self {
+    $this->getStore()->set('description', $body);
 
     return $this;
   }
 
-  public function getBody(): string {
-    return $this->getStore()->get('body', 'The support page description.');
+  public function getDescription(): string {
+    return $this->getStore()->get('description', 'The support page description.');
   }
 
   public function setDonateUrl(string $url): self {

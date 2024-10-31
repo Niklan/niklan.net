@@ -6,31 +6,32 @@ namespace Drupal\niklan\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Repository\SupportSettings;
+use Drupal\niklan\Repository\AboutSettings;
+use Drupal\niklan\Repository\ServicesSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class SupportController implements ContainerInjectionInterface {
+final readonly class ServicesController implements ContainerInjectionInterface {
 
   public function __construct(
-    private SupportSettings $settings,
+    private ServicesSettings $settings,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(SupportSettings::class),
+      $container->get(ServicesSettings::class),
     );
   }
 
   public function __invoke(): array {
     $build = [
-      '#theme' => 'niklan_support',
+      '#theme' => 'niklan_services',
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => SupportSettings::TEXT_FORMAT,
+        '#format' => AboutSettings::TEXT_FORMAT,
       ],
-      '#donate_url' => $this->settings->getDonateUrl(),
+      '#hourly_rate' => $this->settings->getHourlyRate(),
     ];
 
     $cache = new CacheableMetadata();

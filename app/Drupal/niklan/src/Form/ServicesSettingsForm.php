@@ -11,15 +11,16 @@ use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\niklan\Repository\ServicesSettings;
 use Drupal\niklan\Repository\SupportSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class SupportSettingsForm implements FormInterface, ContainerInjectionInterface {
+final class ServicesSettingsForm implements FormInterface, ContainerInjectionInterface {
 
   use DependencySerializationTrait;
 
   public function __construct(
-    private readonly SupportSettings $settings,
+    private readonly ServicesSettings $settings,
     private readonly MessengerInterface $messenger,
     private readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
   ) {}
@@ -27,7 +28,7 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(SupportSettings::class),
+      $container->get(ServicesSettings::class),
       $container->get(MessengerInterface::class),
       $container->get(CacheTagsInvalidatorInterface::class),
     );
@@ -35,7 +36,7 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
 
   #[\Override]
   public function getFormId(): string {
-    return 'niklan_support_settings';
+    return 'niklan_services_settings';
   }
 
   #[\Override]
@@ -45,18 +46,17 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
     $form['description'] = [
       '#type' => 'text_format',
       '#title' => new TranslatableMarkup('Body'),
-      '#description' => new TranslatableMarkup('The description of support page.'),
+      '#description' => new TranslatableMarkup('The description of service page.'),
       '#default_value' => $this->settings->getDescription(),
       '#allowed_formats' => [SupportSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
 
-    $form['donate_url'] = [
-      '#type' => 'url',
-      '#title' => new TranslatableMarkup('Donate URL'),
-      '#description' => new TranslatableMarkup('The URL of the donate page.'),
-      '#default_value' => $this->settings->getDonateUrl(),
+    $form['hourly_rate'] = [
+      '#type' => 'textfield',
+      '#title' => new TranslatableMarkup('Hourly rate'),
+      '#default_value' => $this->settings->getHourlyRate(),
       '#required' => TRUE,
     ];
 
@@ -75,7 +75,7 @@ final class SupportSettingsForm implements FormInterface, ContainerInjectionInte
     $this
       ->settings
       ->setDescription($form_state->getValue(['description', 'value']))
-      ->setDonateUrl($form_state->getValue(['donate_url']));
+      ->setHourlyRate($form_state->getValue(['hourly_rate']));
 
     $this
       ->messenger

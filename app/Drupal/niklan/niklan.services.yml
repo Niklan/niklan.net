@@ -9,6 +9,7 @@ services:
   Drupal\niklan\Repository\AboutSettings: {}
   Drupal\niklan\Repository\SupportSettings: {}
   Drupal\niklan\Repository\ContactSettings: {}
+  Drupal\niklan\Repository\ServicesSettings: {}
 
   Drupal\niklan\Utility\DatabaseTagUsageStatistics: {}
   Drupal\niklan\Contract\Utility\TagUsageStatistics: '@Drupal\niklan\Utility\DatabaseTagUsageStatistics'

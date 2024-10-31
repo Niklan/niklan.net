@@ -17,6 +17,13 @@ niklan.about.settings:
   parent: niklan.admin_general
   weight: 10
 
+niklan.services.settings:
+  title: Services page settings
+  description: Configure a services page with a description and an hourly rate.
+  route_name: niklan.services.settings
+  parent: niklan.admin_general
+  weight: 20
+
 niklan.support.settings:
   title: Support page settings
   description: Configure a support page with a description and a link to donate.
