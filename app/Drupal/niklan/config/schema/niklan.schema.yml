@@ -1,40 +1,6 @@
-block.settings.niklan_blog_post_tags:
-  type: block_settings
-  label: 'Blog post tags block'
-  mapping:
-    content:
-      type: string
-      label: Content
-
-block.settings.niklan_search:
-  type: block_settings
-  label: 'Search block'
-  mapping:
-    content:
-      type: string
-      label: Content
-
 filter_settings.niklan_markdown:
   type: filter
   label: 'Markdown filter'
-
-field.formatter.settings.niklan_responsive_media_thumbnail:
-  type: mapping
-  label: 'Responsive media thumbnail formatter settings'
-  mapping:
-    image_link:
-      type: string
-      label: 'Link for image'
-    responsive_image_style:
-      type: string
-      label: 'The responsive image style ID'
-    image_loading:
-      type: mapping
-      label: 'Image loading settings'
-      mapping:
-        attribute:
-          type: string
-          label: 'Loading attribute'
 
 field.formatter.settings.niklan_media_remote_video_optimized:
   type: mapping
@@ -43,3 +9,23 @@ field.formatter.settings.niklan_media_remote_video_optimized:
     responsive_image_style:
       type: string
       label: 'The responsive image style ID'
+
+niklan.about_settings:
+  type: config_object
+  label: 'About settings'
+  mapping:
+    photo_media_id:
+      type: string
+      label: 'The photo media ID'
+    title:
+      type: label
+      label: 'The title'
+    subtitle:
+      type: label
+      label: 'The subtitle'
+    intro:
+      type: text
+      label: 'The intro'
+    description:
+      type: text
+      label: 'The description'

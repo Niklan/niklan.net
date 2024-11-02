@@ -14,6 +14,10 @@ services:
   Drupal\niklan\Utility\DatabaseTagUsageStatistics: {}
   Drupal\niklan\Contract\Utility\TagUsageStatistics: '@Drupal\niklan\Utility\DatabaseTagUsageStatistics'
 
+  Drupal\niklan\EventSubscriber\SettingsConfigSubscriber:
+    tags:
+      - { name: event_subscriber }
+
   niklan.event_subscriber.term_page_build:
     class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
     arguments: ['@class_resolver']

@@ -70,7 +70,7 @@
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
-            "ln -fs ../../../var/files/public web/sites/default/files"
+            "ln -nfs ../../../var/files/public web/sites/default/files"
         ]
     },
     "config": {

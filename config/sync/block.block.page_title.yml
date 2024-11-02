@@ -21,4 +21,4 @@ visibility:
   request_path:
     id: request_path
     negate: true
-    pages: "/blog/*\r\n/about\r\n/support\r\n/contact"
+    pages: "/blog/*\r\n/about\r\n/support\r\n/contact\r\n/services"

@@ -1,0 +1,4 @@
+niklan.about.settings:
+  title: Settings
+  route_name: niklan.about.settings
+  base_route: niklan.about.settings
