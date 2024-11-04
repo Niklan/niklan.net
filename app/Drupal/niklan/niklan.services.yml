@@ -14,6 +14,11 @@ services:
   Drupal\niklan\Utility\DatabaseTagUsageStatistics: {}
   Drupal\niklan\Contract\Utility\TagUsageStatistics: '@Drupal\niklan\Utility\DatabaseTagUsageStatistics'
 
+  Drupal\niklan\Factory\KeyValue\LanguageAwareFactoryCoordinator: {}
+  keyvalue.language_aware: '@Drupal\niklan\Factory\KeyValue\LanguageAwareFactoryCoordinator'
+  Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory: {}
+  keyvalue.language_aware.database: '@Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory'
+
   niklan.event_subscriber.term_page_build:
     class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
     arguments: ['@class_resolver']
