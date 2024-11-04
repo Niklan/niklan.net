@@ -6,6 +6,7 @@ namespace Drupal\niklan\Repository\KeyValue;
 
 use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Database\Query\Merge;
 use Drupal\Core\KeyValueStore\DatabaseStorage;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore;
@@ -107,27 +108,91 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
   }
 
   public function set($key, $value, ?string $language_code = NULL): void {
-    // TODO: Implement set() method.
+    try {
+      $this->doSet($key, $value, $language_code);
+    }
+    catch (\Exception $e) {
+      // If there was an exception, try to create the table.
+      if (!$this->ensureTableExists()) {
+        throw $e;
+      }
+
+      $this->doSet($key, $value, $language_code);
+    }
+  }
+
+  public function doSetIfNotExists($key, $value, ?string $language_code = NULL): bool {
+    $result = $this
+      ->connection
+      ->merge($this->table)
+      ->insertFields([
+        'collection' => $this->collection,
+        'language_code' => $this->resolveLanguageCode($language_code),
+        'name' => $key,
+        'value' => $this->serializer->encode($value),
+      ])
+      ->condition('collection', $this->collection)
+      ->condition('name', $key)
+      ->execute();
+
+    return $result === Merge::STATUS_INSERT;
   }
 
   public function setIfNotExists($key, $value, ?string $language_code = NULL): bool {
-    // TODO: Implement setIfNotExists() method.
+    try {
+      return $this->doSetIfNotExists($key, $value, $language_code);
+    }
+    catch (\Exception $exception) {
+      // If there was an exception, try to create the table.
+      if ($this->ensureTableExists()) {
+        return $this->doSetIfNotExists($key, $value, $language_code);
+      }
+
+      throw $exception;
+    }
   }
 
   public function setMultiple(array $data, ?string $language_code = NULL): void {
-    // TODO: Implement setMultiple() method.
+    foreach ($data as $key => $value) {
+      $this->set($key, $value, $language_code);
+    }
   }
 
   public function rename($key, $new_key, ?string $language_code = NULL): void {
-    // TODO: Implement rename() method.
+    try {
+      $this
+        ->connection
+        ->update($this->table)
+        ->fields(['name' => $new_key])
+        ->condition('collection', $this->collection)
+        ->condition('language_code', $this->resolveLanguageCode($language_code))
+        ->condition('name', $key)
+        ->execute();
+    }
+    catch (\Exception $e) {
+      $this->catchException($e);
+    }
   }
 
   public function delete($key, ?string $language_code = NULL): void {
-    // TODO: Implement delete() method.
+    $this->deleteMultiple([$key], $language_code);
   }
 
   public function deleteMultiple(array $keys, ?string $language_code = NULL): void {
-    // TODO: Implement deleteMultiple() method.
+    while ($keys) {
+      try {
+        $this
+          ->connection
+          ->delete($this->table)
+          ->condition('collection', $this->collection)
+          ->condition('language_code', $this->resolveLanguageCode($language_code))
+          ->condition('name', \array_splice($keys, 0, 1000), 'IN')
+          ->execute();
+      }
+      catch (\Exception $exception) {
+        $this->catchException($exception);
+      }
+    }
   }
 
   public static function schemaDefinition(): array {
@@ -164,6 +229,19 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
       ],
       'primary key' => ['collection', 'name', 'language_code'],
     ];
+  }
+
+  protected function doSet($key, $value, ?string $language_code = NULL): void {
+    $this
+      ->connection
+      ->merge($this->table)
+      ->keys([
+        'collection' => $this->collection,
+        'language_code' => $this->resolveLanguageCode($language_code),
+        'name' => $key,
+      ])
+      ->fields(['value' => $this->serializer->encode($value)])
+      ->execute();
   }
 
   private function resolveLanguageCode(?string $language_code = NULL): string {
