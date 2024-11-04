@@ -9,23 +9,3 @@ field.formatter.settings.niklan_media_remote_video_optimized:
     responsive_image_style:
       type: string
       label: 'The responsive image style ID'
-
-niklan.about_settings:
-  type: config_object
-  label: 'About settings'
-  mapping:
-    photo_media_id:
-      type: string
-      label: 'The photo media ID'
-    title:
-      type: label
-      label: 'The title'
-    subtitle:
-      type: label
-      label: 'The subtitle'
-    intro:
-      type: text
-      label: 'The intro'
-    description:
-      type: text
-      label: 'The description'

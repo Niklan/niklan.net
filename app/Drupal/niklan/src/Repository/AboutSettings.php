@@ -35,7 +35,7 @@ final class AboutSettings extends KeyValueSettingsStore {
   }
 
   public function getTitle(): string {
-    return $this->getStore()->get('title', 'Hello, World!');
+    return $this->getStore()->get('title', "I'm an alien 👽");
   }
 
   public function setSubtitle(string $subtitle): self {
@@ -45,7 +45,7 @@ final class AboutSettings extends KeyValueSettingsStore {
   }
 
   public function getSubtitle(): string {
-    return $this->getStore()->get('subtitle', 'Beep-boop-beep');
+    return $this->getStore()->get('subtitle', 'Greetings traveller!');
   }
 
   public function setSummary(string $summary): self {
@@ -55,7 +55,13 @@ final class AboutSettings extends KeyValueSettingsStore {
   }
 
   public function getSummary(): string {
-    return $this->getStore()->get('summary', 'The summary about an author.');
+    $default = <<<'HTML'
+    <p>My name is X-1234, and I came to Earth from a distant galaxy. I am here
+     to share with you my knowledge and experience, as well as tell you about
+     how I see the world around us.</p>
+    HTML;
+
+    return $this->getStore()->get('summary', $default);
   }
 
   public function setDescription(string $description): self {
@@ -65,10 +71,17 @@ final class AboutSettings extends KeyValueSettingsStore {
   }
 
   public function getDescription(): string {
-    return $this->getStore()->get(
-      key: 'description',
-      default: 'The detailed description about an author.',
-    );
+    $default = <<<'HTML'
+    <p>I love exploring new cultures, exploring nature, and connecting with
+     people. I'm interested to know how you live, what your dreams are, and what
+     your values are. I hope that my stories and reflections will help you see
+     the world in a new way and perhaps even find answers to some of your
+     questions.</p>
+
+    <p>Join me on this exciting journey through the universe and Earth!</p>
+    HTML;
+
+    return $this->getStore()->get('description', $default);
   }
 
   #[\Override]

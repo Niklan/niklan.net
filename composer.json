@@ -58,7 +58,6 @@
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^2.0@alpha",
         "drupal/core-dev": "~10.3.0",
-        "mglaman/drupal-check": "^1.3",
         "niklan/niklan_dev": "^1.0@dev",
         "php-parallel-lint/php-parallel-lint": "^1.3",
         "phpspec/prophecy-phpunit": "^2.0"
@@ -134,7 +133,9 @@
         "patches": {
             "drupal/core": {
                 "Unhelpful PHP error with NULL type property (dgo.to/3462156)": "https://git.drupalcode.org/project/drupal/-/merge_requests/8807.patch",
-                "Unhelpful error message with enumeration problem (dgo.to/3462700)": "https://git.drupalcode.org/project/drupal/-/merge_requests/8846.patch"
+                "Unhelpful error message with enumeration problem (dgo.to/3462700)": "https://git.drupalcode.org/project/drupal/-/merge_requests/8846.patch",
+                "SDC incorrectly throws an exception about embedded slots (dgo.to/3446933)": "./assets/patch/core-3446933-mr-8234.patch",
+                "Drupal install produces a warning 'Undefined array key \"major\"' with Drupal version 11.x (dgo.to/3482367)": "./assets/patch/core-3482367-mr-9902.patch"
             }
         },
         "installer-paths": {

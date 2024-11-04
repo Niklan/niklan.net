@@ -1,0 +1,26 @@
+From 3116d4873e48b0b151fa7f19b2d6ac6f8f1d684f Mon Sep 17 00:00:00 2001
+From: Alexey Korepov <28830-murz@users.noreply.drupalcode.org>
+Date: Tue, 22 Oct 2024 07:07:26 +0000
+Subject: [PATCH] Issue #3482367: Do not produce a warning for non-semver
+ Drupal versions like `11.x`
+
+---
+ core/includes/install.core.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/includes/install.core.inc b/core/includes/install.core.inc
+index ee1cacdded53..16a5d0771ab4 100644
+--- a/core/includes/install.core.inc
++++ b/core/includes/install.core.inc
+@@ -1805,7 +1805,7 @@ function _install_prepare_import($langcodes, $server_pattern) {
+         $info = _install_get_version_info($version);
+         // Picking the first file does not necessarily result in the right file. So
+         // we check if at least the major version number is available.
+-        if ($info['major']) {
++        if ($info['major'] ?? NULL) {
+           $core = $info['major'] . '.x';
+           $data = [
+             'name' => 'drupal',
+-- 
+GitLab
+

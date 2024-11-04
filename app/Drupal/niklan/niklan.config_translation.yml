@@ -1,5 +1,0 @@
-niklan.about.settings:
-  title: 'About settings'
-  base_route_name: niklan.about.settings
-  names:
-    - niklan.about_settings
