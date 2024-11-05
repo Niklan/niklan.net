@@ -2,19 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Repository;
+namespace Drupal\niklan\Repository\KeyValue;
 
-use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-
-final class SupportSettings extends KeyValueSettingsStore {
-
-  public const string TEXT_FORMAT = 'text';
-
-  public function __construct(
-    #[Autowire(service: 'keyvalue')]
-    private readonly KeyValueFactoryInterface $keyValueFactory,
-  ) {}
+final class SupportSettings extends LanguageAwareSettingsStore {
 
   public function setDescription(string $body): self {
     $this->getStore()->set('description', $body);
@@ -34,11 +24,6 @@ final class SupportSettings extends KeyValueSettingsStore {
 
   public function getDonateUrl(): string {
     return $this->getStore()->get('donate_url', 'https://example.com');
-  }
-
-  #[\Override]
-  protected function getKeyValueFactory(): KeyValueFactoryInterface {
-    return $this->keyValueFactory;
   }
 
   #[\Override]

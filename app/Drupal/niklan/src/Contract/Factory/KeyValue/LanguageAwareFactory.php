@@ -4,13 +4,27 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Contract\Factory\KeyValue;
 
+use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore;
 
 /**
+ * Defines an interface for language-aware key/value stores.
+ *
  * @ingroup language_aware_key_value
  */
-interface LanguageAwareFactory {
+interface LanguageAwareFactory extends KeyValueFactoryInterface {
 
-  public function get(string $collection): LanguageAwareStore;
+  /**
+   * Gets the key/value store for the given collection.
+   *
+   * @param string $collection
+   *   The collection name.
+   * @param string|null $language_code
+   *   The language code.
+   *
+   * @return \Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore
+   *   The key/value store.
+   */
+  public function get($collection, ?string $language_code = NULL): LanguageAwareStore;
 
 }

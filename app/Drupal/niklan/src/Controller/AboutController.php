@@ -9,7 +9,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\filter\Plugin\FilterInterface;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Repository\AboutSettings;
+use Drupal\niklan\Repository\KeyValue\AboutSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class AboutController implements ContainerInjectionInterface {

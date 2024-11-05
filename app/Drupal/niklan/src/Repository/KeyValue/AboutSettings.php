@@ -2,19 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Repository;
+namespace Drupal\niklan\Repository\KeyValue;
 
-use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-
-final class AboutSettings extends KeyValueSettingsStore {
-
-  public const string TEXT_FORMAT = 'text';
-
-  public function __construct(
-    #[Autowire(service: 'keyvalue')]
-    private readonly KeyValueFactoryInterface $keyValueFactory,
-  ) {}
+final class AboutSettings extends LanguageAwareSettingsStore {
 
   public function getPhotoMediaId(): ?string {
     return $this->getStore()->get('photo_media_id');
@@ -82,11 +72,6 @@ final class AboutSettings extends KeyValueSettingsStore {
     HTML;
 
     return $this->getStore()->get('description', $default);
-  }
-
-  #[\Override]
-  protected function getKeyValueFactory(): KeyValueFactoryInterface {
-    return $this->keyValueFactory;
   }
 
   #[\Override]

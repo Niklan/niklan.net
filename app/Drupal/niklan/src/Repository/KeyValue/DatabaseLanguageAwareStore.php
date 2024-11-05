@@ -6,37 +6,38 @@ namespace Drupal\niklan\Repository\KeyValue;
 
 use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Database\DatabaseException;
 use Drupal\Core\Database\Query\Merge;
-use Drupal\Core\KeyValueStore\DatabaseStorage;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore;
 
 /**
+ * Provides the database language-aware key-value store.
+ *
  * @ingroup language_aware_key_value
  */
-final class DatabaseLanguageAwareStore extends DatabaseStorage implements LanguageAwareStore {
+final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
 
   public function __construct(
-    private readonly LanguageManagerInterface $languageManager,
-    $collection,
-    SerializationInterface $serializer,
-    Connection $connection,
-    $table = 'key_value_language_aware',
-  ) {
-    parent::__construct($collection, $serializer, $connection, $table);
-  }
+    private string $languageCode,
+    private string $collection,
+    private SerializationInterface $serializer,
+    private Connection $connection,
+    private string $table,
+  ) {}
 
-  public function has($key, ?string $language_code = NULL): bool {
+  #[\Override]
+  public function has($key): bool {
     try {
       return (bool) $this
         ->connection
-        ->query(
-          query: 'SELECT 1 FROM {' . $this->connection->escapeTable($this->table) . '} WHERE [collection] = :collection AND [name] = :key AND [language_code] = :language_code',
-          args: [
-            ':collection' => $this->collection,
-            ':key' => $key,
-            ':language_code' => $this->resolveLanguageCode($language_code),
-          ])->fetchField();
+        ->select($this->table)
+        ->fields($this->table, ['name'])
+        ->condition('collection', $this->collection)
+        ->condition('name', $key)
+        ->condition('language_code', $this->languageCode)
+        ->range(0, 1)
+        ->execute()
+        ->fetchField();
     }
     catch (\Exception $exception) {
       $this->catchException($exception);
@@ -45,25 +46,27 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
     }
   }
 
-  public function get($key, $default = NULL, ?string $language_code = NULL): mixed {
-    $values = $this->getMultiple([$key], $language_code);
+  #[\Override]
+  public function get($key, $default = NULL): mixed {
+    $values = $this->getMultiple([$key]);
 
     return $values[$key] ?? $default;
   }
 
-  public function getMultiple(array $keys, ?string $language_code = NULL): array {
+  #[\Override]
+  public function getMultiple(array $keys): array {
     $values = [];
     try {
       $result = $this
         ->connection
-        ->query(
-          query: 'SELECT [name], [value] FROM {' . $this->connection->escapeTable($this->table) . '} WHERE [name] IN (:keys[]) AND [collection] = :collection AND [language_code] = :language_code',
-          args: [
-            ':keys[]' => $keys,
-            ':collection' => $this->collection,
-            ':language_code' => $this->resolveLanguageCode($language_code),
-          ],
-        )->fetchAllAssoc('name');
+        ->select($this->table)
+        ->fields($this->table, ['name', 'value'])
+        ->condition('collection', $this->collection)
+        ->condition('language_code', $this->languageCode)
+        ->condition('name', $keys, 'IN')
+        ->execute()
+        ->fetchAllAssoc('name');
+
       foreach ($keys as $key) {
         if (!isset($result[$key])) {
           continue;
@@ -81,14 +84,16 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
     return $values;
   }
 
-  public function getAll(?string $language_code = NULL): array {
+  #[\Override]
+  public function getAll(): array {
     try {
-      $result = $this->connection->query(
-          query: 'SELECT [name], [value] FROM {' . $this->connection->escapeTable($this->table) . '} WHERE [collection] = :collection AND [language_code] = :language_code',
-          args: [
-            ':collection' => $this->collection,
-            ':language_code' => $this->resolveLanguageCode($language_code),
-          ]);
+      $result = $this
+        ->connection
+        ->select($this->table)
+        ->fields($this->table, ['name', 'value'])
+        ->condition('collection', $this->collection)
+        ->condition('language_code', $this->languageCode)
+        ->execute();
     }
     catch (\Exception $e) {
       $this->catchException($e);
@@ -107,9 +112,10 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
     return $values;
   }
 
-  public function set($key, $value, ?string $language_code = NULL): void {
+  #[\Override]
+  public function set($key, $value): void {
     try {
-      $this->doSet($key, $value, $language_code);
+      $this->doSet($key, $value);
     }
     catch (\Exception $e) {
       // If there was an exception, try to create the table.
@@ -117,55 +123,41 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
         throw $e;
       }
 
-      $this->doSet($key, $value, $language_code);
+      $this->doSet($key, $value);
     }
   }
 
-  public function doSetIfNotExists($key, $value, ?string $language_code = NULL): bool {
-    $result = $this
-      ->connection
-      ->merge($this->table)
-      ->insertFields([
-        'collection' => $this->collection,
-        'language_code' => $this->resolveLanguageCode($language_code),
-        'name' => $key,
-        'value' => $this->serializer->encode($value),
-      ])
-      ->condition('collection', $this->collection)
-      ->condition('name', $key)
-      ->execute();
-
-    return $result === Merge::STATUS_INSERT;
-  }
-
-  public function setIfNotExists($key, $value, ?string $language_code = NULL): bool {
+  #[\Override]
+  public function setIfNotExists($key, $value): bool {
     try {
-      return $this->doSetIfNotExists($key, $value, $language_code);
+      return $this->doSetIfNotExists($key, $value);
     }
     catch (\Exception $exception) {
       // If there was an exception, try to create the table.
       if ($this->ensureTableExists()) {
-        return $this->doSetIfNotExists($key, $value, $language_code);
+        return $this->doSetIfNotExists($key, $value);
       }
 
       throw $exception;
     }
   }
 
-  public function setMultiple(array $data, ?string $language_code = NULL): void {
+  #[\Override]
+  public function setMultiple(array $data): void {
     foreach ($data as $key => $value) {
-      $this->set($key, $value, $language_code);
+      $this->set($key, $value);
     }
   }
 
-  public function rename($key, $new_key, ?string $language_code = NULL): void {
+  #[\Override]
+  public function rename($key, $new_key): void {
     try {
       $this
         ->connection
         ->update($this->table)
         ->fields(['name' => $new_key])
         ->condition('collection', $this->collection)
-        ->condition('language_code', $this->resolveLanguageCode($language_code))
+        ->condition('language_code', $this->languageCode)
         ->condition('name', $key)
         ->execute();
     }
@@ -174,18 +166,20 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
     }
   }
 
-  public function delete($key, ?string $language_code = NULL): void {
-    $this->deleteMultiple([$key], $language_code);
+  #[\Override]
+  public function delete($key): void {
+    $this->deleteMultiple([$key]);
   }
 
-  public function deleteMultiple(array $keys, ?string $language_code = NULL): void {
+  #[\Override]
+  public function deleteMultiple(array $keys): void {
     while ($keys) {
       try {
         $this
           ->connection
           ->delete($this->table)
           ->condition('collection', $this->collection)
-          ->condition('language_code', $this->resolveLanguageCode($language_code))
+          ->condition('language_code', $this->languageCode)
           ->condition('name', \array_splice($keys, 0, 1000), 'IN')
           ->execute();
       }
@@ -195,9 +189,33 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
     }
   }
 
+  #[\Override]
+  public function getLanguageCode(): string {
+    return $this->languageCode;
+  }
+
+  #[\Override]
+  public function getCollectionName(): string {
+    return $this->collection;
+  }
+
+  #[\Override]
+  public function deleteAll(): void {
+    try {
+      $this
+        ->connection
+        ->delete($this->table)
+        ->condition('collection', $this->collection)
+        ->execute();
+    }
+    catch (\Exception $e) {
+      $this->catchException($e);
+    }
+  }
+
   public static function schemaDefinition(): array {
     return [
-      'description' => 'Language aware key-value storage table.',
+      'description' => 'Language-aware key-value storage table.',
       'fields' => [
         'collection' => [
           'description' => 'A named collection of key and value pairs.',
@@ -231,25 +249,76 @@ final class DatabaseLanguageAwareStore extends DatabaseStorage implements Langua
     ];
   }
 
-  protected function doSet($key, $value, ?string $language_code = NULL): void {
+  protected function doSetIfNotExists($key, $value): bool {
+    $result = $this
+      ->connection
+      ->merge($this->table)
+      ->insertFields([
+        'collection' => $this->collection,
+        'language_code' => $this->languageCode,
+        'name' => $key,
+        'value' => $this->serializer->encode($value),
+      ])
+      ->condition('collection', $this->collection)
+      ->condition('name', $key)
+      ->execute();
+
+    return $result === Merge::STATUS_INSERT;
+  }
+
+  protected function doSet($key, $value): void {
     $this
       ->connection
       ->merge($this->table)
       ->keys([
         'collection' => $this->collection,
-        'language_code' => $this->resolveLanguageCode($language_code),
+        'language_code' => $this->languageCode,
         'name' => $key,
       ])
       ->fields(['value' => $this->serializer->encode($value)])
       ->execute();
   }
 
-  private function resolveLanguageCode(?string $language_code = NULL): string {
-    if ($language_code) {
-      return $language_code;
+  /**
+   * Check if the table exists and create it if not.
+   *
+   * @return bool
+   *   TRUE if the table exists, FALSE if it does not exists.
+   */
+  protected function ensureTableExists(): bool {
+    try {
+      $database_schema = $this->connection->schema();
+      $database_schema->createTable($this->table, $this->schemaDefinition());
+    }
+    // If the table already exists, then attempting to recreate it will throw an
+    // exception. In this case just catch the exception and do nothing.
+    catch (DatabaseException) {
+    }
+    catch (\Exception) {
+      return FALSE;
     }
 
-    return $this->languageManager->getCurrentLanguage()->getId();
+    return TRUE;
+  }
+
+  /**
+   * Act on an exception when the table might not have been created.
+   *
+   * If the table does not yet exist, that's fine, but if the table exists and
+   * yet the query failed, then the exception needs to propagate if it is not
+   * a DatabaseException. Due to race conditions it is possible that another
+   * request has created the table in the meantime. Therefore we can not rethrow
+   * for any database exception.
+   *
+   * @param \Exception $e
+   *   The exception.
+   *
+   * @throws \Exception
+   */
+  protected function catchException(\Exception $e): void {
+    if (!($e instanceof DatabaseException) && $this->connection->schema()->tableExists($this->table)) {
+      throw $e;
+    }
   }
 
 }

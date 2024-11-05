@@ -10,7 +10,7 @@
 }
 
 .services__hourly-rate {
-  font: var(--typography-display-medium);
   text-align: center;
+  font: var(--typography-display-medium);
   font-weight: bold;
 }

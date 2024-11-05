@@ -67,7 +67,7 @@ niklan.admin:
   path: '/admin/niklan'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::overview'
-    _title: 'Niklan Settings'
+    _title: 'Niklan.net settings'
     link_id: 'niklan.admin'
   requirements:
     _permission: 'access administration pages'

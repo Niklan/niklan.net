@@ -384,3 +384,30 @@ msgstr "Купить чашку кофе"
 
 msgid "Write to Telegram"
 msgstr "Написать в Телеграм"
+
+msgid "Niklan.net settings"
+msgstr "Настройки сайта Niklan.net"
+
+msgid "About page settings"
+msgstr "Настройки страницы \"Об авторе\""
+
+msgid "Configure an about page with an author biography and photo."
+msgstr "Настройте страницу \"Об авторе\" с биографией автора и фотографией."
+
+msgid "Services page settings"
+msgstr "Настройки страницы \"Услуги\""
+
+msgid "Configure a services page with a description and an hourly rate."
+msgstr "Настройте страницу \"Услуги\" с описанием и часовым тарифом."
+
+msgid "Support page settings"
+msgstr "Настройки страницы \"Поддержка\""
+
+msgid "Configure a support page with a description and a link to donate."
+msgstr "Настройте страницу \"Поддержка\" с описанием и ссылкой на пожертвование."
+
+msgid "Contact page settings"
+msgstr "Настройки страницы \"Контакты\""
+
+msgid "Configure a contact page."
+msgstr "Настройте страницу \"Контакты\"."

@@ -2,19 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Repository;
+namespace Drupal\niklan\Repository\KeyValue;
 
-use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-
-final class ContactSettings extends KeyValueSettingsStore {
-
-  public const string TEXT_FORMAT = 'text';
-
-  public function __construct(
-    #[Autowire(service: 'keyvalue')]
-    private readonly KeyValueFactoryInterface $keyValueFactory,
-  ) {}
+final class ContactSettings extends LanguageAwareSettingsStore {
 
   public function getEmail(): string {
     return $this->getStore()->get('email', 'example@example.com');
@@ -47,11 +37,6 @@ final class ContactSettings extends KeyValueSettingsStore {
     $this->getStore()->set('description', $description);
 
     return $this;
-  }
-
-  #[\Override]
-  protected function getKeyValueFactory(): KeyValueFactoryInterface {
-    return $this->keyValueFactory;
   }
 
   #[\Override]

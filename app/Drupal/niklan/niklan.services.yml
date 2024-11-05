@@ -6,16 +6,16 @@ services:
     parent: logger.channel_base
     arguments: ['niklan']
 
-  Drupal\niklan\Repository\AboutSettings: {}
-  Drupal\niklan\Repository\SupportSettings: {}
-  Drupal\niklan\Repository\ContactSettings: {}
-  Drupal\niklan\Repository\ServicesSettings: {}
+  Drupal\niklan\Repository\KeyValue\AboutSettings: {}
+  Drupal\niklan\Repository\KeyValue\ContactSettings: {}
+  Drupal\niklan\Repository\KeyValue\SupportSettings: {}
+  Drupal\niklan\Repository\KeyValue\ServicesSettings: {}
 
   Drupal\niklan\Utility\DatabaseTagUsageStatistics: {}
   Drupal\niklan\Contract\Utility\TagUsageStatistics: '@Drupal\niklan\Utility\DatabaseTagUsageStatistics'
 
-  Drupal\niklan\Factory\KeyValue\LanguageAwareFactoryCoordinator: {}
-  keyvalue.language_aware: '@Drupal\niklan\Factory\KeyValue\LanguageAwareFactoryCoordinator'
+  Drupal\niklan\Factory\KeyValue\ServiceContainerLanguageAwareFactory: {}
+  keyvalue.language_aware: '@Drupal\niklan\Factory\KeyValue\ServiceContainerLanguageAwareFactory'
   Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory: {}
   keyvalue.language_aware.database: '@Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory'
 

@@ -5,23 +5,19 @@ declare(strict_types=1);
 namespace Drupal\niklan\Form;
 
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\DependencyInjection\DependencySerializationTrait;
-use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Repository\AboutSettings;
+use Drupal\niklan\Repository\KeyValue\AboutSettings;
+use Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class AboutSettingsForm implements FormInterface, ContainerInjectionInterface {
-
-  use DependencySerializationTrait;
+final class AboutSettingsForm extends SettingsForm {
 
   public function __construct(
-    private readonly AboutSettings $settings,
-    private readonly MessengerInterface $messenger,
-    private readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
+    protected AboutSettings $settings,
+    protected MessengerInterface $messenger,
+    protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
   ) {}
 
   #[\Override]
@@ -39,44 +35,20 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
   }
 
   #[\Override]
-  public function buildForm(array $form, FormStateInterface $form_state): array {
-    $form['#tree'] = TRUE;
-
+  public function doBuildForm(array &$form, FormStateInterface $form_state): void {
     $this->buildPhotoSettings($form, $form_state);
     $this->buildContentSettings($form, $form_state);
-
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['save'] = [
-      '#type' => 'submit',
-      '#value' => new TranslatableMarkup('Save'),
-      '#button_type' => 'primary',
-    ];
-
-    return $form;
   }
 
   #[\Override]
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
+  public function doSubmitForm(array &$form, FormStateInterface $form_state): void {
     $this
-      ->settings
-      ->setPhotoMediaId($form_state->getValue(['photo', 'media_id']))
-      ->setTitle($form_state->getValue(['content', 'title']))
-      ->setSubtitle($form_state->getValue(['content', 'subtitle', 'value']))
-      ->setSummary($form_state->getValue(['content', 'summary', 'value']))
-      ->setDescription($form_state->getValue(['content', 'description', 'value']));
-
-    $this
-      ->messenger
-      ->addStatus(new TranslatableMarkup('Settings successfully saved.'));
-
-    $this
-      ->cacheTagsInvalidator
-      ->invalidateTags($this->settings->getCacheTags());
-  }
-
-  #[\Override]
-  public function validateForm(array &$form, FormStateInterface $form_state): void {
-    // Not needed.
+      ->getSettings()
+      ->setPhotoMediaId($form_state->getValue('media_id'))
+      ->setTitle($form_state->getValue('title'))
+      ->setSubtitle($form_state->getValue(['subtitle', 'value']))
+      ->setSummary($form_state->getValue(['summary', 'value']))
+      ->setDescription($form_state->getValue(['description', 'value']));
   }
 
   public function buildContentSettings(array &$form, FormStateInterface $form_state): void {
@@ -89,7 +61,7 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
       '#type' => 'textfield',
       '#title' => new TranslatableMarkup('Title'),
       '#description' => new TranslatableMarkup('The title of the about page.'),
-      '#default_value' => $this->settings->getTitle(),
+      '#default_value' => $this->getSettings()->getTitle(),
       '#required' => TRUE,
     ];
 
@@ -98,7 +70,7 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
       '#base_type' => 'textfield',
       '#title' => new TranslatableMarkup('Subtitle'),
       '#description' => new TranslatableMarkup('The subtitle of the about page.'),
-      '#default_value' => $this->settings->getSubtitle(),
+      '#default_value' => $this->getSettings()->getSubtitle(),
       '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#required' => TRUE,
     ];
@@ -107,7 +79,7 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
       '#type' => 'text_format',
       '#title' => new TranslatableMarkup('Summary'),
       '#description' => new TranslatableMarkup('The summary of the about page.'),
-      '#default_value' => $this->settings->getSummary(),
+      '#default_value' => $this->getSettings()->getSummary(),
       '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
@@ -117,11 +89,23 @@ final class AboutSettingsForm implements FormInterface, ContainerInjectionInterf
       '#type' => 'text_format',
       '#title' => new TranslatableMarkup('Description'),
       '#description' => new TranslatableMarkup('The description of the about page.'),
-      '#default_value' => $this->settings->getDescription(),
+      '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
+  }
+
+  protected function getMessenger(): MessengerInterface {
+    return $this->messenger;
+  }
+
+  protected function getCacheTagsInvalidator(): CacheTagsInvalidatorInterface {
+    return $this->cacheTagsInvalidator;
+  }
+
+  protected function getSettings(): LanguageAwareSettingsStore {
+    return $this->settings;
   }
 
   private function buildPhotoSettings(array &$form, FormStateInterface $form_state): void {

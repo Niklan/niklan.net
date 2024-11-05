@@ -2,19 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Repository;
+namespace Drupal\niklan\Repository\KeyValue;
 
-use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-
-final class ServicesSettings extends KeyValueSettingsStore {
-
-  public const string TEXT_FORMAT = 'text';
-
-  public function __construct(
-    #[Autowire(service: 'keyvalue')]
-    private readonly KeyValueFactoryInterface $keyValueFactory,
-  ) {}
+final class ServicesSettings extends LanguageAwareSettingsStore {
 
   public function getDescription(): string {
     return $this->getStore()->get(
@@ -37,11 +27,6 @@ final class ServicesSettings extends KeyValueSettingsStore {
 
   public function getHourlyRate(): string {
     return $this->getStore()->get('hourly_rate', '$1 000/hour');
-  }
-
-  #[\Override]
-  protected function getKeyValueFactory(): KeyValueFactoryInterface {
-    return $this->keyValueFactory;
   }
 
   #[\Override]
