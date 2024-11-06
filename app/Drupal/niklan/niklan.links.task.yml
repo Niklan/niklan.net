@@ -1,4 +1,3 @@
-niklan.about.settings:
-  title: Settings
-  route_name: niklan.about.settings
-  base_route: niklan.about.settings
+# @ingroup language_aware_key_value
+key_value.language_aware:
+  deriver: Drupal\niklan\Plugin\Menu\KeyValueLanguageAwareLocalTask
