@@ -19,6 +19,10 @@ services:
   Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory: {}
   keyvalue.language_aware.database: '@Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory'
 
+  Drupal\niklan\EventSubscriber\LanguageAwareSettingsRoutes:
+    tags:
+      - { name: event_subscriber }
+
   niklan.event_subscriber.term_page_build:
     class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
     arguments: ['@class_resolver']

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Repository\KeyValue;
 
-use Drupal\Core\StringTranslation\TranslatableMarkup;
-
 final class AboutSettings extends LanguageAwareSettingsStore {
 
   public function getPhotoMediaId(): ?string {
@@ -27,9 +25,7 @@ final class AboutSettings extends LanguageAwareSettingsStore {
   }
 
   public function getTitle(): string {
-    $default = (string) new TranslatableMarkup("I'm an alien 👽");
-
-    return $this->getStore()->get('title', $default);
+    return $this->getStore()->get('title', "I'm an alien 👽");
   }
 
   public function setSubtitle(string $subtitle): self {
@@ -39,9 +35,7 @@ final class AboutSettings extends LanguageAwareSettingsStore {
   }
 
   public function getSubtitle(): string {
-    $default = (string) new TranslatableMarkup('Greetings traveller!');
-
-    return $this->getStore()->get('subtitle', $default);
+    return $this->getStore()->get('subtitle', 'Greetings traveller!');
   }
 
   public function setSummary(string $summary): self {

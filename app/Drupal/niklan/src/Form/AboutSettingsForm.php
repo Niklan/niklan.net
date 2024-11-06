@@ -7,6 +7,7 @@ namespace Drupal\niklan\Form;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Repository\KeyValue\AboutSettings;
 use Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsStore;
@@ -18,6 +19,7 @@ final class AboutSettingsForm extends SettingsForm {
     protected AboutSettings $settings,
     protected MessengerInterface $messenger,
     protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
+    protected RouteMatchInterface $routeMatch,
   ) {}
 
   #[\Override]
@@ -26,6 +28,7 @@ final class AboutSettingsForm extends SettingsForm {
       $container->get(AboutSettings::class),
       $container->get(MessengerInterface::class),
       $container->get(CacheTagsInvalidatorInterface::class),
+      $container->get(RouteMatchInterface::class),
     );
   }
 
@@ -96,6 +99,10 @@ final class AboutSettingsForm extends SettingsForm {
     ];
   }
 
+  public static function title(): TranslatableMarkup {
+    return new TranslatableMarkup('About settings');
+  }
+
   protected function getMessenger(): MessengerInterface {
     return $this->messenger;
   }
@@ -106,6 +113,11 @@ final class AboutSettingsForm extends SettingsForm {
 
   protected function getSettings(): LanguageAwareSettingsStore {
     return $this->settings;
+  }
+
+  #[\Override]
+  protected function getRouteMatch(): RouteMatchInterface {
+    return $this->routeMatch;
   }
 
   private function buildPhotoSettings(array &$form, FormStateInterface $form_state): void {

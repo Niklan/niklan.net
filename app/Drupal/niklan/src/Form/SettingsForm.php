@@ -10,6 +10,7 @@ use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsStore;
 
@@ -27,6 +28,8 @@ abstract class SettingsForm implements FormInterface, ContainerInjectionInterfac
 
   abstract protected function doSubmitForm(array &$form, FormStateInterface $form_state): void;
 
+  abstract protected function getRouteMatch(): RouteMatchInterface;
+
   #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
     // Not need for an abstract.
@@ -34,6 +37,11 @@ abstract class SettingsForm implements FormInterface, ContainerInjectionInterfac
 
   #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    $language_code = $this
+      ->getRouteMatch()
+      ->getParameter('key_value_language_aware_code');
+    $this->getSettings()->changeLanguageCode($language_code);
+
     $this->doBuildForm($form, $form_state);
 
     $form['actions']['#type'] = 'actions';

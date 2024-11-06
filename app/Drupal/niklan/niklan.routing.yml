@@ -9,7 +9,7 @@ niklan.about:
 niklan.about.settings:
   path: '/admin/niklan/about'
   defaults:
-    _title: 'About settings'
+    _title_callback: '\Drupal\niklan\Form\AboutSettingsForm::title'
     _form: '\Drupal\niklan\Form\AboutSettingsForm'
   requirements:
     _permission: 'administer site configuration'
