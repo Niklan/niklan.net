@@ -34,7 +34,7 @@ final readonly class PreprocessLaszloPageHeader implements ContainerInjectionInt
   private function prepareBrandingVariables(array &$variables): void {
     $cache = CacheableMetadata::createFromRenderArray($variables);
 
-    $site_settings = $this->configFactory->getEditable('system.site');
+    $site_settings = $this->configFactory->get('system.site');
     $cache->addCacheableDependency($site_settings);
 
     $logo_path = $this->themeManager->getActiveTheme()->getPath() . '/logo.svg';

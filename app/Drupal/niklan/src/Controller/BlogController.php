@@ -6,6 +6,7 @@ namespace Drupal\niklan\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -17,6 +18,7 @@ final class BlogController implements ContainerInjectionInterface {
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
     protected RendererInterface $renderer,
+    protected LanguageManagerInterface $languageManager,
   ) {}
 
   #[\Override]
@@ -24,6 +26,7 @@ final class BlogController implements ContainerInjectionInterface {
     return new self(
       $container->get('entity_type.manager'),
       $container->get('renderer'),
+      $container->get(LanguageManagerInterface::class),
     );
   }
 
@@ -99,6 +102,7 @@ final class BlogController implements ContainerInjectionInterface {
       ->accessCheck(FALSE)
       ->condition('type', 'blog_entry')
       ->condition('status', NodeInterface::PUBLISHED)
+      ->condition('langcode', $this->languageManager->getCurrentLanguage()->getId(), '=')
       ->sort('created', 'DESC');
 
     if ($this->limit) {

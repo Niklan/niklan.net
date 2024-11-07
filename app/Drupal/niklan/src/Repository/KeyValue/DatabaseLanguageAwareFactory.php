@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Factory\KeyValue;
+namespace Drupal\niklan\Repository\KeyValue;
 
 use Drupal\Component\Assertion\Inspector;
 use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\niklan\Contract\Factory\KeyValue\LanguageAwareFactory;
+use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareFactory;
 use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore;
-use Drupal\niklan\Repository\KeyValue\DatabaseLanguageAwareStore;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
@@ -23,7 +22,7 @@ final class DatabaseLanguageAwareFactory implements LanguageAwareFactory {
   /**
    * The list of initialized storages.
    *
-   * @var array<string, array<\Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore>>
+   * @var \Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore
    */
   private array $storages = [];
 

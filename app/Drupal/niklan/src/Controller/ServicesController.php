@@ -6,8 +6,7 @@ namespace Drupal\niklan\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Repository\AboutSettings;
-use Drupal\niklan\Repository\ServicesSettings;
+use Drupal\niklan\Repository\KeyValue\ServicesSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class ServicesController implements ContainerInjectionInterface {
@@ -29,7 +28,7 @@ final readonly class ServicesController implements ContainerInjectionInterface {
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => AboutSettings::TEXT_FORMAT,
+        '#format' => $this->settings::TEXT_FORMAT,
       ],
       '#hourly_rate' => $this->settings->getHourlyRate(),
     ];

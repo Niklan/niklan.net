@@ -7,7 +7,7 @@ namespace Drupal\niklan\Repository\KeyValue;
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
-use Drupal\niklan\Contract\Factory\KeyValue\LanguageAwareFactory;
+use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareFactory;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 abstract class LanguageAwareSettingsStore implements CacheableDependencyInterface {
@@ -31,7 +31,7 @@ abstract class LanguageAwareSettingsStore implements CacheableDependencyInterfac
 
   #[\Override]
   public function getCacheContexts(): array {
-    return [];
+    return ['languages:language_interface'];
   }
 
   #[\Override]

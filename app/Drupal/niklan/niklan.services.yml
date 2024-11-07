@@ -14,10 +14,10 @@ services:
   Drupal\niklan\Utility\DatabaseTagUsageStatistics: {}
   Drupal\niklan\Contract\Utility\TagUsageStatistics: '@Drupal\niklan\Utility\DatabaseTagUsageStatistics'
 
-  Drupal\niklan\Factory\KeyValue\ServiceContainerLanguageAwareFactory: {}
-  keyvalue.language_aware: '@Drupal\niklan\Factory\KeyValue\ServiceContainerLanguageAwareFactory'
-  Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory: {}
-  keyvalue.language_aware.database: '@Drupal\niklan\Factory\KeyValue\DatabaseLanguageAwareFactory'
+  Drupal\niklan\Repository\KeyValue\ServiceContainerLanguageAwareFactory: {}
+  keyvalue.language_aware: '@Drupal\niklan\Repository\KeyValue\ServiceContainerLanguageAwareFactory'
+  Drupal\niklan\Repository\KeyValue\DatabaseLanguageAwareFactory: {}
+  keyvalue.language_aware.database: '@Drupal\niklan\Repository\KeyValue\DatabaseLanguageAwareFactory'
 
   Drupal\niklan\EventSubscriber\LanguageAwareSettingsRoutes:
     tags:

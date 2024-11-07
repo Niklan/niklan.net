@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Contract\Factory\KeyValue;
+namespace Drupal\niklan\Contract\Repository\KeyValue;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
-use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore;
 
 /**
  * Defines an interface for language-aware key/value stores.

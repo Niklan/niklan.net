@@ -9,8 +9,8 @@ niklan.about:
 niklan.about.settings:
   path: '/admin/niklan/about'
   defaults:
-    _title_callback: '\Drupal\niklan\Form\AboutSettingsForm::title'
-    _form: '\Drupal\niklan\Form\AboutSettingsForm'
+    _title: 'About settings'
+    _form: '\Drupal\niklan\Form\Settings\AboutSettingsForm'
   requirements:
     _permission: 'administer site configuration'
 
@@ -26,7 +26,7 @@ niklan.support.settings:
   path: '/admin/niklan/support'
   defaults:
     _title: 'Support settings'
-    _form: '\Drupal\niklan\Form\SupportSettingsForm'
+    _form: '\Drupal\niklan\Form\Settings\SupportSettingsForm'
   requirements:
     _permission: 'administer site configuration'
 
@@ -34,7 +34,7 @@ niklan.contact.settings:
   path: '/admin/niklan/contact'
   defaults:
     _title: 'Contact settings'
-    _form: '\Drupal\niklan\Form\ContactSettingsForm'
+    _form: '\Drupal\niklan\Form\Settings\ContactSettingsForm'
   requirements:
     _permission: 'administer site configuration'
 
@@ -42,7 +42,7 @@ niklan.services.settings:
   path: '/admin/niklan/services'
   defaults:
     _title: 'Services settings'
-    _form: '\Drupal\niklan\Form\ServicesSettingsForm'
+    _form: '\Drupal\niklan\Form\Settings\ServicesSettingsForm'
   requirements:
     _permission: 'administer site configuration'
 

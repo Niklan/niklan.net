@@ -6,7 +6,7 @@ namespace Drupal\niklan\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Repository\SupportSettings;
+use Drupal\niklan\Repository\KeyValue\SupportSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class SupportController implements ContainerInjectionInterface {
@@ -28,7 +28,7 @@ final readonly class SupportController implements ContainerInjectionInterface {
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => SupportSettings::TEXT_FORMAT,
+        '#format' => $this->settings::TEXT_FORMAT,
       ],
       '#donate_url' => $this->settings->getDonateUrl(),
     ];

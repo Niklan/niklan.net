@@ -18,6 +18,9 @@ final readonly class LanguageAwareSettingsRoutes implements EventSubscriberInter
 
   public const array ROUTES_TO_ENHANCE = [
     'niklan.about.settings',
+    'niklan.contact.settings',
+    'niklan.services.settings',
+    'niklan.support.settings',
   ];
 
   public function __construct(

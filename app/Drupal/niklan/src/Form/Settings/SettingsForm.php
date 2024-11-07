@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Form;
+namespace Drupal\niklan\Form\Settings;
 
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
@@ -13,22 +13,35 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsStore;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @see \Drupal\niklan\EventSubscriber\LanguageAwareSettingsRoutes
+ */
 abstract class SettingsForm implements FormInterface, ContainerInjectionInterface {
 
   use DependencySerializationTrait;
 
-  abstract protected function getMessenger(): MessengerInterface;
+  protected ?LanguageAwareSettingsStore $settings = NULL;
 
-  abstract protected function getCacheTagsInvalidator(): CacheTagsInvalidatorInterface;
+  abstract protected function loadSettings(): LanguageAwareSettingsStore;
 
-  abstract protected function getSettings(): LanguageAwareSettingsStore;
+  final public function __construct(
+    protected ContainerInterface $container,
+    protected MessengerInterface $messenger,
+    protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
+    protected RouteMatchInterface $routeMatch,
+  ) {}
 
-  abstract protected function doBuildForm(array &$form, FormStateInterface $form_state): void;
-
-  abstract protected function doSubmitForm(array &$form, FormStateInterface $form_state): void;
-
-  abstract protected function getRouteMatch(): RouteMatchInterface;
+  #[\Override]
+  public static function create(ContainerInterface $container): self {
+    return new static(
+      $container->get(ContainerInterface::class),
+      $container->get(MessengerInterface::class),
+      $container->get(CacheTagsInvalidatorInterface::class),
+      $container->get(RouteMatchInterface::class),
+    );
+  }
 
   #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
@@ -42,8 +55,6 @@ abstract class SettingsForm implements FormInterface, ContainerInjectionInterfac
       ->getParameter('key_value_language_aware_code');
     $this->getSettings()->changeLanguageCode($language_code);
 
-    $this->doBuildForm($form, $form_state);
-
     $form['actions']['#type'] = 'actions';
     $form['actions']['save'] = [
       '#type' => 'submit',
@@ -56,8 +67,6 @@ abstract class SettingsForm implements FormInterface, ContainerInjectionInterfac
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->doSubmitForm($form, $form_state);
-
     $this
       ->getMessenger()
       ->addStatus(new TranslatableMarkup('Settings successfully saved.'));
@@ -65,6 +74,32 @@ abstract class SettingsForm implements FormInterface, ContainerInjectionInterfac
     $this
       ->getCacheTagsInvalidator()
       ->invalidateTags($this->getSettings()->getCacheTags());
+  }
+
+  protected function getRouteMatch(): RouteMatchInterface {
+    return $this->routeMatch;
+  }
+
+  protected function getMessenger(): MessengerInterface {
+    return $this->messenger;
+  }
+
+  protected function getCacheTagsInvalidator(): CacheTagsInvalidatorInterface {
+    return $this->cacheTagsInvalidator;
+  }
+
+  protected function getSettings(): LanguageAwareSettingsStore {
+    if ($this->settings) {
+      return $this->settings;
+    }
+
+    $this->settings = $this->loadSettings();
+
+    return $this->settings;
+  }
+
+  protected function getContainer(): ContainerInterface {
+    return $this->container;
   }
 
 }

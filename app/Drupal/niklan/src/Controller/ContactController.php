@@ -6,8 +6,7 @@ namespace Drupal\niklan\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Repository\AboutSettings;
-use Drupal\niklan\Repository\ContactSettings;
+use Drupal\niklan\Repository\KeyValue\ContactSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class ContactController implements ContainerInjectionInterface {
@@ -29,7 +28,7 @@ final readonly class ContactController implements ContainerInjectionInterface {
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => AboutSettings::TEXT_FORMAT,
+        '#format' => $this->settings::TEXT_FORMAT,
       ],
       '#email' => $this->settings->getEmail(),
       '#telegram' => $this->settings->getTelegram(),

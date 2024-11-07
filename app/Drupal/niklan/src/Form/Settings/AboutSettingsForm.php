@@ -2,35 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Form;
+namespace Drupal\niklan\Form\Settings;
 
-use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Repository\KeyValue\AboutSettings;
 use Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsStore;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class AboutSettingsForm extends SettingsForm {
-
-  public function __construct(
-    protected AboutSettings $settings,
-    protected MessengerInterface $messenger,
-    protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
-    protected RouteMatchInterface $routeMatch,
-  ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(AboutSettings::class),
-      $container->get(MessengerInterface::class),
-      $container->get(CacheTagsInvalidatorInterface::class),
-      $container->get(RouteMatchInterface::class),
-    );
-  }
 
   #[\Override]
   public function getFormId(): string {
@@ -38,13 +17,17 @@ final class AboutSettingsForm extends SettingsForm {
   }
 
   #[\Override]
-  public function doBuildForm(array &$form, FormStateInterface $form_state): void {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
+    $form = parent::buildForm($form, $form_state);
+
     $this->buildPhotoSettings($form, $form_state);
     $this->buildContentSettings($form, $form_state);
+
+    return $form;
   }
 
   #[\Override]
-  public function doSubmitForm(array &$form, FormStateInterface $form_state): void {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
       ->getSettings()
       ->setPhotoMediaId($form_state->getValue('media_id'))
@@ -52,6 +35,8 @@ final class AboutSettingsForm extends SettingsForm {
       ->setSubtitle($form_state->getValue(['subtitle', 'value']))
       ->setSummary($form_state->getValue(['summary', 'value']))
       ->setDescription($form_state->getValue(['description', 'value']));
+
+    parent::submitForm($form, $form_state);
   }
 
   public function buildContentSettings(array &$form, FormStateInterface $form_state): void {
@@ -74,7 +59,7 @@ final class AboutSettingsForm extends SettingsForm {
       '#title' => new TranslatableMarkup('Subtitle'),
       '#description' => new TranslatableMarkup('The subtitle of the about page.'),
       '#default_value' => $this->getSettings()->getSubtitle(),
-      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
+      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
       '#required' => TRUE,
     ];
 
@@ -83,7 +68,7 @@ final class AboutSettingsForm extends SettingsForm {
       '#title' => new TranslatableMarkup('Summary'),
       '#description' => new TranslatableMarkup('The summary of the about page.'),
       '#default_value' => $this->getSettings()->getSummary(),
-      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
+      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
@@ -93,31 +78,26 @@ final class AboutSettingsForm extends SettingsForm {
       '#title' => new TranslatableMarkup('Description'),
       '#description' => new TranslatableMarkup('The description of the about page.'),
       '#default_value' => $this->getSettings()->getDescription(),
-      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
+      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
   }
 
-  public static function title(): TranslatableMarkup {
-    return new TranslatableMarkup('About settings');
-  }
+  #[\Override]
+  protected function getSettings(): AboutSettings {
+    $settings = parent::getSettings();
+    \assert($settings instanceof AboutSettings);
 
-  protected function getMessenger(): MessengerInterface {
-    return $this->messenger;
-  }
-
-  protected function getCacheTagsInvalidator(): CacheTagsInvalidatorInterface {
-    return $this->cacheTagsInvalidator;
-  }
-
-  protected function getSettings(): LanguageAwareSettingsStore {
-    return $this->settings;
+    return $settings;
   }
 
   #[\Override]
-  protected function getRouteMatch(): RouteMatchInterface {
-    return $this->routeMatch;
+  protected function loadSettings(): LanguageAwareSettingsStore {
+    $settings = $this->getContainer()->get(AboutSettings::class);
+    \assert($settings instanceof AboutSettings);
+
+    return $settings;
   }
 
   private function buildPhotoSettings(array &$form, FormStateInterface $form_state): void {

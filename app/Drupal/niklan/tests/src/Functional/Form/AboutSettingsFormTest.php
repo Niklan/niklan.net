@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormState;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Form\AboutSettingsForm;
+use Drupal\niklan\Form\Settings\AboutSettingsForm;
 use Drupal\niklan\Repository\AboutSettingsInterface;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\Tests\media\Traits\MediaTypeCreationTrait;
@@ -20,7 +20,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 /**
  * Provides a test for about settings form.
  *
- * @coversDefaultClass \Drupal\niklan\Form\AboutSettingsForm
+ * @coversDefaultClass \Drupal\niklan\Form\Settings\AboutSettingsForm
  */
 final class AboutSettingsFormTest extends NiklanTestBase {
 
