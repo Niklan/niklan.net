@@ -8,7 +8,6 @@ use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\DatabaseException;
 use Drupal\Core\Database\Query\Merge;
-use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore;
 
 /**
  * Provides the database language-aware key-value store.

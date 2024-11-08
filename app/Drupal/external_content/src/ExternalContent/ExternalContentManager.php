@@ -16,6 +16,9 @@ use Drupal\external_content\Contract\Loader\LoaderManagerInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
 use Drupal\external_content\Contract\Serializer\SerializerManagerInterface;
 
+/**
+ * @todo Refactor managers using AutowireLocator.
+ */
 final readonly class ExternalContentManager implements ExternalContentManagerInterface {
 
   public function __construct(

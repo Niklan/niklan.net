@@ -14,8 +14,8 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
-use Drupal\niklan\Ajax\HistoryReplaceStateCommand;
 use Drupal\niklan\Controller\SearchController;
+use Drupal\niklan\Http\Ajax\HistoryReplaceStateCommand;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class SearchForm extends FormBase {

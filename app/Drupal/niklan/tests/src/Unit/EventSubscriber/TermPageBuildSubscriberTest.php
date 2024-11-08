@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\niklan\Unit\EventSubscriber;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
+use Drupal\niklan\Content\Tag\EventSubscriber\TermPageBuild;
 use Drupal\niklan\Controller\TagControllerInterface;
-use Drupal\niklan\EventSubscriber\TermPageBuildSubscriber;
 use Drupal\taxonomy\TermInterface;
 use Drupal\taxonomy_custom_controller\Event\TaxonomyCustomControllerEvents;
 use Drupal\taxonomy_custom_controller\Event\TermPageBuildEvent;
@@ -25,7 +25,7 @@ final class TermPageBuildSubscriberTest extends UnitTestCase {
    * Tests that subscriber properly subscribed.
    */
   public function testSubscriber(): void {
-    $subscribed_events = TermPageBuildSubscriber::getSubscribedEvents();
+    $subscribed_events = TermPageBuild::getSubscribedEvents();
 
     self::assertArrayHasKey(
       TaxonomyCustomControllerEvents::PAGE_BUILD,
@@ -40,7 +40,7 @@ final class TermPageBuildSubscriberTest extends UnitTestCase {
     $term = $this->prophesize(TermInterface::class);
     $term->bundle()->willReturn('not_tags');
 
-    $subscriber = new TermPageBuildSubscriber($this->getClassResolver());
+    $subscriber = new TermPageBuild($this->getClassResolver());
     $event = new TermPageBuildEvent($term->reveal());
     $subscriber->onTermPageBuild($event);
 
@@ -54,7 +54,7 @@ final class TermPageBuildSubscriberTest extends UnitTestCase {
     $term = $this->prophesize(TermInterface::class);
     $term->bundle()->willReturn('tags');
 
-    $subscriber = new TermPageBuildSubscriber($this->getClassResolver());
+    $subscriber = new TermPageBuild($this->getClassResolver());
     $event = new TermPageBuildEvent($term->reveal());
     $subscriber->onTermPageBuild($event);
 

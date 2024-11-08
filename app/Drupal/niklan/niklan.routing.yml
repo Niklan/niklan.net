@@ -1,8 +1,9 @@
 niklan.about:
   path: '/about'
+  methods: [GET]
   defaults:
     _title: 'Niklan — freelance Drupal web-developer'
-    _controller: '\Drupal\niklan\Controller\AboutController'
+    _controller: '\Drupal\niklan\Content\Custom\About\Controller\About'
   requirements:
     _access: 'TRUE'
 
@@ -83,9 +84,10 @@ niklan.admin_general:
 
 niklan.blog_list:
   path: '/blog'
+  methods: [GET]
   defaults:
     _title: 'Blog posts'
-    _controller: '\Drupal\niklan\Controller\BlogController::list'
+    _controller: '\Drupal\niklan\Content\Blog\Controller\BlogList'
   requirements:
     _permission: 'access content'
 
@@ -111,7 +113,7 @@ niklan.tags:
   methods: [GET]
   defaults:
     _title: 'Tags'
-    _controller: '\Drupal\niklan\Controller\TagList'
+    _controller: '\Drupal\niklan\Content\Tag\Controller\TagList'
   requirements:
     _permission: 'access content'
 

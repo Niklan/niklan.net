@@ -11,8 +11,8 @@ services:
   Drupal\niklan\Repository\KeyValue\SupportSettings: {}
   Drupal\niklan\Repository\KeyValue\ServicesSettings: {}
 
-  Drupal\niklan\Utility\DatabaseTagUsageStatistics: {}
-  Drupal\niklan\Contract\Utility\TagUsageStatistics: '@Drupal\niklan\Utility\DatabaseTagUsageStatistics'
+  Drupal\niklan\Content\Tag\Repository\DatabaseTagUsageStatistics: {}
+  Drupal\niklan\Content\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Content\Tag\Repository\DatabaseTagUsageStatistics'
 
   Drupal\niklan\Repository\KeyValue\ServiceContainerLanguageAwareFactory: {}
   keyvalue.language_aware: '@Drupal\niklan\Repository\KeyValue\ServiceContainerLanguageAwareFactory'
@@ -23,9 +23,7 @@ services:
     tags:
       - { name: event_subscriber }
 
-  niklan.event_subscriber.term_page_build:
-    class: Drupal\niklan\EventSubscriber\TermPageBuildSubscriber
-    arguments: ['@class_resolver']
+  Drupal\niklan\Content\Tag\EventSubscriber\TermPageBuild:
     tags:
       - { name: event_subscriber }
 
@@ -39,8 +37,7 @@ services:
     parent: niklan.search.search_api
     class: Drupal\niklan\Search\GlobalSearch
 
-  niklan.builder.content_editing_toolbar_links:
-    class: Drupal\niklan\Builder\ContentEditingToolbarLinksBuilder
+  Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:
     arguments: ['@plugin.manager.menu.local_task', '@current_route_match']
 
   niklan.process.terminal:
@@ -66,26 +63,22 @@ services:
     arguments:
       - '@niklan.markdown.environment'
 
-  Drupal\niklan\Asset\ContentAssetManager:
-    arguments:
-      $fileUsage: '@file.usage'
-      $mimeTypeGuesser: '@file.mime_type.guesser'
-      $logger: '@logger.channel.niklan'
+  Drupal\niklan\ExternalContent\Asset\AssetManager: {}
 
   # External content.
   Drupal\niklan\Extension\ExternalContent\BlogExtension:
     tags:
       - { name: external_content.extension, id: blog }
-  Drupal\niklan\Identifier\ExternalContent\FrontMatterIdentifier:
+  Drupal\niklan\ExternalContent\Identifier\FrontMatter:
     tags:
       - { name: external_content.identifier, id: front_matter }
   Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer:
     tags:
       - { name: external_content.serializer, id: drupal_media }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\DrupalMedia:
+  Drupal\niklan\ExternalContent\RenderArrayBuilder\DrupalMedia:
     tags:
       - { name: external_content.render_array_builder, id: drupal_media }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\CodeBlock:
+  Drupal\niklan\ExternalContent\RenderArrayBuilder\CodeBlock:
     tags:
       - { name: external_content.render_array_builder, id: code_block }
   Drupal\niklan\Serializer\ExternalContent\AlertSerializer:
@@ -94,21 +87,19 @@ services:
   Drupal\niklan\Parser\ExternalContent\AlertParser:
     tags:
       - { name: external_content.html_parser, id: alert }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\Alert:
+  Drupal\niklan\ExternalContent\RenderArrayBuilder\Alert:
     tags:
       - { name: external_content.render_array_builder, id: alert }
   Drupal\niklan\Parser\ExternalContent\RemoteVideo:
     tags:
       - { name: external_content.html_parser, id: remote_video }
-  Drupal\niklan\Builder\ExternalContent\RenderArray\Link:
+  Drupal\niklan\ExternalContent\RenderArrayBuilder\Link:
     tags:
       - { name: external_content.render_array_builder, id: link }
-  Drupal\niklan\Loader\ExternalContent\Blog:
-    arguments:
-      $logger: '@logger.channel.niklan'
+  Drupal\niklan\ExternalContent\Loader\Blog:
     tags:
       - { name: external_content.loader, id: blog }
-  Drupal\niklan\Converter\ExternalContent\MarkdownConverter:
+  Drupal\niklan\ExternalContent\Converter\Markdown:
     arguments:
       - '@niklan.markdown.converter'
     tags:

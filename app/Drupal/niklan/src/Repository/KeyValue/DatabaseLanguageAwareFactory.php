@@ -8,8 +8,6 @@ use Drupal\Component\Assertion\Inspector;
 use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareFactory;
-use Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
@@ -22,7 +20,7 @@ final class DatabaseLanguageAwareFactory implements LanguageAwareFactory {
   /**
    * The list of initialized storages.
    *
-   * @var \Drupal\niklan\Contract\Repository\KeyValue\LanguageAwareStore
+   * @var \Drupal\niklan\Repository\KeyValue\LanguageAwareStore
    */
   private array $storages = [];
 

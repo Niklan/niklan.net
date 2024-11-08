@@ -50,7 +50,7 @@ final class ContentEditingToolbar implements ContainerInjectionInterface {
 
     $this->items['niklan_content_editing']['tray']['user_links'] = [
       '#lazy_builder' => [
-        'niklan.builder.content_editing_toolbar_links:buildLinks',
+        'Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:buildLinks',
         [],
       ],
       '#create_placeholder' => TRUE,
