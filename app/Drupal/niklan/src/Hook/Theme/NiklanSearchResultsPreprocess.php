@@ -6,8 +6,8 @@ namespace Drupal\niklan\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Data\EntitySearchResult;
-use Drupal\niklan\Data\EntitySearchResults;
+use Drupal\niklan\Search\Data\EntitySearchResult;
+use Drupal\niklan\Search\Data\EntitySearchResults;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface {

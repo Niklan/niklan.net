@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Data;
 
-use Drupal\niklan\Data\SearchParams;
+use Drupal\niklan\Search\Data\SearchParams;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a test for search params.
  *
- * @coversDefaultClass \Drupal\niklan\Data\SearchParams
+ * @coversDefaultClass \Drupal\niklan\Search\Data\SearchParams
  */
 final class SearchParamsTest extends UnitTestCase {
 

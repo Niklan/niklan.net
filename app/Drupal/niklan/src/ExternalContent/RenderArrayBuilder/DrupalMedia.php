@@ -12,8 +12,8 @@ use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Entity\File\FileInterface;
-use Drupal\niklan\Node\ExternalContent\DrupalMedia as DrupalMediaNode;
+use Drupal\niklan\Content\File\Entity\FileInterface;
+use Drupal\niklan\ExternalContent\Node\DrupalMedia as DrupalMediaNode;
 
 /**
  * @ingroup content_sync

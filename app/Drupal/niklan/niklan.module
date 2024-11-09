@@ -334,7 +334,7 @@ function niklan_preprocess_username(array &$variables): void {
  * @param array $variables
  *   An associative array containing:
  *   - results: Array with results. It's also allowed to pass instance of
- *     \Drupal\niklan\Data\EntitySearchResults to automatically prepare
+ *     \Drupal\niklan\Search\Data\EntitySearchResults to automatically prepare
  *     results from it.
  */
 function template_preprocess_niklan_search_results(array &$variables): void {

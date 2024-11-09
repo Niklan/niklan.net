@@ -7,7 +7,7 @@ namespace Drupal\Tests\niklan\Kernel\Controller;
 use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\niklan\Controller\PortfolioController;
+use Drupal\niklan\Content\Portfolio\Controller\PortfolioList;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
@@ -15,7 +15,7 @@ use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 /**
  * Provides test for portfolio controller.
  *
- * @coversDefaultClass \Drupal\niklan\Controller\PortfolioController
+ * @coversDefaultClass \Drupal\niklan\Content\Portfolio\Controller\PortfolioList
  */
 final class PortfolioControllerTest extends NiklanTestBase {
 
@@ -28,7 +28,7 @@ final class PortfolioControllerTest extends NiklanTestBase {
    * Tests that controller properly handles empty results.
    */
   public function testWithoutPortfolioEntities(): void {
-    $controller = PortfolioController::create($this->container);
+    $controller = PortfolioList::create($this->container);
 
     $build = $controller->list();
     self::assertEmpty($build['#items']);
@@ -61,7 +61,7 @@ final class PortfolioControllerTest extends NiklanTestBase {
       'title' => 'Portfolio 3',
     ])->save();
 
-    $controller = PortfolioController::create($this->container);
+    $controller = PortfolioList::create($this->container);
     $build = $controller->list();
     self::assertCount(3, $build['#items']);
 

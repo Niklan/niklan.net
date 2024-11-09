@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Kernel\Controller;
 
-use Drupal\niklan\Controller\SearchController;
-use Drupal\niklan\Data\EntitySearchResult;
-use Drupal\niklan\Data\EntitySearchResults;
-use Drupal\niklan\Search\EntitySearchInterface;
+use Drupal\niklan\Search\Controller\Search;
+use Drupal\niklan\Search\Data\EntitySearchResult;
+use Drupal\niklan\Search\Data\EntitySearchResults;
+use Drupal\niklan\Search\Repository\EntitySearch;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Provides a test for search controller.
  *
- * @covers \Drupal\niklan\Controller\SearchController
+ * @covers \Drupal\niklan\Search\Controller\Search
  */
 final class SearchControllerTest extends NiklanTestBase {
 
@@ -34,7 +34,7 @@ final class SearchControllerTest extends NiklanTestBase {
     $controller = $this
       ->container
       ->get('class_resolver')
-      ->getInstanceFromDefinition(SearchController::class);
+      ->getInstanceFromDefinition(Search::class);
 
     // With 'NULL' query.
     $title = $controller->pageTitle($request);
@@ -52,7 +52,7 @@ final class SearchControllerTest extends NiklanTestBase {
     $controller = $this
       ->container
       ->get('class_resolver')
-      ->getInstanceFromDefinition(SearchController::class);
+      ->getInstanceFromDefinition(Search::class);
 
     $result = $controller->buildPageContent(NULL);
 
@@ -68,7 +68,7 @@ final class SearchControllerTest extends NiklanTestBase {
     $entity_search = $this->buildEntitySearch($search_results);
     $this->container->set('niklan.search.global', $entity_search);
 
-    $controller = SearchController::create($this->container);
+    $controller = Search::create($this->container);
 
     $result = $controller->buildPageContent('Hello');
 
@@ -86,7 +86,7 @@ final class SearchControllerTest extends NiklanTestBase {
     $entity_search = $this->buildEntitySearch($search_results);
     $this->container->set('niklan.search.global', $entity_search);
 
-    $controller = SearchController::create($this->container);
+    $controller = Search::create($this->container);
 
     $result = $controller->buildPageContent('Hello');
 
@@ -110,7 +110,7 @@ final class SearchControllerTest extends NiklanTestBase {
     $entity_search = $this->buildEntitySearch($search_results);
     $this->container->set('niklan.search.global', $entity_search);
 
-    $controller = SearchController::create($this->container);
+    $controller = Search::create($this->container);
     $result = $controller->page($request->reveal());
 
     self::assertArrayHasKey('#theme', $result);
@@ -121,11 +121,11 @@ final class SearchControllerTest extends NiklanTestBase {
   /**
    * Builds an entity search prophecy.
    *
-   * @param \Drupal\niklan\Data\EntitySearchResults $results
+   * @param \Drupal\niklan\Search\Data\EntitySearchResults $results
    *   The entity search results.
    */
-  protected function buildEntitySearch(EntitySearchResults $results): EntitySearchInterface {
-    $entity_search = $this->prophesize(EntitySearchInterface::class);
+  protected function buildEntitySearch(EntitySearchResults $results): EntitySearch {
+    $entity_search = $this->prophesize(EntitySearch::class);
     $entity_search->search(Argument::any())->willReturn($results);
 
     return $entity_search->reveal();

@@ -9,7 +9,7 @@ use Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface;
 use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\external_content\Utils\RenderArrayBuilderHelper;
-use Drupal\niklan\Node\ExternalContent\Alert as AlertNode;
+use Drupal\niklan\ExternalContent\Node\Alert as AlertNode;
 
 /**
  * @ingroup content_sync

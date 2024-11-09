@@ -7,7 +7,7 @@ namespace Drupal\niklan\Content\Tag\Controller;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Entity\Node\NodeInterface;
+use Drupal\niklan\Content\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

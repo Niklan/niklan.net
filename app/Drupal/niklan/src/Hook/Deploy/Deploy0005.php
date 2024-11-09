@@ -11,7 +11,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Entity\File\FileInterface;
+use Drupal\niklan\Content\File\Entity\FileInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

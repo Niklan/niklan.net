@@ -16,7 +16,7 @@ use Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * @see \Drupal\niklan\EventSubscriber\LanguageAwareSettingsRoutes
+ * @see \Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsRoutes
  */
 abstract class SettingsForm implements FormInterface, ContainerInjectionInterface {
 

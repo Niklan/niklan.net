@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Hook\Theme;
 
-use Drupal\niklan\Data\EntitySearchResult;
-use Drupal\niklan\Data\EntitySearchResults;
 use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
+use Drupal\niklan\Search\Data\EntitySearchResult;
+use Drupal\niklan\Search\Data\EntitySearchResults;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;

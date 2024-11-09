@@ -3,7 +3,7 @@ niklan.about:
   methods: [GET]
   defaults:
     _title: 'Niklan — freelance Drupal web-developer'
-    _controller: '\Drupal\niklan\Content\Custom\About\Controller\About'
+    _controller: Drupal\niklan\CustomPage\About\Controller\About
   requirements:
     _access: 'TRUE'
 
@@ -11,7 +11,7 @@ niklan.about.settings:
   path: '/admin/niklan/about'
   defaults:
     _title: 'About settings'
-    _form: '\Drupal\niklan\Form\Settings\AboutSettingsForm'
+    _form: Drupal\niklan\Form\Settings\AboutSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -19,7 +19,7 @@ niklan.support:
   path: '/support'
   defaults:
     _title: 'Support'
-    _controller: '\Drupal\niklan\Controller\SupportController'
+    _controller: Drupal\niklan\CustomPage\Support\Controller\Support
   requirements:
     _access: 'TRUE'
 
@@ -27,7 +27,7 @@ niklan.support.settings:
   path: '/admin/niklan/support'
   defaults:
     _title: 'Support settings'
-    _form: '\Drupal\niklan\Form\Settings\SupportSettingsForm'
+    _form: Drupal\niklan\Form\Settings\SupportSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -35,7 +35,7 @@ niklan.contact.settings:
   path: '/admin/niklan/contact'
   defaults:
     _title: 'Contact settings'
-    _form: '\Drupal\niklan\Form\Settings\ContactSettingsForm'
+    _form: Drupal\niklan\Form\Settings\ContactSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -43,7 +43,7 @@ niklan.services.settings:
   path: '/admin/niklan/services'
   defaults:
     _title: 'Services settings'
-    _form: '\Drupal\niklan\Form\Settings\ServicesSettingsForm'
+    _form: Drupal\niklan\Form\Settings\ServicesSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -52,7 +52,7 @@ niklan.services:
   methods: [GET]
   defaults:
     _title: "Let's Work Together"
-    _controller: '\Drupal\niklan\Controller\ServicesController'
+    _controller: Drupal\niklan\CustomPage\Services\Controller\Services
   requirements:
     _access: 'TRUE'
 
@@ -60,14 +60,14 @@ niklan.comments:
   path: '/comments'
   defaults:
     _title: 'Comments'
-    _controller: '\Drupal\niklan\Controller\CommentController::list'
+    _controller: Drupal\niklan\Content\Comment\Controller\CommentList
   requirements:
     _permission: 'access comments'
 
 niklan.admin:
   path: '/admin/niklan'
   defaults:
-    _controller: '\Drupal\system\Controller\SystemController::overview'
+    _controller: Drupal\system\Controller\SystemController::overview
     _title: 'Niklan.net settings'
     link_id: 'niklan.admin'
   requirements:
@@ -77,7 +77,7 @@ niklan.admin_general:
   path: '/admin/niklan/general'
   defaults:
     link_id: 'niklan.admin_general'
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _controller: Drupal\system\Controller\SystemController::systemAdminMenuBlockPage
     _title: 'General settings'
   requirements:
     _permission: 'access administration pages'
@@ -87,7 +87,7 @@ niklan.blog_list:
   methods: [GET]
   defaults:
     _title: 'Blog posts'
-    _controller: '\Drupal\niklan\Content\Blog\Controller\BlogList'
+    _controller: Drupal\niklan\Content\Blog\Controller\BlogList
   requirements:
     _permission: 'access content'
 
@@ -95,7 +95,7 @@ niklan.portfolio_list:
   path: '/portfolio'
   defaults:
     _title: 'Portfolio'
-    _controller: '\Drupal\niklan\Controller\PortfolioController::list'
+    _controller: Drupal\niklan\Content\Portfolio\Controller\PortfolioList
   requirements:
     _permission: 'access content'
 
@@ -103,8 +103,8 @@ niklan.search_page:
   path: '/search'
   defaults:
     _title: 'Search'
-    _controller: '\Drupal\niklan\Controller\SearchController::page'
-    _title_callback: '\Drupal\niklan\Controller\SearchController::pageTitle'
+    _controller: Drupal\niklan\Search\Controller\Search
+    _title_callback: Drupal\niklan\Search\Controller\Search::pageTitle
   requirements:
     _permission: 'access content'
 
@@ -113,7 +113,7 @@ niklan.tags:
   methods: [GET]
   defaults:
     _title: 'Tags'
-    _controller: '\Drupal\niklan\Content\Tag\Controller\TagList'
+    _controller: Drupal\niklan\Content\Tag\Controller\TagList
   requirements:
     _permission: 'access content'
 
@@ -122,6 +122,6 @@ niklan.contact:
   methods: [GET]
   defaults:
     _title: "Let's Talk"
-    _controller: '\Drupal\niklan\Controller\ContactController'
+    _controller: Drupal\niklan\CustomPage\Contact\Controller\Contact
   requirements:
     _permission: 'access content'

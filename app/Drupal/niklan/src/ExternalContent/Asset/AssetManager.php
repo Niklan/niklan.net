@@ -13,7 +13,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
-use Drupal\niklan\Entity\File\FileInterface;
+use Drupal\niklan\Content\File\Entity\FileInterface;
 use Drupal\niklan\Helper\FileHelper;
 use Drupal\niklan\Helper\YouTubeHelper;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Data;
 
-use Drupal\niklan\Data\EntitySearchResult;
-use Drupal\niklan\Data\EntitySearchResults;
+use Drupal\niklan\Search\Data\EntitySearchResult;
+use Drupal\niklan\Search\Data\EntitySearchResults;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a test for entity search results collection.
  *
- * @coversDefaultClass \Drupal\niklan\Data\EntitySearchResults
+ * @coversDefaultClass \Drupal\niklan\Search\Data\EntitySearchResults
  */
 final class EntitySearchResultsTest extends UnitTestCase {
 

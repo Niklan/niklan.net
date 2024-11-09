@@ -6,8 +6,8 @@ namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Entity\Node\BlogEntry;
-use Drupal\niklan\Entity\Node\NodeInterface;
+use Drupal\niklan\Content\Blog\Entity\BlogEntry;
+use Drupal\niklan\Content\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessNode implements ContainerInjectionInterface {

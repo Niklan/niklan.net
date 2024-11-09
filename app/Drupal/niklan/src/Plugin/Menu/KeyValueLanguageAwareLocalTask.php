@@ -8,7 +8,7 @@ use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\EventSubscriber\LanguageAwareSettingsRoutes;
+use Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsRoutes;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

@@ -19,7 +19,7 @@ services:
   Drupal\niklan\Repository\KeyValue\DatabaseLanguageAwareFactory: {}
   keyvalue.language_aware.database: '@Drupal\niklan\Repository\KeyValue\DatabaseLanguageAwareFactory'
 
-  Drupal\niklan\EventSubscriber\LanguageAwareSettingsRoutes:
+  Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsRoutes:
     tags:
       - { name: event_subscriber }
 
@@ -35,7 +35,7 @@ services:
 
   niklan.search.global:
     parent: niklan.search.search_api
-    class: Drupal\niklan\Search\GlobalSearch
+    class: Drupal\niklan\Search\Repository\GlobalSearch
 
   Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:
     arguments: ['@plugin.manager.menu.local_task', '@current_route_match']
@@ -48,7 +48,7 @@ services:
     class: Drupal\niklan\Process\Git
   Drupal\niklan\Process\GitInterface: '@Drupal\niklan\Process\Git'
 
-  Drupal\niklan\EventSubscriber\BlogExtensionEventSubscriber:
+  Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension:
     tags:
       - { name: event_subscriber }
 
@@ -57,7 +57,7 @@ services:
   niklan.markdown.environment:
     class: League\CommonMark\Environment\Environment
     calls:
-      - [addExtension, ['@Drupal\niklan\Extension\Markdown\NiklanMarkdownExtension']]
+      - [addExtension, ['@Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension']]
   niklan.markdown.converter:
     class: League\CommonMark\MarkdownConverter
     arguments:
@@ -66,13 +66,13 @@ services:
   Drupal\niklan\ExternalContent\Asset\AssetManager: {}
 
   # External content.
-  Drupal\niklan\Extension\ExternalContent\BlogExtension:
+  Drupal\niklan\ExternalContent\Extension\Blog:
     tags:
       - { name: external_content.extension, id: blog }
   Drupal\niklan\ExternalContent\Identifier\FrontMatter:
     tags:
       - { name: external_content.identifier, id: front_matter }
-  Drupal\niklan\Serializer\ExternalContent\DrupalMediaSerializer:
+  Drupal\niklan\ExternalContent\Serializer\DrupalMediaSerializer:
     tags:
       - { name: external_content.serializer, id: drupal_media }
   Drupal\niklan\ExternalContent\RenderArrayBuilder\DrupalMedia:
@@ -81,16 +81,16 @@ services:
   Drupal\niklan\ExternalContent\RenderArrayBuilder\CodeBlock:
     tags:
       - { name: external_content.render_array_builder, id: code_block }
-  Drupal\niklan\Serializer\ExternalContent\AlertSerializer:
+  Drupal\niklan\ExternalContent\Serializer\AlertSerializer:
     tags:
       - { name: external_content.serializer, id: alert }
-  Drupal\niklan\Parser\ExternalContent\AlertParser:
+  Drupal\niklan\ExternalContent\Parser\AlertParser:
     tags:
       - { name: external_content.html_parser, id: alert }
   Drupal\niklan\ExternalContent\RenderArrayBuilder\Alert:
     tags:
       - { name: external_content.render_array_builder, id: alert }
-  Drupal\niklan\Parser\ExternalContent\RemoteVideo:
+  Drupal\niklan\ExternalContent\Parser\RemoteVideo:
     tags:
       - { name: external_content.html_parser, id: remote_video }
   Drupal\niklan\ExternalContent\RenderArrayBuilder\Link:
@@ -104,20 +104,20 @@ services:
       - '@niklan.markdown.converter'
     tags:
       - { name: external_content.converter, id: niklan_markdown }
-  Drupal\niklan\Parser\ExternalContent\Container:
+  Drupal\niklan\ExternalContent\Parser\Container:
     tags:
       - { name: external_content.html_parser, id: container }
-  Drupal\niklan\Parser\ExternalContent\Video:
+  Drupal\niklan\ExternalContent\Parser\Video:
     tags:
       - { name: external_content.html_parser, id: video }
 
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment
     calls:
-      - [addExtension, ['@Drupal\niklan\Extension\ExternalContent\BlogExtension']]
+      - [addExtension, ['@Drupal\niklan\ExternalContent\Extension\BlogExtension']]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }
 
-  Drupal\niklan\Extension\Twig\ImageDimensionsExtension:
+  Drupal\niklan\Markup\Twig\Extension\ImageDimensions:
     tags:
       - { name: twig.extension }

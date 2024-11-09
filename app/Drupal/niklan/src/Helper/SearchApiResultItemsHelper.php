@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Helper;
 
-use Drupal\niklan\Data\EntitySearchResult;
+use Drupal\niklan\Search\Data\EntitySearchResult;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 

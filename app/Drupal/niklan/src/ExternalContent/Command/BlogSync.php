@@ -12,7 +12,7 @@ use Drupal\external_content\Data\IdentifiedSourceCollection;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Source\File;
-use Drupal\niklan\Exception\InvalidContentSource;
+use Drupal\niklan\ExternalContent\Exception\InvalidContentSource;
 use Drupal\niklan\Utility\Console\NiklanStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

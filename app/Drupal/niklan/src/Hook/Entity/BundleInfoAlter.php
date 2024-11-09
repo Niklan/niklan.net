@@ -6,9 +6,9 @@ namespace Drupal\niklan\Hook\Entity;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Entity\File\File;
-use Drupal\niklan\Entity\Node\BlogEntry;
-use Drupal\niklan\Entity\Node\Portfolio;
+use Drupal\niklan\Content\Blog\Entity\BlogEntry;
+use Drupal\niklan\Content\File\Entity\File;
+use Drupal\niklan\Content\Portfolio\Entity\Portfolio;
 
 final class BundleInfoAlter {
 

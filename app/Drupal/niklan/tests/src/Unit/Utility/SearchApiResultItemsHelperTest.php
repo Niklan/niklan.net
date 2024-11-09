@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Utility;
 
-use Drupal\niklan\Data\EntitySearchResult;
 use Drupal\niklan\Helper\SearchApiResultItemsHelper;
+use Drupal\niklan\Search\Data\EntitySearchResult;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\Tests\UnitTestCase;

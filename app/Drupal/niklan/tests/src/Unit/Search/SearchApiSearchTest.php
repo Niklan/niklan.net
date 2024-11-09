@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Drupal\Tests\niklan\Unit\Search;
 
 use Drupal\Core\Cache\Cache;
-use Drupal\niklan\Search\SearchApiSearch;
+use Drupal\niklan\Search\Repository\SearchApiSearch;
 use Drupal\Tests\niklan\Traits\SearchTrait;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides test for an abstract Search API search.
  *
- * @coversDefaultClass \Drupal\niklan\Search\SearchApiSearch
+ * @coversDefaultClass \Drupal\niklan\Search\Repository\SearchApiSearch
  */
 final class SearchApiSearchTest extends UnitTestCase {
 

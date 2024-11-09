@@ -9,7 +9,7 @@ use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\niklan\Controller\SearchControllerInterface;
-use Drupal\niklan\Form\SearchForm;
+use Drupal\niklan\Search\Form\SearchForm;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Provides a test for a custom site search form.
  *
- * @coversDefaultClass \Drupal\niklan\Form\SearchForm
+ * @coversDefaultClass \Drupal\niklan\Search\Form\SearchForm
  */
 final class SearchFormTest extends NiklanTestBase {
 
