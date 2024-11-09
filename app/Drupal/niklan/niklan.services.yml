@@ -12,14 +12,14 @@ services:
   Drupal\niklan\Repository\KeyValue\ServicesSettings: {}
 
   Drupal\niklan\Content\Tag\Repository\DatabaseTagUsageStatistics: {}
-  Drupal\niklan\Content\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Content\Tag\Repository\DatabaseTagUsageStatistics'
+  Drupal\niklan\Content\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
 
-  Drupal\niklan\Repository\KeyValue\ServiceContainerLanguageAwareFactory: {}
-  keyvalue.language_aware: '@Drupal\niklan\Repository\KeyValue\ServiceContainerLanguageAwareFactory'
-  Drupal\niklan\Repository\KeyValue\DatabaseLanguageAwareFactory: {}
-  keyvalue.language_aware.database: '@Drupal\niklan\Repository\KeyValue\DatabaseLanguageAwareFactory'
+  Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactoryy: {}
+  keyvalue.language_aware: '@Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory'
+  Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory: {}
+  keyvalue.language_aware.database: '@Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory'
 
-  Drupal\niklan\Repository\KeyValue\LanguageAwareSettingsRoutes:
+  Drupal\niklan\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes:
     tags:
       - { name: event_subscriber }
 
@@ -41,12 +41,12 @@ services:
     arguments: ['@plugin.manager.menu.local_task', '@current_route_match']
 
   niklan.process.terminal:
-    class: Drupal\niklan\Process\Terminal
+    class: Drupal\niklan\Console\Process\Terminal
     arguments: ['@file_system']
 
   Drupal\niklan\Process\Git:
-    class: Drupal\niklan\Process\Git
-  Drupal\niklan\Process\GitInterface: '@Drupal\niklan\Process\Git'
+    class: Drupal\niklan\Console\Process\Git
+  Drupal\niklan\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
 
   Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension:
     tags:

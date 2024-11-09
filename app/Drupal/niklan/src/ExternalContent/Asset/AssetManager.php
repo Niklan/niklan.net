@@ -13,9 +13,9 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
-use Drupal\niklan\Content\File\Entity\FileInterface;
-use Drupal\niklan\Helper\FileHelper;
-use Drupal\niklan\Helper\YouTubeHelper;
+use Drupal\niklan\File\Entity\FileInterface;
+use Drupal\niklan\File\Utils\FileHelper;
+use Drupal\niklan\Utils\YouTubeHelper;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 

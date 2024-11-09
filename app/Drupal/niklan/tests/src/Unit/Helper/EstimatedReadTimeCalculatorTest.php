@@ -6,13 +6,13 @@ namespace Drupal\Tests\niklan\Unit\Helper;
 
 use Drupal\external_content\Node\Code;
 use Drupal\external_content\Node\PlainText;
-use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
+use Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides test for estimated read time calculator.
  *
- * @coversDefaultClass \Drupal\niklan\Helper\EstimatedReadTimeCalculator
+ * @coversDefaultClass \Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator
  */
 final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Utility;
 
-use Drupal\niklan\Helper\SearchApiResultItemsHelper;
 use Drupal\niklan\Search\Data\EntitySearchResult;
+use Drupal\niklan\Search\Utils\SearchApiResultItemsHelper;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\Tests\UnitTestCase;
@@ -14,7 +14,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 /**
  * Provides a test for Search API result items helper.
  *
- * @coversDefaultClass \Drupal\niklan\Helper\SearchApiResultItemsHelper
+ * @coversDefaultClass \Drupal\niklan\Search\Utils\SearchApiResultItemsHelper
  */
 final class SearchApiResultItemsHelperTest extends UnitTestCase {
 

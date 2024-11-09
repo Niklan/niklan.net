@@ -7,7 +7,7 @@ namespace Drupal\Tests\niklan\Kernel\Controller;
 use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\niklan\Content\Portfolio\Controller\PortfolioList;
+use Drupal\niklan\Portfolio\Controller\PortfolioList;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
@@ -15,7 +15,7 @@ use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 /**
  * Provides test for portfolio controller.
  *
- * @coversDefaultClass \Drupal\niklan\Content\Portfolio\Controller\PortfolioList
+ * @coversDefaultClass \Drupal\niklan\Portfolio\Controller\PortfolioList
  */
 final class PortfolioControllerTest extends NiklanTestBase {
 

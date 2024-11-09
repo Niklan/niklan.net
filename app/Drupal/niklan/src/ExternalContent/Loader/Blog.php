@@ -21,13 +21,13 @@ use Drupal\external_content\Data\IdentifiedSourceBundle;
 use Drupal\external_content\Data\LoaderResult;
 use Drupal\external_content\Node\Element;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Content\Blog\Entity\BlogEntryInterface;
 use Drupal\niklan\ExternalContent\Asset\AssetManager;
 use Drupal\niklan\ExternalContent\Exception\InvalidContentSource;
 use Drupal\niklan\ExternalContent\Node\DrupalMedia;
 use Drupal\niklan\ExternalContent\Node\RemoteVideo;
 use Drupal\niklan\ExternalContent\Node\Video;
-use Drupal\niklan\Helper\PathHelper;
+use Drupal\niklan\Node\Entity\BlogEntryInterface;
+use Drupal\niklan\Utils\PathHelper;
 use Drupal\taxonomy\TermStorageInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 

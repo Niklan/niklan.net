@@ -12,9 +12,9 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Content\Blog\Entity\BlogEntry;
-use Drupal\niklan\Content\File\Entity\FileInterface;
+use Drupal\niklan\File\Entity\FileInterface;
 use Drupal\niklan\Helper\TocBuilder;
+use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\niklan\Unit\EventSubscriber;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\niklan\Content\Tag\EventSubscriber\TermPageBuild;
 use Drupal\niklan\Controller\TagControllerInterface;
+use Drupal\niklan\Tag\EventSubscriber\TermPageBuild;
 use Drupal\taxonomy\TermInterface;
 use Drupal\taxonomy_custom_controller\Event\TaxonomyCustomControllerEvents;
 use Drupal\taxonomy_custom_controller\Event\TermPageBuildEvent;

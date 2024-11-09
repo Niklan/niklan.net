@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Markup\Markdown\Parser;
 
-use Drupal\niklan\Helper\CommonMarkDirectiveHelper;
+use Drupal\niklan\Markup\Markdown\Helper\CommonMarkDirectiveHelper;
 use Drupal\niklan\Markup\Markdown\Node\BlockDirective;
 use Drupal\niklan\Markup\Markdown\Node\LeafBlockDirective;
 use League\CommonMark\Node\Block\AbstractBlock;

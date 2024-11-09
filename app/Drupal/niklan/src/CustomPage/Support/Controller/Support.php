@@ -6,7 +6,7 @@ namespace Drupal\niklan\CustomPage\Support\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Repository\KeyValue\SupportSettings;
+use Drupal\niklan\CustomPage\Support\Repository\SupportSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Support implements ContainerInjectionInterface {

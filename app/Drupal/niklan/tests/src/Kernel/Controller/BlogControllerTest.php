@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Kernel\Controller;
 
-use Drupal\niklan\Content\Blog\Controller\BlogList;
+use Drupal\niklan\Blog\Controller\BlogList;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use Drupal\Tests\niklan\Traits\BlogEntryTrait;
@@ -12,7 +12,7 @@ use Drupal\Tests\niklan\Traits\BlogEntryTrait;
 /**
  * Provides a test for a blog controller.
  *
- * @coversDefaultClass \Drupal\niklan\Content\Blog\Controller\BlogList
+ * @coversDefaultClass \Drupal\niklan\Blog\Controller\BlogList
  */
 final class BlogControllerTest extends NiklanTestBase {
 

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Kernel\Controller;
 
-use Drupal\niklan\Content\Comment\Controller\CommentList;
+use Drupal\niklan\Comment\Controller\CommentList;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use Drupal\Tests\niklan\Traits\BlogEntryCommentTrait;
 
 /**
  * Provides a test for comment controller.
  *
- * @coversDefaultClass \Drupal\niklan\Content\Comment\Controller\CommentList
+ * @coversDefaultClass \Drupal\niklan\Comment\Controller\CommentList
  */
 final class CommentControllerTest extends NiklanTestBase {
 

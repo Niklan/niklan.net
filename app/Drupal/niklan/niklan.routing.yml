@@ -11,7 +11,7 @@ niklan.about.settings:
   path: '/admin/niklan/about'
   defaults:
     _title: 'About settings'
-    _form: Drupal\niklan\Form\Settings\AboutSettingsForm
+    _form: Drupal\niklan\CustomPage\About\Form\AboutSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -27,7 +27,7 @@ niklan.support.settings:
   path: '/admin/niklan/support'
   defaults:
     _title: 'Support settings'
-    _form: Drupal\niklan\Form\Settings\SupportSettingsForm
+    _form: Drupal\niklan\CustomPage\Support\Form\SupportSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -35,7 +35,7 @@ niklan.contact.settings:
   path: '/admin/niklan/contact'
   defaults:
     _title: 'Contact settings'
-    _form: Drupal\niklan\Form\Settings\ContactSettingsForm
+    _form: Drupal\niklan\CustomPage\Contact\Form\ContactSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -43,7 +43,7 @@ niklan.services.settings:
   path: '/admin/niklan/services'
   defaults:
     _title: 'Services settings'
-    _form: Drupal\niklan\Form\Settings\ServicesSettingsForm
+    _form: Drupal\niklan\CustomPage\Services\Form\ServicesSettingsForm
   requirements:
     _permission: 'administer site configuration'
 
@@ -60,7 +60,7 @@ niklan.comments:
   path: '/comments'
   defaults:
     _title: 'Comments'
-    _controller: Drupal\niklan\Content\Comment\Controller\CommentList
+    _controller: Drupal\niklan\Comment\Controller\CommentList
   requirements:
     _permission: 'access comments'
 
@@ -87,7 +87,7 @@ niklan.blog_list:
   methods: [GET]
   defaults:
     _title: 'Blog posts'
-    _controller: Drupal\niklan\Content\Blog\Controller\BlogList
+    _controller: Drupal\niklan\Blog\Controller\BlogList
   requirements:
     _permission: 'access content'
 
@@ -95,7 +95,7 @@ niklan.portfolio_list:
   path: '/portfolio'
   defaults:
     _title: 'Portfolio'
-    _controller: Drupal\niklan\Content\Portfolio\Controller\PortfolioList
+    _controller: Drupal\niklan\Portfolio\Controller\PortfolioList
   requirements:
     _permission: 'access content'
 
@@ -113,7 +113,7 @@ niklan.tags:
   methods: [GET]
   defaults:
     _title: 'Tags'
-    _controller: Drupal\niklan\Content\Tag\Controller\TagList
+    _controller: Drupal\niklan\Tag\Controller\TagList
   requirements:
     _permission: 'access content'
 

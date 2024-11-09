@@ -6,7 +6,7 @@ namespace Drupal\niklan\CustomPage\Services\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Repository\KeyValue\ServicesSettings;
+use Drupal\niklan\CustomPage\Services\Repository\ServicesSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Services implements ContainerInjectionInterface {

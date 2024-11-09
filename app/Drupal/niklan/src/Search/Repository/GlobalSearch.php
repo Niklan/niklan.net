@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Search\Repository;
 
-use Drupal\niklan\Helper\SearchApiResultItemsHelper;
 use Drupal\niklan\Search\Data\EntitySearchResults;
 use Drupal\niklan\Search\Data\SearchParams;
+use Drupal\niklan\Search\Utils\SearchApiResultItemsHelper;
 
 final class GlobalSearch extends SearchApiSearch implements EntitySearch {
 

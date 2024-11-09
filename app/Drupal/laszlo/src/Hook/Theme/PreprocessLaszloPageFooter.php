@@ -6,7 +6,7 @@ namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\Process\GitInterface;
+use Drupal\niklan\Console\Process\GitInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessLaszloPageFooter implements ContainerInjectionInterface {

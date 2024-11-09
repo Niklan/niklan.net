@@ -9,7 +9,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\Content\File\Entity\FileInterface;
+use Drupal\niklan\File\Entity\FileInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

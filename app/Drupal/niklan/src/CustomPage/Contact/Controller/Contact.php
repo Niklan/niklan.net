@@ -6,7 +6,7 @@ namespace Drupal\niklan\CustomPage\Contact\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Repository\KeyValue\ContactSettings;
+use Drupal\niklan\CustomPager\Contact\Repository\ContactSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Contact implements ContainerInjectionInterface {
