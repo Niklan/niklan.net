@@ -2,36 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\CustomPage\Contact\Controller;
+namespace Drupal\niklan\StaticPage\Services\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\CustomPager\Contact\Repository\ContactSettings;
+use Drupal\niklan\StaticPage\Services\Repository\ServicesSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class Contact implements ContainerInjectionInterface {
+final readonly class Services implements ContainerInjectionInterface {
 
   public function __construct(
-    private ContactSettings $settings,
+    private ServicesSettings $settings,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(ContactSettings::class),
+      $container->get(ServicesSettings::class),
     );
   }
 
   public function __invoke(): array {
     $build = [
-      '#theme' => 'niklan_contact',
+      '#theme' => 'niklan_services',
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
         '#format' => $this->settings::TEXT_FORMAT,
       ],
-      '#email' => $this->settings->getEmail(),
-      '#telegram' => $this->settings->getTelegram(),
+      '#hourly_rate' => $this->settings->getHourlyRate(),
     ];
 
     $cache = new CacheableMetadata();

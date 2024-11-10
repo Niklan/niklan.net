@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\CustomPage\About\Form;
+namespace Drupal\niklan\StaticPage\About\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\CustomPage\About\Repository\AboutSettings;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
 use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
+use Drupal\niklan\StaticPage\About\Repository\AboutSettings;
 
 final class AboutSettingsForm extends LanguageAwareStoreForm {
 

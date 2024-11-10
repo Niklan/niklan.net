@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\CustomPage\About\Controller;
+namespace Drupal\niklan\StaticPage\About\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\filter\Plugin\FilterInterface;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\CustomPage\About\Repository\AboutSettings;
+use Drupal\niklan\StaticPage\About\Repository\AboutSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class About implements ContainerInjectionInterface {

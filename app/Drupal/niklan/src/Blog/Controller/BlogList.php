@@ -27,12 +27,6 @@ final class BlogList implements ContainerInjectionInterface {
     );
   }
 
-  /**
-   * Builds list of entities.
-   *
-   * @return array
-   *   An array with blog post render arrays.
-   */
   protected function getItems(): array {
     $items = [];
 
@@ -46,12 +40,6 @@ final class BlogList implements ContainerInjectionInterface {
     return $items;
   }
 
-  /**
-   * Builds pager element.
-   *
-   * @return array
-   *   The render array with pager.
-   */
   protected function buildPager(): array {
     return [
       '#type' => 'pager',
@@ -59,24 +47,12 @@ final class BlogList implements ContainerInjectionInterface {
     ];
   }
 
-  /**
-   * Loads entities.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface[]
-   *   An array with blog articles.
-   */
   protected function load(): array {
     $ids = $this->getEntityIds();
 
     return $this->entityTypeManager->getStorage('node')->loadMultiple($ids);
   }
 
-  /**
-   * Gets entity ids.
-   *
-   * @return array
-   *   The list of ids.
-   */
   protected function getEntityIds(): array {
     $query = $this
       ->entityTypeManager

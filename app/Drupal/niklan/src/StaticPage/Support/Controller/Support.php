@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\CustomPage\Support\Controller;
+namespace Drupal\niklan\StaticPage\Support\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\CustomPage\Support\Repository\SupportSettings;
+use Drupal\niklan\StaticPage\Support\Repository\SupportSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Support implements ContainerInjectionInterface {

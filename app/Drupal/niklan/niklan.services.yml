@@ -11,10 +11,10 @@ services:
   Drupal\niklan\Repository\KeyValue\SupportSettings: {}
   Drupal\niklan\Repository\KeyValue\ServicesSettings: {}
 
-  Drupal\niklan\Content\Tag\Repository\DatabaseTagUsageStatistics: {}
-  Drupal\niklan\Content\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
+  Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: {}
+  Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
 
-  Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactoryy: {}
+  Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: {}
   keyvalue.language_aware: '@Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory'
   Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory: {}
   keyvalue.language_aware.database: '@Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory'
@@ -23,7 +23,7 @@ services:
     tags:
       - { name: event_subscriber }
 
-  Drupal\niklan\Content\Tag\EventSubscriber\TermPageBuild:
+  Drupal\niklan\Tag\EventSubscriber\TermPageBuild:
     tags:
       - { name: event_subscriber }
 
@@ -44,15 +44,14 @@ services:
     class: Drupal\niklan\Console\Process\Terminal
     arguments: ['@file_system']
 
-  Drupal\niklan\Process\Git:
-    class: Drupal\niklan\Console\Process\Git
-  Drupal\niklan\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
+  Drupal\niklan\Console\Process\Git: {}
+  Drupal\niklan\Console\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
 
   Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension:
     tags:
       - { name: event_subscriber }
 
-  Drupal\niklan\Extension\Markdown\NiklanMarkdownExtension: { }
+  Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension: { }
 
   niklan.markdown.environment:
     class: League\CommonMark\Environment\Environment
@@ -114,7 +113,7 @@ services:
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment
     calls:
-      - [addExtension, ['@Drupal\niklan\ExternalContent\Extension\BlogExtension']]
+      - [addExtension, ['@Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension']]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }
 

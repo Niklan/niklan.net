@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\CustomPage\Support\Form;
+namespace Drupal\niklan\StaticPage\Services\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\CustomPage\Support\Repository\SupportSettings;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
 use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
+use Drupal\niklan\StaticPage\Services\Repository\ServicesSettings;
 
-final class SupportSettingsForm extends LanguageAwareStoreForm {
+final class ServicesSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function getFormId(): string {
-    return 'niklan_support_settings';
+    return 'niklan_services_settings';
   }
 
   #[\Override]
@@ -24,18 +24,17 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
     $form['description'] = [
       '#type' => 'text_format',
       '#title' => new TranslatableMarkup('Body'),
-      '#description' => new TranslatableMarkup('The description of support page.'),
+      '#description' => new TranslatableMarkup('The description of service page.'),
       '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
 
-    $form['donate_url'] = [
-      '#type' => 'url',
-      '#title' => new TranslatableMarkup('Donate URL'),
-      '#description' => new TranslatableMarkup('The URL of the donate page.'),
-      '#default_value' => $this->getSettings()->getDonateUrl(),
+    $form['hourly_rate'] = [
+      '#type' => 'textfield',
+      '#title' => new TranslatableMarkup('Hourly rate'),
+      '#default_value' => $this->getSettings()->getHourlyRate(),
       '#required' => TRUE,
     ];
 
@@ -54,15 +53,15 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
     $this
       ->settings
       ->setDescription($form_state->getValue(['description', 'value']))
-      ->setDonateUrl($form_state->getValue(['donate_url']));
+      ->setHourlyRate($form_state->getValue(['hourly_rate']));
 
     parent::submitForm($form, $form_state);
   }
 
   #[\Override]
   protected function loadSettings(): LanguageAwareSettingsStore {
-    $settings = $this->getContainer()->get(SupportSettings::class);
-    \assert($settings instanceof SupportSettings);
+    $settings = $this->getContainer()->get(ServicesSettings::class);
+    \assert($settings instanceof ServicesSettings);
 
     return $settings;
   }

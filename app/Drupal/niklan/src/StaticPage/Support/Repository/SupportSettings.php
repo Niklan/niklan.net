@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\CustomPage\Support\Repository;
+namespace Drupal\niklan\StaticPage\Support\Repository;
 
 use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 
