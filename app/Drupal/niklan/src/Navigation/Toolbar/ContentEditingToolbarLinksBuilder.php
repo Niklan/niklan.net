@@ -19,12 +19,6 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
     protected RouteMatchInterface $routeMatch,
   ) {}
 
-  /**
-   * Builds menu links for content editing toolbar tab.
-   *
-   * @return array
-   *   An array with menu.
-   */
   public function buildLinks(): array {
     $local_tasks = $this->localTaskManager->getLocalTasks(
       $this->routeMatch->getRouteName(),

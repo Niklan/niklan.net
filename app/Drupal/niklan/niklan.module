@@ -16,8 +16,8 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\niklan\Hook\Entity\BaseFieldInfo;
 use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
-use Drupal\niklan\Hook\Theme\NiklanLightboxResponsiveImagePreprocess;
-use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
+use Drupal\niklan\Hook\Theme\PreprocessNiklanLightboxResponsiveImage;
+use Drupal\niklan\Hook\Theme\PreprocessNiklanSearchResults;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
@@ -338,7 +338,7 @@ function niklan_preprocess_username(array &$variables): void {
  *     results from it.
  */
 function template_preprocess_niklan_search_results(array &$variables): void {
-  Drupal::classResolver(NiklanSearchResultsPreprocess::class)($variables);
+  Drupal::classResolver(PreprocessNiklanSearchResults::class)($variables);
 }
 
 /**
@@ -363,5 +363,5 @@ function niklan_entity_base_field_info(EntityTypeInterface $entity_type): array 
 }
 
 function template_preprocess_niklan_lightbox_responsive_image(array &$variables): void {
-  Drupal::classResolver(NiklanLightboxResponsiveImagePreprocess::class)($variables);
+  Drupal::classResolver(PreprocessNiklanLightboxResponsiveImage::class)($variables);
 }

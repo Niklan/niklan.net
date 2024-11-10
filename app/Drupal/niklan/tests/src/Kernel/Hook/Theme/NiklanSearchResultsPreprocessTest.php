@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Hook\Theme;
 
-use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
+use Drupal\niklan\Hook\Theme\PreprocessNiklanSearchResults;
 use Drupal\niklan\Search\Data\EntitySearchResult;
 use Drupal\niklan\Search\Data\EntitySearchResults;
 use Drupal\node\Entity\Node;
@@ -14,11 +14,11 @@ use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 /**
  * Tests template_preprocess_niklan_search_results() implementation.
  *
- * @coversDefaultClass \Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess
+ * @coversDefaultClass \Drupal\niklan\Hook\Theme\PreprocessNiklanSearchResults
  */
 final class NiklanSearchResultsPreprocessTest extends NiklanTestBase {
 
-  protected NiklanSearchResultsPreprocess $implementation;
+  protected PreprocessNiklanSearchResults $implementation;
 
   /**
    * {@inheritdoc}
@@ -74,7 +74,7 @@ final class NiklanSearchResultsPreprocessTest extends NiklanTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->implementation = NiklanSearchResultsPreprocess::create($this->container);
+    $this->implementation = PreprocessNiklanSearchResults::create($this->container);
 
     $this->installEntitySchema('user');
     $this->installEntitySchema('node');

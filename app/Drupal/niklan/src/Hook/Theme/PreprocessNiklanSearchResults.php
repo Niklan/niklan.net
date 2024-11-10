@@ -10,7 +10,7 @@ use Drupal\niklan\Search\Data\EntitySearchResult;
 use Drupal\niklan\Search\Data\EntitySearchResults;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface {
+final class PreprocessNiklanSearchResults implements ContainerInjectionInterface {
 
   public function __construct(
     protected EntityTypeManagerInterface $entityTypeManager,
@@ -19,7 +19,7 @@ final class NiklanSearchResultsPreprocess implements ContainerInjectionInterface
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('entity_type.manager'),
+      $container->get(EntityTypeManagerInterface::class),
     );
   }
 

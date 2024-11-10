@@ -17,7 +17,7 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('extension.list.module'),
+      $container->get(ModuleExtensionList::class),
     );
   }
 

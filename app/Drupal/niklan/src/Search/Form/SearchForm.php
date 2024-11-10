@@ -27,7 +27,7 @@ final class SearchForm extends FormBase {
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('class_resolver'),
+      $container->get(ClassResolverInterface::class),
     );
   }
 

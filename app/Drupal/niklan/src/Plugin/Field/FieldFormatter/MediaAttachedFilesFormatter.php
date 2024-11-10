@@ -24,20 +24,31 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 final class MediaAttachedFilesFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
-  protected EntityTypeManagerInterface $entityTypeManager;
+  public function __construct(
+    string $plugin_id,
+    array $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    string $label,
+    string $view_mode,
+    array $third_party_settings,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+  ) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+  }
 
   #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    $instance = parent::create(
-      $container,
-      $configuration,
+    return new self(
       $plugin_id,
       $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get(EntityTypeManagerInterface::class),
     );
-
-    $instance->entityTypeManager = $container->get('entity_type.manager');
-
-    return $instance;
   }
 
   #[\Override]

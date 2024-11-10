@@ -12,7 +12,7 @@ use Drupal\photoswipe\PhotoswipeAssetsManagerInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class NiklanLightboxResponsiveImagePreprocess implements ContainerInjectionInterface {
+final readonly class PreprocessNiklanLightboxResponsiveImage implements ContainerInjectionInterface {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
@@ -23,8 +23,8 @@ final readonly class NiklanLightboxResponsiveImagePreprocess implements Containe
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('entity_type.manager'),
-      $container->get('image.factory'),
+      $container->get(EntityTypeManagerInterface::class),
+      $container->get(ImageFactory::class),
       $container->get('photoswipe.assets_manager'),
     );
   }

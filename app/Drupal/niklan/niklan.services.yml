@@ -33,9 +33,8 @@ services:
       - '@search_api.query_helper'
       - '@entity_type.manager'
 
-  niklan.search.global:
+  Drupal\niklan\Search\Repository\GlobalSearch:
     parent: niklan.search.search_api
-    class: Drupal\niklan\Search\Repository\GlobalSearch
 
   Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:
     arguments: ['@plugin.manager.menu.local_task', '@current_route_match']

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -27,26 +27,35 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 final class OEmbedVideo extends FormatterBase {
 
-  protected EntityStorageInterface $responsiveImageStyleStorage;
-  protected LinkGeneratorInterface $linkGenerator;
-  protected AccountInterface $currentUser;
+  public function __construct(
+    string $plugin_id,
+    array $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    string $label,
+    string $view_mode,
+    array $third_party_settings,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly LinkGeneratorInterface $linkGenerator,
+    private readonly AccountInterface $currentUser,
+  ) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+  }
 
   #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
-    $instance = parent::create(
-      $container,
-      $configuration,
+    return new self(
       $plugin_id,
       $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get(EntityTypeManagerInterface::class),
+      $container->get(LinkGeneratorInterface::class),
+      $container->get(AccountInterface::class),
     );
-
-    $instance->responsiveImageStyleStorage = $container
-      ->get('entity_type.manager')
-      ->getStorage('responsive_image_style');
-    $instance->linkGenerator = $container->get('link_generator');
-    $instance->currentUser = $container->get('current_user');
-
-    return $instance;
   }
 
   /**
@@ -56,9 +65,10 @@ final class OEmbedVideo extends FormatterBase {
   public function settingsForm(array $form, FormStateInterface $form_state): array {
     $element = parent::settingsForm($form, $form_state);
 
+    $storage = $this->entityTypeManager->getStorage('responsive_image_style');
     $responsive_image_options = [];
 
-    foreach ($this->responsiveImageStyleStorage->loadMultiple() as $machine_name => $responsive_image_style) {
+    foreach ($storage->loadMultiple() as $machine_name => $responsive_image_style) {
       \assert($responsive_image_style instanceof ResponsiveImageStyleInterface);
 
       if (!$responsive_image_style->hasImageStyleMappings()) {
@@ -92,8 +102,8 @@ final class OEmbedVideo extends FormatterBase {
   public function settingsSummary(): array {
     $summary = [];
 
-    $responsive_image_style = $this
-      ->responsiveImageStyleStorage
+    $storage = $this->entityTypeManager->getStorage('responsive_image_style');
+    $responsive_image_style = $storage
       ->load($this->getSetting('responsive_image_style'));
 
     if ($responsive_image_style) {

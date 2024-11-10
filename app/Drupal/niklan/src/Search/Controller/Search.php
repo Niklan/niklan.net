@@ -11,7 +11,7 @@ use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Search\Data\SearchParams;
 use Drupal\niklan\Search\Form\SearchForm;
-use Drupal\niklan\Search\Repository\EntitySearch;
+use Drupal\niklan\Search\Repository\GlobalSearch;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,10 +20,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class Search implements ContainerInjectionInterface {
 
-  protected const RESULT_LIMIT = 10;
+  protected const int RESULT_LIMIT = 10;
 
   public function __construct(
-    protected EntitySearch $entitySearch,
+    protected GlobalSearch $entitySearch,
     protected FormBuilderInterface $formBuilder,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected PagerManagerInterface $pagerManager,
@@ -32,10 +32,10 @@ final class Search implements ContainerInjectionInterface {
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('niklan.search.global'),
-      $container->get('form_builder'),
-      $container->get('entity_type.manager'),
-      $container->get('pager.manager'),
+      $container->get(GlobalSearch::class),
+      $container->get(FormBuilderInterface::class),
+      $container->get(EntityTypeManagerInterface::class),
+      $container->get(PagerManagerInterface::class),
     );
   }
 
