@@ -28,7 +28,7 @@ final readonly class Support implements ContainerInjectionInterface {
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => $this->settings::TEXT_FORMAT,
+        '#format' => SupportSettings::TEXT_FORMAT,
       ],
       '#donate_url' => $this->settings->getDonateUrl(),
     ];

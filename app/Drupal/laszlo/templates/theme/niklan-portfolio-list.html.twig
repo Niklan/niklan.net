@@ -9,3 +9,11 @@
  * - description: The page description.
  */
 #}
+{% embed 'laszlo:author-page' %}
+  {% block children %}
+    {% include 'laszlo:portfolio-list' with {
+      description,
+      items,
+    } only %}
+  {% endblock %}
+{% endembed %}

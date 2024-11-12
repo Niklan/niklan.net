@@ -26,7 +26,7 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
       '#title' => new TranslatableMarkup('Body'),
       '#description' => new TranslatableMarkup('The description of support page.'),
       '#default_value' => $this->getSettings()->getDescription(),
-      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
+      '#allowed_formats' => [SupportSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
@@ -37,13 +37,6 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
       '#description' => new TranslatableMarkup('The URL of the donate page.'),
       '#default_value' => $this->getSettings()->getDonateUrl(),
       '#required' => TRUE,
-    ];
-
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['save'] = [
-      '#type' => 'submit',
-      '#value' => new TranslatableMarkup('Save'),
-      '#button_type' => 'primary',
     ];
 
     return $form;

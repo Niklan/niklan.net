@@ -12,8 +12,6 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 abstract class LanguageAwareSettingsStore implements CacheableDependencyInterface {
 
-  public const string TEXT_FORMAT = 'text';
-
   private ?string $currentLanguage = NULL;
 
   abstract protected function getStoreId(): string;

@@ -8,6 +8,8 @@ use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 
 final class AboutSettings extends LanguageAwareSettingsStore {
 
+  public const string TEXT_FORMAT = 'text';
+
   public function getPhotoMediaId(): ?string {
     return $this->getStore()->get('photo_media_id');
   }

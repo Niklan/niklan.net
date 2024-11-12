@@ -1,0 +1,20 @@
+<article{{ attributes.addClass('portfolio-card') }}>
+  <h2 class="portfolio-card__title">{{ title }}</h2>
+  {% if year_of_completion or category_names %}
+    <div class="portfolio-card__meta">
+      {% if year_of_completion %}
+        <div class="portfolio-card__meta-item">{{ year_of_completion }}</div>
+      {% endif %}
+      {% if category_names %}
+        {% for category_name in category_names %}
+          <div class="portfolio-card__meta-item">
+            {{ category_name }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  {% endif %}
+  <a href="{{ url }}"
+     class="portfolio-card__link"
+     aria-label="{{ 'Open @title'|t({'@title': title}) }}"></a>
+</article>

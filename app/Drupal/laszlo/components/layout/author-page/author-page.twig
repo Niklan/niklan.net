@@ -19,7 +19,7 @@
         label: 'Services'|t({}, { context:'work' }),
         url: path('niklan.services'),
         icon: 'case',
-        active_trail_pattern: '\/services$',
+        active_trail_pattern: '\/(services|portfolio/?)$',
       } only %}
       {% include 'laszlo:author-page-navigation-item' with {
         label: 'Support'|t,

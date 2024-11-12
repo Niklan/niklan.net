@@ -1,0 +1,11 @@
+.portfolio-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--author-page-content-gap);
+}
+
+.portfolio-list__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-4);
+}

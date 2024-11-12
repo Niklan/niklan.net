@@ -28,7 +28,7 @@ final readonly class Services implements ContainerInjectionInterface {
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => $this->settings::TEXT_FORMAT,
+        '#format' => ServicesSettings::TEXT_FORMAT,
       ],
       '#hourly_rate' => $this->settings->getHourlyRate(),
     ];

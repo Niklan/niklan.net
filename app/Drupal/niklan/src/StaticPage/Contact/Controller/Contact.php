@@ -6,7 +6,7 @@ namespace Drupal\niklan\StaticPage\Contact\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\CustomPager\Contact\Repository\ContactSettings;
+use Drupal\niklan\StaticPage\Contact\Repository\ContactSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Contact implements ContainerInjectionInterface {
@@ -28,7 +28,7 @@ final readonly class Contact implements ContainerInjectionInterface {
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => $this->settings::TEXT_FORMAT,
+        '#format' => ContactSettings::TEXT_FORMAT,
       ],
       '#email' => $this->settings->getEmail(),
       '#telegram' => $this->settings->getTelegram(),

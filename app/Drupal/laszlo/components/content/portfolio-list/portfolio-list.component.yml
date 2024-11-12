@@ -1,0 +1,13 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Portfolio list
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    description:
+      title: Description
+      type: [string, array]
+    items:
+      title: Items
+      type: array

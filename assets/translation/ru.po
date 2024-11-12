@@ -411,3 +411,9 @@ msgstr "Настройки страницы \"Контакты\""
 
 msgid "Configure a contact page."
 msgstr "Настройте страницу \"Контакты\"."
+
+msgid "Portfolio page settings"
+msgstr "Настройки страницы \"Портфолио\""
+
+msgid "Configure a portfolio page."
+msgstr "Настройте страницу \"Портфолио\"."

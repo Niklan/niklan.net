@@ -6,10 +6,11 @@ services:
     parent: logger.channel_base
     arguments: ['niklan']
 
-  Drupal\niklan\Repository\KeyValue\AboutSettings: {}
-  Drupal\niklan\Repository\KeyValue\ContactSettings: {}
-  Drupal\niklan\Repository\KeyValue\SupportSettings: {}
-  Drupal\niklan\Repository\KeyValue\ServicesSettings: {}
+  Drupal\niklan\StaticPage\About\Repository\AboutSettings: {}
+  Drupal\niklan\StaticPage\Contact\Repository\ContactSettings: {}
+  Drupal\niklan\StaticPage\Services\Repository\ServicesSettings: {}
+  Drupal\niklan\StaticPage\Support\Repository\SupportSettings: {}
+  Drupal\niklan\Portfolio\Repository\PortfolioSettings: {}
 
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: {}
   Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
@@ -112,7 +113,7 @@ services:
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment
     calls:
-      - [addExtension, ['@Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension']]
+      - [addExtension, ['@Drupal\niklan\ExternalContent\Extension\Blog']]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }
 

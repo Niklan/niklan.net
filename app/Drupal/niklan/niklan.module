@@ -132,6 +132,7 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     ],
     'niklan_portfolio_list' => [
       'variables' => [
+        'description' => [],
         'items' => [],
       ],
     ],

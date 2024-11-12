@@ -1,0 +1,19 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Portfolio Card
+status: experimental
+group: content
+props:
+  type: object
+  properties:
+    title:
+      title: Title
+      type: string
+    url:
+      title: URL
+      type: string
+    year_of_completion:
+      title: Year of Completion
+      type: ['null', string]
+    category_names:
+      title: Category names
+      type: array

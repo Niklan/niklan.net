@@ -6,9 +6,9 @@ namespace Drupal\niklan\StaticPage\Contact\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\CustomPager\Contact\Repository\ContactSettings;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
 use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
+use Drupal\niklan\StaticPage\Contact\Repository\ContactSettings;
 
 final class ContactSettingsForm extends LanguageAwareStoreForm {
 
@@ -40,16 +40,9 @@ final class ContactSettingsForm extends LanguageAwareStoreForm {
       '#title' => new TranslatableMarkup('Description'),
       '#description' => new TranslatableMarkup('The description of the about page.'),
       '#default_value' => $this->getSettings()->getDescription(),
-      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
+      '#allowed_formats' => [ContactSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
-    ];
-
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['save'] = [
-      '#type' => 'submit',
-      '#value' => new TranslatableMarkup('Save'),
-      '#button_type' => 'primary',
     ];
 
     return $form;

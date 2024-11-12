@@ -60,7 +60,7 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
       '#title' => new TranslatableMarkup('Subtitle'),
       '#description' => new TranslatableMarkup('The subtitle of the about page.'),
       '#default_value' => $this->getSettings()->getSubtitle(),
-      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
+      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#required' => TRUE,
     ];
 
@@ -69,7 +69,7 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
       '#title' => new TranslatableMarkup('Summary'),
       '#description' => new TranslatableMarkup('The summary of the about page.'),
       '#default_value' => $this->getSettings()->getSummary(),
-      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
+      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];
@@ -79,7 +79,7 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
       '#title' => new TranslatableMarkup('Description'),
       '#description' => new TranslatableMarkup('The description of the about page.'),
       '#default_value' => $this->getSettings()->getDescription(),
-      '#allowed_formats' => [$this->getSettings()::TEXT_FORMAT],
+      '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
       '#required' => TRUE,
     ];

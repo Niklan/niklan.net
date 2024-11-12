@@ -8,6 +8,8 @@ use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 
 final class SupportSettings extends LanguageAwareSettingsStore {
 
+  public const string TEXT_FORMAT = 'text';
+
   public function setDescription(string $body): self {
     $this->getStore()->set('description', $body);
 

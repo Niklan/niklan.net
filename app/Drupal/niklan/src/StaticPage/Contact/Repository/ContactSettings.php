@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\CustomPager\Contact\Repository;
+namespace Drupal\niklan\StaticPage\Contact\Repository;
 
 use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 
 final class ContactSettings extends LanguageAwareSettingsStore {
+
+  public const string TEXT_FORMAT = 'text';
 
   public function getEmail(): string {
     return $this->getStore()->get('email', 'example@example.com');

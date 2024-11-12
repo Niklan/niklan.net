@@ -11,8 +11,7 @@ dependencies:
     - field.field.node.portfolio.field_portfolio_categories
     - node.type.portfolio
   module:
-    - datetime
-    - link
+    - photoswipe
     - text
     - user
 id: node.portfolio.full
@@ -25,34 +24,28 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
-  field_date:
-    type: datetime_custom
+  field_media_images:
+    type: photoswipe_field_formatter
     label: hidden
     settings:
-      timezone_override: ''
-      date_format: 'Y'
+      photoswipe_node_style_first: ''
+      photoswipe_node_style: ''
+      photoswipe_image_style: ''
+      photoswipe_reference_image_field: ''
+      photoswipe_caption: alt
+      photoswipe_caption_custom: ''
+      photoswipe_view_mode: ''
     third_party_settings: {  }
     weight: 0
-    region: content
-  field_link:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: nofollow
-      target: _blank
-    third_party_settings: {  }
-    weight: 1
     region: content
 hidden:
   estimated_read_time: true
   extra_field_previous_next: true
   extra_field_share: true
-  field_media_images: true
+  field_date: true
+  field_link: true
   field_portfolio_categories: true
   langcode: true
   links: true
