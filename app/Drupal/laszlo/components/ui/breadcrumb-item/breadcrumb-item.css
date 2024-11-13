@@ -10,7 +10,9 @@
   flex-shrink: 0;
   align-items: center;
   padding: var(--arrow-padding) calc(var(--arrow-size) + var(--arrow-padding));
-  transition: all 150ms ease-in-out;
+  transition:
+    color 150ms ease-in-out,
+    background-color 150ms ease-in-out;
   text-decoration: none;
   color: var(--arrow-color);
   background-color: var(--arrow-background-color);

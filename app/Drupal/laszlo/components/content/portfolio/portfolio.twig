@@ -1,0 +1,18 @@
+<article{{ attributes.addClass('portfolio') }}>
+  {{ year_of_completion }}
+  {{ project_url }}
+
+  {% if description|render|trim is not empty %}
+    <div class="prose portfolio__description">
+      <h2 class="portfolio__description-title">{{ 'Description'|t }}</h2>
+      {{ description }}
+    </div>
+  {% endif %}
+
+  {% if photos|render|trim is not empty %}
+    <div class="prose portfolio__photos">
+      <h2 class="portfolio__photos-title">{{ 'Screenshots'|t }}</h2>
+      {{ photos }}
+    </div>
+  {% endif %}
+</article>

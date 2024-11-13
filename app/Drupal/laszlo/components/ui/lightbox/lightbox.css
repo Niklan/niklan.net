@@ -19,7 +19,7 @@
   z-index: 5;
   top: var(--spacing-8);
   right: var(--spacing-8);
-  transition: all 0.25s linear;
+  transition: opacity 0.25s linear;
   opacity: 0;
   border-radius: var(--spacing-2);
   background-color: var(--color-surface-container-low);

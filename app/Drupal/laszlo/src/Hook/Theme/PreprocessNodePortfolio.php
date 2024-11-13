@@ -13,6 +13,7 @@ final readonly class PreprocessNodePortfolio {
     \assert($portfolio instanceof Portfolio);
     $variables['year_of_completion'] = $portfolio->getYearOfCompletion();
     $variables['category_names'] = \array_map(static fn ($category) => $category->label(), $portfolio->getCategories());
+    $variables['project_url'] = $portfolio->getProjectUrl();
   }
 
 }

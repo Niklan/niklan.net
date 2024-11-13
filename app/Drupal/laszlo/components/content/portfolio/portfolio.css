@@ -1,0 +1,18 @@
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--author-page-content-gap);
+}
+
+.portfolio__photos .photoswipe-gallery {
+  display: grid;
+  gap: var(--spacing-4);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.portfolio__photos .photoswipe {
+  background: var(--color-surface-container-highest);
+  border-radius: var(--spacing-4);
+  box-shadow: var(--elevation-1);
+  overflow: hidden;
+}

@@ -21,7 +21,7 @@
   --_textarea-box-shadow: var(--textarea-box-shadow, none);
   --_textarea-box-shadow-focus: var(
     --textarea-box-shadow-focus,
-    var(--default-focus-box-shadow)
+    var(--default-focus-outline)
   );
   --_textarea-border-radius: var(--textarea-border-radius, var(--spacing-2));
   --_textarea-font: var(--textarea-font, var(--typography-body-medium));
@@ -52,6 +52,7 @@
   &:focus-within {
     --_textarea-border-color: var(--_textarea-border-color-focus);
     --_textarea-box-shadow: var(--_textarea-box-shadow-focus);
+    outline: var(--default-focus-outline);
   }
 }
 
@@ -71,7 +72,7 @@
 }
 
 .textarea__input {
-  --focus-box-shadow: none;
+  --focus-outline: none;
 
   flex: 1;
   min-width: 0;

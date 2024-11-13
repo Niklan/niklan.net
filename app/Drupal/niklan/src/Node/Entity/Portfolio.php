@@ -17,4 +17,8 @@ final class Portfolio extends Node implements PortfolioInterface {
     return $this->get('field_portfolio_categories')->referencedEntities();
   }
 
+  public function getProjectUrl(): ?string {
+    return $this->get('field_link')->first()?->getString();
+  }
+
 }

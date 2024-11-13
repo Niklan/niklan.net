@@ -9,6 +9,8 @@ dependencies:
     - field.field.node.portfolio.field_link
     - field.field.node.portfolio.field_media_images
     - field.field.node.portfolio.field_portfolio_categories
+    - image.style.178x178_contain
+    - image.style.big_image
     - node.type.portfolio
   module:
     - photoswipe
@@ -31,12 +33,12 @@ content:
     label: hidden
     settings:
       photoswipe_node_style_first: ''
-      photoswipe_node_style: ''
-      photoswipe_image_style: ''
-      photoswipe_reference_image_field: ''
+      photoswipe_node_style: 178x178_contain
+      photoswipe_image_style: big_image
+      photoswipe_reference_image_field: field_media_image
       photoswipe_caption: alt
       photoswipe_caption_custom: ''
-      photoswipe_view_mode: ''
+      photoswipe_view_mode: full
     third_party_settings: {  }
     weight: 0
     region: content

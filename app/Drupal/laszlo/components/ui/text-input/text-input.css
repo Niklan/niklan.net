@@ -19,10 +19,7 @@
     var(--color-outline)
   );
   --_input-box-shadow: var(--input-box-shadow, none);
-  --_input-box-shadow-focus: var(
-    --input-box-shadow-focus,
-    var(--default-focus-box-shadow)
-  );
+  --_input-box-shadow-focus: var(--input-box-shadow-focus, none);
   --_input-border-radius: var(--input-border-radius, var(--spacing-2));
   --_input-height: var(--input-height, var(--spacing-12));
   --_input-font: var(--input-font, var(--typography-body-medium));
@@ -52,6 +49,8 @@
   &:focus-within {
     --_input-border-color: var(--_input-border-color-focus);
     --_input-box-shadow: var(--_input-box-shadow-focus);
+
+    outline: var(--default-focus-outline);
   }
 }
 
@@ -71,7 +70,7 @@
 }
 
 .text-input__input {
-  --focus-box-shadow: none;
+  --focus-outline: none;
 
   flex: 1;
   width: 100%;

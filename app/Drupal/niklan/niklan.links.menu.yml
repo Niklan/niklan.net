@@ -80,4 +80,4 @@ niklan.about:
   weight: 4
   metadata:
     main_navigation_icon: 'user-id-bold-duotone'
-    active_trail_pattern: '\/(about$|services$|support$|contact$)'
+    active_trail_pattern: '\/(about|services|support|contact|portfolio(\/.*)?)$'

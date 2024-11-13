@@ -1,0 +1,35 @@
+uuid: 83ad671a-902b-4229-8f49-5de122c1128d
+langcode: ru
+status: true
+dependencies:
+  module:
+    - image_effects
+name: 178x178_contain
+label: '178×178 (contain)'
+effects:
+  99f33a03-68e0-4831-b80d-4dd53b2ef0da:
+    uuid: 99f33a03-68e0-4831-b80d-4dd53b2ef0da
+    id: image_scale
+    weight: 1
+    data:
+      width: 178
+      height: 178
+      upscale: false
+  3585dcc9-df22-409b-8adb-c67e68283cf7:
+    uuid: 3585dcc9-df22-409b-8adb-c67e68283cf7
+    id: image_effects_set_canvas
+    weight: 2
+    data:
+      canvas_size: exact
+      canvas_color: ''
+      exact:
+        width: '178'
+        height: '178'
+        placement: center-center
+        x_offset: 0
+        y_offset: 0
+      relative:
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0

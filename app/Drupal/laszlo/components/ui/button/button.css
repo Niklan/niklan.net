@@ -20,7 +20,10 @@
   height: var(--_button-height);
   margin: 0;
   cursor: pointer;
-  transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
+  transition:
+    color 250ms cubic-bezier(0.39, 0.58, 0.57, 1),
+    border-color 250ms cubic-bezier(0.39, 0.58, 0.57, 1),
+    background-color 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
   text-decoration: none;
   color: var(--_button-color);
   border: 2px solid var(--_button-border-color);

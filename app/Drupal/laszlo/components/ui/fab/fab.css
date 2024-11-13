@@ -20,7 +20,9 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
-  transition: all 0.15s linear;
+  transition:
+    transform 0.15s linear,
+    box-shadow 0.15s linear;
   color: var(--_color);
   border: none;
   border-radius: var(--spacing-4);

@@ -1,19 +1,18 @@
 @layer base {
   :root {
-    --default-focus-box-shadow: 0 0 0 2px var(--color-primary-container);
+    --default-focus-outline-width: 2px;
+    --default-focus-outline-color: var(--color-primary-container);
+    --default-focus-outline: var(--default-focus-outline-width) solid
+      var(--default-focus-outline-color);
   }
 
   :focus {
-    --_focus-box-shadow: var(
-      --focus-box-shadow,
-      var(--default-focus-box-shadow, none)
-    );
+    --_focus-outline: var(--focus-outline, var(--default-focus-outline, none));
 
-    outline: none;
-    box-shadow: var(--_focus-box-shadow);
+    outline: var(--_focus-outline);
   }
 
-  .is-using-mouse {
-    --_focus-box-shadow: none;
+  .is-using-mouse :focus {
+    --_focus-outline: none;
   }
 }
