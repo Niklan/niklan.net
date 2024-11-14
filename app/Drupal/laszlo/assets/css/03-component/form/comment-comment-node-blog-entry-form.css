@@ -3,8 +3,9 @@
   flex-direction: column;
   padding: var(--spacing-6);
   border-radius: var(--spacing-4);
-  background: var(--color-surface-container-high);
+  background: var(--color-surface-bright);
   gap: var(--spacing-4);
+  border: var(--spacing-2) solid var(--color-surface-container);
 }
 
 .comment-comment-node-blog-entry-form__title {

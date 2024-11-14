@@ -1,6 +1,18 @@
 <article{{ attributes.addClass('portfolio') }}>
-  {{ year_of_completion }}
-  {{ project_url }}
+  <div class="portfolio__meta">
+    <div class="portfolio__meta-item">
+      {%- include 'laszlo:icon' with {icon: 'calendar'} only -%}
+      {{- year_of_completion -}}
+    </div>
+
+    <a href="{{ project_url }}"
+       rel="nofollow noopener"
+       target="_blank"
+       class="portfolio__meta-item">
+      {%- include 'laszlo:icon' with { icon: 'link' } only -%}
+      {{- project_url -}}
+    </a>
+  </div>
 
   {% if description|render|trim is not empty %}
     <div class="prose portfolio__description">

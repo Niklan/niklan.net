@@ -1,0 +1,91 @@
+<main{{ attributes.addClass('home') }}>
+  <section class="home__intro">
+    <h1 class="home__title">Блог веб-разработчика</h1>
+    <div class="prose home__intro-text">
+      <p>Это авторский блог, преимущественно о веб-разработке. В работе использую Drupal, поэтому большинство публикацией посвящено этой CMS и всему что с ней связано.</p>
+    </div>
+    <div class="home__intro-actions">
+      {% embed 'laszlo:button' with {
+        attributes: create_attribute({
+          'class': ['support__cta'],
+          'target': '_blank',
+          'rel': 'noopener noreferrer',
+        }),
+        component: 'a',
+        href: path('niklan.blog_list'),
+        variant: 'contained',
+        size: 'large',
+      } only %}
+        {% block start_icon %}
+          {% include 'laszlo:icon' with { icon: 'documents-bold' } only %}
+        {% endblock %}
+        {% block children %}
+          Перейти к публикациям
+        {% endblock %}
+      {% endembed %}
+    </div>
+  </section>
+
+  <section class="home__cards">
+    {% set image = '/' ~ componentMetadata.path ~ '/4059dfd7a2ae11efb82db68657b41bea_1.jpeg' %}
+    <div class="home-card">
+      <div class="home-card__content">
+        <h2 class="home-card__title">Только оригинальный контент</h2>
+        <div class="prose home-card__description">
+          <p>Никаких переводов и рерайтов, только уникальный контент, только хардкор!</p>
+        </div>
+      </div>
+
+      <img class="home-card__background" src="{{ image }}">
+    </div>
+
+    {% set image = '/' ~ componentMetadata.path ~ '/74e1f36ca2ac11efaa6442315e171248_3.jpeg' %}
+    <div class="home-card">
+      <div class="home-card__content">
+        <h2 class="home-card__title">Без регистрации и СМС</h2>
+        <div class="prose home-card__description">
+          <p>Никаких пейволов, всё открыто, бесплатно, и доступно каждому!</p>
+        </div>
+      </div>
+
+      <img class="home-card__background" src="{{ image }}">
+    </div>
+
+    {% set image = '/' ~ componentMetadata.path ~ '/c6f7efaea2ad11efb3f7468a9f688b03_1.jpeg' %}
+    <div class="home-card">
+      <div class="home-card__content">
+        <h2 class="home-card__title">Да ещё с открытым кодом!</h2>
+        <div class="prose home-card__description">
+          <p>Код сайта и содержимого тоже в открытом доступе, можно не только читать, но и заглянуть под капот.</p>
+        </div>
+      </div>
+
+      <img class="home-card__background" src="{{ image }}">
+    </div>
+
+    {% set image = '/' ~ componentMetadata.path ~ '/3e78c73ba2af11efb3f7468a9f688b03_1.jpeg' %}
+    <div class="home-card">
+      <div class="home-card__content">
+        <h2 class="home-card__title">Можно следить через RSS</h2>
+        <div class="prose home-card__description">
+          <p>Легаси блогу — легаси оповещения. Зато проверенно!</p>
+        </div>
+      </div>
+
+      <img class="home-card__background" src="{{ image }}">
+    </div>
+
+    {% set image = '/' ~ componentMetadata.path ~ '/c74cceb7a2af11efb82db68657b41bea_4.jpeg' %}
+    <div class="home-card">
+      <div class="home-card__content">
+        <h2 class="home-card__title">Но можно и в Telegram</h2>
+        <div class="prose home-card__description">
+          <p>Мы же не дикари, верно? О новых постах можно узнать в Telegram, а возможно, что-то ещё.</p>
+        </div>
+      </div>
+
+      <img class="home-card__background" src="{{ image }}">
+    </div>
+  </section>
+
+</main>

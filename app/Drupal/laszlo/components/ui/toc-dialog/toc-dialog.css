@@ -1,5 +1,5 @@
 .toc-dialog {
-  --_link-padding-x: var(--spacing-4);
+  --_link-padding-x: var(--spacing-3);
   --_link-padding-y: var(--spacing-2);
 
   display: flex;
@@ -12,6 +12,9 @@
   overflow: auto;
   flex-direction: column;
   height: 400px;
+  padding: var(--spacing-2);
+  margin: calc(var(--spacing-2) * -1);
+  gap: var(--spacing-2);
 }
 
 .toc-dialog__link {
@@ -19,6 +22,8 @@
   text-decoration: none;
   border-radius: var(--spacing-1);
   font: var(--typography-title-small);
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
 
   &:hover,
   &:focus {

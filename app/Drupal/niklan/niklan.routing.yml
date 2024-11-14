@@ -144,3 +144,12 @@ niklan.contact:
     _controller: Drupal\niklan\StaticPage\Contact\Controller\Contact
   requirements:
     _permission: 'access content'
+
+niklan.home:
+  path: '/home'
+  methods: [GET]
+  defaults:
+    _title: 'Web Developer Blog'
+    _controller: Drupal\niklan\StaticPage\Home\Controller\Home
+  requirements:
+    _access: 'TRUE'

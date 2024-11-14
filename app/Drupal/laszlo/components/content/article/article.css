@@ -39,7 +39,7 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
-  filter: blur(var(--spacing-16)) contrast(1.5) saturate(1.5);
+  filter: blur(var(--spacing-16)) saturate(280%);
 }
 
 .article__poster {

@@ -4,9 +4,9 @@
   flex-direction: column;
   justify-content: space-between;
   padding: var(--spacing-6);
-  color: var(--color-on-primary-fixed);
+  color: var(--color-on-surface);
   border-radius: var(--spacing-4);
-  background-color: var(--color-primary-fixed);
+  background-color: var(--color-surface-container-high);
   gap: var(--spacing-4);
 }
 
@@ -36,8 +36,8 @@
 
 .portfolio-card__meta-item {
   padding: var(--spacing-1) var(--spacing-2);
-  color: var(--color-on-primary);
+  color: var(--color-on-primary-fixed);
   border-radius: var(--spacing-3);
-  background: var(--color-primary-container);
+  background: var(--color-primary-fixed);
   font: var(--typography-label-small);
 }

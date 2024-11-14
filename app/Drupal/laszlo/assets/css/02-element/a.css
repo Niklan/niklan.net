@@ -17,7 +17,7 @@
       text-underline-offset 0.15s ease-in;
     color: var(--link-color);
     text-underline-offset: 2px;
-    text-decoration-color: var(--color-surface-tint);
+    text-decoration-color: inherit;
     text-decoration-thickness: var(--_link-text-decoration-thickness);
 
     &:visited {

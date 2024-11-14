@@ -180,6 +180,9 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'comments' => [],
       ],
     ],
+    'niklan_home' => [
+      'variables' => [],
+    ],
   ];
 }
 

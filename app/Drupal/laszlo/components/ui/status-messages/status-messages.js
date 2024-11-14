@@ -50,13 +50,13 @@
     const initialMessages = JSON.parse(this.$root.dataset.messages);
     Object.keys(initialMessages).forEach(type => {
       initialMessages[type].forEach(message => {
-        this.addMessage(message, { type, closeDelay: 5000 });
+        this.addMessage(message, { type, closeDelay: 50000 });
       });
     });
   }
 
   function buildClass(baseClass, message) {
-    return `${baseClass  }--${  message.options.type}`;
+    return `${baseClass  }--${ message.options.type}`;
   }
 
   function register() {
