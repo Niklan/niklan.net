@@ -8,19 +8,31 @@
   border-radius: var(--spacing-4);
   background-color: var(--color-surface-container-high);
   gap: var(--spacing-4);
+
+  &:focus-within,
+  &:hover,
+  &:active {
+    outline: var(--default-focus-outline);
+    background-color: var(--color-surface-container-highest);
+  }
 }
 
 .portfolio-card__link {
-  position: absolute;
-  z-index: 5;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  border-radius: var(--spacing-4);
+  --focus-outline: none;
 
-  &:active {
-    outline: var(--default-focus-outline);
+  text-decoration: none;
+  color: var(--color-on-surface);
+
+  &::before {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    content: "";
+    border-radius: var(--spacing-4);
   }
 }
 

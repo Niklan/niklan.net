@@ -1,17 +1,17 @@
 .code-block {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
-  font: var(--typography-body-small);
   padding: var(--spacing-4);
   border-radius: var(--spacing-4);
   background: var(--color-surface-container-high);
+  font: var(--typography-body-small);
+  gap: var(--spacing-4);
 }
 
 .code-block__main {
   padding: var(--spacing-6);
-  background-color: var(--color-surface);
   border-radius: var(--spacing-2);
+  background-color: var(--color-surface);
 }
 
 .code-block__header {
@@ -19,7 +19,7 @@
 }
 
 .code-block__title {
+  text-align: center;
   color: var(--color-on-surface);
   font: var(--typography-title-medium);
-  text-align: center;
 }

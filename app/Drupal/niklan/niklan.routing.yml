@@ -70,15 +70,6 @@ niklan.services:
   requirements:
     _access: 'TRUE'
 
-niklan.comments:
-  path: '/comments'
-  methods: [GET]
-  defaults:
-    _title: 'Comments'
-    _controller: Drupal\niklan\Comment\Controller\CommentList
-  requirements:
-    _permission: 'access comments'
-
 niklan.admin:
   path: '/admin/niklan'
   methods: [GET]

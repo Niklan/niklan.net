@@ -11,7 +11,11 @@
   } only %}
 
   <div class="article-card__content">
-    <h3 class="article-card__title">{{ title }}</h3>
+    <h2 class="article-card__title">
+      <a href="{{ url }}" class="article-card__link">
+        {{ title }}
+      </a>
+    </h2>
 
     {% if summary %}
       <div class="article-card__summary">{{ summary }}</div>
@@ -42,8 +46,4 @@
       } only %}
     </div>
   </div>
-
-  <a href="{{ url }}"
-     class="article-card__link"
-     aria-label="{{ 'Read more'|t }}"></a>
 </article>

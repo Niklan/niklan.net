@@ -2,8 +2,22 @@ $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schema
 name: Article list
 status: experimental
 group: layout
-slots:
-  items:
-    title: Articles
-  pager:
-    title: Pager
+props:
+  type: object
+  properties:
+    heading:
+      title: Heading
+      type: ['null', array, string]
+    items:
+      title: Articles
+      type: ['null', array]
+    pager:
+      title: Pager
+      type: ['null', array]
+    variant:
+      title: List variant
+      type: string
+      enum:
+        - card
+        - preview
+      default: card

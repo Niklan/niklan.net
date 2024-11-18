@@ -420,3 +420,15 @@ msgstr "Настройте страницу \"Портфолио\"."
 
 msgid "Screenshots"
 msgstr "Скриншоты"
+
+msgid "Latest posts"
+msgstr "Последние публикации"
+
+msgid "TL;DR - ”I'd rather read a book”"
+msgstr "TL;DR — «Лучше бы книгу прочитал»"
+
+msgid "The most discussed"
+msgstr "Самые обсуждаемые"
+
+msgid "Opinion of anonymous users from the Internet"
+msgstr "Мнение анонимов из интернета"

@@ -5,17 +5,19 @@
 }
 
 .home__intro {
-  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
   max-width: 80ch;
   margin: 0 auto;
+  text-align: center;
+  gap: var(--spacing-8);
 }
 
 .home__intro-text {
-  font: var(--typography-headline-medium);
+  --link-color: var(--color-on-surface-variant);
+
   color: var(--color-on-surface-variant);
+  font: var(--typography-headline-medium);
 }
 
 .home__cards {
@@ -27,45 +29,48 @@
 .home-card {
   position: relative;
   display: flex;
-  align-items: flex-end;
   overflow: hidden;
-  border-radius: var(--spacing-6);
+  align-items: flex-end;
   min-height: 400px;
-  box-shadow: var(--elevation-2);
+  border-radius: var(--spacing-6);
 
   &::before {
-    content: '';
-    display: block;
     position: absolute;
     z-index: 0;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(360deg, var(--color-secondary) 0%, rgba(0, 0, 0, 0) 100%);
+    left: 0;
+    display: block;
+    content: "";
+    background: linear-gradient(
+      360deg,
+      var(--color-secondary) 0%,
+      rgb(0 0 0 / 0) 100%
+    );
   }
 }
 
 .home-card__background {
   position: absolute;
+  z-index: -1;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
-  object-fit: cover;
+  left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .home-card__content {
-  padding: var(--spacing-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
   position: relative;
   z-index: 1;
-  color: var(--color-on-secondary)
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-6);
+  color: var(--color-on-secondary);
+  gap: var(--spacing-3);
 }
 
 .home-card__title {
@@ -74,4 +79,10 @@
 
 .home-card__description {
   font: var(--typography-body-medium);
+}
+
+.home__intro-actions {
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: center;
 }

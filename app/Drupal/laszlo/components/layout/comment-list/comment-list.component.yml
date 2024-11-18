@@ -1,10 +1,13 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: Home page
+name: Comment list
 status: experimental
 group: layout
 props:
   type: object
   properties:
-    sections:
-      title: Sections
+    heading:
+      title: Heading
+      type: ['null', array, string]
+    items:
+      title: Articles
       type: ['null', array]

@@ -7,9 +7,7 @@
     <div class="home__intro-actions">
       {% embed 'laszlo:button' with {
         attributes: create_attribute({
-          'class': ['support__cta'],
-          'target': '_blank',
-          'rel': 'noopener noreferrer',
+          'class': ['home__intro-cta'],
         }),
         component: 'a',
         href: path('niklan.blog_list'),
@@ -20,55 +18,72 @@
           {% include 'laszlo:icon' with { icon: 'documents-bold' } only %}
         {% endblock %}
         {% block children %}
-          Перейти к публикациям
+          Все публикации
+        {% endblock %}
+      {% endembed %}
+
+      {% embed 'laszlo:button' with {
+        attributes: create_attribute({
+          'class': ['home__intro-cta'],
+        }),
+        component: 'a',
+        href: path('niklan.about'),
+        variant: 'outlined',
+        size: 'large',
+      } only %}
+        {% block start_icon %}
+          {% include 'laszlo:icon' with { icon: 'user-id-bold-duotone' } only %}
+        {% endblock %}
+        {% block children %}
+          Об авторе
         {% endblock %}
       {% endembed %}
     </div>
   </section>
 
   <section class="home__cards">
-    {% set image = '/' ~ componentMetadata.path ~ '/4059dfd7a2ae11efb82db68657b41bea_1.jpeg' %}
+    {% set image = '/' ~ componentMetadata.path ~ '/8ccc5979a30611efb3f7468a9f688b03_3.jpeg' %}
     <div class="home-card">
       <div class="home-card__content">
         <h2 class="home-card__title">Только оригинальный контент</h2>
         <div class="prose home-card__description">
-          <p>Никаких переводов и рерайтов, только уникальный контент, только хардкор!</p>
+          <p>Никаких переводов и рерайтов — только оригинальные мысли и идеи в виде контента! <em>Но не часто.</em></p>
         </div>
       </div>
 
       <img class="home-card__background" src="{{ image }}">
     </div>
 
-    {% set image = '/' ~ componentMetadata.path ~ '/74e1f36ca2ac11efaa6442315e171248_3.jpeg' %}
+    {% set image = '/' ~ componentMetadata.path ~ '/05c66314a30e11efb3f7468a9f688b03_2.jpeg' %}
     <div class="home-card">
       <div class="home-card__content">
         <h2 class="home-card__title">Без регистрации и СМС</h2>
         <div class="prose home-card__description">
-          <p>Никаких пейволов, всё открыто, бесплатно, и доступно каждому!</p>
+          <p>Всё открыто, бесплатно и доступно каждому! Никаких подписок, ограничений или премиум-разделов — всё доступно в любое время.</p>
         </div>
       </div>
 
       <img class="home-card__background" src="{{ image }}">
     </div>
 
-    {% set image = '/' ~ componentMetadata.path ~ '/c6f7efaea2ad11efb3f7468a9f688b03_1.jpeg' %}
+    {% set image = '/' ~ componentMetadata.path ~ '/c60f37dda2b511efb3f7468a9f688b03_1.jpeg' %}
     <div class="home-card">
       <div class="home-card__content">
-        <h2 class="home-card__title">Да ещё с открытым кодом!</h2>
+        <h2 class="home-card__title">С открытым исходным…</h2>
         <div class="prose home-card__description">
-          <p>Код сайта и содержимого тоже в открытом доступе, можно не только читать, но и заглянуть под капот.</p>
+          <p><a href="#">кодом</a> и <a href="#">содержимым</a>! Вы можете не только читать, но и исследовать внутренние механизмы. <em>Кто знает, возможно, вам удастся найти что-то полезное.</em></p>
         </div>
       </div>
 
       <img class="home-card__background" src="{{ image }}">
     </div>
 
-    {% set image = '/' ~ componentMetadata.path ~ '/3e78c73ba2af11efb3f7468a9f688b03_1.jpeg' %}
+    {% set image = '/' ~ componentMetadata.path ~ '/b0869ddaa30b11efaa6442315e171248_3.jpeg' %}
     <div class="home-card">
       <div class="home-card__content">
-        <h2 class="home-card__title">Можно следить через RSS</h2>
+        <h2 class="home-card__title">Голубиная почта</h2>
         <div class="prose home-card__description">
-          <p>Легаси блогу — легаси оповещения. Зато проверенно!</p>
+          <p>Олды не помнят, новички не знают. Но зато всё работает идеально! <a href="#">RSS-канал.</a></p>
         </div>
       </div>
 
@@ -80,7 +95,19 @@
       <div class="home-card__content">
         <h2 class="home-card__title">Но можно и в Telegram</h2>
         <div class="prose home-card__description">
-          <p>Мы же не дикари, верно? О новых постах можно узнать в Telegram, а возможно, что-то ещё.</p>
+          <p>Мы же не неолуддиты, верно? О новых постах и не только можно узнать <a href="#">в Telegram</a>. <em>Но тоже редко.</em></p>
+        </div>
+      </div>
+
+      <img class="home-card__background" src="{{ image }}">
+    </div>
+
+    {% set image = '/' ~ componentMetadata.path ~ '/57058beba30c11efaa6442315e171248_3.jpeg' %}
+    <div class="home-card">
+      <div class="home-card__content">
+        <h2 class="home-card__title">И шестая</h2>
+        <div class="prose home-card__description">
+          <p>Потому что 5 карточек ломают симметрию! <em>А что добавить, не придумал.</em></p>
         </div>
       </div>
 
@@ -88,4 +115,7 @@
     </div>
   </section>
 
+  {% for section in sections %}
+    {{ section }}
+  {% endfor %}
 </main>

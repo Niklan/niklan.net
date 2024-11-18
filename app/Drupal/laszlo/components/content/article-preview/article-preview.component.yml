@@ -1,5 +1,5 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: Article Card
+name: Article Preview
 status: experimental
 group: content
 props:
@@ -11,16 +11,7 @@ props:
     url:
       title: URL
       type: string
-    published_timestamp:
-      title: Published
-      type: string
-    estimated_read_time:
-      title: Estimated read time (minutes)
-      type: integer
+      format: iri-reference
     poster_uri:
       title: Poster image
       type: string
-slots:
-  summary:
-    title: Summary
-    required: true

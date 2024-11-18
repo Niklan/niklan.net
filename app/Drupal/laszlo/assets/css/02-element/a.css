@@ -1,12 +1,9 @@
 @layer element {
-  :root {
-    --link-color: var(--color-primary);
-    --link-color-hover: var(--color-primary);
-    --link-visited: var(--color-primary);
-    --link-color-active: var(--color-primary);
-  }
-
   a {
+    --_link-color: var(var(--link-color), --color-primary);
+    --_link-color-hover: var(var(--link-color-hover), --color-primary);
+    --_link-visited: var(var(--link-visited), --color-primary);
+    --_link-color-active: var(var(--link-color-active), --color-primary);
     --_link-text-decoration-thickness: var(
       --link-text-decoration-thickness,
       2px
@@ -15,21 +12,21 @@
     transition:
       color 0.15s ease-in,
       text-underline-offset 0.15s ease-in;
-    color: var(--link-color);
+    color: var(--_link-color);
     text-underline-offset: 2px;
     text-decoration-color: inherit;
     text-decoration-thickness: var(--_link-text-decoration-thickness);
 
     &:visited {
-      --link-color: var(--link-visited);
+      --link-color: var(--_link-visited);
     }
 
     &:hover {
-      --link-color: var(--link-color-hover);
+      --link-color: var(--_link-color-hover);
     }
 
     &:active {
-      --link-color: var(--link-color-active);
+      --link-color: var(--_link-color-active);
     }
 
     &:hover,

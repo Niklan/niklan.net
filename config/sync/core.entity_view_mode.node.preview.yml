@@ -1,0 +1,11 @@
+uuid: 5e778f15-95b1-429b-96a2-e20d18e5b209
+langcode: ru
+status: true
+dependencies:
+  module:
+    - node
+id: node.preview
+label: Preview
+description: 'A simple card with poster and title.'
+targetEntityType: node
+cache: true

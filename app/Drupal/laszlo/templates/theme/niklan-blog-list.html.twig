@@ -1,11 +1,1 @@
-{% embed 'laszlo:article-list' with { items, pager } only %}
-  {% block items %}
-    {% for item in items %}
-      {{- item -}}
-    {% endfor %}
-  {% endblock %}
-
-  {% block pager %}
-    {{ pager }}
-  {% endblock %}
-{% endembed %}
+{% include 'laszlo:article-list' with { items, pager } only %}

@@ -21,6 +21,12 @@ props:
     homepage:
       title: Author homepage
       type: ['null', string]
+    anchor:
+      title: Anchor
+      type: ['null', string]
+    permalink_url:
+      title: Permalink URL
+      type: ['null', string]
 slots:
   body:
     title: Comment body

@@ -1,11 +1,22 @@
-<section{{ attributes.addClass('article-list') }}>
-  <div class="article-list__items">
-    {% block items %}{% endblock %}
-  </div>
+{% set variant = variant|default('card') %}
+{% set class = [
+  'article-list',
+  'article-list--variant--' ~ variant,
+] %}
+<section{{ attributes.addClass(class) }}>
+  {% if heading %}
+    <h2 class="article-list__heading">{{ heading }}</h2>
+  {% endif %}
+
+  {% if items %}
+    <div class="article-list__items">
+      {% for item in items %}
+        {{ item }}
+      {% endfor %}
+    </div>
+  {% endif %}
 
   {% if pager %}
-    <footer class="article-list__pager">
-      {% block pager %}{% endblock %}
-    </footer>
+    <footer class="article-list__pager">{{ pager }}</footer>
   {% endif %}
 </section>

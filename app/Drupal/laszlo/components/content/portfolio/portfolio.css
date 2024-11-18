@@ -11,10 +11,10 @@
 }
 
 .portfolio__photos .photoswipe {
-  background: var(--color-surface-container-highest);
-  border-radius: var(--spacing-4);
-  box-shadow: var(--elevation-1);
   overflow: hidden;
+  border-radius: var(--spacing-4);
+  background: var(--color-surface-container-highest);
+  box-shadow: var(--elevation-1);
 }
 
 .portfolio__meta {
@@ -25,10 +25,10 @@
 
 .portfolio__meta-item {
   display: flex;
-  gap: var(--spacing-2);
-  border-radius: var(--spacing-10);
-  padding: var(--spacing-2) var(--spacing-4);
-  background: var(--color-surface-variant);
   align-items: center;
+  padding: var(--spacing-2) var(--spacing-4);
   color: var(--color-on-surface-variant);
+  border-radius: var(--spacing-10);
+  background: var(--color-surface-variant);
+  gap: var(--spacing-2);
 }

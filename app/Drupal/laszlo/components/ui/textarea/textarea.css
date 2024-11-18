@@ -52,6 +52,7 @@
   &:focus-within {
     --_textarea-border-color: var(--_textarea-border-color-focus);
     --_textarea-box-shadow: var(--_textarea-box-shadow-focus);
+
     outline: var(--default-focus-outline);
   }
 }

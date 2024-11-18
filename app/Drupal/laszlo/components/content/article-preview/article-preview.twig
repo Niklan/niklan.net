@@ -1,0 +1,18 @@
+<article{{ attributes.addClass('article-preview') }}>
+  {% include 'laszlo:image' with {
+    attributes: create_attribute({
+      class: ['article-preview__poster'],
+    }),
+    uri: poster_uri,
+    style_name: '187x249',
+    width: 187,
+    height: 249,
+    alt: title,
+  } only %}
+
+  <h2 class="article-preview__title">
+    <a href="{{ url }}" class="article-preview__link">
+      {{ title }}
+    </a>
+  </h2>
+</article>

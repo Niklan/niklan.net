@@ -104,9 +104,8 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     ],
     'niklan_comment_list' => [
       'variables' => [
-        'attributes' => [],
-        'comments' => [],
-        'pager' => NULL,
+        'heading' => NULL,
+        'items' => [],
       ],
     ],
     'niklan_media_attached_file' => [
@@ -181,7 +180,15 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
       ],
     ],
     'niklan_home' => [
-      'variables' => [],
+      'variables' => [
+        'sections' => [],
+      ],
+    ],
+    'niklan_blog_preview_list' => [
+      'variables' => [
+        'heading' => NULL,
+        'items' => [],
+      ],
     ],
   ];
 }
