@@ -47,7 +47,6 @@
   flex-shrink: 0;
   min-width: 210px;
   border-radius: var(--spacing-2);
-  box-shadow: var(--elevation-1);
 }
 
 .article__info {

@@ -4,6 +4,10 @@
   gap: var(--spacing-16);
 }
 
+.home__title {
+  text-transform: uppercase;
+}
+
 .home__intro {
   display: flex;
   flex-direction: column;
@@ -27,6 +31,9 @@
 }
 
 .home-card {
+  --link-color: var(--color-on-secondary);
+  --link-color-hover: var(--color-on-secondary);
+
   position: relative;
   display: flex;
   overflow: hidden;

@@ -32,3 +32,10 @@ props:
         - lazy
       type: string
       default: lazy
+    srcset:
+      title: Image srcset
+      type: [ 'null', array ]
+    sizes:
+      title: Image sizes
+      type: [ 'null', array ]
+      default: '100vw'

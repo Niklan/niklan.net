@@ -1,0 +1,25 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Comment Card
+status: experimental
+group: content
+props:
+  type: object
+  properties:
+    url:
+      title: URL
+      type: string
+    published_timestamp:
+      title: Published
+      type: string
+    commented_entity_poster_uri:
+      title: Poster image
+      type: string
+    commented_entity_title:
+      title: Commented entity title
+      type: string
+    body:
+      title: Body
+      type: [string, array]
+    author_name:
+      title: Author
+      type: [string, array]

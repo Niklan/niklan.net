@@ -1,0 +1,21 @@
+<article{{ attributes.addClass('comment-card') }}>
+  <div class="comment-card__content">
+    <header class="comment-card__header">
+      <div class="comment-card__meta">
+        {% include 'laszlo:meta' with {
+          icon: 'user',
+          value: author_name,
+        } only %}
+      </div>
+    </header>
+    <div class="comment-card__summary">{{ body }}</div>
+    <footer class="comment-card__footer">
+      <h3 class="comment-card__title">
+        <a href="{{ url }}" class="comment-card__link">
+          {% include 'laszlo:icon' with { icon: 'reply' } only %}
+          {{ commented_entity_title }}
+        </a>
+      </h3>
+    </footer>
+  </div>
+</article>

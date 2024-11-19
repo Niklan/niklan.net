@@ -23,6 +23,9 @@ final class RenderArrayBuilderManager implements RenderArrayBuilderManagerInterf
 
   #[\Override]
   public function build(NodeInterface $node, EnvironmentInterface $environment): RenderArrayBuilderResult {
+    // @todo Build context DTO is heavily needed here. In cases where same
+    //   environment can be rendered in more than one view mode it can be
+    //   helpful.
     $this->childRenderArrayBuilder->setEnvironment($environment);
 
     return $this->childRenderArrayBuilder->build($node);

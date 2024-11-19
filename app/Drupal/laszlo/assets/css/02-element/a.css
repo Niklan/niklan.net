@@ -1,9 +1,9 @@
 @layer element {
   a {
-    --_link-color: var(var(--link-color), --color-primary);
-    --_link-color-hover: var(var(--link-color-hover), --color-primary);
-    --_link-visited: var(var(--link-visited), --color-primary);
-    --_link-color-active: var(var(--link-color-active), --color-primary);
+    --_link-color: var(--link-color, var(--color-primary));
+    --_link-color-hover: var(--link-color-hover, var(--color-primary));
+    --_link-visited: var(--link-visited, var(--color-primary));
+    --_link-color-active: var(--link-color-active, var(--color-primary));
     --_link-text-decoration-thickness: var(
       --link-text-decoration-thickness,
       2px
