@@ -7,8 +7,9 @@
 }
 
 .pager__page {
-  --button-height: 2rem;
+  --button-height: 2.5rem;
   --button-padding-inline: 0;
+  --button-border-radius: var(--spacing-10);
 
   aspect-ratio: 1;
   justify-content: center;

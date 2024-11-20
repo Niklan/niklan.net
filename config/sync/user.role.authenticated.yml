@@ -2,9 +2,12 @@ uuid: 79112f19-2583-40f0-9a4d-1a7564ba7f6d
 langcode: ru
 status: true
 dependencies:
+  config:
+    - filter.format.comments
   module:
     - comment
     - file
+    - filter
     - media
     - system
 _core:
@@ -19,4 +22,5 @@ permissions:
   - 'delete own files'
   - 'post comments'
   - 'skip comment approval'
+  - 'use text format comments'
   - 'view media'

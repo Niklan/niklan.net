@@ -7,8 +7,8 @@
           return;
         }
 
-        const codeBlockElement = entry.target;
-        const codeElement = codeBlockElement.querySelector('code');
+        const preElement = entry.target.parentElement;
+        const codeElement = entry.target;
         codeElement.classList.add('hljs');
         const worker = new Worker(drupalSettings.highlightJs.workerPath);
         worker.onmessage = (event) => {
@@ -16,17 +16,17 @@
         }
         worker.postMessage({
           code: codeElement.textContent,
-          language: codeBlockElement.dataset.language,
+          language: preElement.dataset.language,
           libraryPath: drupalSettings.highlightJs.libraryPath,
         });
 
-        intersectionObserver.unobserve(codeBlockElement);
+        intersectionObserver.unobserve(preElement);
       });
     });
 
     []
         .slice
-        .call(once('code-block', '[data-selector="niklan:code-block"]'))
+        .call(once('code-highlight', 'pre > code'))
         .forEach((codeBlockElement) => {
           intersectionObserver.observe(codeBlockElement);
         });

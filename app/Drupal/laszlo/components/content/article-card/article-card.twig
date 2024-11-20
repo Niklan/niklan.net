@@ -3,8 +3,7 @@
     attributes: create_attribute({
       class: ['article-card__poster'],
     }),
-    uri: poster_uri,
-    style_name: '150x200',
+    src: poster_uri|image_style('150x200'),
     width: 150,
     height: 200,
     alt: title,

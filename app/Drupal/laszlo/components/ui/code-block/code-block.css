@@ -11,7 +11,7 @@
 .code-block__main {
   padding: var(--spacing-6);
   border-radius: var(--spacing-2);
-  background-color: var(--color-surface);
+  background-color: var(--color-surface-bright);
 }
 
 .code-block__header {

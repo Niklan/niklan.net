@@ -15,7 +15,6 @@ use Drupal\laszlo\Hook\Theme\PreprocessNode;
 use Drupal\laszlo\Hook\Theme\PreprocessPage;
 use Drupal\laszlo\Hook\Theme\PreprocessTaxonomyTerm;
 use Drupal\laszlo\Hook\Theme\ThemeSuggestionsAlter;
-use Drupal\laszlo\Hook\Theme\ThemeSuggestionsTaxonomyTermAlter;
 
 /**
  * Implements hook_theme().

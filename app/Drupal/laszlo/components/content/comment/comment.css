@@ -5,8 +5,7 @@
   flex-direction: column;
   padding: var(--spacing-6);
   color: var(--color-on-surface);
-  border: var(--spacing-2) solid var(--color-surface-container);
-  border-radius: var(--spacing-4);
+  border-radius: var(--spacing-2);
   background: var(--color-surface-bright);
   gap: var(--_comment-gap);
 }
@@ -47,4 +46,10 @@
 
 .comment__attribution-separator {
   color: var(--color-outline-variant);
+}
+
+.comment pre {
+  padding: var(--spacing-4);
+  border-radius: var(--spacing-2);
+  background: var(--color-surface-bright);
 }

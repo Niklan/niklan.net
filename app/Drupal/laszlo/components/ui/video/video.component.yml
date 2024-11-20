@@ -1,0 +1,43 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Video
+status: experimental
+group: ui
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+    width:
+      title: Width
+      type: integer
+      description: The width of the video.
+      default: 640
+    height:
+      title: Height
+      type: integer
+      description: The height of the video.
+      default: 480
+    controls:
+      title: Controls
+      type: boolean
+      description: Whether to show the video controls.
+      default: true
+    autoplay:
+      title: Autoplay
+      type: boolean
+      description: Whether the video should start playing automatically.
+      default: false
+    loop:
+      title: Loop
+      type: boolean
+      description: Whether the video should loop.
+      default: false
+    muted:
+      title: Muted
+      type: boolean
+      description: Whether the video should be muted.
+      default: false
+slots:
+  children:
+    title: Children contents

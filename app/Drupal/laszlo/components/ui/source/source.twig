@@ -1,8 +1,10 @@
-{% do alt ? attributes.setAttribute('alt', alt) %}
 {% do width ? attributes.setAttribute('width', width) %}
 {% do height ? attributes.setAttribute('height', height) %}
-{% do attributes.setAttribute('src', src) %}
-{% do attributes.setAttribute('loading', loading|default('lazy')) %}
+{% do type ? attributes.setAttribute('type', type) %}
+{% do media ? attributes.setAttribute('media', media) %}
+{# It can be a part of attributes. E.g.: file_video theme hook. #}
+{# @todo Maybe it is better to be required and provide custom preprocess to extract the data. #}
+{% do src ? attributes.setAttribute('src', src) %}
 {% if srcset is not empty %}
   {% do attributes.setAttribute('sizes', sizes|default('100vw')|join(', ')) %}
   {% set srcset_array = [] %}
@@ -11,4 +13,4 @@
   {% endfor %}
   {% do attributes.setAttribute('srcset', srcset_array|join(', ')) %}
 {% endif %}
-<img{{ attributes }}/>
+<source{{ attributes }}/>

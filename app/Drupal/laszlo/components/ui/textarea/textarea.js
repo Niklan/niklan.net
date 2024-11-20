@@ -12,8 +12,8 @@
         textareaEl.style.height = `${textareaEl.scrollHeight  }px`;
 
         textareaEl.addEventListener('input', () => {
-          this.style.height = 'auto';
-          this.style.height = `${this.scrollHeight  }px`;
+          textareaEl.style.height = 'auto';
+          textareaEl.style.height = `${textareaEl.scrollHeight}px`;
         });
       });
   }

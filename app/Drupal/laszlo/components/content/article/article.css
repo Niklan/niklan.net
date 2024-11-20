@@ -129,7 +129,7 @@
   align-items: center;
   padding: var(--spacing-16) var(--spacing-12);
   border-radius: var(--spacing-4);
-  background-color: var(--_article-main-background);
+  background-color: var(--_article-header-background);
   gap: var(--_article-spacing);
 }
 

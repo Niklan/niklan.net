@@ -1,0 +1,32 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Source
+status: experimental
+group: ui
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+    type:
+      title: Media type
+      type: string
+    src:
+      title: Source
+      type: string
+    srcset:
+      title: Media srcset
+      type: array
+    sizes:
+      title: Image sizes
+      type: array
+      default: '100vw'
+    width:
+      title: Image width
+      type: [ string, integer ]
+    height:
+      title: Image height
+      type: [ string, integer ]
+    media:
+      title: Media query
+      type: string

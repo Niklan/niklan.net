@@ -10,7 +10,7 @@ use Drupal\filter\Plugin\FilterInterface;
 /**
  * Provides a test for markdown filter.
  *
- * @coversDefaultClass \Drupal\niklan\Plugin\Filter\PrismJsHighlighter
+ * @coversDefaultClass \Drupal\niklan\Plugin\Filter\CodeHighligt
  */
 final class PrismJsHighlighterTest extends FilterTestBase {
 

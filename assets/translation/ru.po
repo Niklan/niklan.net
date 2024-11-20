@@ -432,3 +432,12 @@ msgstr "Самые обсуждаемые"
 
 msgid "Opinion of anonymous users from the Internet"
 msgstr "Мнение анонимов из интернета"
+
+msgid "Markdown is supported"
+msgstr "Поддерживается Markdown"
+
+msgid "Comments temporarily disabled"
+msgstr "Комментарии временно отключены"
+
+msgid "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">There is a lot of spam going on.</a> I need some time to implement tools to moderate it via Telegram and bring them back again."
+msgstr "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">Слишком много спама.</a> Нужно немного времени чтобы реализовать инструменты для модерации спама через Телеграм и вернуть их обратно."

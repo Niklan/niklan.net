@@ -1,0 +1,8 @@
+.video {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-4);
+  border-radius: var(--spacing-4);
+  background: var(--color-surface-container-high);
+}

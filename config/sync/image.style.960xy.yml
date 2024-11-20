@@ -1,0 +1,15 @@
+uuid: e2dc8433-13e1-49b5-9067-60f063789f55
+langcode: ru
+status: true
+dependencies: {  }
+name: 960xy
+label: 960×Y
+effects:
+  959e6439-88b8-49d8-b4bf-7ff04aa3cdea:
+    uuid: 959e6439-88b8-49d8-b4bf-7ff04aa3cdea
+    id: image_scale
+    weight: 1
+    data:
+      width: 960
+      height: null
+      upscale: false

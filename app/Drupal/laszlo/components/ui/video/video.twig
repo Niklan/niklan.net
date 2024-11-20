@@ -1,0 +1,9 @@
+{% do width ? attributes.setAttribute('width', width) %}
+{% do height ? attributes.setAttribute('height', height) %}
+{% do controls ? attributes.setAttribute('controls', '') %}
+{% do autoplay ? attributes.setAttribute('autoplay', '') %}
+{% do loop ? attributes.setAttribute('loop', '') %}
+{% do muted ? attributes.setAttribute('muted', '') %}
+<video{{ attributes.addClass('video') }}>
+  {% block children %}{% endblock %}
+</video>

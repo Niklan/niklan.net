@@ -5,8 +5,7 @@
 } only %}
   {% block thumbnail %}
     {% include 'laszlo:image' with {
-      uri,
-      style_name: 'paragraph_image_image_xs',
+      src: uri|image_style('paragraph_image_image_xs'),
       srcset: {
         '543w': uri|image_style('paragraph_image_image_xs'),
         '671w': uri|image_style('paragraph_image_image_sm'),

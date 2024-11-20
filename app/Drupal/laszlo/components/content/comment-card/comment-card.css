@@ -30,8 +30,8 @@
 .comment-card__link {
   --focus-outline: none;
 
-  text-decoration: none;
   display: flex;
+  text-decoration: none;
   gap: var(--spacing-2);
 
   &::before {
@@ -79,15 +79,17 @@
 }
 
 .comment-card__title {
-  font: var(--typography-label-large);
   --icon-wrapper-width: var(--spacing-5);
+
+  font: var(--typography-label-large);
 }
 
 .comment-card__footer {
-  margin-top: auto;
-  color: var(--color-on-surface-variant);
   --link-color: var(--color-on-surface-variant);
   --link-color-hover: var(--color-primary);
-  border-top: 1px solid var(--color-outline-variant);
+
+  margin-top: auto;
   padding-top: var(--spacing-4);
+  color: var(--color-on-surface-variant);
+  border-top: 1px solid var(--color-outline-variant);
 }

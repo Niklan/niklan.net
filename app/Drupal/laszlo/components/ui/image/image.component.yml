@@ -5,26 +5,23 @@ group: ui
 props:
   type: object
   required:
-    - uri
+    - src
   properties:
     attributes:
       type: Drupal\Core\Template\Attribute
       title: Wrapper attributes
-    uri:
-      title: Image URI
+    src:
+      title: Image URL
       type: string
-    style_name:
-      title: Image Style ID
-      type: [ 'null', string ]
     width:
       title: Image width
-      type: [ 'null', string, integer ]
+      type: [string, integer ]
     height:
       title: Image height
-      type: [ 'null', string, integer ]
+      type: [string, integer]
     alt:
       title: Image alt
-      type: [ 'null', string ]
+      type: string
     loading:
       title: Image loading
       enum:
@@ -34,8 +31,8 @@ props:
       default: lazy
     srcset:
       title: Image srcset
-      type: [ 'null', array ]
+      type: array
     sizes:
       title: Image sizes
-      type: [ 'null', array ]
+      type: array
       default: '100vw'

@@ -21,13 +21,17 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  extra_field_author_name:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
   letter_avatar:
     settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
 hidden:
-  extra_field_author_name: true
   extra_field_letter_avatar: true
   homepage: true
   langcode: true

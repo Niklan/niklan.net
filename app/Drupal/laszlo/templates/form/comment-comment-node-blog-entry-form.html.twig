@@ -3,6 +3,12 @@
   {{ 'Add comment'|t }}
 </h2>
 
+{% if form.comment_preview %}
+  <div class="comment-comment-node-blog-entry-form__preview">
+    {{ form.comment_preview }}
+  </div>
+{% endif %}
+
 <div class="comment-comment-node-blog-entry-form__author">
   {{ form.author.name }}
   {{ form.author.mail }}
@@ -11,6 +17,27 @@
 
 <div class="comment-comment-node-blog-entry-form__body">
   {{ form.comment_body }}
+  <div class="comment-comment-node-blog-entry-form__help">
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['about__cta'],
+        'target': '_blank',
+        'rel': 'noopener nofollow',
+      }),
+      component: 'a',
+      href: 'https://commonmark.org/help/',
+      variant: 'text',
+      size: 'small',
+      color: 'secondary',
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'markdown' } only %}
+      {% endblock %}
+      {% block children %}
+        {{ 'Markdown is supported'|t }}
+      {% endblock %}
+    {% endembed %}
+  </div>
 </div>
 
 <div class="comment-comment-node-blog-entry-form__actions">
@@ -18,4 +45,4 @@
 </div>
 
 {{ form.author|without('name', 'mail', 'homepage') }}
-{{ form|without('author', 'comment_body', 'actions') }}
+{{ form|without('author', 'comment_body', 'actions', 'comment_preview', 'comment_output_below') }}

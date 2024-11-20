@@ -120,3 +120,7 @@ services:
   Drupal\niklan\Markup\Twig\Extension\ImageDimensions:
     tags:
       - { name: twig.extension }
+
+  Drupal\niklan\Comment\EventSubscriber\RouteAlter:
+    tags:
+      - { name: event_subscriber }
