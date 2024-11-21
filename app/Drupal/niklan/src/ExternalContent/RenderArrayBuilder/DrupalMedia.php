@@ -14,6 +14,7 @@ use Drupal\external_content\Data\RenderArrayBuilderResult;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Node\DrupalMedia as DrupalMediaNode;
 use Drupal\niklan\File\Entity\FileInterface;
+use Drupal\niklan\Utils\MediaHelper;
 
 /**
  * @ingroup content_sync
@@ -68,7 +69,7 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
   }
 
   private function buildImageRenderArray(MediaInterface $media, DrupalMediaNode $node): RenderArrayBuilderResult {
-    $file = $this->getMediaSourceFile($media);
+    $file = MediaHelper::getFile($media);
 
     if (!$file instanceof FileInterface) {
       return RenderArrayBuilderResult::empty();
@@ -89,7 +90,7 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
   }
 
   private function buildVideoRenderArray(MediaInterface $media): RenderArrayBuilderResult {
-    $file = $this->getMediaSourceFile($media);
+    $file = MediaHelper::getFile($media);
 
     if (!$file instanceof FileInterface) {
       return RenderArrayBuilderResult::empty();
@@ -126,12 +127,6 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
     $view_builder = $this->entityTypeManager->getViewBuilder('media');
 
     return RenderArrayBuilderResult::withRenderArray($view_builder->view($media));
-  }
-
-  private function getMediaSourceFile(MediaInterface $media): ?FileInterface {
-    $source_field = $media->getSource()->getConfiguration()['source_field'];
-
-    return $media->get($source_field)->first()->get('entity')->getValue();
   }
 
 }

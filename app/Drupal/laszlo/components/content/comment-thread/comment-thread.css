@@ -14,13 +14,14 @@
     width: 0;
     height: 100%;
     content: "";
-    border-left: 2px solid var(--color-surface-bright);
+    border-left: 2px solid var(--color-outline-variant);
   }
 }
 
 .comment-thread--depth--1,
 .comment-thread--depth--2,
 .comment-thread--depth--3,
-.comment-thread--depth--4 {
+.comment-thread--depth--4,
+.comment-thread--depth--5 {
   padding-left: var(--_indent);
 }

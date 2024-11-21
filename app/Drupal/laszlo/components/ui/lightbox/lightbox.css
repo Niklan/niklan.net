@@ -9,6 +9,7 @@
 
 .lightbox__link img {
   border-radius: var(--spacing-2);
+  box-shadow: var(--elevation-1);
 }
 
 .lightbox__icon {
@@ -23,7 +24,7 @@
   opacity: 0;
   border-radius: var(--spacing-2);
   background-color: var(--color-surface-container-low);
-  box-shadow: var(--elevation-1);
+  box-shadow: var(--elevation-5);
 }
 
 .lightbox:hover .lightbox__icon {

@@ -1,46 +1,4 @@
 <main{{ attributes.addClass('home') }}>
-  <section class="home__intro">
-    <h1 class="home__title">Блог веб-разработчика</h1>
-    <div class="prose home__intro-text">
-      <p>Это мой персональный блог, в котором я в основном рассказываю о веб-разработке. В своей работе я активно применяю Drupal, поэтому большинство моих статей посвящены этой CMS и всему, что с ней связано.</p>
-    </div>
-    <div class="home__intro-actions">
-      {% embed 'laszlo:button' with {
-        attributes: create_attribute({
-          'class': ['home__intro-cta'],
-        }),
-        component: 'a',
-        href: path('niklan.blog_list'),
-        variant: 'contained',
-        size: 'large',
-      } only %}
-        {% block start_icon %}
-          {% include 'laszlo:icon' with { icon: 'documents-bold' } only %}
-        {% endblock %}
-        {% block children %}
-          Все публикации
-        {% endblock %}
-      {% endembed %}
-
-      {% embed 'laszlo:button' with {
-        attributes: create_attribute({
-          'class': ['home__intro-cta'],
-        }),
-        component: 'a',
-        href: path('niklan.about'),
-        variant: 'outlined',
-        size: 'large',
-      } only %}
-        {% block start_icon %}
-          {% include 'laszlo:icon' with { icon: 'user-id-bold-duotone' } only %}
-        {% endblock %}
-        {% block children %}
-          Об авторе
-        {% endblock %}
-      {% endembed %}
-    </div>
-  </section>
-
   <section class="home__cards">
     {% set image = '/' ~ componentMetadata.path ~ '/8ccc5979a30611efb3f7468a9f688b03_3.jpeg' %}
     <div class="home-card">

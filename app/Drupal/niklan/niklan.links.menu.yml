@@ -10,6 +10,13 @@ niklan.admin_general:
   route_name: niklan.admin_general
   weight: -10
 
+niklan.home.settings:
+  title: Home page settings
+  description: Configure the home page with an introductory text and promo cards.
+  route_name: niklan.home.settings
+  parent: niklan.admin_general
+  weight: 0
+
 niklan.about.settings:
   title: About page settings
   description: Configure an about page with an author biography and photo.

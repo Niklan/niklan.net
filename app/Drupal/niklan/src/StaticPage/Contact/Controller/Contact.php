@@ -6,19 +6,19 @@ namespace Drupal\niklan\StaticPage\Contact\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\StaticPage\Contact\Repository\ContactSettings;
+use Drupal\niklan\StaticPage\Contact\Repository\HomeSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Contact implements ContainerInjectionInterface {
 
   public function __construct(
-    private ContactSettings $settings,
+    private HomeSettings $settings,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(ContactSettings::class),
+      $container->get(HomeSettings::class),
     );
   }
 
@@ -28,7 +28,7 @@ final readonly class Contact implements ContainerInjectionInterface {
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),
-        '#format' => ContactSettings::TEXT_FORMAT,
+        '#format' => HomeSettings::TEXT_FORMAT,
       ],
       '#email' => $this->settings->getEmail(),
       '#telegram' => $this->settings->getTelegram(),

@@ -11,10 +11,10 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
-use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Utils\TocBuilder;
 use Drupal\niklan\File\Entity\FileInterface;
 use Drupal\niklan\Node\Entity\BlogEntry;
+use Drupal\niklan\Utils\MediaHelper;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -43,30 +43,10 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
   }
 
   private function addPosterUri(BlogEntry $node, array &$variables): void {
-    $variables['poster_uri'] = NULL;
-
-    if ($node->get('field_media_image')->isEmpty()) {
-      return;
-    }
-
-    $media = $node
-      ->get('field_media_image')
-      ->first()
-      ->get('entity')
-      ->getValue();
-
-    if (!$media instanceof MediaInterface) {
-      return;
-    }
-
-    $source_field = $media->getSource()->getConfiguration()['source_field'];
-    $file = $media->get($source_field)->first()?->get('entity')->getValue();
-
-    if (!$file instanceof FileInterface) {
-      return;
-    }
-
-    $variables['poster_uri'] = $file->getFileUri();
+    $variables['poster_uri'] = MediaHelper::getFileFromMediaField(
+      entity: $node,
+      field_name: 'field_media_image',
+    )?->getFileUri();
   }
 
   private function addAttachments(BlogEntry $node, array &$variables): void {
@@ -75,8 +55,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     foreach ($node->get('field_media_attachments') as $attachment_item) {
       \assert($attachment_item instanceof FieldItemInterface);
       $media = $attachment_item->get('entity')->getValue();
-      $source_field = $media?->getSource()->getConfiguration()['source_field'];
-      $file = $media?->get($source_field)->first()?->get('entity')->getValue();
+      $file = MediaHelper::getFile($attachment_item->get('entity')->getValue());
 
       if (!$file instanceof FileInterface) {
         continue;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\StaticPage\Home\Controller;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -12,6 +13,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\filter\Plugin\FilterInterface;
+use Drupal\niklan\StaticPage\Home\Repository\HomeSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Home implements ContainerInjectionInterface {
@@ -22,6 +25,7 @@ final readonly class Home implements ContainerInjectionInterface {
     private EntityTypeManagerInterface $entityTypeManager,
     private LanguageManagerInterface $languageManager,
     private Connection $connection,
+    private HomeSettings $homeSettings,
   ) {}
 
   #[\Override]
@@ -30,6 +34,7 @@ final readonly class Home implements ContainerInjectionInterface {
       $container->get(EntityTypeManagerInterface::class),
       $container->get(LanguageManagerInterface::class),
       $container->get(Connection::class),
+      $container->get(HomeSettings::class),
     );
   }
 
@@ -156,12 +161,57 @@ final readonly class Home implements ContainerInjectionInterface {
     ];
   }
 
+  private function addHomeIntro(array &$build): void {
+    $cache = CacheableMetadata::createFromRenderArray($build);
+    $cache->addCacheableDependency($this->homeSettings);
+    $cache->applyTo($build);
+
+    $heading = $this->homeSettings->getHeading();
+    $description = $this->homeSettings->getDescription();
+
+    if (!$heading || !$description) {
+      return;
+    }
+
+    $build['#sections']['home_intro'] = [
+      '#theme' => 'niklan_home_intro',
+      '#heading' => $heading,
+      '#description' => [
+        '#type' => 'processed_text',
+        '#text' => $this->homeSettings->getDescription(),
+        '#format' => HomeSettings::TEXT_FORMAT,
+        '#filter_types_to_skip' => [
+          FilterInterface::TYPE_MARKUP_LANGUAGE,
+        ],
+      ],
+    ];
+  }
+
+  private function addHomeCards(array &$build): void {
+    $cache = CacheableMetadata::createFromRenderArray($build);
+    $cache->addCacheableDependency($this->homeSettings);
+    $cache->applyTo($build);
+
+    $cards = $this->homeSettings->getCards();
+
+    if (!$cards) {
+      return;
+    }
+
+    $build['#sections']['home_cards'] = [
+      '#theme' => 'niklan_home_cards',
+      '#cards' => $cards,
+    ];
+  }
+
   public function __invoke(): array {
     $build = [
       '#theme' => 'niklan_home',
       '#sections' => [],
     ];
 
+    $this->addHomeIntro($build);
+    $this->addHomeCards($build);
     $this->addLatestPosts($build);
     $this->addTooBigToReadPosts($build);
     $this->addMostDiscussed($build);

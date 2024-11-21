@@ -8,8 +8,9 @@
   color: var(--color-on-surface);
   border-left: var(--spacing-1) solid var(--note-color);
   border-radius: var(--spacing-1);
-  background-color: var(--color-surface-container);
+  background-color: var(--color-surface-bright);
   gap: var(--spacing-4);
+  box-shadow: var(--elevation-1);
 }
 
 .alert__heading {

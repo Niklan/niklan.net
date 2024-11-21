@@ -4,26 +4,6 @@
   gap: var(--spacing-16);
 }
 
-.home__title {
-  text-transform: uppercase;
-}
-
-.home__intro {
-  display: flex;
-  flex-direction: column;
-  max-width: 80ch;
-  margin: 0 auto;
-  text-align: center;
-  gap: var(--spacing-8);
-}
-
-.home__intro-text {
-  --link-color: var(--color-on-surface-variant);
-
-  color: var(--color-on-surface-variant);
-  font: var(--typography-headline-medium);
-}
-
 .home__cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -61,6 +61,15 @@ niklan.services.settings:
   requirements:
     _permission: 'administer site configuration'
 
+niklan.home.settings:
+  path: '/admin/niklan/home'
+  methods: [GET, POST]
+  defaults:
+    _title: 'Home page settings'
+    _form: Drupal\niklan\StaticPage\Home\Form\HomeSettingsForm
+  requirements:
+    _permission: 'administer site configuration'
+
 niklan.services:
   path: '/services'
   methods: [GET]

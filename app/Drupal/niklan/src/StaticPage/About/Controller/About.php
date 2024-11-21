@@ -8,8 +8,8 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\filter\Plugin\FilterInterface;
-use Drupal\media\MediaInterface;
 use Drupal\niklan\StaticPage\About\Repository\AboutSettings;
+use Drupal\niklan\Utils\MediaHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class About implements ContainerInjectionInterface {
@@ -34,20 +34,7 @@ final readonly class About implements ContainerInjectionInterface {
       return NULL;
     }
 
-    $media = $this->entityTypeManager->getStorage('media')->load($id);
-
-    if (!$media instanceof MediaInterface) {
-      return NULL;
-    }
-
-    $source_field = $media->getSource()->getConfiguration()['source_field'];
-
-    return $media
-      ->get($source_field)
-      ->first()
-      ?->get('entity')
-        ->getValue()
-      ?->getFileUri();
+    return MediaHelper::getFileUri($this->entityTypeManager->getStorage('media'));
   }
 
   public function __invoke(): array {

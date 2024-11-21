@@ -27,7 +27,7 @@
   border: none;
   border-radius: var(--spacing-4);
   background-color: var(--_background-color);
-  box-shadow: var(--elevation-1);
+  box-shadow: var(--elevation-2);
 
   &:focus,
   &:active,

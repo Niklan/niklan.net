@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\comment\CommentInterface;
-use Drupal\file\FileInterface;
-use Drupal\media\MediaInterface;
+use Drupal\niklan\Utils\MediaHelper;
 
 final readonly class PreprocessComment {
 
@@ -29,12 +28,10 @@ final readonly class PreprocessComment {
   }
 
   private function addCommentedEntityPosterUri(CommentInterface $comment, array &$variables): void {
-    $media = $comment->getCommentedEntity()->get('field_media_image')->first()?->get('entity')->getValue();
-    \assert(\is_null($media) || $media instanceof MediaInterface);
-    $file_field = $media?->getSource()->getConfiguration()['source_field'];
-    $file = $media?->get($file_field)->first()?->get('entity')->getValue();
-    \assert(\is_null($file) || $file instanceof FileInterface);
-    $variables['commented_entity_poster_uri'] = $file?->getFileUri();
+    $variables['commented_entity_poster_uri'] = MediaHelper::getFileFromMediaField(
+      entity: $comment->getCommentedEntity(),
+      field_name: 'field_media_image',
+    )?->getFileUri();
   }
 
   private function addTeaserVariables(CommentInterface $comment, array &$variables): void {

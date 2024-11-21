@@ -441,3 +441,9 @@ msgstr "Комментарии временно отключены"
 
 msgid "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">There is a lot of spam going on.</a> I need some time to implement tools to moderate it via Telegram and bring them back again."
 msgstr "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">Слишком много спама.</a> Нужно немного времени чтобы реализовать инструменты для модерации спама через Телеграм и вернуть их обратно."
+
+msgid "Home page settings"
+msgstr "Настройки главной страницы"
+
+msgid "Configure the home page with an introductory text and promo cards."
+msgstr "Настройте домашнюю страницу с вводным текстом и промо-карточками."

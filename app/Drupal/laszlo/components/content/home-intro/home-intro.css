@@ -1,0 +1,19 @@
+.home-intro {
+  display: flex;
+  flex-direction: column;
+  max-width: 80ch;
+  margin: 0 auto;
+  text-align: center;
+  gap: var(--spacing-8);
+}
+
+.home-intro__heading {
+  text-transform: uppercase;
+}
+
+.home-intro__description {
+  --link-color: var(--color-on-surface-variant);
+
+  color: var(--color-on-surface-variant);
+  font: var(--typography-headline-medium);
+}
