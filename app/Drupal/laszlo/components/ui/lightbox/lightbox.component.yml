@@ -4,10 +4,10 @@ status: experimental
 group: ui
 props:
   required:
-    - uri
+    - url
   properties:
-    uri:
-      title: Image URI
+    url:
+      title: Image URL
       type: string
     size:
       title: Image size

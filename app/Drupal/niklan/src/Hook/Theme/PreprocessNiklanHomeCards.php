@@ -7,6 +7,7 @@ namespace Drupal\niklan\Hook\Theme;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\media\MediaInterface;
+use Drupal\niklan\StaticPage\Home\Repository\HomeSettings;
 use Drupal\niklan\Utils\MediaHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -26,12 +27,19 @@ final readonly class PreprocessNiklanHomeCards implements ContainerInjectionInte
   public function __invoke(array &$variables): void {
     $media_storage = $this->entityTypeManager->getStorage('media');
     foreach ($variables['cards'] as &$card) {
+
+      $card['description'] = [
+        '#type' => 'processed_text',
+        '#text' => $card['description'],
+        '#format' => HomeSettings::TEXT_FORMAT,
+      ];
+
       $media = $media_storage->load($card['media_id']);
       if (!$media instanceof MediaInterface) {
         continue;
       }
 
-      $card['media_uri'] = MediaHelper::getFileUri($media);
+      $card['background_uri'] = MediaHelper::getFileUri($media);
     }
   }
 

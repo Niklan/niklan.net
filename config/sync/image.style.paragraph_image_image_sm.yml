@@ -8,8 +8,14 @@ effects:
   b2cdd0d4-4ae4-4987-bb0d-bf4f0573c101:
     uuid: b2cdd0d4-4ae4-4987-bb0d-bf4f0573c101
     id: image_scale
-    weight: 1
+    weight: -9
     data:
       width: 671
       height: null
       upscale: false
+  db9e1002-3719-42d1-820d-6638b4a9c66c:
+    uuid: db9e1002-3719-42d1-820d-6638b4a9c66c
+    id: image_convert
+    weight: -10
+    data:
+      extension: webp

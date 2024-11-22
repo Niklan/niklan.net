@@ -1,6 +1,8 @@
+{% set dimensions = uri|image_dimensions('big_image') %}
 {% embed 'laszlo:lightbox' with {
   uri,
-  size,
+  url: uri|image_style('big_image'),
+  size: dimensions|join('x'),
   responsive_image,
 } only %}
   {% block thumbnail %}

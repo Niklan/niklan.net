@@ -8,8 +8,14 @@ effects:
   1ad5b966-32e0-46b7-b390-674a4f62be86:
     uuid: 1ad5b966-32e0-46b7-b390-674a4f62be86
     id: image_scale_and_crop
-    weight: 2
+    weight: -9
     data:
       width: 263
       height: 263
       anchor: center-top
+  27c18a72-0b7a-48bb-86e4-04ac738f799f:
+    uuid: 27c18a72-0b7a-48bb-86e4-04ac738f799f
+    id: image_convert
+    weight: -10
+    data:
+      extension: webp

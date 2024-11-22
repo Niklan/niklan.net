@@ -8,8 +8,14 @@ effects:
   94035440-155d-4149-986e-56b044b08096:
     uuid: 94035440-155d-4149-986e-56b044b08096
     id: image_scale_and_crop
-    weight: 1
+    weight: -9
     data:
       width: 200
       height: 150
       anchor: center-center
+  4ed642b3-58b1-4a30-96fc-3b8401cf17d3:
+    uuid: 4ed642b3-58b1-4a30-96fc-3b8401cf17d3
+    id: image_convert
+    weight: -10
+    data:
+      extension: webp

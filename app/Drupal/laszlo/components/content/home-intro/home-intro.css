@@ -17,3 +17,9 @@
   color: var(--color-on-surface-variant);
   font: var(--typography-headline-medium);
 }
+
+.home-intro__actions {
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: center;
+}

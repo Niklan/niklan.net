@@ -1,6 +1,6 @@
 {% do attributes.addClass(['photoswipe-gallery', 'lightbox']) %}
 <span{{ attributes }}>
-  <a href="{{ uri|image_style('big_image') }}"
+  <a href="{{ url }}"
      class="photoswipe lightbox__link"
      data-size="{{ size }}">
     {% block thumbnail %}{% endblock %}

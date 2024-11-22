@@ -26,7 +26,6 @@ image_formats:
     enabled: false
   WEBP:
     mime_type: image/webp
-    enabled: false
   TIFF:
     mime_type: image/tiff
     enabled: false
