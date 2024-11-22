@@ -1,0 +1,21 @@
+uuid: f9f53f9c-0bc9-496c-9095-3469dd9fd5f4
+langcode: ru
+status: true
+dependencies: {  }
+name: 400x400
+label: 400×400
+effects:
+  57421419-cf7c-4820-93b6-76ebdf3b8083:
+    uuid: 57421419-cf7c-4820-93b6-76ebdf3b8083
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  23883509-a411-4646-8640-e02590e8fef1:
+    uuid: 23883509-a411-4646-8640-e02590e8fef1
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 400
+      height: 400
+      anchor: center-center
