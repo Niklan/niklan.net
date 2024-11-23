@@ -8,14 +8,23 @@
   .portfolio__photos .photoswipe-gallery {
     display: grid;
     gap: var(--spacing-4);
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+
+    @media screen and (min-width: 640px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   .portfolio__photos .photoswipe {
+    display: flex;
     overflow: hidden;
+    justify-content: center;
     border-radius: var(--spacing-4);
     background: var(--color-surface-container-highest);
-    box-shadow: var(--elevation-1);
   }
 
   .portfolio__meta {

@@ -1,9 +1,11 @@
 @layer component.layout {
   .page-footer {
+    --link-color: var(--color-on-surface);
+
     display: grid;
     /* Add extra bottom padding to avoid overlap with nav. */
     padding: var(--spacing-10) 0 calc(var(--spacing-10) * 3) 0;
-    color: var(--color-on-surface-variant);
+    color: var(--color-on-surface);
     font: var(--typography-label-large);
     gap: var(--spacing-4);
 

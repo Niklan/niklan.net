@@ -7,8 +7,11 @@
 
   .about__head {
     display: grid;
-    grid-template-columns: 1fr max-content;
     gap: var(--spacing-6);
+
+    @media screen and (min-width: 640px) {
+      grid-template-columns: 1fr max-content;
+    }
   }
 
   .about__intro {
@@ -25,7 +28,12 @@
     font: var(--typography-headline-small);
   }
 
-  .about__photo {
+  .about__media {
+    display: flex;
+    overflow: hidden;
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-content: center;
     border-radius: var(--spacing-4);
     background: var(--color-primary-container);
     background-image: radial-gradient(

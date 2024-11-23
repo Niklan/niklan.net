@@ -19,15 +19,27 @@
     position: relative;
     display: flex;
     overflow: hidden;
+    flex-flow: column;
     align-items: flex-start;
-    padding: var(--spacing-12);
+    padding: var(--spacing-6);
     border-radius: var(--spacing-4) var(--spacing-4) 0 0;
     background-color: color-mix(
       in sRGB,
       var(--_article-header-background),
       transparent 10%
     );
-    gap: var(--spacing-8);
+    gap: var(--spacing-6);
+    margin-inline: calc(var(--page-side-gap) * -1);
+
+    @media screen and (min-width: 640px) {
+      margin-inline: initial;
+    }
+
+    @media screen and (min-width: 1200px) {
+      flex-flow: row;
+      padding: var(--spacing-12);
+      gap: var(--spacing-8);
+    }
   }
 
   .article__backdrop {
@@ -49,6 +61,7 @@
     min-width: 210px;
     border-radius: var(--spacing-2);
     box-shadow: var(--elevation-2);
+    margin-inline: auto;
   }
 
   .article__info {
@@ -59,7 +72,11 @@
 
   .article__title {
     color: var(--color-on-surface);
-    font: var(--typography-display-medium);
+    font: var(--typography-display-small);
+
+    @media screen and (min-width: 640px) {
+      font: var(--typography-display-medium);
+    }
   }
 
   .article__summary {
@@ -70,16 +87,29 @@
   .article__tags {
     display: flex;
     gap: var(--spacing-2);
+    flex-wrap: wrap;
   }
 
   .article__main {
     display: flex;
+    flex-flow: wrap;
     align-items: flex-start;
     margin-top: calc(var(--_article-spacing) * -1);
-    padding: var(--spacing-16) var(--spacing-12);
+    padding: var(--spacing-6);
     border-radius: 0 0 var(--spacing-4) var(--spacing-4);
     background-color: var(--_article-main-background);
-    gap: var(--spacing-12);
+    gap: var(--spacing-6);
+    margin-inline: calc(var(--page-side-gap) * -1);
+
+    @media screen and (min-width: 640px) {
+      margin-inline: initial;
+    }
+
+    @media screen and (min-width: 1200px) {
+      flex-flow: row;
+      padding: var(--spacing-12);
+      gap: var(--spacing-8);
+    }
   }
 
   .article__content {
@@ -89,19 +119,33 @@
   .article__sidebar {
     position: sticky;
     top: var(--spacing-8);
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: var(--spacing-4);
+
+    @media screen and (min-width: 1200px) {
+      display: flex;
+    }
   }
 
   .article__meta {
     display: flex;
-    align-items: center;
+    flex-flow: column;
+    align-items: flex-start;
     gap: var(--spacing-4);
+
+    @media screen and (min-width: 640px) {
+      flex-flow: row;
+    }
   }
 
   .article__meta-separator {
+    display: none;
     color: var(--color-outline);
+
+    @media screen and (min-width: 640px) {
+      display: initial;
+    }
   }
 
   .article__attachments {

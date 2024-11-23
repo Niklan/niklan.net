@@ -31,7 +31,7 @@
   }
 
   .branding__slogan {
-    color: var(--color-outline);
+    color: var(--color-on-surface);
     font: var(--typography-title-small);
   }
 }

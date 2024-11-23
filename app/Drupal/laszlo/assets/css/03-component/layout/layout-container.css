@@ -7,7 +7,7 @@
   .layout-container {
     width: 100%;
     max-width: var(--layout-container-max-width);
-    margin: 0 auto;
+    margin-inline: auto;
     padding: 0 var(--layout-container-side-gap);
   }
 }

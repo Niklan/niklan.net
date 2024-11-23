@@ -12,6 +12,10 @@
     border-radius: var(--spacing-16);
     background: color-mix(in sRGB, var(--color-surface-tint), transparent 50%);
     backdrop-filter: saturate(280%) blur(40px);
-    gap: var(--spacing-1);
+    gap: var(--spacing-4);
+    box-shadow:
+      rgb(17 17 26 / 0.1) 0 8px 24px,
+      rgb(17 17 26 / 0.1) 0 16px 56px,
+      rgb(17 17 26 / 0.1) 0 24px 80px;
   }
 }

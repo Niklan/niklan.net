@@ -22,6 +22,7 @@
 
   .code-block__title {
     text-align: center;
+    word-wrap: break-word;
     color: var(--color-on-surface);
     font: var(--typography-title-medium);
   }
