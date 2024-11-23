@@ -1,5 +1,7 @@
-.home {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-16);
+@layer component.layout {
+  .home {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
 }

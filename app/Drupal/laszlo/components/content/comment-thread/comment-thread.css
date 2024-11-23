@@ -1,27 +1,29 @@
-.comment-thread {
-  --_indent: var(--comment-thread-indent, var(--spacing-4));
+@layer component.content {
+  .comment-thread {
+    --_indent: var(--comment-thread-indent, var(--spacing-4));
 
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
 
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 0;
-    height: 100%;
-    content: "";
-    border-left: 2px solid var(--color-outline-variant);
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 0;
+      height: 100%;
+      content: "";
+      border-left: 2px solid var(--color-outline-variant);
+    }
   }
-}
 
-.comment-thread--depth--1,
-.comment-thread--depth--2,
-.comment-thread--depth--3,
-.comment-thread--depth--4,
-.comment-thread--depth--5 {
-  padding-left: var(--_indent);
+  .comment-thread--depth--1,
+  .comment-thread--depth--2,
+  .comment-thread--depth--3,
+  .comment-thread--depth--4,
+  .comment-thread--depth--5 {
+    padding-left: var(--_indent);
+  }
 }

@@ -1,10 +1,12 @@
-.contact {
-  display: flex;
-  flex-direction: column;
-  gap: var(--author-page-content-gap, var(--spacing-12));
-}
+@layer component.content {
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--author-page-content-gap, var(--spacing-12));
+  }
 
-.contact__items {
-  display: flex;
-  gap: var(--spacing-4);
+  .contact__items {
+    display: flex;
+    gap: var(--spacing-4);
+  }
 }

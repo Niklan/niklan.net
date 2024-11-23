@@ -43,7 +43,7 @@ final class BlogList implements ContainerInjectionInterface {
   protected function buildPager(): array {
     return [
       '#type' => 'pager',
-      '#quantity' => 4,
+      '#quantity' => 5,
     ];
   }
 

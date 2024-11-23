@@ -1,15 +1,17 @@
-.main-navigation {
-  position: fixed;
-  z-index: 50;
-  bottom: var(--spacing-4);
-  left: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-2);
-  transform: translateX(-50%);
-  border-radius: var(--spacing-16);
-  background: color-mix(in sRGB, var(--color-surface-tint), transparent 50%);
-  backdrop-filter: saturate(280%) blur(40px);
-  gap: var(--spacing-1);
+@layer component.ui {
+  .main-navigation {
+    position: fixed;
+    z-index: 50;
+    bottom: var(--spacing-4);
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2);
+    transform: translateX(-50%);
+    border-radius: var(--spacing-16);
+    background: color-mix(in sRGB, var(--color-surface-tint), transparent 50%);
+    backdrop-filter: saturate(280%) blur(40px);
+    gap: var(--spacing-1);
+  }
 }

@@ -1,16 +1,32 @@
-.pager__items {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  gap: var(--spacing-2);
-}
+@layer component.ui {
+  .pager__items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    gap: var(--spacing-2);
+  }
 
-.pager__page {
-  --button-height: 2.5rem;
-  --button-padding-inline: 0;
-  --button-border-radius: var(--spacing-10);
+  .pager__page {
+    --button-height: 2.5rem;
+    --button-padding-inline: 0;
+    --button-border-radius: var(--spacing-10);
 
-  aspect-ratio: 1;
-  justify-content: center;
+    aspect-ratio: 1;
+    justify-content: center;
+  }
+
+  .pager__item:not(
+      .pager__item--active,
+      .pager__item--first,
+      .pager__item--previous,
+      .pager__item--next,
+      .pager__item--last
+    ) {
+    display: none;
+
+    @media screen and (min-width: 640px) {
+      display: initial;
+    }
+  }
 }

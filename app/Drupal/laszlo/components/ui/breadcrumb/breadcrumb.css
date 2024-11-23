@@ -1,4 +1,6 @@
-.breadcrumb {
-  display: flex;
-  align-items: center;
+@layer component.ui {
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+  }
 }

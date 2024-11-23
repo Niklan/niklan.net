@@ -1,30 +1,36 @@
-.main-navigation-item {
-  --_color: var(
-    --main-navigation-item-color,
-    var(--color-on-primary-fixed, inherit)
-  );
-  --icon-wrapper-width: 32px;
+@layer component.ui {
+  .main-navigation-item {
+    --_color: var(
+      --main-navigation-item-color,
+      var(--color-on-primary-fixed, inherit)
+    );
+    --icon-wrapper-width: 2rem;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--spacing-2) var(--spacing-6);
-  text-decoration: none;
-  color: var(--_color);
-  border-radius: var(--spacing-10);
-  font: var(--typography-body-small);
-  gap: var(--spacing-2);
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-2);
+    text-decoration: none;
+    color: var(--_color);
+    border-radius: var(--spacing-10);
+    font: var(--typography-body-small);
+    gap: var(--spacing-2);
 
-.main-navigation-item:hover,
-.main-navigation-item:focus,
-.main-navigation-item--active-trail {
-  --focus-outline: none;
+    @media screen and (min-width: 1200px) {
+      padding: var(--spacing-2) var(--spacing-6);
+    }
+  }
 
-  color: var(--color-primary);
-  background: var(--color-surface-container-low);
-}
+  .main-navigation-item:hover,
+  .main-navigation-item:focus,
+  .main-navigation-item--active-trail {
+    --focus-outline: none;
 
-.main-navigation-item__label {
-  display: none;
+    color: var(--color-primary);
+    background: var(--color-surface-container-low);
+  }
+
+  .main-navigation-item__label {
+    display: none;
+  }
 }

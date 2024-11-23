@@ -16,7 +16,6 @@
           input_attributes: create_attribute({
             'type': 'text',
             'placeholder': 'Filter headings'|t,
-            'autofocus': '',
             'x-model': 'query',
           }),
           full_width: true,
@@ -25,7 +24,6 @@
       {% endblock %}
     {% endembed %}
   </div>
-
 
   <div class="toc-dialog__headings">
     {% for toc_link in toc_links %}

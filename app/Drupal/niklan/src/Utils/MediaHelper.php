@@ -28,7 +28,7 @@ final readonly class MediaHelper {
     return $file;
   }
 
-  public static function getFileUri(MediaInterface $entity): ?string {
+  public static function getFileUri(?MediaInterface $entity): ?string {
     return self::getFile($entity)?->getFileUri();
   }
 

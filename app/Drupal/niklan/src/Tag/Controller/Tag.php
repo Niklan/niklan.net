@@ -58,7 +58,7 @@ final readonly class Tag implements ContainerInjectionInterface {
       '#items' => $this->buildItems($taxonomy_term),
       '#pager' => [
         '#type' => 'pager',
-        '#quantity' => 4,
+        '#quantity' => 5,
       ],
       '#cache' => [
         'tags' => ['node_list'],

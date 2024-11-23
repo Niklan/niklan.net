@@ -23,15 +23,6 @@
 
   }
 
-  function register() {
-    window.Alpine.data('Dialog', () => new Dialog());
-  }
-
-  if (window.Alpine) {
-    register();
-  }
-  else {
-    document.addEventListener('alpine:initializing', register);
-  }
+  AlpineOnce(() => { window.Alpine.data('Dialog', () => new Dialog()); });
 
 })(document, window);

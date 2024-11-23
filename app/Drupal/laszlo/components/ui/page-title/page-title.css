@@ -1,3 +1,17 @@
-.main-content > .page-title {
-  margin-bottom: var(--spacing-10);
+@layer component.ui {
+  .main-content > .page-title {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .page-title {
+    font: var(--typography-display-small);
+
+    @media screen and (min-width: 640px) {
+      font: var(--typography-display-medium);
+    }
+
+    @media screen and (min-width: 1200px) {
+      font: var(--typography-display-large);
+    }
+  }
 }

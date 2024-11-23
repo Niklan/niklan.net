@@ -10,7 +10,8 @@
     "app/Drupal/mechanical/**/*"
   ],
   "globals": {
-    "ColorScheme": true
+    "ColorScheme": true,
+    "AlpineOnce": true
   },
   "rules": {
     "prettier/prettier": "off",

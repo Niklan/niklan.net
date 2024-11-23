@@ -38,15 +38,8 @@
     cleanup(() => removeFocusTrap(el));
   }
 
-  function register() {
+  AlpineOnce(() => {
     window.Alpine.directive('drupal-focus-trap', drupalFocusTrap);
-  }
-
-  if (window.Alpine) {
-    register();
-  }
-  else {
-    document.addEventListener('alpine:initializing', register);
-  }
+  });
 
 })(document, window, Drupal);

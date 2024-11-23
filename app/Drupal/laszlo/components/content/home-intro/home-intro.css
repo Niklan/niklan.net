@@ -1,25 +1,40 @@
-.home-intro {
-  display: flex;
-  flex-direction: column;
-  max-width: 80ch;
-  margin: 0 auto;
-  text-align: center;
-  gap: var(--spacing-8);
-}
+@layer component.content {
+  .home-intro {
+    display: flex;
+    flex-direction: column;
+    max-width: 80ch;
+    margin: 0 auto;
+    text-align: center;
+    gap: var(--spacing-8);
+  }
 
-.home-intro__heading {
-  text-transform: uppercase;
-}
+  .home-intro__heading {
+    text-transform: uppercase;
+    font: var(--typography-display-small);
 
-.home-intro__description {
-  --link-color: var(--color-on-surface-variant);
+    @media screen and (min-width: 768px) {
+      font: var(--typography-display-large);
+    }
+  }
 
-  color: var(--color-on-surface-variant);
-  font: var(--typography-headline-medium);
-}
+  .home-intro__description {
+    --link-color: var(--color-on-surface-variant);
 
-.home-intro__actions {
-  display: flex;
-  gap: var(--spacing-4);
-  justify-content: center;
+    color: var(--color-on-surface-variant);
+
+    @media screen and (min-width: 768px) {
+      font: var(--typography-headline-medium);
+    }
+  }
+
+  .home-intro__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-4);
+
+    @media screen and (min-width: 640px) {
+      flex-direction: row;
+    }
+  }
 }

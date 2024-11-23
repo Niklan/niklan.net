@@ -9,7 +9,7 @@ libraryOverrides:
       # blinking on page load. However, since a component can define a
       # single library, it is not possible to use the 'scope' property, which
       # would affect all assets and dependencies.
-      weight: -9999
+      weight: -999
     color-scheme.js: { }
   dependencies:
     - core/drupal

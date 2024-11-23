@@ -1,56 +1,58 @@
-.comment {
-  --_comment-gap: var(--spacing-4);
+@layer component.content {
+  .comment {
+    --_comment-gap: var(--spacing-4);
 
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-6);
-  color: var(--color-on-surface);
-  border-radius: var(--spacing-2);
-  background: var(--color-surface-bright);
-  gap: var(--_comment-gap);
-  box-shadow: var(--elevation-1);
-}
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-6);
+    color: var(--color-on-surface);
+    border-radius: var(--spacing-2);
+    background: var(--color-surface-bright);
+    gap: var(--_comment-gap);
+    box-shadow: var(--elevation-1);
+  }
 
-.comment__body {
-  display: flex;
-  flex-direction: column;
-  font: var(--typography-body-medium);
-  gap: var(--spacing-4);
-}
+  .comment__body {
+    display: flex;
+    flex-direction: column;
+    font: var(--typography-body-medium);
+    gap: var(--spacing-4);
+  }
 
-.comment__attribution {
-  display: flex;
-  align-items: center;
-  font: var(--typography-body-small);
-  gap: var(--spacing-2);
-}
+  .comment__attribution {
+    display: flex;
+    align-items: center;
+    font: var(--typography-body-small);
+    gap: var(--spacing-2);
+  }
 
-.comment__actions {
-  display: flex;
-  gap: var(--spacing-2);
-}
+  .comment__actions {
+    display: flex;
+    gap: var(--spacing-2);
+  }
 
-.comment__author-name {
-  font-weight: bold;
-}
+  .comment__author-name {
+    font-weight: bold;
+  }
 
-.comment__author-homepage {
-  text-decoration: none;
-  text-transform: uppercase;
-  font: var(--typography-label-small);
-}
+  .comment__author-homepage {
+    text-decoration: none;
+    text-transform: uppercase;
+    font: var(--typography-label-small);
+  }
 
-.comment__created {
-  text-decoration: none;
-  color: var(--color-outline);
-}
+  .comment__created {
+    text-decoration: none;
+    color: var(--color-outline);
+  }
 
-.comment__attribution-separator {
-  color: var(--color-outline-variant);
-}
+  .comment__attribution-separator {
+    color: var(--color-outline-variant);
+  }
 
-.comment pre {
-  padding: var(--spacing-4);
-  border-radius: var(--spacing-2);
-  background: var(--color-surface-bright);
+  .comment pre {
+    padding: var(--spacing-4);
+    border-radius: var(--spacing-2);
+    background: var(--color-surface-bright);
+  }
 }

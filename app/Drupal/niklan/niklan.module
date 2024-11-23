@@ -18,7 +18,6 @@ use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanHomeCards;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanLightboxResponsiveImage;
-use Drupal\niklan\Hook\Theme\PreprocessNiklanSearchResults;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
@@ -136,15 +135,13 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'items' => [],
       ],
     ],
-    'niklan_search_page' => [
-      'variables' => [
-        'header' => NULL,
-        'content' => NULL,
-      ],
-    ],
     'niklan_search_results' => [
       'variables' => [
+        'query' => NULL,
+        'no_query' => NULL,
+        'no_results' => NULL,
         'results' => [],
+        'pager' => NULL,
       ],
     ],
     'niklan_blog_meta' => [
@@ -353,21 +350,6 @@ function niklan_preprocess_username(array &$variables): void {
 }
 
 /**
- * Prepares variables for search results.
- *
- * Default template: niklan-search-results.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - results: Array with results. It's also allowed to pass instance of
- *     \Drupal\niklan\Search\Data\EntitySearchResults to automatically prepare
- *     results from it.
- */
-function template_preprocess_niklan_search_results(array &$variables): void {
-  Drupal::classResolver(PreprocessNiklanSearchResults::class)($variables);
-}
-
-/**
  * Implements hook_library_info_alter().
  */
 function niklan_library_info_alter(array &$libraries, string $extension): void {
@@ -399,5 +381,5 @@ function template_preprocess_niklan_lightbox_responsive_image(array &$variables)
  * Implements template_preprocess_HOOK().
  */
 function template_preprocess_niklan_home_cards(array &$variables): void {
-  \Drupal::classResolver(PreprocessNiklanHomeCards::class)($variables);
+  Drupal::classResolver(PreprocessNiklanHomeCards::class)($variables);
 }

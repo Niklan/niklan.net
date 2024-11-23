@@ -33,14 +33,13 @@ alpinejs:
     gpl-compatible: true
   js:
     /libraries/alpinejs/alpinejs.min.js:
+      weight: -10000
       minified: true
       preprocess: false
       attributes:
         defer: ''
-    assets/js/alpinejs.drupal-focus-trap.js:
-      attributes:
-        defer: ''
-      weight: -10
+    assets/js/alpinejs.once.js: { weight: -20 }
+    assets/js/alpinejs.drupal-focus-trap.js: {}
   dependencies:
     - core/drupal.tabbingmanager
 

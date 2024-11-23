@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2e62d035da4f85a944266c0c61344e2",
+    "content-hash": "ee0370a30ed385fe23f82fd7e8772f3f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4623,6 +4623,58 @@
             "time": "2024-03-05T20:51:40+00:00"
         },
         {
+            "name": "niklan-asset/alpinejs",
+            "version": "3.14.3",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/alpinejs",
+                "reference": "c534bfc58f16f3a76fbc5294cf0b9125eb91f892"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan-asset/hljs",
+            "version": "11.9.0",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/hljs",
+                "reference": "a70663576191e301d12c8f614bdcc633fa7b50a1"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan-asset/lora",
+            "version": "35",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/lora",
+                "reference": "0469f5c43ba4906324b80f6f688c9d5a89d25fd5"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan-asset/photoswipe",
+            "version": "4.1.3",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/photoswipe",
+                "reference": "161715d0d2ac8f2b0e617b45b8c5a8335729cb0e"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "niklan/external_content",
             "version": "1.0.0-dev",
             "dist": {
@@ -4648,7 +4700,11 @@
             "dist": {
                 "type": "path",
                 "url": "app/Drupal/laszlo",
-                "reference": "88208435e1c6e6a50b50761f283c030c1cd92229"
+                "reference": "47c578d90087fbb7bb021243ee4662094b01b079"
+            },
+            "require": {
+                "niklan-asset/lora": "^35",
+                "niklan/niklan": "^1.0@dev"
             },
             "type": "drupal-custom-theme",
             "transport-options": {
@@ -4674,12 +4730,14 @@
             "dist": {
                 "type": "path",
                 "url": "app/Drupal/niklan",
-                "reference": "2a0501c855db0213bab040104cd074a1a5b7b517"
+                "reference": "b0815a947fed6919249bfae63ee56309d81d3870"
             },
             "require": {
                 "drupal/media_library_form_element": "^2",
                 "ext-dom": "*",
                 "league/commonmark": "^2.0",
+                "niklan-asset/alpinejs": "^3.14",
+                "niklan-asset/hljs": "^11.9",
                 "scrivo/highlight.php": "^9.0"
             },
             "type": "drupal-custom-module",

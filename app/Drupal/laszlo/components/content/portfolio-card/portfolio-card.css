@@ -1,55 +1,57 @@
-.portfolio-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: var(--spacing-6);
-  color: var(--color-on-surface);
-  border-radius: var(--spacing-4);
-  background-color: var(--color-surface-container-high);
-  gap: var(--spacing-4);
-
-  &:focus-within,
-  &:hover,
-  &:active {
-    outline: var(--default-focus-outline);
-    background-color: var(--color-surface-container-highest);
-  }
-}
-
-.portfolio-card__link {
-  --focus-outline: none;
-
-  text-decoration: none;
-  color: var(--color-on-surface);
-
-  &::before {
-    position: absolute;
-    z-index: 5;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    content: "";
+@layer component.content {
+  .portfolio-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--spacing-6);
+    color: var(--color-on-surface);
     border-radius: var(--spacing-4);
+    background-color: var(--color-surface-container-high);
+    gap: var(--spacing-4);
+
+    &:focus-within,
+    &:hover,
+    &:active {
+      outline: var(--default-focus-outline);
+      background-color: var(--color-surface-container-highest);
+    }
   }
-}
 
-.portfolio-card__title {
-  font: var(--typography-title-medium);
-}
+  .portfolio-card__link {
+    --focus-outline: none;
 
-.portfolio-card__meta {
-  display: flex;
-  gap: var(--spacing-2);
-  flex-flow: wrap;
-}
+    text-decoration: none;
+    color: var(--color-on-surface);
 
-.portfolio-card__meta-item {
-  padding: var(--spacing-1) var(--spacing-2);
-  color: var(--color-on-primary-fixed);
-  border-radius: var(--spacing-3);
-  background: var(--color-primary-fixed);
-  font: var(--typography-label-small);
+    &::before {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      content: "";
+      border-radius: var(--spacing-4);
+    }
+  }
+
+  .portfolio-card__title {
+    font: var(--typography-title-medium);
+  }
+
+  .portfolio-card__meta {
+    display: flex;
+    gap: var(--spacing-2);
+    flex-flow: wrap;
+  }
+
+  .portfolio-card__meta-item {
+    padding: var(--spacing-1) var(--spacing-2);
+    color: var(--color-on-primary-fixed);
+    border-radius: var(--spacing-3);
+    background: var(--color-primary-fixed);
+    font: var(--typography-label-small);
+  }
 }

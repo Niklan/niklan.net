@@ -1,4 +1,5 @@
 {% do attributes.setAttribute('action', path('niklan.search_page')) %}
+{% do attributes.setAttribute('data-selector', 'laszlo:search-bar') %}
 <form{{ attributes.addClass('search-bar') }}>
   {% include 'laszlo:text-input' with {
     variant: 'plain',
@@ -9,6 +10,7 @@
       'name': 'q',
       'type': 'text',
       'placeholder': placeholder,
+      'data-input': '',
     }),
     full_width: true,
   } only %}

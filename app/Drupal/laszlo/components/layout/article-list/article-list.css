@@ -1,21 +1,39 @@
-.article-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
-}
+@layer component.layout {
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
 
-.article-list--variant--card {
-  --_grid-columns: repeat(2, 1fr);
-  --_grid-gap: var(--spacing-6);
-}
+  .article-list--variant--card {
+    --_grid-columns: 1fr;
+    --_grid-gap: var(--page-side-gap, var(--spacing-6));
 
-.article-list--variant--preview {
-  --_grid-columns: repeat(6, 1fr);
-  --_grid-gap: var(--spacing-4);
-}
+    @media screen and (min-width: 640px) {
+      --_grid-columns: repeat(2, 1fr);
+    }
 
-.article-list__items {
-  display: grid;
-  grid-template-columns: var(--_grid-columns, 1fr);
-  grid-gap: var(--_grid-gap, var(--spacing-1));
+    @media screen and (min-width: 1200px) {
+      --_grid-gap: var(--spacing-6);
+    }
+  }
+
+  .article-list--variant--preview {
+    --_grid-columns: repeat(2, 1fr);
+    --_grid-gap: var(--spacing-4);
+
+    @media screen and (min-width: 640px) {
+      --_grid-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (min-width: 1200px) {
+      --_grid-columns: repeat(6, 1fr);
+    }
+  }
+
+  .article-list__items {
+    display: grid;
+    grid-template-columns: var(--_grid-columns, 1fr);
+    grid-gap: var(--_grid-gap, var(--spacing-1));
+  }
 }

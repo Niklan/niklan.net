@@ -59,7 +59,7 @@
     return `${baseClass  }--${ message.options.type}`;
   }
 
-  function register() {
+  AlpineOnce(() => {
     window.Alpine.data('StatusMessages', () => ({
       messageList: [],
       init,
@@ -67,13 +67,6 @@
       removeMessage,
       buildClass,
     }));
-  }
-
-  if (window.Alpine) {
-    register();
-  }
-  else {
-    document.addEventListener('alpine:initializing', register);
-  }
+  });
 
 })();

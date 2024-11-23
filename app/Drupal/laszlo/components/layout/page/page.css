@@ -1,0 +1,16 @@
+@layer component.layout {
+  .page {
+    --page-side-gap: var(--spacing-4);
+
+    display: grid;
+    gap: var(--spacing-4) 0;
+    grid-template-columns:
+      [full-start] minmax(var(--page-side-gap), 1fr)
+      [main-start] minmax(0, var(--layout-container-max-width))
+      [main-end] minmax(var(--page-side-gap), 1fr) [full-end];
+  }
+
+  .page > :not(:empty) {
+    grid-column: main;
+  }
+}

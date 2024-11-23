@@ -1,20 +1,22 @@
-.icon {
-  --_wrapper-width: var(--icon-wrapper-width, 24px);
-  --_wrapper-height: var(
-    --icon-wrapper-height,
-    var(--icon-wrapper-width, 24px)
-  );
-  --_width: var(--icon-width, 100%);
-  --_height: var(--icon-height, var(--icon-width, 100%));
+@layer component.ui {
+  .icon {
+    --_wrapper-width: var(--icon-wrapper-width, 24px);
+    --_wrapper-height: var(
+      --icon-wrapper-height,
+      var(--icon-wrapper-width, 24px)
+    );
+    --_width: var(--icon-width, 100%);
+    --_height: var(--icon-height, var(--icon-width, 100%));
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--_wrapper-width);
-  height: var(--_wrapper-height);
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--_wrapper-width);
+    height: var(--_wrapper-height);
+  }
 
-.icon svg {
-  width: var(--_width);
-  height: var(--_height);
+  .icon svg {
+    width: var(--_width);
+    height: var(--_height);
+  }
 }

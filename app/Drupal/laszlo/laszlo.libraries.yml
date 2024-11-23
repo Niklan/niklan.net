@@ -1,7 +1,7 @@
 global:
   css:
     base:
-      # Make sure that layers comes first, because it defines layers order.
+      # This file is also altered by HOOK_css_alter().
       assets/css/00-setting/layer.css:
         weight: -1000
       assets/css/00-setting/color.css: { }
@@ -19,7 +19,6 @@ global:
       assets/css/02-element/code.css: { }
       assets/css/02-element/pre.css: { }
       assets/css/03-component/layout/layout-container.css: { }
-      assets/css/03-component/layout/page.css: { }
       assets/css/03-component/ui/prose.css: { }
       assets/css/04-utility/visually-hidden.css: { }
       assets/css/04-utility/scroll-locked.css: { }
@@ -27,7 +26,7 @@ global:
     assets/js/scrollbar-width.js: { }
     assets/js/keyboard-focus.js: { }
   dependencies:
-    - laszlo/google.fonts
+    - laszlo/lora
 
 messages:
   js:
@@ -44,12 +43,10 @@ hljs:
     theme:
       assets/css/03-component/theme/hljs.css: { }
 
-google.fonts:
+lora:
   css:
     theme:
-      //fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap:
-        type: external
-        minified: true
+      /libraries/lora/font.css: { }
 
 navigation-active-trail:
   js:

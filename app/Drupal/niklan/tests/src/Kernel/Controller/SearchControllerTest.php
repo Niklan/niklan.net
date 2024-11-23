@@ -70,7 +70,7 @@ final class SearchControllerTest extends NiklanTestBase {
 
     $controller = Search::create($this->container);
 
-    $result = $controller->buildPageContent('Hello');
+    $result = $controller->doSearch('Hello');
 
     self::assertArrayHasKey('#theme', $result);
     self::assertArrayNotHasKey('#results', $result);
@@ -88,7 +88,7 @@ final class SearchControllerTest extends NiklanTestBase {
 
     $controller = Search::create($this->container);
 
-    $result = $controller->buildPageContent('Hello');
+    $result = $controller->doSearch('Hello');
 
     self::assertArrayHasKey('#theme', $result);
     self::assertArrayHasKey('#results', $result);

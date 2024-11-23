@@ -1,0 +1,16 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Search result
+status: experimental
+group: content
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      description: The title of the search result.
+    url:
+      type: string
+      description: The URL of the search result.
+    excerpt:
+      type: [string, array]
+      description: The excerpt of the search result.

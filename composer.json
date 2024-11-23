@@ -18,6 +18,10 @@
             "url": "app/**/*"
         },
         {
+            "type": "path",
+            "url": "assets/vendor/*"
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
@@ -49,6 +53,7 @@
         "drupal/twig_tweak": "^3.0",
         "drupal/warmer": "^2.0",
         "drush/drush": "^12.0",
+        "niklan-asset/photoswipe": "^4.1",
         "niklan/external_content": "^1.0@dev",
         "niklan/laszlo": "^1.0@dev",
         "niklan/mechanical": "^1.0@dev",
@@ -96,16 +101,6 @@
                 "libraries-root": "./web/libraries"
             },
             "file-mapping": {
-                "[libraries-root]/alpinejs/alpinejs.min.js": "assets/vendor/alpinejs/alpinejs.min.js",
-                "[libraries-root]/hljs/highlight.min.js": "assets/vendor/hljs/highlight.min.js",
-                "[libraries-root]/photoswipe/dist/default-skin/default-skin.css": "assets/vendor/photoswipe/dist/default-skin/default-skin.css",
-                "[libraries-root]/photoswipe/dist/default-skin/default-skin.png": "assets/vendor/photoswipe/dist/default-skin/default-skin.png",
-                "[libraries-root]/photoswipe/dist/default-skin/default-skin.svg": "assets/vendor/photoswipe/dist/default-skin/default-skin.svg",
-                "[libraries-root]/photoswipe/dist/default-skin/preloader.gif": "assets/vendor/photoswipe/dist/default-skin/preloader.gif",
-                "[libraries-root]/photoswipe/dist/photoswipe-ui-default.min.js": "assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js",
-                "[libraries-root]/photoswipe/dist/photoswipe.css": "assets/vendor/photoswipe/dist/photoswipe.css",
-                "[libraries-root]/photoswipe/dist/photoswipe.min.js": "assets/vendor/photoswipe/dist/photoswipe.min.js",
-                "[libraries-root]/photoswipe/photoswipe.json": "assets/vendor/photoswipe/photoswipe.json",
                 "[project-root]/.editorconfig": false,
                 "[project-root]/.gitattributes": false,
                 "[project-root]/.local/settings.php": {

@@ -1,6 +1,6 @@
 ((document, window) => {
 
-  function register() {
+  AlpineOnce(() => {
     window.Alpine.data('ToCDialog', () => ({
       query: '',
 
@@ -14,13 +14,6 @@
         return true;
       }
     }));
-  }
-
-  if (window.Alpine) {
-    register();
-  }
-  else {
-    document.addEventListener('alpine:initializing', register);
-  }
+  });
 
 })(document, window);

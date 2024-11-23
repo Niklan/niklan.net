@@ -1,96 +1,100 @@
-.comment-card {
-  --meta-font: var(--typography-label-medium);
-  --meta-icon-size: var(--spacing-4);
+@layer component.content {
+  .comment-card {
+    --meta-font: var(--typography-label-medium);
+    --meta-icon-size: var(--spacing-4);
 
-  position: relative;
-  display: flex;
-  flex-flow: nowrap;
-  padding: var(--spacing-6);
-  transition: background-color 0.25s linear;
-  color: var(--color-on-surface);
-  border-radius: var(--spacing-4);
-  background: var(--color-surface-container);
-  gap: var(--spacing-6);
-
-  &:focus-within,
-  &:hover,
-  &:active {
-    outline: var(--default-focus-outline);
-    background-color: var(--color-surface-container-highest);
-  }
-}
-
-.comment-card__poster {
-  overflow: hidden;
-  flex-shrink: 0;
-  align-self: flex-start;
-  border-radius: var(--spacing-2);
-}
-
-.comment-card__link {
-  --focus-outline: none;
-
-  display: flex;
-  text-decoration: none;
-  gap: var(--spacing-2);
-
-  &::before {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    content: "";
+    position: relative;
+    display: flex;
+    flex-flow: nowrap;
+    min-width: 0;
+    padding: var(--spacing-6);
+    transition: background-color 0.25s linear;
+    color: var(--color-on-surface);
     border-radius: var(--spacing-4);
+    background: var(--color-surface-container);
+    gap: var(--spacing-6);
+
+    &:focus-within,
+    &:hover,
+    &:active {
+      outline: var(--default-focus-outline);
+      background-color: var(--color-surface-container-highest);
+    }
   }
-}
 
-.comment-card__content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
+  .comment-card__poster {
+    overflow: hidden;
+    flex-shrink: 0;
+    align-self: flex-start;
+    border-radius: var(--spacing-2);
+  }
 
-.comment-card__author {
-  color: var(--color-on-surface);
-  font: var(--typography-title-medium);
-}
+  .comment-card__link {
+    --focus-outline: none;
 
-.comment-card__summary {
-  color: var(--color-on-surface);
-  font: var(--typography-body-medium);
-}
+    display: flex;
+    text-decoration: none;
+    gap: var(--spacing-2);
 
-.comment-card__header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  color: var(--color-primary);
-}
+    &::before {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      content: "";
+      border-radius: var(--spacing-4);
+    }
+  }
 
-.comment-card__meta {
-  --meta-font: var(--typography-title-medium);
-  --meta-icon-size: var(--spacing-6);
+  .comment-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    min-width: 0;
+  }
 
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-6);
-}
+  .comment-card__author {
+    color: var(--color-on-surface);
+    font: var(--typography-title-medium);
+  }
 
-.comment-card__title {
-  --icon-wrapper-width: var(--spacing-5);
+  .comment-card__summary {
+    color: var(--color-on-surface);
+    font: var(--typography-body-medium);
+  }
 
-  font: var(--typography-label-large);
-}
+  .comment-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    color: var(--color-primary);
+  }
 
-.comment-card__footer {
-  --link-color: var(--color-on-surface-variant);
-  --link-color-hover: var(--color-primary);
+  .comment-card__meta {
+    --meta-font: var(--typography-title-medium);
+    --meta-icon-size: var(--spacing-6);
 
-  margin-top: auto;
-  padding-top: var(--spacing-4);
-  color: var(--color-on-surface-variant);
-  border-top: 1px solid var(--color-outline-variant);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-6);
+  }
+
+  .comment-card__title {
+    --icon-wrapper-width: var(--spacing-5);
+
+    font: var(--typography-label-large);
+  }
+
+  .comment-card__footer {
+    --link-color: var(--color-on-surface-variant);
+    --link-color-hover: var(--color-primary);
+
+    margin-top: auto;
+    padding-top: var(--spacing-4);
+    color: var(--color-on-surface-variant);
+    border-top: 1px solid var(--color-outline-variant);
+  }
 }

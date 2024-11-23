@@ -1,25 +1,27 @@
-.search-bar {
-  --border-radius: var(--spacing-7);
-  --_height: 56px;
-  --background: var(--color-surface-container-lowest);
-  --input-border-color: transparent;
-  --input-border-radius: var(--border-radius) 0 0 var(--border-radius);
-  --input-height: var(--_height);
-  --input-font: var(--typography-body-large);
-  --input-background-color: transparent;
-  --input-padding-inline: var(--spacing-6);
-  --button-height: var(--_height);
-  --button-color: var(--color-on-surface);
-  --button-color-hover: var(--color-on-surface-variant);
+@layer component.ui {
+  .search-bar {
+    --border-radius: var(--spacing-7);
+    --_height: 56px;
+    --background: var(--color-surface-container-lowest);
+    --input-border-color: transparent;
+    --input-border-radius: var(--border-radius) 0 0 var(--border-radius);
+    --input-height: var(--_height);
+    --input-font: var(--typography-body-large);
+    --input-background-color: transparent;
+    --input-padding-inline: var(--spacing-6);
+    --button-height: var(--_height);
+    --button-color: var(--color-on-surface);
+    --button-color-hover: var(--color-on-surface-variant);
 
-  display: flex;
-  align-items: stretch;
-  height: var(--_height);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--border-radius);
-  background-color: var(--background);
-}
+    display: flex;
+    align-items: stretch;
+    height: var(--_height);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--border-radius);
+    background-color: var(--background);
+  }
 
-.search-bar__button {
-  --button-border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  .search-bar__button {
+    --button-border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
 }

@@ -6,29 +6,11 @@
  * Available variables:
  * - attributes: The main wrapper element attributes.
  * - results: An array with results.
- * - pager: The pager for results.
+ * - pager: (optional) The pager for results.
+ * - query: (optional) The search query, if provided.
+ * - no_query: (optional) The text to show if no query is provided.
+ * - no_results: (optional) The text to show if no results are found.
  *
  * @ingroup themeable
  */
 #}
-<div{{ attributes.addClass('search-results') }}>
-  {% if results is empty %}
-    <div class="search-results__message">
-      {% trans %}It appears that there are no results, or you have not entered the keys to search.{% endtrans %}
-    </div>
-  {% else %}
-    <div class="search-results__items">
-      {% for result in results %}
-        <div class="search-results__item">
-          {{ result }}
-        </div>
-      {% endfor %}
-    </div>
-
-    {% if pager %}
-      <div class="search-results__pager">
-        {{ pager }}
-      </div>
-    {% endif %}
-  {% endif %}
-</div>

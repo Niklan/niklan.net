@@ -1,46 +1,48 @@
-.breadcrumb-item {
-  --arrow-size: var(--spacing-3);
-  --arrow-background-color: var(--color-surface-bright);
-  --arrow-color: var(--color-on-surface);
-  --arrow-border-radius: var(--spacing-1);
-  --arrow-padding: var(--spacing-2);
+@layer component.ui {
+  .breadcrumb-item {
+    --arrow-size: var(--spacing-3);
+    --arrow-background-color: var(--color-surface-bright);
+    --arrow-color: var(--color-on-surface);
+    --arrow-border-radius: var(--spacing-1);
+    --arrow-padding: var(--spacing-2);
 
-  display: flex;
-  overflow: hidden;
-  flex-shrink: 0;
-  align-items: center;
-  padding: var(--arrow-padding) calc(var(--arrow-size) + var(--arrow-padding));
-  transition:
-    color 150ms ease-in-out,
-    background-color 150ms ease-in-out;
-  text-decoration: none;
-  color: var(--arrow-color);
-  background-color: var(--arrow-background-color);
-  font: var(--typography-label-large);
-  clip-path: polygon(
-    calc(100% - var(--arrow-size)) 0%,
-    100% 50%,
-    calc(100% - var(--arrow-size)) 100%,
-    0 100%,
-    var(--arrow-size) 50%,
-    0 0
-  );
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 0;
+    align-items: center;
+    padding: var(--arrow-padding) calc(var(--arrow-size) + var(--arrow-padding));
+    transition:
+      color 150ms ease-in-out,
+      background-color 150ms ease-in-out;
+    text-decoration: none;
+    color: var(--arrow-color);
+    background-color: var(--arrow-background-color);
+    font: var(--typography-label-large);
+    clip-path: polygon(
+      calc(100% - var(--arrow-size)) 0%,
+      100% 50%,
+      calc(100% - var(--arrow-size)) 100%,
+      0 100%,
+      var(--arrow-size) 50%,
+      0 0
+    );
 
-  &:hover,
-  &:focus {
-    color: var(--arrow-background-color);
-    outline: none;
-    background-color: var(--arrow-color);
+    &:hover,
+    &:focus {
+      color: var(--arrow-background-color);
+      outline: none;
+      background-color: var(--arrow-color);
+    }
   }
-}
 
-.breadcrumb-item:first-of-type {
-  clip-path: polygon(
-    calc(100% - var(--arrow-size)) 0%,
-    100% 50%,
-    calc(100% - var(--arrow-size)) 100%,
-    0 100%,
-    0 0
-  );
-  border-radius: var(--arrow-border-radius) 0 0 var(--arrow-border-radius);
+  .breadcrumb-item:first-of-type {
+    clip-path: polygon(
+      calc(100% - var(--arrow-size)) 0%,
+      100% 50%,
+      calc(100% - var(--arrow-size)) 100%,
+      0 100%,
+      0 0
+    );
+    border-radius: var(--arrow-border-radius) 0 0 var(--arrow-border-radius);
+  }
 }

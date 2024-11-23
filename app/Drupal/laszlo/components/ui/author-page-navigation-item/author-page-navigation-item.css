@@ -1,21 +1,23 @@
-.author-page-navigation-item {
-  --button-background-color: var(--color-surface-variant);
-  --button-background-color-hover: var(--color-surface-tint);
-  --button-color: var(--color-on-surface-variant);
-  --button-color-hover: var(--color-surface);
-  --button-height: var(--spacing-15);
-  --button-gap: var(--spacing-4);
-}
+@layer component.ui {
+  .author-page-navigation-item {
+    --button-background-color: var(--color-surface-variant);
+    --button-background-color-hover: var(--color-surface-tint);
+    --button-color: var(--color-on-surface-variant);
+    --button-color-hover: var(--color-surface);
+    --button-height: var(--spacing-15);
+    --button-gap: var(--spacing-4);
+  }
 
-.author-page-navigation-item__icon {
-  width: 3rem;
-  padding: var(--spacing-2);
-  color: var(--color-primary);
-  border-radius: var(--spacing-2);
-  background-color: var(--color-surface-container-low);
-}
+  .author-page-navigation-item__icon {
+    width: 3rem;
+    padding: var(--spacing-2);
+    color: var(--color-primary);
+    border-radius: var(--spacing-2);
+    background-color: var(--color-surface-container-low);
+  }
 
-.author-page-navigation-item--active-trail {
-  color: var(--color-on-primary-container);
-  background-color: var(--button-background-color-hover);
+  .author-page-navigation-item--active-trail {
+    color: var(--color-on-primary-container);
+    background-color: var(--button-background-color-hover);
+  }
 }

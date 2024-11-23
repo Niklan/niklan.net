@@ -12,9 +12,11 @@ regions:
 libraries:
   - laszlo/global
 
-# Disable system libraries.
 libraries-override:
-  #system/base: false
+  # Mainly attached for a maintenance page, but also includes a lot of other
+  # useless styles.
+  # This library is attached always, so it is kind of bad.
+  system/base: false
   core/picturefill: false
 
 libraries-extend:

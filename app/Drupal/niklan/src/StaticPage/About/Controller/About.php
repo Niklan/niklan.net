@@ -34,7 +34,9 @@ final readonly class About implements ContainerInjectionInterface {
       return NULL;
     }
 
-    return MediaHelper::getFileUri($this->entityTypeManager->getStorage('media'));
+    $media = $this->entityTypeManager->getStorage('media')->load($this->settings->getPhotoMediaId());
+
+    return MediaHelper::getFileUri($media);
   }
 
   public function __invoke(): array {

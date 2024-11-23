@@ -1,58 +1,60 @@
-.fab {
-  --_background-color: var(
-    --fab-background-color,
-    var(--color-surface-variant)
-  );
-  --_background-color-hover: var(
-    --fab-background-color-hover,
-    var(--color-surface-dim)
-  );
-  --_color: var(--fab-color, var(--color-on-surface-variant));
-  --_color-hover: var(--fab-color-hover, var(--color-on-surface-variant));
-  --icon-width: 32px;
+@layer component.ui {
+  .fab {
+    --_background-color: var(
+      --fab-background-color,
+      var(--color-surface-variant)
+    );
+    --_background-color-hover: var(
+      --fab-background-color-hover,
+      var(--color-surface-dim)
+    );
+    --_color: var(--fab-color, var(--color-on-surface-variant));
+    --_color-hover: var(--fab-color-hover, var(--color-on-surface-variant));
+    --icon-width: 32px;
 
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  transition:
-    transform 0.15s linear,
-    box-shadow 0.15s linear;
-  color: var(--_color);
-  border: none;
-  border-radius: var(--spacing-4);
-  background-color: var(--_background-color);
-  box-shadow: var(--elevation-2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    transition:
+      transform 0.15s linear,
+      box-shadow 0.15s linear;
+    color: var(--_color);
+    border: none;
+    border-radius: var(--spacing-4);
+    background-color: var(--_background-color);
+    box-shadow: var(--elevation-2);
 
-  &:focus,
-  &:active,
-  &:hover {
-    --_background-color: var(--_background-color-hover);
-    --_color: var(--_color-hover);
+    &:focus,
+    &:active,
+    &:hover {
+      --_background-color: var(--_background-color-hover);
+      --_color: var(--_color-hover);
 
-    transform: translateY(calc(var(--spacing-1) * -1));
-    box-shadow: var(--elevation-3);
+      transform: translateY(calc(var(--spacing-1) * -1));
+      box-shadow: var(--elevation-3);
+    }
   }
-}
 
-.fab__counter {
-  position: absolute;
-  z-index: 10;
-  top: var(--spacing-2);
-  right: var(--spacing-2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  color: var(--_background-color);
-  border-radius: 16px;
-  background-color: var(--_color);
-  box-shadow: var(--elevation-1);
-  font: var(--typography-label-small);
+  .fab__counter {
+    position: absolute;
+    z-index: 10;
+    top: var(--spacing-2);
+    right: var(--spacing-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: var(--_background-color);
+    border-radius: 16px;
+    background-color: var(--_color);
+    box-shadow: var(--elevation-1);
+    font: var(--typography-label-small);
+  }
 }

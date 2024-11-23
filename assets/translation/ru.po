@@ -447,3 +447,9 @@ msgstr "Настройки главной страницы"
 
 msgid "Configure the home page with an introductory text and promo cards."
 msgstr "Настройте домашнюю страницу с вводным текстом и промо-карточками."
+
+msgid "You need to provide a search query to see the results."
+msgstr "Вы должны указать поисковый запрос чтобы увидеть результаты."
+
+msgid "Nothing was found for your request."
+msgstr "Ничего не найдено по вашему запросу."

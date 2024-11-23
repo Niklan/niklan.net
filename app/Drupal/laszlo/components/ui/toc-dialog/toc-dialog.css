@@ -1,53 +1,55 @@
-.toc-dialog {
-  --_link-padding-x: var(--spacing-3);
-  --_link-padding-y: var(--spacing-2);
+@layer component.ui {
+  .toc-dialog {
+    --_link-padding-x: var(--spacing-3);
+    --_link-padding-y: var(--spacing-2);
 
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.toc-dialog__headings {
-  display: flex;
-  overflow: auto;
-  flex-direction: column;
-  height: 400px;
-  margin: calc(var(--spacing-2) * -1);
-  padding: var(--spacing-2);
-  gap: var(--spacing-2);
-}
-
-.toc-dialog__link {
-  padding: var(--_link-padding-y) var(--_link-padding-x);
-  text-decoration: none;
-  color: var(--color-on-surface);
-  border-radius: var(--spacing-1);
-  background: var(--color-surface-container);
-  font: var(--typography-title-small);
-
-  &:hover,
-  &:focus {
-    color: var(--color-on-secondary-container);
-    background-color: var(--color-secondary-container);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
   }
-}
 
-.toc-dialog__link--indent-1 {
-  padding-left: calc(var(--_link-padding-x) * 2);
-}
+  .toc-dialog__headings {
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    height: 400px;
+    margin: calc(var(--spacing-2) * -1);
+    padding: var(--spacing-2);
+    gap: var(--spacing-2);
+  }
 
-.toc-dialog__link--indent-2 {
-  padding-left: calc(var(--_link-padding-x) * 3);
-}
+  .toc-dialog__link {
+    padding: var(--_link-padding-y) var(--_link-padding-x);
+    text-decoration: none;
+    color: var(--color-on-surface);
+    border-radius: var(--spacing-1);
+    background: var(--color-surface-container);
+    font: var(--typography-title-small);
 
-.toc-dialog__link--indent-3 {
-  padding-left: calc(var(--_link-padding-x) * 4);
-}
+    &:hover,
+    &:focus {
+      color: var(--color-on-secondary-container);
+      background-color: var(--color-secondary-container);
+    }
+  }
 
-.toc-dialog__link--indent-4 {
-  padding-left: calc(var(--_link-padding-x) * 5);
-}
+  .toc-dialog__link--indent-1 {
+    padding-left: calc(var(--_link-padding-x) * 2);
+  }
 
-.toc-dialog__link--indent-5 {
-  padding-left: calc(var(--_link-padding-x) * 6);
+  .toc-dialog__link--indent-2 {
+    padding-left: calc(var(--_link-padding-x) * 3);
+  }
+
+  .toc-dialog__link--indent-3 {
+    padding-left: calc(var(--_link-padding-x) * 4);
+  }
+
+  .toc-dialog__link--indent-4 {
+    padding-left: calc(var(--_link-padding-x) * 5);
+  }
+
+  .toc-dialog__link--indent-5 {
+    padding-left: calc(var(--_link-padding-x) * 6);
+  }
 }

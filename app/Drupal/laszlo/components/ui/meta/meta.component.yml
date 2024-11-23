@@ -8,6 +8,9 @@ props:
     - icon
     - value
   properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
     icon:
       type: string
     label:
