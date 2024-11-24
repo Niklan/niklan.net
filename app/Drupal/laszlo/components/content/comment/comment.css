@@ -52,7 +52,7 @@
 
   .comment__created {
     text-decoration: none;
-    color: var(--color-outline);
+    color: var(--color-on-surface-variant);
   }
 
   .comment__attribution-separator {
@@ -62,6 +62,6 @@
   .comment pre {
     padding: var(--spacing-4);
     border-radius: var(--spacing-2);
-    background: var(--color-surface-bright);
+    background: var(--color-surface-container-lowest);
   }
 }

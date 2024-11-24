@@ -45,7 +45,7 @@
           {% include 'laszlo:fab' with {
             attributes: create_attribute({
               'class': ['main-navigation__extra-button', 'main-navigation__extra-button--extra-menu'],
-              '@click.prevent': "closeExtraMenu",
+              '@click': "closeExtraMenu",
             }),
             label: 'Comments'|t,
             icon: 'chat-round-dots-bold-duotone',

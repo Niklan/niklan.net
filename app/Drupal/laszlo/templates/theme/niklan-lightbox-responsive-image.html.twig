@@ -4,10 +4,12 @@
   url: uri|image_style('big_image'),
   size: dimensions|join('x'),
   responsive_image,
+  alt,
 } only %}
   {% block thumbnail %}
     {% include 'laszlo:image' with {
       src: uri|image_style('paragraph_image_image_xs'),
+      alt,
       srcset: {
         '543w': uri|image_style('paragraph_image_image_xs'),
         '671w': uri|image_style('paragraph_image_image_sm'),

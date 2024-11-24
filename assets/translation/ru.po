@@ -456,3 +456,6 @@ msgstr "Ничего не найдено по вашему запросу."
 
 msgid "Article menu"
 msgstr "Меню публикации"
+
+msgid "Open bigger image"
+msgstr "Открыть большое изображение"

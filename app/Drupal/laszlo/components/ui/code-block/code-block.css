@@ -12,7 +12,7 @@
   .code-block__main {
     padding: var(--spacing-6);
     border-radius: var(--spacing-2);
-    background-color: var(--color-surface-bright);
+    background-color: var(--color-surface-container-lowest);
     box-shadow: var(--elevation-1);
   }
 
