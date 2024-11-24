@@ -5,15 +5,14 @@
     --dialog-spacing-y: var(--spacing-6, 8px);
 
     overflow: hidden;
-    flex-direction: column;
     width: 100%;
     max-width: 600px;
+    height: fit-content;
+    max-height: 600px;
     margin: auto;
     padding: 0;
     border: none;
-    border-radius: var(--dialog-radius, 8px);
-    background-color: var(--color-surface);
-    box-shadow: var(--elevation-5);
+    background: transparent;
   }
 
   .dialog::backdrop {
@@ -21,8 +20,20 @@
     background-color: var(--color-scrim);
   }
 
+  .dialog__pane {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--dialog-radius, 8px);
+    background-color: var(--color-surface);
+    box-shadow: var(--elevation-5);
+    margin-inline: var(--page-side-gap);
+    margin-block: var(--page-side-gap);
+  }
+
   .dialog[open] {
     display: flex;
+    justify-content: center;
   }
 
   .dialog__head {

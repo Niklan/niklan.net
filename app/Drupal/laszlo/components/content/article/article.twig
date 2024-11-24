@@ -77,7 +77,9 @@
         icon: 'square-share-line-bold-duotone',
       } only %}
       {% include 'laszlo:fab' with {
-        'class': ['article__sidebar-fab'],
+        attributes: create_attribute({
+          'class': ['article__sidebar-fab'],
+        }),
         label: 'Comments'|t,
         icon: 'chat-round-dots-bold-duotone',
         url: '#comments',
@@ -104,49 +106,49 @@
     </section>
   </div>
 
-{#  {% if next_link or previous_link %}#}
-{#    <div class="article__previous-next">#}
-{#      {% if previous_link %}#}
-{#        {% include 'laszlo:previous-next-link' with {#}
-{#          attributes: create_attribute({#}
-{#            class: ['article__next'],#}
-{#          }),#}
-{#          type: 'next',#}
-{#          text: previous_link.text,#}
-{#          href: previous_link.url,#}
-{#        } only %}#}
-{#      {% endif %}#}
-{#      {% if next_link %}#}
-{#        {% include 'laszlo:previous-next-link' with {#}
-{#          attributes: create_attribute({#}
-{#            class: ['article__previous'],#}
-{#          }),#}
-{#          type: 'previous',#}
-{#          text: next_link.text,#}
-{#          href: next_link.url,#}
-{#        } only %}#}
-{#      {% endif %}#}
-{#    </div>#}
-{#  {% endif %}#}
+  {% if next_link or previous_link %}
+    <div class="article__previous-next">
+      {% if previous_link %}
+        {% include 'laszlo:previous-next-link' with {
+          attributes: create_attribute({
+            class: ['article__next'],
+          }),
+          type: 'next',
+          text: previous_link.text,
+          href: previous_link.url,
+        } only %}
+      {% endif %}
+      {% if next_link %}
+        {% include 'laszlo:previous-next-link' with {
+          attributes: create_attribute({
+            class: ['article__previous'],
+          }),
+          type: 'previous',
+          text: next_link.text,
+          href: next_link.url,
+        } only %}
+      {% endif %}
+    </div>
+  {% endif %}
 
-{#  {% if block('comments') is defined and block('comments')|trim is not empty %}#}
-{#    <section class="article__comments">#}
-{#      <h2 id="comments" class="article__comments-title">{{ 'Comments'|t }}</h2>#}
-{#      <div class="article__comment-items">#}
-{#        {% embed 'laszlo:alert' with { type: 'warning' } only %}#}
-{#          {% block heading %}{{ 'Comments temporarily disabled'|t }}{% endblock %}#}
-{#          {% block content %}#}
-{#            <p>#}
-{#              {{ '<a href="@url" rel="noreferrer nofollow noopener" target="_blank">There is a lot of spam going on.</a> I need some time to implement tools to moderate it via Telegram and bring them back again.'|t({#}
-{#                '@url': 'https://static.wikia.nocookie.net/dota2_gamepedia/images/6/6a/Misc_soundboard_bozhe_ti_posmotri.mp3/revision/latest?cb=20190922222030',#}
-{#              }) }}#}
-{#            </p>#}
-{#          {% endblock %}#}
-{#        {% endembed %}#}
-{#        {{ block('comments') }}#}
-{#      </div>#}
-{#    </section>#}
-{#  {% endif %}#}
+  {% if block('comments') is defined and block('comments')|trim is not empty %}
+    <section class="article__comments">
+      <h2 id="comments" class="article__comments-title">{{ 'Comments'|t }}</h2>
+      <div class="article__comment-items">
+        {% embed 'laszlo:alert' with { type: 'warning' } only %}
+          {% block heading %}{{ 'Comments temporarily disabled'|t }}{% endblock %}
+          {% block content %}
+            <p>
+              {{ '<a href="@url" rel="noreferrer nofollow noopener" target="_blank">There is a lot of spam going on.</a> I need some time to implement tools to moderate it via Telegram and bring them back again.'|t({
+                '@url': 'https://static.wikia.nocookie.net/dota2_gamepedia/images/6/6a/Misc_soundboard_bozhe_ti_posmotri.mp3/revision/latest?cb=20190922222030',
+              }) }}
+            </p>
+          {% endblock %}
+        {% endembed %}
+        {{ block('comments') }}
+      </div>
+    </section>
+  {% endif %}
 
   {% embed 'laszlo:dialog' with {
     title: 'Share'|t,

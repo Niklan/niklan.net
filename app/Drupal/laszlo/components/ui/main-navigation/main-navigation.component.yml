@@ -8,3 +8,7 @@ props:
     items:
       title: Items
       type: array
+libraryOverrides:
+  dependencies:
+    - niklan/alpinejs
+    - core/drupalSettings

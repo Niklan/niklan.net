@@ -36,6 +36,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     $this->addTableOfContents($node, $variables);
     $this->addTags($node, $variables);
     $this->addPreviousNext($node, $variables);
+    $variables['#attached']['drupalSettings']['path']['isBlogArticlePage'] = TRUE;
   }
 
   private function addEstimatedReadTime(BlogEntry $node, array &$variables): void {

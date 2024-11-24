@@ -10,7 +10,8 @@
     );
     --_color: var(--fab-color, var(--color-on-surface-variant));
     --_color-hover: var(--fab-color-hover, var(--color-on-surface-variant));
-    --icon-width: 32px;
+    --icon-wrapper-width: 32px;
+    --_border-radius: var(--fab-border-radius, var(--spacing-4));
 
     position: relative;
     display: flex;
@@ -26,7 +27,7 @@
       box-shadow 0.15s linear;
     color: var(--_color);
     border: none;
-    border-radius: var(--spacing-4);
+    border-radius: var(--_border-radius);
     background-color: var(--_background-color);
     box-shadow: var(--elevation-2);
 

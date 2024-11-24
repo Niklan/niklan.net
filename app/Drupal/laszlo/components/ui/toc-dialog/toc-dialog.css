@@ -12,7 +12,6 @@
     display: flex;
     overflow: auto;
     flex-direction: column;
-    height: 400px;
     margin: calc(var(--spacing-2) * -1);
     padding: var(--spacing-2);
     gap: var(--spacing-2);

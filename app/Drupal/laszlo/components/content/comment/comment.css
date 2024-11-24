@@ -26,6 +26,15 @@
     gap: var(--spacing-2);
   }
 
+  .comment-thread .comment__attribution {
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    @media screen and (min-width: 640px) {
+      overflow: unset;
+    }
+  }
+
   .comment__actions {
     display: flex;
     gap: var(--spacing-2);

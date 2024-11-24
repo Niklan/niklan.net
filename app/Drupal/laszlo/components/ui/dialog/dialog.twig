@@ -3,15 +3,17 @@
 {% do attributes.setAttribute('x-drupal-focus-trap', 'open') %}
 {% do attributes.setAttribute('@click.self', 'close') %}
 <dialog{{ attributes }}>
-  <header class="dialog__head">
-    <div class="dialog__title">{{ title }}</div>
-    <button class="dialog__close"
-            @click.passive="close"
-            aria-label="{{ 'Close'|t }}">
-      {% include 'laszlo:icon' with { icon: 'close' } only %}
-    </button>
-  </header>
-  <div class="dialog__content">
-    {% block content %}{% endblock %}
+  <div class="dialog__pane">
+    <header class="dialog__head">
+      <div class="dialog__title">{{ title }}</div>
+      <button class="dialog__close"
+              @click.passive="close"
+              aria-label="{{ 'Close'|t }}">
+        {% include 'laszlo:icon' with { icon: 'close' } only %}
+      </button>
+    </header>
+    <div class="dialog__content">
+      {% block content %}{% endblock %}
+    </div>
   </div>
 </dialog>

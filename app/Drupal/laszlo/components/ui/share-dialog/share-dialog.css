@@ -15,8 +15,9 @@
 
   .share-dialog__links {
     display: flex;
-    gap: var(--spacing-2);
+    flex-flow: wrap;
     align-items: center;
+    gap: var(--spacing-2);
   }
 
   .share-dialog__link {

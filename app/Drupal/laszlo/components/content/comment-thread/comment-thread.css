@@ -1,6 +1,6 @@
 @layer component.content {
   .comment-thread {
-    --_indent: var(--comment-thread-indent, var(--spacing-4));
+    --_indent: var(--comment-thread-indent, var(--spacing-2));
 
     position: relative;
     display: flex;
@@ -16,6 +16,10 @@
       height: 100%;
       content: "";
       border-left: 2px solid var(--color-outline-variant);
+    }
+
+    @media screen and (min-width: 640px) {
+      --_indent: var(--comment-thread-indent, var(--spacing-4));
     }
   }
 
