@@ -22,9 +22,7 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
 
   use DependencySerializationTrait;
 
-  protected ?LanguageAwareSettingsStore $settings = NULL;
-
-  abstract protected function loadSettings(): LanguageAwareSettingsStore;
+  abstract protected function getSettings(): LanguageAwareSettingsStore;
 
   final public function __construct(
     protected ContainerInterface $container,
@@ -86,16 +84,6 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
 
   protected function getCacheTagsInvalidator(): CacheTagsInvalidatorInterface {
     return $this->cacheTagsInvalidator;
-  }
-
-  protected function getSettings(): LanguageAwareSettingsStore {
-    if ($this->settings) {
-      return $this->settings;
-    }
-
-    $this->settings = $this->loadSettings();
-
-    return $this->settings;
   }
 
   protected function getContainer(): ContainerInterface {

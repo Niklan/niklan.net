@@ -30,7 +30,7 @@ final class ServiceContainerLanguageAwareFactory implements LanguageAwareFactory
   /**
    * The list of initialized storages.
    *
-   * @var \Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareStore
+   * @var list<\Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareStore>
    */
   private array $stores = [];
 

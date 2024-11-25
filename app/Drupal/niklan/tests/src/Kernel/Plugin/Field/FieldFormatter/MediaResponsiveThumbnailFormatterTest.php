@@ -222,6 +222,7 @@ final class MediaResponsiveThumbnailFormatterTest extends NiklanTestBase {
         'configuration' => [
           'type' => 'niklan_responsive_media_thumbnail',
         ],
+        'view_mode' => 'full',
         'field_definition' => $field_definitions['field_media_reference'],
       ]);
   }

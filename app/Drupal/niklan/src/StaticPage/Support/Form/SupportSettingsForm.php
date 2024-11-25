@@ -7,7 +7,6 @@ namespace Drupal\niklan\StaticPage\Support\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Drupal\niklan\StaticPage\Support\Repository\SupportSettings;
 
 final class SupportSettingsForm extends LanguageAwareStoreForm {
@@ -45,7 +44,7 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
-      ->settings
+      ->getSettings()
       ->setDescription($form_state->getValue(['description', 'value']))
       ->setDonateUrl($form_state->getValue(['donate_url']));
 
@@ -53,7 +52,7 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
   }
 
   #[\Override]
-  protected function loadSettings(): LanguageAwareSettingsStore {
+  protected function getSettings(): SupportSettings {
     $settings = $this->getContainer()->get(SupportSettings::class);
     \assert($settings instanceof SupportSettings);
 

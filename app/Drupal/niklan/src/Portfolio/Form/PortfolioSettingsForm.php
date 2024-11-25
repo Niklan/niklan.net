@@ -7,7 +7,6 @@ namespace Drupal\niklan\Portfolio\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Drupal\niklan\Portfolio\Repository\PortfolioSettings;
 
 final class PortfolioSettingsForm extends LanguageAwareStoreForm {
@@ -36,15 +35,13 @@ final class PortfolioSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this
-      ->settings
-      ->setDescription($form_state->getValue(['description', 'value']));
+    $this->getSettings()->setDescription($form_state->getValue(['description', 'value']));
 
     parent::submitForm($form, $form_state);
   }
 
   #[\Override]
-  protected function loadSettings(): LanguageAwareSettingsStore {
+  protected function getSettings(): PortfolioSettings {
     $settings = $this->getContainer()->get(PortfolioSettings::class);
     \assert($settings instanceof PortfolioSettings);
 

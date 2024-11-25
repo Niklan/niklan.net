@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\Plugin\Menu;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -39,19 +40,23 @@ final class KeyValueLanguageAwareLocalTask extends DeriverBase implements Contai
 
       foreach ($this->languageManager->getLanguages() as $language) {
         $language_task = "key_value_language_aware:$route_name:{$language->getId()}";
-        $this->derivatives[$language_task] = [
-          'route_name' => $language->isDefault() ? $route_name : "$route_name.translate.language",
-          'route_parameters' => [
-            'key_value_language_aware_code' => $language->getId(),
-          ],
-          'parent_id' => "{$base_plugin_definition['id']}:$route_name",
-          'title' => $language->getName(),
-          'weight' => $language->getWeight(),
-        ] + $base_plugin_definition;
+        $this->derivatives[$language_task] = $this->prepareLanguageDerivative($language, $route_name, $base_plugin_definition);
       }
     }
 
     return $this->derivatives;
+  }
+
+  private function prepareLanguageDerivative(LanguageInterface $language, $route_name, array $base_plugin_definition): array {
+    return [
+      'route_name' => $language->isDefault() ? $route_name : "$route_name.translate.language",
+      'route_parameters' => [
+        'key_value_language_aware_code' => $language->getId(),
+      ],
+      'parent_id' => "{$base_plugin_definition['id']}:$route_name",
+      'title' => $language->getName(),
+      'weight' => $language->getWeight(),
+    ] + $base_plugin_definition;
   }
 
 }

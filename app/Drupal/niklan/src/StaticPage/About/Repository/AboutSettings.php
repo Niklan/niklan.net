@@ -39,6 +39,7 @@ final class AboutSettings extends LanguageAwareSettingsStore {
   }
 
   public function getSubtitle(): string {
+    /* cSpell:ignore traveller */
     return $this->getStore()->get('subtitle', 'Greetings traveller!');
   }
 

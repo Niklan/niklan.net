@@ -7,7 +7,6 @@ namespace Drupal\niklan\StaticPage\Contact\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Drupal\niklan\StaticPage\Contact\Repository\ContactSettings;
 
 final class ContactSettingsForm extends LanguageAwareStoreForm {
@@ -60,7 +59,7 @@ final class ContactSettingsForm extends LanguageAwareStoreForm {
   }
 
   #[\Override]
-  protected function loadSettings(): LanguageAwareSettingsStore {
+  protected function getSettings(): ContactSettings {
     $settings = $this->getContainer()->get(ContactSettings::class);
     \assert($settings instanceof ContactSettings);
 

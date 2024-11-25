@@ -7,7 +7,6 @@ namespace Drupal\niklan\StaticPage\Services\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Drupal\niklan\StaticPage\Services\Repository\ServicesSettings;
 
 final class ServicesSettingsForm extends LanguageAwareStoreForm {
@@ -44,7 +43,7 @@ final class ServicesSettingsForm extends LanguageAwareStoreForm {
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
-      ->settings
+      ->getSettings()
       ->setDescription($form_state->getValue(['description', 'value']))
       ->setHourlyRate($form_state->getValue(['hourly_rate']));
 
@@ -52,7 +51,7 @@ final class ServicesSettingsForm extends LanguageAwareStoreForm {
   }
 
   #[\Override]
-  protected function loadSettings(): LanguageAwareSettingsStore {
+  protected function getSettings(): ServicesSettings {
     $settings = $this->getContainer()->get(ServicesSettings::class);
     \assert($settings instanceof ServicesSettings);
 

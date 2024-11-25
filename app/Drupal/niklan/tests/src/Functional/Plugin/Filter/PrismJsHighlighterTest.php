@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan\Kernel\Plugin\Filter;
+namespace Drupal\Tests\niklan\Functional\Plugin\Filter;
 
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\filter\Plugin\FilterInterface;
 
 /**
  * Provides a test for markdown filter.
- *
- * @coversDefaultClass \Drupal\niklan\Plugin\Filter\CodeHighligt
  */
 final class PrismJsHighlighterTest extends FilterTestBase {
 

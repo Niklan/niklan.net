@@ -18,7 +18,7 @@
         {% include 'laszlo:icon' with { icon: 'documents-bold' } only %}
       {% endblock %}
       {% block children %}
-        Все публикации
+        {{ 'All posts'|t }}
       {% endblock %}
     {% endembed %}
 
@@ -35,7 +35,7 @@
         {% include 'laszlo:icon' with { icon: 'user-id-bold-duotone' } only %}
       {% endblock %}
       {% block children %}
-        Об авторе
+        {{ 'About'|t({}, {'context': 'author'}) }}
       {% endblock %}
     {% endembed %}
   </footer>

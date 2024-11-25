@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan\Kernel\Plugin\Filter;
+namespace Drupal\Tests\niklan\Functional\Plugin\Filter;
 
 use Drupal\filter\FilterPluginManager;
 use Drupal\Tests\niklan\Functional\NiklanTestBase;

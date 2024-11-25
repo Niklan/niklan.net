@@ -7,7 +7,6 @@ namespace Drupal\niklan\StaticPage\About\Form;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Drupal\niklan\StaticPage\About\Repository\AboutSettings;
 
 final class AboutSettingsForm extends LanguageAwareStoreForm {
@@ -87,14 +86,6 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   protected function getSettings(): AboutSettings {
-    $settings = parent::getSettings();
-    \assert($settings instanceof AboutSettings);
-
-    return $settings;
-  }
-
-  #[\Override]
-  protected function loadSettings(): LanguageAwareSettingsStore {
     $settings = $this->getContainer()->get(AboutSettings::class);
     \assert($settings instanceof AboutSettings);
 
@@ -112,7 +103,7 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
       '#allowed_bundles' => ['image'],
       '#title' => new TranslatableMarkup('Photo'),
       '#description' => new TranslatableMarkup('Media entity that contains a photo.'),
-      '#default_value' => $this->settings->getPhotoMediaId(),
+      '#default_value' => $this->getSettings()->getPhotoMediaId(),
     ];
   }
 

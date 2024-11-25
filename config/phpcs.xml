@@ -19,6 +19,7 @@
     <!-- Embrace strict types. -->
     <exclude name="Drupal.Commenting.FunctionComment.Missing"/>
     <exclude name="Drupal.Commenting.FunctionComment.ThrowsComment"/>
+    <exclude name="Drupal.Commenting.FunctionComment.MissingReturnComment"/>
     <exclude name="Drupal.Commenting.ClassComment.Missing"/>
     <exclude name="Drupal.Commenting.VariableComment.Missing"/>
     <exclude name="Drupal.Commenting.DocComment.MissingShort"/>

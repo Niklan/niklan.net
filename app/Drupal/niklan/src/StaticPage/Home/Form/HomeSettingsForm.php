@@ -8,7 +8,6 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Drupal\niklan\StaticPage\Home\Repository\HomeSettings;
 use Drupal\niklan\Utils\AjaxFormHelper;
 
@@ -82,8 +81,9 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $button = $form_state->getTriggeringElement();
     // This is row delta during build.
     $delta = (string) ($button['#delta'] ?? 0);
+    $input = $form_state->getUserInput();
     $rows = &NestedArray::getValue(
-      array: $form_state->getUserInput(),
+      array: $input,
       // This should be '#parents', because we're working with values array, not
       // the form tree.
       parents: \array_slice($button['#parents'], 0, -1),
@@ -102,7 +102,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
   }
 
   #[\Override]
-  protected function loadSettings(): LanguageAwareSettingsStore {
+  protected function getSettings(): HomeSettings {
     $settings = $this->getContainer()->get(HomeSettings::class);
     \assert($settings instanceof HomeSettings);
 
@@ -110,7 +110,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
   }
 
   private function buildCards(array &$form, FormStateInterface $form_state): void {
-    $cards = $this->settings->getCards();
+    $cards = $this->getSettings()->getCards();
     $cards_count = $form_state->get('cards_count');
 
     if (!isset($cards_count)) {
