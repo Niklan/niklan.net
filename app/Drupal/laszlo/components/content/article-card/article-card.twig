@@ -8,6 +8,13 @@
     height: 200,
     loading: 'eager',
     alt: title,
+    sizes: [
+      '150px',
+    ],
+    srcset: {
+      '150w': poster_uri|image_style('150x200'),
+      '300w': poster_uri|image_style('300x400'),
+    }
   } only %}
 
   <div class="article-card__content">

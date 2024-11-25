@@ -1,12 +1,15 @@
 @layer component.layout {
   .page {
-    --page-side-gap: var(--spacing-4);
+    --page-side-gap: var(--layout-container-side-gap, var(--spacing-4));
+    --page-max-width: calc(
+      var(--layout-container-max-width, 1200px) - var(--page-side-gap) * 2
+    );
 
     display: grid;
     gap: var(--spacing-4) 0;
     grid-template-columns:
       [full-start] minmax(var(--page-side-gap), 1fr)
-      [main-start] minmax(0, var(--layout-container-max-width))
+      [main-start] minmax(0, var(--page-max-width))
       [main-end] minmax(var(--page-side-gap), 1fr) [full-end];
   }
 

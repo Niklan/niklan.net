@@ -1,0 +1,21 @@
+uuid: 5d91b15a-0ff1-4099-95ab-d973c0cd9e0e
+langcode: ru
+status: true
+dependencies: {  }
+name: 200x264
+label: 200×264
+effects:
+  500b3d36-e876-4f6d-8068-1c2c49ecc837:
+    uuid: 500b3d36-e876-4f6d-8068-1c2c49ecc837
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  e7cd4ece-2554-43eb-907b-f3935148fc03:
+    uuid: e7cd4ece-2554-43eb-907b-f3935148fc03
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 200
+      height: 264
+      anchor: center-center

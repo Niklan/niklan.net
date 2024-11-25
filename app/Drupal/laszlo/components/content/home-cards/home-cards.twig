@@ -21,6 +21,20 @@
         height: 400,
         loading: 'eager',
         alt: title,
+        sizes: [
+          '(max-width: 424px) 392px',
+          '(max-width: 639px) 607px',
+          '(max-width: 767px) 360px',
+          '(max-width: 1023px) 488px',
+          '(max-width: 1199px) 576px',
+          '374px',
+        ],
+        srcset: {
+          '400w': background_uri|image_style('400x400'),
+          '600w': background_uri|image_style('600x600'),
+          '800w': background_uri|image_style('800x800'),
+          '1200w': background_uri|image_style('1200x1200'),
+        }
       } only %}
     {% endif %}
   </div>

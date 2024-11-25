@@ -1,0 +1,21 @@
+uuid: 0cdcc62a-b2db-4452-b59a-38f8ebcd4b09
+langcode: ru
+status: true
+dependencies: {  }
+name: 164x218
+label: 164×218
+effects:
+  207e6a19-5f40-429d-b66c-bc12518a21ab:
+    uuid: 207e6a19-5f40-429d-b66c-bc12518a21ab
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  174d5c9a-fc5d-4a88-a0a1-fcc0df7b1e9c:
+    uuid: 174d5c9a-fc5d-4a88-a0a1-fcc0df7b1e9c
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 164
+      height: 218
+      anchor: center-center

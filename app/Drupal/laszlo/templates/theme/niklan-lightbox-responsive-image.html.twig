@@ -7,13 +7,26 @@
   alt,
 } only %}
   {% block thumbnail %}
+    {% set dimensions = uri|image_dimensions('400xy') %}
     {% include 'laszlo:image' with {
-      src: uri|image_style('paragraph_image_image_xs'),
+      src: uri|image_style('400xy'),
+      width: dimensions.width,
+      height: dimensions.height,
       alt,
+      sizes: [
+        '(max-width: 424px) 344px',
+        '(max-width: 639px) 559px',
+        '(max-width: 767px) 655px',
+        '(max-width: 1023px) 911px',
+        '(max-width: 1199px) 1087px',
+        '944px',
+      ],
       srcset: {
-        '543w': uri|image_style('paragraph_image_image_xs'),
-        '671w': uri|image_style('paragraph_image_image_sm'),
-        '960w': uri|image_style('960xy'),
+        '400w': uri|image_style('400xy'),
+        '600w': uri|image_style('600xy'),
+        '800w': uri|image_style('800xy'),
+        '1000w': uri|image_style('1000xy'),
+        '1200w': uri|image_style('1200xy'),
       }
     } only %}
   {% endblock %}
