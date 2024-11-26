@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Image\ImageFactory;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\niklan\Hook\Entity\BaseFieldInfo;
@@ -18,6 +19,8 @@ use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanHomeCards;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanLightboxResponsiveImage;
+use Drupal\niklan\Hook\Token\TokenInfo;
+use Drupal\niklan\Hook\Token\Tokens;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
@@ -204,6 +207,12 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'cards' => [],
       ],
     ],
+    'niklan_article_banner' => [
+      'variables' => [
+        'poster_base64' => NULL,
+        'text_lines' => [],
+      ],
+    ],
   ];
 }
 
@@ -382,4 +391,18 @@ function template_preprocess_niklan_lightbox_responsive_image(array &$variables)
  */
 function template_preprocess_niklan_home_cards(array &$variables): void {
   Drupal::classResolver(PreprocessNiklanHomeCards::class)($variables);
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function niklan_token_info(): array {
+  return Drupal::classResolver(TokenInfo::class)();
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function niklan_tokens(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
+  return Drupal::classResolver(Tokens::class)($type, $tokens, $data, $options, $bubbleable_metadata);
 }

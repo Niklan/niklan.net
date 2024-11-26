@@ -125,3 +125,5 @@ services:
   Drupal\niklan\Comment\EventSubscriber\RouteAlter:
     tags:
       - { name: event_subscriber }
+
+  Drupal\niklan\Blog\Generator\BannerGenerator: {}

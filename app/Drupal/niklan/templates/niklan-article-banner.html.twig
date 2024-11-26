@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g clip-path="url(#clip0_1_339)">
+    <rect width="1280" height="640" fill="white"/>
+    <g filter="url(#filter0_f_1_339)">
+      <rect width="1280" height="640" rx="8" fill="url(#pattern0_1_339)" fill-opacity="0.2"/>
+    </g>
+    <rect x="80" y="80" width="360" height="480" rx="8" fill="url(#pattern1_1_339)"/>
+    <text fill="black"
+          xml:space="preserve"
+          style="white-space: pre"
+          {# $imagick->queryFonts() for available fonts. #}
+          font-family="Lora, Lora-Bold, serif"
+          font-size="64"
+          font-weight="bold"
+          letter-spacing="0em"
+          x="504"
+          y="80"
+          dy="0">
+            {% for text_line in text_lines %}
+              <tspan x="504" dy="72">{{ text_line }}</tspan>
+            {% endfor %}
+    </text>
+  </g>
+  <defs>
+    <filter id="filter0_f_1_339" x="-200" y="-200" width="1680" height="1040" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="100" result="effect1_foregroundBlur_1_339"/>
+    </filter>
+    <pattern id="pattern0_1_339" patternContentUnits="objectBoundingBox" width="1" height="1">
+      <use xlink:href="#image0_1_339" transform="matrix(0.00111111 0 0 0.00222222 0 -0.833333)"/>
+    </pattern>
+    <pattern id="pattern1_1_339" patternContentUnits="objectBoundingBox" width="1" height="1">
+      <use xlink:href="#image0_1_339" transform="scale(0.00111111 0.000833333)"/>
+    </pattern>
+    <clipPath id="clip0_1_339">
+      <rect width="1280" height="640" fill="white"/>
+    </clipPath>
+    <image id="image0_1_339" width="900" height="1200" xlink:href="{{ poster_base64 }}"/>
+  </defs>
+</svg>
