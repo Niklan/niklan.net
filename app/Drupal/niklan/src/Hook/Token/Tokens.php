@@ -42,10 +42,21 @@ final readonly class Tokens implements ContainerInjectionInterface {
       return;
     }
 
-    $banner_uri = $this->bannerGenerator->generate($poster_uri, $node->label());
+    $comment_count = $node->get('comment_node_blog_entry')->first()?->get('comment_count')->getCastedValue() ?? 0;
+    $banner_uri = $this->bannerGenerator->generate(
+      $poster_uri,
+      $node->label(),
+      (int) $node->getCreatedTime(),
+      $comment_count,
+    );
+    $state->getCacheableMetadata()->addCacheableDependency($node);
+
+    if (!$banner_uri) {
+      return;
+    }
+
     $banner_url = $this->fileUrlGenerator->generateAbsoluteString($banner_uri);
     $state->setReplacement($original, $banner_url);
-    $state->getCacheableMetadata()->addCacheableDependency($node);
   }
 
   private function replaceNodeTokens(State $state): void {

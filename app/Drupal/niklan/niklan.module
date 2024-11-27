@@ -211,6 +211,8 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
       'variables' => [
         'poster_base64' => NULL,
         'text_lines' => [],
+        'comment_count' => 0,
+        'created' => 0,
       ],
     ],
   ];
