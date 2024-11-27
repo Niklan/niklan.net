@@ -1,0 +1,56 @@
+<article{{ attributes.addClass('article-card') }}>
+  {% include 'laszlo:image' with {
+    attributes: create_attribute({
+      class: ['article-card__poster'],
+    }),
+    src: poster_uri|image_style('150x200'),
+    width: 150,
+    height: 200,
+    loading: 'eager',
+    alt: title,
+    sizes: [
+      '150px',
+    ],
+    srcset: {
+      '150w': poster_uri|image_style('150x200'),
+      '300w': poster_uri|image_style('300x400'),
+    }
+  } only %}
+
+  <div class="article-card__content">
+    <h2 class="article-card__title">
+      <a href="{{ url }}" class="article-card__link">
+        {{ title }}
+      </a>
+    </h2>
+
+    {% if summary %}
+      <div class="article-card__summary">{{ summary }}</div>
+    {% endif %}
+
+    <div class="article-card__meta">
+      {% include 'laszlo:meta' with {
+        icon: 'calendar',
+        value: published_timestamp|format_date('dmy'),
+      } only %}
+      <span class="article-card__meta-separator">•</span>
+      {% include 'laszlo:meta' with {
+        icon: 'read-time',
+        value: '@minutes min.'|t({'@minutes': estimated_read_time}),
+      } only %}
+      <span class="article-card__meta-separator">•</span>
+      {% set value %}
+        {% set count = comment_count %}
+        {% trans %}
+          @count comment
+        {% plural count %}
+          @count comments
+        {% endtrans %}
+      {% endset %}
+      {% include 'laszlo:meta' with {
+        icon: 'chat-round-dots-bold-duotone',
+        value,
+      } only %}
+    </div>
+  </div>
+</article>

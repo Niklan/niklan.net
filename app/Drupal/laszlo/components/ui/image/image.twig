@@ -1,0 +1,14 @@
+{% do alt ? attributes.setAttribute('alt', alt) %}
+{% do width ? attributes.setAttribute('width', width) %}
+{% do height ? attributes.setAttribute('height', height) %}
+{% do attributes.setAttribute('src', src) %}
+{% do attributes.setAttribute('loading', loading|default('lazy')) %}
+{% if srcset is not empty %}
+  {% do attributes.setAttribute('sizes', sizes|default('100vw')|join(', ')) %}
+  {% set srcset_array = [] %}
+  {% for size, url in srcset %}
+    {% set srcset_array = srcset_array|merge([url ~ ' ' ~ size]) %}
+  {% endfor %}
+  {% do attributes.setAttribute('srcset', srcset_array|join(', ')) %}
+{% endif %}
+<img{{ attributes }}/>

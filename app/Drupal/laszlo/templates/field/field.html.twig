@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Theme override for a 'field' element.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for containing element.
+ * - classes: An array of classes for main wrapper.
+ * - entity_type: The name of entity type, which field belongs to.
+ * - bundle: The entity bundle name for the field.
+ * - view_mode: The view mode used to render field.
+ *
+ * @see template_preprocess_field()
+ * @see laszlo/templates/field/field-with-full-markup.twig
+ * @see laszlo/templates/field/field-with-entity-markup.twig
+ * @see laszlo/templates/field/field-with-common-markup.twig
+ * @see laszlo/templates/field/field-with-no-markup.twig
+ */
+#}
+{{ include('@laszlo/field/field-with-no-markup.twig') }}

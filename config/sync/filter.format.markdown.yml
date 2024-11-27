@@ -89,9 +89,3 @@ filters:
     status: true
     weight: -50
     settings: {  }
-  niklan_prismjs:
-    id: niklan_prismjs
-    provider: niklan
-    status: true
-    weight: 100
-    settings: {  }

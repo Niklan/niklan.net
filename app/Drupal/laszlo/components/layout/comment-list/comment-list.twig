@@ -1,0 +1,13 @@
+<section{{ attributes.addClass('comment-list') }}>
+  {% if heading %}
+    <h2 class="comment-list__heading">{{ heading }}</h2>
+  {% endif %}
+
+  {% if items %}
+    <div class="comment-list__items">
+      {% for item in items %}
+        {{ item }}
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>

@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Theme override to present blog posts in "preview" view mode.
+ *
+ * Available variables:
+ * - attributes: An attributes.
+ * - items: An array with items to show.
+ * - heading: (optional) The list heading.
+ */
+#}
+{% include 'laszlo:article-list' with { heading, items, variant: 'preview' } only %}

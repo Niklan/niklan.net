@@ -1,0 +1,10 @@
+{% embed 'laszlo:author-page' %}
+  {% block children %}
+    {% include 'laszlo:portfolio' with {
+      project_url,
+      year_of_completion,
+      description: content.body,
+      photos: content.field_media_images,
+    } only %}
+  {% endblock %}
+{% endembed %}

@@ -1,0 +1,16 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Search bar
+status: experimental
+group: molecules
+props:
+  type: object
+  required:
+    - placeholder
+  properties:
+    placeholder:
+      title: Placeholder
+      type: string
+libraryOverrides:
+  dependencies:
+    - core/once
+    - core/drupal

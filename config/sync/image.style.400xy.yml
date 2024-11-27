@@ -1,0 +1,21 @@
+uuid: d8e1cca5-1ebb-4412-88c3-8502fff61265
+langcode: ru
+status: true
+dependencies: {  }
+name: 400xy
+label: 400×Y
+effects:
+  cc10b044-fc85-4c21-8942-acac21f4b45d:
+    uuid: cc10b044-fc85-4c21-8942-acac21f4b45d
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  e092d7b6-5098-42f4-9a26-ca3c61cc1730:
+    uuid: e092d7b6-5098-42f4-9a26-ca3c61cc1730
+    id: image_scale
+    weight: 2
+    data:
+      width: 400
+      height: null
+      upscale: false

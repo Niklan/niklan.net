@@ -1,0 +1,36 @@
+@layer component {
+  .comment-comment-node-blog-entry-form {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-6);
+    border-radius: var(--spacing-4);
+    background: var(--color-surface-bright);
+    gap: var(--spacing-6);
+    box-shadow: var(--elevation-2);
+  }
+
+  .comment-comment-node-blog-entry-form__title {
+    text-align: center;
+  }
+
+  .comment-comment-node-blog-entry-form__author {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-4);
+  }
+
+  .comment-comment-node-blog-entry-form__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .comment-comment-node-blog-entry-form__body .textarea {
+    width: 100%;
+  }
+
+  .comment-comment-node-blog-entry-form .form-actions {
+    display: flex;
+    gap: var(--spacing-4);
+  }
+}

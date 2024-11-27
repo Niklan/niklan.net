@@ -1,34 +1,12 @@
 {#
 /**
  * @file
- * Default theme implementation to present comments list.
+ * Default theme implementation to present latest comments.
  *
  * Available variables:
- * - attributes: HTML attributes for the wrapper.
- * - comments: An array with comments.
- * - pager: Pager element. NULL if not presented.
+ * - attributes: An attributes.
+ * - items: An array with items to show.
+ * - heading: (optional) The list heading.
  */
 #}
-<section{{ attributes.addClass('comments-list') }}>
-  <header class="comments-list__head">
-    <p>{% trans %}Find out what publications are being discussed.{% endtrans %}</p>
-  </header>
-  <main class="comments-list__main">
-    {% if not comments is empty %}
-      <div class="comments-list__items">
-        {% for comment in comments %}
-          <div class="comments-list__item">
-            {{- comment -}}
-          </div>
-        {% endfor %}
-      </div>
-
-
-      {% if pager %}
-        <div class="comments-list__pager">
-          {{- pager -}}
-        </div>
-      {% endif %}
-    {% endif %}
-  </main>
-</section>
+{{ items }}

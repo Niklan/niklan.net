@@ -6,16 +6,19 @@
     "config/sync/**/*",
     "var/**/*",
     "web/**/*",
-    "vendor/**/*"
+    "vendor/**/*",
+    "app/Drupal/mechanical/**/*"
   ],
   "globals": {
-    "App": true,
-    "Prism": true,
-    "DarkMode": true
+    "ColorScheme": true,
+    "AlpineOnce": true
   },
   "rules": {
     "prettier/prettier": "off",
     "valid-jsdoc": "off",
     "no-console": ["error", {"allow": ["warn", "error"]}]
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022
   }
 }

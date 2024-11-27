@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Theme override for search results.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - results: An array with results.
+ * - pager: (optional) The pager for results.
+ * - query: (optional) The search query, if provided.
+ * - no_query: (optional) The text to show if no query is provided.
+ * - no_results: (optional) The text to show if no results are found.
+ *
+ * @ingroup themeable
+ */
+#}
+{% embed 'laszlo:search-results' with {
+  pager,
+  query,
+  no_query,
+  no_results,
+  results,
+} only %}
+  {% block results %}
+    {% for result in results %}
+      {{ result }}
+    {% endfor %}
+  {% endblock %}
+{% endembed %}

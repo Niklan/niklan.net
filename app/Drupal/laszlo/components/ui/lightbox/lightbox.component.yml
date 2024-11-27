@@ -1,0 +1,17 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Lightbox
+status: experimental
+group: ui
+props:
+  required:
+    - url
+  properties:
+    url:
+      title: Image URL
+      type: string
+    size:
+      title: Image size
+      type: string
+slots:
+  thumbnail:
+    title: Thumbnail

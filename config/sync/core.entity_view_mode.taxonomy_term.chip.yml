@@ -1,0 +1,11 @@
+uuid: f16e47de-458c-45fd-841a-fe77965ca44e
+langcode: ru
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.chip
+label: Чип
+description: ''
+targetEntityType: taxonomy_term
+cache: true

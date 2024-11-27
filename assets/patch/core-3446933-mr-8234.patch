@@ -1,0 +1,338 @@
+From 032cfa43de9d98b94359c8fca5a12e322beb08a1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mateu=20Aguil=C3=B3=20Bosch?= <mateu@mateuaguilo.com>
+Date: Thu, 30 May 2024 16:32:51 +0200
+Subject: [PATCH 1/6] test: add tests to prove the bug
+
+---
+ .../components/just-a-slot/just-a-slot.component.yml        | 4 ++++
+ .../sdc_test/components/just-a-slot/just-a-slot.twig        | 5 +++++
+ .../sdc_test/components/my-banner/my-banner.component.yml   | 1 +
+ .../modules/sdc_test/components/my-banner/my-banner.twig    | 6 ++++++
+ 4 files changed, 16 insertions(+)
+ create mode 100644 core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml
+ create mode 100644 core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig
+
+diff --git a/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml
+new file mode 100644
+index 000000000000..8cb6c0440a94
+--- /dev/null
++++ b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml
+@@ -0,0 +1,4 @@
++$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
++name: Just a slot
++slots:
++  the_slot: {}
+diff --git a/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig
+new file mode 100644
+index 000000000000..c6d02fd561a7
+--- /dev/null
++++ b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig
+@@ -0,0 +1,5 @@
++<div{{ attributes }}>
++  {% block the_slot %}
++    Default value for the  block
++  {% endblock %}
++</div>
+diff --git a/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.component.yml b/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.component.yml
+index 195903e9ee74..6f8707028fa7 100644
+--- a/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.component.yml
++++ b/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.component.yml
+@@ -39,3 +39,4 @@ slots:
+     description: The contents of the banner.
+     examples:
+       - <p>Foo is <strong>NOT</strong> bar.</p>
++  nested_slot: {}
+diff --git a/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig b/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig
+index c99fead737ad..e5a4a9fbe512 100644
+--- a/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig
++++ b/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig
+@@ -2,6 +2,9 @@
+ {% if image is not empty %}
+   {% set attributes = attributes.setAttribute('style', 'background-image: linear-gradient(to right, black, black, rgba(0, 0, 0, 70%), transparent), url("' ~ image ~ '");') %}
+ {% endif %}
++{% set the_slot %}
++  {% block nested_slot %}{% endblock %}
++{% endset %}
+ 
+ {# Markup for the component #}
+ <div {{ attributes }}>
+@@ -12,5 +15,8 @@
+   <div class="component--my-banner--body">
+     {% block banner_body %}
+     {% endblock %}
++    {% embed 'sdc_test:just-a-slot' %}
++      {% block the_slot %}{{ the_slot }}{% endblock %}
++    {% endembed %}
+   </div>
+ </div>
+-- 
+GitLab
+
+
+From ed3866cbe2df54a304f437b1516cba3dd24887c0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mateu=20Aguil=C3=B3=20Bosch?= <mateu@mateuaguilo.com>
+Date: Thu, 30 May 2024 16:33:35 +0200
+Subject: [PATCH 2/6] fix: check for embedded components
+
+---
+ core/lib/Drupal/Core/Template/ComponentNodeVisitor.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/core/lib/Drupal/Core/Template/ComponentNodeVisitor.php b/core/lib/Drupal/Core/Template/ComponentNodeVisitor.php
+index da7a5e85bbfe..053776bc90d9 100644
+--- a/core/lib/Drupal/Core/Template/ComponentNodeVisitor.php
++++ b/core/lib/Drupal/Core/Template/ComponentNodeVisitor.php
+@@ -105,7 +105,9 @@ public function leaveNode(Node $node, Environment $env): ?Node {
+    *   The component, if any.
+    */
+   protected function getComponent(Node $node): ?Component {
+-    $component_id = $node->getTemplateName();
++    $component_id = $node->hasNode('parent')
++      ? $node->getNode('parent')->getAttribute('value')
++      : $node->getTemplateName();
+     if (!preg_match('/^[a-z]([a-zA-Z0-9_-]*[a-zA-Z0-9])*:[a-z]([a-zA-Z0-9_-]*[a-zA-Z0-9])*$/', $component_id)) {
+       return NULL;
+     }
+-- 
+GitLab
+
+
+From c288daf07e39b977099b0f80f872913857be9a2e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mateu=20Aguil=C3=B3=20Bosch?= <mateu@mateuaguilo.com>
+Date: Thu, 30 May 2024 16:47:20 +0200
+Subject: [PATCH 3/6] test: add test coverage
+
+---
+ .../components/just-a-slot/just-a-slot.twig   |  2 +-
+ .../components/my-banner/my-banner.twig       |  2 ++
+ .../Components/ComponentRenderTest.php        | 21 ++++++++++++++-----
+ 3 files changed, 19 insertions(+), 6 deletions(-)
+
+diff --git a/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig
+index c6d02fd561a7..f6056c524466 100644
+--- a/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig
++++ b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.twig
+@@ -1,4 +1,4 @@
+-<div{{ attributes }}>
++<div{{ attributes.addClass('just-a-slot') }}>
+   {% block the_slot %}
+     Default value for the  block
+   {% endblock %}
+diff --git a/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig b/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig
+index e5a4a9fbe512..24b7e4d59878 100644
+--- a/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig
++++ b/core/modules/system/tests/modules/sdc_test/components/my-banner/my-banner.twig
+@@ -15,6 +15,8 @@
+   <div class="component--my-banner--body">
+     {% block banner_body %}
+     {% endblock %}
++  </div>
++  <div class="component--my-banner--nested-slot">
+     {% embed 'sdc_test:just-a-slot' %}
+       {% block the_slot %}{{ the_slot }}{% endblock %}
+     {% endembed %}
+diff --git a/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php b/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
+index 90d0fe6b8f91..8dbbd6969294 100644
+--- a/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
++++ b/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
+@@ -121,6 +121,11 @@ protected function checkEmbedWithNested(): void {
+           '#tag' => 'p',
+           '#value' => $this->t('This is the contents of the banner body.'),
+         ],
++        'nested_slot' => [
++          '#type' => 'html_tag',
++          '#tag' => 'p',
++          '#value' => $this->t('This is another slot.'),
++        ],
+       ],
+     ];
+     $metadata = new BubbleableMetadata();
+@@ -290,13 +295,17 @@ public function checkRenderElementAlters(): void {
+    * Ensure that the slots allow a render array or a scalar when using the render element.
+    */
+   public function checkSlots(): void {
+-    $slots = [
+-      'This is the contents of the banner body.',
++    $slot_pairs = [
++      [
++        'This is the contents of the banner body.',
++        'This is the contents of the nested slot.',
++      ],
+       [
+-        '#plain_text' => 'This is the contents of the banner body.',
++        ['#plain_text' => 'This is the contents of the banner body.'],
++        ['#plain_text' => 'This is the contents of the nested slot.'],
+       ],
+     ];
+-    foreach ($slots as $slot) {
++    foreach ($slot_pairs as $slot_pair) {
+       $build = [
+         '#type' => 'component',
+         '#component' => 'sdc_test:my-banner',
+@@ -307,11 +316,13 @@ public function checkSlots(): void {
+           'ctaTarget' => '',
+         ],
+         '#slots' => [
+-          'banner_body' => $slot,
++          'banner_body' => $slot_pair[0],
++          'nested_slot' => $slot_pair[1],
+         ],
+       ];
+       $crawler = $this->renderComponentRenderArray($build);
+       $this->assertNotEmpty($crawler->filter('#sdc-wrapper [data-component-id="sdc_test:my-banner"] .component--my-banner--body:contains("This is the contents of the banner body.")'));
++      $this->assertNotEmpty($crawler->filter('#sdc-wrapper [data-component-id="sdc_test:my-banner"] .component--my-banner--nested-slot .just-a-slot:contains("This is the contents of the nested slot.")'));
+     }
+   }
+ 
+-- 
+GitLab
+
+
+From c65cdff336e265ada7275457ee2447e33ca63fd9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mateu=20Aguil=C3=B3=20Bosch?= <mateu@mateuaguilo.com>
+Date: Thu, 30 May 2024 16:58:17 +0200
+Subject: [PATCH 4/6] test: add missing prop schema
+
+---
+ .../sdc_test/components/just-a-slot/just-a-slot.component.yml  | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml
+index 8cb6c0440a94..0e3f01cd38a8 100644
+--- a/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml
++++ b/core/modules/system/tests/modules/sdc_test/components/just-a-slot/just-a-slot.component.yml
+@@ -1,4 +1,7 @@
+ $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+ name: Just a slot
++props:
++  type: object
++  properties: {}
+ slots:
+   the_slot: {}
+-- 
+GitLab
+
+
+From 85318e091c7d75d8dc9bc764a6e7926b2aa1ae5e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mateu=20Aguil=C3=B3=20Bosch?= <mateu@mateuaguilo.com>
+Date: Thu, 30 May 2024 17:31:30 +0200
+Subject: [PATCH 5/6] test: fix other tests
+
+---
+ .../Drupal/KernelTests/Components/ComponentRenderTest.php    | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php b/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
+index 8dbbd6969294..ce05f104c548 100644
+--- a/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
++++ b/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
+@@ -130,7 +130,10 @@ protected function checkEmbedWithNested(): void {
+     ];
+     $metadata = new BubbleableMetadata();
+     $this->renderComponentRenderArray($build, $metadata);
+-    $this->assertEquals(['core/components.sdc_test--my-cta', 'core/components.sdc_test--my-banner'], $metadata->getAttachments()['library']);
++    $libraries = $metadata->getAttachments()['library'];
++    $this->assertContains('core/components.sdc_test--my-cta', $libraries);
++    $this->assertContains('core/components.sdc_test--my-banner', $libraries);
++    $this->assertContains('core/components.sdc_test--just-a-slot', $libraries);
+   }
+ 
+   /**
+-- 
+GitLab
+
+
+From 8c71782b3ebe11bf8af4ef2809d57810f46f47fe Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mateu=20Aguil=C3=B3=20Bosch?= <mateu@mateuaguilo.com>
+Date: Tue, 18 Jun 2024 22:36:32 +0200
+Subject: [PATCH 6/6] test: add test coverage for extends
+
+---
+ .../components/extends/extends.component.yml  |  6 +++++
+ .../sdc_test/components/extends/extends.twig  | 16 ++++++++++++
+ .../Components/ComponentRenderTest.php        | 26 +++++++++++++++++++
+ 3 files changed, 48 insertions(+)
+ create mode 100644 core/modules/system/tests/modules/sdc_test/components/extends/extends.component.yml
+ create mode 100644 core/modules/system/tests/modules/sdc_test/components/extends/extends.twig
+
+diff --git a/core/modules/system/tests/modules/sdc_test/components/extends/extends.component.yml b/core/modules/system/tests/modules/sdc_test/components/extends/extends.component.yml
+new file mode 100644
+index 000000000000..26c07d45b95a
+--- /dev/null
++++ b/core/modules/system/tests/modules/sdc_test/components/extends/extends.component.yml
+@@ -0,0 +1,6 @@
++$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
++props:
++  type: object
++  properties: {}
++slots:
++  nested_slot: {}
+diff --git a/core/modules/system/tests/modules/sdc_test/components/extends/extends.twig b/core/modules/system/tests/modules/sdc_test/components/extends/extends.twig
+new file mode 100644
+index 000000000000..9a58a927a02f
+--- /dev/null
++++ b/core/modules/system/tests/modules/sdc_test/components/extends/extends.twig
+@@ -0,0 +1,16 @@
++﻿{% extends 'sdc_test:just-a-slot' %}
++{% block the_slot %}
++  Here is an embedded component inside the slot.
++  {% embed 'sdc_test:my-banner' with {
++    heading: 'Heading',
++    ctaText: 'Example',
++    ctaHref: 'https://www.drupal.org',
++    ctaTarget: '',
++    image: '',
++
++  } %}
++    {% block banner_body %}
++      <em>This</em> is the block contents.
++    {% endblock %}
++  {% endembed %}
++{% endblock %}
+diff --git a/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php b/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
+index ce05f104c548..88f57a7da067 100644
+--- a/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
++++ b/core/tests/Drupal/KernelTests/Components/ComponentRenderTest.php
+@@ -37,6 +37,7 @@ public function testRender(): void {
+     $this->checkIncludeDefaultContent();
+     $this->checkIncludeDataMapping();
+     $this->checkEmbedWithNested();
++    $this->checkExtendsWithNested();
+     $this->checkPropValidation();
+     $this->checkArrayObjectTypeCast();
+     $this->checkNonExistingComponent();
+@@ -136,6 +137,31 @@ protected function checkEmbedWithNested(): void {
+     $this->assertContains('core/components.sdc_test--just-a-slot', $libraries);
+   }
+ 
++  /**
++   * Render a card with slots that include a CTA component.
++   */
++  protected function checkExtendsWithNested(): void {
++    $build = [
++      '#type' => 'component',
++      '#component' => 'sdc_test:extends',
++      '#props' => [],
++      '#slots' => [
++        'nested_slot' => [
++          '#type' => 'html_tag',
++          '#tag' => 'p',
++          '#value' => $this->t('This is another slot.'),
++        ],
++      ],
++    ];
++    $metadata = new BubbleableMetadata();
++    $crawler = $this->renderComponentRenderArray($build, $metadata);
++    $this->assertNotEmpty($crawler->filter('.just-a-slot'), $crawler->outerHtml());
++    $this->assertStringContainsString(
++      'data-component-id="sdc_test:my-banner"',
++      $crawler->filter('.just-a-slot')->html(),
++    );
++  }
++
+   /**
+    * Check using the libraryOverrides.
+    */
+-- 
+GitLab
+

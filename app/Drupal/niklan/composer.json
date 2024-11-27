@@ -8,6 +8,10 @@
     "require": {
         "scrivo/highlight.php": "^9.0",
         "ext-dom": "*",
-        "league/commonmark": "^2.0"
+        "ext-imagick": "*",
+        "league/commonmark": "^2.0",
+        "drupal/media_library_form_element": "^2",
+        "niklan-asset/alpinejs": "^3.14",
+        "niklan-asset/hljs": "^11.9"
     }
 }

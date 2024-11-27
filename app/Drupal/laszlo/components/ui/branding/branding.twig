@@ -1,0 +1,16 @@
+{% do attributes.setAttribute('href', url) %}
+{% do attributes.setAttribute('rel', 'Home'|t) %}
+{% do attributes.setAttribute('aria-label', 'Home'|t) %}
+<a{{ attributes.addClass('branding') }}>
+  {% if logo_svg %}
+    {{ source(logo_svg) }}
+  {% endif %}
+
+  <div class="branding__info">
+    <div class="branding__name">{{ name }}</div>
+
+    {% if slogan %}
+      <div class="branding__slogan">{{ slogan }}</div>
+    {% endif %}
+  </div>
+</a>

@@ -11,22 +11,12 @@ dependencies:
     - field.field.node.portfolio.field_portfolio_categories
     - node.type.portfolio
   module:
-    - datetime
     - user
 id: node.portfolio.teaser
 targetEntityType: node
 bundle: portfolio
 mode: teaser
-content:
-  field_date:
-    type: datetime_default
-    label: hidden
-    settings:
-      timezone_override: ''
-      format_type: html_year
-    third_party_settings: {  }
-    weight: 0
-    region: content
+content: {  }
 hidden:
   body: true
   estimated_read_time: true
@@ -34,6 +24,7 @@ hidden:
   extra_field_estimated_reading_time: true
   extra_field_previous_next: true
   extra_field_share: true
+  field_date: true
   field_link: true
   field_media_images: true
   field_portfolio_categories: true

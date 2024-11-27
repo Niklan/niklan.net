@@ -1,0 +1,41 @@
+uuid: b4bd4de3-34dc-42e7-9006-c90b45eae0eb
+langcode: ru
+status: true
+dependencies:
+  module:
+    - image_effects
+name: 200x200_contain
+label: '200×200 (contain)'
+effects:
+  7fa9dfe5-9d49-430f-b809-bb7548d44015:
+    uuid: 7fa9dfe5-9d49-430f-b809-bb7548d44015
+    id: image_scale
+    weight: -9
+    data:
+      width: 200
+      height: 200
+      upscale: false
+  37bd764b-2a23-40b8-940c-a51cddd1c001:
+    uuid: 37bd764b-2a23-40b8-940c-a51cddd1c001
+    id: image_effects_set_canvas
+    weight: -8
+    data:
+      canvas_size: exact
+      canvas_color: ''
+      exact:
+        width: '200'
+        height: '200'
+        placement: center-center
+        x_offset: 0
+        y_offset: 0
+      relative:
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+  f08deb9f-f9a9-4bc1-bbde-368a2d6192ae:
+    uuid: f08deb9f-f9a9-4bc1-bbde-368a2d6192ae
+    id: image_convert
+    weight: -10
+    data:
+      extension: webp

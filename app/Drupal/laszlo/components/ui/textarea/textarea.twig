@@ -1,0 +1,17 @@
+{%
+  set classes = [
+    'textarea',
+    'textarea--variant--' ~ variant|default('outlined'),
+    'textarea--color--' ~ color|default('primary'),
+    'textarea--size--' ~ size|default('medium'),
+    disabled ? 'textarea--disabled',
+    full_width ? 'textarea--full-width',
+  ]
+%}
+{% do autoresize|default(true) ? attributes.setAttribute('data-textarea-autoresize', '') %}
+{% do disabled ? input_attributes.setAttribute('disabled', 'disabled') %}
+<div{{ attributes.addClass(classes) }}>
+  <textarea{{ input_attributes.addClass('textarea__input') }}>
+    {{- value -}}
+  </textarea>
+</div>

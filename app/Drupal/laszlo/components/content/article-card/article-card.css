@@ -1,0 +1,101 @@
+@layer component.content {
+  .article-card {
+    --meta-font: var(--typography-label-medium);
+    --meta-icon-size: var(--spacing-4);
+
+    position: relative;
+    display: flex;
+    flex-flow: nowrap;
+    flex-flow: column;
+    padding: var(--spacing-6);
+    transition:
+      background-color 0.25s linear,
+      box-shadow 0.25s linear;
+    color: var(--color-on-surface);
+    border-radius: var(--spacing-4);
+    background: var(--color-surface-container);
+    gap: var(--spacing-6);
+
+    &:focus-within,
+    &:hover,
+    &:active {
+      outline: var(--default-focus-outline);
+      background-color: var(--color-surface-container-highest);
+      box-shadow: var(--elevation-2);
+    }
+
+    @media screen and (min-width: 1200px) {
+      flex-flow: row;
+    }
+  }
+
+  .article-card__poster {
+    overflow: hidden;
+    flex-shrink: 0;
+    align-self: center;
+    border-radius: var(--spacing-2);
+    box-shadow: var(--elevation-1);
+  }
+
+  .article-card__link {
+    --focus-outline: none;
+
+    text-decoration: none;
+    color: var(--color-on-surface);
+
+    &::before {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      content: "";
+      border-radius: var(--spacing-4);
+    }
+  }
+
+  .article-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    height: 100%;
+  }
+
+  .article-card__title {
+    color: var(--color-on-surface);
+    font: var(--typography-title-medium);
+
+    @media screen and (min-width: 1200px) {
+      font: var(--typography-title-large);
+    }
+  }
+
+  .article-card__summary {
+    color: var(--color-on-surface-variant);
+    font: var(--typography-label-large);
+  }
+
+  .article-card__meta {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    margin-top: auto;
+    gap: var(--spacing-2);
+
+    @media screen and (min-width: 1200px) {
+      flex-flow: row;
+      align-items: center;
+    }
+  }
+
+  .article-card__meta-separator {
+    display: none;
+    font: var(--meta-font);
+
+    @media screen and (min-width: 1200px) {
+      display: block;
+    }
+  }
+}

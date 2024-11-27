@@ -1,0 +1,177 @@
+<article{{ attributes.addClass('article') }}>
+  <header class="article__header" style="--background-image: url({{ poster_uri|image_style('200x264') }})">
+    {% include 'laszlo:image' with {
+      attributes: create_attribute({
+        class: ['article__poster'],
+      }),
+      src: poster_uri|image_style('200x264'),
+      width: 200,
+      height: 264,
+      alt: title,
+      loading: 'eager',
+      sizes: [
+        '200px',
+      ],
+      srcset: {
+        '200w': poster_uri|image_style('200x264'),
+        '400w': poster_uri|image_style('400x528'),
+      }
+    } only %}
+
+    <div class="article__info">
+      <div class="article__breadcrumbs">
+        {{ drupal_breadcrumb() }}
+      </div>
+      <h1 class="article__title">{{ title }}</h1>
+      <div class="article__summary">
+        {% block summary %}{% endblock %}
+      </div>
+
+      {% if tags %}
+        <div class="article__tags">
+          {{ tags }}
+        </div>
+      {% endif %}
+
+      <div class="article__meta">
+        {% include 'laszlo:meta' with {
+          icon: 'calendar',
+          label: 'Published'|t,
+          value: published_timestamp|format_date('dmy'),
+        } only %}
+        <span class="article__meta-separator">•</span>
+        {% include 'laszlo:meta' with {
+          icon: 'read-time',
+          label: 'Time to read'|t,
+          value: '@minutes min.'|t({'@minutes': estimated_read_time}),
+        } only %}
+      </div>
+    </div>
+  </header>
+
+  <div class="article__main">
+    <aside class="article__sidebar">
+      {% if toc_links %}
+        {% include 'laszlo:fab' with {
+          attributes: create_attribute({
+            'class': ['article__sidebar-fab'],
+            'x-data': '',
+            '@click.prevent': "$dispatch('show-toc')",
+          }),
+          label: 'Table of Contents'|t,
+          icon: 'notebook-bookmark-bold-duotone',
+        } only %}
+      {% endif %}
+      {% include 'laszlo:fab' with {
+        attributes: create_attribute({
+          'class': ['article__sidebar-fab'],
+          'x-data': '',
+          '@click.prevent': "$dispatch('show-share')",
+        }),
+        label: 'Share'|t,
+        icon: 'square-share-line-bold-duotone',
+      } only %}
+      {% include 'laszlo:fab' with {
+        attributes: create_attribute({
+          'class': ['article__sidebar-fab'],
+        }),
+        label: 'Comments'|t,
+        icon: 'chat-round-dots-bold-duotone',
+        url: '#comments',
+        counter: comment_count,
+      } only %}
+    </aside>
+
+    <section class="prose article__content">
+      {% block content %}{% endblock %}
+
+      {% if attachments %}
+        <h2>{{ 'Files'|t }}</h2>
+        <div class="article__attachments">
+          {% for attachment in attachments %}
+            {% include 'laszlo:attachment-file' with {
+              label: attachment.media_label,
+              filename: attachment.filename,
+              file_uri: attachment.file_uri,
+              size: attachment.size,
+            } only %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </section>
+  </div>
+
+  {% if next_link or previous_link %}
+    <div class="article__previous-next">
+      {% if previous_link %}
+        {% include 'laszlo:previous-next-link' with {
+          attributes: create_attribute({
+            class: ['article__next'],
+          }),
+          type: 'next',
+          text: previous_link.text,
+          href: previous_link.url,
+        } only %}
+      {% endif %}
+      {% if next_link %}
+        {% include 'laszlo:previous-next-link' with {
+          attributes: create_attribute({
+            class: ['article__previous'],
+          }),
+          type: 'previous',
+          text: next_link.text,
+          href: next_link.url,
+        } only %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if block('comments') is defined and block('comments')|trim is not empty %}
+    <section class="article__comments">
+      <h2 id="comments" class="article__comments-title">{{ 'Comments'|t }}</h2>
+      <div class="article__comment-items">
+        {% embed 'laszlo:alert' with { type: 'warning' } only %}
+          {% block heading %}{{ 'Comments temporarily disabled'|t }}{% endblock %}
+          {% block content %}
+            <p>
+              {{ '<a href="@url" rel="noreferrer nofollow noopener" target="_blank">There is a lot of spam going on.</a> I need some time to implement tools to moderate it via Telegram and bring them back again.'|t({
+                '@url': 'https://static.wikia.nocookie.net/dota2_gamepedia/images/6/6a/Misc_soundboard_bozhe_ti_posmotri.mp3/revision/latest?cb=20190922222030',
+              }) }}
+            </p>
+          {% endblock %}
+        {% endembed %}
+        {{ block('comments') }}
+      </div>
+    </section>
+  {% endif %}
+
+  {% embed 'laszlo:dialog' with {
+    title: 'Share'|t,
+    attributes: create_attribute({
+      '@show-share.window': 'show',
+    }),
+    content_title: title,
+    content_url: url_absolute,
+  } only %}
+    {% block content %}
+      {% include 'laszlo:share-dialog' with {
+        title: content_title,
+        url: content_url,
+      } only %}
+    {% endblock %}
+  {% endembed %}
+
+  {% if toc_links %}
+    {% embed 'laszlo:dialog' with {
+      title: 'Table of contents'|t,
+      attributes: create_attribute({
+        '@show-toc.window': 'show',
+      }),
+      toc_links,
+    } only %}
+      {% block content %}
+        {% include 'laszlo:toc-dialog' with { toc_links } only %}
+      {% endblock %}
+    {% endembed %}
+  {% endif %}
+</article>

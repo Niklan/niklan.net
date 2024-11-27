@@ -1,0 +1,7 @@
+@layer component.ui {
+  .breadcrumb {
+    display: flex;
+    overflow-x: auto;
+    align-items: center;
+  }
+}

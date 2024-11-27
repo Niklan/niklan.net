@@ -1,0 +1,23 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Attachment file
+status: experimental
+group: ui
+props:
+  required:
+    - label
+    - filename
+    - file_uri
+    - size
+  properties:
+    label:
+      title: Label
+      type: string
+    filename:
+      title: Filename
+      type: string
+    file_uri:
+      title: File URI
+      type: string
+    size:
+      title: File size
+      type: integer

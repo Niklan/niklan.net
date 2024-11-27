@@ -1,0 +1,45 @@
+@layer component.content {
+  .portfolio {
+    display: flex;
+    flex-direction: column;
+    gap: var(--author-page-content-gap);
+  }
+
+  .portfolio__photos .photoswipe-gallery {
+    display: grid;
+    gap: var(--spacing-4);
+    grid-template-columns: repeat(2, 1fr);
+
+    @media screen and (min-width: 640px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .portfolio__photos .photoswipe {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: var(--spacing-4);
+    background: var(--color-surface-container-highest);
+  }
+
+  .portfolio__meta {
+    display: flex;
+    flex-flow: wrap;
+    gap: var(--spacing-4);
+  }
+
+  .portfolio__meta-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-2) var(--spacing-4);
+    color: var(--color-on-surface-variant);
+    border-radius: var(--spacing-10);
+    background: var(--color-surface-variant);
+    gap: var(--spacing-2);
+  }
+}

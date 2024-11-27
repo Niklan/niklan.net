@@ -13,6 +13,9 @@ use Drupal\Core\Render\Attribute\RenderElement;
 use Drupal\Core\Render\Element\RenderElementBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @deprecated Remove after new theme is deployed.
+ */
 #[RenderElement('niklan_previous_next')]
 final class PreviousNext extends RenderElementBase implements ContainerFactoryPluginInterface {
 

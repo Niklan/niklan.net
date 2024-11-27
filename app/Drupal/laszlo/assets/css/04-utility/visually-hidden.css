@@ -1,0 +1,6 @@
+@layer utility {
+  .visually-hidden {
+    /** Important is a workaround for Drupal with disabled system/base library. */
+    display: none !important;
+  }
+}

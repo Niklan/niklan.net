@@ -1,0 +1,25 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Search Results
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    pager:
+      title: Pager
+      type: ['null', array]
+    query:
+      title: Search query
+      description: The search query, if provided
+      type: ['null', string]
+    no_query:
+      title: No query text
+      description: The text to show if no query is provided
+      type: string
+    no_results:
+      title: No results text
+      description: The text to show if no results are found
+      type: string
+slots:
+  results:
+    title: The search results

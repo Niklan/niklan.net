@@ -4,6 +4,7 @@ Disallow: /comment
 Disallow: /node
 Disallow: /taxonomy
 Disallow: /user
+Disallow: /home
 
 # Disallow index.php* pages, because they are indexed as well sometimes.
 Disallow: /index.php

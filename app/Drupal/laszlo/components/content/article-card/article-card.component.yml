@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Article Card
+status: experimental
+group: content
+props:
+  type: object
+  properties:
+    title:
+      title: Title
+      type: string
+    url:
+      title: URL
+      type: string
+    published_timestamp:
+      title: Published
+      type: string
+    estimated_read_time:
+      title: Estimated read time (minutes)
+      type: integer
+    poster_uri:
+      title: Poster image
+      type: string
+slots:
+  summary:
+    title: Summary
+    required: true

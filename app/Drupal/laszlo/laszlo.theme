@@ -1,0 +1,140 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\laszlo\Hook\Form\FormCommentFormAlter;
+use Drupal\laszlo\Hook\Theme\AttachmentsAlter;
+use Drupal\laszlo\Hook\Theme\CssAlter;
+use Drupal\laszlo\Hook\Theme\ElementInfoAlter;
+use Drupal\laszlo\Hook\Theme\Preprocess;
+use Drupal\laszlo\Hook\Theme\PreprocessComment;
+use Drupal\laszlo\Hook\Theme\PreprocessInput;
+use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageFooter;
+use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader;
+use Drupal\laszlo\Hook\Theme\PreprocessLinks;
+use Drupal\laszlo\Hook\Theme\PreprocessNode;
+use Drupal\laszlo\Hook\Theme\PreprocessPage;
+use Drupal\laszlo\Hook\Theme\PreprocessTaxonomyTerm;
+use Drupal\laszlo\Hook\Theme\ThemeSuggestionsAlter;
+
+/**
+ * Implements hook_theme().
+ */
+function laszlo_theme(array $existing, string $type, string $theme, string $path): array {
+  return [
+    'laszlo_page_header' => [
+      'variables' => [],
+      'path' => "$path/templates/layout",
+    ],
+    'laszlo_page_footer' => [
+      'variables' => [],
+      'path' => "$path/templates/layout",
+    ],
+    'comment_form__node__blog_entry__comment_node_blog_entry' => [
+      'render element' => 'form',
+      'path' => "$path/templates/form",
+      'template' => 'comment-comment-node-blog-entry-form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_css_alter().
+ */
+function laszlo_css_alter(array &$css, AttachedAssetsInterface $assets, LanguageInterface $language): void {
+  Drupal::classResolver(CssAlter::class)($css, $assets, $language);
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function laszlo_element_info_alter(array &$info): void {
+  Drupal::classResolver(ElementInfoAlter::class)($info);
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function laszlo_preprocess(array &$variables, string $hook): void {
+  Drupal::classResolver(Preprocess::class)($variables, $hook);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_page(array &$variables): void {
+  Drupal::classResolver(PreprocessPage::class)($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_node(array &$variables): void {
+  Drupal::classResolver(PreprocessNode::class)($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_laszlo_page_header(array &$variables): void {
+  Drupal::classResolver(PreprocessLaszloPageHeader::class)($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_laszlo_page_footer(array &$variables): void {
+  Drupal::classResolver(PreprocessLaszloPageFooter::class)($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_input(array &$variables): void {
+  Drupal::classResolver(PreprocessInput::class)($variables);
+}
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ */
+function laszlo_theme_suggestions_alter(array &$suggestions, array &$variables, $hook): void {
+  Drupal::classResolver(ThemeSuggestionsAlter::class)($suggestions, $variables, $hook);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_comment(array &$variables): void {
+  Drupal::classResolver(PreprocessComment::class)($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_links(array &$variables): void {
+  Drupal::classResolver(PreprocessLinks::class)($variables);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function laszlo_form_comment_comment_node_blog_entry_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  Drupal::classResolver(FormCommentFormAlter::class)($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_taxonomy_term(array &$variables): void {
+  Drupal::classResolver(PreprocessTaxonomyTerm::class)($variables);
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function laszlo_page_attachments_alter(array &$attachments): void {
+  Drupal::classResolver(AttachmentsAlter::class)($attachments);
+}

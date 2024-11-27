@@ -1,0 +1,13 @@
+<div{{ attributes.addClass('portfolio-list') }}>
+  {% if description %}
+    <div class="prose portfolio-list__description">
+      {{ description }}
+    </div>
+  {% endif %}
+
+  <div class="portfolio-list__items">
+    {% for item in items %}
+      {{ item }}
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,23 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Home cards
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    cards:
+      title: Cards
+      type: array
+      items:
+        type: object
+        required:
+          - title
+          - description
+        properties:
+          background_uri:
+            type: string
+            pattern: '^public:\/\/.+$'
+          description:
+            type: object
+          title:
+            type: string

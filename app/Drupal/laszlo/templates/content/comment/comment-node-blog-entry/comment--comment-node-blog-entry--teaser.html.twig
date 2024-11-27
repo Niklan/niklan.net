@@ -1,0 +1,8 @@
+{% include 'laszlo:comment-card' with {
+  url: permalink_url,
+  published_timestamp: created_timestamp,
+  commented_entity_poster_uri,
+  commented_entity_title: commented_entity_label,
+  body: content.comment_body,
+  author_name,
+} only %}

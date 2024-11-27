@@ -3,7 +3,6 @@ langcode: ru
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment_node_blog_entry.full
     - core.entity_view_mode.node.full
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
@@ -14,7 +13,6 @@ dependencies:
     - field.field.node.blog_entry.field_tags
     - node.type.blog_entry
   module:
-    - comment
     - external_content
     - niklan
     - text
@@ -32,13 +30,11 @@ content:
     weight: 0
     region: content
   comment_node_blog_entry:
-    type: comment_default
+    type: niklan_comment
     label: above
-    settings:
-      view_mode: full
-      pager_id: 0
+    settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 2
     region: content
   estimated_read_time:
     settings: {  }
@@ -50,7 +46,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 1
     region: content
   extra_field_created_time:
     settings: {  }
@@ -61,36 +57,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
-    region: content
-  extra_field_meta_information:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  extra_field_previous_next:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
-    region: content
-  extra_field_share:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 5
-    region: content
-  field_media_attachments:
-    type: niklan_attached_files
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_tags:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
     region: content
   previous_next:
     settings: {  }
@@ -105,7 +71,12 @@ content:
 hidden:
   external_id: true
   extra_field_comments_link: true
+  extra_field_meta_information: true
+  extra_field_previous_next: true
+  extra_field_share: true
+  field_media_attachments: true
   field_media_image: true
+  field_tags: true
   follow: true
   langcode: true
   links: true

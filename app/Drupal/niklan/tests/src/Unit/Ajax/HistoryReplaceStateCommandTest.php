@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Ajax;
 
-use Drupal\niklan\Ajax\HistoryReplaceStateCommand;
+use Drupal\niklan\Http\Ajax\HistoryReplaceStateCommand;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides a test for history replace state AJAX command.
  *
- * @coversDefaultClass \Drupal\niklan\Ajax\HistoryReplaceStateCommand
+ * @coversDefaultClass \Drupal\niklan\Http\Ajax\HistoryReplaceStateCommand
  */
 final class HistoryReplaceStateCommandTest extends UnitTestCase {
 

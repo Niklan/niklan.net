@@ -1,0 +1,46 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Text Input
+status: experimental
+group: atoms
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
+    input_attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Input attributes
+    variant:
+      title: Variant
+      type: string
+      enum:
+        - plain
+        - outlined
+      default: outlined
+    color:
+      title: Color
+      type: string
+      enum:
+        - primary
+        - danger
+      default: primary
+    size:
+      title: Size
+      type: string
+      enum:
+        - small
+        - medium
+        - large
+      default: medium
+    full_width:
+      title: Full width
+      type: boolean
+    disabled:
+      title: Disabled
+      type: boolean
+slots:
+  start_decorator:
+    title: Start decorator
+  end_decorator:
+    title: End decorator

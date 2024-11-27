@@ -1,0 +1,58 @@
+{% do attributes.setAttribute('x-data', 'MainNavigation') %}
+<div{{ attributes.addClass('main-navigation') }}>
+  <nav class="main-navigation__main">
+    {% for item in items  %}
+      {% include 'laszlo:main-navigation-item' with {
+        label: item.label,
+        url: item.url,
+        icon: item.icon,
+        active_trail_pattern: item.active_trail_pattern,
+      } only %}
+    {% endfor %}
+  </nav>
+
+  <template x-if="isBlogExtraButtonVisible">
+    <div class="main-navigation__extra" @click.outside="closeExtraMenu">
+      {% include 'laszlo:fab' with {
+        attributes: create_attribute({
+          'class': ['main-navigation__extra-button'],
+          '@click.prevent': "toggleExtraMenu",
+        }),
+        label: 'Article menu'|t,
+        icon: 'menu-dots',
+      } only %}
+
+      <template x-if="isExtraMenuOpen">
+        <div class="main-navigation__extra-menu">
+          {% include 'laszlo:fab' with {
+            attributes: create_attribute({
+              'class': ['main-navigation__extra-button', 'main-navigation__extra-button--extra-menu'],
+              'x-data': '',
+              '@click.prevent': "$dispatch('show-toc')",
+            }),
+            label: 'Table of Contents'|t,
+            icon: 'notebook-bookmark-bold-duotone',
+          } only %}
+          {% include 'laszlo:fab' with {
+            attributes: create_attribute({
+              'class': ['main-navigation__extra-button', 'main-navigation__extra-button--extra-menu'],
+              'x-data': '',
+              '@click.prevent': "$dispatch('show-share')",
+            }),
+            label: 'Share'|t,
+            icon: 'square-share-line-bold-duotone',
+          } only %}
+          {% include 'laszlo:fab' with {
+            attributes: create_attribute({
+              'class': ['main-navigation__extra-button', 'main-navigation__extra-button--extra-menu'],
+              '@click': "closeExtraMenu",
+            }),
+            label: 'Comments'|t,
+            icon: 'chat-round-dots-bold-duotone',
+            url: '#comments',
+          } only %}
+        </div>
+      </template>
+    </div>
+  </template>
+</div>

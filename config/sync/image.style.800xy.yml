@@ -1,0 +1,21 @@
+uuid: ba56a97c-6f00-44c2-9459-4b2c9200cec6
+langcode: ru
+status: true
+dependencies: {  }
+name: 800xy
+label: 800×Y
+effects:
+  3acc99ab-209c-4512-88e9-06d238dac446:
+    uuid: 3acc99ab-209c-4512-88e9-06d238dac446
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  d47fb4a8-f028-4cf5-8100-5e7fbe70a299:
+    uuid: d47fb4a8-f028-4cf5-8100-5e7fbe70a299
+    id: image_scale
+    weight: 2
+    data:
+      width: 800
+      height: null
+      upscale: false

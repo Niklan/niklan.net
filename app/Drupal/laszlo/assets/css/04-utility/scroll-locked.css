@@ -1,0 +1,5 @@
+@layer utility {
+  [data-scroll-locked] {
+    overflow: clip;
+  }
+}

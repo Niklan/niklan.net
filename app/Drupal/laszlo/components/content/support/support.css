@@ -1,0 +1,12 @@
+@layer component.content {
+  .support {
+    display: flex;
+    flex-direction: column;
+    gap: var(--author-page-content-gap, var(--spacing-12));
+  }
+
+  .support__cta {
+    justify-content: center;
+    width: 100%;
+  }
+}

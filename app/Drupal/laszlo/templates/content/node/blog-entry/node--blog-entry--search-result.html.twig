@@ -1,0 +1,5 @@
+{% include 'laszlo:search-result' with {
+  title: node.label(),
+  url: url_absolute,
+  excerpt: content.body,
+} only %}

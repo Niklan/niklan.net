@@ -17,7 +17,7 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('extension.list.module'),
+      $container->get(ModuleExtensionList::class),
     );
   }
 
@@ -32,8 +32,19 @@ final class LibraryInfoAlter implements ContainerInjectionInterface {
     $libraries['drupal.ajax']['js'][$js_path] = [];
   }
 
+  private function alterHighlightJs(array &$libraries, string $extension): void {
+    if ($extension !== 'niklan' || !isset($libraries['hljs'])) {
+      return;
+    }
+
+    $module_path = $this->moduleExtensionList->getPath('niklan');
+    $worker_path = "/$module_path/assets/js/hljs.worker.js";
+    $libraries['hljs']['drupalSettings']['highlightJs']['workerPath'] = $worker_path;
+  }
+
   public function __invoke(array &$libraries, string $extension): void {
     $this->alterDrupalAjax($libraries, $extension);
+    $this->alterHighlightJs($libraries, $extension);
   }
 
 }

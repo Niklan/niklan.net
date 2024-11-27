@@ -8,7 +8,7 @@ slogan: 'Блог веб-разработчика'
 page:
   403: ''
   404: ''
-  front: /node
+  front: /home
 admin_compact_mode: false
 weight_select_max: 100
 default_langcode: ru

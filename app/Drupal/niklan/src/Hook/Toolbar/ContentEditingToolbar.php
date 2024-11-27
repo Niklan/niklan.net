@@ -12,15 +12,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class ContentEditingToolbar implements ContainerInjectionInterface {
 
-  protected array $items = [];
-  protected RouteMatchInterface $routeMatch;
+  private array $items = [];
+
+  public function __construct(
+    private readonly RouteMatchInterface $routeMatch,
+  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
-    $instance = new self();
-    $instance->routeMatch = $container->get('current_route_match');
-
-    return $instance;
+    return new self(
+      $container->get(RouteMatchInterface::class),
+    );
   }
 
   protected function prepareContentEditingToolbar(): void {
@@ -50,7 +52,7 @@ final class ContentEditingToolbar implements ContainerInjectionInterface {
 
     $this->items['niklan_content_editing']['tray']['user_links'] = [
       '#lazy_builder' => [
-        'niklan.builder.content_editing_toolbar_links:buildLinks',
+        'Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:buildLinks',
         [],
       ],
       '#create_placeholder' => TRUE,

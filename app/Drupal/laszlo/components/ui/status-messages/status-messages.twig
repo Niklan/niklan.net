@@ -1,0 +1,23 @@
+{% do attributes.setAttribute('data-drupal-messages', '') %}
+{% do attributes.setAttribute('x-data', 'StatusMessages') %}
+{% do attributes.setAttribute('data-messages', messages|json_encode) %}
+<div{{ attributes.addClass('status-messages') }}>
+  <template x-for="(message, index) in messageList" :key="index">
+    <div role="contentinfo"
+         x-transition.duration.500ms
+         class="status-message"
+         :class="buildClass('status-message', message)"
+         :data-id="message.options.id">
+      <header class="status-message__head">
+        <div class="status-message__icon"></div>
+        <div class="status-message__label" x-html="message.options.label"></div>
+        <button class="status-message__close"
+                @click="removeMessage(message.options.id)"
+                aria-label="{{ 'Close'|t }}">
+          {% include 'laszlo:icon' with { icon: 'close' } only %}
+        </button>
+      </header>
+      <div class="status-message__content" x-html="message.message"></div>
+    </div>
+  </template>
+</div>

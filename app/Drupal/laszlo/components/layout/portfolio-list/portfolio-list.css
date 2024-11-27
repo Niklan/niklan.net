@@ -1,0 +1,16 @@
+@layer component.layout {
+  .portfolio-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--author-page-content-gap);
+  }
+
+  .portfolio-list__items {
+    display: grid;
+    gap: var(--spacing-4);
+
+    @media screen and (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

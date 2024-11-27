@@ -1,0 +1,15 @@
+@layer component.ui {
+  .meta {
+    --_meta-font: var(--meta-font, var(--typography-label-large));
+    --_meta-icon-size: var(--meta-icon-size, var(--spacing-6));
+
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font: var(--_meta-font);
+  }
+
+  .meta .icon {
+    width: var(--_meta-icon-size);
+  }
+}

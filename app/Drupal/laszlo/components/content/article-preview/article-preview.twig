@@ -1,0 +1,32 @@
+<article{{ attributes.addClass('article-preview') }}>
+  {% include 'laszlo:image' with {
+    attributes: create_attribute({
+      class: ['article-preview__poster'],
+    }),
+    src: poster_uri|image_style('200x264'),
+    width: 200,
+    height: 264,
+    alt: title,
+    sizes: [
+      '(max-width: 424px) 188px',
+      '(max-width: 639px) 296px',
+      '(max-width: 767px) 234px',
+      '(max-width: 1023px) 320px',
+      '(max-width: 1199px) 378px',
+      '182px',
+    ],
+    srcset: {
+      '200w': poster_uri|image_style('200x264'),
+      '300w': poster_uri|image_style('300x400'),
+      '400w': poster_uri|image_style('400x528'),
+      '600w': poster_uri|image_style('600x800'),
+      '800w': poster_uri|image_style('800x1064'),
+    }
+  } only %}
+
+  <h2 class="article-preview__title">
+    <a href="{{ url }}" class="article-preview__link">
+      {{ title }}
+    </a>
+  </h2>
+</article>

@@ -1,0 +1,16 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Breadcrumb item
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - label
+  properties:
+    label:
+      title: Label
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-reference

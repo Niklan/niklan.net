@@ -1,0 +1,15 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Icon
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - icon
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
+    icon:
+      title: Icon name
+      type: string

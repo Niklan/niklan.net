@@ -11,47 +11,19 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Image\ImageFactory;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\niklan\Hook\Entity\BaseFieldInfo;
 use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
-use Drupal\niklan\Hook\Theme\NiklanLightboxResponsiveImagePreprocess;
-use Drupal\niklan\Hook\Theme\NiklanSearchResultsPreprocess;
+use Drupal\niklan\Hook\Theme\PreprocessNiklanHomeCards;
+use Drupal\niklan\Hook\Theme\PreprocessNiklanLightboxResponsiveImage;
+use Drupal\niklan\Hook\Token\TokenInfo;
+use Drupal\niklan\Hook\Token\Tokens;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function niklan_form_comment_comment_node_blog_entry_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
-  $form['author']['name']['#attributes']['placeholder'] = 'Harry Potter';
-  $form['author']['mail']['#attributes']['placeholder'] = 'gryffindor@hogwarts.com';
-  unset($form['author']['mail']['#description']);
-  $form['author']['homepage']['#attributes']['placeholder'] = 'https://harrypotter.com';
-
-  $form['#after_build'][] = 'niklan_form_comment_comment_node_blog_entry_form_after_build';
-}
-
-/**
- * After build for removing formatting tips.
- */
-function niklan_form_comment_comment_node_blog_entry_form_after_build(array $form, FormStateInterface $form_state): array {
-  $form['comment_body']['widget'][0]['format']['#access'] = FALSE;
-
-  return $form;
-}
-
-/**
- * Implements hook_form_FORM_ID_alter() for 'contact_message_contact_form_form'.
- */
-function niklan_form_contact_message_contact_form_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
-  $form['field_email']['widget'][0]['value']['#placeholder'] = 'example@example.com';
-  $form['field_email']['widget'][0]['value']['#description'] = new TranslatableMarkup(
-    "I'll send a reply to the specified address.",
-  );
-}
 
 /**
  * Implements hook_theme().
@@ -80,8 +52,12 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'links' => NULL,
       ],
     ],
-    'niklan_contact_page' => [
-      'variables' => [],
+    'niklan_contact' => [
+      'variables' => [
+        'description' => NULL,
+        'email' => NULL,
+        'telegram' => NULL,
+      ],
     ],
     'niklan_form_success' => [
       'variables' => [
@@ -94,9 +70,10 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'attributes' => [],
       ],
     ],
-    'niklan_support_page' => [
+    'niklan_support' => [
       'variables' => [
-        'attributes' => [],
+        'description' => NULL,
+        'donate_url' => NULL,
       ],
     ],
     'niklan_last_content' => [
@@ -108,12 +85,20 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'more_label' => NULL,
       ],
     ],
-    'niklan_about_page' => [
-      'variables' => [],
-      'file' => 'niklan.theme.inc',
+    'niklan_about' => [
+      'variables' => [
+        'photo_uri' => NULL,
+        'heading' => NULL,
+        'subtitle' => NULL,
+        'summary' => NULL,
+        'description' => NULL,
+      ],
     ],
-    'niklan_services_page' => [
-      'variables' => [],
+    'niklan_services' => [
+      'variables' => [
+        'description' => NULL,
+        'hourly_rate' => NULL,
+      ],
     ],
     'niklan_mobile_header_bar' => [
       'variables' => [
@@ -122,9 +107,8 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     ],
     'niklan_comment_list' => [
       'variables' => [
-        'attributes' => [],
-        'comments' => [],
-        'pager' => NULL,
+        'heading' => NULL,
+        'items' => [],
       ],
     ],
     'niklan_media_attached_file' => [
@@ -150,18 +134,17 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     ],
     'niklan_portfolio_list' => [
       'variables' => [
+        'description' => [],
         'items' => [],
-      ],
-    ],
-    'niklan_search_page' => [
-      'variables' => [
-        'header' => NULL,
-        'content' => NULL,
       ],
     ],
     'niklan_search_results' => [
       'variables' => [
+        'query' => NULL,
+        'no_query' => NULL,
+        'no_results' => NULL,
         'results' => [],
+        'pager' => NULL,
       ],
     ],
     'niklan_blog_meta' => [
@@ -170,12 +153,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'comment_count' => NULL,
         'comments_url' => NULL,
         'estimated_read_time' => NULL,
-      ],
-    ],
-    'niklan_tag_page' => [
-      'variables' => [
-        'items' => [],
-        'pager' => NULL,
       ],
     ],
     'niklan_tag_list' => [
@@ -196,19 +173,46 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'attributes' => [],
       ],
     ],
-    'niklan_code_block' => [
+    'niklan_comment_thread' => [
       'variables' => [
-        'language' => NULL,
-        'highlighted_lines' => [],
-        'heading' => NULL,
-        'code' => NULL,
+        'depth' => 0,
+        'thread_id' => NULL,
+        'comments' => [],
       ],
     ],
-    'niklan_alert' => [
+    'niklan_home' => [
       'variables' => [
-        'type' => NULL,
+        'sections' => [],
+      ],
+    ],
+    'niklan_blog_preview_list' => [
+      'variables' => [
         'heading' => NULL,
-        'content' => NULL,
+        'items' => [],
+      ],
+    ],
+    'niklan_comment_reply_page' => [
+      'variables' => [
+        'children' => [],
+      ],
+    ],
+    'niklan_home_intro' => [
+      'variables' => [
+        'heading' => NULL,
+        'description' => NULL,
+      ],
+    ],
+    'niklan_home_cards' => [
+      'variables' => [
+        'cards' => [],
+      ],
+    ],
+    'niklan_article_banner' => [
+      'variables' => [
+        'poster_base64' => NULL,
+        'text_lines' => [],
+        'comment_count' => 0,
+        'created' => 0,
       ],
     ],
   ];
@@ -270,8 +274,8 @@ function niklan_preprocess_responsive_image(array &$variables): void {
     return;
   }
 
-  $image_factory = \Drupal::service('image.factory');
-  \assert($image_factory instanceof ImageFactory);
+  $image_factory = Drupal::service('image.factory');
+  assert($image_factory instanceof ImageFactory);
   $fallback_style = ImageStyle::load(
     $responsive_style->getFallbackImageStyle(),
   );
@@ -302,7 +306,7 @@ function niklan_preprocess_image(array &$variables): void {
  */
 function niklan_field_widget_text_textarea_form_alter(array &$element, FormStateInterface $form_state, array $context): void {
   $items = $context['items'];
-  \assert($items instanceof FieldItemListInterface);
+  assert($items instanceof FieldItemListInterface);
   $field_name = $items->getFieldDefinition()->getName();
 
   if ($field_name !== 'comment_body') {
@@ -316,7 +320,7 @@ function niklan_field_widget_text_textarea_form_alter(array &$element, FormState
  * After build callback to remove text_textarea format.
  */
 function _niklan_remove_text_textarea_format(array $element, FormStateInterface $form_state): array {
-  $is_admin = \Drupal::routeMatch()
+  $is_admin = Drupal::routeMatch()
     ->getRouteObject()
     ->hasOption('_admin_route');
 
@@ -338,11 +342,9 @@ function _niklan_remove_text_textarea_format(array $element, FormStateInterface 
  * Implements hook_ENTITY_TYPE_view().
  */
 function niklan_comment_view(array &$build, CommentInterface $comment, EntityViewDisplayInterface $display, string $view_mode): void {
-  if ($view_mode !== 'teaser') {
-    return;
-  }
-
-  // Disable threading for teasers.
+  // Disable threading for all situations. This is done through the theme and a
+  // custom formatter. Unfortunately, it breaks a lot of things and is hardcoded
+  // into the system using a pre-render.
   $build['#comment_threaded'] = FALSE;
   // Reset inner counters which append unneeded '</div>'.
   $build['#comment_indent_final'] = 0;
@@ -359,69 +361,50 @@ function niklan_preprocess_username(array &$variables): void {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for comment.html.twig.
- */
-function niklan_preprocess_comment(array &$variables): void {
-  $comment = $variables['comment'];
-  \assert($comment instanceof CommentInterface);
-
-  $commented_entity = $comment->getCommentedEntity();
-
-  if (!$commented_entity) {
-    return;
-  }
-
-  $commented_url = $commented_entity
-    ->toUrl('canonical', ['absolute' => TRUE])
-    ->toString();
-  $comment_anchor = '#comment-' . $comment->id();
-  $variables['commented_entity_url'] = $commented_url;
-  $variables['permalink_url'] = $commented_url . $comment_anchor;
-  $variables['homepage'] = NULL;
-
-  if ($comment->get('homepage')->isEmpty()) {
-    return;
-  }
-
-  $variables['homepage'] = $comment->get('homepage')->getString();
-}
-
-/**
- * Prepares variables for search results.
- *
- * Default template: niklan-search-results.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - results: Array with results. It's also allowed to pass instance of
- *     \Drupal\niklan\Data\EntitySearchResults to automatically prepare
- *     results from it.
- */
-function template_preprocess_niklan_search_results(array &$variables): void {
-  \Drupal::classResolver(NiklanSearchResultsPreprocess::class)($variables);
-}
-
-/**
  * Implements hook_library_info_alter().
  */
 function niklan_library_info_alter(array &$libraries, string $extension): void {
-  \Drupal::classResolver(LibraryInfoAlter::class)($libraries, $extension);
+  Drupal::classResolver(LibraryInfoAlter::class)($libraries, $extension);
 }
 
 /**
  * Implements hook_entity_bundle_info_alter().
  */
 function niklan_entity_bundle_info_alter(array &$bundles): void {
-  \Drupal::classResolver(BundleInfoAlter::class)($bundles);
+  Drupal::classResolver(BundleInfoAlter::class)($bundles);
 }
 
 /**
  * Implements hook_entity_base_field_info().
  */
 function niklan_entity_base_field_info(EntityTypeInterface $entity_type): array {
-  return \Drupal::classResolver(BaseFieldInfo::class)($entity_type);
+  return Drupal::classResolver(BaseFieldInfo::class)($entity_type);
 }
 
+/**
+ * Implements template_preprocess_HOOK().
+ */
 function template_preprocess_niklan_lightbox_responsive_image(array &$variables): void {
-  \Drupal::classResolver(NiklanLightboxResponsiveImagePreprocess::class)($variables);
+  Drupal::classResolver(PreprocessNiklanLightboxResponsiveImage::class)($variables);
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ */
+function template_preprocess_niklan_home_cards(array &$variables): void {
+  Drupal::classResolver(PreprocessNiklanHomeCards::class)($variables);
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function niklan_token_info(): array {
+  return Drupal::classResolver(TokenInfo::class)();
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function niklan_tokens(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
+  return Drupal::classResolver(Tokens::class)($type, $tokens, $data, $options, $bubbleable_metadata);
 }

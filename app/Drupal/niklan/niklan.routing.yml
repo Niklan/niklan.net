@@ -1,98 +1,154 @@
 niklan.about:
   path: '/about'
+  methods: [GET]
   defaults:
     _title: 'Niklan — freelance Drupal web-developer'
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::about'
+    _controller: Drupal\niklan\StaticPage\About\Controller\About
   requirements:
     _access: 'TRUE'
+
+niklan.about.settings:
+  path: '/admin/niklan/about'
+  methods: [GET, POST]
+  defaults:
+    _title: 'About settings'
+    _form: Drupal\niklan\StaticPage\About\Form\AboutSettingsForm
+  requirements:
+    _permission: 'administer site configuration'
+
+niklan.portfolio.settings:
+  path: '/admin/niklan/portfolio'
+  methods: [GET, POST]
+  defaults:
+    _title: 'Portfolio settings'
+    _form: Drupal\niklan\Portfolio\Form\PortfolioSettingsForm
+  requirements:
+    _permission: 'administer site configuration'
 
 niklan.support:
   path: '/support'
+  methods: [GET]
   defaults:
     _title: 'Support'
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::support'
+    _controller: Drupal\niklan\StaticPage\Support\Controller\Support
   requirements:
     _access: 'TRUE'
+
+niklan.support.settings:
+  path: '/admin/niklan/support'
+  methods: [GET, POST]
+  defaults:
+    _title: 'Support settings'
+    _form: Drupal\niklan\StaticPage\Support\Form\SupportSettingsForm
+  requirements:
+    _permission: 'administer site configuration'
+
+niklan.contact.settings:
+  path: '/admin/niklan/contact'
+  methods: [GET, POST]
+  defaults:
+    _title: 'Contact settings'
+    _form: Drupal\niklan\StaticPage\Contact\Form\ContactSettingsForm
+  requirements:
+    _permission: 'administer site configuration'
+
+niklan.services.settings:
+  path: '/admin/niklan/services'
+  methods: [GET, POST]
+  defaults:
+    _title: 'Services settings'
+    _form: Drupal\niklan\StaticPage\Services\Form\ServicesSettingsForm
+  requirements:
+    _permission: 'administer site configuration'
+
+niklan.home.settings:
+  path: '/admin/niklan/home'
+  methods: [GET, POST]
+  defaults:
+    _title: 'Home page settings'
+    _form: Drupal\niklan\StaticPage\Home\Form\HomeSettingsForm
+  requirements:
+    _permission: 'administer site configuration'
 
 niklan.services:
   path: '/services'
+  methods: [GET]
   defaults:
     _title: "Let's Work Together"
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::services'
+    _controller: Drupal\niklan\StaticPage\Services\Controller\Services
   requirements:
     _access: 'TRUE'
 
-niklan.comments:
-  path: '/comments'
-  defaults:
-    _title: 'Comments'
-    _controller: '\Drupal\niklan\Controller\CommentController::list'
-  requirements:
-    _permission: 'access comments'
-
 niklan.admin:
   path: '/admin/niklan'
+  methods: [GET]
   defaults:
-    _controller: '\Drupal\system\Controller\SystemController::overview'
-    _title: 'Niklan Settings'
+    _controller: Drupal\system\Controller\SystemController::overview
+    _title: 'Niklan.net settings'
     link_id: 'niklan.admin'
   requirements:
     _permission: 'access administration pages'
 
 niklan.admin_general:
   path: '/admin/niklan/general'
+  methods: [GET]
   defaults:
     link_id: 'niklan.admin_general'
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _controller: Drupal\system\Controller\SystemController::systemAdminMenuBlockPage
     _title: 'General settings'
   requirements:
     _permission: 'access administration pages'
 
-niklan.about_settings:
-  path: '/admin/niklan/about'
-  defaults:
-    _title: 'About settings'
-    _form: 'Drupal\niklan\Form\AboutSettingsForm'
-  requirements:
-    _permission: 'administer site configuration'
-
 niklan.blog_list:
   path: '/blog'
+  methods: [GET]
   defaults:
     _title: 'Blog posts'
-    _controller: '\Drupal\niklan\Controller\BlogController::list'
+    _controller: Drupal\niklan\Blog\Controller\BlogList
   requirements:
     _permission: 'access content'
 
 niklan.portfolio_list:
   path: '/portfolio'
+  methods: [GET]
   defaults:
     _title: 'Portfolio'
-    _controller: '\Drupal\niklan\Controller\PortfolioController::list'
+    _controller: Drupal\niklan\Portfolio\Controller\PortfolioList
   requirements:
     _permission: 'access content'
 
 niklan.search_page:
   path: '/search'
+  methods: [GET, POST]
   defaults:
-    _title: 'Search'
-    _controller: '\Drupal\niklan\Controller\SearchController::page'
-    _title_callback: '\Drupal\niklan\Controller\SearchController::pageTitle'
+    _title: 'Site search'
+    _controller: Drupal\niklan\Search\Controller\Search
   requirements:
     _permission: 'access content'
 
 niklan.tags:
   path: '/tags'
+  methods: [GET]
   defaults:
     _title: 'Tags'
-    _controller: '\Drupal\niklan\Controller\TagController::collection'
+    _controller: Drupal\niklan\Tag\Controller\TagList
   requirements:
     _permission: 'access content'
 
 niklan.contact:
   path: '/contact'
+  methods: [GET]
   defaults:
     _title: "Let's Talk"
-    _controller: '\Drupal\niklan\Controller\StaticPagesController::contact'
+    _controller: Drupal\niklan\StaticPage\Contact\Controller\Contact
   requirements:
     _permission: 'access content'
+
+niklan.home:
+  path: '/home'
+  methods: [GET]
+  defaults:
+    _title: 'Web Developer Blog'
+    _controller: Drupal\niklan\StaticPage\Home\Controller\Home
+  requirements:
+    _access: 'TRUE'

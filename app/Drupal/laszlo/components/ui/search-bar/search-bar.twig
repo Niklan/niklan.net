@@ -1,0 +1,28 @@
+{% do attributes.setAttribute('action', path('niklan.search_page')) %}
+{% do attributes.setAttribute('data-selector', 'laszlo:search-bar') %}
+<form{{ attributes.addClass('search-bar') }}>
+  {% include 'laszlo:text-input' with {
+    variant: 'plain',
+    attributes: create_attribute({
+      'class': ['search-bar__input'],
+    }),
+    input_attributes: create_attribute({
+      'name': 'q',
+      'type': 'text',
+      'placeholder': placeholder,
+      'data-input': '',
+    }),
+    full_width: true,
+  } only %}
+  {% embed 'laszlo:button' with {
+    attributes: create_attribute({
+      'class': ['search-bar__button'],
+      'aria-label': 'Do search'|t,
+    }),
+    type: 'submit',
+  } only %}
+    {% block start_icon %}
+      {% include 'laszlo:icon' with { icon: 'search' } only %}
+    {% endblock %}
+  {% endembed %}
+</form>

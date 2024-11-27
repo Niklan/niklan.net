@@ -22,7 +22,7 @@ use Drupal\filter\Plugin\FilterInterface;
  * content doesn't contains any of such paragraphs, so library wont be attached.
  * But this material can has code to highlight inside comments.
  *
- * @deprecated Remove it.
+ * @deprecated Remove it after a new theme is deployed.
  */
 #[Filter(
   id: 'niklan_prismjs',

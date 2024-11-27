@@ -1,0 +1,25 @@
+# What We Do in the Drupal.
+screenshot: screenshot.png
+name: Laszlo Cravensworth
+description: >-
+  Ah, there we are — blue jeans, and my toothpick. My foolproof human disguise
+  for whenever the shit hits the wind. Make me completely unrecognizable.
+type: theme
+base theme: false
+core_version_requirement: ^10
+regions:
+  content: Content
+libraries:
+  - laszlo/global
+
+libraries-override:
+  # Mainly attached for a maintenance page, but also includes a lot of other
+  # useless styles.
+  # This library is attached always, so it is kind of bad.
+  system/base: false
+  core/picturefill: false
+
+libraries-extend:
+  niklan/hljs:
+    - laszlo/hljs
+  core/drupal.message: false

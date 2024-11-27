@@ -16,6 +16,8 @@ use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
  *     "comment.*",
  *   }
  * )
+ *
+ * @deprecated Remove after new theme is deployed.
  */
 final class AuthorName extends ExtraFieldDisplayBase {
 

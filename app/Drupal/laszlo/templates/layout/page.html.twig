@@ -1,0 +1,11 @@
+{% embed 'laszlo:page' with {
+  header,
+  footer,
+  main: page.content,
+} only %}
+  {% block children %}
+    {{ header }}
+    {{ main }}
+    {{ footer }}
+  {% endblock %}
+{% endembed %}

@@ -63,8 +63,8 @@ msgstr "Последняя »"
 msgid "Created"
 msgstr "Дата создания"
 
-msgid "min."
-msgstr "мин."
+msgid "@minutes min."
+msgstr "@minutes мин."
 
 msgctxt "color scheme"
 msgid "Light"
@@ -318,3 +318,144 @@ msgstr "Позволяет настроить синхронизацию сод�
 
 msgid "Development version"
 msgstr "Версия для разработки"
+
+msgid "Site search"
+msgstr "Поиск по сайту"
+
+msgid "Time to read"
+msgstr "Время на чтение"
+
+msgid "Note"
+msgstr "Заметка"
+
+msgid "Tip"
+msgstr "Совет"
+
+msgid "Important"
+msgstr "Важно"
+
+msgid "Caution"
+msgstr "Осторожно"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Copied!"
+msgstr "Скопировано!"
+
+msgid "Table of contents"
+msgstr "Содержание"
+
+msgid "Filter headings"
+msgstr "Фильтрация по заголовкам"
+
+msgid "Previous article"
+msgstr "Предыдущий материал"
+
+msgid "Next article"
+msgstr "Следующий материал"
+
+msgid "Add comment"
+msgstr "Добавить комментарий"
+
+msgid "Laszlo Cravensworth"
+msgstr "Ласло Крейвенсворт"
+
+msgid "Website version"
+msgstr "Версия сайта"
+
+msgid "Content version"
+msgstr "Версия содержимого"
+
+msgid "@count publication"
+msgid_plural "@count publications"
+msgstr[0] "@count публикация"
+msgstr[1] "@count публикации"
+msgstr[2] "@count публикаций"
+
+msgid "Open the list of publications"
+msgstr "Открыть список публикаций"
+
+msgid "Publications with the @name tag"
+msgstr "Материалы по теме @name"
+
+msgid "Buy a cup of coffee"
+msgstr "Купить чашку кофе"
+
+msgid "Write to Telegram"
+msgstr "Написать в Телеграм"
+
+msgid "Niklan.net settings"
+msgstr "Настройки сайта Niklan.net"
+
+msgid "About page settings"
+msgstr "Настройки страницы \"Об авторе\""
+
+msgid "Configure an about page with an author biography and photo."
+msgstr "Настройте страницу \"Об авторе\" с биографией автора и фотографией."
+
+msgid "Services page settings"
+msgstr "Настройки страницы \"Услуги\""
+
+msgid "Configure a services page with a description and an hourly rate."
+msgstr "Настройте страницу \"Услуги\" с описанием и часовым тарифом."
+
+msgid "Support page settings"
+msgstr "Настройки страницы \"Поддержка\""
+
+msgid "Configure a support page with a description and a link to donate."
+msgstr "Настройте страницу \"Поддержка\" с описанием и ссылкой на пожертвование."
+
+msgid "Contact page settings"
+msgstr "Настройки страницы \"Контакты\""
+
+msgid "Configure a contact page."
+msgstr "Настройте страницу \"Контакты\"."
+
+msgid "Portfolio page settings"
+msgstr "Настройки страницы \"Портфолио\""
+
+msgid "Configure a portfolio page."
+msgstr "Настройте страницу \"Портфолио\"."
+
+msgid "Screenshots"
+msgstr "Скриншоты"
+
+msgid "Latest posts"
+msgstr "Последние публикации"
+
+msgid "TL;DR - ”I'd rather read a book”"
+msgstr "TL;DR — «Лучше бы книгу прочитал»"
+
+msgid "The most discussed"
+msgstr "Самые обсуждаемые"
+
+msgid "Opinion of anonymous users from the Internet"
+msgstr "Мнение анонимов из интернета"
+
+msgid "Markdown is supported"
+msgstr "Поддерживается Markdown"
+
+msgid "Comments temporarily disabled"
+msgstr "Комментарии временно отключены"
+
+msgid "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">There is a lot of spam going on.</a> I need some time to implement tools to moderate it via Telegram and bring them back again."
+msgstr "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">Слишком много спама.</a> Нужно немного времени чтобы реализовать инструменты для модерации спама через Телеграм и вернуть их обратно."
+
+msgid "Home page settings"
+msgstr "Настройки главной страницы"
+
+msgid "Configure the home page with an introductory text and promo cards."
+msgstr "Настройте домашнюю страницу с вводным текстом и промо-карточками."
+
+msgid "You need to provide a search query to see the results."
+msgstr "Вы должны указать поисковый запрос чтобы увидеть результаты."
+
+msgid "Nothing was found for your request."
+msgstr "Ничего не найдено по вашему запросу."
+
+msgid "Article menu"
+msgstr "Меню публикации"
+
+msgid "Open bigger image"
+msgstr "Открыть большое изображение"

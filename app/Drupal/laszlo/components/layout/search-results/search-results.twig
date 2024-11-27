@@ -1,0 +1,12 @@
+<div{{ attributes.addClass('search-results') }}>
+  {% if query is empty %}
+    <div class="search-results__empty">{{ no_query }}</div>
+  {% elseif block('results')|render|trim is empty %}
+    <div class="search-results__empty">{{ no_results }}</div>
+  {% else %}
+    <div class="search-results__results">{{ block('results') }}</div>
+    {% if pager %}
+      {{ pager }}
+    {% endif %}
+  {% endif %}
+</div>

@@ -4,7 +4,9 @@ module:
   antibot: 0
   block: 0
   breakpoint: 0
+  ckeditor5: 0
   comment: 0
+  config_translation: 0
   contextual: 0
   csp: 0
   ctools: 0
@@ -18,8 +20,10 @@ module:
   file: 0
   file_mdm: 0
   file_mdm_exif: 0
+  file_mdm_font: 0
   filter: 0
   image: 0
+  image_effects: 0
   imagemagick: 0
   language: 0
   layout_builder: 0
@@ -28,6 +32,7 @@ module:
   locale: 0
   media: 0
   media_library: 0
+  media_library_form_element: 0
   metatag: 0
   metatag_facebook: 0
   metatag_mobile: 0
@@ -51,6 +56,7 @@ module:
   rh_taxonomy: 0
   search_api: 0
   search_api_db: 0
+  serialization: 0
   simple_sitemap: 0
   sophron: 0
   sophron_guesser: 0
@@ -68,8 +74,7 @@ module:
   views: 10
   niklan_installer: 1000
 theme:
-  glisseo: 0
   claro: 0
-  mechanical: 0
   stable9: 0
+  laszlo: 0
 profile: niklan_installer

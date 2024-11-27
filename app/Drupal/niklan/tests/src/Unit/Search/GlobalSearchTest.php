@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Search;
 
-use Drupal\niklan\Data\SearchParams;
-use Drupal\niklan\Search\GlobalSearch;
+use Drupal\niklan\Search\Data\SearchParams;
+use Drupal\niklan\Search\Repository\GlobalSearch;
 use Drupal\Tests\niklan\Traits\SearchTrait;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Provides test for global search.
  *
- * @covers \Drupal\niklan\Search\GlobalSearch
+ * @covers \Drupal\niklan\Search\Repository\GlobalSearch
  */
 final class GlobalSearchTest extends UnitTestCase {
 

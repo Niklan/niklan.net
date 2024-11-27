@@ -9,12 +9,10 @@ dependencies:
     - field.field.node.portfolio.field_link
     - field.field.node.portfolio.field_media_images
     - field.field.node.portfolio.field_portfolio_categories
+    - image.style.178x178_contain
     - image.style.big_image
     - node.type.portfolio
-    - responsive_image.styles.node_portfolio_full_photo_thumb
   module:
-    - datetime
-    - link
     - photoswipe
     - text
     - user
@@ -28,47 +26,28 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
-    region: content
-  field_date:
-    type: datetime_custom
-    label: hidden
-    settings:
-      timezone_override: ''
-      date_format: 'Y'
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_link:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: nofollow
-      target: _blank
-    third_party_settings: {  }
     weight: 1
     region: content
   field_media_images:
-    type: photoswipe_responsive_field_formatter
+    type: photoswipe_field_formatter
     label: hidden
     settings:
       photoswipe_node_style_first: ''
-      photoswipe_node_style: node_portfolio_full_photo_thumb
+      photoswipe_node_style: 178x178_contain
       photoswipe_image_style: big_image
       photoswipe_reference_image_field: field_media_image
-      photoswipe_caption: title
+      photoswipe_caption: alt
       photoswipe_caption_custom: ''
       photoswipe_view_mode: full
     third_party_settings: {  }
-    weight: 3
+    weight: 0
     region: content
 hidden:
   estimated_read_time: true
   extra_field_previous_next: true
   extra_field_share: true
+  field_date: true
+  field_link: true
   field_portfolio_categories: true
   langcode: true
   links: true

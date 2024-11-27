@@ -1,0 +1,16 @@
+{%
+  set classes = [
+    'text-input',
+    'text-input--variant--' ~ variant|default('outlined'),
+    'text-input--color--' ~ color|default('primary'),
+    'text-input--size--' ~ size|default('medium'),
+    disabled ? 'text-input--disabled',
+    full_width ? 'text-input--full-width',
+  ]
+%}
+{% do disabled ? input_attributes.setAttribute('disabled', 'disabled') %}
+<div{{ attributes.addClass(classes) }}>
+  {% block start_decorator %}{% endblock %}
+  <input{{ input_attributes.addClass('text-input__input') }}/>
+  {% block end_decorator %}{% endblock %}
+</div>

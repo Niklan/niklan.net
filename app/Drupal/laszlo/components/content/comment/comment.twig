@@ -1,0 +1,28 @@
+{% do attributes.addClass('comment') %}
+{% do attributes.setAttribute('id', anchor) %}
+<article{{ attributes }}>
+  <header class="comment__attribution">
+    <div class="comment__author-name">{{ author_name }}</div>
+    {% if homepage %}
+      <span class="comment__attribution-separator">•</span>
+      <a href="{{ homepage }}"
+         rel="nofollow noopener"
+         target="_blank"
+         class="comment__author-homepage">
+        {{ 'Homepage'|t }}
+      </a>
+    {% endif %}
+    <span class="comment__attribution-separator">•</span>
+    <a href="{{ permalink_url }}" class="comment__created">{{ created_timestamp|format_date('medium') }}</a>
+  </header>
+
+  <div class="prose comment__body">{% block body %}{% endblock %}</div>
+  {#
+    /**
+     * ".comment__actions" class is added in links--comment.html.twig.
+     * This is because links are built using lazy builders and we can't pass it
+     * here.
+     */
+  #}
+  {% block actions %}{% endblock %}
+</article>

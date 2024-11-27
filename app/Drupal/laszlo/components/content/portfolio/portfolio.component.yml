@@ -1,0 +1,20 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Portfolio
+status: experimental
+group: content
+props:
+  type: object
+  properties:
+    project_url:
+      title: Project URL
+      type: [string, 'null']
+    year_of_completion:
+      title: Year of Completion
+      type: [ 'null', string ]
+    description:
+      title: Description
+      type: [array, string]
+    photos:
+      title: Photos
+      type: [array, string]
+

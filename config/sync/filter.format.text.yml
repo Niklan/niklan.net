@@ -1,0 +1,23 @@
+uuid: d61c4b75-8cbb-4b54-a6b9-32342d80f382
+langcode: ru
+status: true
+dependencies: {  }
+name: Текст
+format: text
+weight: -8
+filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<br> <p> <h2 id="jump-*"> <h3 id> <h4 id> <h5 id> <h6 id> <mark> <cite> <dl> <dt> <dd> <a hreflang href> <blockquote cite> <ul type> <ol type="1 A I" start> <strong> <em> <code> <li>'
+      filter_html_help: false
+      filter_html_nofollow: false

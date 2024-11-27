@@ -1,0 +1,41 @@
+<div{{ attributes.addClass('home-cards') }}>
+  {% for card in cards %}
+    {{ _self.card(card.title, card.description, card.background_uri) }}
+  {% endfor %}
+</div>
+
+{% macro card(title, description, background_uri) %}
+  <div class="home-cards__card">
+    <div class="home-cards__content">
+      <h2 class="home-cards__title">{{ title }}</h2>
+      <div class="prose home-cards__description">{{ description }}</div>
+    </div>
+
+    {% if background_uri %}
+      {% include 'laszlo:image' with {
+        attributes: create_attribute({
+          class: ['home-cards__background'],
+        }),
+        src: background_uri|image_style('400x400'),
+        width: 400,
+        height: 400,
+        loading: 'eager',
+        alt: title,
+        sizes: [
+          '(max-width: 424px) 392px',
+          '(max-width: 639px) 607px',
+          '(max-width: 767px) 360px',
+          '(max-width: 1023px) 488px',
+          '(max-width: 1199px) 576px',
+          '374px',
+        ],
+        srcset: {
+          '400w': background_uri|image_style('400x400'),
+          '600w': background_uri|image_style('600x600'),
+          '800w': background_uri|image_style('800x800'),
+          '1200w': background_uri|image_style('1200x1200'),
+        }
+      } only %}
+    {% endif %}
+  </div>
+{% endmacro %}

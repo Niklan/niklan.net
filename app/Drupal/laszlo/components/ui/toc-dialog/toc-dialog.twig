@@ -1,0 +1,38 @@
+{% do attributes.setAttribute('x-data', 'ToCDialog') %}
+<div{{ attributes.addClass('toc-dialog') }}>
+  <div class="toc-dialog__section">
+    {% embed 'laszlo:form-element' with {
+      attributes: create_attribute({
+        'class': 'share-dialog__url',
+      }),
+      children_attributes: create_attribute({
+        'class': 'share-dialog__copy-element',
+      }),
+      url,
+      size: 'large',
+    } only %}
+      {% block children %}
+        {% include 'laszlo:text-input' with {
+          input_attributes: create_attribute({
+            'type': 'text',
+            'placeholder': 'Filter headings'|t,
+            'x-model': 'query',
+          }),
+          full_width: true,
+          size,
+        } only %}
+      {% endblock %}
+    {% endembed %}
+  </div>
+
+  <div class="toc-dialog__headings">
+    {% for toc_link in toc_links %}
+      <a href="{{ toc_link.anchor }}"
+         x-show="isVisible($el)"
+         @click.passive="$dispatch('dialog:close')"
+         class="toc-dialog__link toc-dialog__link--indent-{{ toc_link.indent }}">
+        {{ toc_link.text }}
+      </a>
+    {% endfor %}
+  </div>
+</div>

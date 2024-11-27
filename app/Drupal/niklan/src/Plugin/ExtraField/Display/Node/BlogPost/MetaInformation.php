@@ -10,7 +10,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
 use Drupal\external_content\Contract\Node\NodeInterface as ContentNodeInterface;
 use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
-use Drupal\niklan\Helper\EstimatedReadTimeCalculator;
+use Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,6 +22,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *     "node.blog_entry",
  *   }
  * )
+ *
+ * @deprecated Remove after a new theme is deployed
  */
 final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
 

@@ -1,0 +1,29 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: FAB
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - icon
+    - label
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: Wrapper attributes.
+    icon:
+      title: Icon
+      type: string
+    label:
+      title: Label
+      type: string
+    url:
+      title: URL
+      type: string
+      format: iri-reference
+      description: |-
+        The button URL. If not supplied, instead <a> it will be a <button>
+    counter:
+      title: Counter
+      type: [string, 'null']

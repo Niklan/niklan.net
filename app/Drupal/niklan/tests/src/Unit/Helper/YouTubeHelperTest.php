@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Helper;
 
+use Drupal\niklan\Utils\YouTubeHelper;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass \Drupal\niklan\Helper\YouTubeHelper
+ * @coversDefaultClass \Drupal\niklan\Utils\YouTubeHelper
  */
 final class YouTubeHelperTest extends UnitTestCase {
 

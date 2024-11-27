@@ -1,0 +1,7 @@
+{% embed 'laszlo:comment-thread' with {
+  depth,
+  thread_id,
+  comments,
+} only %}
+  {% block comments %}{{ comments }}{% endblock %}
+{% endembed %}

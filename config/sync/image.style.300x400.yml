@@ -1,0 +1,21 @@
+uuid: 58cd1fa6-2807-47bb-8032-ae0a92a48499
+langcode: ru
+status: true
+dependencies: {  }
+name: 300x400
+label: 300×400
+effects:
+  1b903ab2-ca37-473f-b4a2-ae03970c4a9f:
+    uuid: 1b903ab2-ca37-473f-b4a2-ae03970c4a9f
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  933082a2-573a-41ad-a503-01c5aa7595c7:
+    uuid: 933082a2-573a-41ad-a503-01c5aa7595c7
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 300
+      height: 400
+      anchor: center-center

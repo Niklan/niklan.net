@@ -1,0 +1,34 @@
+@layer component.ui {
+  .lightbox__link {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-4);
+    border-radius: var(--spacing-4);
+    background: var(--color-surface-container-high);
+  }
+
+  .lightbox__link img {
+    border-radius: var(--spacing-2);
+    box-shadow: var(--elevation-1);
+  }
+
+  .lightbox__icon {
+    --icon-wrapper-width: 40px;
+    --icon-width: 24px;
+
+    position: absolute;
+    z-index: 5;
+    top: var(--spacing-8);
+    right: var(--spacing-8);
+    transition: opacity 0.25s linear;
+    opacity: 0;
+    border-radius: var(--spacing-2);
+    background-color: var(--color-surface-container-low);
+    box-shadow: var(--elevation-5);
+  }
+
+  .lightbox:hover .lightbox__icon {
+    opacity: 1;
+  }
+}

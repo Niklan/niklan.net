@@ -1,0 +1,18 @@
+@layer component.content {
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: var(--author-page-content-gap, var(--spacing-12));
+  }
+
+  .services__cta {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .services__hourly-rate {
+    text-align: center;
+    font: var(--typography-display-medium);
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,31 @@
+@layer component.ui {
+  .share-dialog {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .share-dialog__copy-element {
+    display: flex;
+    flex-flow: nowrap;
+    align-items: stretch;
+    width: 100%;
+    gap: var(--spacing-2);
+  }
+
+  .share-dialog__links {
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .share-dialog__link {
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .share-dialog__link .icon {
+    width: 2rem;
+  }
+}

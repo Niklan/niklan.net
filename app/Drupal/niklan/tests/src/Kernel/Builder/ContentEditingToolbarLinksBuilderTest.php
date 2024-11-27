@@ -9,14 +9,14 @@ use Drupal\Core\Menu\LocalTaskManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Security\DoTrustedCallbackTrait;
 use Drupal\Core\Url;
-use Drupal\niklan\Builder\ContentEditingToolbarLinksBuilder;
+use Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use Prophecy\Argument;
 
 /**
  * Provides a test for content editing toolbar links.
  *
- * @covers \Drupal\niklan\Builder\ContentEditingToolbarLinksBuilder
+ * @covers \Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder
  */
 final class ContentEditingToolbarLinksBuilderTest extends NiklanTestBase {
 

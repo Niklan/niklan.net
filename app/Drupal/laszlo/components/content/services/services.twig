@@ -1,0 +1,26 @@
+<div{{ attributes.addClass('services') }}>
+  <div class="prose services__description">
+    {{ description }}
+
+    <div class="services__hourly-rate">{{ hourly_rate }}</div>
+  </div>
+
+  <footer class="services__footer">
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['services__cta'],
+      }),
+      component: 'a',
+      href: path('niklan.contact'),
+      variant: 'contained',
+      size: 'large',
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'envelope' } only %}
+      {% endblock %}
+      {% block children %}
+        {{ "Let's Talk"|t }}
+      {% endblock %}
+    {% endembed %}
+  </footer>
+</div>

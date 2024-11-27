@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Data;
 
-use Drupal\niklan\Data\EntitySearchResult;
+use Drupal\niklan\Search\Data\EntitySearchResult;
 use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests the entity search result item DTO.
  *
- * @coversDefaultClass \Drupal\niklan\Data\EntitySearchResult
+ * @coversDefaultClass \Drupal\niklan\Search\Data\EntitySearchResult
  */
 final class EntitySearchResultTest extends UnitTestCase {
 

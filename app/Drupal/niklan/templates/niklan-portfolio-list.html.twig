@@ -6,10 +6,6 @@
  * Available variables:
  * - attributes: The main wrapper element attributes.
  * - items: An array with portfolio items.
+ * - description: The page description.
  */
 #}
-<section{{ attributes.addClass('portfolio-list') }}>
-  {% for item in items %}
-    {{ item }}
-  {% endfor %}
-</section>

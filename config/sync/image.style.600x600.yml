@@ -1,0 +1,21 @@
+uuid: 65289967-12e7-4759-a76d-cfa44c6fd0b6
+langcode: ru
+status: true
+dependencies: {  }
+name: 600x600
+label: 600×600
+effects:
+  996d700a-95f2-4613-a093-2f4c8a9e3e2a:
+    uuid: 996d700a-95f2-4613-a093-2f4c8a9e3e2a
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  b6ba2006-3ee0-47c4-b312-a56c4568ca28:
+    uuid: b6ba2006-3ee0-47c4-b312-a56c4568ca28
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 600
+      height: 600
+      anchor: center-center

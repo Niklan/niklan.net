@@ -1,0 +1,54 @@
+@layer component.layout {
+  .author-page {
+    --author-page-content-gap: var(--spacing-12);
+
+    display: grid;
+    gap: var(--spacing-12);
+
+    @media screen and (min-width: 1200px) {
+      gap: var(--spacing-6);
+      grid-template-columns: 1fr 320px;
+    }
+  }
+
+  .author-page__content {
+    display: flex;
+    flex-direction: column;
+    order: 2;
+    border-radius: var(--spacing-4);
+    gap: var(--author-page-content-gap);
+
+    @media screen and (min-width: 640px) {
+      padding: var(--spacing-16) var(--spacing-12);
+      background-color: var(--color-surface-container-low);
+    }
+
+    @media screen and (min-width: 1200px) {
+      order: initial;
+    }
+  }
+
+  .author-page__navigation {
+    position: sticky;
+    top: var(--spacing-6);
+    display: grid;
+    flex-direction: column;
+    gap: var(--spacing-4);
+
+    @media screen and (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .author-page__title {
+    font: var(--typography-display-small);
+
+    @media screen and (min-width: 640px) {
+      font: var(--typography-display-medium);
+    }
+  }
+}

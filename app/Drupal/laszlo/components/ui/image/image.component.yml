@@ -1,0 +1,38 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Image
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - src
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Wrapper attributes
+    src:
+      title: Image URL
+      type: string
+    width:
+      title: Image width
+      type: [string, integer ]
+    height:
+      title: Image height
+      type: [string, integer]
+    alt:
+      title: Image alt
+      type: string
+    loading:
+      title: Image loading
+      enum:
+        - eager
+        - lazy
+      type: string
+      default: lazy
+    srcset:
+      title: Image srcset
+      type: array
+    sizes:
+      title: Image sizes
+      type: array
+      default: '100vw'

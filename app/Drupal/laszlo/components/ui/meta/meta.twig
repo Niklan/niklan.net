@@ -1,0 +1,7 @@
+<div{{ attributes.addClass('meta') }}>
+  {{ include('laszlo:icon', { icon }, with_context = false) }}
+  {% if label %}
+    <span class="meta__label">{{ label }}:</span>
+  {% endif %}
+  <span class="meta__value">{{ value }}</span>
+</div>

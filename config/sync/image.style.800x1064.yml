@@ -1,0 +1,21 @@
+uuid: 779f618f-d39c-4639-b7ae-fb3e6d43ad77
+langcode: ru
+status: true
+dependencies: {  }
+name: 800x1064
+label: 800×1064
+effects:
+  c1ca151e-e14a-49ad-a815-98c8da8dd644:
+    uuid: c1ca151e-e14a-49ad-a815-98c8da8dd644
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  756b902b-9f97-4a58-8da3-c825f22110ef:
+    uuid: 756b902b-9f97-4a58-8da3-c825f22110ef
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 800
+      height: 1064
+      anchor: center-center

@@ -1,0 +1,20 @@
+{% set as_template = as_template is defined ? as_template : false %}
+{% set element = href ? 'a' : 'button' %}
+{% do element == 'button' ? attributes.setAttribute('type', type|default('button')) %}
+{% do href  ? attributes.setAttribute('href', href) %}
+{% do disabled ? attributes.setAttribute('disabled', 'disabled') %}
+{% do value ? attributes.setAttribute('value', value) %}
+{% do name ? attributes.setAttribute('name', name) %}
+{%
+  set classes = [
+    'button',
+    not as_template ? 'button--variant--' ~ variant|default('solid'),
+    not as_template ? 'button--color--' ~ color|default('primary'),
+    not as_template ? 'button--size--' ~ size|default('medium'),
+  ]
+%}
+<{{ element }}{{ attributes.addClass(classes) }}>
+  {% block start_icon %}{% endblock %}
+  {% block children %}{% endblock %}
+  {% block end_icon %}{% endblock %}
+</{{ element }}>

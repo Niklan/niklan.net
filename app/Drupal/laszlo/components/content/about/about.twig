@@ -1,0 +1,49 @@
+<div{{ attributes.addClass('about') }}>
+  <header class="about__head">
+    <div class="about__intro">
+      <h2 class="about__subtitle">{{ subtitle }}</h2>
+      <h1 class="about__title">{{ title }}</h1>
+      <div class="prose about__summary">
+        {{ summary }}
+      </div>
+    </div>
+
+    <div class="about__media">
+      {% if photo_uri %}
+        {% include 'laszlo:image' with {
+          attributes: create_attribute({
+            class: ['about__photo'],
+          }),
+          src: photo_uri|image_style('200x200_contain'),
+          width: 200,
+          height: 200,
+          alt: "Author's photo"|t,
+          loading: 'eager',
+        } only %}
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="prose about__description">
+    {{ description }}
+  </div>
+
+  <footer class="about__footer">
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['about__cta'],
+      }),
+      component: 'a',
+      href: path('niklan.services'),
+      variant: 'contained',
+      size: 'large',
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'case' } only %}
+      {% endblock %}
+      {% block children %}
+        {{ 'Hire me'|t }}
+      {% endblock %}
+    {% endembed %}
+  </footer>
+</div>

@@ -1,0 +1,9 @@
+{
+    "name": "niklan/laszlo",
+    "type": "drupal-custom-theme",
+    "version": "1.0.0-dev",
+    "require": {
+        "niklan/niklan": "^1.0@dev",
+        "niklan-asset/lora": "^35"
+    }
+}

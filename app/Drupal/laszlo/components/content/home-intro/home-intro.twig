@@ -1,0 +1,42 @@
+<section{{ attributes.addClass('home-intro') }}>
+  <h1 class="home-intro__heading">{{ heading }}</h1>
+  <div class="prose home-intro__description">
+    {{ description }}
+  </div>
+
+  <footer class="home-intro__actions">
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['home-intro__cta'],
+      }),
+      component: 'a',
+      href: path('niklan.blog_list'),
+      variant: 'contained',
+      size: 'large',
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'documents-bold' } only %}
+      {% endblock %}
+      {% block children %}
+        {{ 'All posts'|t }}
+      {% endblock %}
+    {% endembed %}
+
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['home-intro__cta'],
+      }),
+      component: 'a',
+      href: path('niklan.about'),
+      variant: 'outlined',
+      size: 'large',
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'user-id-bold-duotone' } only %}
+      {% endblock %}
+      {% block children %}
+        {{ 'About'|t({}, {'context': 'author'}) }}
+      {% endblock %}
+    {% endembed %}
+  </footer>
+</section>

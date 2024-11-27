@@ -1,0 +1,38 @@
+{% set show_title = show_title is null ? true : show_title %}
+<div{{ attributes.addClass('author-page') }}>
+  <div class="author-page__content">
+    {% if show_title %}
+      <h1 class="author-page__title">{{- drupal_title() -}}</h1>
+    {% endif %}
+    {% block children %}{% endblock %}
+  </div>
+
+  <aside class="author-page__sidebar">
+    <nav class="author-page__navigation">
+      {% include 'laszlo:author-page-navigation-item' with {
+        label: 'About'|t({}, { context:'author' }),
+        url: path('niklan.about'),
+        icon: 'user-id-bold-duotone',
+        active_trail_pattern: '\/about$',
+      } only %}
+      {% include 'laszlo:author-page-navigation-item' with {
+        label: 'Services'|t({}, { context:'work' }),
+        url: path('niklan.services'),
+        icon: 'case',
+        active_trail_pattern: '\/(services|portfolio(\/.*)?)$',
+      } only %}
+      {% include 'laszlo:author-page-navigation-item' with {
+        label: 'Support'|t,
+        url: path('niklan.support'),
+        icon: 'coffee-half-empty-twotone-loop',
+        active_trail_pattern: '\/support$',
+      } only %}
+      {% include 'laszlo:author-page-navigation-item' with {
+        label: 'Contact'|t({}, { context: 'menu' }),
+        url: path('niklan.contact'),
+        icon: 'envelope',
+        active_trail_pattern: '\/contact$',
+      } only %}
+    </nav>
+  </aside>
+</div>

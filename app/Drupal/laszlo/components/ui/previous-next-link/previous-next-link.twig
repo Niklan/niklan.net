@@ -1,0 +1,22 @@
+{% do attributes.addClass([
+  'previous-next-link',
+  'previous-next-link--type--' ~ type,
+]) %}
+{% do attributes.setAttribute('href', href) %}
+{% do attributes.setAttribute('title', text) %}
+{% do attributes.setAttribute('aria-label', type == 'previous' ? 'Previous article'|t : 'Next article'|t) %}
+{% do attributes.setAttribute('rel', 'bookmark') %}
+<a{{ attributes }}>
+  {% include 'laszlo:icon' with {
+    attributes: create_attribute({
+      class: ['previous-next-link__icon'],
+    }),
+    icon: type == 'previous' ? 'arrow-right': 'arrow-left',
+  } only %}
+  <div class="previous-next-link__content">
+    <div class="previous-next-link__label">
+      {{- type == 'previous' ? 'Previous article'|t : 'Next article'|t -}}
+    </div>
+    <div class="previous-next-link__text">{{ text }}</div>
+  </div>
+</a>

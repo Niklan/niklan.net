@@ -1,0 +1,18 @@
+@layer base {
+  :root {
+    --default-focus-outline-width: 2px;
+    --default-focus-outline-color: var(--color-primary-container);
+    --default-focus-outline: var(--default-focus-outline-width) solid
+      var(--default-focus-outline-color);
+  }
+
+  :focus {
+    --_focus-outline: var(--focus-outline, var(--default-focus-outline, none));
+
+    outline: var(--_focus-outline);
+  }
+
+  .is-using-mouse :focus {
+    --_focus-outline: none;
+  }
+}

@@ -1,0 +1,12 @@
+{% do attributes.setAttribute('href', url) %}
+{% do attributes.setAttribute('title', label) %}
+{% do active_trail_pattern ? attributes.setAttribute('data-navigation-active-trail-pattern', active_trail_pattern) %}
+{% do active_trail_pattern ? attributes.setAttribute('data-navigation-active-trail-class', 'main-navigation-item--active-trail') %}
+<a{{ attributes.addClass('main-navigation-item') }}>
+  {% if icon %}
+    {% include 'laszlo:icon' with { icon } only %}
+  {% endif %}
+  <span class="main-navigation-item__label">
+    {{ label }}
+  </span>
+</a>

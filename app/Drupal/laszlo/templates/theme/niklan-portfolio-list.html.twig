@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display portfolio list.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - items: An array with portfolio items.
+ * - description: The page description.
+ */
+#}
+{% embed 'laszlo:author-page' %}
+  {% block children %}
+    {% include 'laszlo:portfolio-list' with {
+      description,
+      items,
+    } only %}
+  {% endblock %}
+{% endembed %}

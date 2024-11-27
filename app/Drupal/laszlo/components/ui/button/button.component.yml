@@ -1,0 +1,69 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Button
+status: experimental
+group: atoms
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+      description: Button attributes.
+    as_template:
+      title: Render as template
+      description: >
+        If marked as a template, the variant, color and size have no effect.
+        Use CSS variables and other tools to customize the button!
+      type: boolean
+      default: false
+    variant:
+      title: Variant
+      type: string
+      enum:
+        - text
+        - contained
+        - outlined
+      default: text
+    color:
+      title: Color
+      type: string
+      enum:
+        - primary
+        - secondary
+        - danger
+      default: primary
+    size:
+      title: Size
+      type: string
+      enum:
+        - small
+        - medium
+        - large
+      default: medium
+    disabled:
+      title: Disabled
+      type: boolean
+    href:
+      title: URL
+      type: string
+    type:
+      title: Type
+      type: string
+      enum:
+        - submit
+        - reset
+        - button
+      default: button
+    value:
+      title: Value
+      type: [string, integer]
+    name:
+      title: Name
+      type: string
+slots:
+  children:
+    title: Children content
+  start_icon:
+    title: Start icon
+  end_icon:
+    title: End icon

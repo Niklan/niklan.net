@@ -273,7 +273,7 @@ a.pswp__share--download:hover {
 .pswp__caption__center {
   text-align: left;
   max-width: 420px;
-  margin: 0 auto;
+  margin-inline: auto;
   font-size: 13px;
   padding: 10px;
   line-height: 20px;

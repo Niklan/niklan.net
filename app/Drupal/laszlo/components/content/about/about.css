@@ -1,0 +1,56 @@
+@layer component.content {
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: var(--author-page-content-gap, var(--spacing-12));
+  }
+
+  .about__head {
+    display: grid;
+    gap: var(--spacing-6);
+
+    @media screen and (min-width: 640px) {
+      grid-template-columns: 1fr max-content;
+    }
+  }
+
+  .about__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .about__title {
+    font: var(--typography-headline-medium);
+  }
+
+  .about__subtitle {
+    font: var(--typography-headline-small);
+  }
+
+  .about__media {
+    display: flex;
+    overflow: hidden;
+    align-items: flex-start;
+    align-self: flex-start;
+    justify-content: center;
+    border-radius: var(--spacing-4);
+    background: var(--color-primary-container);
+    background-image: radial-gradient(
+        circle at top right,
+        var(--color-on-primary-fixed),
+        transparent
+      ),
+      radial-gradient(
+        circle at bottom left,
+        var(--color-on-primary-fixed-variant),
+        transparent
+      );
+    box-shadow: var(--elevation-1);
+  }
+
+  .about__cta {
+    justify-content: center;
+    width: 100%;
+  }
+}

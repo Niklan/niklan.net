@@ -1,0 +1,37 @@
+@layer component.ui {
+  .branding {
+    --logo-fill-1: var(--color-surface-container-high);
+    --logo-fill-2: var(--color-surface-container-highest);
+    --logo-fill-3: var(--color-surface-container-low);
+    --logo-fill-4: var(--color-surface-tint);
+
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    text-decoration: none;
+    gap: var(--spacing-5);
+  }
+
+  .branding svg {
+    width: 64px;
+  }
+
+  .branding__info {
+    display: none;
+    flex-shrink: 0;
+
+    @media screen and (min-width: 640px) {
+      display: block;
+    }
+  }
+
+  .branding__name {
+    color: var(--color-secondary);
+    font: var(--typography-headline-medium);
+  }
+
+  .branding__slogan {
+    color: var(--color-on-surface);
+    font: var(--typography-title-small);
+  }
+}

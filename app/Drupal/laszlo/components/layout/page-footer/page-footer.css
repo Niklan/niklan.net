@@ -1,0 +1,35 @@
+@layer component.layout {
+  .page-footer {
+    --link-color: var(--color-on-surface);
+
+    display: grid;
+    /* Add extra bottom padding to avoid overlap with nav. */
+    padding: var(--spacing-10) 0 calc(var(--spacing-10) * 3) 0;
+    color: var(--color-on-surface);
+    font: var(--typography-label-large);
+    gap: var(--spacing-4);
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: 1fr 300px;
+    }
+  }
+
+  .page-footer__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+
+  .page-footer__versions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .page-footer__extra {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+    align-items: flex-start;
+  }
+}

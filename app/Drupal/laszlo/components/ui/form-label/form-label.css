@@ -1,0 +1,11 @@
+@layer component.ui {
+  .form-label {
+    font: var(--typography-label-large);
+  }
+
+  .form-label--required::after {
+    display: inline;
+    content: "*";
+    color: var(--color-error);
+  }
+}

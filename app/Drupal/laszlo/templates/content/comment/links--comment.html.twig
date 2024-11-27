@@ -1,0 +1,35 @@
+{% if comment_reply or comment_edit or comment_delete %}
+  {# See "comment" component for explanation. #}
+  <footer class="comment__actions">
+    {% if comment_reply %}
+      {{ _self.action(comment_reply.label, comment_reply.url, 'reply') }}
+    {% endif %}
+    {% if comment_edit %}
+      {{ _self.action(comment_edit.label, comment_edit.url, 'edit') }}
+    {% endif %}
+    {% if comment_delete %}
+      {{ _self.action(comment_delete.label, comment_delete.url, 'trash', 'danger') }}
+    {% endif %}
+  </footer>
+{% endif %}
+
+{% macro action(label, href, icon, color = 'secondary') %}
+  {% embed 'laszlo:button' with {
+    attributes: create_attribute({
+      'class': ['comment-action'],
+    }),
+    variant: 'text',
+    color,
+    href,
+    label,
+    icon,
+    size: 'small',
+  } only %}
+    {% block start_icon %}
+      {% include 'laszlo:icon' with { icon } only %}
+    {% endblock %}
+    {% block children %}
+      {{ label }}
+    {% endblock %}
+  {% endembed %}
+{% endmacro %}

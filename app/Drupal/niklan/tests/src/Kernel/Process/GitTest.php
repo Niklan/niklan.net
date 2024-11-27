@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Kernel\Process;
 
-use Drupal\niklan\Process\GitInterface;
+use Drupal\niklan\Console\Process\GitInterface;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 
 /**
  * Provides test for testing Git process.
  *
- * @coversDefaultClass \Drupal\niklan\Process\Git
+ * @coversDefaultClass \Drupal\niklan\Console\Process\Git
  */
 final class GitTest extends NiklanTestBase {
 
@@ -49,7 +49,7 @@ final class GitTest extends NiklanTestBase {
   #[\Override]
   protected function setUp(): void {
     parent::setUp();
-    $this->git = $this->container->get('niklan.process.git');
+    $this->git = $this->container->get(GitInterface::class);
   }
 
 }

@@ -1,0 +1,12 @@
+@layer element {
+  code {
+    font: var(--typography-code);
+  }
+
+  :not(pre) > code {
+    padding: var(--spacing-1);
+    word-break: break-word;
+    border-radius: var(--spacing-1);
+    background: var(--color-surface-container-highest);
+  }
+}

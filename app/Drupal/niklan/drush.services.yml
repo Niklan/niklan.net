@@ -1,6 +1,6 @@
 services:
   niklan.sync.blog:
-    class: Drupal\niklan\Command\BlogSync
+    class: Drupal\niklan\ExternalContent\Command\BlogSync
     arguments:
       - '@Drupal\external_content\ExternalContent\ExternalContentManager'
     tags:

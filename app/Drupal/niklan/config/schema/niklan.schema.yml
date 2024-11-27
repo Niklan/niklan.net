@@ -1,33 +1,17 @@
-block.settings.niklan_blog_post_tags:
-  type: block_settings
-  label: 'Blog post tags block'
-  mapping:
-    content:
-      type: string
-      label: Content
-
-block.settings.niklan_search:
-  type: block_settings
-  label: 'Search block'
-  mapping:
-    content:
-      type: string
-      label: Content
-
 filter_settings.niklan_markdown:
   type: filter
   label: 'Markdown filter'
 
 field.formatter.settings.niklan_responsive_media_thumbnail:
   type: mapping
-  label: 'Responsive media thumbnail formatter settings'
+  label: Responsive media thumbnail
   mapping:
-    image_link:
-      type: string
-      label: 'Link for image'
     responsive_image_style:
       type: string
-      label: 'The responsive image style ID'
+      label: 'Responsive image style'
+    image_link:
+      type: string
+      label: 'Link image to'
     image_loading:
       type: mapping
       label: 'Image loading settings'
@@ -35,11 +19,3 @@ field.formatter.settings.niklan_responsive_media_thumbnail:
         attribute:
           type: string
           label: 'Loading attribute'
-
-field.formatter.settings.niklan_media_remote_video_optimized:
-  type: mapping
-  label: 'Optimized remote video formatter'
-  mapping:
-    responsive_image_style:
-      type: string
-      label: 'The responsive image style ID'

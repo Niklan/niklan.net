@@ -1,0 +1,21 @@
+uuid: fbbfef05-bf54-486d-985a-5d5a218435f7
+langcode: ru
+status: true
+dependencies: {  }
+name: 800x800
+label: 800×800
+effects:
+  c7efcc39-5b96-4b05-95d7-143de9b96877:
+    uuid: c7efcc39-5b96-4b05-95d7-143de9b96877
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  e23447bc-fa84-4564-8127-bb83661015f0:
+    uuid: e23447bc-fa84-4564-8127-bb83661015f0
+    id: image_scale_and_crop
+    weight: 2
+    data:
+      width: 800
+      height: 800
+      anchor: center-center

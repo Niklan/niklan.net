@@ -1,0 +1,16 @@
+@layer component.layout {
+  .comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+
+  .comment-list__items {
+    display: grid;
+    gap: var(--spacing-4);
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

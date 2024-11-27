@@ -1,0 +1,8 @@
+{% do attributes.setAttribute('href', href) %}
+{% do attributes.addClass([
+  'chip',
+  'chip--variant--' ~ variant|default('filled'),
+  'chip--size--' ~ size|default('medium'),
+  'chip--color--' ~ color|default('default'),
+]) %}
+<a{{ attributes }}>{{ label }}</a>

@@ -1,0 +1,21 @@
+uuid: 12bfe456-8f5d-4263-8450-b2bf34045dc8
+langcode: ru
+status: true
+dependencies: {  }
+name: 1000xy
+label: 1000×Y
+effects:
+  14064a25-1cfa-43d2-8e69-1dd3f7fd6054:
+    uuid: 14064a25-1cfa-43d2-8e69-1dd3f7fd6054
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  1067b5f9-ece1-4397-94a6-90f91fee07d3:
+    uuid: 1067b5f9-ece1-4397-94a6-90f91fee07d3
+    id: image_scale
+    weight: 2
+    data:
+      width: 1000
+      height: null
+      upscale: false
