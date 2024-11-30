@@ -48,6 +48,9 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
       entity: $node,
       field_name: 'field_media_image',
     )?->getFileUri();
+    // In cases where images are not properly synchronized or there is any other
+    // issue, this assertion will be much more helpful than a component error.
+    \assert($variables['poster_uri'] !== NULL, \sprintf('The node ID %s is missing poster image.', $node->id()));
   }
 
   private function addAttachments(BlogEntry $node, array &$variables): void {

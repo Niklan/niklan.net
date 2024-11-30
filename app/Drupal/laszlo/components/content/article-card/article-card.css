@@ -35,6 +35,10 @@
     align-self: center;
     border-radius: var(--spacing-2);
     box-shadow: var(--elevation-1);
+
+    @media screen and (min-width: 1200px) {
+      align-self: flex-start;
+    }
   }
 
   .article-card__link {
