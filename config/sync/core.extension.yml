@@ -49,6 +49,7 @@ module:
   path_alias: 0
   photoswipe: 0
   phpass: 0
+  quicklink: 0
   rabbit_hole: 0
   redirect: 0
   redirect_404: 0
