@@ -291,7 +291,7 @@ tasks:
       - task: cspell
         vars: { CLI_ARGS: '--config {{.CONFIG_DIR}}/.cspell.json --words-only --unique "**" | sort -f > {{.CONFIG_DIR}}/cspell/dictionary.txt' }
 
-  import-translations:
+  import/translations:
     label: Import translations
     desc: Imports custom project-specific translations.
     cmds:

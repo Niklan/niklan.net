@@ -2,9 +2,6 @@ name: CI
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - develop
   pull_request:
     types:
       - labeled
@@ -13,8 +10,8 @@ on:
       - reopened
 
 jobs:
-  validate-composer:
-    name: Validate Composer
+  validate:
+    name: Validate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,111 +20,41 @@ jobs:
       - name: Prepare environment
         uses: ./.github/actions/setup-validation
 
-      - name: Validate
+      - name: Composer
+        if: always()
         run: task validate/composer
 
-  validate-phplint:
-    name: Validate PHP lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare environment
-        uses: ./.github/actions/setup-validation
-
-      - name: Validate
+      - name: PHP lint
+        if: always()
         run: task validate/phplint
 
-  validate-phpcs:
-    name: Validate PHPCS
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare environment
-        uses: ./.github/actions/setup-validation
-
-      - name: Validate
+      - name: PHPCS
+        if: always()
         run: task validate/phpcs
 
-  validate-phpstan:
-    name: Validate PHPStan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare environment
-        uses: ./.github/actions/setup-validation
-
-      - name: Validate
+      - name: PHPStan
+        if: always()
         run: task validate/phpstan
 
-  validate-js:
-    name: Validate JS
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare environment
-        uses: ./.github/actions/setup-validation
-
-      - name: Validate
+      - name: JavaScript
+        if: always()
         run: task validate/js
 
-  validate-css:
-    name: Validate CSS
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare environment
-        uses: ./.github/actions/setup-validation
-
-      - name: Validate
+      - name: CSS
+        if: always()
         run: task validate/css
 
-  validate-yml:
-    name: Validate YML
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare environment
-        uses: ./.github/actions/setup-validation
-
-      - name: Validate
+      - name: YML
+        if: always()
         run: task validate/yml
 
-  validate-spellcheck:
-    name: Validate Spellcheck
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Prepare environment
-        uses: ./.github/actions/setup-validation
-
-      - name: Validate
+      - name: Spellcheck
+        if: always()
         run: task validate/spellcheck
 
   phpunit:
     name: PHPUnit
-    needs:
-      - validate-composer
-      - validate-phplint
-      - validate-phpcs
-      - validate-phpstan
-      - validate-js
-      - validate-css
-      - validate-yml
-      - validate-spellcheck
+    needs: validate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
