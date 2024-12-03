@@ -1,5 +1,0 @@
-.niklan-node-search {
-  display: grid;
-  grid-template-columns: 1fr max-content;
-  grid-gap: var(--spacing-sm);
-}

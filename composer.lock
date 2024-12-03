@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee0370a30ed385fe23f82fd7e8772f3f",
+    "content-hash": "33f052da4e56362c441f463451d842b8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4712,29 +4712,17 @@
             }
         },
         {
-            "name": "niklan/mechanical",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/Drupal/mechanical",
-                "reference": "aebde7794301527e35391726d4a13aebf36fca42"
-            },
-            "type": "drupal-custom-theme",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "niklan/niklan",
             "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
                 "url": "app/Drupal/niklan",
-                "reference": "b0815a947fed6919249bfae63ee56309d81d3870"
+                "reference": "3ca89bb0cf2e299d19647e76a8c42ad21bd73c64"
             },
             "require": {
                 "drupal/media_library_form_element": "^2",
                 "ext-dom": "*",
+                "ext-imagick": "*",
                 "league/commonmark": "^2.0",
                 "niklan-asset/alpinejs": "^3.14",
                 "niklan-asset/hljs": "^11.9",
@@ -13995,7 +13983,6 @@
         "drupal/symfony_mailer": 10,
         "niklan/external_content": 20,
         "niklan/laszlo": 20,
-        "niklan/mechanical": 20,
         "niklan/niklan": 20,
         "niklan/niklan_dev": 20,
         "niklan/niklan_installer": 20
