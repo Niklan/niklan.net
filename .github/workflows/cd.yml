@@ -30,17 +30,18 @@ jobs:
         shell: bash
         run: |
           ssh server <<< "
-            cd ${{ secrets.cd_production_app_root }};
-            mkdir -p ${{ secrets.cd_production_deploy_files }};
+            cd ${{ secrets.cd_production_app_root }}
+            mkdir -p ${{ secrets.cd_production_deploy_files }}
             drush sql:dump \
               --gzip \
               --structure-tables-list=cache,cache_*,flood,history,queue,search_index,search_api_*,semaphore,sequences,sessions,watchdog \
-              > ${{ secrets.cd_production_deploy_files }}/pre-deploy.sql.gz;
-            git fetch;
-            git checkout;
-            git pull;
-            composer install --no-dev -o -n;
-            drush deploy;
-            drush queue:delete warmer;
-            drush warmer:enqueue entity;
+              > ${{ secrets.cd_production_deploy_files }}/pre-deploy.sql.gz
+            git fetch
+            git checkout
+            git pull
+            composer install --no-dev -o -n
+            drush deploy
+            task import/translations
+            drush queue:delete warmer
+            drush warmer:enqueue entity
           "
