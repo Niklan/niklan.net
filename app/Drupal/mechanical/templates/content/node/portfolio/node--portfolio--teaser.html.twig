@@ -1,7 +1,0 @@
-{% extends 'node.html.twig' %}
-
-{% block node %}
-  {{ content.field_date }}
-  <span class="{{ bem(block, 'separator') }}">&nbsp;—&nbsp;</span>
-  <a href="{{ url }}" class="{{ bem(block, 'title') }}">{{ node.label }}</a>
-{% endblock %}

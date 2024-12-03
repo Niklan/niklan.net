@@ -56,7 +56,6 @@
         "niklan-asset/photoswipe": "^4.1",
         "niklan/external_content": "^1.0@dev",
         "niklan/laszlo": "^1.0@dev",
-        "niklan/mechanical": "^1.0@dev",
         "niklan/niklan": "^1.0@dev",
         "niklan/niklan_installer": "^1.0@dev"
     },
