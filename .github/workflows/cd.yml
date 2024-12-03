@@ -39,7 +39,8 @@ jobs:
             git fetch
             git checkout
             git pull
-            composer install --no-dev -o -n
+            composer install -n -o --no-dev --apcu-autoloader
+            cachetool opcache:reset --fcgi=php:9000 --tmp-dir=/var/www/html
             drush deploy
             task import/translations
             drush queue:delete warmer
