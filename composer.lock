@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33f052da4e56362c441f463451d842b8",
+    "content-hash": "736a0474fe62b75f33bd238f9c3edb11",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2533,6 +2533,54 @@
             }
         },
         {
+            "name": "drupal/quicklink",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/quicklink.git",
+                "reference": "2.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/quicklink-2.0.4.zip",
+                "reference": "2.0.4",
+                "shasum": "a494378d7503d02b2aaa5505422f560ddfe072a3"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.4",
+                    "datestamp": "1720978306",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "mherchel",
+                    "homepage": "https://www.drupal.org/user/118428"
+                }
+            ],
+            "description": "Installs Quicklink JS library to prefetch linked pages.",
+            "homepage": "https://www.drupal.org/project/quicklink",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/quicklink",
+                "issues": "https://www.drupal.org/project/issues/quicklink"
+            }
+        },
+        {
             "name": "drupal/rabbit_hole",
             "version": "1.0.0-beta11",
             "source": {
@@ -4668,6 +4716,19 @@
                 "type": "path",
                 "url": "assets/vendor/photoswipe",
                 "reference": "161715d0d2ac8f2b0e617b45b8c5a8335729cb0e"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan-asset/quicklink",
+            "version": "2.3.0",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/quicklink",
+                "reference": "722b9f55cb71f57563c9940dba673c5ff27c9fee"
             },
             "type": "drupal-library",
             "transport-options": {
@@ -13992,6 +14053,6 @@
     "platform": {
         "php": ">=8.3"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
