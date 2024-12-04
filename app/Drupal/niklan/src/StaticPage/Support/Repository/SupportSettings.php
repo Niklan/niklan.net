@@ -26,8 +26,8 @@ final class SupportSettings extends LanguageAwareSettingsStore {
     return $this;
   }
 
-  public function getDonateUrl(): string {
-    return $this->getStore()->get('donate_url', 'https://example.com');
+  public function getDonateUrl(): ?string {
+    return $this->getStore()->get('donate_url');
   }
 
   #[\Override]
