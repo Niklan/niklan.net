@@ -13,4 +13,4 @@ props:
       type: [string, array]
     donate_url:
       title: Donate URL
-      type: string
+      type: ['null', string]

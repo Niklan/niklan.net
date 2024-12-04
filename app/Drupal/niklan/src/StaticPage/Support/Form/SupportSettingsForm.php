@@ -35,7 +35,6 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
       '#title' => new TranslatableMarkup('Donate URL'),
       '#description' => new TranslatableMarkup('The URL of the donate page.'),
       '#default_value' => $this->getSettings()->getDonateUrl(),
-      '#required' => TRUE,
     ];
 
     return $form;

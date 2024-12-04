@@ -3,24 +3,26 @@
     {{ description }}
   </div>
 
-  <footer class="support__footer">
-    {% embed 'laszlo:button' with {
-      attributes: create_attribute({
-        'class': ['support__cta'],
-        'target': '_blank',
-        'rel': 'noopener noreferrer',
-      }),
-      component: 'a',
-      href: donate_url,
-      variant: 'contained',
-      size: 'large',
-    } only %}
-      {% block start_icon %}
-        {% include 'laszlo:icon' with { icon: 'coffee-half-empty-twotone-loop' } only %}
-      {% endblock %}
-      {% block children %}
-        {{ 'Buy a cup of coffee'|t }}
-      {% endblock %}
-    {% endembed %}
-  </footer>
+  {% if donate_url %}
+    <footer class="support__footer">
+      {% embed 'laszlo:button' with {
+        attributes: create_attribute({
+          'class': ['support__cta'],
+          'target': '_blank',
+          'rel': 'noopener noreferrer',
+        }),
+        component: 'a',
+        href: donate_url,
+        variant: 'contained',
+        size: 'large',
+      } only %}
+        {% block start_icon %}
+          {% include 'laszlo:icon' with { icon: 'coffee-half-empty-twotone-loop' } only %}
+        {% endblock %}
+        {% block children %}
+          {{ 'Buy a cup of coffee'|t }}
+        {% endblock %}
+      {% endembed %}
+    </footer>
+  {% endif %}
 </div>
