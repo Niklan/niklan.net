@@ -20,7 +20,7 @@ final class SupportSettings extends LanguageAwareSettingsStore {
     return $this->getStore()->get('description', 'The support page description.');
   }
 
-  public function setDonateUrl(string $url): self {
+  public function setDonateUrl(?string $url): self {
     $this->getStore()->set('donate_url', $url);
 
     return $this;
