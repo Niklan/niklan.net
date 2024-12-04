@@ -128,7 +128,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
 
     $form['cards']['items'] = [
       '#type' => 'table',
-      // Workaround for an empty string when not set. See #3247373.
+      // Workaround for an empty string if not set. See #3247373.
       '#input' => FALSE,
       '#header' => [
         'content' => new TranslatableMarkup('Content'),
