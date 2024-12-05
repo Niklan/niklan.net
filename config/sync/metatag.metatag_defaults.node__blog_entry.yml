@@ -5,20 +5,18 @@ dependencies: {  }
 id: node__blog_entry
 label: 'Содержимое: Запись в блог'
 tags:
-  abstract: '[node:body]'
+  article_published_time: '[node:created:html_datetime]'
   description: '[node:body]'
   image_src: '[node:article-banner-image]'
   og_description: '[node:body]'
-  og_email: i@niklan.net
   og_image: '[node:article-banner-image]'
   og_image_alt: '[node:label]'
   og_image_height: '640'
   og_image_type: image/png
   og_image_width: '1280'
   og_title: '[node:title]'
-  og_url: '[current-page:url:absolute]'
   original_source: '[current-page:url:absolute]'
-  title: '[node:title] — Niklan'
+  title: '[node:title]'
   twitter_cards_description: '[node:body]'
   twitter_cards_image: '[node:field_media_image:entity:field_media_image:page_title_background:url]'
   twitter_cards_image_alt: '[node:title]'
