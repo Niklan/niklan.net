@@ -7,12 +7,14 @@ _core:
 id: global
 label: Глобальный
 tags:
-  abstract: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'
   canonical_url: '[current-page:url]'
-  title: '[current-page:title] — [site:name]'
-  description: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=5.0'
-  twitter_cards_type: summary
-  twitter_cards_description: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'
+  og_email: i@niklan.net
+  og_site_name: '[site:name]'
+  og_title: '[current-page:title]'
+  og_url: '[current-page:url]'
+  title: '[current-page:title]'
+  twitter_cards_description: 'Персональный блог о веб-разработке с акцентом на Drupal. Узнайте все о разработке, темизации и оптимизации с Drupal.'
   twitter_cards_site: '@NiklanRUS'
-  twitter_cards_title: 'Блог Drupal разработчика. Обучающие материалы по Drupal и веб-разработке. Разработка, темизация, оптимизация.'
+  twitter_cards_title: 'Блог веб-разработчика'
+  twitter_cards_type: summary
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=5.0'
