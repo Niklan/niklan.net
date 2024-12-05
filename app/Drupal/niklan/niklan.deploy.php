@@ -12,6 +12,7 @@ use Drupal\niklan\Hook\Deploy\Deploy0002;
 use Drupal\niklan\Hook\Deploy\Deploy0003;
 use Drupal\niklan\Hook\Deploy\Deploy0004;
 use Drupal\niklan\Hook\Deploy\Deploy0005;
+use Drupal\niklan\Hook\Deploy\Deploy0006;
 
 /**
  * Migrate contact submission values into native fields.
@@ -46,4 +47,11 @@ function niklan_deploy_0004(array &$sandbox): string {
  */
 function niklan_deploy_0005(array &$sandbox): string {
   return \Drupal::classResolver(Deploy0005::class)($sandbox);
+}
+
+/**
+ * Update path aliases for blog articles.
+ */
+function niklan_deploy_0006(array &$sandbox): string {
+  return \Drupal::classResolver(Deploy0006::class)($sandbox);
 }
