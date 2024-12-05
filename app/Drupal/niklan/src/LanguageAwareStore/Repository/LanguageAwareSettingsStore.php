@@ -7,6 +7,7 @@ namespace Drupal\niklan\LanguageAwareStore\Repository;
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\niklan\LanguageAwareStore\Factory\LanguageAwareFactory;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
@@ -19,6 +20,7 @@ abstract class LanguageAwareSettingsStore implements CacheableDependencyInterfac
   public function __construct(
     #[Autowire(service: 'keyvalue.language_aware')]
     private readonly LanguageAwareFactory $factory,
+    private readonly RouteMatchInterface $routeMatch,
   ) {}
 
   public function changeLanguageCode(?string $language_code): self {
@@ -43,10 +45,22 @@ abstract class LanguageAwareSettingsStore implements CacheableDependencyInterfac
   }
 
   protected function getStore(): KeyValueStoreInterface {
+    $this->lookupLanguageFromRoute();
+
     return $this->factory->get(
       collection: $this->getStoreId(),
       language_code: $this->currentLanguage,
     );
+  }
+
+  private function lookupLanguageFromRoute(): void {
+    // Only attempt to resolve the language from the route if it has not already
+    // been set.
+    if ($this->currentLanguage) {
+      return;
+    }
+
+    $this->currentLanguage = $this->routeMatch->getParameter('key_value_language_aware_code');
   }
 
 }

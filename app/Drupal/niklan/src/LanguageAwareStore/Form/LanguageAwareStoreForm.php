@@ -10,7 +10,6 @@ use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -28,7 +27,6 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
     protected ContainerInterface $container,
     protected MessengerInterface $messenger,
     protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
-    protected RouteMatchInterface $routeMatch,
   ) {}
 
   #[\Override]
@@ -37,7 +35,6 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
       $container->get(ContainerInterface::class),
       $container->get(MessengerInterface::class),
       $container->get(CacheTagsInvalidatorInterface::class),
-      $container->get(RouteMatchInterface::class),
     );
   }
 
@@ -48,11 +45,6 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
 
   #[\Override]
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $language_code = $this
-      ->getRouteMatch()
-      ->getParameter('key_value_language_aware_code');
-    $this->getSettings()->changeLanguageCode($language_code);
-
     $form['actions']['#type'] = 'actions';
     $form['actions']['save'] = [
       '#type' => 'submit',
@@ -72,10 +64,6 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
     $this
       ->getCacheTagsInvalidator()
       ->invalidateTags($this->getSettings()->getCacheTags());
-  }
-
-  protected function getRouteMatch(): RouteMatchInterface {
-    return $this->routeMatch;
   }
 
   protected function getMessenger(): MessengerInterface {
