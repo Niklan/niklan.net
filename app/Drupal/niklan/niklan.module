@@ -215,6 +215,11 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'created' => 0,
       ],
     ],
+    'niklan_sitemap' => [
+      'variables' => [
+        'categories' => [],
+      ],
+    ],
   ];
 }
 
