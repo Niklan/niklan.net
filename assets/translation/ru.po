@@ -459,3 +459,6 @@ msgstr "Меню публикации"
 
 msgid "Open bigger image"
 msgstr "Открыть большое изображение"
+
+msgid "Site Map"
+msgstr "Карта сайта"

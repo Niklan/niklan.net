@@ -127,3 +127,4 @@ services:
       - { name: event_subscriber }
 
   Drupal\niklan\Blog\Generator\BannerGenerator: {}
+  Drupal\niklan\SiteMap\Structure\SiteMapManager: {}

@@ -152,3 +152,12 @@ niklan.home:
     _controller: Drupal\niklan\StaticPage\Home\Controller\Home
   requirements:
     _access: 'TRUE'
+
+niklan.sitemap:
+  path: '/sitemap'
+  methods: [GET]
+  defaults:
+    _title: 'Site Map'
+    _controller: Drupal\niklan\SiteMap\Controller\SiteMapController
+  requirements:
+    _access: 'TRUE'
