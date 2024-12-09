@@ -15,10 +15,11 @@
     </div>
 
     {% set license_url = 'https://creativecommons.org/licenses/by-sa/4.0/legalcode.ru' %}
-    <div class="page-footer__license">
+    <div class="page-footer__info">
       {%- trans -%}
         The content is published under <a href="{{ license_url }}">CC-BY-SA 4.0</a> license.
-      {%- endtrans -%}
+      {%- endtrans %}
+      <a href="{{ url('niklan.sitemap') }}">{{ 'Site Map'|t }}</a>.
     </div>
 
     <div class="page-footer__copyright">
