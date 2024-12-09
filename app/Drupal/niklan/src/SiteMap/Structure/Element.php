@@ -8,8 +8,6 @@ abstract class Element implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   protected array $collection = [];
 
-  abstract public function toArray(): array;
-
   #[\Override]
   public function getIterator(): \Traversable {
     return new \ArrayIterator($this->collection);

@@ -1,0 +1,16 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Sitemap Category
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    title:
+      title: Title
+      type: string
+    description:
+      title: Description
+      type: [string, array]
+    donate_url:
+      title: Donate URL
+      type: ['null', string]

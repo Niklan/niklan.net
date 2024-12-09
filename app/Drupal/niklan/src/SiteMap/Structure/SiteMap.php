@@ -6,6 +6,7 @@ namespace Drupal\niklan\SiteMap\Structure;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
+use Drupal\Core\Link;
 
 final class SiteMap extends Element implements RefinableCacheableDependencyInterface {
 
@@ -70,9 +71,26 @@ final class SiteMap extends Element implements RefinableCacheableDependencyInter
     return $this;
   }
 
-  #[\Override]
   public function toArray(): array {
-    return \array_map(static fn (Category $category): array => $category->toArray(), $this->collection);
+    $sitemap = [];
+
+    foreach ($this->collection as $category) {
+      \assert($category instanceof Category);
+      foreach ($category as $section) {
+        \assert($section instanceof Section);
+        foreach ($section as $link) {
+          \assert($link instanceof Link);
+          $sitemap[] = [
+            'category' => (string) $category->heading,
+            'section' => (string) $section->heading,
+            'url' => $link->getUrl()->toString(),
+            'text' => $link->getText(),
+          ];
+        }
+      }
+    }
+
+    return \array_values($sitemap);
   }
 
 }

@@ -217,7 +217,7 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     ],
     'niklan_sitemap' => [
       'variables' => [
-        'categories' => [],
+        'sitemap' => [],
       ],
     ],
   ];

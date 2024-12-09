@@ -128,3 +128,12 @@ services:
 
   Drupal\niklan\Blog\Generator\BannerGenerator: {}
   Drupal\niklan\SiteMap\Structure\SiteMapManager: {}
+  Drupal\niklan\Blog\SiteMap\BlogSiteMap:
+    tags:
+      - { name: niklan.sitemap }
+  Drupal\niklan\Tag\SiteMap\TagSiteMap:
+    tags:
+      - { name: niklan.sitemap }
+  Drupal\niklan\Navigation\SiteMap\MainMenuSiteMap:
+    tags:
+      - { name: niklan.sitemap }

@@ -1,0 +1,19 @@
+{% set sitemap_tree = [] %}
+{% for item in sitemap %}
+  {% set category = item.category %}
+  {% set section = item.section %}
+  {% set new_link = [{url: item.url, text: item.text}] %}
+
+  {% if category not in sitemap_tree|keys %}
+    {% set sitemap_tree = sitemap_tree|merge({(category): {(section): new_link}}) %}
+  {% else %}
+    {% set sections = sitemap_tree[category] %}
+    {% if section in sections|keys %}
+      {% set sitemap_tree = sitemap_tree|merge({(category): {(section): sections[section]|merge(new_link)}}) %}
+    {% else %}
+      {% set sitemap_tree = sitemap_tree|merge({(category): {(section): new_link}}) %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{{ dd(sitemap_tree) }}

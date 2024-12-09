@@ -24,7 +24,7 @@ final readonly class SiteMapController implements ContainerInjectionInterface {
     $sitemap = $this->siteMapManager->build();
     $build = [
       '#theme' => 'niklan_sitemap',
-      '#categories' => $sitemap->toArray(),
+      '#sitemap' => $sitemap->toArray(),
     ];
 
     $cache = CacheableMetadata::createFromRenderArray($build);

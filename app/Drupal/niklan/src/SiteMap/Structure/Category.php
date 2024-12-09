@@ -14,12 +14,4 @@ final class Category extends Element {
     $this->collection[] = $section;
   }
 
-  #[\Override]
-  public function toArray(): array {
-    return [
-      'heading' => $this->heading,
-      'sections' => \array_map(static fn (Section $section) => $section->toArray(), $this->collection),
-    ];
-  }
-
 }

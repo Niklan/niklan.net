@@ -462,3 +462,7 @@ msgstr "Открыть большое изображение"
 
 msgid "Site Map"
 msgstr "Карта сайта"
+
+msgctxt "site map category"
+msgid "General"
+msgstr "Общее"
