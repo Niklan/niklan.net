@@ -13,7 +13,6 @@ use Drupal\niklan\Blog\Generator\BannerGenerator;
 use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\Utils\MediaHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 final readonly class Tokens implements ContainerInjectionInterface {
 
