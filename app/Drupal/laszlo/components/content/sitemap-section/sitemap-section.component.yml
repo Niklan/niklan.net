@@ -1,0 +1,22 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Sitemap Sections
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    heading:
+      title: Section heading
+      type: string
+    links:
+      title: Section links
+      type: array
+      items:
+        type: object
+        properties:
+          text:
+            title: Link text
+            type: string
+          url:
+            title: Link URL
+            type: string

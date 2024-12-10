@@ -1,0 +1,10 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Sitemap
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    sitemap:
+      title: Sitemap tree
+      type: array

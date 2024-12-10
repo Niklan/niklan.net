@@ -1,0 +1,27 @@
+.sitemap-section {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-6);
+  border-radius: var(--spacing-4);
+  background-color: var(--color-surface-container-highest);
+  gap: var(--spacing-6);
+}
+
+.sitemap-section__list {
+  display: flex;
+  flex-flow: wrap;
+  gap: var(--spacing-2);
+}
+
+.sitemap-section__link {
+  display: inline-block;
+  padding: var(--spacing-2) var(--spacing-4);
+  text-decoration: unset;
+  border-radius: var(--spacing-4);
+  background-color: var(--color-surface-container-low);
+  font: var(--typography-body-small);
+
+  &:hover {
+    background-color: var(--color-surface-container);
+  }
+}
