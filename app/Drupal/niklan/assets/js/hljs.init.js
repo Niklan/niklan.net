@@ -1,5 +1,7 @@
 ((Drupal, once, drupalSettings) => {
 
+  let worker;
+
   function registerIntersectionObserver() {
     const intersectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -10,15 +12,14 @@
         const preElement = entry.target.parentElement;
         const codeElement = entry.target;
         codeElement.classList.add('hljs');
-        const worker = new Worker(drupalSettings.highlightJs.workerPath);
-        worker.onmessage = (event) => {
-          codeElement.innerHTML = event.data;
-        }
         worker.postMessage({
           code: codeElement.textContent,
           language: preElement.dataset.language,
           libraryPath: drupalSettings.highlightJs.libraryPath,
         });
+        worker.onmessage = (event) => {
+          codeElement.innerHTML = event.data;
+        }
 
         intersectionObserver.unobserve(preElement);
       });
@@ -30,6 +31,8 @@
         .forEach((codeBlockElement) => {
           intersectionObserver.observe(codeBlockElement);
         });
+
+    worker = new Worker(drupalSettings.highlightJs.workerPath);
   }
 
   function lazyCallback(callback) {
