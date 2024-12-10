@@ -1,9 +1,9 @@
 .sitemap-category {
-  border-radius: var(--spacing-4);
-  background: var(--color-surface-container);
-  padding: var(--spacing-6);
   display: flex;
   flex-direction: column;
+  padding: var(--spacing-6);
+  border-radius: var(--spacing-4);
+  background: var(--color-surface-container);
   gap: var(--spacing-6);
 }
 
