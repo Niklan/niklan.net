@@ -6,6 +6,7 @@ namespace Drupal\niklan\Hook\Token;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Url;
 use Drupal\niklan\Blog\Generator\BannerGenerator;
@@ -20,6 +21,7 @@ final readonly class Tokens implements ContainerInjectionInterface {
     private BannerGenerator $bannerGenerator,
     private FileUrlGeneratorInterface $fileUrlGenerator,
     private RequestStack $requestStack,
+    private PagerManagerInterface $pagerManager,
   ) {}
 
   /**
@@ -30,6 +32,7 @@ final readonly class Tokens implements ContainerInjectionInterface {
       $container->get(BannerGenerator::class),
       $container->get(FileUrlGeneratorInterface::class),
       $container->get(RequestStack::class),
+      $container->get(PagerManagerInterface::class),
     );
   }
 
@@ -81,8 +84,8 @@ final readonly class Tokens implements ContainerInjectionInterface {
     $url = NULL;
     $options = ['absolute' => TRUE];
 
-    if ($request->query->has('page')) {
-      $options['query'] = ['page' => $request->query->get('page')];
+    if ($this->pagerManager->getPager()?->getTotalPages() > 0) {
+      $options['query'] = ['page' => $this->pagerManager->getPager()->getCurrentPage()];
     }
 
     try {

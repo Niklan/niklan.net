@@ -36,7 +36,7 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
     }
 
     // Do not add suffix on the first page.
-    if ($this->pagerManager->getPager()?->getTotalPages() < 1 || $this->pagerManager->getPager()?->getCurrentPage() < 1) {
+    if ($this->pagerManager->getPager()?->getTotalPages() < 1 || $this->pagerManager->getPager()->getCurrentPage() < 1) {
       return $title;
     }
 

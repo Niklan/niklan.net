@@ -16,7 +16,7 @@ final class PagerPathProcessor implements InboundPathProcessorInterface, Outboun
 
   #[\Override]
   public function processInbound($path, Request $request): string {
-    if (\stristr($path, '/admin') || \stristr($path, '/sitemap.xml')) {
+    if (!$this->isApplicable($path)) {
       return $path;
     }
 
@@ -31,22 +31,28 @@ final class PagerPathProcessor implements InboundPathProcessorInterface, Outboun
 
   #[\Override]
   public function processOutbound($path, &$options = [], ?Request $request = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): string {
-    if (\stristr($path, '/admin') || \stristr($path, '/sitemap.xml')) {
+    if (!$this->isApplicable($path, $options)) {
       return $path;
     }
 
-    if (isset($options['query']['page'])) {
-      if (\in_array($options['query']['page'], [0, '0'])) {
-        unset($options['query']['page']);
-      }
-      elseif ($options['query']['page'] > 0) {
-        $page_internal = $options['query']['page'];
-        $page_external = $page_internal + 1;
-        $options['query']['page'] = $page_external;
-      }
+    if (\in_array($options['query']['page'], [0, '0'])) {
+      unset($options['query']['page']);
+    }
+    elseif ($options['query']['page'] > 0) {
+      $page_internal = $options['query']['page'];
+      $page_external = $page_internal + 1;
+      $options['query']['page'] = $page_external;
     }
 
     return $path;
+  }
+
+  private function isApplicable(string $path, ?array $options = NULL): bool {
+    if (\stristr($path, '/admin') || \stristr($path, '/sitemap.xml')) {
+      return FALSE;
+    }
+
+    return !$options || isset($options['query']['page']);
   }
 
 }
