@@ -19,6 +19,7 @@ use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanHomeCards;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanLightboxResponsiveImage;
+use Drupal\niklan\Hook\Theme\PreprocessPager;
 use Drupal\niklan\Hook\Token\TokenInfo;
 use Drupal\niklan\Hook\Token\Tokens;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
@@ -412,4 +413,11 @@ function niklan_token_info(): array {
  */
 function niklan_tokens(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
   return Drupal::classResolver(Tokens::class)($type, $tokens, $data, $options, $bubbleable_metadata);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function niklan_preprocess_pager(array &$variables): void {
+  Drupal::classResolver(PreprocessPager::class)($variables);
 }

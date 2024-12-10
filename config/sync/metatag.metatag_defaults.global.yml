@@ -7,11 +7,11 @@ _core:
 id: global
 label: Глобальный
 tags:
-  canonical_url: '[current-page:url]'
+  canonical_url: '[current-page:canonical-url]'
   og_email: i@niklan.net
   og_site_name: '[site:name]'
   og_title: '[current-page:title]'
-  og_url: '[current-page:url]'
+  og_url: '[current-page:canonical-url]'
   title: '[current-page:title]'
   twitter_cards_description: 'Персональный блог о веб-разработке с акцентом на Drupal. Узнайте все о разработке, темизации и оптимизации с Drupal.'
   twitter_cards_site: '@NiklanRUS'

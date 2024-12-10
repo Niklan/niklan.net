@@ -7,6 +7,5 @@ _core:
 id: node
 label: Содержимое
 tags:
-  description: '[node:summary]'
-  og_description: '[node:summary]'
-  og_site_name: Niklan
+  description: '[node:body]'
+  og_description: '[node:body]'

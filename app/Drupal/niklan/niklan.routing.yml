@@ -105,6 +105,7 @@ niklan.blog_list:
   defaults:
     _title: 'Blog posts'
     _controller: Drupal\niklan\Blog\Controller\BlogList
+    _title_pager_suffix: 'TRUE'
   requirements:
     _permission: 'access content'
 

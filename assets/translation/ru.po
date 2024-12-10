@@ -466,3 +466,6 @@ msgstr "Карта сайта"
 msgctxt "site map category"
 msgid "General"
 msgstr "Общее"
+
+msgid "page #@number"
+msgstr "страница №@number"

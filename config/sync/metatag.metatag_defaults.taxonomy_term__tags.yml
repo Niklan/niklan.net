@@ -5,5 +5,5 @@ dependencies: {  }
 id: taxonomy_term__tags
 label: 'Taxonomy term: Теги'
 tags:
-  title: 'Материалы по теме [term:name] — Niklan'
-  description: 'Подборка материалов на тему [term:name].'
+  title: 'Материалы по теме [term:name]'
+  description: 'Подборка публикаций на тему [term:name].'
