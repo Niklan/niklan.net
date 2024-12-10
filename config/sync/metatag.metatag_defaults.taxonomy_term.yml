@@ -7,5 +7,4 @@ _core:
 id: taxonomy_term
 label: 'Термин таксономии'
 tags:
-  title: '[term:name] | [site:name]'
   description: '[term:description]'

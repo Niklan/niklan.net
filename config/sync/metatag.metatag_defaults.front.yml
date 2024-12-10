@@ -7,7 +7,5 @@ _core:
 id: front
 label: 'Главная страница'
 tags:
-  canonical_url: '[site:url]'
   description: 'Персональный блог о веб-разработке с акцентом на Drupal. Узнайте все о разработке, темизации и оптимизации с Drupal.'
-  shortlink: '[site:url]'
   title: 'Блог веб-разработчика — Niklan'
