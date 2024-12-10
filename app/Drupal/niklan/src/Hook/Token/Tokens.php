@@ -20,7 +20,6 @@ final readonly class Tokens implements ContainerInjectionInterface {
   public function __construct(
     private BannerGenerator $bannerGenerator,
     private FileUrlGeneratorInterface $fileUrlGenerator,
-    private RequestStack $requestStack,
     private PagerManagerInterface $pagerManager,
   ) {}
 
@@ -31,7 +30,6 @@ final readonly class Tokens implements ContainerInjectionInterface {
     return new self(
       $container->get(BannerGenerator::class),
       $container->get(FileUrlGeneratorInterface::class),
-      $container->get(RequestStack::class),
       $container->get(PagerManagerInterface::class),
     );
   }
@@ -80,32 +78,13 @@ final readonly class Tokens implements ContainerInjectionInterface {
    */
   private function replaceCurrentPageCanonicalUrl(string $original, State $state): void {
     $state->getCacheableMetadata()->addCacheContexts(['route', 'url.query_args:page']);
-    $request = $this->requestStack->getCurrentRequest();
-    $url = NULL;
     $options = ['absolute' => TRUE];
 
     if ($this->pagerManager->getPager()?->getTotalPages() > 0) {
       $options['query'] = ['page' => $this->pagerManager->getPager()->getCurrentPage()];
     }
 
-    try {
-      $url = Url::createFromRequest($request);
-    }
-    catch (\Exception) {
-      // Url::createFromRequest() can fail, e.g. on 404 pages.
-      // Fall back and try again with Url::fromUserInput().
-      try {
-        $url = Url::fromUserInput($request->getPathInfo());
-      }
-      catch (\Exception) {
-        // Instantiation would fail again on malformed urls.
-      }
-    }
-
-    if (!$url instanceof Url) {
-      return;
-    }
-
+    $url = Url::fromRoute('<current>');
     $state->setReplacement($original, $url->setOptions($options)->toString());
   }
 
