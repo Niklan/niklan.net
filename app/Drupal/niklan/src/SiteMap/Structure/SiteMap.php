@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\SiteMap\Structure;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
-use Drupal\Core\Link;
 
 final class SiteMap extends Element implements RefinableCacheableDependencyInterface {
 
@@ -72,25 +72,22 @@ final class SiteMap extends Element implements RefinableCacheableDependencyInter
   }
 
   public function toArray(): array {
-    $sitemap = [];
+    $original = \array_map(static fn (Category $category): array => $category->toArray(), $this->collection);
+    $merged = [];
 
-    foreach ($this->collection as $category) {
-      \assert($category instanceof Category);
-      foreach ($category as $section) {
-        \assert($section instanceof Section);
-        foreach ($section as $link) {
-          \assert($link instanceof Link);
-          $sitemap[] = [
-            'category' => (string) $category->heading,
-            'section' => (string) $section->heading,
-            'url' => $link->getUrl()->toString(),
-            'text' => $link->getText(),
-          ];
-        }
+    foreach ($original as $category) {
+      if (\array_key_exists($category['heading'], $merged)) {
+        $merged[$category['heading']]['sections'] = NestedArray::mergeDeep(
+          $merged[$category['heading']]['sections'],
+          $category['sections'],
+        );
+      }
+      else {
+        $merged[$category['heading']] = $category;
       }
     }
 
-    return \array_values($sitemap);
+    return \array_values($merged);
   }
 
 }

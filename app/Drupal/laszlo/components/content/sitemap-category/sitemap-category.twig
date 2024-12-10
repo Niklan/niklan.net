@@ -1,28 +1,11 @@
-<div{{ attributes.addClass('support') }}>
-  <div class="prose support__description">
-    {{ description }}
-  </div>
-
-  {% if donate_url %}
-    <footer class="support__footer">
-      {% embed 'laszlo:button' with {
-        attributes: create_attribute({
-          'class': ['support__cta'],
-          'target': '_blank',
-          'rel': 'noopener noreferrer',
-        }),
-        component: 'a',
-        href: donate_url,
-        variant: 'contained',
-        size: 'large',
+<section{{ attributes.addClass('sitemap-category') }}>
+  <h2 class="sitemap-category__category">{{ heading }}</h2>
+  <div class="sitemap-category__sections">
+    {% for section in sections %}
+      {% include 'laszlo:sitemap-section' with {
+        heading: section.heading,
+        links: section.links
       } only %}
-        {% block start_icon %}
-          {% include 'laszlo:icon' with { icon: 'coffee-half-empty-twotone-loop' } only %}
-        {% endblock %}
-        {% block children %}
-          {{ 'Buy a cup of coffee'|t }}
-        {% endblock %}
-      {% endembed %}
-    </footer>
-  {% endif %}
-</div>
+    {% endfor %}
+  </div>
+</section>

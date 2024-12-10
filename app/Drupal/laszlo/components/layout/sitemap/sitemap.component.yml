@@ -6,19 +6,5 @@ props:
   type: object
   properties:
     sitemap:
+      title: Sitemap tree
       type: array
-      items:
-        type: object
-        properties:
-          category:
-            title: Category name
-            type: string
-          section:
-            title: Section name
-            type: string
-          text:
-            title: Link text
-            type: string
-          url:
-            title: Link URL
-            type: [string, object]

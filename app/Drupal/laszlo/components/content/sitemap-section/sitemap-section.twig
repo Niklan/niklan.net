@@ -1,0 +1,8 @@
+<section{{ attributes.addClass('sitemap-section') }}>
+  <h3 class="sitemap-section__heading">{{ heading }}</h3>
+  <div class="sitemap-section__list">
+    {% for link in links %}
+      <a href="{{ link.url }}" class="sitemap-section__link">{{ link.text }}</a>
+    {% endfor %}
+  </div>
+</section>

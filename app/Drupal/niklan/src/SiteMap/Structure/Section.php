@@ -22,4 +22,15 @@ final class Section extends Element {
     $this->collection = $links;
   }
 
+  #[\Override]
+  public function toArray(): array {
+    return [
+      'heading' => (string) $this->heading,
+      'links' => \array_map(static fn (Link $link): array => [
+        'text' => $link->getText(),
+        'url' => $link->getUrl()->toString(),
+      ], $this->collection),
+    ];
+  }
+
 }

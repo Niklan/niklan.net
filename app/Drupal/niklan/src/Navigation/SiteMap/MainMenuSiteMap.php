@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Navigation\SiteMap;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Menu\MenuLinkTreeElement;
 use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\SiteMap\Structure\Category;
 use Drupal\niklan\SiteMap\Structure\Section;
 use Drupal\niklan\SiteMap\Structure\SiteMap;
 use Drupal\niklan\SiteMap\Structure\SiteMapBuilderInterface;
-use Drupal\taxonomy\TermInterface;
 
 final readonly class MainMenuSiteMap implements SiteMapBuilderInterface {
 
@@ -46,6 +43,5 @@ final readonly class MainMenuSiteMap implements SiteMapBuilderInterface {
 
     return $sitemap;
   }
-
 
 }

@@ -6,7 +6,6 @@ namespace Drupal\niklan\Tag\SiteMap;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\SiteMap\Structure\Category;
 use Drupal\niklan\SiteMap\Structure\Section;
 use Drupal\niklan\SiteMap\Structure\SiteMap;
