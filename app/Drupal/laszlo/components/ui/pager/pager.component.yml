@@ -1,5 +1,31 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Pager
+description: >
+  This component provides additional features for loading more contents from the
+  next page. The URL for fetching is set automatically from the pager data, but
+  additional settings should be specified somewhere in the parent elements. As
+  long as these settings are found, the "Load more" button is displayed;
+  otherwise, it is hidden.
+
+  The settings should be in the `data-load-more-settings` attribute with JSON
+  data, containing `append` and/or `replace` values. Each of these values is an
+  array, keyed by CSS selector for elements on the fetched page (next page) and
+  the CSS selector on the current page to perform the operation.
+  
+  For example:
+  @code
+  {
+    "append": {".article-list .article": ".article-list"},
+    "replace": {".article-list__pager": ".article-list__pager"},
+  }
+  @endcode
+  
+  In the given example, "append" will search for ".article-list .article"
+  elements on the fetched page and append them to ".article-list". "Replace"
+  will basically replace existing elements with the newer ones.
+  
+  At least one append or replace rule should be provided, otherwise the "Load
+  more" button will not be shown.
 status: experimental
 group: ui
 props:
@@ -19,3 +45,28 @@ props:
     items:
       type: array
       title: Items
+    load_more_settings:
+      title: Load more settings
+      type: [ 'null', array ]
+      items:
+        type: object
+        properties:
+          url:
+            title: URL to fetch
+            type: string
+          append:
+            title: A list of selectors to append
+            description: >
+              An array keyed by CSS selector from the fetched page and the CSS
+              selector of the element where they should be appended.
+            type: array
+          replace:
+            title: A list of selectors to replace
+            description: >
+              An array keyed by CSS selector from the fetched page and the CSS
+              selector of the element which should be replaced.
+            type: array
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - niklan/alpinejs

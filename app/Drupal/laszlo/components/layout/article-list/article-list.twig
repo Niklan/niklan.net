@@ -17,6 +17,16 @@
   {% endif %}
 
   {% if pager %}
-    <footer class="article-list__pager">{{ pager }}</footer>
+    {% set load_more_settings = {
+      'replace': {
+        '.article-list__pager': '.article-list__pager',
+      },
+      'append': {
+        '.article-list__items > *': '.article-list__items',
+      },
+    } %}
+    <footer class="article-list__pager" data-load-more-settings="{{ load_more_settings|json_encode }}">
+      {{ pager }}
+    </footer>
   {% endif %}
 </section>
