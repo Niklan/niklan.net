@@ -1,4 +1,3 @@
 label: 'Taxonomy term'
 tags:
   description: '[term:description]'
-  title: '[term:name] | [site:name]'

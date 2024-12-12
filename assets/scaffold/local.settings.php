@@ -49,6 +49,15 @@ $settings['mailer_sendmail_commands'] = [
   $config['symfony_mailer.mailer_transport.sendmail']['configuration']['query']['command'],
 ];
 
+$config['system.mail']['interface'] = [ 'default' => 'symfony_mailer' ];
+$config['system.mail']['mailer_dsn'] = [
+  'scheme' => 'smtp',
+  'host' => getenv('SMTP_HOST'),
+  'port' => getenv('SMTP_PORT'),
+  'user' => getenv('SMTP_USER'),
+  'password' => getenv('SMTP_PASSWORD'),
+];
+
 $settings['trusted_host_patterns'][] = 'nginx';
 $settings['trusted_host_patterns'][] = '^niklan\.localhost$';
 
