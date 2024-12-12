@@ -5,6 +5,4 @@ dependencies: {  }
 id: node__portfolio
 label: 'Содержимое: Портфолио'
 tags:
-  image_src: '[node:field_images:0:portfolio_teaser_background]'
   og_title: '[node:title]'
-  og_image: '[node:field_images:0:portfolio_teaser_background]'
