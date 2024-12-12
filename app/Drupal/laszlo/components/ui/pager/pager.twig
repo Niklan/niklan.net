@@ -1,5 +1,6 @@
 {% set show_first_last = show_first_last ?? true %}
 {% set show_previous_next = show_previous_next ?? true %}
+{% do attributes.setAttribute('x-data', 'Pager') %}
 {% do attributes.addClass('pager') %}
 <nav{{ attributes }}>
   <ul class="pager__items">
@@ -107,4 +108,26 @@
       </li>
     {% endif %}
   </ul>
+
+  {% if items.next %}
+    <template x-bind="loadMoreTemplate">
+      {% embed 'laszlo:button' with {
+        attributes: create_attribute({
+          'class': ['pager__load-more'],
+          'data-load-more-url': items.next.href,
+          'x-bind': 'loadMoreButton',
+          'x-ref': 'loadMoreButton',
+        }),
+        color: 'secondary',
+        variant: 'contained',
+      } only %}
+        {% block children %}
+          {{ 'Load more'|t }}
+        {% endblock %}
+        {% block end_icon %}
+          {% include 'laszlo:icon' with { icon: 'refresh' } only %}
+        {% endblock %}
+      {% endembed %}
+    </template>
+  {% endif %}
 </nav>

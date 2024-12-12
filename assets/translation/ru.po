@@ -467,5 +467,8 @@ msgctxt "site map category"
 msgid "General"
 msgstr "Общее"
 
+msgid "Load more"
+msgstr "Загрузить ещё"
+
 msgid "page #@number"
 msgstr "страница №@number"
