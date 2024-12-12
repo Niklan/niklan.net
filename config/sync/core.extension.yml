@@ -12,7 +12,6 @@ module:
   ctools: 0
   datetime: 0
   dynamic_page_cache: 0
-  easy_breadcrumb: 0
   editor: 0
   external_content: 0
   extra_field: 0

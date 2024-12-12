@@ -6,7 +6,9 @@ namespace Drupal\niklan\Hook\Token;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Url;
 use Drupal\niklan\Blog\Generator\BannerGenerator;
 use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\Utils\MediaHelper;
@@ -17,6 +19,7 @@ final readonly class Tokens implements ContainerInjectionInterface {
   public function __construct(
     private BannerGenerator $bannerGenerator,
     private FileUrlGeneratorInterface $fileUrlGenerator,
+    private PagerManagerInterface $pagerManager,
   ) {}
 
   /**
@@ -26,6 +29,7 @@ final readonly class Tokens implements ContainerInjectionInterface {
     return new self(
       $container->get(BannerGenerator::class),
       $container->get(FileUrlGeneratorInterface::class),
+      $container->get(PagerManagerInterface::class),
     );
   }
 
@@ -64,6 +68,25 @@ final readonly class Tokens implements ContainerInjectionInterface {
     $state->replaceCallback('article-banner-image', $this->replaceNodeArticleBannerImage(...));
   }
 
+  private function replaceCurrentPageTokens(State $state): void {
+    $state->replaceCallback('canonical-url', $this->replaceCurrentPageCanonicalUrl(...));
+  }
+
+  /**
+   * @ingroup seo_pager
+   */
+  private function replaceCurrentPageCanonicalUrl(string $original, State $state): void {
+    $state->getCacheableMetadata()->addCacheContexts(['route', 'url.query_args:page']);
+    $options = ['absolute' => TRUE];
+
+    if ($this->pagerManager->getPager()?->getTotalPages() > 0) {
+      $options['query'] = ['page' => $this->pagerManager->getPager()->getCurrentPage()];
+    }
+
+    $url = Url::fromRoute('<current>');
+    $state->setReplacement($original, $url->setOptions($options)->toString());
+  }
+
   public function __invoke(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
     $state = new State(
       replacements: [],
@@ -76,6 +99,7 @@ final readonly class Tokens implements ContainerInjectionInterface {
     match ($type) {
       default => NULL,
       'node' => $this->replaceNodeTokens($state),
+      'current-page' => $this->replaceCurrentPageTokens($state),
     };
 
     return $state->getReplacements();

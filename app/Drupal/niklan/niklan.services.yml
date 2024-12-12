@@ -4,21 +4,21 @@ services:
 
   logger.channel.niklan:
     parent: logger.channel_base
-    arguments: ['niklan']
+    arguments: [ 'niklan' ]
 
-  Drupal\niklan\StaticPage\About\Repository\AboutSettings: {}
-  Drupal\niklan\StaticPage\Contact\Repository\ContactSettings: {}
-  Drupal\niklan\StaticPage\Services\Repository\ServicesSettings: {}
-  Drupal\niklan\StaticPage\Support\Repository\SupportSettings: {}
-  Drupal\niklan\StaticPage\Home\Repository\HomeSettings: {}
-  Drupal\niklan\Portfolio\Repository\PortfolioSettings: {}
+  Drupal\niklan\StaticPage\About\Repository\AboutSettings: { }
+  Drupal\niklan\StaticPage\Contact\Repository\ContactSettings: { }
+  Drupal\niklan\StaticPage\Services\Repository\ServicesSettings: { }
+  Drupal\niklan\StaticPage\Support\Repository\SupportSettings: { }
+  Drupal\niklan\StaticPage\Home\Repository\HomeSettings: { }
+  Drupal\niklan\Portfolio\Repository\PortfolioSettings: { }
 
-  Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: {}
+  Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
   Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
 
-  Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: {}
+  Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: { }
   keyvalue.language_aware: '@Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory'
-  Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory: {}
+  Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory: { }
   keyvalue.language_aware.database: '@Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory'
 
   Drupal\niklan\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes:
@@ -39,13 +39,13 @@ services:
     parent: niklan.search.search_api
 
   Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:
-    arguments: ['@plugin.manager.menu.local_task', '@current_route_match']
+    arguments: [ '@plugin.manager.menu.local_task', '@current_route_match' ]
 
   niklan.process.terminal:
     class: Drupal\niklan\Console\Process\Terminal
-    arguments: ['@file_system']
+    arguments: [ '@file_system' ]
 
-  Drupal\niklan\Console\Process\Git: {}
+  Drupal\niklan\Console\Process\Git: { }
   Drupal\niklan\Console\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
 
   Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension:
@@ -57,13 +57,13 @@ services:
   niklan.markdown.environment:
     class: League\CommonMark\Environment\Environment
     calls:
-      - [addExtension, ['@Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension']]
+      - [ addExtension, [ '@Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension' ] ]
   niklan.markdown.converter:
     class: League\CommonMark\MarkdownConverter
     arguments:
       - '@niklan.markdown.environment'
 
-  Drupal\niklan\ExternalContent\Asset\AssetManager: {}
+  Drupal\niklan\ExternalContent\Asset\AssetManager: { }
 
   # External content.
   Drupal\niklan\ExternalContent\Extension\Blog:
@@ -114,7 +114,7 @@ services:
   external_content.environment.blog:
     class: Drupal\external_content\Environment\Environment
     calls:
-      - [addExtension, ['@Drupal\niklan\ExternalContent\Extension\Blog']]
+      - [ addExtension, [ '@Drupal\niklan\ExternalContent\Extension\Blog' ] ]
     tags:
       - { name: external_content.environment, id: blog, label: 'Blog articles' }
 
@@ -126,8 +126,8 @@ services:
     tags:
       - { name: event_subscriber }
 
-  Drupal\niklan\Blog\Generator\BannerGenerator: {}
-  Drupal\niklan\SiteMap\Structure\SiteMapManager: {}
+  Drupal\niklan\Blog\Generator\BannerGenerator: { }
+  Drupal\niklan\SiteMap\Structure\SiteMapManager: { }
   Drupal\niklan\Blog\SiteMap\BlogSiteMap:
     tags:
       - { name: niklan.sitemap }
@@ -137,3 +137,11 @@ services:
   Drupal\niklan\Navigation\SiteMap\MainMenuSiteMap:
     tags:
       - { name: niklan.sitemap }
+  Drupal\niklan\Pager\EventSubscriber\PagerRedirect:
+    tags:
+      - { name: event_subscriber }
+  Drupal\niklan\Pager\PathProcessor\PagerPathProcessor:
+    tags:
+      - { name: path_processor_inbound, priority: 1000 }
+      - { name: path_processor_outbound, priority: -1000 }
+  Drupal\niklan\Pager\Controller\PagerAwareTitleResolver: { }
