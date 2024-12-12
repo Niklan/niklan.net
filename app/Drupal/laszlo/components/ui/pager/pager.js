@@ -3,8 +3,6 @@
  * Note that this 'load more' implementation assumes that all pages have the
  * same attachments. If your pages can have different sets of libraries, it
  * won't work. In that case, 'fetch' must be replaced by a proper Drupal.ajax().
- *
- * @todo Add loading indication.
  */
 ((window, AlpineOnce, Drupal) => {
 
@@ -61,6 +59,7 @@
   }
 
   function loadMore() {
+    this.$refs.loadMoreButton.disabled = true;
     const url = new URL(this.$refs.loadMoreButton.dataset.loadMoreUrl, window.location);
     fetch(url)
       .then(response => response.text())

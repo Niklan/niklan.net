@@ -45,27 +45,6 @@ props:
     items:
       type: array
       title: Items
-    load_more_settings:
-      title: Load more settings
-      type: [ 'null', array ]
-      items:
-        type: object
-        properties:
-          url:
-            title: URL to fetch
-            type: string
-          append:
-            title: A list of selectors to append
-            description: >
-              An array keyed by CSS selector from the fetched page and the CSS
-              selector of the element where they should be appended.
-            type: array
-          replace:
-            title: A list of selectors to replace
-            description: >
-              An array keyed by CSS selector from the fetched page and the CSS
-              selector of the element which should be replaced.
-            type: array
 libraryOverrides:
   dependencies:
     - core/drupal
