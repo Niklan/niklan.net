@@ -36,8 +36,6 @@ warmers:
       'search_api_server:search_api_server': 'search_api_server:search_api_server'
       'simple_sitemap:simple_sitemap': 'simple_sitemap:simple_sitemap'
       'simple_sitemap_type:simple_sitemap_type': 'simple_sitemap_type:simple_sitemap_type'
-      'mailer_transport:mailer_transport': 'mailer_transport:mailer_transport'
-      'mailer_policy:mailer_policy': 'mailer_policy:mailer_policy'
       'menu:menu': 'menu:menu'
       'action:action': 'action:action'
       'taxonomy_vocabulary:taxonomy_vocabulary': 'taxonomy_vocabulary:taxonomy_vocabulary'
