@@ -13,6 +13,7 @@ parameters:
     csp: ['rotating_file.csp']
     # Custom channels.
     niklan: ['rotating_file.niklan']
+    niklan.telegram: ['rotating_file.niklan.telegram']
 
 services:
   monolog.handler.rotating_file.default:
@@ -45,3 +46,6 @@ services:
   monolog.handler.rotating_file.niklan:
     class: Monolog\Handler\RotatingFileHandler
     arguments: ['../var/log/niklan.log', 7]
+  monolog.handler.rotating_file.niklan.telegram:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: [ '../var/log/telegram.log', 7 ]
