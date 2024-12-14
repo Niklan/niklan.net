@@ -5,34 +5,32 @@ declare(strict_types=1);
 namespace Drupal\niklan\Telegram\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\niklan\Telegram\Telegram;
-use SergiX44\Nutgram\Telegram\Types\Common\Update;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final readonly class WebhookController implements ContainerInjectionInterface {
 
   public function __construct(
     private Telegram $telegram,
-    private LoggerChannelInterface $logger,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(Telegram::class),
-      $container->get('logger.channel.niklan.telegram'),
     );
   }
 
-  public function __invoke(Request $request): JsonResponse {
-    $this->logger->info('Webhook received: @request', ['@request' => \json_encode($request->toArray())]);
-    $on_update = fn (Update $update) => $this->logger->info('Update received: @update', ['@update' => \json_encode($update->toArray())]);
-    $this->telegram->getBot()->fallback($on_update);
+  public function __invoke(Request $request): Response {
+    // $on_update = fn (Nutgram $bot) => $this->logger->info($bot->callbackQuery()->data);
+    //    $this->telegram->getBot()->onCallbackQuery($on_update);
+    $this->telegram->getBot()->run();
 
-    return new JsonResponse(TRUE);
+    // Telegram expects any status code from 200 to 299.
+    // https://github.com/tdlib/telegram-bot-api/blob/5d88023dd1e65b7d0926a71aea4487d6cac3bf13/telegram-bot-api/WebhookActor.cpp#L619
+    return new Response();
   }
 
 }

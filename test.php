@@ -15,7 +15,9 @@ assert($telegram instanceof Telegram);
 $telegram->getBot()->sendMessage(
   chat_id: Settings::get('telegram_chat_id'),
   text: 'Test',
-  reply_markup: (new InlineKeyboardMarkup())
-    ->addRow(new InlineKeyboardButton(text: '✅ Approve', callback_data: 'approve@commentModerator'))
-    ->addRow(new InlineKeyboardButton(text: '❌ Remove', callback_data: 'remove@commentModerator')),
+  reply_markup: InlineKeyboardMarkup::make()
+    ->addRow(
+      new InlineKeyboardButton(text: '✅ Approve', callback_data: 'approve@commentModerator'),
+      new InlineKeyboardButton(text: '❌ Remove', callback_data: 'remove@commentModerator'),
+  ),
 );
