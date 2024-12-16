@@ -150,3 +150,7 @@ services:
       - { name: path_processor_outbound, priority: -1000 }
   Drupal\niklan\Pager\Controller\PagerAwareTitleResolver: { }
   Drupal\niklan\Telegram\Telegram: { }
+  Drupal\niklan\Comment\EventSubscriber\TelegramBotSubscriber:
+    tags:
+      - { name: event_subscriber }
+  Drupal\niklan\Comment\Telegram\CommentModerationHandler: { }

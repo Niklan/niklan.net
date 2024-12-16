@@ -8,11 +8,11 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use Drupal\niklan\Telegram\Event\TelegramBotInitializationEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use SergiX44\Nutgram\Configuration;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\RunningMode\Webhook;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 final class Telegram {
 
@@ -21,7 +21,7 @@ final class Telegram {
   public function __construct(
     #[Autowire(service: 'logger.channel.niklan.telegram')]
     private readonly LoggerChannelInterface $logger,
-    private readonly EventDispatcher $eventDispatcher,
+    private readonly EventDispatcherInterface $eventDispatcher,
   ) {}
 
   public function getBot(): Nutgram {

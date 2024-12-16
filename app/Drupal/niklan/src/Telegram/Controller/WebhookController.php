@@ -24,8 +24,6 @@ final readonly class WebhookController implements ContainerInjectionInterface {
   }
 
   public function __invoke(Request $request): Response {
-    // $on_update = fn (Nutgram $bot) => $this->logger->info($bot->callbackQuery()->data);
-    //    $this->telegram->getBot()->onCallbackQuery($on_update);
     $this->telegram->getBot()->run();
 
     // Telegram expects any status code from 200 to 299.

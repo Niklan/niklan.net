@@ -472,3 +472,13 @@ msgstr "Загрузить ещё"
 
 msgid "page #@number"
 msgstr "страница №@number"
+
+msgid "New comment"
+msgstr "Новый комментарий"
+
+msgid "Publication"
+msgstr "Публикация"
+
+msgctxt "comment moderation"
+msgid "Approve"
+msgstr "Одобрить"

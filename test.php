@@ -5,19 +5,11 @@
  * \Drupal\niklan\Telegram\Controller\WebhookController::setWebhook();
  */
 
-use Drupal\Core\Site\Settings;
-use Drupal\niklan\Telegram\Telegram;
-use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
-use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
+use Drupal\comment\Entity\Comment;
+use Drupal\niklan\Comment\Telegram\CommentModerationHandler;
 
-$telegram = Drupal::service(Telegram::class);
-assert($telegram instanceof Telegram);
-$telegram->getBot()->sendMessage(
-  chat_id: Settings::get('telegram_chat_id'),
-  text: 'Test',
-  reply_markup: InlineKeyboardMarkup::make()
-    ->addRow(
-      new InlineKeyboardButton(text: '✅ Approve', callback_data: 'approve@commentModerator'),
-      new InlineKeyboardButton(text: '❌ Remove', callback_data: 'remove@commentModerator'),
-  ),
-);
+$handler = Drupal::service(CommentModerationHandler::class);
+assert($handler instanceof CommentModerationHandler);
+$comment = Comment::load(5246);
+
+$handler->handle($comment);
