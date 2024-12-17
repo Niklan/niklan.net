@@ -482,3 +482,15 @@ msgstr "Публикация"
 msgctxt "comment moderation"
 msgid "Approve"
 msgstr "Одобрить"
+
+msgid "Confirm deletion"
+msgstr "Подтвердить удаление"
+
+msgid "Comment has been approved and published"
+msgstr "Комментарий одобрен и опубликован"
+
+msgid "Comment has been deleted"
+msgstr "Комментарий удалён"
+
+msgid "Edit on website"
+msgstr "Редактировать на сайте"
