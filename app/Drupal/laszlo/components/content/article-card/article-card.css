@@ -30,6 +30,7 @@
   }
 
   .article-card__poster {
+    width: 150px;
     overflow: hidden;
     flex-shrink: 0;
     align-self: center;
