@@ -18,5 +18,6 @@ is_admin: false
 permissions:
   - 'access comments'
   - 'access content'
+  - 'post comments'
   - 'use text format comments'
   - 'view media'

@@ -13,6 +13,7 @@ use Drupal\niklan\Hook\Deploy\Deploy0003;
 use Drupal\niklan\Hook\Deploy\Deploy0004;
 use Drupal\niklan\Hook\Deploy\Deploy0005;
 use Drupal\niklan\Hook\Deploy\Deploy0006;
+use Drupal\niklan\Hook\Deploy\Deploy0007;
 
 /**
  * Migrate contact submission values into native fields.
@@ -54,4 +55,11 @@ function niklan_deploy_0005(array &$sandbox): string {
  */
 function niklan_deploy_0006(array &$sandbox): string {
   return \Drupal::classResolver(Deploy0006::class)($sandbox);
+}
+
+/**
+ * Remove unpublished comments.
+ */
+function niklan_deploy_0007(array &$sandbox): string {
+  return \Drupal::classResolver(Deploy0007::class)($sandbox);
 }

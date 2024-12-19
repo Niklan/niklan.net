@@ -439,9 +439,6 @@ msgstr "Поддерживается Markdown"
 msgid "Comments temporarily disabled"
 msgstr "Комментарии временно отключены"
 
-msgid "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">There is a lot of spam going on.</a> I need some time to implement tools to moderate it via Telegram and bring them back again."
-msgstr "<a href=\"@url\" rel=\"noreferrer nofollow noopener\" target=\"_blank\">Слишком много спама.</a> Нужно немного времени чтобы реализовать инструменты для модерации спама через Телеграм и вернуть их обратно."
-
 msgid "Home page settings"
 msgstr "Настройки главной страницы"
 
@@ -472,3 +469,25 @@ msgstr "Загрузить ещё"
 
 msgid "page #@number"
 msgstr "страница №@number"
+
+msgid "New comment"
+msgstr "Новый комментарий"
+
+msgid "Publication"
+msgstr "Публикация"
+
+msgctxt "comment moderation"
+msgid "Approve"
+msgstr "Одобрить"
+
+msgid "Confirm deletion"
+msgstr "Подтвердить удаление"
+
+msgid "Comment has been approved and published"
+msgstr "Комментарий одобрен и опубликован"
+
+msgid "Comment has been deleted"
+msgstr "Комментарий удалён"
+
+msgid "Edit on website"
+msgstr "Редактировать на сайте"
