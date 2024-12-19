@@ -24,6 +24,12 @@ final class SetWebhook extends Command {
 
   #[\Override]
   protected function execute(InputInterface $input, OutputInterface $output): int {
+    if (!$this->telegram->isConfigured()) {
+      $output->writeln('<error>Telegram is not configured.</error>');
+
+      return self::FAILURE;
+    }
+
     $this->telegram->setWebhook();
 
     return self::SUCCESS;
