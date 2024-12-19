@@ -7,6 +7,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -16,6 +17,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\niklan\Hook\Entity\BaseFieldInfo;
 use Drupal\niklan\Hook\Entity\BundleInfoAlter;
+use Drupal\niklan\Hook\Entity\CommentInsert;
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanHomeCards;
 use Drupal\niklan\Hook\Theme\PreprocessNiklanLightboxResponsiveImage;
@@ -420,4 +422,11 @@ function niklan_tokens(string $type, array $tokens, array $data, array $options,
  */
 function niklan_preprocess_pager(array &$variables): void {
   Drupal::classResolver(PreprocessPager::class)($variables);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function niklan_comment_insert(EntityInterface $entity): void {
+  \Drupal::classResolver(CommentInsert::class)($entity);
 }

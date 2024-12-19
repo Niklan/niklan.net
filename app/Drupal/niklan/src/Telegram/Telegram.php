@@ -24,6 +24,13 @@ final class Telegram {
     private readonly EventDispatcherInterface $eventDispatcher,
   ) {}
 
+  public function setWebhook(): void {
+    $this->getBot()->setWebhook(
+      url: Url::fromRoute('niklan.telegram.webhook')->setAbsolute()->toString(),
+      secret_token: $this->getSecretToken(),
+    );
+  }
+
   public function getBot(): Nutgram {
     if ($this->bot === NULL) {
       $this->bot = $this->initBot();
@@ -32,18 +39,27 @@ final class Telegram {
     return $this->bot;
   }
 
-  public function registerWebhook(): void {
-    $this->getBot()->setWebhook(
-      url: Url::fromRoute('niklan.telegram.webhook')->setAbsolute()->toString(),
-      secret_token: Settings::get('telegram_secret_token'),
-    );
+  public function isConfigured(): bool {
+    return $this->getChatId() !== NULL && $this->getSecretToken() !== NULL && $this->getChatId() !== NULL;
+  }
+
+  public function getChatId(): ?string {
+    return Settings::get('telegram_chat_id');
+  }
+
+  public function getSecretToken(): ?string {
+    return Settings::get('telegram_secret_token');
+  }
+
+  public function getToken(): ?string {
+    return Settings::get('telegram_token');
   }
 
   private function initBot(): Nutgram {
-    $webhook = new Webhook(secretToken: Settings::get('telegram_secret_token'));
+    $webhook = new Webhook(secretToken: $this->getSecretToken());
     $webhook->setSafeMode(TRUE);
     $config = new Configuration(logger: $this->logger);
-    $bot = new Nutgram(Settings::get('telegram_token'), $config);
+    $bot = new Nutgram($this->getToken(), $config);
     $bot->setRunningMode($webhook);
 
     $event = new TelegramBotInitializationEvent($bot);

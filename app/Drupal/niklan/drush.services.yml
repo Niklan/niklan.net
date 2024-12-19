@@ -5,3 +5,9 @@ services:
       - '@Drupal\external_content\ExternalContent\ExternalContentManager'
     tags:
       - { name: console.command }
+  niklan.telegram.set_webhook:
+    class: Drupal\niklan\Telegram\Command\SetWebhook
+    arguments:
+      - '@Drupal\niklan\Telegram\Telegram'
+    tags:
+      - { name: console.command }

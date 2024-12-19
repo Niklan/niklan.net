@@ -8,7 +8,6 @@ use Drupal\comment\CommentInterface;
 use Drupal\comment\CommentStorageInterface;
 use Drupal\comment\Entity\Comment;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\Telegram\Telegram;
 use SergiX44\Nutgram\Nutgram;
@@ -25,15 +24,15 @@ final readonly class CommentModerationHandler {
     private Telegram $telegram,
   ) {}
 
-  public function handle(Comment $comment): void {
+  public function handle(CommentInterface $comment): void {
     // Published comments doesn't need moderation.
-    if ($comment->isPublished()) {
+    if ($comment->isPublished() || !$this->telegram->isConfigured()) {
       return;
     }
 
     $this->telegram->getBot()->sendMessage(
       text: $this->buildMessageText($comment),
-      chat_id: Settings::get('telegram_chat_id'),
+      chat_id: $this->telegram->getChatId(),
       parse_mode: ParseMode::HTML,
       link_preview_options: LinkPreviewOptions::make(TRUE),
       reply_markup: $this->defaultReplyMarkup($comment),
@@ -67,7 +66,7 @@ final readonly class CommentModerationHandler {
     };
   }
 
-  private function buildMessageText(Comment $comment): string {
+  private function buildMessageText(CommentInterface $comment): string {
     $new_comment = new TranslatableMarkup('New comment');
     $publication_property = new TranslatableMarkup('Publication');
     $publication_label = $comment->getCommentedEntity()->label();
@@ -93,7 +92,7 @@ final readonly class CommentModerationHandler {
     HTML;
   }
 
-  private function defaultReplyMarkup(Comment $comment): InlineKeyboardMarkup {
+  private function defaultReplyMarkup(CommentInterface $comment): InlineKeyboardMarkup {
     return InlineKeyboardMarkup::make()
       ->addRow(
         new InlineKeyboardButton(
@@ -113,6 +112,27 @@ final readonly class CommentModerationHandler {
       );
   }
 
+  private function storage(): CommentStorageInterface {
+    return $this->entityTypeManager->getStorage('comment');
+  }
+
+  private function removeButtons(Nutgram $bot): void {
+    $bot->editMessageReplyMarkup();
+  }
+
+  private function onApprove(CommentInterface $comment, Nutgram $bot): void {
+    $comment->setPublished();
+    $this->storage()->save($comment);
+
+    $bot->answerCallbackQuery(text: (string) new TranslatableMarkup('Comment has been approved and published'));
+    $bot->setMessageReaction([ReactionTypeEmoji::make(ReactionTypeEmoji::THUMBS_UP)]);
+    $this->removeButtons($bot);
+  }
+
+  private function onDelete(CommentInterface $comment, Nutgram $bot): void {
+    $bot->editMessageReplyMarkup(reply_markup: $this->deleteConfirmReplyMarkup($comment->id()));
+  }
+
   private function deleteConfirmReplyMarkup(string $comment_id): InlineKeyboardMarkup {
     return InlineKeyboardMarkup::make()
       ->addRow(
@@ -127,14 +147,6 @@ final readonly class CommentModerationHandler {
       );
   }
 
-  private function onDelete(Comment $comment, Nutgram $bot): void {
-    $bot->editMessageReplyMarkup(reply_markup: $this->deleteConfirmReplyMarkup($comment->id()));
-  }
-
-  private function onDeleteCancel(Comment $comment, Nutgram $bot): void {
-    $bot->editMessageReplyMarkup(reply_markup: $this->defaultReplyMarkup($comment));
-  }
-
   private function onDeleteConfirm(Comment $comment, Nutgram $bot): void {
     $this->storage()->delete([$comment]);
     $bot->answerCallbackQuery(text: (string) new TranslatableMarkup('Comment has been deleted'));
@@ -142,21 +154,8 @@ final readonly class CommentModerationHandler {
     $bot->setMessageReaction([ReactionTypeEmoji::make(ReactionTypeEmoji::THUMBS_DOWN)]);
   }
 
-  private function storage(): CommentStorageInterface {
-    return $this->entityTypeManager->getStorage('comment');
-  }
-
-  private function onApprove(Comment $comment, Nutgram $bot): void {
-    $comment->setPublished();
-    $this->storage()->save($comment);
-
-    $bot->answerCallbackQuery(text: (string) new TranslatableMarkup('Comment has been approved and published'));
-    $bot->setMessageReaction([ReactionTypeEmoji::make(ReactionTypeEmoji::THUMBS_UP)]);
-    $this->removeButtons($bot);
-  }
-
-  private function removeButtons(Nutgram $bot): void {
-    $bot->editMessageReplyMarkup();
+  private function onDeleteCancel(Comment $comment, Nutgram $bot): void {
+    $bot->editMessageReplyMarkup(reply_markup: $this->defaultReplyMarkup($comment));
   }
 
 }

@@ -42,6 +42,7 @@ jobs:
             composer install -n -o --no-dev --apcu-autoloader
             cachetool opcache:reset --fcgi=php:9000 --tmp-dir=/var/www/html
             drush deploy
+            drush niklan:telegram:set-webhook
             task import/translations
             drush queue:delete warmer
             drush warmer:enqueue entity
