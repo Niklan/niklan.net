@@ -3,14 +3,13 @@ langcode: ru
 status: true
 dependencies:
   config:
-    - field.storage.node.field_tags
-    - search_api.server.database
     - core.entity_view_mode.node.search_index
     - core.entity_view_mode.taxonomy_term.full
+    - field.storage.node.field_tags
+    - search_api.server.database
   module:
-    - taxonomy
     - node
-    - search_api
+    - taxonomy
 id: global_index
 name: 'Global index'
 description: ''
