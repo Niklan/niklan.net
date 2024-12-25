@@ -6,7 +6,6 @@ bazz
 Cravensworth
 Dflydev
 doctag
-fullscreen
 hljs
 Inlines
 Laszlo
@@ -21,8 +20,6 @@ Nutgram
 opsz
 Photoswipe
 photoswipe
-prismjs
-quux
 selfdoc
 Sergi
 sfmono
