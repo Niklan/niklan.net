@@ -25,7 +25,7 @@ use League\CommonMark\Extension\ExtensionInterface;
  *
  * Analogous to fenced code blocks, an arbitrary number of colons greater or
  * equal three could be used as long as the closing line is longer than the
- * opening line. That way, you can even nest blocks (think divs) by using
+ * opening line. That way, you can even nest blocks (think of div) by using
  * successively fewer colons for each containing block.
  *
  * @see https://talk.commonmark.org/t/generic-directives-plugins-syntax
