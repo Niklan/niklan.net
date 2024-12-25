@@ -72,9 +72,7 @@ module:
   warmer_entity: 0
   pathauto: 1
   views: 10
-  niklan_installer: 1000
 theme:
   claro: 0
   stable9: 0
   laszlo: 0
-profile: niklan_installer
