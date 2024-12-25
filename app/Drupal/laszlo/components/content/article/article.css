@@ -62,7 +62,7 @@
   .article__poster {
     overflow: hidden;
     flex-shrink: 0;
-    min-width: 200px;
+    width: 200px;
     border-radius: var(--spacing-2);
     box-shadow: var(--elevation-2);
     margin-inline: auto;
