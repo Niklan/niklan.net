@@ -82,6 +82,10 @@ final readonly class Search implements ContainerInjectionInterface {
       '#query' => $query,
       '#pager' => ['#type' => 'pager', '#quantity' => 5],
       '#cache' => [
+        'contexts' => [
+          'url.query_args:q',
+          'url.query_args.pagers:0',
+        ],
         'tags' => [
           'search_api_list:global_index',
         ],
