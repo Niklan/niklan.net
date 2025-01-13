@@ -22,9 +22,15 @@ final readonly class PreprocessTaxonomyTerm implements ContainerInjectionInterfa
     );
   }
 
+  private function addCommonVariables(TermInterface $term, array &$variables): void {
+    $variables['url_absolute'] = $term->toUrl()->setAbsolute()->toString();
+  }
+
   public function __invoke(array &$variables): void {
     $term = $variables['term'];
     \assert($term instanceof TermInterface);
+
+    $this->addCommonVariables($term, $variables);
 
     $class = match ($term->bundle()) {
       default => NULL,
