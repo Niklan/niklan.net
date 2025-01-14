@@ -49,7 +49,7 @@ tasks:
   phpstan:
     label: PHPStan
     desc: Runs 'phpstan' command.
-    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpstan --configuration={{.CONFIG_DIR}}/phpstan.neon {{.CLI_ARGS}}'
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/phpstan -v --configuration={{.CONFIG_DIR}}/phpstan.neon {{.CLI_ARGS}}'
 
   parallel-lint:
     label: PHP Parallel lint

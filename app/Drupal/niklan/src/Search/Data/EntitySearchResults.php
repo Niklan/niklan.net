@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Search\Data;
 
+/**
+ * @implements \IteratorAggregate<string, \Drupal\niklan\Search\Data\EntitySearchResult>
+ */
 final class EntitySearchResults implements \IteratorAggregate, \Countable {
 
-  /**
-   * @param \Drupal\niklan\Search\Data\EntitySearchResult[] $items
-   *   An array with search results.
-   */
   public function __construct(
     protected array $items,
     protected ?int $totalResultsCount = NULL,
   ) {}
 
-  /**
-   * @return \Drupal\niklan\Search\Data\EntitySearchResult[]
-   *   An array with search result items.
-   */
   public function getItems(): array {
     return $this->items;
   }
@@ -41,6 +36,9 @@ final class EntitySearchResults implements \IteratorAggregate, \Countable {
     return $this->totalResultsCount;
   }
 
+  /**
+   * @return \ArrayIterator<string, \Drupal\niklan\Search\Data\EntitySearchResult>
+   */
   #[\Override]
   public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->items);

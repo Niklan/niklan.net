@@ -8,13 +8,15 @@ use Drupal\external_content\Node\Content;
 
 /**
  * Represents a collection of external content documents.
+ *
+ * @implements \IteratorAggregate<int, \Drupal\external_content\Node\Content>
  */
 final class ContentCollection implements \Countable, \IteratorAggregate {
 
   /**
    * The array with parsed documents.
    *
-   * @var \Drupal\external_content\Data\ContentCollection[]
+   * @var list<\Drupal\external_content\Node\Content>
    */
   protected array $items = [];
 
@@ -28,6 +30,9 @@ final class ContentCollection implements \Countable, \IteratorAggregate {
     $this->items[] = $document;
   }
 
+  /**
+   * @return \ArrayIterator<int, \Drupal\external_content\Node\Content>
+   */
   #[\Override]
   public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->items);

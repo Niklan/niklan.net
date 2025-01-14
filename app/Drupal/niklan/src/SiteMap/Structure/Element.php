@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\SiteMap\Structure;
 
+/**
+ * @implements \IteratorAggregate<mixed, mixed>
+ * @implements \ArrayAccess<mixed, mixed>
+ */
 abstract class Element implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   protected array $collection = [];
@@ -17,7 +21,7 @@ abstract class Element implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   #[\Override]
   public function offsetExists(mixed $offset): bool {
-    return isset($offset, $this->collection);
+    return isset($this->collection[$offset]);
   }
 
   #[\Override]

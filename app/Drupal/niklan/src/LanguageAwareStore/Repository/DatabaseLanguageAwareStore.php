@@ -248,7 +248,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
     ];
   }
 
-  protected function doSetIfNotExists($key, $value): bool {
+  protected function doSetIfNotExists(string $key, mixed $value): bool {
     $result = $this
       ->connection
       ->merge($this->table)
@@ -265,7 +265,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
     return $result === Merge::STATUS_INSERT;
   }
 
-  protected function doSet($key, $value): void {
+  protected function doSet(string $key, mixed $value): void {
     $this
       ->connection
       ->merge($this->table)

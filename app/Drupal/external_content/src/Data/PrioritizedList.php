@@ -6,6 +6,8 @@ namespace Drupal\external_content\Data;
 
 /**
  * Provides a list that takes priority into account.
+ *
+ * @implements \IteratorAggregate<int, array<int, mixed>>
  */
 final class PrioritizedList implements \IteratorAggregate {
 
@@ -16,6 +18,8 @@ final class PrioritizedList implements \IteratorAggregate {
 
   /**
    * The sorted list of items.
+   *
+   * @var \ArrayIterator<int, mixed>|null
    */
   protected ?\ArrayIterator $sorted = NULL;
 
@@ -32,6 +36,9 @@ final class PrioritizedList implements \IteratorAggregate {
     $this->sorted = NULL;
   }
 
+  /**
+   * @return \ArrayIterator<int, mixed>
+   */
   #[\Override]
   public function getIterator(): \ArrayIterator {
     if ($this->sorted) {

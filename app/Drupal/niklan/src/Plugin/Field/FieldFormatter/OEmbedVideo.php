@@ -20,6 +20,9 @@ use Drupal\media\Plugin\media\Source\OEmbedInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @deprecated Remove it.
+ */
 #[FieldFormatter(
   id: 'niklan_media_remote_video_optimized',
   label: new TranslatableMarkup('oEmbed video optimized responsive'),
