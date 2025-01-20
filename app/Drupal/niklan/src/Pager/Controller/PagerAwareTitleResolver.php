@@ -44,6 +44,10 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
       $title = $this->renderer->renderInIsolation($title);
     }
 
+    if (!is_string($title) && !$title instanceof \Stringable) {
+      return $title;
+    }
+
     return $title . ' — ' . new TranslatableMarkup('page #@number', [
       '@number' => $this->pagerManager->getPager()->getCurrentPage() + 1,
     ]);

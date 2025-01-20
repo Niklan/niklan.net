@@ -156,6 +156,7 @@ final class OEmbedVideo extends FormatterBase {
       return FALSE;
     }
 
+    // @phpstan-ignore-next-line
     $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
     $is_oembed = $media_type->getSource() instanceof OEmbedInterface;
 

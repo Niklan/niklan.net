@@ -72,7 +72,7 @@ final readonly class Search implements ContainerInjectionInterface {
   }
 
   public function __invoke(Request $request): array {
-    $query = $request->query->get('q');
+    $query = (string) $request->query->get('q');
 
     return [
       '#theme' => 'niklan_search_results',
