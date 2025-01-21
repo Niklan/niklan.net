@@ -65,6 +65,10 @@ final class CommonMarkDirectiveHelper {
       'attributes' => NULL,
     ];
 
+    // The type should be presented.
+    // @see \Drupal\niklan\Markup\Markdown\Parser\LeafBlockDirectiveStartParser::tryStart
+    \assert(is_string($result['type']), 'Directive type must be specified.');
+
     while (!$cursor->isAtEnd()) {
       match ($cursor->getCurrentCharacter()) {
         default => $cursor->advanceBy(1),
@@ -116,10 +120,12 @@ final class CommonMarkDirectiveHelper {
     }
 
     if ($result['class']) {
-      \array_walk(
-        $result['class'],
-        static fn (string &$class) => $class = \str_replace('.', '', $class),
-      );
+      // Filter the class array to remove non-string or empty elements.
+      $valid_class_callback = static fn (?string $class): bool => is_string($class) && strlen($class) > 0;
+      $result['class'] = \array_filter($result['class'], $valid_class_callback);
+      // Remove CSS notation (dots) from class names.
+      $dot_removal_callback = static fn (string &$class): string => $class = \str_replace('.', '', $class);
+      \array_walk($result['class'], $dot_removal_callback);
     }
 
     return $result;
