@@ -44,7 +44,7 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
       $title = $this->renderer->renderInIsolation($title);
     }
 
-    if (!is_string($title) && !$title instanceof \Stringable) {
+    if (!\is_string($title) && !$title instanceof \Stringable) {
       return $title;
     }
 
