@@ -11,11 +11,7 @@ interface EnvironmentManagerInterface {
   public function has(string $environment_id): bool;
 
   /**
-   * @return array{
-   *   service: string,
-   *   label: string,
-   *   id: string,
-   *   }
+   * @return array<string, array{service: string, id: string, label: string}>
    */
   public function list(): array;
 

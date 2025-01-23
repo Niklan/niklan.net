@@ -172,7 +172,7 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
   #[\Override]
   public function addEventListener(string $event_class, callable $listener, int $priority = 0): self {
     $this->eventListeners->add(
-      item: new EventListener($event_class, $listener),
+      item: new EventListener($event_class, \Closure::fromCallable($listener)),
       priority: $priority,
     );
 

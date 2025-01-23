@@ -120,7 +120,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
   private function preparePreviousLink(BlogEntry $node, array &$variables): void {
     $id = $this->preparePreviousNextQuery($node, '>')->execute();
 
-    if (!$id) {
+    if (!\is_array($id) || \count($id) !== 1) {
       return;
     }
 
@@ -142,7 +142,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     $cache = CacheableMetadata::createFromRenderArray($variables);
     $id = $this->preparePreviousNextQuery($node, '<')->execute();
 
-    if (!$id) {
+    if (!\is_array($id) || \count($id) !== 1) {
       // Ensure it is updated when a new content is added.
       $cache->addCacheTags(['node_list:blog-entry']);
       $cache->applyTo($variables);

@@ -97,11 +97,11 @@ final readonly class CommentModerationHandler {
       ->addRow(
         new InlineKeyboardButton(
           text: (string) new TranslatableMarkup('Approve', [], ['context' => 'comment moderation']),
-          callback_data: CommentModerationCallbackType::Approve->buildCallbackId($comment->id()),
+          callback_data: CommentModerationCallbackType::Approve->buildCallbackId((string) $comment->id()),
         ),
         new InlineKeyboardButton(
           text: (string) new TranslatableMarkup('Delete'),
-          callback_data: CommentModerationCallbackType::Delete->buildCallbackId($comment->id()),
+          callback_data: CommentModerationCallbackType::Delete->buildCallbackId((string) $comment->id()),
         ),
       )
       ->addRow(
@@ -130,7 +130,7 @@ final readonly class CommentModerationHandler {
   }
 
   private function onDelete(CommentInterface $comment, Nutgram $bot): void {
-    $bot->editMessageReplyMarkup(reply_markup: $this->deleteConfirmReplyMarkup($comment->id()));
+    $bot->editMessageReplyMarkup(reply_markup: $this->deleteConfirmReplyMarkup((string) $comment->id()));
   }
 
   private function deleteConfirmReplyMarkup(string $comment_id): InlineKeyboardMarkup {

@@ -19,6 +19,9 @@ use Drupal\media\OEmbed\UrlResolverInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @todo Check usage, most likely not used at this point.
+ */
 #[RenderElement('niklan_oembed_video')]
 final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPluginInterface {
 
@@ -219,7 +222,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
       $matches,
     );
 
-    return $matches[1];
+    return $matches[1] ?? NULL;
   }
 
 }

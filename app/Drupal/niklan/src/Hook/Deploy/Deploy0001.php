@@ -63,6 +63,7 @@ final class Deploy0001 implements ContainerInjectionInterface {
       ->getContactMessageQuery()
       ->range($sandbox['current'], $sandbox['limit'])
       ->execute();
+    \assert(\is_array($ids));
 
     $contact_messages = $this
       ->entityTypeManager

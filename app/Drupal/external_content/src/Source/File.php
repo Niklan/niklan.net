@@ -42,7 +42,7 @@ final class File implements SourceInterface {
 
   #[\Override]
   public function contents(): string {
-    return \file_get_contents($this->getPathname());
+    return (string) \file_get_contents($this->getPathname());
   }
 
   #[\Override]

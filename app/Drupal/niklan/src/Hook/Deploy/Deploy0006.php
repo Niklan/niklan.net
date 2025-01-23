@@ -45,6 +45,7 @@ final readonly class Deploy0006 implements ContainerInjectionInterface {
       ->getQuery()
       ->range($sandbox['current'], $sandbox['limit'])
       ->execute();
+    \assert(\is_array($ids));
     $sandbox['current'] += \count($ids);
 
     yield from $this->getStorage()->loadMultiple($ids);
