@@ -67,6 +67,7 @@ final readonly class Deploy0005 implements ContainerInjectionInterface {
       return;
     }
 
+    // @phpstan-ignore-next-line
     if (!\str_starts_with($file->getMimeType(), 'image/')) {
       return;
     }

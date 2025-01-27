@@ -7,6 +7,7 @@ namespace Drupal\niklan\Search\Repository;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\Utility\QueryHelperInterface;
 
@@ -39,6 +40,7 @@ abstract class SearchApiSearch implements CacheableDependencyInterface {
   protected function getQuery(): QueryInterface {
     $index_storage = $this->entityTypeManager->getStorage('search_api_index');
     $index = $index_storage->load($this->getIndexId());
+    \assert($index instanceof IndexInterface);
 
     return $this->queryHelper->createQuery($index);
   }

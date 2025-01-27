@@ -69,7 +69,7 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
         '#theme' => 'niklan_media_attached_file',
         '#uri' => $file->getFileUri(),
         '#filename' => $file->getFilename(),
-        '#filesize' => ByteSizeMarkup::create($file->getSize()),
+        '#filesize' => ByteSizeMarkup::create($file->getSize() ?? 0),
         '#label' => $media->label(),
       ];
     }

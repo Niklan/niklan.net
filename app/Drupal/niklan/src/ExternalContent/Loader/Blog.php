@@ -51,9 +51,14 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $this->logger->info('Starting to load blog external content bundle with ID: ' . $bundle->id);
     $blog_entry = $this->findBlogEntry($bundle->id);
 
+    if (!$blog_entry) {
+      return LoaderResult::pass($bundle->id);
+    }
+
     foreach ($bundle->getAllWithAttribute('language')->sources() as $identified_source) {
       // Switch the content language to be the same as variation.
       $language = $identified_source->attributes->getAttribute('language');
+      \assert(is_string($language));
       $blog_entry = $blog_entry->getTranslation($language);
       $this->syncBlogEntryVariation($blog_entry, $identified_source);
     }
@@ -329,11 +334,9 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       return;
     }
 
-    $new_node = new DrupalMedia(
-      type: 'remote_video',
-      uuid: $media->uuid(),
-    );
-    $node->getParent()->replaceNode($node, $new_node);
+    \assert(is_string($media->uuid()));
+    $new_node = new DrupalMedia('remote_video', $media->uuid());
+    $node->getParent()?->replaceNode($node, $new_node);
   }
 
   private function replaceMediaImages(NodeInterface $node, string $source_dir): void {

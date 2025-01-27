@@ -84,8 +84,9 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $input = $form_state->getUserInput();
     $rows = &NestedArray::getValue(
       array: $input,
-      // This should be '#parents', because we're working with values array, not
-      // the form tree.
+      // This should be '#parents', because we're working with array of values,
+      // not the form tree.
+      // @phpstan-ignore-next-line offsetAccess.notFound
       parents: \array_slice($button['#parents'], 0, -1),
     );
     // Rows can be sorted by weight and indexes are not always in ASC order.

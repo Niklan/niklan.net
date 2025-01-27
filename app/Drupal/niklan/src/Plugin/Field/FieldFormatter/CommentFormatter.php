@@ -77,7 +77,7 @@ final class CommentFormatter extends FormatterBase {
   }
 
   private function isVisible(CommentFieldItemList $items): bool {
-    $is_not_hidden = $items->first()->get('status')->getValue() !== CommentItemInterface::HIDDEN;
+    $is_not_hidden = $items->first()?->get('status')->getValue() !== CommentItemInterface::HIDDEN;
     $is_user_has_access = $this->currentUser->hasPermission('access comments');
 
     return $is_not_hidden && $is_user_has_access;
@@ -110,13 +110,14 @@ final class CommentFormatter extends FormatterBase {
       // \Drupal\comment\CommentViewBuilder::alterBuild.
       $build['#comment_threaded'] = FALSE;
       $build['#comment_indent_final'] = FALSE;
+      $thread = $comment->getThread() ?? '';
 
       $comments_data[] = [
         'parent_id' => (int) $comment->getParentComment()?->id(),
         'comment_id' => (int) $comment->id(),
         'comment' => $build,
-        'comment_thread_depth' => \count(\explode('.', $comment->getThread())),
-        'comment_thread' => $comment->getThread(),
+        'comment_thread_depth' => \count(\explode('.', $thread)),
+        'comment_thread' => $thread,
       ];
     }
 
@@ -147,7 +148,7 @@ final class CommentFormatter extends FormatterBase {
   }
 
   private function prepareCommentForm(CommentFieldItemList $items): array {
-    $is_open = $items->first()->get('status')->getValue() !== CommentItemInterface::OPEN;
+    $is_open = $items->first()?->get('status')->getValue() !== CommentItemInterface::OPEN;
     $is_user_allowed_to_comment = $this->currentUser->hasPermission('post comments');
 
     if (!$is_open || !$is_user_allowed_to_comment) {

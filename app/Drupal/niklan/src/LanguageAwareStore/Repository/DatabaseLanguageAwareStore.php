@@ -36,7 +36,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
         ->condition('language_code', $this->languageCode)
         ->range(0, 1)
         ->execute()
-        ->fetchField();
+        ?->fetchField();
     }
     catch (\Exception $exception) {
       $this->catchException($exception);
@@ -64,7 +64,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
         ->condition('language_code', $this->languageCode)
         ->condition('name', $keys, 'IN')
         ->execute()
-        ->fetchAllAssoc('name');
+        ?->fetchAllAssoc('name');
 
       foreach ($keys as $key) {
         if (!isset($result[$key])) {
@@ -85,6 +85,8 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
 
   #[\Override]
   public function getAll(): array {
+    $result = NULL;
+
     try {
       $result = $this
         ->connection
@@ -96,7 +98,10 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
     }
     catch (\Exception $e) {
       $this->catchException($e);
-      $result = [];
+    }
+
+    if (!$result) {
+      return [];
     }
 
     $values = [];

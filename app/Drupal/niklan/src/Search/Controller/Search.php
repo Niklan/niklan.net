@@ -37,7 +37,7 @@ final readonly class Search implements ContainerInjectionInterface {
   private function doSearch(string $keys): EntitySearchResults {
     $search_params = new SearchParams($keys, self::PER_PAGE, $this->pagerManager->findPage() * self::PER_PAGE);
     $search_results = $this->entitySearch->search($search_params);
-    $this->pagerManager->createPager($search_results->getTotalResultsCount(), self::PER_PAGE);
+    $this->pagerManager->createPager($search_results->getTotalResultsCount() ?? 0, self::PER_PAGE);
 
     return $search_results;
   }
@@ -62,7 +62,7 @@ final readonly class Search implements ContainerInjectionInterface {
     $view_builder = $this->entityTypeManager->getViewBuilder($result->getEntityTypeId());
     $entity = $storage->load($result->getEntityId());
 
-    return $view_builder->view($entity, 'search_result');
+    return $entity ? $view_builder->view($entity, 'search_result') : [];
   }
 
   private function warmUpResults(EntitySearchResults $search_results): void {

@@ -56,10 +56,16 @@ final class Telegram {
   }
 
   private function initBot(): Nutgram {
+    $token = $this->getToken();
+
+    if (!$token) {
+      throw new \InvalidArgumentException('Telegram token is not set');
+    }
+
     $webhook = new Webhook(secretToken: $this->getSecretToken());
     $webhook->setSafeMode(TRUE);
     $config = new Configuration(logger: $this->logger);
-    $bot = new Nutgram($this->getToken(), $config);
+    $bot = new Nutgram($token, $config);
     $bot->setRunningMode($webhook);
 
     $event = new TelegramBotInitializationEvent($bot);
