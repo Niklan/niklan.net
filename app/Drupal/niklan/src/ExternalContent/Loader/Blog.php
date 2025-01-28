@@ -56,9 +56,12 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     }
 
     foreach ($bundle->getAllWithAttribute('language')->sources() as $identified_source) {
+      if (!$identified_source->attributes->hasAttribute('language')) {
+        continue;
+      }
+
       // Switch the content language to be the same as variation.
       $language = $identified_source->attributes->getAttribute('language');
-      \assert(is_string($language));
       $blog_entry = $blog_entry->getTranslation($language);
       $this->syncBlogEntryVariation($blog_entry, $identified_source);
     }
@@ -334,7 +337,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       return;
     }
 
-    \assert(is_string($media->uuid()));
+    \assert(\is_string($media->uuid()));
     $new_node = new DrupalMedia('remote_video', $media->uuid());
     $node->getParent()?->replaceNode($node, $new_node);
   }
@@ -345,7 +348,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       $this->replaceMediaImages($child, $source_dir);
     }
 
-    if (!$node instanceof Element || $node->getTag() !== 'img') {
+    if (!$node instanceof Element || $node->getTag() !== 'img' || !$node->getAttributes()->hasAttribute('src')) {
       return;
     }
 
@@ -361,6 +364,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       return;
     }
 
+    \assert(\is_string($media->uuid()));
     $new_node = new DrupalMedia(
       type: 'image',
       uuid: $media->uuid(),
@@ -371,7 +375,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     );
 
     $replace_target = $this->findMediaImageReplaceTarget($node);
-    $replace_target->getParent()->replaceNode($replace_target, $new_node);
+    $replace_target->getParent()?->replaceNode($replace_target, $new_node);
   }
 
   private function prepareLinks(NodeInterface $node, string $source_dir): void {
@@ -379,12 +383,11 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       $this->prepareLinks($child, $source_dir);
     }
 
-    if (!$node instanceof Element || $node->getTag() !== 'a') {
+    if (!$node instanceof Element || $node->getTag() !== 'a' || !$node->getAttributes()->hasAttribute('href')) {
       return;
     }
 
-    $attributes = $node->getAttributes();
-    $href = $attributes->getAttribute('href') ?? '';
+    $href = $node->getAttributes()->getAttribute('href');
 
     if (UrlHelper::isExternal($href)) {
       return;
@@ -475,6 +478,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       return;
     }
 
+    \assert(\is_string($media->uuid()));
     $new_node = new DrupalMedia(
       type: 'video',
       uuid: $media->uuid(),
@@ -483,7 +487,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       ]),
     );
 
-    $node->getParent()->replaceNode($node, $new_node);
+    $node->getParent()?->replaceNode($node, $new_node);
   }
 
 }

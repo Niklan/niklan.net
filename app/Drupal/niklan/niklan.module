@@ -328,9 +328,7 @@ function niklan_field_widget_text_textarea_form_alter(array &$element, FormState
  * After build callback to remove text_textarea format.
  */
 function _niklan_remove_text_textarea_format(array $element, FormStateInterface $form_state): array {
-  $is_admin = Drupal::routeMatch()
-    ->getRouteObject()
-    ->hasOption('_admin_route');
+  $is_admin = Drupal::routeMatch()->getRouteObject()?->hasOption('_admin_route') ?? FALSE;
 
   if ($element['#type'] === 'text_format' && !$is_admin) {
     hide($element['format']);

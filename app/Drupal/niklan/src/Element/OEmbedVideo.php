@@ -118,12 +118,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     $resource = $this->oEmbedFetcher->fetchResource($resource_url);
     $iframe_url = $this->buildIframeUrl($video_url, $resource);
 
-    return $this->buildIframe(
-      $iframe_url->toString(),
-      $resource->getWidth(),
-      $resource->getHeight(),
-      $resource->getTitle(),
-    );
+    return $this->buildIframe($iframe_url->toString(), (int) $resource->getWidth(), (int) $resource->getHeight(), $resource->getTitle());
   }
 
   protected function validateResource(string $video_url): bool {
@@ -156,7 +151,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
   }
 
   protected function buildIframeUrl(string $video_url, Resource $resource): Url {
-    if ($resource->getProvider()->getName() === 'YouTube') {
+    if ($resource->getProvider()?->getName() === 'YouTube') {
       // Default controller 'media.oembed_iframe' is not used because YouTube
       // oembed provider returns iframe markup without allowing us to add
       // special query parameters like autoplay. Also, YouTube doesn't return

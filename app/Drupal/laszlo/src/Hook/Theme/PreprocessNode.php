@@ -34,7 +34,7 @@ final readonly class PreprocessNode implements ContainerInjectionInterface {
       return;
     }
 
-    $variables['comment_count'] = $node->get('comment_node_blog_entry')->first()->get('comment_count')->getValue();
+    $variables['comment_count'] = $node->get('comment_node_blog_entry')->first()?->get('comment_count')->getValue() ?? 0;
   }
 
   public function __invoke(array &$variables): void {

@@ -67,6 +67,8 @@ abstract class Node implements NodeInterface {
 
     while ($node->hasParent()) {
       $node = $node->getParent();
+      // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
+      \assert($node instanceof NodeInterface);
     }
 
     return $node;

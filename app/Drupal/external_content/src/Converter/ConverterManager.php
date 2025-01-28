@@ -27,6 +27,9 @@ final class ConverterManager implements ConverterManagerInterface {
       $result = $converter->convert($input);
 
       if ($result->hasResult()) {
+        // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
+        \assert($result->getResult() instanceof Html);
+
         return $result->getResult();
       }
     }

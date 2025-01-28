@@ -30,7 +30,10 @@ final readonly class FinderManager implements FinderManagerInterface {
         continue;
       }
 
-      $collection->merge($finder_result->results());
+      $result_collection = $finder_result->results();
+      // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
+      \assert($result_collection instanceof SourceCollection);
+      $collection->merge($result_collection);
     }
 
     return $collection;

@@ -40,7 +40,7 @@ final readonly class CommentModerationHandler {
   }
 
   public function onCallbackQuery(Nutgram $bot): void {
-    \preg_match_all('/([a-z-]+:[a-z-]+):([0-9]+)/', $bot->callbackQuery()->data, $matches, \PREG_SET_ORDER);
+    \preg_match_all('/([a-z-]+:[a-z-]+):([0-9]+)/', $bot->callbackQuery()?->data ?? '', $matches, \PREG_SET_ORDER);
     [, $callback_type, $comment_id] = $matches[0];
 
     if (!CommentModerationCallbackType::tryFrom($callback_type) || !\is_numeric($comment_id)) {
@@ -69,8 +69,8 @@ final readonly class CommentModerationHandler {
   private function buildMessageText(CommentInterface $comment): string {
     $new_comment = new TranslatableMarkup('New comment');
     $publication_property = new TranslatableMarkup('Publication');
-    $publication_label = $comment->getCommentedEntity()->label();
-    $publication_url = $comment->getCommentedEntity()->toUrl()->setAbsolute()->toString();
+    $publication_label = $comment->getCommentedEntity()?->label();
+    $publication_url = $comment->getCommentedEntity()?->toUrl()->setAbsolute()->toString();
     $author_property = new TranslatableMarkup('Author');
     $author_name = $comment->getAuthorName();
     $author_email_property = new TranslatableMarkup('Email');
@@ -78,7 +78,7 @@ final readonly class CommentModerationHandler {
     $author_homepage_property = new TranslatableMarkup('Homepage');
     $author_homepage = $comment->getHomepage();
 
-    $comment_body = \htmlentities($comment->get('comment_body')->first()->get('value')->getValue());
+    $comment_body = \htmlentities($comment->get('comment_body')->first()?->get('value')->getValue());
 
     return <<<HTML
     <strong>💬 $new_comment</strong>

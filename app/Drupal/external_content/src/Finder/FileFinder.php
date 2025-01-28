@@ -60,6 +60,11 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
         subject: $file_info->getPath(),
       );
       $working_dir = \rtrim($working_dir, '/');
+      $mime_type = $this->mimeTypeGuesser->guessMimeType($file_info->getPathname());
+
+      if (!$mime_type) {
+        continue;
+      }
 
       $file = new File(
         workingDir: $working_dir,
@@ -69,7 +74,7 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
         // enabled. But this is optionally, use only when this guesser fails.
         // E.g.: it doesn't handle Markdown files at all, Drupal doesn't even
         // know that this type exists.
-        type: $this->mimeTypeGuesser->guessMimeType($file_info->getPathname()),
+        type: $mime_type,
       );
 
       $event = new FileFoundEvent($file, $this->environment);

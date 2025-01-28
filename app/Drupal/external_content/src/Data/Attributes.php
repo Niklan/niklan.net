@@ -35,8 +35,12 @@ final class Attributes {
   /**
    * Gets a value for an attribute.
    */
-  public function getAttribute(string $attribute): ?string {
-    return $this->attributes[$attribute] ?? NULL;
+  public function getAttribute(string $attribute): string {
+    if (!isset($this->attributes[$attribute])) {
+      throw new \OutOfBoundsException(\sprintf('The offset "%s" does not exist.', $attribute));
+    }
+
+    return $this->attributes[$attribute];
   }
 
   /**

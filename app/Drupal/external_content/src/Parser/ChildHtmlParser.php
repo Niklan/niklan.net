@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Node\NodeList;
@@ -36,6 +37,8 @@ final class ChildHtmlParser implements ChildHtmlParserInterface {
       $result = $parser->parseNode($child, $this);
 
       if ($result->hasReplacement()) {
+        // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
+        \assert($result->replacement() instanceof NodeInterface);
         $list->addChild($result->replacement());
       }
 

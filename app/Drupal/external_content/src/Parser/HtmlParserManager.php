@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
+use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserManagerInterface;
@@ -39,6 +40,7 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
     $crawler = new Crawler($pre_parse_event->content);
     $crawler = $crawler->filter('body');
     $body = $crawler->getNode(0);
+    \assert($body instanceof \DOMNode);
 
     $this->parseChildren($body, $content, $environment);
 
@@ -85,6 +87,8 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
       $result = $parser->parseNode($node, $this->childHtmlParser);
 
       if ($result->hasReplacement()) {
+        // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
+        \assert($result->replacement() instanceof NodeInterface);
         $content->addChild($result->replacement());
       }
 

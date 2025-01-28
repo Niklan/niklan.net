@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierManagerInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
+use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifiedSourceCollection;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;
@@ -65,7 +66,10 @@ final readonly class IdentifierManager implements IdentifierManagerInterface {
         continue;
       }
 
-      $identified_sources->add($identifier_result->result());
+      $identified_source = $identifier_result->result();
+      // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
+      \assert($identified_source instanceof IdentifiedSource);
+      $identified_sources->add($identified_source);
 
       return;
     }
