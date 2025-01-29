@@ -19,8 +19,6 @@ final class ElementParser implements HtmlParserInterface {
     $element = new Element($node->nodeName);
 
     if ($node->hasAttributes()) {
-      // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
-      \assert($node->attributes instanceof \DOMNamedNodeMap);
       foreach ($node->attributes->getIterator() as $attribute) {
         \assert($attribute instanceof \DOMAttr);
         $element->getAttributes()->setAttribute($attribute->name, $attribute->value);

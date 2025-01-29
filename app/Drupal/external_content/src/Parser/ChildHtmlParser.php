@@ -37,8 +37,6 @@ final class ChildHtmlParser implements ChildHtmlParserInterface {
       $result = $parser->parseNode($child, $this);
 
       if ($result->hasReplacement()) {
-        // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
-        \assert($result->replacement() instanceof NodeInterface);
         $list->addChild($result->replacement());
       }
 

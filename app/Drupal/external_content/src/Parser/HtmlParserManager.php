@@ -87,8 +87,6 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
       $result = $parser->parseNode($node, $this->childHtmlParser);
 
       if ($result->hasReplacement()) {
-        // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
-        \assert($result->replacement() instanceof NodeInterface);
         $content->addChild($result->replacement());
       }
 

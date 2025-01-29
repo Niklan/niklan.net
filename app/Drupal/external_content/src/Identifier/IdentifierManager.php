@@ -67,8 +67,6 @@ final readonly class IdentifierManager implements IdentifierManagerInterface {
       }
 
       $identified_source = $identifier_result->result();
-      // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
-      \assert($identified_source instanceof IdentifiedSource);
       $identified_sources->add($identified_source);
 
       return;

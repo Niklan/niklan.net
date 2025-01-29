@@ -33,6 +33,9 @@ final readonly class HtmlParserResult {
     return !$this->shouldContinue();
   }
 
+  /**
+   * @phpstan-assert-if-true NodeInterface $this->replacement()
+   */
   public function hasReplacement(): bool {
     return $this->node instanceof NodeInterface;
   }

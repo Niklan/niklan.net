@@ -8,6 +8,7 @@ parameters:
     - ../app/Drupal/mechanical/*
   stubFiles:
     - ./phpstan-stubs/drupal/core/lib/Drupal/Core/Field/FormatterInterface.stub
+    - ./phpstan-stubs/php/DOMNode.stub
   ignoreErrors:
     # Drupal render arrays are impossible to fix.
     - identifier: missingType.iterableValue

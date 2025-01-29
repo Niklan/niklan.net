@@ -59,21 +59,18 @@ abstract class Node implements NodeInterface {
 
   #[\Override]
   public function getRoot(): NodeInterface {
-    if (!$this->hasParent()) {
-      return $this;
-    }
-
     $node = $this;
 
     while ($node->hasParent()) {
       $node = $node->getParent();
-      // @todo Remove when resolved: https://github.com/phpstan/phpstan/issues/12495
-      \assert($node instanceof NodeInterface);
     }
 
     return $node;
   }
 
+  /**
+   * @phpstan-assert-if-true self $this->getParent()
+   */
   #[\Override]
   public function hasParent(): bool {
     return !\is_null($this->parent);
