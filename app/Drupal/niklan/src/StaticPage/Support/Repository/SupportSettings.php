@@ -17,6 +17,7 @@ final class SupportSettings extends LanguageAwareSettingsStore {
   }
 
   public function getDescription(): string {
+    // @phpstan-ignore-next-line return.type
     return $this->getStore()->get('description', 'The support page description.');
   }
 
@@ -27,6 +28,7 @@ final class SupportSettings extends LanguageAwareSettingsStore {
   }
 
   public function getDonateUrl(): ?string {
+    // @phpstan-ignore-next-line return.type
     return $this->getStore()->get('donate_url');
   }
 

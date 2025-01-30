@@ -8,7 +8,6 @@ use Drupal\external_content\Contract\Environment\EnvironmentInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierInterface;
 use Drupal\external_content\Contract\Identifier\IdentifierManagerInterface;
 use Drupal\external_content\Contract\Source\SourceInterface;
-use Drupal\external_content\Data\IdentifiedSource;
 use Drupal\external_content\Data\IdentifiedSourceCollection;
 use Drupal\external_content\Data\SourceCollection;
 use Drupal\external_content\Exception\MissingContainerDefinitionException;

@@ -50,14 +50,24 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $cards = \array_map(
-      callback: static fn ($row): array => [
-        'media_id' => $row['content']['media_id'] ?? NULL,
-        'title' => $row['content']['title'] ?? NULL,
-        'description' => $row['content']['description']['value'] ?? NULL,
-      ],
-      array: $form_state->getValue(['cards', 'items'], []),
-    );
+    $card_items = $form_state->getValue(['cards', 'items'], []);
+    \assert(\is_array($card_items));
+    $cards = [];
+
+    /**
+     * @param array{
+     *   media_id: string,
+     *   title: string,
+     *   description: string
+     * } $card_item
+     */
+    foreach ($card_items as $card_item) {
+      $cards[] = [
+        'media_id' => $card_item['media_id'],
+        'title' => $card_item['title'],
+        'description' => $card_item['description'],
+      ];
+    }
 
     $this
       ->getSettings()

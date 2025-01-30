@@ -34,7 +34,7 @@ final readonly class HtmlParserResult {
   }
 
   /**
-   * @phpstan-assert-if-true NodeInterface $this->replacement()
+   * @phpstan-assert-if-true \Drupal\external_content\Contract\Node\NodeInterface $this->replacement()
    */
   public function hasReplacement(): bool {
     return $this->node instanceof NodeInterface;

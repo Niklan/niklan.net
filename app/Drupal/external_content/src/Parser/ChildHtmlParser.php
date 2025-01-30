@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\external_content\Parser;
 
 use Drupal\external_content\Contract\Environment\EnvironmentInterface;
-use Drupal\external_content\Contract\Node\NodeInterface;
 use Drupal\external_content\Contract\Parser\ChildHtmlParserInterface;
 use Drupal\external_content\Contract\Parser\HtmlParserInterface;
 use Drupal\external_content\Node\NodeList;
