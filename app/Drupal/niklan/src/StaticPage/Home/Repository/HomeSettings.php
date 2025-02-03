@@ -11,36 +11,36 @@ final class HomeSettings extends LanguageAwareSettingsStore {
   public const string TEXT_FORMAT = 'text';
 
   public function getHeading(): string {
-    return $this->getStore()->get('heading', 'Web Developer Blog');
+    $heading = $this->getStore()->get('heading', 'Web Developer Blog');
+    \assert(is_string($heading), 'The heading must be a string.');
+    return $heading;
   }
 
   public function setHeading(string $heading): self {
     $this->getStore()->set('heading', $heading);
-
     return $this;
   }
 
   public function getDescription(): string {
-    return $this->getStore()->get(
-      key: 'description',
-      default: 'The homepage description.',
-    );
+    $description = $this->getStore()->get('description', 'The homepage description.');
+    \assert(is_string($description), 'The description must be a string.');
+    return $description;
   }
 
   public function setDescription(string $description): self {
     $this->getStore()->set('description', $description);
-
     return $this;
   }
 
   public function setCards(array $cards): self {
     $this->getStore()->set('cards', $cards);
-
     return $this;
   }
 
   public function getCards(): array {
-    return $this->getStore()->get('cards', []);
+    $cards = $this->getStore()->get('cards', []);
+    \assert(is_array($cards), 'The cards must be an array.');
+    return $cards;
   }
 
   #[\Override]
