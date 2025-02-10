@@ -68,13 +68,17 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
         'description' => $card_item['description'],
       ];
     }
-
+  
+    $heading = $form_state->getValue('heading');
+    \assert(is_string($heading));
+    $description = $form_state->getValue(['description', 'value']);
+    \assert(\is_string($description));
     $this
       ->getSettings()
-      ->setHeading($form_state->getValue('heading'))
-      ->setDescription($form_state->getValue(['description', 'value']))
+      ->setHeading($heading)
+      ->setDescription($description)
       ->setCards($cards);
-
+  
     parent::submitForm($form, $form_state);
   }
 
@@ -99,6 +103,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
       // @phpstan-ignore-next-line offsetAccess.notFound
       parents: \array_slice($button['#parents'], 0, -1),
     );
+    \assert(\is_array($rows));
     // Rows can be sorted by weight and indexes are not always in ASC order.
     unset($rows[$delta]);
     $rows = \array_values($rows);
@@ -123,12 +128,12 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
   private function buildCards(array &$form, FormStateInterface $form_state): void {
     $cards = $this->getSettings()->getCards();
     $cards_count = $form_state->get('cards_count');
-
+  
     if (!isset($cards_count)) {
       $cards_count = \count($cards);
       $form_state->set('cards_count', $cards_count);
     }
-
+  
     $form['cards'] = [
       '#type' => 'details',
       '#open' => $form_state->get('keep_cards_open') ?? FALSE,
@@ -156,38 +161,51 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
         ],
       ],
     ];
-
+  
     for ($i = 0; $i < $cards_count; $i++) {
       $card_data = $cards[$i] ?? [];
-
-      $form['cards']['items'][$i]['#attributes']['class'][] = 'draggable';
-      $form['cards']['items'][$i]['#weight'] = $i;
-      $form['cards']['items'][$i]['content'] = $this->buildSingleCard($card_data);
-      $form['cards']['items'][$i]['operations'] = [];
-      $form['cards']['items'][$i]['operations']['delete'] = [
-        // Workaround for core bug #2897377.
-        '#id' => "cards-delete-card-{$i}",
-        '#name' => "cards_delete_card_{$i}",
-        '#delta' => $i,
-        '#type' => 'submit',
-        '#submit' => [[self::class, 'removeCard']],
-        '#value' => new TranslatableMarkup('Delete'),
-        '#attributes' => ['class' => ['button--small', 'button--danger']],
-        '#validate' => [],
-        '#limit_validation_errors' => [],
-        '#ajax' => [
-          'callback' => [AjaxFormHelper::class, 'refresh'],
+  
+      /** 
+       * @var array{
+       *   '#attributes': array{'class': array<string>},
+       *   '#weight': int,
+       *   'content': array,
+       *   'operations': array,
+       *   '_weight': array
+       * } $row
+       */
+      $row = [
+        '#attributes' => ['class' => ['draggable']],
+        '#weight' => $i,
+        'content' => $this->buildSingleCard($card_data),
+        'operations' => [
+          'delete' => [
+            '#id' => "cards-delete-card-{$i}",
+            '#name' => "cards_delete_card_{$i}",
+            '#delta' => $i,
+            '#type' => 'submit',
+            '#submit' => [[self::class, 'removeCard']],
+            '#value' => new TranslatableMarkup('Delete'),
+            '#attributes' => ['class' => ['button--small', 'button--danger']],
+            '#validate' => [],
+            '#limit_validation_errors' => [],
+            '#ajax' => [
+              'callback' => [AjaxFormHelper::class, 'refresh'],
+            ],
+            '#parents' => ['cards', 'items', $i],
+          ],
         ],
-        '#parents' => ['cards', 'items', $i],
+        '_weight' => [
+          '#type' => 'weight',
+          '#title_display' => 'invisible',
+          '#default_value' => $i,
+          '#attributes' => ['class' => ['weight']],
+        ],
       ];
-      $form['cards']['items'][$i]['_weight'] = [
-        '#type' => 'weight',
-        '#title_display' => 'invisible',
-        '#default_value' => $i,
-        '#attributes' => ['class' => ['weight']],
-      ];
+  
+      $form['cards']['items'][$i] = $row;
     }
-
+  
     $form['cards']['actions'] = ['#type' => 'actions'];
     $form['cards']['actions']['add'] = [
       // Workaround for core bug #2897377.
