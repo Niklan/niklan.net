@@ -55,7 +55,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $cards = [];
 
     /**
-     * @param array{
+     * @var array{
      *   media_id: string,
      *   title: string,
      *   description: string
@@ -68,17 +68,15 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
         'description' => $card_item['description'],
       ];
     }
-  
-    $heading = $form_state->getValue('heading');
-    \assert(is_string($heading));
-    $description = $form_state->getValue(['description', 'value']);
-    \assert(\is_string($description));
-    $this
-      ->getSettings()
-      ->setHeading($heading)
-      ->setDescription($description)
-      ->setCards($cards);
-  
+
+    $settings = $this->getSettings();
+
+    \assert(\is_string($form_state->getValue('heading')));
+    $settings->setHeading($form_state->getValue('heading'));
+    \assert(\is_string($form_state->getValue(['description', 'value'])));
+    $settings->setDescription($form_state->getValue(['description', 'value']));
+    $settings->setCards($cards);
+
     parent::submitForm($form, $form_state);
   }
 
@@ -128,12 +126,12 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
   private function buildCards(array &$form, FormStateInterface $form_state): void {
     $cards = $this->getSettings()->getCards();
     $cards_count = $form_state->get('cards_count');
-  
+
     if (!isset($cards_count)) {
       $cards_count = \count($cards);
       $form_state->set('cards_count', $cards_count);
     }
-  
+
     $form['cards'] = [
       '#type' => 'details',
       '#open' => $form_state->get('keep_cards_open') ?? FALSE,
@@ -142,7 +140,8 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
       '#suffix' => '</div>',
     ];
 
-    $form['cards']['items'] = [
+    /** @var array<int, array<string, mixed>> $items */
+    $items = [
       '#type' => 'table',
       // Workaround for an empty string if not set. See #3247373.
       '#input' => FALSE,
@@ -161,11 +160,11 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
         ],
       ],
     ];
-  
+
     for ($i = 0; $i < $cards_count; $i++) {
       $card_data = $cards[$i] ?? [];
-  
-      /** 
+
+      /**
        * @var array{
        *   '#attributes': array{'class': array<string>},
        *   '#weight': int,
@@ -202,10 +201,11 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
           '#attributes' => ['class' => ['weight']],
         ],
       ];
-  
-      $form['cards']['items'][$i] = $row;
+
+      $items[$i] = $row;
     }
-  
+
+    $form['cards']['items'] = $items;
     $form['cards']['actions'] = ['#type' => 'actions'];
     $form['cards']['actions']['add'] = [
       // Workaround for core bug #2897377.

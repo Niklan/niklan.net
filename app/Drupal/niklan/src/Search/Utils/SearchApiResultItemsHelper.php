@@ -11,6 +11,8 @@ use Drupal\search_api\Query\ResultSetInterface;
 final class SearchApiResultItemsHelper {
 
   public static function extractEntityIds(ResultSetInterface $result_set): array {
+    // @todo Validate IDs against pattern:
+    //   "entity:[entity_type_id]/[entity_id]:[language]".
     return \array_map(static function (ItemInterface $result_item) {
       [$entity_info, $source_info] = \explode('/', $result_item->getId());
       [, $entity_type_id] = \explode(':', $entity_info);
