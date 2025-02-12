@@ -7,6 +7,9 @@ namespace Drupal\niklan\SiteMap\Structure;
 use Drupal\Component\Assertion\Inspector;
 use Drupal\Core\Link;
 
+/**
+ * @extends Element<Link>
+ */
 final class Section extends Element {
 
   public function __construct(

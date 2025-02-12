@@ -8,6 +8,9 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 
+/**
+ * @extends Element<Category>
+ */
 final class SiteMap extends Element implements RefinableCacheableDependencyInterface {
 
   private readonly CacheableMetadata $cacheableMetadata;

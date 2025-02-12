@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\StaticPage\About\Form;
 
+use Drupal\Component\Assertion\Inspector;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
@@ -28,13 +29,28 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this
-      ->getSettings()
-      ->setPhotoMediaId($form_state->getValue('media_id'))
-      ->setTitle($form_state->getValue('title'))
-      ->setSubtitle($form_state->getValue(['subtitle', 'value']))
-      ->setSummary($form_state->getValue(['summary', 'value']))
-      ->setDescription($form_state->getValue(['description', 'value']));
+    $settings = $this->getSettings();
+    
+    // @todo Improve this by providing a PHPStan extension for Drupal Inspector
+    //   utility class. This is insane code and hardly readable.
+    // @see https://phpstan.org/developing-extensions/type-specifying-extensions
+    // @code
+    // \assert(Inspector::assertAllString([$val1, $val2]));
+    // @endcode
+    \assert(\is_string($form_state->getValue('media_id')) || \is_null($form_state->getValue('media_id')), 'The media ID must be a string or null.');
+    $settings->setPhotoMediaId($form_state->getValue('media_id'));
+
+    \assert(\is_string($form_state->getValue('title')), 'The title must be a string.');
+    $settings->setTitle($form_state->getValue('title'));
+
+    \assert(\is_string($form_state->getValue(['subtitle', 'value'])), 'The subtitle must be a string.');
+    $settings->setSubtitle($form_state->getValue(['subtitle', 'value']));
+
+    \assert(\is_string($form_state->getValue(['summary', 'value'])), 'The summary must be a string.');
+    $settings->setSummary($form_state->getValue(['summary', 'value']));
+
+    \assert(\is_string($form_state->getValue(['description', 'value'])), 'The description must be a string.');
+    $settings->setDescription($form_state->getValue(['description', 'value']));
 
     parent::submitForm($form, $form_state);
   }
