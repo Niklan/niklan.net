@@ -38,6 +38,7 @@ final readonly class SerializerManager implements SerializerManagerInterface {
   public function deserialize(string $json, EnvironmentInterface $environment): NodeInterface {
     $this->childSerializer->setEnvironment($environment);
     $json_array = \json_decode($json, TRUE);
+    \assert(\is_array($json_array));
 
     return $this->childSerializer->deserialize($json_array);
   }

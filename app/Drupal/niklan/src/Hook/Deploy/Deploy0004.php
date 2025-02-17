@@ -67,6 +67,7 @@ final readonly class Deploy0004 implements ContainerInjectionInterface {
     }
 
     foreach ($this->paragraphs($sandbox) as $paragraph) {
+      // @phpstan-ignore-next-line
       $paragraph->delete();
     }
 

@@ -82,7 +82,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
 
-    if (!$video_url) {
+    if (!\is_string($video_url)) {
       return FALSE;
     }
 
@@ -114,6 +114,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     \assert($media instanceof MediaInterface);
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
+    \assert(\is_string($video_url));
     $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);
     $resource = $this->oEmbedFetcher->fetchResource($resource_url);
     $iframe_url = $this->buildIframeUrl($video_url, $resource);

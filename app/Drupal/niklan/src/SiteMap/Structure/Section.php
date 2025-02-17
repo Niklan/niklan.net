@@ -8,7 +8,7 @@ use Drupal\Component\Assertion\Inspector;
 use Drupal\Core\Link;
 
 /**
- * @extends Element<Link>
+ * @extends \Drupal\niklan\SiteMap\Structure\Element<\Drupal\Core\Link>
  */
 final class Section extends Element {
 

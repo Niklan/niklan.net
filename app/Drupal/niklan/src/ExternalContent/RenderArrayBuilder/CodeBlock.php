@@ -24,6 +24,12 @@ final class CodeBlock implements RenderArrayBuilderInterface {
 
     if ($attributes->hasAttribute('data-info')) {
       \assert(\is_string($attributes->getAttribute('data-info')));
+      /**
+       * @var array{
+       *   highlighted_lines: ?non-empty-string,
+       *   header: ?non-empty-string,
+       * } $info
+       */
       $info = \json_decode($attributes->getAttribute('data-info'), TRUE);
     }
 

@@ -91,6 +91,7 @@ final readonly class Deploy0005 implements ContainerInjectionInterface {
     }
 
     foreach ($this->media($sandbox) as $media) {
+      \assert($media instanceof MediaInterface);
       $this->process($media);
     }
 

@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
+use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Utils\TocBuilder;
 use Drupal\niklan\File\Entity\FileInterface;
 use Drupal\niklan\Node\Entity\BlogEntry;
@@ -59,7 +60,8 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     foreach ($node->get('field_media_attachments') as $attachment_item) {
       \assert($attachment_item instanceof FieldItemInterface);
       $media = $attachment_item->get('entity')->getValue();
-      $file = MediaHelper::getFile($attachment_item->get('entity')->getValue());
+      \assert($media instanceof MediaInterface);
+      $file = MediaHelper::getFile($media);
 
       if (!$file instanceof FileInterface) {
         continue;

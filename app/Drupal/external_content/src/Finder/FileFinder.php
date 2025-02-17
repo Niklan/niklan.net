@@ -34,13 +34,16 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
   public function find(): FinderResult {
     $files = new SourceCollection();
     $configuration = $this->environment->getConfiguration();
-    $patterns = \array_map(
-      static fn ($extension) => '*.' . $extension,
-      $configuration->get('file_finder.extensions'),
-    );
+
+    $extensions = $configuration->get('file_finder.extensions');
+    \assert(\is_array($extensions));
+    $patterns = \array_map(static fn ($extension) => '*.' . $extension, $extensions);
+
+    $directories = $configuration->get('file_finder.directories');
+    \assert(\is_array($directories));
 
     $finder = new Finder();
-    $finder->in($configuration->get('file_finder.directories'));
+    $finder->in($directories);
     $finder->name($patterns);
 
     if (!$finder->hasResults()) {

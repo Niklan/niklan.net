@@ -45,9 +45,16 @@ final class ContentSerializer implements SerializerInterface {
 
   #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    $content = new Content(new Data($data->get('source')));
+    /**
+     * @var array{
+     *   source: array,
+     *   children: array,
+     * } $values
+     */
+    $values = $data->all();
+    $content = new Content(new Data($values['source']));
 
-    foreach ($data->get('children') as $child) {
+    foreach ($values['children'] as $child) {
       $content->addChild($child_serializer->deserialize($child));
     }
 

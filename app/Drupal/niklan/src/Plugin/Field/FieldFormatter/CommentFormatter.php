@@ -27,7 +27,7 @@ final class CommentFormatter extends FormatterBase {
 
   public function __construct(
     string $plugin_id,
-    array $plugin_definition,
+    $plugin_definition,
     FieldDefinitionInterface $field_definition,
     array $settings,
     string $label,
@@ -91,13 +91,20 @@ final class CommentFormatter extends FormatterBase {
 
   private function loadCommentsData(CommentFieldItemList $items): array {
     $commented_entity = $items->getEntity();
+    /**
+     * @var array{
+     *   default_mode: int,
+     *   per_page: int,
+     * } $settings
+     */
+    $settings = $items->getSettings();
 
     $storage = $this->entityTypeManager->getStorage('comment');
     $thread = $storage->loadThread(
       entity: $commented_entity,
       field_name: $this->fieldDefinition->getName(),
-      mode: $items->getSetting('default_mode'),
-      comments_per_page: $items->getSetting('per_page'),
+      mode: $settings['default_mode'],
+      comments_per_page: $settings['per_page'],
     );
 
     $view_builder = $this->entityTypeManager->getViewBuilder('comment');

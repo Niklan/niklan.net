@@ -9,7 +9,7 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 
 /**
- * @extends Element<Category>
+ * @extends \Drupal\niklan\SiteMap\Structure\Element<\Drupal\niklan\SiteMap\Structure\Category>
  */
 final class SiteMap extends Element implements RefinableCacheableDependencyInterface {
 

@@ -60,7 +60,9 @@ abstract class LanguageAwareSettingsStore implements CacheableDependencyInterfac
       return;
     }
 
-    $this->currentLanguage = $this->routeMatch->getParameter('key_value_language_aware_code');
+    $language = $this->routeMatch->getParameter('key_value_language_aware_code');
+    \assert(\is_string($language) || \is_null($language));
+    $this->currentLanguage = $language;
   }
 
 }

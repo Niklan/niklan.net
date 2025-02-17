@@ -69,8 +69,9 @@ final readonly class Deploy0006 implements ContainerInjectionInterface {
       return 'No blog articles to process.';
     }
 
-    foreach ($this->article($sandbox) as $media) {
-      $this->process($media);
+    foreach ($this->article($sandbox) as $article) {
+      \assert($article instanceof BlogEntry);
+      $this->process($article);
     }
 
     $sandbox['#finished'] = $sandbox['current'] / $sandbox['total'];

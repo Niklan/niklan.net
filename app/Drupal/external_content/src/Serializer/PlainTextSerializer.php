@@ -41,7 +41,10 @@ final class PlainTextSerializer implements SerializerInterface {
 
   #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    return new PlainText($data->get('text'));
+    $text = $data->get('text');
+    \assert(\is_string($text));
+
+    return new PlainText($text);
   }
 
   #[\Override]

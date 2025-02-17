@@ -78,7 +78,9 @@ final readonly class CommentModerationHandler {
     $author_homepage_property = new TranslatableMarkup('Homepage');
     $author_homepage = $comment->getHomepage();
 
-    $comment_body = \htmlentities($comment->get('comment_body')->first()?->get('value')->getValue());
+    $comment_html = $comment->get('comment_body')->first()?->get('value')->getValue() ?? '- empty comment body -';
+    \assert(\is_string($comment_html));
+    $comment_body = \htmlentities($comment_html);
 
     return <<<HTML
     <strong>💬 $new_comment</strong>

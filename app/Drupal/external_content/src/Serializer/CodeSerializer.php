@@ -41,7 +41,14 @@ final class CodeSerializer implements SerializerInterface {
 
   #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    return new Code($data->get('code'));
+    /**
+     * @var array{
+     *   code: string,
+     * } $values
+     */
+    $values = $data->all();
+
+    return new Code($values['code']);
   }
 
   #[\Override]

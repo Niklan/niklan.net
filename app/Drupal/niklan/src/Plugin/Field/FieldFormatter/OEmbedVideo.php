@@ -32,7 +32,7 @@ final class OEmbedVideo extends FormatterBase {
 
   public function __construct(
     string $plugin_id,
-    array $plugin_definition,
+    $plugin_definition,
     FieldDefinitionInterface $field_definition,
     array $settings,
     string $label,

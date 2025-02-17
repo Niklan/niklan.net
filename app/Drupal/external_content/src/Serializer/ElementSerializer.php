@@ -51,10 +51,18 @@ final class ElementSerializer implements SerializerInterface {
 
   #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    $attributes = new Attributes($data->get('attributes') ?? []);
-    $element = new Element($data->get('tag'), $attributes);
+    /**
+     * @var array{
+     *   attributes?: array,
+     *   tag: non-empty-string,
+     *   chidlren: array,
+     * } $values
+     */
+    $values = $data->all();
+    $attributes = new Attributes($values['attributes'] ?? []);
+    $element = new Element($values['tag'], $attributes);
 
-    foreach ($data->get('children') as $child) {
+    foreach ($values['chidlren'] as $child) {
       $element->addChild($child_serializer->deserialize($child));
     }
 

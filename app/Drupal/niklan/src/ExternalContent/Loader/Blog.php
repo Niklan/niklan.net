@@ -148,8 +148,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   }
 
   private function syncBlogEntryVariation(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $this->validateSource($identified_source);
-
     $this->syncTitle($blog_entry, $identified_source);
     $this->syncDates($blog_entry, $identified_source);
     $this->syncDescription($blog_entry, $identified_source);
@@ -159,8 +157,9 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $this->syncExternalContent($blog_entry, $identified_source);
   }
 
-  private function validateSource(IdentifiedSource $identified_source): void {
+  private function getFrontMatter(IdentifiedSource $identified_source): array {
     $front_matter = $identified_source->source->data()->get('front_matter');
+    \assert(\is_array($front_matter));
     $required_front_matter = [
       'id',
       'language',
@@ -182,15 +181,29 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
       throw new InvalidContentSource($message);
     }
+
+    /**
+     * @var array{
+     *   id: string,
+     *   language: string,
+     *   title: string,
+     *   created: string,
+     *   updated: string,
+     *   description: string,
+     *   promo?: string,
+     *   tags?: array,
+     *   attachments?: list<array{name: ?non-empty-string, path: non-empty-string}>,
+     * } $front_matter
+     */
+    return $front_matter;
   }
 
   private function syncTitle(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $front_matter = $identified_source->source->data()->get('front_matter');
-    $blog_entry->setTitle($front_matter['title']);
+    $blog_entry->setTitle($this->getFrontMatter($identified_source)['title']);
   }
 
   private function syncDates(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $front_matter = $identified_source->source->data()->get('front_matter');
+    $front_matter = $this->getFrontMatter($identified_source);
 
     $created = DrupalDateTime::createFromFormat(
       format: DateTimeItemInterface::DATETIME_STORAGE_FORMAT,
@@ -206,12 +219,11 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   }
 
   private function syncDescription(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $front_matter = $identified_source->source->data()->get('front_matter');
-    $blog_entry->set('body', ['value' => $front_matter['description']]);
+    $blog_entry->set('body', ['value' => $this->getFrontMatter($identified_source)['description']]);
   }
 
   private function syncTags(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $front_matter = $identified_source->source->data()->get('front_matter');
+    $front_matter = $this->getFrontMatter($identified_source);
     $blog_entry->set('field_tags', NULL);
 
     if (!\array_key_exists('tags', $front_matter) || !\is_array($front_matter['tags'])) {
@@ -238,7 +250,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   }
 
   private function syncPromoImage(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $front_matter = $identified_source->source->data()->get('front_matter');
+    $front_matter = $this->getFrontMatter($identified_source);
     $blog_entry->set('field_media_image', NULL);
 
     if (!isset($front_matter['promo'])) {
@@ -262,7 +274,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   }
 
   private function syncAttachments(BlogEntryInterface $blog_entry, IdentifiedSource $identified_source): void {
-    $front_matter = $identified_source->source->data()->get('front_matter');
+    $front_matter = $this->getFrontMatter($identified_source);
     $blog_entry->set('field_media_attachments', NULL);
 
     if (!isset($front_matter['attachments'])) {
@@ -277,9 +289,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
         return;
       }
 
-      $blog_entry
-        ->get('field_media_attachments')
-        ->appendItem(['target_id' => $media->id()]);
+      $blog_entry->get('field_media_attachments')->appendItem(['target_id' => $media->id()]);
     }
   }
 
@@ -303,11 +313,13 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       ->externalContentManager
       ->getSerializerManager()
       ->normalize($content, $this->environment);
+    $pathname = $identified_source->source->data()->get('pathname');
+    \assert(\is_string($pathname));
 
     $additional_info = [
       // For internal links. MD5 is used instead clear value for a smaller size
       // of the stored data.
-      'pathname_md5' => \md5($identified_source->source->data()->get('pathname')),
+      'pathname_md5' => \md5($pathname),
     ];
 
     $blog_entry->set('external_content', [
@@ -318,7 +330,10 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
   }
 
   private function getSourceDir(IdentifiedSource $identified_source): string {
-    return \dirname($identified_source->source->data()->get('pathname'));
+    $pathname = $identified_source->source->data()->get('pathname');
+    \assert(\is_string($pathname));
+
+    return \dirname($pathname);
   }
 
   private function replaceMediaRemoteVideos(NodeInterface $node): void {
@@ -418,7 +433,9 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
    */
   private function prepareExternalContentLink(Element $node, string $pathname): void {
     $external_content_dir = Settings::get('external_content_directory');
+    \assert(\is_string($external_content_dir));
     $repository_url = Settings::get('external_content_repository_url');
+    \assert(\is_string($repository_url));
     $url = \str_replace(
       search: $external_content_dir,
       // Since GitHub is requiring that part, it is forced here.
