@@ -55,14 +55,14 @@ final class ElementSerializer implements SerializerInterface {
      * @var array{
      *   attributes?: array,
      *   tag: non-empty-string,
-     *   chidlren: array,
+     *   children: array,
      * } $values
      */
     $values = $data->all();
     $attributes = new Attributes($values['attributes'] ?? []);
     $element = new Element($values['tag'], $attributes);
 
-    foreach ($values['chidlren'] as $child) {
+    foreach ($values['children'] as $child) {
       $element->addChild($child_serializer->deserialize($child));
     }
 

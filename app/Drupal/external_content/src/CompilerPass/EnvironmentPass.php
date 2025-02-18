@@ -139,7 +139,10 @@ final class EnvironmentPass implements CompilerPassInterface {
     $definition->setArgument('$id', $id);
   }
 
-  private function addExtension(string $type, string $service, mixed $attributes, array &$results): void {
+  /**
+   * @param array{id: non-empty-string} $attributes
+   */
+  private function addExtension(string $type, string $service, array $attributes, array &$results): void {
     if (\array_key_exists($attributes['id'], $results)) {
       throw new DuplicatedContainerDefinition(
         type: $type,

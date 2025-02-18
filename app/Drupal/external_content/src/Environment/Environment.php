@@ -30,16 +30,50 @@ use Psr\EventDispatcher\StoppableEventInterface;
  */
 final class Environment implements EnvironmentInterface, EnvironmentBuilderInterface {
 
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Parser\HtmlParserInterface>
+   */
   protected PrioritizedList $htmlParsers;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Identifier\IdentifierInterface>
+   */
   protected PrioritizedList $identifiers;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Finder\FinderInterface>
+   */
   protected PrioritizedList $finders;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Data\EventListener> */
   protected PrioritizedList $eventListeners;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Serializer\SerializerInterface>
+   */
   protected PrioritizedList $serializers;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Builder\RenderArrayBuilderInterface>
+   */
   protected PrioritizedList $renderArrayBuilders;
   protected ?EventDispatcherInterface $eventDispatcher = NULL;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Loader\LoaderInterface>
+   */
   protected PrioritizedList $loaders;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Converter\ConverterInterface>
+   */
   protected PrioritizedList $converters;
   protected Configuration $configuration;
+
+  /**
+   * @var \Drupal\external_content\Data\PrioritizedList<\Drupal\external_content\Contract\Bundler\BundlerInterface>
+   */
   protected PrioritizedList $bundlers;
 
   /**
@@ -109,6 +143,9 @@ final class Environment implements EnvironmentInterface, EnvironmentBuilderInter
     return $event;
   }
 
+  /**
+   * @return \Generator<callable(object $event): void>
+   */
   #[\Override]
   public function getListenersForEvent(object $event): \Generator {
     foreach ($this->eventListeners as $event_listener) {

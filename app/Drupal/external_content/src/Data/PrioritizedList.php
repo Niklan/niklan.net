@@ -7,26 +7,29 @@ namespace Drupal\external_content\Data;
 /**
  * Provides a list that takes priority into account.
  *
- * @implements \IteratorAggregate<int, array<int, mixed>>
+ * @template T
+ * @implements \IteratorAggregate<int, array<int, T>>
  */
 final class PrioritizedList implements \IteratorAggregate {
 
   /**
    * The array with items, grouped by priority.
+   *
+   * @var array<int, array<int, T>>
    */
   protected array $list = [];
 
   /**
    * The sorted list of items.
    *
-   * @var \ArrayIterator<int, mixed>|null
+   * @var \ArrayIterator<int, T>|null
    */
   protected ?\ArrayIterator $sorted = NULL;
 
   /**
    * Adds an item into a list.
    *
-   * @param mixed $item
+   * @param T $item
    *   The value to add.
    * @param int $priority
    *   The item priority in the list.
@@ -37,7 +40,7 @@ final class PrioritizedList implements \IteratorAggregate {
   }
 
   /**
-   * @return \ArrayIterator<int, mixed>
+   * @return \ArrayIterator<int, T>
    */
   #[\Override]
   public function getIterator(): \ArrayIterator {
