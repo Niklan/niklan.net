@@ -48,13 +48,13 @@ final class ContentEditingToolbarLinksBuilderTest extends NiklanTestBase {
       'route_name' => $this->randomMachineName(),
       'cacheability' => $cacheable_metadata,
     ]);
+    $local_task_manager = $local_task_manager->reveal();
 
     $route_match = $this->prophesize(RouteMatchInterface::class);
+    $route_match->getRouteName()->willReturn('test');
+    $route_match = $route_match->reveal();
 
-    $links_builder = new ContentEditingToolbarLinksBuilder(
-      $local_task_manager->reveal(),
-      $route_match->reveal(),
-    );
+    $links_builder = new ContentEditingToolbarLinksBuilder($local_task_manager, $route_match);
 
     $links = $this->doTrustedCallback(
       [$links_builder, 'buildLinks'],
