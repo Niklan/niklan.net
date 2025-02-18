@@ -40,19 +40,66 @@ final class Telegram {
   }
 
   public function isConfigured(): bool {
-    return $this->getChatId() !== NULL && $this->getSecretToken() !== NULL && $this->getChatId() !== NULL;
+    $errors = [];
+
+    try {
+      $this->getChatId();
+    }
+    catch (\InvalidArgumentException $e) {
+      $errors[] = $e->getMessage();
+    }
+
+    try {
+      $this->getToken();
+    }
+    catch (\InvalidArgumentException $e) {
+      $errors[] = $e->getMessage();
+    }
+
+    try {
+      $this->getSecretToken();
+    }
+    catch (\InvalidArgumentException $e) {
+      $errors[] = $e->getMessage();
+    }
+
+    if (\count($errors) > 0) {
+      $this->logger->error('Telegram is not configured: ' . \implode('; ', $errors));
+
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
-  public function getChatId(): ?string {
-    return Settings::get('telegram_chat_id');
+  public function getChatId(): string {
+    $chat_id = Settings::get('telegram_chat_id');
+
+    if (!\is_string($chat_id)) {
+      throw new \InvalidArgumentException('Telegram chat ID is not set or has invalid type.');
+    }
+
+    return $chat_id;
   }
 
-  public function getSecretToken(): ?string {
-    return Settings::get('telegram_secret_token');
+  public function getSecretToken(): string {
+    $secret_token = Settings::get('telegram_secret_token');
+
+    if (!\is_string($secret_token)) {
+      throw new \InvalidArgumentException('Telegram secret token is not set');
+    }
+
+    return $secret_token;
   }
 
-  public function getToken(): ?string {
-    return Settings::get('telegram_token');
+  public function getToken(): string {
+    $token = Settings::get('telegram_token');
+
+    if (!\is_string($token)) {
+      throw new \InvalidArgumentException('Telegram token is not set');
+    }
+
+    return $token;
   }
 
   private function initBot(): Nutgram {

@@ -21,7 +21,7 @@ final class PagerPathProcessor implements InboundPathProcessorInterface, Outboun
     }
 
     if ($request->query->has('page')) {
-      $page_external = $request->query->get('page');
+      $page_external = (int) $request->query->get('page');
       $page_internal = $page_external ? $page_external - 1 : 0;
       $request->query->set('page', $page_internal);
     }

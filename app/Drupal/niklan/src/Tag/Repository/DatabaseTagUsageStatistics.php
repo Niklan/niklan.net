@@ -39,7 +39,9 @@ final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {
       $query->range(0, $limit);
     }
 
-    return $query->execute()->fetchAllAssoc('tid');
+    $result = $query->execute();
+
+    return $result ? $result->fetchAllAssoc('tid') : [];
   }
 
   #[\Override]
@@ -67,7 +69,7 @@ final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {
       ->condition('nft.field_tags_target_id', $tag_id)
       ->orderBy('nid',)
       ->range(0, 1);
-    $result = $query->execute()->fetch();
+    $result = $query->execute()?->fetch();
 
     if (!$result) {
       return NULL;
@@ -79,16 +81,10 @@ final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {
 
   #[\Override]
   public function lastPublicationDate(int $tag_id): ?int {
-    $query = $this
-      ->connection
-      ->select('node_field_data', 'nd')
-      ->fields('nd', ['created']);
+    $query = $this->connection->select('node_field_data', 'nd')->fields('nd', ['created']);
     $query->leftJoin('node__field_tags', 'nft', 'nd.nid = nft.entity_id');
-    $query
-      ->condition('nft.field_tags_target_id', $tag_id)
-      ->orderBy('nid', 'DESC')
-      ->range(0, 1);
-    $result = $query->execute()->fetch();
+    $query->condition('nft.field_tags_target_id', $tag_id)->orderBy('nid', 'DESC')->range(0, 1);
+    $result = $query->execute()?->fetch();
 
     if (!$result) {
       return NULL;

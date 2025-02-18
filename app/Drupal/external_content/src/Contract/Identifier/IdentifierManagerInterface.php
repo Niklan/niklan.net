@@ -17,10 +17,7 @@ interface IdentifierManagerInterface {
   public function has(string $identifier_id): bool;
 
   /**
-   * @return array{
-   *   service: string,
-   *    id: string,
-   *    }
+   * @return array<string, array{service: string, id: string}>
    */
   public function list(): array;
 

@@ -11,7 +11,7 @@ final readonly class Html implements SourceInterface {
 
   public function __construct(
     private string $contents,
-    private ?Data $data = new Data(),
+    private Data $data = new Data(),
   ) {}
 
   #[\Override]

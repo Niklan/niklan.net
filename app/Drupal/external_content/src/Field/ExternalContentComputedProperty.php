@@ -42,12 +42,10 @@ final class ExternalContentComputedProperty extends TypedData {
       return NULL;
     }
 
-    $this->value = self::getExternalContentManager()
-      ->getSerializerManager()
-      ->deserialize(
-        json: $field_item->get('value')->getValue(),
-        environment: $environment,
-      );
+    $json = $field_item->get('value')->getValue();
+    \assert(\is_string($json));
+
+    $this->value = self::getExternalContentManager()->getSerializerManager()->deserialize($json, $environment);
 
     return $this->value;
   }

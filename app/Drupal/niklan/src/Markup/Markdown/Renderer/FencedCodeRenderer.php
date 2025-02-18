@@ -25,8 +25,10 @@ final class FencedCodeRenderer implements NodeRendererInterface {
     $this->parseCodeInformation($node, $attrs);
     $content = Xml::escape($node->getLiteral());
     $code = new HtmlElement('code', [], $content);
+    /** @var array<string> $attributes */
+    $attributes = $attrs->export();
 
-    return new HtmlElement('pre', $attrs->export(), $code);
+    return new HtmlElement('pre', $attributes, $code);
   }
 
   /**

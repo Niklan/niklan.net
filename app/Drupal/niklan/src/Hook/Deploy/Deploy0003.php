@@ -63,6 +63,7 @@ final class Deploy0003 implements ContainerInjectionInterface {
       ->getQuery()
       ->range($sandbox['current'], $sandbox['limit'])
       ->execute();
+    \assert(\is_array($ids));
 
     $files = $this
       ->entityTypeManager

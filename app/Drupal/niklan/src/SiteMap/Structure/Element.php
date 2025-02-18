@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\SiteMap\Structure;
 
+/**
+ * @template T
+ * @implements \IteratorAggregate<T>
+ * @implements \ArrayAccess<mixed, T>
+ */
 abstract class Element implements \IteratorAggregate, \Countable, \ArrayAccess {
 
+  /**
+   * @var list<T>
+   */
   protected array $collection = [];
 
   abstract public function toArray(): array;
@@ -17,11 +25,12 @@ abstract class Element implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   #[\Override]
   public function offsetExists(mixed $offset): bool {
-    return isset($offset, $this->collection);
+    return isset($this->collection[$offset]);
   }
 
   #[\Override]
   public function offsetGet(mixed $offset): mixed {
+    \assert(\is_scalar($offset));
     if (!isset($this->collection[$offset])) {
       throw new \OutOfBoundsException(\sprintf('The offset "%s" does not exist.', $offset));
     }

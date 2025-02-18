@@ -31,12 +31,11 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
   public function getTitle(Request $request, Route $route): string|array|\Stringable|null {
     $title = $this->inner->getTitle($request, $route);
 
-    if (!$route->hasDefault('_title_pager_suffix') || !$title) {
+    if ($this->shouldSkipSuffix($route, $title)) {
       return $title;
     }
 
-    // Do not add suffix on the first page.
-    if ($this->pagerManager->getPager()?->getTotalPages() < 1 || $this->pagerManager->getPager()->getCurrentPage() < 1) {
+    if ($this->isFirstPage()) {
       return $title;
     }
 
@@ -44,9 +43,33 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
       $title = $this->renderer->renderInIsolation($title);
     }
 
-    return $title . ' — ' . new TranslatableMarkup('page #@number', [
-      '@number' => $this->pagerManager->getPager()->getCurrentPage() + 1,
+    if (!$this->isStringable($title)) {
+      return $title;
+    }
+
+    return (string) $title . ' — ' . (string) new TranslatableMarkup('page #@number', [
+      '@number' => $this->pagerManager->getPager()?->getCurrentPage() ?? 0 + 1,
     ]);
+  }
+
+  private function shouldSkipSuffix(Route $route, mixed $title): bool {
+    return !$route->hasDefault('_title_pager_suffix') || !$title;
+  }
+
+  private function isFirstPage(): bool {
+    $pager = $this->pagerManager->getPager();
+    if ($pager === NULL) {
+      return TRUE;
+    }
+
+    return $pager->getTotalPages() < 1 || $pager->getCurrentPage() < 1;
+  }
+
+  /**
+   * @phpstan-assert-if-true string|\Stringable $title
+   */
+  private function isStringable(mixed $title): bool {
+    return \is_string($title) || $title instanceof \Stringable;
   }
 
 }

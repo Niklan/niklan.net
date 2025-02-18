@@ -17,7 +17,10 @@ final class PortfolioSettings extends LanguageAwareSettingsStore {
   }
 
   public function getDescription(): string {
-    return $this->getStore()->get('description', 'The portfolio page description.');
+    $description = $this->getStore()->get('description', 'The portfolio page description.');
+    \assert(\is_string($description));
+
+    return $description;
   }
 
   #[\Override]

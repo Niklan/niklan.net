@@ -12,14 +12,9 @@ use Drupal\external_content\Data\Data;
  */
 final class Content extends Node {
 
-  /**
-   * Constructs a new Content instance.
-   */
   public function __construct(
-    protected ?Data $data = NULL,
-  ) {
-    $this->data ??= new Data();
-  }
+    protected Data $data = new Data(),
+  ) {}
 
   public function getData(): Data {
     return $this->data;

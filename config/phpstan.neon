@@ -1,15 +1,14 @@
 parameters:
+  level: 9
   paths:
     - ../app
   excludePaths:
     - *Test.php
     - *TestBase.php
     - ../app/Drupal/mechanical/*
-  level: 5
-  drupal:
-    # Some tools (e.g. PHPStorm) can execute PHPStan from different directories,
-    # this can lead to problems with Drupal Root detection.
-    # Set this value relative to %rootDir% (vendor/phpstan/phpstan), we always
-    # directs to directory with phpstan.neon (current) file, which is in
-    # Drupal project docroot.
-    drupal_root: %rootDir%/../../../
+  stubFiles:
+    - ./phpstan-stubs/drupal/core/lib/Drupal/Core/Field/FormatterInterface.stub
+    - ./phpstan-stubs/php/DOMNode.stub
+  ignoreErrors:
+    # Drupal render arrays are impossible to fix.
+    - identifier: missingType.iterableValue

@@ -20,9 +20,13 @@ final class ContentEditingToolbarLinksBuilder implements TrustedCallbackInterfac
   ) {}
 
   public function buildLinks(): array {
-    $local_tasks = $this->localTaskManager->getLocalTasks(
-      $this->routeMatch->getRouteName(),
-    );
+    $route_name = $this->routeMatch->getRouteName();
+
+    if (!$route_name) {
+      return [];
+    }
+
+    $local_tasks = $this->localTaskManager->getLocalTasks($route_name);
 
     $links = \array_map(function (array $tab): array {
       $url = $tab['#link']['url'];

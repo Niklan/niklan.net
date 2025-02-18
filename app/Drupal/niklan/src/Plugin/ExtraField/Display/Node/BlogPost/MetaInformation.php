@@ -55,12 +55,10 @@ final class MetaInformation extends ExtraFieldDisplayBase implements ContainerFa
   }
 
   protected function getCommentCount(): int {
-    return (int) $this
-      ->getEntity()
-      ->get('comment_node_blog_entry')
-      ->first()
-      ?->get('comment_count')
-        ->getValue();
+    $count = $this->getEntity()->get('comment_node_blog_entry')->first()?->get('comment_count')->getValue();
+    \assert(\is_int($count) || \is_null($count));
+
+    return $count ?? 0;
   }
 
   protected function getCommentsUrl(): Url {

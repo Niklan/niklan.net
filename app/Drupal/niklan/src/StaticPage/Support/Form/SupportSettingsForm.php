@@ -44,7 +44,9 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
       ->getSettings()
+      // @phpstan-ignore-next-line argument.type
       ->setDescription($form_state->getValue(['description', 'value']))
+      // @phpstan-ignore-next-line argument.type
       ->setDonateUrl($form_state->getValue(['donate_url']));
 
     parent::submitForm($form, $form_state);

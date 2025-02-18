@@ -21,6 +21,7 @@ final class HtmlConverter implements ConverterInterface, EnvironmentAwareInterfa
       ->environment
       ->getConfiguration()
       ->get('html_converter.expected_types');
+    \assert(\is_array($expected_html_types));
 
     if (!\in_array($input->type(), $expected_html_types)) {
       return ConverterResult::pass();

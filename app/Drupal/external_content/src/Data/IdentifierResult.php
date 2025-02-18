@@ -18,10 +18,16 @@ final class IdentifierResult {
     return new self();
   }
 
+  /**
+   * @phpstan-assert-if-true !null $this->result()
+   */
   public function isIdentified(): bool {
     return !$this->isNotIdentified();
   }
 
+  /**
+   * @phpstan-assert-if-true null $this->result()
+   */
   public function isNotIdentified(): bool {
     return \is_null($this->result);
   }

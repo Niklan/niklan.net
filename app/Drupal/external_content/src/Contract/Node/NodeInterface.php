@@ -42,7 +42,7 @@ interface NodeInterface {
   public function addChildren(NodeList $node_list): self;
 
   /**
-   * Gets children nodes.
+   * @return \ArrayIterator<int, self>
    */
   public function getChildren(): \ArrayIterator;
 

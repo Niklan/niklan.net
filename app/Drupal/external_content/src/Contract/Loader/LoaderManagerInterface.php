@@ -17,10 +17,7 @@ interface LoaderManagerInterface {
   public function has(string $loader_id): bool;
 
   /**
-   * @return array{
-   *   service: string,
-   *   id: string,
-   *   }
+   * @return array<string, array{service: string, id: string}>
    */
   public function list(): array;
 

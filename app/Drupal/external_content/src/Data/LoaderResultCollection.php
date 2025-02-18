@@ -6,6 +6,8 @@ namespace Drupal\external_content\Data;
 
 /**
  * Provides a collection with loader results.
+ *
+ * @implements \IteratorAggregate<int, \Drupal\external_content\Data\LoaderResult>
  */
 final class LoaderResultCollection implements \Countable, \IteratorAggregate {
 
@@ -14,6 +16,9 @@ final class LoaderResultCollection implements \Countable, \IteratorAggregate {
    */
   protected array $items = [];
 
+  /**
+   * @return \ArrayIterator<int, \Drupal\external_content\Data\LoaderResult>
+   */
   #[\Override]
   public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->items);

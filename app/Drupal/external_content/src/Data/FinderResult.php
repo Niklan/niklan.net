@@ -22,6 +22,9 @@ final readonly class FinderResult {
     return !$this->hasNoResults();
   }
 
+  /**
+   * @phpstan-assert-if-true null $this->results()
+   */
   public function hasNoResults(): bool {
     return \is_null($this->result) || \count($this->result->items()) === 0;
   }

@@ -18,6 +18,9 @@ use Drupal\Core\Url;
 use Drupal\media\MediaInterface;
 use Drupal\responsive_image\Plugin\Field\FieldFormatter\ResponsiveImageFormatter;
 
+/**
+ * @todo Consider remove it, looks like unused.
+ */
 #[FieldFormatter(
   id: 'niklan_responsive_media_thumbnail',
   label: new TranslatableMarkup('Responsive thumbnail'),
@@ -115,9 +118,11 @@ final class MediaResponsiveThumbnailFormatter extends ResponsiveImageFormatter {
   /**
    * {@inheritdoc}
    *
-   * This has to be overridden because FileFormatterBase expects $item to be
-   * of type \Drupal\file\Plugin\Field\FieldType\FileItem and calls
-   * isDisplayed() which is not in FieldItemInterface.
+   * @param \Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem<\Drupal\Core\Entity\EntityInterface> $item
+   *
+   *   This has to be overridden because FileFormatterBase expects $item to be
+   *   of type \Drupal\file\Plugin\Field\FieldType\FileItem and calls
+   *   isDisplayed() which is not in FieldItemInterface.
    */
   #[\Override]
   protected function needsEntityLoad(EntityReferenceItem $item): bool {

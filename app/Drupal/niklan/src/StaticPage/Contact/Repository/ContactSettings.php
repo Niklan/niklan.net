@@ -11,7 +11,10 @@ final class ContactSettings extends LanguageAwareSettingsStore {
   public const string TEXT_FORMAT = 'text';
 
   public function getEmail(): string {
-    return $this->getStore()->get('email', 'example@example.com');
+    $email = $this->getStore()->get('email', 'example@example.com');
+    \assert(\is_string($email), 'Email must be a string.');
+
+    return $email;
   }
 
   public function setEmail(string $email): self {
@@ -21,7 +24,10 @@ final class ContactSettings extends LanguageAwareSettingsStore {
   }
 
   public function getTelegram(): string {
-    return $this->getStore()->get('telegram', 'https://t.me');
+    $telegram = $this->getStore()->get('telegram', 'https://t.me');
+    \assert(\is_string($telegram), 'Telegram must be a string.');
+
+    return $telegram;
   }
 
   public function setTelegram(string $url): self {
@@ -31,10 +37,10 @@ final class ContactSettings extends LanguageAwareSettingsStore {
   }
 
   public function getDescription(): string {
-    return $this->getStore()->get(
-      key: 'description',
-      default: 'Additional information about how to contact the author.',
-    );
+    $description = $this->getStore()->get('description', 'Additional information about how to contact the author.');
+    \assert(\is_string($description), 'Description must be a string.');
+
+    return $description;
   }
 
   public function setDescription(string $description): self {

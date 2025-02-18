@@ -57,7 +57,10 @@ final class Git implements GitInterface {
   }
 
   protected function getGitBin(): string {
-    return Settings::get('niklan_git_binary', $this->gitBinary);
+    $git_bin = Settings::get('niklan_git_binary', $this->gitBinary);
+    \assert(\is_string($git_bin));
+
+    return $git_bin;
   }
 
 }

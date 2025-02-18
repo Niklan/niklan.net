@@ -43,11 +43,16 @@ final class DrupalMediaSerializer implements SerializerInterface {
 
   #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    return new DrupalMedia(
-      $data->get('type'),
-      $data->get('uuid'),
-      new Data($data->get('data')),
-    );
+    /**
+     * @var array{
+     *   type: non-empty-string,
+     *   uuid: non-empty-string,
+     *   data: array<mixed>,
+     * } $values
+     */
+    $values = $data->all();
+
+    return new DrupalMedia($values['type'], $values['uuid'], new Data($values['data']));
   }
 
   #[\Override]
