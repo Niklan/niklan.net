@@ -50,6 +50,17 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
       return FinderResult::notFound();
     }
 
+    $this->addFiles($finder, $files);
+
+    return FinderResult::withSources($files);
+  }
+
+  #[\Override]
+  public function setEnvironment(EnvironmentInterface $environment): void {
+    $this->environment = $environment;
+  }
+
+  private function addFiles(Finder $finder, SourceCollection $files): void {
     foreach ($finder as $file_info) {
       // Directories named as files should be avoided. E.g.
       // "directory-name.md/file-name.md".
@@ -85,13 +96,6 @@ final class FileFinder implements FinderInterface, EnvironmentAwareInterface {
 
       $files->add($file);
     }
-
-    return FinderResult::withSources($files);
-  }
-
-  #[\Override]
-  public function setEnvironment(EnvironmentInterface $environment): void {
-    $this->environment = $environment;
   }
 
 }

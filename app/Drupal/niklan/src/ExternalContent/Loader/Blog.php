@@ -157,6 +157,22 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $this->syncExternalContent($blog_entry, $identified_source);
   }
 
+  /**
+   * @return array{
+   *   id: string,
+   *   language: string,
+   *   title: string,
+   *   created: string,
+   *   updated: string,
+   *   description: string,
+   *   promo?: string,
+   *   tags?: array,
+   *   attachments?: list<array{
+   *     name: ?non-empty-string,
+   *     path: non-empty-string,
+   *     }>,
+   *   } $front_matter
+   */
   private function getFrontMatter(IdentifiedSource $identified_source): array {
     $front_matter = $identified_source->source->data()->get('front_matter');
     \assert(\is_array($front_matter));
@@ -182,19 +198,7 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       throw new InvalidContentSource($message);
     }
 
-    /**
-     * @var array{
-     *   id: string,
-     *   language: string,
-     *   title: string,
-     *   created: string,
-     *   updated: string,
-     *   description: string,
-     *   promo?: string,
-     *   tags?: array,
-     *   attachments?: list<array{name: ?non-empty-string, path: non-empty-string}>,
-     * } $front_matter
-     */
+    // @phpstan-ignore-next-line
     return $front_matter;
   }
 
@@ -359,28 +363,48 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
   private function replaceMediaImages(NodeInterface $node, string $source_dir): void {
     foreach ($node->getChildren() as $child) {
-      \assert($node instanceof NodeInterface);
       $this->replaceMediaImages($child, $source_dir);
     }
 
-    if (!$node instanceof Element || $node->getTag() !== 'img' || !$node->getAttributes()->hasAttribute('src')) {
+    if (!$this->isImageElement($node)) {
       return;
     }
 
-    $src = $node->getAttributes()->getAttribute('src');
-
-    if (!UrlHelper::isExternal($src)) {
-      $src = "$source_dir/$src";
-    }
-
+    $src = $this->processImageSource($node, $source_dir);
     $media = $this->contentAssetManager->syncWithMedia($src);
 
     if (!$media instanceof MediaInterface) {
       return;
     }
 
+    $new_node = $this->createDrupalMediaImageNode($node, $media);
+    $replace_target = $this->findMediaImageReplaceTarget($node);
+    $replace_target->getParent()?->replaceNode($replace_target, $new_node);
+  }
+
+  /**
+   * @phpstan-assert-if-true \Drupal\external_content\Node\Element $node
+   */
+  private function isImageElement(NodeInterface $node): bool {
+    return $node instanceof Element
+        && $node->getTag() === 'img'
+        && $node->getAttributes()->hasAttribute('src');
+  }
+
+  private function processImageSource(Element $node, string $source_dir): string {
+    $src = $node->getAttributes()->getAttribute('src');
+
+    if (!UrlHelper::isExternal($src)) {
+      $src = "{$source_dir}/{$src}";
+    }
+
+    return $src;
+  }
+
+  private function createDrupalMediaImageNode(Element $node, MediaInterface $media): DrupalMedia {
     \assert(\is_string($media->uuid()));
-    $new_node = new DrupalMedia(
+
+    return new DrupalMedia(
       type: 'image',
       uuid: $media->uuid(),
       data: new Data([
@@ -388,9 +412,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
         'title' => $node->getAttributes()->getAttribute('title'),
       ]),
     );
-
-    $replace_target = $this->findMediaImageReplaceTarget($node);
-    $replace_target->getParent()?->replaceNode($replace_target, $new_node);
   }
 
   private function prepareLinks(NodeInterface $node, string $source_dir): void {
