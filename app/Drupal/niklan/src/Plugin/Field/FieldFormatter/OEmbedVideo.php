@@ -20,6 +20,9 @@ use Drupal\media\Plugin\media\Source\OEmbedInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @deprecated Remove it.
+ */
 #[FieldFormatter(
   id: 'niklan_media_remote_video_optimized',
   label: new TranslatableMarkup('oEmbed video optimized responsive'),
@@ -29,7 +32,7 @@ final class OEmbedVideo extends FormatterBase {
 
   public function __construct(
     string $plugin_id,
-    array $plugin_definition,
+    $plugin_definition,
     FieldDefinitionInterface $field_definition,
     array $settings,
     string $label,
@@ -153,6 +156,7 @@ final class OEmbedVideo extends FormatterBase {
       return FALSE;
     }
 
+    // @phpstan-ignore-next-line
     $is_video = $media_type->getSource()->getPluginDefinition()['id'] === 'video';
     $is_oembed = $media_type->getSource() instanceof OEmbedInterface;
 

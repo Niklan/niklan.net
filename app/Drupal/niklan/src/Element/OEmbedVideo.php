@@ -19,6 +19,9 @@ use Drupal\media\OEmbed\UrlResolverInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @todo Check usage, most likely not used at this point.
+ */
 #[RenderElement('niklan_oembed_video')]
 final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPluginInterface {
 
@@ -79,7 +82,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
 
-    if (!$video_url) {
+    if (!\is_string($video_url)) {
       return FALSE;
     }
 
@@ -111,16 +114,12 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
     \assert($media instanceof MediaInterface);
 
     $video_url = $media->getSource()->getSourceFieldValue($media);
+    \assert(\is_string($video_url));
     $resource_url = $this->oEmbedResolver->getResourceUrl($video_url);
     $resource = $this->oEmbedFetcher->fetchResource($resource_url);
     $iframe_url = $this->buildIframeUrl($video_url, $resource);
 
-    return $this->buildIframe(
-      $iframe_url->toString(),
-      $resource->getWidth(),
-      $resource->getHeight(),
-      $resource->getTitle(),
-    );
+    return $this->buildIframe($iframe_url->toString(), (int) $resource->getWidth(), (int) $resource->getHeight(), $resource->getTitle());
   }
 
   protected function validateResource(string $video_url): bool {
@@ -153,7 +152,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
   }
 
   protected function buildIframeUrl(string $video_url, Resource $resource): Url {
-    if ($resource->getProvider()->getName() === 'YouTube') {
+    if ($resource->getProvider()?->getName() === 'YouTube') {
       // Default controller 'media.oembed_iframe' is not used because YouTube
       // oembed provider returns iframe markup without allowing us to add
       // special query parameters like autoplay. Also, YouTube doesn't return
@@ -219,7 +218,7 @@ final class OEmbedVideo extends RenderElementBase implements ContainerFactoryPlu
       $matches,
     );
 
-    return $matches[1];
+    return $matches[1] ?? NULL;
   }
 
 }

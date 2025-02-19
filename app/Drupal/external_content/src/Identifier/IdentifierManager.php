@@ -65,7 +65,8 @@ final readonly class IdentifierManager implements IdentifierManagerInterface {
         continue;
       }
 
-      $identified_sources->add($identifier_result->result());
+      $identified_source = $identifier_result->result();
+      $identified_sources->add($identified_source);
 
       return;
     }

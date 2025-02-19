@@ -30,7 +30,8 @@ final readonly class FinderManager implements FinderManagerInterface {
         continue;
       }
 
-      $collection->merge($finder_result->results());
+      $result_collection = $finder_result->results();
+      $collection->merge($result_collection);
     }
 
     return $collection;

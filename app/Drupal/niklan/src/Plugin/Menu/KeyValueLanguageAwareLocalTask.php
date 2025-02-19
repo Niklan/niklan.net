@@ -47,7 +47,7 @@ final class KeyValueLanguageAwareLocalTask extends DeriverBase implements Contai
     return $this->derivatives;
   }
 
-  private function prepareLanguageDerivative(LanguageInterface $language, $route_name, array $base_plugin_definition): array {
+  private function prepareLanguageDerivative(LanguageInterface $language, string $route_name, array $base_plugin_definition): array {
     return [
       'route_name' => $language->isDefault() ? $route_name : "$route_name.translate.language",
       'route_parameters' => [

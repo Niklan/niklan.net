@@ -52,12 +52,20 @@ final class AlertSerializer implements SerializerInterface {
 
   #[\Override]
   public function deserialize(Data $data, string $stored_version, ChildSerializerInterface $child_serializer): NodeInterface {
-    $alert = new Alert(
-      type: $data->get('type'),
-      heading: $data->has('heading') ? $child_serializer->deserialize($data->get('heading')) : NULL,
-    );
+    /**
+     * @var array{
+     *   type: non-empty-string,
+     *   heading: ?array,
+     *   content: iterable<array>,
+     * } $values
+     */
+    $values = $data->all();
+    $heading = $values['heading']
+        ? $child_serializer->deserialize($values['heading'])
+        : NULL;
+    $alert = new Alert($values['type'], $heading);
 
-    foreach ($data->get('content') as $child) {
+    foreach ($values['content'] as $child) {
       $alert->addChild($child_serializer->deserialize($child));
     }
 

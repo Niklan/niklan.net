@@ -12,5 +12,5 @@ props:
       type: string
       description: The URL of the search result.
     excerpt:
-      type: [string, array]
+      type: [string, array, 'null']
       description: The excerpt of the search result.

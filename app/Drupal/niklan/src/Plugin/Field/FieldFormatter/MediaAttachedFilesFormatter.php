@@ -26,7 +26,7 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
 
   public function __construct(
     string $plugin_id,
-    array $plugin_definition,
+    $plugin_definition,
     FieldDefinitionInterface $field_definition,
     array $settings,
     string $label,
@@ -69,7 +69,7 @@ final class MediaAttachedFilesFormatter extends FormatterBase implements Contain
         '#theme' => 'niklan_media_attached_file',
         '#uri' => $file->getFileUri(),
         '#filename' => $file->getFilename(),
-        '#filesize' => ByteSizeMarkup::create($file->getSize()),
+        '#filesize' => ByteSizeMarkup::create($file->getSize() ?? 0),
         '#label' => $media->label(),
       ];
     }

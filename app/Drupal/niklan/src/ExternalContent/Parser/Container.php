@@ -48,7 +48,7 @@ final class Container implements HtmlParserInterface {
     $crawler = new Crawler($node);
     $crawler = $crawler->filter('[data-selector="content"]');
 
-    if (!$crawler->count()) {
+    if (!$crawler->count() || !$crawler->getNode(0) instanceof \DOMNode) {
       return NULL;
     }
 

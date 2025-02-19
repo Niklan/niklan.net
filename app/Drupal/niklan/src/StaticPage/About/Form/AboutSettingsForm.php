@@ -28,13 +28,23 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this
-      ->getSettings()
-      ->setPhotoMediaId($form_state->getValue('media_id'))
-      ->setTitle($form_state->getValue('title'))
-      ->setSubtitle($form_state->getValue(['subtitle', 'value']))
-      ->setSummary($form_state->getValue(['summary', 'value']))
-      ->setDescription($form_state->getValue(['description', 'value']));
+    /**
+     * @var array{
+     *   media_id: ?string,
+     *   title: string,
+     *   subtitle: array{value: string},
+     *   summary: array{value: string},
+     *   description: array{value: string},
+     * } $values
+     */
+    $values = $form_state->getValues();
+
+    $settings = $this->getSettings();
+    $settings->setPhotoMediaId($values['media_id']);
+    $settings->setTitle($values['title']);
+    $settings->setSubtitle($values['subtitle']['value']);
+    $settings->setSummary($values['summary']['value']);
+    $settings->setDescription($values['description']['value']);
 
     parent::submitForm($form, $form_state);
   }

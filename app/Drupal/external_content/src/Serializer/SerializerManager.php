@@ -27,7 +27,7 @@ final readonly class SerializerManager implements SerializerManagerInterface {
   public function normalize(NodeInterface $node, EnvironmentInterface $environment): string {
     $this->childSerializer->setEnvironment($environment);
 
-    return \json_encode(
+    return (string) \json_encode(
       value: $this->childSerializer->normalize($node),
       // For UTF-8 content it reduces the total size in half.
       flags: \JSON_UNESCAPED_UNICODE,
@@ -38,6 +38,7 @@ final readonly class SerializerManager implements SerializerManagerInterface {
   public function deserialize(string $json, EnvironmentInterface $environment): NodeInterface {
     $this->childSerializer->setEnvironment($environment);
     $json_array = \json_decode($json, TRUE);
+    \assert(\is_array($json_array));
 
     return $this->childSerializer->deserialize($json_array);
   }

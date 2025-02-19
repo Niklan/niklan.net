@@ -49,7 +49,7 @@ final class PlainTextParser implements HtmlParserInterface {
     //
     // This is clearly unwanted behavior. Make sure not to add this check here
     // again.
-    return HtmlParserResult::replace(new PlainText($node->nodeValue));
+    return HtmlParserResult::replace(new PlainText($node->nodeValue ?? ''));
   }
 
 }

@@ -21,6 +21,12 @@ final class FrontMatter implements IdentifierInterface {
       return IdentifierResult::notIdentified();
     }
 
+    /**
+     * @var array{
+     *   id: non-empty-string,
+     *   language?: non-empty-string,
+     * } $front_matter
+     */
     $front_matter = $source->data()->get('front_matter');
     $attributes = new Attributes();
 
@@ -45,6 +51,7 @@ final class FrontMatter implements IdentifierInterface {
     }
 
     $front_matter = $data->get('front_matter');
+    \assert(\is_array($front_matter));
 
     return \array_key_exists('id', $front_matter);
   }

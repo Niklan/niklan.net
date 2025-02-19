@@ -9,6 +9,9 @@ use Drupal\external_content\Node\NodeList;
 
 interface ChildHtmlParserInterface extends EnvironmentAwareInterface {
 
+  /**
+   * @param \DOMNodeList<\DOMNode> $children
+   */
   public function parse(\DOMNodeList $children): NodeList;
 
 }

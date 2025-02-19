@@ -11,7 +11,10 @@ final class AboutSettings extends LanguageAwareSettingsStore {
   public const string TEXT_FORMAT = 'text';
 
   public function getPhotoMediaId(): ?string {
-    return $this->getStore()->get('photo_media_id');
+    $photo_media_id = $this->getStore()->get('photo_media_id');
+    \assert(\is_string($photo_media_id) || \is_null($photo_media_id), 'Photo media ID must be a string or null.');
+
+    return $photo_media_id;
   }
 
   public function setPhotoMediaId(?string $id): self {
@@ -29,7 +32,10 @@ final class AboutSettings extends LanguageAwareSettingsStore {
   }
 
   public function getTitle(): string {
-    return $this->getStore()->get('title', "I'm an alien 👽");
+    $title = $this->getStore()->get('title', "I'm an alien 👽");
+    \assert(\is_string($title), 'Title must be a string.');
+
+    return $title;
   }
 
   public function setSubtitle(string $subtitle): self {
@@ -40,7 +46,10 @@ final class AboutSettings extends LanguageAwareSettingsStore {
 
   public function getSubtitle(): string {
     /* cSpell:ignore traveller */
-    return $this->getStore()->get('subtitle', 'Greetings traveller!');
+    $subtitle = $this->getStore()->get('subtitle', 'Greetings traveller!');
+    \assert(\is_string($subtitle), 'Subtitle must be a string.');
+
+    return $subtitle;
   }
 
   public function setSummary(string $summary): self {
@@ -56,7 +65,10 @@ final class AboutSettings extends LanguageAwareSettingsStore {
      how I see the world around us.</p>
     HTML;
 
-    return $this->getStore()->get('summary', $default);
+    $summary = $this->getStore()->get('summary', $default);
+    \assert(\is_string($summary), 'Summary must be a string.');
+
+    return $summary;
   }
 
   public function setDescription(string $description): self {
@@ -76,7 +88,10 @@ final class AboutSettings extends LanguageAwareSettingsStore {
     <p>Join me on this exciting journey through the universe and Earth!</p>
     HTML;
 
-    return $this->getStore()->get('description', $default);
+    $description = $this->getStore()->get('description', $default);
+    \assert(\is_string($description), 'Description must be a string.');
+
+    return $description;
   }
 
   #[\Override]

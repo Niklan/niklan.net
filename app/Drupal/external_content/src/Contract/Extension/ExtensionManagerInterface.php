@@ -11,10 +11,7 @@ interface ExtensionManagerInterface {
   public function has(string $extension_id): bool;
 
   /**
-   * @return array{
-   *   service: string,
-   *    id: string,
-   *    }
+   * @return array<string, array{service: string, id: string}>
    */
   public function list(): array;
 

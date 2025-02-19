@@ -20,10 +20,16 @@ final readonly class ConverterResult {
     return new self($html);
   }
 
+  /**
+   * @phpstan-assert-if-true !null $this->getResult()
+   */
   public function hasResult(): bool {
     return !$this->hasNoResult();
   }
 
+  /**
+   * @phpstan-assert-if-true null $this->getResult()
+   */
   public function hasNoResult(): bool {
     return \is_null($this->result);
   }

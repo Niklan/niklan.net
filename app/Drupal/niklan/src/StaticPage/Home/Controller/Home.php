@@ -86,10 +86,7 @@ final readonly class Home implements ContainerInjectionInterface {
       ->range(0, self::LIMIT_PREVIEW_POSTS);
     $query->leftJoin('node__external_content', 'ec', '[nfd].[nid] = [ec].[entity_id]');
     $query->addExpression('CHAR_LENGTH([ec].[external_content_value])', 'length');
-    $ids = $query
-      ->orderBy('length', 'DESC')
-      ->execute()
-      ->fetchCol();
+    $ids = $query->orderBy('length', 'DESC')->execute()?->fetchCol();
 
     if (!$ids) {
       return;
@@ -117,10 +114,7 @@ final readonly class Home implements ContainerInjectionInterface {
     $query->leftJoin('comment_entity_statistics', 'ces', '[nfd].[nid] = [ces].[entity_id] AND [ces].[entity_type] = :type', [
       ':type' => 'node',
     ]);
-    $ids = $query
-      ->orderBy('ces.comment_count', 'DESC')
-      ->execute()
-      ->fetchCol();
+    $ids = $query->orderBy('ces.comment_count', 'DESC')->execute()?->fetchCol();
 
     if (!$ids) {
       return;

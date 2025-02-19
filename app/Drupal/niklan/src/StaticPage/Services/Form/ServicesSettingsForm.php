@@ -44,7 +44,9 @@ final class ServicesSettingsForm extends LanguageAwareStoreForm {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
       ->getSettings()
+      // @phpstan-ignore-next-line argument.type
       ->setDescription($form_state->getValue(['description', 'value']))
+      // @phpstan-ignore-next-line argument.type
       ->setHourlyRate($form_state->getValue(['hourly_rate']));
 
     parent::submitForm($form, $form_state);

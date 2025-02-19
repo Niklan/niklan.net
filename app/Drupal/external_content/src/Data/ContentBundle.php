@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Data;
 
+/**
+ * @implements \IteratorAggregate<int, \Drupal\external_content\Data\ContentVariation>
+ */
 final class ContentBundle implements \Countable, \IteratorAggregate {
 
   protected array $items = [];
@@ -57,6 +60,9 @@ final class ContentBundle implements \Countable, \IteratorAggregate {
     return $bundle;
   }
 
+  /**
+   * @return \ArrayIterator<int, \Drupal\external_content\Data\ContentVariation>
+   */
   #[\Override]
   public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->items);

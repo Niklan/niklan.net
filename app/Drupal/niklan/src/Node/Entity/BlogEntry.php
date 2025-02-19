@@ -43,8 +43,11 @@ final class BlogEntry extends Node implements BlogEntryInterface {
     }
 
     $data = $this->get('external_content')->first()?->get('data')->getValue();
+    \assert(\is_string($data));
+    $result = \json_decode($data, TRUE);
+    \assert(\is_array($result) || \is_null($result));
 
-    return $data ? \json_decode($data, TRUE) : [];
+    return $result ?? [];
   }
 
   public function getEstimatedReadTime(): int {

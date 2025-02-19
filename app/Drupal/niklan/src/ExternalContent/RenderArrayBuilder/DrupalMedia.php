@@ -92,7 +92,7 @@ final class DrupalMedia implements RenderArrayBuilderInterface {
   private function buildVideoRenderArray(MediaInterface $media): RenderArrayBuilderResult {
     $file = MediaHelper::getFile($media);
 
-    if (!$file instanceof FileInterface) {
+    if (!$file instanceof FileInterface || !$file->getMimeType()) {
       return RenderArrayBuilderResult::empty();
     }
 

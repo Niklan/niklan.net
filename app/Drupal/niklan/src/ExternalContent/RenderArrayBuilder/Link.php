@@ -31,6 +31,7 @@ final readonly class Link implements RenderArrayBuilderInterface {
     \assert($node instanceof Element);
     $attributes = $node->getAttributes();
     $link_checksum = $attributes->getAttribute('data-pathname-md5');
+    \assert(\is_string($link_checksum));
     $destination = $this->findDestination($link_checksum);
 
     return RenderArrayBuilderResult::withRenderArray([
@@ -83,18 +84,14 @@ final readonly class Link implements RenderArrayBuilderInterface {
         ])
       ->range(0, 1);
 
-    $blog_id = $query->execute()->fetchField();
+    $blog_id = $query->execute()?->fetchField();
 
-    if (!$blog_id) {
-      return NULL;
-    }
-
-    return Url::fromRoute(
+    return $blog_id ? Url::fromRoute(
       route_name: 'entity.node.canonical',
       route_parameters: [
         'node' => $blog_id,
       ],
-    );
+    ) : NULL;
   }
 
 }

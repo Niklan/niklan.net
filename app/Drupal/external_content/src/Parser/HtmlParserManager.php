@@ -39,6 +39,7 @@ final class HtmlParserManager implements HtmlParserManagerInterface {
     $crawler = new Crawler($pre_parse_event->content);
     $crawler = $crawler->filter('body');
     $body = $crawler->getNode(0);
+    \assert($body instanceof \DOMNode);
 
     $this->parseChildren($body, $content, $environment);
 

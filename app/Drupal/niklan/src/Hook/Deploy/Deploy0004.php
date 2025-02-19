@@ -47,6 +47,7 @@ final readonly class Deploy0004 implements ContainerInjectionInterface {
       ->getQuery()
       ->range(0, $sandbox['limit'])
       ->execute();
+    \assert(\is_array($ids));
     $sandbox['current'] += \count($ids);
 
     yield from $this->getStorage()->loadMultiple($ids);
@@ -66,6 +67,7 @@ final readonly class Deploy0004 implements ContainerInjectionInterface {
     }
 
     foreach ($this->paragraphs($sandbox) as $paragraph) {
+      // @phpstan-ignore-next-line
       $paragraph->delete();
     }
 

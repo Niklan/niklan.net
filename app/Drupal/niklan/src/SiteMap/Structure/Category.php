@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\SiteMap\Structure;
 
+/**
+ * @extends \Drupal\niklan\SiteMap\Structure\Element<\Drupal\niklan\SiteMap\Structure\Section>
+ */
 final class Category extends Element {
 
   public function __construct(

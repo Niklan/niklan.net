@@ -32,7 +32,7 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new static(
-      $container->get(ContainerInterface::class),
+      $container,
       $container->get(MessengerInterface::class),
       $container->get(CacheTagsInvalidatorInterface::class),
     );

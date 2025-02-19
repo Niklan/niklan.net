@@ -16,15 +16,13 @@ final class Element extends Node {
    *
    * @param string $tag
    *   The HTML tag name.
-   * @param \Drupal\external_content\Data\Attributes|null $attributes
+   * @param \Drupal\external_content\Data\Attributes $attributes
    *   The element attributes.
    */
   public function __construct(
     protected string $tag,
-    protected ?Attributes $attributes = NULL,
-  ) {
-    $this->attributes ??= new Attributes();
-  }
+    protected Attributes $attributes = new Attributes(),
+  ) {}
 
   /**
    * Gets tag name.

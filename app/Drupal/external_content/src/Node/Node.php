@@ -59,10 +59,6 @@ abstract class Node implements NodeInterface {
 
   #[\Override]
   public function getRoot(): NodeInterface {
-    if (!$this->hasParent()) {
-      return $this;
-    }
-
     $node = $this;
 
     while ($node->hasParent()) {
@@ -72,6 +68,9 @@ abstract class Node implements NodeInterface {
     return $node;
   }
 
+  /**
+   * @phpstan-assert-if-true self $this->getParent()
+   */
   #[\Override]
   public function hasParent(): bool {
     return !\is_null($this->parent);

@@ -48,12 +48,7 @@ final readonly class Tokens implements ContainerInjectionInterface {
 
     // @phpstan-ignore-next-line
     $comment_count = $node->get('comment_node_blog_entry')->first()?->get('comment_count')->getCastedValue() ?? 0;
-    $banner_uri = $this->bannerGenerator->generate(
-      $poster_uri,
-      $node->label(),
-      (int) $node->getCreatedTime(),
-      $comment_count,
-    );
+    $banner_uri = $this->bannerGenerator->generate($poster_uri, (string) $node->label(), (int) $node->getCreatedTime(), $comment_count);
     $state->getCacheableMetadata()->addCacheableDependency($node);
 
     if (!$banner_uri) {

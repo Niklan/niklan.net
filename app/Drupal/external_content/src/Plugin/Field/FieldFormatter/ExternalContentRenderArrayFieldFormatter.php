@@ -66,6 +66,7 @@ final class ExternalContentRenderArrayFieldFormatter extends FormatterBase imple
       \assert($content instanceof NodeInterface);
 
       $environment_id = $item->get('environment_id')->getValue();
+      \assert(\is_string($environment_id));
 
       if (!$this->externalContentManager->getEnvironmentManager()->has($environment_id)) {
         continue;

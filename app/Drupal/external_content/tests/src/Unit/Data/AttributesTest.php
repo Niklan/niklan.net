@@ -20,6 +20,7 @@ final class AttributesTest extends UnitTestCase {
 
     self::assertFalse($instance->hasAttributes());
     self::assertFalse($instance->hasAttribute('foo'));
+    $this->expectExceptionObject(new \OutOfBoundsException("The offset \"foo\" does not exist."));
     self::assertNull($instance->getAttribute('foo'));
     self::assertEmpty($instance->all());
 

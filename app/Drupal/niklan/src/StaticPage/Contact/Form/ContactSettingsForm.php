@@ -49,16 +49,18 @@ final class ContactSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this
-      ->getSettings()
-      ->setEmail($form_state->getValue('email'))
-      ->setTelegram($form_state->getValue('telegram'))
-      ->setDescription($form_state->getValue(['description', 'value']));
+    $settings = $this->getSettings();
+
+    \assert(\is_string($form_state->getValue('email')));
+    $settings->setEmail($form_state->getValue('email'));
+    \assert(\is_string($form_state->getValue('telegram')));
+    $settings->setTelegram($form_state->getValue('telegram'));
+    \assert(\is_string($form_state->getValue(['description', 'value'])));
+    $settings->setDescription($form_state->getValue(['description', 'value']));
 
     parent::submitForm($form, $form_state);
   }
 
-  #[\Override]
   protected function getSettings(): ContactSettings {
     $settings = $this->getContainer()->get(ContactSettings::class);
     \assert($settings instanceof ContactSettings);

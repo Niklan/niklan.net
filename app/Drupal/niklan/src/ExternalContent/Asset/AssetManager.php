@@ -211,7 +211,7 @@ final class AssetManager {
       ->getStorage('media')
       ->create(['bundle' => $type]);
     \assert($media instanceof MediaInterface);
-    $media->setName($file->label());
+    $media->setName((string) $file->label());
     $media->set($this->getMediaTypeSourceField($type), $file);
     $media->save();
 

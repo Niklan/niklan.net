@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class CommentReply extends CommentController {
 
-  public function __invoke(Request $request, EntityInterface $entity, $field_name, $pid = NULL): array {
+  public function __invoke(Request $request, EntityInterface $entity, string $field_name, ?int $pid = NULL): array {
     $build = parent::getReplyForm($request, $entity, $field_name, $pid);
 
     $children = [];

@@ -57,12 +57,17 @@ final readonly class PreprocessLaszloPageHeader implements ContainerInjectionInt
     ];
 
     $variables['navigation'] = \array_map(
-      callback: static fn (MenuLinkTreeElement $element): array => [
-        'label' => $element->link->getTitle(),
-        'url' => $element->link->getUrlObject()->toString(),
-        'icon' => $element->link->getPluginDefinition()['metadata']['main_navigation_icon'] ?? NULL,
-        'active_trail_pattern' => $element->link->getPluginDefinition()['metadata']['active_trail_pattern'] ?? NULL,
-      ],
+      callback: static function (MenuLinkTreeElement $element): array {
+        $plugin_definition = $element->link->getPluginDefinition();
+        \assert(\is_array($plugin_definition));
+
+        return [
+          'label' => $element->link->getTitle(),
+          'url' => $element->link->getUrlObject()->toString(),
+          'icon' => $plugin_definition['metadata']['main_navigation_icon'] ?? NULL,
+          'active_trail_pattern' => $plugin_definition['metadata']['active_trail_pattern'] ?? NULL,
+        ];
+      },
       array: $this->menuLinkTree->transform($tree, $manipulators),
     );
 

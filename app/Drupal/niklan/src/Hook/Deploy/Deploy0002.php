@@ -63,6 +63,7 @@ final class Deploy0002 implements ContainerInjectionInterface {
       ->getQuery()
       ->range($sandbox['current'], $sandbox['limit'])
       ->execute();
+    \assert(\is_array($ids));
 
     $blog_posts = $this
       ->entityTypeManager

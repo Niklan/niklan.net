@@ -11,6 +11,7 @@ final class ServicesSettings extends LanguageAwareSettingsStore {
   public const string TEXT_FORMAT = 'text';
 
   public function getDescription(): string {
+    // @phpstan-ignore-next-line return.type
     return $this->getStore()->get(
       key: 'description',
       default: 'Additional information about the services provided.',
@@ -30,6 +31,7 @@ final class ServicesSettings extends LanguageAwareSettingsStore {
   }
 
   public function getHourlyRate(): string {
+    // @phpstan-ignore-next-line return.type
     return $this->getStore()->get('hourly_rate', '$1 000/hour');
   }
 

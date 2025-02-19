@@ -11,7 +11,10 @@ final class HomeSettings extends LanguageAwareSettingsStore {
   public const string TEXT_FORMAT = 'text';
 
   public function getHeading(): string {
-    return $this->getStore()->get('heading', 'Web Developer Blog');
+    $heading = $this->getStore()->get('heading', 'Web Developer Blog');
+    \assert(\is_string($heading), 'The heading must be a string.');
+
+    return $heading;
   }
 
   public function setHeading(string $heading): self {
@@ -21,10 +24,10 @@ final class HomeSettings extends LanguageAwareSettingsStore {
   }
 
   public function getDescription(): string {
-    return $this->getStore()->get(
-      key: 'description',
-      default: 'The homepage description.',
-    );
+    $description = $this->getStore()->get('description', 'The homepage description.');
+    \assert(\is_string($description), 'The description must be a string.');
+
+    return $description;
   }
 
   public function setDescription(string $description): self {
@@ -39,8 +42,17 @@ final class HomeSettings extends LanguageAwareSettingsStore {
     return $this;
   }
 
+  /**
+   * @return array{}|array<int, array{
+   *   media_id: string,
+   *    title: string,
+   *    description: string,
+   *   }> */
   public function getCards(): array {
-    return $this->getStore()->get('cards', []);
+    $cards = $this->getStore()->get('cards', []);
+    \assert(\is_array($cards), 'The cards must be an array.');
+
+    return $cards;
   }
 
   #[\Override]

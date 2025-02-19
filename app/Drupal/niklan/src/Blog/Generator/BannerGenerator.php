@@ -74,7 +74,7 @@ final readonly class BannerGenerator {
     }
 
     $mime = $this->mimeTypeGuesser->guessMimeType($poster_path);
-    $base64 = "data:$mime;base64," . \base64_encode(\file_get_contents($poster_path));
+    $base64 = "data:$mime;base64," . \base64_encode((string) \file_get_contents($poster_path));
 
     $build = [
       '#theme' => 'niklan_article_banner',

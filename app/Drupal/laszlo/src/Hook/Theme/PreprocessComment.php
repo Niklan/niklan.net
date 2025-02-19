@@ -28,6 +28,12 @@ final readonly class PreprocessComment {
   }
 
   private function addCommentedEntityPosterUri(CommentInterface $comment, array &$variables): void {
+    $variables['commented_entity_poster_uri'] = NULL;
+
+    if (!$comment->getCommentedEntity()) {
+      return;
+    }
+
     $variables['commented_entity_poster_uri'] = MediaHelper::getFileFromMediaField(
       entity: $comment->getCommentedEntity(),
       field_name: 'field_media_image',

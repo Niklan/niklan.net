@@ -35,6 +35,7 @@ final class PortfolioSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
+    \assert(\is_string($form_state->getValue(['description', 'value'])));
     $this->getSettings()->setDescription($form_state->getValue(['description', 'value']));
 
     parent::submitForm($form, $form_state);

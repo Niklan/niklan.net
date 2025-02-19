@@ -50,6 +50,7 @@ final readonly class Deploy0005 implements ContainerInjectionInterface {
       ->getQuery()
       ->range(0, $sandbox['limit'])
       ->execute();
+    \assert(\is_array($ids));
     $sandbox['current'] += \count($ids);
 
     yield from $this->getStorage()->loadMultiple($ids);
@@ -66,6 +67,7 @@ final readonly class Deploy0005 implements ContainerInjectionInterface {
       return;
     }
 
+    // @phpstan-ignore-next-line
     if (!\str_starts_with($file->getMimeType(), 'image/')) {
       return;
     }
@@ -89,6 +91,7 @@ final readonly class Deploy0005 implements ContainerInjectionInterface {
     }
 
     foreach ($this->media($sandbox) as $media) {
+      \assert($media instanceof MediaInterface);
       $this->process($media);
     }
 
