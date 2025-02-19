@@ -60,7 +60,7 @@ final class AlertSerializer implements SerializerInterface {
      * } $values
      */
     $values = $data->all();
-    $heading = $values['heading']
+    $heading = isset($values['heading'])
         ? $child_serializer->deserialize($values['heading'])
         : NULL;
     $alert = new Alert($values['type'], $heading);

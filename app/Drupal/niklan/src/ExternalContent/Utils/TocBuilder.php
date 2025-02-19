@@ -43,7 +43,13 @@ final class TocBuilder {
       $this->recursiveGetHeadings($node, $headings);
     }
 
-    if (!($node instanceof Element) || $node->getTag() !== 'a' || $node->getAttributes()->getAttribute('class') !== 'heading-permalink') {
+    if (!$node instanceof Element || $node->getTag() !== 'a') {
+      return;
+    }
+
+    $attributes = $node->getAttributes();
+
+    if (!$attributes->hasAttribute('class') || $attributes->getAttribute('class') !== 'heading-permalink') {
       return;
     }
 

@@ -403,13 +403,14 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
 
   private function createDrupalMediaImageNode(Element $node, MediaInterface $media): DrupalMedia {
     \assert(\is_string($media->uuid()));
+    $attributes = $node->getAttributes();
 
     return new DrupalMedia(
       type: 'image',
       uuid: $media->uuid(),
       data: new Data([
-        'alt' => $node->getAttributes()->getAttribute('alt'),
-        'title' => $node->getAttributes()->getAttribute('title'),
+        'alt' => $attributes->getAttribute('alt'),
+        'title' => $attributes->hasAttribute('title') ? $attributes->getAttribute('title') : $attributes->getAttribute('alt'),
       ]),
     );
   }

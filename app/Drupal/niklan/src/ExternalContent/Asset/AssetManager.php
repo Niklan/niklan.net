@@ -8,6 +8,7 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
@@ -113,7 +114,31 @@ final class AssetManager {
     }
 
     /* @phpstan-ignore-next-line */
-    return $file_storage->load(\reset($file_ids));
+    $file = $file_storage->load(\reset($file_ids));
+    $this->ensureFileIsPresented($file, $path);
+
+    return $file;
+  }
+
+  /**
+   * Ensures the file is presented.
+   * 
+   * It is mostly for the local environment, when the file entities are present
+   * in the database, but the physically files are missing. This method copies
+   * the file in that case to make sure they are in sync.
+   */
+  private function ensureFileIsPresented(FileInterface $file, string $path): void {
+    if (\file_exists($file->getFileUri())) {
+      return;
+    }
+
+    $destination = \pathinfo($file->getFileUri(), \PATHINFO_DIRNAME);
+
+    if (!$this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
+      return;
+    }
+
+    $this->fileSystem->copy($path, $file->getFileUri(), FileExists::Replace);
   }
 
   private function createMediaForFile(FileInterface $file): ?MediaInterface {
