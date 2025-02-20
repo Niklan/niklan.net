@@ -29,6 +29,13 @@ props:
         - lazy
       type: string
       default: lazy
+    decoding:
+      title: Image decoding
+      enum:
+        - sync
+        - async
+        - auto
+      type: string
     srcset:
       title: Image srcset
       type: array

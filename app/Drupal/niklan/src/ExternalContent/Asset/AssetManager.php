@@ -113,8 +113,12 @@ final class AssetManager {
       return $this->saveToFile($path);
     }
 
-    /* @phpstan-ignore-next-line */
     $file = $file_storage->load(\reset($file_ids));
+
+    if (!$file instanceof FileInterface) {
+      return NULL;
+    }
+
     $this->ensureFileIsPresented($file, $path);
 
     return $file;
@@ -122,23 +126,25 @@ final class AssetManager {
 
   /**
    * Ensures the file is presented.
-   * 
+   *
    * It is mostly for the local environment, when the file entities are present
    * in the database, but the physically files are missing. This method copies
    * the file in that case to make sure they are in sync.
    */
   private function ensureFileIsPresented(FileInterface $file, string $path): void {
-    if (\file_exists($file->getFileUri())) {
+    $file_uri = $file->getFileUri();
+
+    if (!\is_string($file_uri) || \file_exists($file_uri)) {
       return;
     }
 
-    $destination = \pathinfo($file->getFileUri(), \PATHINFO_DIRNAME);
+    $destination = \pathinfo($file_uri, \PATHINFO_DIRNAME);
 
     if (!$this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
       return;
     }
 
-    $this->fileSystem->copy($path, $file->getFileUri(), FileExists::Replace);
+    $this->fileSystem->copy($path, $file_uri, FileExists::Replace);
   }
 
   private function createMediaForFile(FileInterface $file): ?MediaInterface {

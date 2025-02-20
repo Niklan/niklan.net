@@ -3,6 +3,7 @@
 {% do height ? attributes.setAttribute('height', height) %}
 {% do attributes.setAttribute('src', src) %}
 {% do attributes.setAttribute('loading', loading|default('lazy')) %}
+{% do decoding ? attributes.setAttribute('decoding', decoding) %}
 {% if srcset is not empty %}
   {% do attributes.setAttribute('sizes', sizes|default('100vw')|join(', ')) %}
   {% set srcset_array = [] %}

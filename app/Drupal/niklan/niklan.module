@@ -3,18 +3,13 @@
 declare(strict_types=1);
 
 use Drupal\comment\CommentInterface;
-use Drupal\Component\Utility\Html;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\image\Entity\ImageStyle;
 use Drupal\niklan\Hook\Entity\BaseFieldInfo;
 use Drupal\niklan\Hook\Entity\BundleInfoAlter;
 use Drupal\niklan\Hook\Entity\CommentInsert;
@@ -25,33 +20,17 @@ use Drupal\niklan\Hook\Theme\PreprocessPager;
 use Drupal\niklan\Hook\Token\TokenInfo;
 use Drupal\niklan\Hook\Token\Tokens;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
-use Drupal\responsive_image\Entity\ResponsiveImageStyle;
-use Drupal\responsive_image\ResponsiveImageStyleInterface;
 
 /**
  * Implements hook_theme().
  */
 function niklan_theme(array $existing, string $type, string $theme, string $path): array {
   return [
-    'niklan_follow' => [
-      'variables' => [],
-    ],
-    'niklan_toc' => [
-      'variables' => [
-        'links' => NULL,
-      ],
-    ],
     'niklan_contact' => [
       'variables' => [
         'description' => NULL,
         'email' => NULL,
         'telegram' => NULL,
-      ],
-    ],
-    'niklan_form_success' => [
-      'variables' => [
-        'title' => NULL,
-        'message' => NULL,
       ],
     ],
     'niklan_support' => [
@@ -75,24 +54,10 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'hourly_rate' => NULL,
       ],
     ],
-    'niklan_mobile_header_bar' => [
-      'variables' => [
-        'logo' => NULL,
-      ],
-    ],
     'niklan_comment_list' => [
       'variables' => [
         'heading' => NULL,
         'items' => [],
-      ],
-    ],
-    'niklan_media_attached_file' => [
-      'variables' => [
-        'attributes' => [],
-        'uri' => NULL,
-        'filename' => NULL,
-        'filesize' => NULL,
-        'label' => NULL,
       ],
     ],
     'niklan_blog_list' => [
@@ -120,9 +85,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
       'variables' => [
         'items' => [],
       ],
-    ],
-    'niklan_sidebar_search_form' => [
-      'variables' => [],
     ],
     'niklan_lightbox_responsive_image' => [
       'variables' => [
@@ -185,28 +147,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
 }
 
 /**
- * Implements hook_contact_tools_ajax_response_alter().
- *
- * Allows modules to alter AJAX response handled by the module. You can fully
- * alter, remove and add new commands to response.
- */
-function niklan_contact_tools_ajax_response_alter(AjaxResponse &$ajax_response, array $form, FormStateInterface $form_state): void {
-  if (!$form_state->isExecuted()) {
-    return;
-  }
-
-  $class_name = '.' . Html::getClass($form['#form_id'] . '-contact-tools-processed');
-
-  $message = new TranslatableMarkup('Thank you, your message was successfully sent.');
-  $thanks = [
-    '#theme' => 'niklan_form_success',
-    '#title' => new TranslatableMarkup('Successful!'),
-    '#message' => $message,
-  ];
-  $ajax_response->addCommand(new ReplaceCommand($class_name, $thanks));
-}
-
-/**
  * Implements hook_preprocess_HOOK().
  */
 function niklan_preprocess_navigation(array &$variables): void {
@@ -220,51 +160,6 @@ function niklan_toolbar(): array {
   return array_merge(
     Drupal::classResolver(ContentEditingToolbar::class)(),
   );
-}
-
-/**
- * Implements hook_preprocess_HOOK() for 'responsive-image.html.twig'.
- */
-function niklan_preprocess_responsive_image(array &$variables): void {
-  // This hook is also set width and height required by default lazy loading
-  // implementation. But this one called after, so with and height is not set
-  // at the point when default lazy is added, so we force it.
-  $variables['img_element']['#attributes']['loading'] = 'lazy';
-  $variables['img_element']['#attributes']['decoding'] = 'async';
-
-  $responsive_style = ResponsiveImageStyle::load(
-    $variables['responsive_image_style_id'],
-  );
-
-  if (!$responsive_style instanceof ResponsiveImageStyleInterface) {
-    return;
-  }
-
-  $image_factory = Drupal::service('image.factory');
-  assert($image_factory instanceof ImageFactory);
-  $fallback_style = ImageStyle::load(
-    $responsive_style->getFallbackImageStyle(),
-  );
-
-  if (!$fallback_style instanceof ImageStyle) {
-    return;
-  }
-
-  $fallback_image = $fallback_style->buildUri($variables['uri']);
-  $image_factory->get($fallback_image);
-  $variables['img_element']['#attributes']['width'] = $image_factory
-    ->get($fallback_image)
-    ->getWidth();
-  $variables['img_element']['#attributes']['height'] = $image_factory
-    ->get($fallback_image)
-    ->getHeight();
-}
-
-/**
- * Implements hook_preprocess_HOOK() for 'image.html.twig'.
- */
-function niklan_preprocess_image(array &$variables): void {
-  $variables['attributes']['decoding'] = 'async';
 }
 
 /**

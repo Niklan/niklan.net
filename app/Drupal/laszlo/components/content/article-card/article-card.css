@@ -30,10 +30,10 @@
   }
 
   .article-card__poster {
-    width: 150px;
     overflow: hidden;
     flex-shrink: 0;
     align-self: center;
+    width: 150px;
     border-radius: var(--spacing-2);
     box-shadow: var(--elevation-1);
 

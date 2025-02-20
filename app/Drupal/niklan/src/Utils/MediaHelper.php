@@ -11,7 +11,10 @@ use Drupal\media\MediaInterface;
 final readonly class MediaHelper {
 
   public static function getFileFromMediaField(FieldableEntityInterface $entity, string $field_name): ?FileInterface {
-    return self::getFile($entity->get($field_name)->first()?->get('entity')->getValue());
+    $media = $entity->get($field_name)->first()?->get('entity')->getValue();
+    \assert(\is_null($media) || $media instanceof MediaInterface);
+
+    return self::getFile($media);
   }
 
   public static function getFile(?MediaInterface $media): ?FileInterface {
