@@ -58,8 +58,7 @@
         "niklan-asset/quicklink": "^2.3",
         "niklan/external_content": "^1.0@dev",
         "niklan/laszlo": "^1.0@dev",
-        "niklan/niklan": "^1.0@dev",
-        "niklan/niklan_installer": "^1.0@dev"
+        "niklan/niklan": "^1.0@dev"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^2.0@alpha",

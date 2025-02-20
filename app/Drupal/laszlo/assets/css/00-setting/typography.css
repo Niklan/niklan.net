@@ -1,8 +1,9 @@
 @layer setting {
   :root {
     --font-family: "Lora", serif;
-    --font-monospace: "JetBrains Mono", "Fira Code", sfmono-regular, menlo,
-      monaco, consolas, "Liberation Mono", "Courier New", monospace;
+    --font-monospace:
+      "JetBrains Mono", "Fira Code", sfmono-regular, menlo, monaco, consolas,
+      "Liberation Mono", "Courier New", monospace;
     --typography-display-large: 400 normal 57px/64px var(--font-family);
     --typography-display-medium: 400 normal 45px/52px var(--font-family);
     --typography-display-small: 400 normal 36px/44px var(--font-family);

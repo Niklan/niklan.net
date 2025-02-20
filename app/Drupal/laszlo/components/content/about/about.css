@@ -36,7 +36,8 @@
     justify-content: center;
     border-radius: var(--spacing-4);
     background: var(--color-primary-container);
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         circle at top right,
         var(--color-on-primary-fixed),
         transparent
