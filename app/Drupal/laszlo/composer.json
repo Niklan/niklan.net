@@ -2,6 +2,11 @@
     "name": "niklan/laszlo",
     "type": "drupal-custom-theme",
     "version": "1.0.0-dev",
+    "autoload": {
+        "psr-4": {
+            "Drupal\\laszlo\\": "src"
+        }
+    },
     "require": {
         "niklan/niklan": "^1.0@dev",
         "niklan-asset/lora": "^35"

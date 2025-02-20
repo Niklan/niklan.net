@@ -10,9 +10,6 @@ use Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInter
 
 /**
  * Provides a very basic extension with most useful settings.
- *
- * @todo Consider creating dedicated extensions for plain text, code and
- *   element, and use them here.
  */
 final class BasicHtmlExtension implements ExtensionInterface {
 
@@ -22,13 +19,9 @@ final class BasicHtmlExtension implements ExtensionInterface {
 
   #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
-    $html_parser_manager = $this
-      ->externalContentManager
-      ->getHtmlParserManager();
+    $html_parser_manager = $this->externalContentManager->getHtmlParserManager();
     $serializer_manager = $this->externalContentManager->getSerializerManager();
-    $render_array_builder_manager = $this
-      ->externalContentManager
-      ->getRenderArrayBuilderManager();
+    $render_array_builder_manager = $this->externalContentManager->getRenderArrayBuilderManager();
 
     $environment
       ->addHtmlParser($html_parser_manager->get('plain_text'))

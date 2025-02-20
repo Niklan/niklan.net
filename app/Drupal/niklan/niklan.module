@@ -36,20 +36,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
     'niklan_follow' => [
       'variables' => [],
     ],
-    'niklan_previous_next' => [
-      'variables' => [
-        'previous_url' => NULL,
-        'previous_label' => NULL,
-        'next_url' => NULL,
-        'next_label' => NULL,
-      ],
-    ],
-    'niklan_share' => [
-      'variables' => [
-        'url' => NULL,
-        'text' => NULL,
-      ],
-    ],
     'niklan_toc' => [
       'variables' => [
         'links' => NULL,
@@ -68,24 +54,10 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'message' => NULL,
       ],
     ],
-    'niklan_copyright' => [
-      'variables' => [
-        'attributes' => [],
-      ],
-    ],
     'niklan_support' => [
       'variables' => [
         'description' => NULL,
         'donate_url' => NULL,
-      ],
-    ],
-    'niklan_last_content' => [
-      'variables' => [
-        'attributes' => [],
-        'items' => [],
-        'title' => NULL,
-        'more_url' => NULL,
-        'more_label' => NULL,
       ],
     ],
     'niklan_about' => [
@@ -123,12 +95,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'label' => NULL,
       ],
     ],
-    'niklan_oembed_video' => [
-      'variables' => [
-        'preview' => NULL,
-        'content' => NULL,
-      ],
-    ],
     'niklan_blog_list' => [
       'variables' => [
         'items' => [],
@@ -148,14 +114,6 @@ function niklan_theme(array $existing, string $type, string $theme, string $path
         'no_results' => NULL,
         'results' => [],
         'pager' => NULL,
-      ],
-    ],
-    'niklan_blog_meta' => [
-      'variables' => [
-        'created' => NULL,
-        'comment_count' => NULL,
-        'comments_url' => NULL,
-        'estimated_read_time' => NULL,
       ],
     ],
     'niklan_tag_list' => [

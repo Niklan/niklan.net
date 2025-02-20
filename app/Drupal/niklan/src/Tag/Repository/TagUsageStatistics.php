@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Tag\Repository;
 
-/**
- * @todo Remove it.
- */
 interface TagUsageStatistics {
 
   /**

@@ -66,7 +66,9 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
       $this->syncBlogEntryVariation($blog_entry, $identified_source);
     }
 
-    // @todo Add some checks to avoid unnecessary saving.
+    // @todo Add some checks to avoid unnecessary saving. Seems like it safe to
+    //   compare "updated" + some loader version. If logic or content is changed
+    //   only then update it. But it should allow force import for dev purpose.
     $blog_entry->save();
     $this->logger->info(\sprintf(
       'External content bundle %s synced with node:%s',
@@ -461,7 +463,6 @@ final class Blog implements LoaderInterface, EnvironmentAwareInterface {
     $url = \str_replace(
       search: $external_content_dir,
       // Since GitHub is requiring that part, it is forced here.
-      // @todo Think how it can be improved to handle without hardcoding.
       replace: "$repository_url/tree/main",
       subject: $pathname,
     );

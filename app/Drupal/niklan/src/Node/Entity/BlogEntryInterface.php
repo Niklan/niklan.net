@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Node\Entity;
 
-/**
- * @todo Remove
- */
 interface BlogEntryInterface extends NodeInterface {
 
   public function setExternalId(string $external_id): self;

@@ -29,9 +29,9 @@ final class EntitySearchResultTest extends UnitTestCase {
   public function testObject(string $entity_type_id, int|string $entity_id, string $language): void {
     $item = new EntitySearchResult($entity_type_id, $entity_id, $language);
 
-    self::assertEquals($entity_type_id, $item->getEntityTypeId());
-    self::assertEquals($entity_id, $item->getEntityId());
-    self::assertEquals($language, $item->getLanguage());
+    self::assertEquals($entity_type_id, $item->entityTypeId);
+    self::assertEquals($entity_id, $item->entityId);
+    self::assertEquals($language, $item->language);
   }
 
   /**
