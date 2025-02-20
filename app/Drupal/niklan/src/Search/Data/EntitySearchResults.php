@@ -26,7 +26,8 @@ final class EntitySearchResults implements \IteratorAggregate, \Countable {
     $result = [];
 
     foreach ($this->items as $item) {
-      $result[$item->getEntityTypeId()][] = $item->getEntityId();
+      \assert($item instanceof EntitySearchResult);
+      $result[$item->entityTypeId][] = $item->entityId;
     }
 
     return $result;

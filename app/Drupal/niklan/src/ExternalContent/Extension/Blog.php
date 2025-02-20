@@ -38,8 +38,6 @@ final readonly class Blog implements ExtensionInterface, ConfigurableExtensionIn
     $parser_manager = $this->externalContentManager->getHtmlParserManager();
 
     $environment
-      // @todo Consider to replace by callable subscribers right here. Look
-      //   like there are no need for Drupal's event dispatcher.
       ->setEventDispatcher($this->eventDispatcher)
       ->addExtension($extension_manager->get('file_finder'))
       ->addExtension($extension_manager->get('basic_html'))

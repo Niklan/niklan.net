@@ -4883,13 +4883,18 @@
             "dist": {
                 "type": "path",
                 "url": "app/Drupal/laszlo",
-                "reference": "47c578d90087fbb7bb021243ee4662094b01b079"
+                "reference": "f248b5dd1dfe695f1050570fe06d54bfab76f716"
             },
             "require": {
                 "niklan-asset/lora": "^35",
                 "niklan/niklan": "^1.0@dev"
             },
             "type": "drupal-custom-theme",
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\laszlo\\": "src"
+                }
+            },
             "transport-options": {
                 "relative": true
             }

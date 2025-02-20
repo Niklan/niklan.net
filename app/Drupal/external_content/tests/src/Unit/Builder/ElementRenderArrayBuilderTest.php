@@ -15,7 +15,6 @@ use Drupal\Tests\UnitTestCaseTest;
 /**
  * @covers \Drupal\external_content\Builder\ElementRenderArrayBuilder
  * @group external_content
- * @todo Make it kernel with a proper testing of 'pre_render'.
  */
 final class ElementRenderArrayBuilderTest extends UnitTestCaseTest {
 

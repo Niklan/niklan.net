@@ -58,9 +58,9 @@ final readonly class Search implements ContainerInjectionInterface {
   }
 
   private function buildSearchResult(EntitySearchResult $result): array {
-    $storage = $this->entityTypeManager->getStorage($result->getEntityTypeId());
-    $view_builder = $this->entityTypeManager->getViewBuilder($result->getEntityTypeId());
-    $entity = $storage->load($result->getEntityId());
+    $storage = $this->entityTypeManager->getStorage($result->entityTypeId);
+    $view_builder = $this->entityTypeManager->getViewBuilder($result->entityTypeId);
+    $entity = $storage->load($result->entityId);
 
     return $entity ? $view_builder->view($entity, 'search_result') : [];
   }

@@ -63,6 +63,11 @@ final readonly class Link implements RenderArrayBuilderInterface {
     }
 
     $attributes = $node->getAttributes();
+
+    if (!$attributes->hasAttribute('data-selector')) {
+      return FALSE;
+    }
+
     $is_link = $node->getTag() === 'a';
     $is_external_link = $attributes->getAttribute('data-selector') === 'niklan:external-link';
     $is_has_md5 = $attributes->hasAttribute('data-pathname-md5');

@@ -15,10 +15,10 @@ props:
       type: string
     width:
       title: Image width
-      type: [string, integer ]
+      type: [string, integer, 'null']
     height:
       title: Image height
-      type: [string, integer]
+      type: [string, integer, 'null']
     alt:
       title: Image alt
       type: string
@@ -29,6 +29,13 @@ props:
         - lazy
       type: string
       default: lazy
+    decoding:
+      title: Image decoding
+      enum:
+        - sync
+        - async
+        - auto
+      type: string
     srcset:
       title: Image srcset
       type: array

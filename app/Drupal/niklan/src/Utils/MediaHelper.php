@@ -12,10 +12,7 @@ final readonly class MediaHelper {
 
   public static function getFileFromMediaField(FieldableEntityInterface $entity, string $field_name): ?FileInterface {
     $media = $entity->get($field_name)->first()?->get('entity')->getValue();
-
-    if (!$media instanceof MediaInterface) {
-      return NULL;
-    }
+    \assert(\is_null($media) || $media instanceof MediaInterface);
 
     return self::getFile($media);
   }
