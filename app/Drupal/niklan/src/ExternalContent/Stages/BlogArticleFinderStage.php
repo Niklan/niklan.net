@@ -20,9 +20,11 @@ final class BlogArticleFinderStage implements Stage {
   public function process(Context $context, Config $config): Context {
     \assert($context instanceof BlogSyncContext);
 
+    $context->getLogger()->info(\sprintf('Looking for blog articles in %s', $context->workingDirectory));
     $finder = new Finder();
     $finder->in($context->workingDirectory);
     $finder->name('article.xml');
+    $context->getLogger()->info(\sprintf('Found %s article sources', $finder->count()));
 
     foreach ($finder as $file) {
       if ($file->isDir()) {
