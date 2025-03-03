@@ -7,14 +7,15 @@ namespace Drupal\Tests\external_content\Unit\Pipeline;
 use Drupal\external_content\Contract\Pipeline\Config;
 use Drupal\external_content\Contract\Pipeline\Context;
 use Drupal\external_content\Contract\Pipeline\Stage;
-use Drupal\external_content\Pipeline\DefaultPipeline;
+use Drupal\external_content\Pipeline\NullContext;
+use Drupal\external_content\Pipeline\SequentialPipeline;
 use Drupal\Tests\UnitTestCase;
 use Prophecy\Argument;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * @covers DefaultPipeline
+ * @covers \Drupal\external_content\Pipeline\SequentialPipeline
  * @group external_content
  */
 final class DefaultPipelineTest extends UnitTestCase {
@@ -37,7 +38,7 @@ final class DefaultPipelineTest extends UnitTestCase {
     $stage_2->process($middle_context, $config_2)->willReturn($result_context);
     $stage_2 = $stage_2->reveal();
 
-    $pipeline = new DefaultPipeline($logger);
+    $pipeline = new SequentialPipeline($logger);
     $pipeline->addStage($stage_1, $config_1);
     $pipeline->addStage($stage_2, $config_2);
     $result = $pipeline->run($input_context);
@@ -53,8 +54,21 @@ final class DefaultPipelineTest extends UnitTestCase {
     $logger_aware_stage->setLogger($logger)->shouldBeCalled();
     $logger_aware_stage = $logger_aware_stage->reveal();
 
-    $pipeline = new DefaultPipeline($logger);
+    $pipeline = new SequentialPipeline($logger);
     $pipeline->addStage($logger_aware_stage, NULL);
+  }
+
+  public function testStageExceptionHandling(): void {
+    $logger = $this->prophesize(LoggerInterface::class);
+    $logger->error(Argument::exact('Stage failed: Test exception'))->shouldBeCalled();
+    $logger = $logger->reveal();
+
+    $stage = $this->prophesize(Stage::class);
+    $stage->process(Argument::any(), Argument::any())->willThrow(new \Exception('Test exception'));
+
+    $pipeline = new SequentialPipeline($logger);
+    $pipeline->addStage($stage->reveal());
+    $pipeline->run(new NullContext());
   }
 
 }

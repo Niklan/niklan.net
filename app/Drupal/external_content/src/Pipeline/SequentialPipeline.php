@@ -8,10 +8,11 @@ use Drupal\external_content\Contract\Pipeline\Config;
 use Drupal\external_content\Contract\Pipeline\Context;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\Stage;
+use Drupal\monolog\Logger\NullLogger;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
-final class DefaultPipeline implements Pipeline {
+final class SequentialPipeline implements Pipeline {
 
   /**
    * @var list<array{
@@ -22,7 +23,7 @@ final class DefaultPipeline implements Pipeline {
   private array $stages = [];
 
   public function __construct(
-    private readonly LoggerInterface $logger,
+    private LoggerInterface $logger = new NullLogger(),
   ) {}
 
   public function addStage(Stage $stage, ?Config $config = NULL): void {
@@ -40,7 +41,12 @@ final class DefaultPipeline implements Pipeline {
     $current_context = $context;
 
     foreach ($this->stages as $stage_data) {
-      $current_context = $stage_data['stage']->process($current_context, $stage_data['config']);
+      try {
+        $current_context = $stage_data['stage']->process($current_context, $stage_data['config']);
+      }
+      catch (\Throwable $e) {
+        $this->logger->error('Stage failed: ' . $e->getMessage());
+      }
     }
 
     return $current_context;
