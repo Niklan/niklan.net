@@ -5,51 +5,81 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Infrastructure;
 
 use Drupal\niklan\ExternalContent\Domain\BlogArticle;
-use Drupal\niklan\Utils\PathHelper;
+use Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation;
+use Drupal\niklan\ExternalContent\Exception\ArticleParseException;
+use Drupal\niklan\ExternalContent\Exception\XmlLoadException;
+use Drupal\niklan\ExternalContent\Exception\XmlValidationException;
 
 final readonly class ArticleParser {
 
-  public function parseFromFile(string $file_path): BlogArticle {
-    $document = new \DOMDocument();
+  public function __construct(
+    private XmlValidator $xmlValidator,
+  ) {}
 
-    if (!$document->load($file_path)) {
-      throw new \Exception(\sprintf('Failed to load XML file: %s', $file_path));
+  /**
+   * @throws \Drupal\niklan\ExternalContent\Exception\ArticleParseException
+   */
+  public function parseFromXml(string $file_path): BlogArticle {
+    try {
+      $this->xmlValidator->validate($file_path);
+    }
+    catch (XmlLoadException | XmlValidationException $exception) {
+      throw new ArticleParseException($file_path, $exception->getMessage());
     }
 
-    $this->validateXmlAgainstXsd($document, $file_path);
-    \dump($file_path);
-    // @todo Complete
-    die;
+    return $this->parse($file_path);
   }
 
-  private function validateXmlAgainstXsd(\DOMDocument $document, string $file_path): void {
-    $root = $document->documentElement;
-    if (!$root) {
-      throw new \Exception("XML doesn't have a root node");
+  private function parse(string $file_path): BlogArticle {
+    $dom = new \DOMDocument();
+    $dom->load($file_path);
+    $xpath = new \DOMXPath($dom);
+
+    $tags = [];
+    foreach ($xpath->query('/article/tags/tag') as $tag_node) {
+      \assert($tag_node instanceof \DOMElement);
+      $tags[] = $tag_node->nodeValue;
     }
 
-    $schema_location = $root->getAttributeNS('http://www.w3.org/2001/XMLSchema-instance', 'noNamespaceSchemaLocation');
-    if (!$schema_location) {
-      throw new \Exception("XML doesn't have a schema location");
-    }
+    $article_node = $xpath->query('/article')->item(0);
+    \assert($article_node instanceof \DOMElement);
+    $article = new BlogArticle(
+      id: $article_node->getAttribute('id'),
+      created: $article_node->getAttribute('created'),
+      updated: $article_node->getAttribute('updated'),
+      tags: $tags,
+    );
 
-    $schema_location = PathHelper::normalizePath(\dirname($file_path) . '/' . $schema_location);
-    if (!$document->schemaValidate($schema_location)) {
-      $errors = \libxml_get_errors();
-      $errorMessages = [];
-
-      foreach ($errors as $error) {
-        $errorMessages[] = \sprintf(
-          "[%s] Line %d: %s",
-          $error->level === \LIBXML_ERR_WARNING ? "Warning" : "Error",
-          $error->line,
-          \trim($error->message),
-        );
+    foreach ($xpath->query('/article/translations/translation') as $delta => $translation_node) {
+      \assert($translation_node instanceof \DOMElement);
+      $is_primary = FALSE;
+      if ($translation_node->hasAttribute('primary')) {
+        $is_primary = $translation_node->getAttribute('primary') === 'true';
       }
 
-      \libxml_clear_errors();
-      throw new \Exception("XML not validates against schema:\n" . \implode("\n", $errorMessages));
+      $title_node = $xpath->query('title', $translation_node)->item(0);
+      \assert($title_node instanceof \DOMElement);
+
+      $description_node = $xpath->query('description', $translation_node)->item(0);
+      \assert($description_node instanceof \DOMElement);
+
+      $translation = new BlogArticleTranslation(
+        sourcePath: $translation_node->getAttribute('src'),
+        language: $translation_node->getAttribute('language'),
+        title: \preg_replace('/\s+/', ' ', \trim($title_node->nodeValue)),
+        description: \preg_replace('/\s+/', ' ', \trim($description_node->nodeValue)),
+        posterPath: $xpath->query('poster', $translation_node)->item(0)->getAttribute('src'),
+        isPrimary: $is_primary,
+      );
+      try {
+        $article->addTranslation($translation);
+      }
+      catch (\InvalidArgumentException $exception) {
+        throw new ArticleParseException($file_path, $exception->getMessage());
+      }
     }
+
+    return $article;
   }
 
 }

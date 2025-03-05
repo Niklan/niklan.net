@@ -14,13 +14,13 @@ final class BlogArticle implements \IteratorAggregate, \Countable {
   /**
    * @var list<\Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation>
    */
-  private array $translations;
+  private array $translations = [];
 
   /**
    * @param non-empty-string $id
    * @param non-empty-string $created
    * @param non-empty-string $updated
-   * @param list<non-empty-string> $tags
+   * @param array{}|list<non-empty-string> $tags
    */
   public function __construct(
     public string $id,

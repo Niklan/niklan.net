@@ -52,10 +52,6 @@ services:
   Drupal\niklan\Console\Process\Git: { }
   Drupal\niklan\Console\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
 
-  Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension:
-    tags:
-      - { name: event_subscriber }
-
   Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension: { }
 
   niklan.markdown.environment:
@@ -67,60 +63,7 @@ services:
     arguments:
       - '@niklan.markdown.environment'
 
-  Drupal\niklan\ExternalContent\Asset\AssetManager: { }
-
-  # External content.
-  Drupal\niklan\ExternalContent\Extension\Blog:
-    tags:
-      - { name: external_content.extension, id: blog }
-  Drupal\niklan\ExternalContent\Identifier\FrontMatter:
-    tags:
-      - { name: external_content.identifier, id: front_matter }
-  Drupal\niklan\ExternalContent\Serializer\DrupalMediaSerializer:
-    tags:
-      - { name: external_content.serializer, id: drupal_media }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\DrupalMedia:
-    tags:
-      - { name: external_content.render_array_builder, id: drupal_media }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\CodeBlock:
-    tags:
-      - { name: external_content.render_array_builder, id: code_block }
-  Drupal\niklan\ExternalContent\Serializer\AlertSerializer:
-    tags:
-      - { name: external_content.serializer, id: alert }
-  Drupal\niklan\ExternalContent\Parser\AlertParser:
-    tags:
-      - { name: external_content.html_parser, id: alert }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\Alert:
-    tags:
-      - { name: external_content.render_array_builder, id: alert }
-  Drupal\niklan\ExternalContent\Parser\RemoteVideo:
-    tags:
-      - { name: external_content.html_parser, id: remote_video }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\Link:
-    tags:
-      - { name: external_content.render_array_builder, id: link }
-  Drupal\niklan\ExternalContent\Loader\Blog:
-    tags:
-      - { name: external_content.loader, id: blog }
-  Drupal\niklan\ExternalContent\Converter\Markdown:
-    arguments:
-      - '@niklan.markdown.converter'
-    tags:
-      - { name: external_content.converter, id: niklan_markdown }
-  Drupal\niklan\ExternalContent\Parser\Container:
-    tags:
-      - { name: external_content.html_parser, id: container }
-  Drupal\niklan\ExternalContent\Parser\Video:
-    tags:
-      - { name: external_content.html_parser, id: video }
-
-  external_content.environment.blog:
-    class: Drupal\external_content\Environment\Environment
-    calls:
-      - [ addExtension, [ '@Drupal\niklan\ExternalContent\Extension\Blog' ] ]
-    tags:
-      - { name: external_content.environment, id: blog, label: 'Blog articles' }
+  #  Drupal\niklan\ExternalContent\Asset\AssetManager: { }
 
   Drupal\niklan\Markup\Twig\Extension\ImageDimensions:
     tags:

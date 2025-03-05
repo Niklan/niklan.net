@@ -11,7 +11,7 @@ use Psr\Log\NullLogger;
 final class BlogSyncContext implements Context {
 
   /**
-   * @var array{}|list<\Drupal\niklan\ExternalContent\Domain\Drupal\niklan\ExternalContent\Domain\BlogArticle>
+   * @var array{}|list<\Drupal\niklan\ExternalContent\Domain\BlogArticle>
    */
   private array $articles = [];
 
@@ -29,7 +29,7 @@ final class BlogSyncContext implements Context {
   }
 
   /**
-   * @return array{}|list<\Drupal\niklan\ExternalContent\Domain\Drupal\niklan\ExternalContent\Domain\BlogArticle>
+   * @return array{}|list<\Drupal\niklan\ExternalContent\Domain\BlogArticle>
    */
   public function getArticles(): array {
     return $this->articles;

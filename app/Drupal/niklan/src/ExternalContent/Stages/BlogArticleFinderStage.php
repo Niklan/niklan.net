@@ -31,7 +31,7 @@ final class BlogArticleFinderStage implements Stage {
         continue;
       }
 
-      $article = $this->articleParser->parseFromFile($file->getPathname());
+      $article = $this->articleParser->parseFromXml($file->getPathname());
       $context->addArticle($article);
     }
 
