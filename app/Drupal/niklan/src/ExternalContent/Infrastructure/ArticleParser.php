@@ -27,59 +27,90 @@ final readonly class ArticleParser {
       throw new ArticleParseException($file_path, $exception->getMessage());
     }
 
-    return $this->parse($file_path);
-  }
-
-  private function parse(string $file_path): BlogArticle {
     $dom = new \DOMDocument();
     $dom->load($file_path);
     $xpath = new \DOMXPath($dom);
 
-    $tags = [];
-    foreach ($xpath->query('/article/tags/tag') as $tag_node) {
-      \assert($tag_node instanceof \DOMElement);
-      $tags[] = $tag_node->nodeValue;
-    }
-
-    $article_node = $xpath->query('/article')->item(0);
-    \assert($article_node instanceof \DOMElement);
+    $articleNode = $this->getArticleNode($xpath);
+    $tags = $this->parseTags($xpath);
     $article = new BlogArticle(
-      id: $article_node->getAttribute('id'),
-      created: $article_node->getAttribute('created'),
-      updated: $article_node->getAttribute('updated'),
+      id: $articleNode->getAttribute('id'),
+      created: $articleNode->getAttribute('created'),
+      updated: $articleNode->getAttribute('updated'),
       tags: $tags,
     );
 
-    foreach ($xpath->query('/article/translations/translation') as $delta => $translation_node) {
-      \assert($translation_node instanceof \DOMElement);
-      $is_primary = FALSE;
-      if ($translation_node->hasAttribute('primary')) {
-        $is_primary = $translation_node->getAttribute('primary') === 'true';
-      }
-
-      $title_node = $xpath->query('title', $translation_node)->item(0);
-      \assert($title_node instanceof \DOMElement);
-
-      $description_node = $xpath->query('description', $translation_node)->item(0);
-      \assert($description_node instanceof \DOMElement);
-
-      $translation = new BlogArticleTranslation(
-        sourcePath: $translation_node->getAttribute('src'),
-        language: $translation_node->getAttribute('language'),
-        title: \preg_replace('/\s+/', ' ', \trim($title_node->nodeValue)),
-        description: \preg_replace('/\s+/', ' ', \trim($description_node->nodeValue)),
-        posterPath: $xpath->query('poster', $translation_node)->item(0)->getAttribute('src'),
-        isPrimary: $is_primary,
-      );
-      try {
-        $article->addTranslation($translation);
-      }
-      catch (\InvalidArgumentException $exception) {
-        throw new ArticleParseException($file_path, $exception->getMessage());
-      }
+    foreach ($this->parseTranslations($xpath) as $translation) {
+      $article->addTranslation($translation);
     }
 
     return $article;
+  }
+
+  private function getArticleNode(\DOMXPath $xpath): \DOMElement {
+    $node = $xpath->query('/article')->item(0);
+    \assert($node instanceof \DOMElement);
+
+    return $node;
+  }
+
+  private function parseTags(\DOMXPath $xpath): array {
+    $tags = [];
+    foreach ($xpath->query('/article/tags/tag') as $tagNode) {
+      \assert($tagNode instanceof \DOMElement);
+      $tags[] = $tagNode->nodeValue;
+    }
+
+    return $tags;
+  }
+
+  private function parseTranslations(\DOMXPath $xpath): array {
+    $translations = [];
+    foreach ($xpath->query('/article/translations/translation') as $translationNode) {
+      \assert($translationNode instanceof \DOMElement);
+      $translations[] = $this->createTranslationFromNode($xpath, $translationNode);
+    }
+
+    return $translations;
+  }
+
+  private function createTranslationFromNode(\DOMXPath $xpath, \DOMElement $translationNode): BlogArticleTranslation {
+    $isPrimary = $this->getAttributeAsBoolean($translationNode, 'primary');
+
+    $title = $this->getTextContent($xpath, $translationNode, 'title');
+    $description = $this->getTextContent($xpath, $translationNode, 'description');
+    $posterPath = $this->getAttributeFromElement($xpath, $translationNode, 'poster', 'src');
+
+    return new BlogArticleTranslation(
+      sourcePath: $translationNode->getAttribute('src'),
+      language: $translationNode->getAttribute('language'),
+      title: $this->cleanText($title),
+      description: $this->cleanText($description),
+      posterPath: $posterPath,
+      isPrimary: $isPrimary,
+    );
+  }
+
+  private function getAttributeAsBoolean(\DOMElement $node, string $attribute): bool {
+    return $node->hasAttribute($attribute) && $node->getAttribute($attribute) === 'true';
+  }
+
+  private function getTextContent(\DOMXPath $xpath, \DOMElement $parent, string $elementName): string {
+    $node = $xpath->query($elementName, $parent)->item(0);
+    \assert($node instanceof \DOMElement);
+
+    return $node->nodeValue;
+  }
+
+  private function getAttributeFromElement(\DOMXPath $xpath, \DOMElement $parent, string $elementName, string $attribute): string {
+    $node = $xpath->query($elementName, $parent)->item(0);
+    \assert($node instanceof \DOMElement);
+
+    return $node->getAttribute($attribute);
+  }
+
+  private function cleanText(string $text): string {
+    return \preg_replace('/\s+/', ' ', \trim($text));
   }
 
 }

@@ -11,4 +11,4 @@ $context = new BlogSyncContext('private://content/blog', $logger);
 $pipeline = new BlogSyncPipeline();
 $pipeline->addStage(new BlogArticleFinderStage(new ArticleParser(new XmlValidator())));
 $context = $pipeline->run($context);
-//dump($context);
+dump($context);
