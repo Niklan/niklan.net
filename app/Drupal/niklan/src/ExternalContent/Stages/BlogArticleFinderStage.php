@@ -8,13 +8,13 @@ use Drupal\external_content\Contract\Pipeline\Context;
 use Drupal\external_content\Contract\Pipeline\Config;
 use Drupal\external_content\Contract\Pipeline\Stage;
 use Drupal\niklan\ExternalContent\Domain\BlogSyncContext;
-use Drupal\niklan\ExternalContent\Infrastructure\ArticleParser;
+use Drupal\niklan\ExternalContent\Infrastructure\ArticleXmlParser;
 use Symfony\Component\Finder\Finder;
 
-final class BlogArticleFinderStage implements Stage {
+final readonly class BlogArticleFinderStage implements Stage {
 
   public function __construct(
-    private readonly ArticleParser $articleParser,
+    private ArticleXmlParser $articleParser,
   ) {}
 
   public function process(Context $context, Config $config): Context {
@@ -31,7 +31,8 @@ final class BlogArticleFinderStage implements Stage {
         continue;
       }
 
-      $article = $this->articleParser->parseFromXml($file->getPathname());
+      // @todo https://github.com/Niklan/niklan.net/blob/main/app/Drupal/external_content/src/Source/File.php#L74
+      $article = $this->articleParser->parse($file->getPathname());
       $context->addArticle($article);
     }
 

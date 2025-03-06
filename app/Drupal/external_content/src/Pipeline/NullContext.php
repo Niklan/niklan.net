@@ -12,11 +12,11 @@ final readonly class NullContext implements Context {
 
   private LoggerInterface $logger;
 
-  public function getLogger(): LoggerInterface {
-    if (!$this->logger) {
-      $this->logger = new NullLogger();
-    }
+  public function __construct() {
+    $this->logger = new NullLogger();
+  }
 
+  public function getLogger(): LoggerInterface {
     return $this->logger;
   }
 

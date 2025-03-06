@@ -11,6 +11,7 @@ use Drupal\niklan\Utils\PathHelper;
 final readonly class XmlValidator {
 
   /**
+   * @param string $file_path
    * @throws \Drupal\niklan\ExternalContent\Exception\XmlLoadException
    * @throws \Drupal\niklan\ExternalContent\Exception\XmlValidationException
    */

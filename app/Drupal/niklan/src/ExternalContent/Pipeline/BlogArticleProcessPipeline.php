@@ -11,7 +11,7 @@ use Drupal\external_content\Contract\Pipeline\Stage;
 use Drupal\external_content\Pipeline\SequentialPipeline;
 use Drupal\niklan\ExternalContent\Domain\BlogSyncContext;
 
-final readonly class BlogSyncPipeline implements Pipeline {
+final readonly class BlogArticleProcessPipeline implements Pipeline {
 
   private Pipeline $pipeline;
 

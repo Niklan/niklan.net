@@ -4,23 +4,34 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Domain;
 
-final readonly class BlogArticleTranslation {
+final class BlogArticleTranslation {
 
   /**
-   * @param non-empty-string $sourcePath
-   * @param non-empty-string $language
-   * @param non-empty-string $title
-   * @param non-empty-string $description
-   * @param non-empty-string $posterPath
-   * @param bool $isPrimary
+   * @var array{}|list<array{src: string, title: string}>
    */
+  private array $attachments = [];
+
   public function __construct(
-    public string $sourcePath,
-    public string $language,
-    public string $title,
-    public string $description,
-    public string $posterPath,
-    public bool $isPrimary = FALSE,
+    public readonly string $sourcePath,
+    public readonly string $language,
+    public readonly string $title,
+    public readonly string $description,
+    public readonly string $posterPath,
+    public readonly bool $isPrimary = FALSE,
   ) {}
+
+  /**
+   * @param array{src: string, title: string} $attachment
+   */
+  public function addAttachment(array $attachment): void {
+    $this->attachments[] = $attachment;
+  }
+
+  /**
+   * @return array{}|list<array{src: string, title: string}>
+   */
+  public function getAttachments(): array {
+    return $this->attachments;
+  }
 
 }

@@ -17,10 +17,10 @@ final class BlogArticle implements \IteratorAggregate, \Countable {
   private array $translations = [];
 
   /**
-   * @param non-empty-string $id
-   * @param non-empty-string $created
-   * @param non-empty-string $updated
-   * @param array{}|list<non-empty-string> $tags
+   * @param string $id
+   * @param string $created
+   * @param string $updated
+   * @param array{}|list<string> $tags
    */
   public function __construct(
     public string $id,

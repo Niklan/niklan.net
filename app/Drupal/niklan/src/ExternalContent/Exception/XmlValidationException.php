@@ -7,8 +7,8 @@ namespace Drupal\niklan\ExternalContent\Exception;
 final class XmlValidationException extends \RuntimeException {
 
   /**
-   * @param non-empty-string $message
-   * @param list<non-empty-string> $errors
+   * @param string $message
+   * @param list<string> $errors
    */
   public function __construct(string $message, array $errors = []) {
     if (\count($errors) > 0) {

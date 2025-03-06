@@ -18,7 +18,7 @@ use Psr\Log\LoggerInterface;
  * @covers \Drupal\external_content\Pipeline\SequentialPipeline
  * @group external_content
  */
-final class DefaultPipelineTest extends UnitTestCase {
+final class SequentialPipelineTest extends UnitTestCase {
 
   public function testPipelineExecution(): void {
     $logger = $this->prophesize(LoggerInterface::class)->reveal();
