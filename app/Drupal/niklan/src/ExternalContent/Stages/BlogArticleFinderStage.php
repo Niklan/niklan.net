@@ -8,7 +8,7 @@ use Drupal\external_content\Contract\Pipeline\Context;
 use Drupal\external_content\Contract\Pipeline\Config;
 use Drupal\external_content\Contract\Pipeline\Stage;
 use Drupal\niklan\ExternalContent\Domain\BlogSyncContext;
-use Drupal\niklan\ExternalContent\Infrastructure\ArticleXmlParser;
+use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
 use Symfony\Component\Finder\Finder;
 
 final readonly class BlogArticleFinderStage implements Stage {

@@ -62,6 +62,7 @@ services:
     class: League\CommonMark\MarkdownConverter
     arguments:
       - '@niklan.markdown.environment'
+  League\CommonMark\MarkdownConverter: '@niklan.markdown.converter'
 
   #  Drupal\niklan\ExternalContent\Asset\AssetManager: { }
 

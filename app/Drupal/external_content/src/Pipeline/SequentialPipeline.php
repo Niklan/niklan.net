@@ -19,10 +19,10 @@ final class SequentialPipeline implements Pipeline {
    */
   private array $stages = [];
 
-  public function addStage(Stage $stage, ?Config $config = NULL): void {
+  public function addStage(Stage $stage, Config $config = new NullConfig()): void {
     $this->stages[] = [
       'stage' => $stage,
-      'config' => $config ?? new NullConfig(),
+      'config' => $config,
     ];
   }
 

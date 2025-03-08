@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Infrastructure;
+namespace Drupal\niklan\ExternalContent\Validation;
 
 use Drupal\niklan\ExternalContent\Exception\XmlLoadException;
 use Drupal\niklan\ExternalContent\Exception\XmlValidationException;

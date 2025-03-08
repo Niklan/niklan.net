@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Pipeline\Config;
 use Drupal\external_content\Contract\Pipeline\Context;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\Stage;
+use Drupal\external_content\Pipeline\NullConfig;
 use Drupal\external_content\Pipeline\SequentialPipeline;
 use Drupal\niklan\ExternalContent\Domain\BlogSyncContext;
 
@@ -19,7 +20,7 @@ final readonly class BlogSyncPipeline implements Pipeline {
     $this->pipeline = new SequentialPipeline();
   }
 
-  public function addStage(Stage $stage, ?Config $config = NULL): void {
+  public function addStage(Stage $stage, Config $config = new NullConfig()): void {
     $this->pipeline->addStage($stage, $config);
   }
 

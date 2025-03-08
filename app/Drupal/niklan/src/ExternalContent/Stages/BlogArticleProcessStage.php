@@ -19,11 +19,7 @@ final readonly class BlogArticleProcessStage implements Stage {
   public function process(Context $context, Config $config): Context {
     \assert($context instanceof BlogSyncContext);
 
-    foreach ($context->getArticles() as $article) {
-      $this->pipeline->run($context);
-    }
-
-    return $context;
+    return $this->pipeline->run($context);
   }
 
 }

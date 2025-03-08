@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Infrastructure;
+namespace Drupal\niklan\ExternalContent\Parser;
 
 use Drupal\niklan\ExternalContent\Domain\BlogArticle;
 use Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation;
 use Drupal\niklan\ExternalContent\Exception\ArticleParseException;
 use Drupal\niklan\ExternalContent\Exception\XmlLoadException;
 use Drupal\niklan\ExternalContent\Exception\XmlValidationException;
+use Drupal\niklan\ExternalContent\Validation\XmlValidator;
 
 final readonly class ArticleXmlParser {
 
