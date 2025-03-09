@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Contract\Parser;
+namespace Drupal\external_content\Contract\Transformer;
 
-use Drupal\external_content\Contract\Transformer\TransformerContext;
 use Drupal\external_content\Node\RootNode;
 
 interface Transformer {

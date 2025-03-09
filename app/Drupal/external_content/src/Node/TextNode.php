@@ -19,10 +19,6 @@ final class TextNode extends ContentNode implements LiteralAware {
    */
   #[\Override]
   public function setLiteral(string $literal): void {
-    if ($literal === '') {
-      throw new \InvalidArgumentException('Literal cannot be empty');
-    }
-
     $this->text = $literal;
   }
 

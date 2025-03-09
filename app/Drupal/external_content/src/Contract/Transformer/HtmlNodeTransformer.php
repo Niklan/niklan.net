@@ -7,7 +7,7 @@ namespace Drupal\external_content\Contract\Transformer;
 use Drupal\external_content\Node\ContentNode;
 use Drupal\external_content\Transformer\Html\HtmlTransformerContext;
 
-interface NodeHtmlTransformer {
+interface HtmlNodeTransformer {
 
   public function supports(\DOMNode $node, HtmlTransformerContext $context): bool;
 

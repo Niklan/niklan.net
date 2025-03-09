@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Transformer\Html;
 
-use Drupal\external_content\Contract\Parser\Transformer;
-use Drupal\external_content\Contract\Transformer\NodeHtmlTransformer;
+use Drupal\external_content\Contract\Transformer\HtmlNodeTransformer;
+use Drupal\external_content\Contract\Transformer\Transformer;
 use Drupal\external_content\Contract\Transformer\TransformerContext;
 use Drupal\external_content\Utils\PrioritizedList;
-use Drupal\external_content\Node\ContentNode;
 use Drupal\external_content\Node\RootNode;
 use Symfony\Component\DomCrawler\Crawler;
 
 final readonly class HtmlTransformer implements Transformer {
 
   /**
-   * @var \Drupal\external_content\Utils\PrioritizedList<\Drupal\external_content\Contract\Transformer\NodeHtmlTransformer>
+   * @var \Drupal\external_content\Utils\PrioritizedList<\Drupal\external_content\Contract\Transformer\HtmlNodeTransformer>
    */
   private PrioritizedList $transformers;
 
@@ -23,7 +22,7 @@ final readonly class HtmlTransformer implements Transformer {
     $this->transformers = new PrioritizedList();
   }
 
-  public function addTransformer(NodeHtmlTransformer $transformer, int $priority = 0): void {
+  public function addTransformer(HtmlNodeTransformer $transformer, int $priority = 0): void {
     $this->transformers->add($transformer, $priority);
   }
 
@@ -31,6 +30,9 @@ final readonly class HtmlTransformer implements Transformer {
    * @param \Drupal\external_content\Transformer\Html\HtmlTransformerContext $context
    */
   public function transform(TransformerContext $context): RootNode {
+    $html_children_transformer = new HtmlNodeChildrenTransformer($this->transformers);
+    $context->setHtmlNodeChildrenTransformer($html_children_transformer);
+
     $content_root_node = new RootNode();
     $this->parseHtml($content_root_node, $context);
 
@@ -42,25 +44,7 @@ final readonly class HtmlTransformer implements Transformer {
     $crawler = $crawler->filter('body');
     $html_body = $crawler->getNode(0);
     \assert($html_body instanceof \DOMNode);
-    $this->parseChildren($html_body, $content_root_node, $context);
-  }
-
-  private function parseChildren(\DOMNode $html_node, ContentNode $content_node, HtmlTransformerContext $context): void {
-    foreach ($html_node->childNodes as $child_html_node) {
-      $this->parseChild($child_html_node, $content_node, $context);
-    }
-  }
-
-  private function parseChild(\DOMNode $html_node, ContentNode $content_node, HtmlTransformerContext $context): void {
-    foreach ($this->transformers as $transformer) {
-      if ($transformer->supports($html_node, $context)) {
-        $content_node->addChild($transformer->transform($html_node, $context));
-        break;
-      }
-    }
-
-    $context->getLogger()->error("No HTML transformer found for node: {$html_node->nodeName}");
-    throw new \RuntimeException("No HTML transformer found for node: " . $html_node->nodeName);
+    $context->getHtmNodeChildrenTransformer()->transformChildren($html_body, $content_root_node, $context);
   }
 
 }

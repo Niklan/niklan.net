@@ -15,6 +15,20 @@ enum TextFormatType: string {
   case Subscript = 'subscript';
   case Superscript = 'superscript';
 
+  public static function fromHtmlTag(string $tag): self {
+    return match ($tag) {
+      default => throw new \InvalidArgumentException("{$tag} is unsupported by TextFormatType."),
+      'b', 'strong' => self::Bold,
+      'u' => self::Underline,
+      's' => self::Strikethrough,
+      'i', 'em' => self::Italic,
+      'mark' => self::Highlight,
+      'code' => self::Code,
+      'sub' => self::Subscript,
+      'sup' => self::Superscript,
+    };
+  }
+
   public function toHtmlTag(): string {
     return match ($this) {
       self::Bold => 'strong',
