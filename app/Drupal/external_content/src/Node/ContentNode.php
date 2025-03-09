@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Node;
 
+/**
+ * An abstract node representing content structure leaf.
+ *
+ * Do not be confused, this is not an HTML node, this is a simple content leaf
+ * for a specific purpose.
+ */
 abstract class ContentNode {
 
   protected ?self $parent = NULL;
@@ -12,6 +18,7 @@ abstract class ContentNode {
    * @var array<self>
    */
   protected array $children = [];
+  private ?RootNode $cachedRootNode = NULL;
 
   public function __construct(
     protected string $type,
@@ -37,7 +44,7 @@ abstract class ContentNode {
     return (bool) \count($this->children);
   }
 
-  public function replaceNode(self $search, self $replace): void {
+  public function findAndReplaceInChildren(self $search, self $replace): void {
     foreach ($this->children as &$child) {
       if ($child === $search) {
         $replace->setParent($this);
@@ -45,12 +52,19 @@ abstract class ContentNode {
       }
       else {
         // If current element is not suitable, also check it children.
-        $child->replaceNode($search, $replace);
+        $child->findAndReplaceInChildren($search, $replace);
       }
     }
   }
 
+  /**
+   * @throws \LogicException
+   */
   public function getRoot(): RootNode {
+    if ($this->cachedRootNode) {
+      return $this->cachedRootNode;
+    }
+
     $node = $this;
 
     while ($node->hasParent()) {
@@ -61,16 +75,21 @@ abstract class ContentNode {
       throw new \LogicException('Element does not have a root node.');
     }
 
+    $this->cachedRootNode = $node;
+
     return $node;
   }
 
   /**
-   * @phpstan-assert-if-true self $this->getParent()
+   * @phpstan-assert-if-true self $this->parent
    */
   public function hasParent(): bool {
     return !\is_null($this->parent);
   }
 
+  /**
+   * @throws \LogicException
+   */
   public function getParent(): self {
     if (!$this->hasParent()) {
       throw new \LogicException('Trying to request parent on a node without a parent.');

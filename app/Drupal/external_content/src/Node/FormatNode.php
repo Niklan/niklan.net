@@ -16,16 +16,11 @@ final class FormatNode extends ElementNode {
   }
 
   public function getFormat(): TextFormatType {
-    return TextFormatType::from($this->getProperty('format'));
+    return TextFormatType::from($this->getProperties()->getProperty('format'));
   }
 
   public function setFormat(TextFormatType $format): void {
-    $this->setProperty('format', $format->value);
-  }
-
-  #[\Override]
-  public function isInline(): bool {
-    return TRUE;
+    $this->getProperties()->setProperty('format', $format->value);
   }
 
 }

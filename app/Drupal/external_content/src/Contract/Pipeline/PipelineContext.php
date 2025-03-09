@@ -6,7 +6,7 @@ namespace Drupal\external_content\Contract\Pipeline;
 
 use Psr\Log\LoggerInterface;
 
-interface Context {
+interface PipelineContext {
 
   public function getLogger(): LoggerInterface;
 

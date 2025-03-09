@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Domain;
 
-use Drupal\external_content\Contract\Pipeline\Context;
+use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-final class BlogSyncContext implements Context {
+final class BlogSyncPipelineContext implements PipelineContext {
 
   /**
    * @var array{}|list<\Drupal\niklan\ExternalContent\Domain\BlogArticle>

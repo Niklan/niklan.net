@@ -10,9 +10,12 @@ final class RootNode extends ContentNode {
     parent::__construct('root');
   }
 
+  /**
+   * @throws \LogicException
+   */
   #[\Override]
   public function setParent(ContentNode $node): void {
-    throw new \LogicException('Root node can not have a parent.');
+    throw new \LogicException('Root node cannot have a parent.');
   }
 
   #[\Override]

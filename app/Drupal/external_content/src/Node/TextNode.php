@@ -14,8 +14,15 @@ final class TextNode extends ContentNode implements LiteralAware {
     parent::__construct('text');
   }
 
+  /**
+   * @throws \InvalidArgumentException
+   */
   #[\Override]
   public function setLiteral(string $literal): void {
+    if ($literal === '') {
+      throw new \InvalidArgumentException('Literal cannot be empty');
+    }
+
     $this->text = $literal;
   }
 

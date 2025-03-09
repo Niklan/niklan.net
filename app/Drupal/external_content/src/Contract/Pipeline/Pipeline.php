@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Contract\Pipeline;
 
-use Drupal\external_content\Pipeline\NullConfig;
+use Drupal\external_content\Pipeline\NullPipelineConfig;
 
 interface Pipeline {
 
-  public function addStage(Stage $stage, Config $config = new NullConfig()): void;
+  public function addStage(PipelineStage $stage, PipelineConfig $config = new NullPipelineConfig()): void;
 
-  public function run(Context $context): Context;
+  public function run(PipelineContext $context): void;
 
 }

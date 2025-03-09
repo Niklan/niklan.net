@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Domain;
 
-use Drupal\external_content\Contract\Pipeline\Context;
+use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Psr\Log\LoggerInterface;
 
-final class BlogArticleProcessContext implements Context {
+final class BlogArticleProcessPipelineContext implements PipelineContext {
 
   public function __construct(
     public readonly BlogArticle $article,
-    public readonly BlogSyncContext $syncContext,
+    public readonly BlogSyncPipelineContext $syncContext,
   ) {}
 
   #[\Override]

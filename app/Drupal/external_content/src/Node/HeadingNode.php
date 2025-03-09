@@ -16,11 +16,11 @@ final class HeadingNode extends ElementNode {
   }
 
   public function getTag(): HeadingTagType {
-    return HeadingTagType::from($this->getProperty('tag'));
+    return HeadingTagType::from($this->getProperties()->getProperty('tag'));
   }
 
   public function setTag(HeadingTagType $tag): void {
-    $this->setProperty('tag', $tag->value);
+    $this->getProperties()->setProperty('tag', $tag->value);
   }
 
 }

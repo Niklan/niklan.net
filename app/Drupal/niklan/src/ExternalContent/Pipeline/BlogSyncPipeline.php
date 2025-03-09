@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Pipeline;
 
-use Drupal\external_content\Contract\Pipeline\Config;
-use Drupal\external_content\Contract\Pipeline\Context;
+use Drupal\external_content\Contract\Pipeline\PipelineConfig;
+use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
-use Drupal\external_content\Contract\Pipeline\Stage;
-use Drupal\external_content\Pipeline\NullConfig;
+use Drupal\external_content\Contract\Pipeline\PipelineStage;
+use Drupal\external_content\Pipeline\NullPipelineConfig;
 use Drupal\external_content\Pipeline\SequentialPipeline;
-use Drupal\niklan\ExternalContent\Domain\BlogSyncContext;
+use Drupal\niklan\ExternalContent\Domain\BlogSyncPipelineContext;
 
 final readonly class BlogSyncPipeline implements Pipeline {
 
@@ -20,16 +20,19 @@ final readonly class BlogSyncPipeline implements Pipeline {
     $this->pipeline = new SequentialPipeline();
   }
 
-  public function addStage(Stage $stage, Config $config = new NullConfig()): void {
+  public function addStage(PipelineStage $stage, PipelineConfig $config = new NullPipelineConfig()): void {
     $this->pipeline->addStage($stage, $config);
   }
 
-  public function run(Context $context): Context {
-    if (!$context instanceof BlogSyncContext) {
+  /**
+   * @param \Drupal\niklan\ExternalContent\Domain\BlogSyncPipelineContext $context
+   */
+  public function run(PipelineContext $context): void {
+    if (!$context instanceof BlogSyncPipelineContext) {
       throw new \InvalidArgumentException('Invalid context');
     }
 
-    return $this->pipeline->run($context);
+    $this->pipeline->run($context);
   }
 
 }

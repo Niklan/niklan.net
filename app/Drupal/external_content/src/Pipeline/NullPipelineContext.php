@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Pipeline;
 
-use Drupal\external_content\Contract\Pipeline\Context;
+use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-final readonly class NullContext implements Context {
+final readonly class NullPipelineContext implements PipelineContext {
 
   private LoggerInterface $logger;
 

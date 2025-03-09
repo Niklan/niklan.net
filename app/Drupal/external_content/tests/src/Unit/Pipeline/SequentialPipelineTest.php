@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\external_content\Unit\Pipeline;
 
-use Drupal\external_content\Contract\Pipeline\Config;
-use Drupal\external_content\Contract\Pipeline\Context;
-use Drupal\external_content\Contract\Pipeline\Stage;
-use Drupal\external_content\Pipeline\NullContext;
+use Drupal\external_content\Contract\Pipeline\PipelineConfig;
+use Drupal\external_content\Contract\Pipeline\PipelineContext;
+use Drupal\external_content\Contract\Pipeline\PipelineStage;
+use Drupal\external_content\Pipeline\NullPipelineContext;
 use Drupal\external_content\Pipeline\SequentialPipeline;
 use Drupal\Tests\UnitTestCase;
 use Prophecy\Argument;
-use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -21,24 +20,22 @@ use Psr\Log\LoggerInterface;
 final class SequentialPipelineTest extends UnitTestCase {
 
   public function testPipelineExecution(): void {
-    $logger = $this->prophesize(LoggerInterface::class)->reveal();
+    $config_1 = $this->prophesize(PipelineConfig::class)->reveal();
+    $config_2 = $this->prophesize(PipelineConfig::class)->reveal();
 
-    $config_1 = $this->prophesize(Config::class)->reveal();
-    $config_2 = $this->prophesize(Config::class)->reveal();
+    $input_context = $this->prophesize(PipelineContext::class)->reveal();
+    $middle_context = $this->prophesize(PipelineContext::class)->reveal();
+    $result_context = $this->prophesize(PipelineContext::class)->reveal();
 
-    $input_context = $this->prophesize(Context::class)->reveal();
-    $middle_context = $this->prophesize(Context::class)->reveal();
-    $result_context = $this->prophesize(Context::class)->reveal();
-
-    $stage_1 = $this->prophesize(Stage::class);
+    $stage_1 = $this->prophesize(PipelineStage::class);
     $stage_1->process($input_context, $config_1)->willReturn($middle_context);
     $stage_1 = $stage_1->reveal();
 
-    $stage_2 = $this->prophesize(Stage::class);
+    $stage_2 = $this->prophesize(PipelineStage::class);
     $stage_2->process($middle_context, $config_2)->willReturn($result_context);
     $stage_2 = $stage_2->reveal();
 
-    $pipeline = new SequentialPipeline($logger);
+    $pipeline = new SequentialPipeline();
     $pipeline->addStage($stage_1, $config_1);
     $pipeline->addStage($stage_2, $config_2);
     $result = $pipeline->run($input_context);
@@ -46,29 +43,17 @@ final class SequentialPipelineTest extends UnitTestCase {
     $this->assertSame($result_context, $result);
   }
 
-  public function testLoggerInjection(): void {
-    $logger = $this->prophesize(LoggerInterface::class)->reveal();
-
-    $logger_aware_stage = $this->prophesize(Stage::class);
-    $logger_aware_stage->willImplement(LoggerAwareInterface::class);
-    $logger_aware_stage->setLogger($logger)->shouldBeCalled();
-    $logger_aware_stage = $logger_aware_stage->reveal();
-
-    $pipeline = new SequentialPipeline($logger);
-    $pipeline->addStage($logger_aware_stage, NULL);
-  }
-
   public function testStageExceptionHandling(): void {
     $logger = $this->prophesize(LoggerInterface::class);
     $logger->error(Argument::exact('Stage failed: Test exception'))->shouldBeCalled();
     $logger = $logger->reveal();
 
-    $stage = $this->prophesize(Stage::class);
+    $stage = $this->prophesize(PipelineStage::class);
     $stage->process(Argument::any(), Argument::any())->willThrow(new \Exception('Test exception'));
 
     $pipeline = new SequentialPipeline($logger);
     $pipeline->addStage($stage->reveal());
-    $pipeline->run(new NullContext());
+    $pipeline->run(new NullPipelineContext());
   }
 
 }

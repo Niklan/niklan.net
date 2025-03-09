@@ -4,41 +4,39 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Pipeline;
 
-use Drupal\external_content\Contract\Pipeline\Config;
-use Drupal\external_content\Contract\Pipeline\Context;
+use Drupal\external_content\Contract\Pipeline\PipelineConfig;
+use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
-use Drupal\external_content\Contract\Pipeline\Stage;
+use Drupal\external_content\Contract\Pipeline\PipelineStage;
+use Drupal\external_content\Utils\PrioritizedList;
 
 final class SequentialPipeline implements Pipeline {
 
   /**
-   * @var list<array{
-   *   stage: \Drupal\external_content\Contract\Pipeline\Stage,
-   *   config: \Drupal\external_content\Contract\Pipeline\Config
-   *  }>
+   * @var \Drupal\external_content\Utils\PrioritizedList<array{stage: \Drupal\external_content\Contract\Pipeline\PipelineStage, config: \Drupal\external_content\Contract\Pipeline\PipelineConfig}>
    */
-  private array $stages = [];
+  private PrioritizedList $stages;
 
-  public function addStage(Stage $stage, Config $config = new NullConfig()): void {
-    $this->stages[] = [
-      'stage' => $stage,
-      'config' => $config,
-    ];
+  public function __construct() {
+    $this->stages = new PrioritizedList();
   }
 
-  public function run(Context $context): Context {
-    $current_context = $context;
+  public function addStage(PipelineStage $stage, PipelineConfig $config = new NullPipelineConfig()): void {
+    $this->stages->add([
+      'stage' => $stage,
+      'config' => $config,
+    ], 0);
+  }
 
+  public function run(PipelineContext $context): void {
     foreach ($this->stages as $stage_data) {
       try {
-        $current_context = $stage_data['stage']->process($current_context, $stage_data['config']);
+        $stage_data['stage']->process($context, $stage_data['config']);
       }
       catch (\Throwable $e) {
         $context->getLogger()->error('Stage failed: ' . $e->getMessage());
       }
     }
-
-    return $current_context;
   }
 
 }
