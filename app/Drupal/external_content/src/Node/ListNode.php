@@ -23,15 +23,4 @@ final class ListNode extends ElementNode {
     return ListType::from($this->getProperties()->getProperty('type'));
   }
 
-  /**
-   * @throws \InvalidArgumentException
-   */
-  #[\Override]
-  public function addChild(ContentNode $node): void {
-    if (!$node instanceof ListItemNode) {
-      throw new \InvalidArgumentException('List node can only accept list items');
-    }
-    parent::addChild($node);
-  }
-
 }

@@ -6,7 +6,7 @@ namespace Drupal\external_content\Contract\Renderer;
 
 use Drupal\external_content\Node\RootNode;
 
-interface NodeRenderer {
+interface Exporter {
 
   public function render(RootNode $root): mixed;
 

@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Transformer\Html;
+namespace Drupal\external_content\Importer\Html;
 
-use Drupal\external_content\Contract\Transformer\HtmlNodeTransformer;
+use Drupal\external_content\Contract\Importer\HtmlNodeParser;
 use Drupal\external_content\Node\ContentNode;
 use Drupal\external_content\Node\TextNode;
 
-final class TextHtmlNodeTransformer implements HtmlNodeTransformer {
+final class TextParser implements HtmlNodeParser {
 
-  public function supports(\DOMNode $node, HtmlTransformerContext $context): bool {
+  public function supports(\DOMNode $node, HtmlImporterContext $context): bool {
     if (!$node instanceof \DOMText) {
       return FALSE;
     }
 
-    // @todo Add LineBreakNode for PHP_EOL.
     // Previously, here was a check for an empty string (e.g. space character).
     // It was checked by trim() function and parser returned stop signal for
     // that element. This is wrong, because in cases when multiple consecutive
@@ -38,7 +37,7 @@ final class TextHtmlNodeTransformer implements HtmlNodeTransformer {
     return TRUE;
   }
 
-  public function transform(\DOMNode $node, HtmlTransformerContext $context): ContentNode {
+  public function parse(\DOMNode $node, HtmlImporterContext $context): ContentNode {
     \assert($node instanceof \DOMText);
 
     return new TextNode($node->nodeValue ?? '');

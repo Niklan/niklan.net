@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Transformer;
 
-use Drupal\external_content\Contract\Transformer\HtmlNodeTransformer;
+use Drupal\external_content\Contract\Importer\HtmlNodeParser;
 use Drupal\external_content\Node\ContentNode;
-use Drupal\external_content\Transformer\Html\HtmlTransformerContext;
+use Drupal\external_content\Transformer\Html\HtmlImporterContext;
 use Drupal\niklan\ExternalContent\Node\RemoteVideoNode;
 
-final readonly class RemoteVideoHtmlNodeTransformer implements HtmlNodeTransformer {
+final readonly class RemoteVideoHtmlNodeParser implements HtmlNodeParser {
 
-  public function supports(\DOMNode $node, HtmlTransformerContext $context): bool {
+  public function supports(\DOMNode $node, HtmlImporterContext $context): bool {
     if (!$node instanceof \DOMElement) {
       return FALSE;
     }
@@ -27,7 +27,7 @@ final readonly class RemoteVideoHtmlNodeTransformer implements HtmlNodeTransform
     return $node->hasAttribute('data-vid');
   }
 
-  public function transform(\DOMNode $node, HtmlTransformerContext $context): ContentNode {
+  public function parse(\DOMNode $node, HtmlImporterContext $context): ContentNode {
     \assert($node instanceof \DOMElement);
     $video_id = $node->getAttribute('data-vid');
 

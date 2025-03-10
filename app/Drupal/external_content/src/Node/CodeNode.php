@@ -6,22 +6,22 @@ namespace Drupal\external_content\Node;
 
 use Drupal\external_content\Contract\Node\LiteralAware;
 
-final class TextNode extends ContentNode implements LiteralAware {
+final class CodeNode extends ElementNode implements LiteralAware {
 
   public function __construct(
-    private string $text,
+    private string $code,
   ) {
-    parent::__construct('text');
+    parent::__construct('code');
   }
 
   #[\Override]
   public function setLiteral(string $literal): void {
-    $this->text = $literal;
+    $this->code = $literal;
   }
 
   #[\Override]
   public function getLiteral(): string {
-    return $this->text;
+    return $this->code;
   }
 
 }
