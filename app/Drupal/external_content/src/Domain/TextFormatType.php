@@ -14,6 +14,8 @@ enum TextFormatType: string {
   case Code = 'code';
   case Subscript = 'subscript';
   case Superscript = 'superscript';
+  case Deleted = 'deleted';
+  case Inserted = 'inserted';
 
   public static function fromHtmlTag(string $tag): self {
     return match ($tag) {
@@ -26,6 +28,8 @@ enum TextFormatType: string {
       'code' => self::Code,
       'sub' => self::Subscript,
       'sup' => self::Superscript,
+      'del' => self::Deleted,
+      'ins' => self::Inserted,
     };
   }
 
@@ -39,6 +43,8 @@ enum TextFormatType: string {
       self::Code => 'code',
       self::Subscript => 'sub',
       self::Superscript => 'sup',
+      self::Deleted => 'del',
+      self::Inserted => 'ins',
     };
   }
 

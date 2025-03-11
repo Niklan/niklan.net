@@ -6,8 +6,14 @@ namespace Drupal\external_content\Contract\Importer;
 
 use Drupal\external_content\Node\RootNode;
 
+/**
+ * @template T of \Drupal\external_content\Contract\Importer\ImportRequest
+ */
 interface Importer {
 
+  /**
+   * @param T $request
+   */
   public function import(ImportRequest $request): RootNode;
 
 }

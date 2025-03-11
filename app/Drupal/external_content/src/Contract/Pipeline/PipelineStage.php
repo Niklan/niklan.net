@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Contract\Pipeline;
 
+/**
+ * @template T of \Drupal\external_content\Contract\Pipeline\PipelineContext
+ */
 interface PipelineStage {
 
-  public function process(PipelineContext $context, PipelineConfig $config): void;
+  /**
+   * @param T $context
+   */
+  public function process(PipelineContext $context): void;
 
 }

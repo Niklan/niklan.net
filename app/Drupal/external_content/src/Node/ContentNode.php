@@ -44,19 +44,6 @@ abstract class ContentNode {
     return (bool) \count($this->children);
   }
 
-  public function findAndReplaceInChildren(self $search, self $replace): void {
-    foreach ($this->children as &$child) {
-      if ($child === $search) {
-        $replace->setParent($this);
-        $child = $replace;
-      }
-      else {
-        // If current element is not suitable, also check it children.
-        $child->findAndReplaceInChildren($search, $replace);
-      }
-    }
-  }
-
   /**
    * @throws \LogicException
    */

@@ -6,7 +6,6 @@
         "Drupal"
     ],
     "require": {
-        "league/config": "^1.2",
-        "symfony/dom-crawler": "^6.4"
+        "league/config": "^1.2"
     }
 }

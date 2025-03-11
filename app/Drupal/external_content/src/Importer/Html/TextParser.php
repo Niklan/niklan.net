@@ -10,8 +10,8 @@ use Drupal\external_content\Node\TextNode;
 
 final class TextParser implements HtmlNodeParser {
 
-  public function supports(\DOMNode $node, HtmlImporterContext $context): bool {
-    if (!$node instanceof \DOMText) {
+  public function supports(HtmlParserRequest $request): bool {
+    if (!$request->htmlNode instanceof \DOMText) {
       return FALSE;
     }
 
@@ -37,10 +37,10 @@ final class TextParser implements HtmlNodeParser {
     return TRUE;
   }
 
-  public function parse(\DOMNode $node, HtmlImporterContext $context): ContentNode {
-    \assert($node instanceof \DOMText);
+  public function parse(HtmlParserRequest $request): ContentNode {
+    \assert($request->htmlNode instanceof \DOMText);
 
-    return new TextNode($node->nodeValue ?? '');
+    return new TextNode($request->htmlNode->nodeValue ?? '');
   }
 
 }

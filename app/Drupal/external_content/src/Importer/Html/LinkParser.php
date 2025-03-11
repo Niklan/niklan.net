@@ -10,19 +10,19 @@ use Drupal\external_content\Node\LinkNode;
 
 final class LinkParser implements HtmlNodeParser {
 
-  public function supports(\DOMNode $node, HtmlImporterContext $context): bool {
-    return $node instanceof \DOMElement && $node->nodeName === 'a';
+  public function supports(HtmlParserRequest $request): bool {
+    return $request->htmlNode instanceof \DOMElement && $request->htmlNode->nodeName === 'a';
   }
 
-  public function parse(\DOMNode $node, HtmlImporterContext $context): ContentNode {
-    \assert($node instanceof \DOMElement);
+  public function parse(HtmlParserRequest $request): ContentNode {
+    \assert($request->htmlNode instanceof \DOMElement);
     $link_node = new LinkNode(
-      $node->getAttribute('href'),
-      $node->getAttribute('target'),
-      $node->getAttribute('rel'),
-      $node->getAttribute('title'),
+      $request->htmlNode->getAttribute('href'),
+      $request->htmlNode->getAttribute('target'),
+      $request->htmlNode->getAttribute('rel'),
+      $request->htmlNode->getAttribute('title'),
     );
-    $context->getHtmNodeChildrenTransformer()->parseChildren($node, $link_node, $context);
+    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($link_node));
 
     return $link_node;
   }

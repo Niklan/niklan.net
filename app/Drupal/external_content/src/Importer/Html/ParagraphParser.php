@@ -10,13 +10,13 @@ use Drupal\external_content\Node\ParagraphNode;
 
 final class ParagraphParser implements HtmlNodeParser {
 
-  public function supports(\DOMNode $node, HtmlImporterContext $context): bool {
-    return $node instanceof \DOMElement && $node->nodeName === 'p';
+  public function supports(HtmlParserRequest $request): bool {
+    return $request->htmlNode instanceof \DOMElement && $request->htmlNode->nodeName === 'p';
   }
 
-  public function parse(\DOMNode $node, HtmlImporterContext $context): ContentNode {
+  public function parse(HtmlParserRequest $request): ContentNode {
     $paragraph = new ParagraphNode();
-    $context->getHtmNodeChildrenTransformer()->parseChildren($node, $paragraph, $context);
+    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($paragraph));
 
     return $paragraph;
   }

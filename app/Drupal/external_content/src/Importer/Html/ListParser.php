@@ -11,16 +11,16 @@ use Drupal\external_content\Node\ListNode;
 
 final class ListParser implements HtmlNodeParser {
 
-  public function supports(\DOMNode $node, HtmlImporterContext $context): bool {
+  public function supports(HtmlParserRequest $request): bool {
     $list_elements = ['ul', 'ol'];
 
-    return $node instanceof \DOMElement && \in_array($node->nodeName, $list_elements);
+    return $request->htmlNode instanceof \DOMElement && \in_array($request->htmlNode->nodeName, $list_elements);
   }
 
-  public function parse(\DOMNode $node, HtmlImporterContext $context): ContentNode {
-    \assert($node instanceof \DOMElement);
-    $list_node = new ListNode(ListType::fromHtmlTag($node->nodeName));
-    $context->getHtmNodeChildrenTransformer()->parseChildren($node, $list_node, $context);
+  public function parse(HtmlParserRequest $request): ContentNode {
+    \assert($request->htmlNode instanceof \DOMElement);
+    $list_node = new ListNode(ListType::fromHtmlTag($request->htmlNode->nodeName));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($list_node));
 
     return $list_node;
   }

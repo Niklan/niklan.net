@@ -11,18 +11,22 @@ use Drupal\external_content\Node\FormatNode;
 
 final class FormatParser implements HtmlNodeParser {
 
-  public function supports(\DOMNode $node, HtmlImporterContext $context): bool {
+  public function supports(HtmlParserRequest $request): bool {
+    if (!$request->htmlNode instanceof \DOMElement) {
+      return FALSE;
+    }
+
     $format_elements = [
       'strong', 'b', 'em', 'u', 's', 'i', 'mark', 'code', 'sub', 'sup',
     ];
 
-    return $node instanceof \DOMElement && \in_array($node->nodeName, $format_elements);
+    return \in_array($request->htmlNode->nodeName, $format_elements);
   }
 
-  public function parse(\DOMNode $node, HtmlImporterContext $context): ContentNode {
-    \assert($node instanceof \DOMElement);
-    $format_node = new FormatNode(TextFormatType::fromHtmlTag($node->nodeName));
-    $context->getHtmNodeChildrenTransformer()->parseChildren($node, $format_node, $context);
+  public function parse(HtmlParserRequest $request): ContentNode {
+    \assert($request->htmlNode instanceof \DOMElement);
+    $format_node = new FormatNode(TextFormatType::fromHtmlTag($request->htmlNode->nodeName));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($format_node));
 
     return $format_node;
   }
