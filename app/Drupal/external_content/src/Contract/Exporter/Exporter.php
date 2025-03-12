@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Contract\Renderer;
 
-use Drupal\external_content\Node\RootNode;
+use Drupal\external_content\Contract\Exporter\ExportRequest;
 
+/**
+ * @template TRequest of \Drupal\external_content\Contract\Exporter\ExportRequest
+ * @template TReturn
+ */
 interface Exporter {
 
-  public function render(RootNode $root): mixed;
+  /**
+   * @param TRequest $request
+   * @return TReturn
+   */
+  public function export(ExportRequest $request): mixed;
 
 }

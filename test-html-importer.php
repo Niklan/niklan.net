@@ -3,7 +3,6 @@
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
 use Drupal\external_content\Importer\Html\HtmlParser;
-use Drupal\external_content\Node\CodeNode;
 use Drupal\external_content\Importer\Html\CodeParser;
 use Drupal\external_content\Importer\Html\FormatParser;
 use Drupal\external_content\Importer\Html\HeadingParser;
