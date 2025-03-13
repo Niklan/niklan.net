@@ -23,8 +23,8 @@ final readonly class HtmlParser {
   }
 
   public function parseChildren(HtmlParserRequest $request): void {
-    foreach ($request->htmlNode->childNodes as $child_html_node) {
-      $this->parseChild($request->withHtmlNode($child_html_node));
+    foreach ($request->currentHtmlNode->childNodes as $child_html_node) {
+      $this->parseChild($request->withNewHtmlNode($child_html_node));
     }
   }
 
@@ -34,12 +34,12 @@ final readonly class HtmlParser {
         continue;
       }
 
-      $request->contentNode->addChild($transformer->parse($request));
+      $request->currentAstNode->addChild($transformer->parse($request));
 
       return;
     }
 
-    $request->importRequest->getContext()->getLogger()->error("No HTML parser found for node: {$request->htmlNode->nodeName}");
+    $request->importRequest->getContext()->getLogger()->error("No HTML parser found for node: {$request->currentHtmlNode->nodeName}");
   }
 
 }

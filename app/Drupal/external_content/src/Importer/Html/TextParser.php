@@ -11,7 +11,7 @@ use Drupal\external_content\Node\TextNode;
 final class TextParser implements HtmlNodeParser {
 
   public function supports(HtmlParserRequest $request): bool {
-    if (!$request->htmlNode instanceof \DOMText) {
+    if (!$request->currentHtmlNode instanceof \DOMText) {
       return FALSE;
     }
 
@@ -38,9 +38,9 @@ final class TextParser implements HtmlNodeParser {
   }
 
   public function parse(HtmlParserRequest $request): ContentNode {
-    \assert($request->htmlNode instanceof \DOMText);
+    \assert($request->currentHtmlNode instanceof \DOMText);
 
-    return new TextNode($request->htmlNode->nodeValue ?? '');
+    return new TextNode($request->currentHtmlNode->nodeValue ?? '');
   }
 
 }

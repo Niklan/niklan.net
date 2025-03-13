@@ -12,24 +12,24 @@ use Drupal\niklan\ExternalContent\Node\RemoteVideoNode;
 final readonly class RemoteVideoParser implements HtmlNodeParser {
 
   public function supports(HtmlParserRequest $request): bool {
-    if (!$request->htmlNode instanceof \DOMElement) {
+    if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
 
-    if (!$request->htmlNode->hasAttribute('data-selector') || $request->htmlNode->getAttribute('data-selector') !== 'niklan:leaf-directive') {
+    if (!$request->currentHtmlNode->hasAttribute('data-selector') || $request->currentHtmlNode->getAttribute('data-selector') !== 'niklan:leaf-directive') {
       return FALSE;
     }
 
-    if ($request->htmlNode->getAttribute('data-type') !== 'youtube') {
+    if ($request->currentHtmlNode->getAttribute('data-type') !== 'youtube') {
       return FALSE;
     }
 
-    return $request->htmlNode->hasAttribute('data-vid');
+    return $request->currentHtmlNode->hasAttribute('data-vid');
   }
 
   public function parse(HtmlParserRequest $request): ContentNode {
-    \assert($request->htmlNode instanceof \DOMElement);
-    $video_id = $request->htmlNode->getAttribute('data-vid');
+    \assert($request->currentHtmlNode instanceof \DOMElement);
+    $video_id = $request->currentHtmlNode->getAttribute('data-vid');
 
     return new RemoteVideoNode("https://youtu.be/{$video_id}");
   }

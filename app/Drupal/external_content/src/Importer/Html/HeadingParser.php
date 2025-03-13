@@ -12,19 +12,19 @@ use Drupal\external_content\Node\HeadingNode;
 final class HeadingParser implements HtmlNodeParser {
 
   public function supports(HtmlParserRequest $request): bool {
-    if (!$request->htmlNode instanceof \DOMElement) {
+    if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
 
     $heading_elements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
-    return \in_array($request->htmlNode->nodeName, $heading_elements);
+    return \in_array($request->currentHtmlNode->nodeName, $heading_elements);
   }
 
   public function parse(HtmlParserRequest $request): ContentNode {
-    \assert($request->htmlNode instanceof \DOMElement);
-    $heading = new HeadingNode(HeadingTagType::fromHtmlTag($request->htmlNode->nodeName));
-    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($heading));
+    \assert($request->currentHtmlNode instanceof \DOMElement);
+    $heading = new HeadingNode(HeadingTagType::fromHtmlTag($request->currentHtmlNode->nodeName));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($heading));
 
     return $heading;
   }

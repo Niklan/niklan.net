@@ -14,13 +14,13 @@ final class ListParser implements HtmlNodeParser {
   public function supports(HtmlParserRequest $request): bool {
     $list_elements = ['ul', 'ol'];
 
-    return $request->htmlNode instanceof \DOMElement && \in_array($request->htmlNode->nodeName, $list_elements);
+    return $request->currentHtmlNode instanceof \DOMElement && \in_array($request->currentHtmlNode->nodeName, $list_elements);
   }
 
   public function parse(HtmlParserRequest $request): ContentNode {
-    \assert($request->htmlNode instanceof \DOMElement);
-    $list_node = new ListNode(ListType::fromHtmlTag($request->htmlNode->nodeName));
-    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($list_node));
+    \assert($request->currentHtmlNode instanceof \DOMElement);
+    $list_node = new ListNode(ListType::fromHtmlTag($request->currentHtmlNode->nodeName));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($list_node));
 
     return $list_node;
   }

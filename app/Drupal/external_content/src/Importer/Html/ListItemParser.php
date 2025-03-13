@@ -11,13 +11,13 @@ use Drupal\external_content\Node\ListItemNode;
 final class ListItemParser implements HtmlNodeParser {
 
   public function supports(HtmlParserRequest $request): bool {
-    return $request->htmlNode instanceof \DOMElement && $request->htmlNode->nodeName === 'li';
+    return $request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->nodeName === 'li';
   }
 
   public function parse(HtmlParserRequest $request): ContentNode {
-    \assert($request->htmlNode instanceof \DOMElement);
+    \assert($request->currentHtmlNode instanceof \DOMElement);
     $list_item_node = new ListItemNode();
-    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($list_item_node));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($list_item_node));
 
     return $list_item_node;
   }

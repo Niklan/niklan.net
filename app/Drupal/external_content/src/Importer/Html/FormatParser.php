@@ -12,7 +12,7 @@ use Drupal\external_content\Node\FormatNode;
 final class FormatParser implements HtmlNodeParser {
 
   public function supports(HtmlParserRequest $request): bool {
-    if (!$request->htmlNode instanceof \DOMElement) {
+    if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
 
@@ -20,13 +20,13 @@ final class FormatParser implements HtmlNodeParser {
       'strong', 'b', 'em', 'u', 's', 'i', 'mark', 'code', 'sub', 'sup',
     ];
 
-    return \in_array($request->htmlNode->nodeName, $format_elements);
+    return \in_array($request->currentHtmlNode->nodeName, $format_elements);
   }
 
   public function parse(HtmlParserRequest $request): ContentNode {
-    \assert($request->htmlNode instanceof \DOMElement);
-    $format_node = new FormatNode(TextFormatType::fromHtmlTag($request->htmlNode->nodeName));
-    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($format_node));
+    \assert($request->currentHtmlNode instanceof \DOMElement);
+    $format_node = new FormatNode(TextFormatType::fromHtmlTag($request->currentHtmlNode->nodeName));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($format_node));
 
     return $format_node;
   }

@@ -8,14 +8,30 @@ use Drupal\external_content\Contract\Exporter\ExporterContext;
 use Drupal\external_content\Contract\Exporter\ExportRequest;
 use Drupal\external_content\Node\RootNode;
 
+/**
+ * @implements \Drupal\external_content\Contract\Exporter\ExportRequest<\Drupal\external_content\Exporter\Array\ArrayExporterContext>
+ */
 final class ArrayExportRequest implements ExportRequest {
 
+  public function __construct(
+    private RootNode $content,
+    private ArrayExporterContext $context,
+    private ArrayStructureBuilder $builder,
+  ) {}
+
   public function getContent(): RootNode {
-    // TODO: Implement getContent() method.
+    return $this->content;
   }
 
+  /**
+   * @return \Drupal\external_content\Exporter\Array\ArrayExporterContext
+   */
   public function getContext(): ExporterContext {
-    // TODO: Implement getContext() method.
+    return $this->context;
+  }
+
+  public function getArrayStructureBuilder(): ArrayStructureBuilder {
+    return $this->builder;
   }
 
 }

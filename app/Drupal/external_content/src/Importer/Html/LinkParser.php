@@ -11,18 +11,18 @@ use Drupal\external_content\Node\LinkNode;
 final class LinkParser implements HtmlNodeParser {
 
   public function supports(HtmlParserRequest $request): bool {
-    return $request->htmlNode instanceof \DOMElement && $request->htmlNode->nodeName === 'a';
+    return $request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->nodeName === 'a';
   }
 
   public function parse(HtmlParserRequest $request): ContentNode {
-    \assert($request->htmlNode instanceof \DOMElement);
+    \assert($request->currentHtmlNode instanceof \DOMElement);
     $link_node = new LinkNode(
-      $request->htmlNode->getAttribute('href'),
-      $request->htmlNode->getAttribute('target'),
-      $request->htmlNode->getAttribute('rel'),
-      $request->htmlNode->getAttribute('title'),
+      $request->currentHtmlNode->getAttribute('href'),
+      $request->currentHtmlNode->getAttribute('target'),
+      $request->currentHtmlNode->getAttribute('rel'),
+      $request->currentHtmlNode->getAttribute('title'),
     );
-    $request->importRequest->getHtmlParser()->parseChildren($request->withContentNode($link_node));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($link_node));
 
     return $link_node;
   }
