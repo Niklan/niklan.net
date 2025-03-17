@@ -27,7 +27,7 @@ final readonly class HtmlImporter implements Importer {
     $html_body = $dom->getElementsByTagName('body')->item(0);
 
     $content_root_node = new RootNode();
-    $request->getHtmlParser()->parseChildren(new HtmlParserRequest($html_body, $content_root_node, $request));
+    $request->getHtmlParser()->parseChildren(new HtmlParseRequest($html_body, $content_root_node, $request));
 
     return $content_root_node;
   }

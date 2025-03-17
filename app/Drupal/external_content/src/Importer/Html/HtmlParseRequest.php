@@ -6,7 +6,7 @@ namespace Drupal\external_content\Importer\Html;
 
 use Drupal\external_content\Node\ContentNode;
 
-final readonly class HtmlParserRequest {
+final readonly class HtmlParseRequest {
 
   public function __construct(
     public \DOMNode $currentHtmlNode,

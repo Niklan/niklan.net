@@ -11,7 +11,7 @@ use Drupal\external_content\Node\HeadingNode;
 
 final class HeadingParser implements HtmlNodeParser {
 
-  public function supports(HtmlParserRequest $request): bool {
+  public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
@@ -21,7 +21,7 @@ final class HeadingParser implements HtmlNodeParser {
     return \in_array($request->currentHtmlNode->nodeName, $heading_elements);
   }
 
-  public function parse(HtmlParserRequest $request): ContentNode {
+  public function parse(HtmlParseRequest $request): ContentNode {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $heading = new HeadingNode(HeadingTagType::fromHtmlTag($request->currentHtmlNode->nodeName));
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($heading));

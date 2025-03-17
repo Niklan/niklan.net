@@ -10,11 +10,11 @@ use Drupal\external_content\Node\ThematicBreakNode;
 
 final class ThematicBreakParser implements HtmlNodeParser {
 
-  public function supports(HtmlParserRequest $request): bool {
+  public function supports(HtmlParseRequest $request): bool {
     return $request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->nodeName === 'hr';
   }
 
-  public function parse(HtmlParserRequest $request): ContentNode {
+  public function parse(HtmlParseRequest $request): ContentNode {
     return new ThematicBreakNode();
   }
 

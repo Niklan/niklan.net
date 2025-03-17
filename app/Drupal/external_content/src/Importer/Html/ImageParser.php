@@ -10,11 +10,11 @@ use Drupal\external_content\Node\ImageNode;
 
 final class ImageParser implements HtmlNodeParser {
 
-  public function supports(HtmlParserRequest $request): bool {
+  public function supports(HtmlParseRequest $request): bool {
     return $request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->nodeName === 'img';
   }
 
-  public function parse(HtmlParserRequest $request): ContentNode {
+  public function parse(HtmlParseRequest $request): ContentNode {
     \assert($request->currentHtmlNode instanceof \DOMElement);
 
     return new ImageNode($request->currentHtmlNode->getAttribute('src'), $request->currentHtmlNode->getAttribute('alt'));

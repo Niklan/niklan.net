@@ -6,7 +6,7 @@ namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Node\ContentNode;
 
-final readonly class ArrayStructureBuilderRequest {
+final readonly class ArrayBuildRequest {
 
   public function __construct(
     public ContentNode $currentAstNode,
@@ -14,7 +14,7 @@ final readonly class ArrayStructureBuilderRequest {
     public ArrayExportRequest $exportRequest,
   ) {}
 
-  public function withNewContentNode(ContentNode $new_content_node): self {
+  public function withNewAstNode(ContentNode $new_content_node): self {
     return new self($new_content_node, $this->currentArrayElement, $this->exportRequest);
   }
 

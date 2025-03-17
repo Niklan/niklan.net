@@ -11,7 +11,7 @@ use Drupal\external_content\Node\FormatNode;
 
 final class FormatParser implements HtmlNodeParser {
 
-  public function supports(HtmlParserRequest $request): bool {
+  public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
@@ -23,7 +23,7 @@ final class FormatParser implements HtmlNodeParser {
     return \in_array($request->currentHtmlNode->nodeName, $format_elements);
   }
 
-  public function parse(HtmlParserRequest $request): ContentNode {
+  public function parse(HtmlParseRequest $request): ContentNode {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $format_node = new FormatNode(TextFormatType::fromHtmlTag($request->currentHtmlNode->nodeName));
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($format_node));

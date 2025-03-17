@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Contract\Renderer;
-
-use Drupal\external_content\Contract\Exporter\ExportRequest;
+namespace Drupal\external_content\Contract\Exporter;
 
 /**
  * @template TRequest of \Drupal\external_content\Contract\Exporter\ExportRequest

@@ -1,5 +1,13 @@
 <?php
 
+use Drupal\external_content\Exporter\Array\ArrayExporter;
+use Drupal\external_content\Exporter\Array\ArrayExporterContext;
+use Drupal\external_content\Exporter\Array\ArrayExportRequest;
+use Drupal\external_content\Exporter\Array\ArrayBuilder;
+use Drupal\external_content\Exporter\Array\CodeNodeBuilder;
+use Drupal\external_content\Exporter\Array\ContentNodeBuilder;
+use Drupal\external_content\Exporter\Array\ElementNodeBuilder;
+use Drupal\external_content\Exporter\Array\TextNodeBuilder;
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
 use Drupal\external_content\Importer\Html\HtmlParser;
@@ -44,9 +52,14 @@ $request = new HtmlImportRequest(
 $html_importer = new HtmlImporter();
 $root_node = $html_importer->import($request);
 
-//dump($root_node);
-ob_start();
-var_dump($root_node);
-$content = ob_get_contents();
-ob_end_clean();
-file_put_contents('../dump.txt', $content);
+// Array exporter.
+$array_structure_builder = new ArrayBuilder();
+$array_structure_builder->addBuilder(new ContentNodeBuilder(), -100);
+$array_structure_builder->addBuilder(new ElementNodeBuilder(), -90);
+$array_structure_builder->addBuilder(new TextNodeBuilder());
+$array_structure_builder->addBuilder(new CodeNodeBuilder());
+
+$array_export_request = new ArrayExportRequest($root_node, new ArrayExporterContext($logger), $array_structure_builder);
+$array_exporter = new ArrayExporter();
+$array = $array_exporter->export($array_export_request);
+dump($array->toArray());

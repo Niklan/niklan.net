@@ -16,7 +16,7 @@ final class ArrayExportRequest implements ExportRequest {
   public function __construct(
     private RootNode $content,
     private ArrayExporterContext $context,
-    private ArrayStructureBuilder $builder,
+    private ArrayBuilder $builder,
   ) {}
 
   public function getContent(): RootNode {
@@ -30,7 +30,7 @@ final class ArrayExportRequest implements ExportRequest {
     return $this->context;
   }
 
-  public function getArrayStructureBuilder(): ArrayStructureBuilder {
+  public function getArrayStructureBuilder(): ArrayBuilder {
     return $this->builder;
   }
 

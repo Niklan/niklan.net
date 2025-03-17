@@ -10,11 +10,11 @@ use Drupal\external_content\Node\ParagraphNode;
 
 final class ParagraphParser implements HtmlNodeParser {
 
-  public function supports(HtmlParserRequest $request): bool {
+  public function supports(HtmlParseRequest $request): bool {
     return $request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->nodeName === 'p';
   }
 
-  public function parse(HtmlParserRequest $request): ContentNode {
+  public function parse(HtmlParseRequest $request): ContentNode {
     $paragraph = new ParagraphNode();
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($paragraph));
 

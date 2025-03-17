@@ -10,7 +10,7 @@ use Drupal\external_content\Node\ContentNode;
 
 final class CodeParser implements HtmlNodeParser {
 
-  public function supports(HtmlParserRequest $request): bool {
+  public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
@@ -18,7 +18,7 @@ final class CodeParser implements HtmlNodeParser {
     return $request->currentHtmlNode->nodeName === 'pre' && $request->currentHtmlNode->firstChild?->nodeName === 'code';
   }
 
-  public function parse(HtmlParserRequest $request): ContentNode {
+  public function parse(HtmlParseRequest $request): ContentNode {
     \assert($request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->firstChild instanceof \DOMElement);
 
     return new CodeNode($request->currentHtmlNode->firstChild->textContent);

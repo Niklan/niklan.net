@@ -22,24 +22,24 @@ final readonly class HtmlParser {
     $this->parsers->add($parser, $priority);
   }
 
-  public function parseChildren(HtmlParserRequest $request): void {
-    foreach ($request->currentHtmlNode->childNodes as $child_html_node) {
-      $this->parseChild($request->withNewHtmlNode($child_html_node));
+  public function parseChildren(HtmlParseRequest $parse_request): void {
+    foreach ($parse_request->currentHtmlNode->childNodes as $child_html_node) {
+      $this->parseChild($parse_request->withNewHtmlNode($child_html_node));
     }
   }
 
-  private function parseChild(HtmlParserRequest $request): void {
-    foreach ($this->parsers as $transformer) {
-      if (!$transformer->supports($request)) {
+  private function parseChild(HtmlParseRequest $parse_request): void {
+    foreach ($this->parsers as $parser) {
+      if (!$parser->supports($parse_request)) {
         continue;
       }
 
-      $request->currentAstNode->addChild($transformer->parse($request));
+      $parse_request->currentAstNode->addChild($parser->parse($parse_request));
 
       return;
     }
 
-    $request->importRequest->getContext()->getLogger()->error("No HTML parser found for node: {$request->currentHtmlNode->nodeName}");
+    $parse_request->importRequest->getContext()->getLogger()->error("No HTML parser found for node: {$parse_request->currentHtmlNode->nodeName}");
   }
 
 }

@@ -10,11 +10,11 @@ use Drupal\external_content\Node\LinkNode;
 
 final class LinkParser implements HtmlNodeParser {
 
-  public function supports(HtmlParserRequest $request): bool {
+  public function supports(HtmlParseRequest $request): bool {
     return $request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->nodeName === 'a';
   }
 
-  public function parse(HtmlParserRequest $request): ContentNode {
+  public function parse(HtmlParseRequest $request): ContentNode {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $link_node = new LinkNode(
       $request->currentHtmlNode->getAttribute('href'),
