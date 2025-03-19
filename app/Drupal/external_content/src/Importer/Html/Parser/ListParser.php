@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Importer\Html;
+namespace Drupal\external_content\Importer\Html\Parser;
 
 use Drupal\external_content\Contract\Importer\HtmlNodeParser;
 use Drupal\external_content\Domain\ListType;

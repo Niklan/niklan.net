@@ -6,6 +6,7 @@ namespace Drupal\external_content\Importer\Html;
 
 use Drupal\external_content\Contract\Importer\Importer;
 use Drupal\external_content\Contract\Importer\ImportRequest;
+use Drupal\external_content\Importer\Html\Parser\HtmlParseRequest;
 use Drupal\external_content\Node\RootNode;
 
 /**

@@ -15,10 +15,7 @@ final class HtmlImporterSource implements ImporterSource {
     private string $rawHtml,
   ) {}
 
-  /**
-   * @return string
-   */
-  public function getSourceData(): mixed {
+  public function getSourceData(): string {
     return $this->rawHtml;
   }
 

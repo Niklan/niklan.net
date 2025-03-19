@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Exporter\Array;
+namespace Drupal\external_content\Exporter\Array\Builder;
 
 use Drupal\external_content\Contract\Exporter\ArrayElementBuilder;
 use Drupal\external_content\Node\TextNode;
@@ -15,13 +15,11 @@ final readonly class TextNodeBuilder implements ArrayElementBuilder {
 
   public function build(ArrayBuildRequest $request): ArrayElement {
     \assert($request->currentAstNode instanceof TextNode);
-    $element = new ArrayElement(
+
+    return new ArrayElement(
       $request->currentAstNode->getType(),
       ['literal' => $request->currentAstNode->getLiteral()],
     );
-    $request->exportRequest->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
-
-    return $element;
   }
 
 }

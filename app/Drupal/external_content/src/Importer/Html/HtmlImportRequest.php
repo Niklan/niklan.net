@@ -7,6 +7,7 @@ namespace Drupal\external_content\Importer\Html;
 use Drupal\external_content\Contract\Importer\ImporterContext;
 use Drupal\external_content\Contract\Importer\ImporterSource;
 use Drupal\external_content\Contract\Importer\ImportRequest;
+use Drupal\external_content\Importer\Html\Parser\HtmlParser;
 
 /**
  * @implements \Drupal\external_content\Contract\Importer\ImportRequest<\Drupal\external_content\Importer\Html\HtmlImporterSource, \Drupal\external_content\Importer\Html\HtmlImporterContext>

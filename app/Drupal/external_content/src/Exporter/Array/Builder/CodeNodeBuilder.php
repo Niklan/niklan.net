@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Exporter\Array;
+namespace Drupal\external_content\Exporter\Array\Builder;
 
 use Drupal\external_content\Contract\Exporter\ArrayElementBuilder;
 use Drupal\external_content\Node\CodeNode;

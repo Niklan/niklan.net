@@ -6,9 +6,11 @@ namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Exporter\ExportRequest;
 use Drupal\external_content\Contract\Exporter\Exporter;
+use Drupal\external_content\Exporter\Array\Builder\ArrayBuildRequest;
+use Drupal\external_content\Exporter\Array\Builder\ArrayElement;
 
 /**
- * @implements \Drupal\external_content\Contract\Exporter\Exporter<\Drupal\external_content\Exporter\Array\ArrayExportRequest, \Drupal\external_content\Exporter\Array\ArrayElement>
+ * @implements \Drupal\external_content\Contract\Exporter\Exporter<\Drupal\external_content\Exporter\Array\ArrayExportRequest, \Drupal\external_content\Exporter\Array\Builder\ArrayElement>
  */
 final class ArrayExporter implements Exporter {
 
