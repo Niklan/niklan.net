@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Contract\Importer;
 
-use Drupal\external_content\Node\RootNode;
+use Drupal\external_content\DataStructure\Nodes\RootNode;
 
 /**
  * @template T of \Drupal\external_content\Contract\Importer\ImportRequest

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\external_content\Exporter\Array\Builder;
+namespace Drupal\external_content\DataStructure;
 
 final class ArrayElement {
 

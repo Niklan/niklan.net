@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Visitor;
 
 use Drupal\external_content\Contract\Node\NodeVisitor;
-use Drupal\external_content\Node\ContentNode;
+use Drupal\external_content\DataStructure\Nodes\ContentNode;
 
 final readonly class ReplaceNodeVisitor implements NodeVisitor {
 

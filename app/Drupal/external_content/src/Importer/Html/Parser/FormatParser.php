@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Importer\Html\Parser;
 
-use Drupal\external_content\Contract\Importer\HtmlNodeParser;
+use Drupal\external_content\Contract\DataStructure\HtmlNodeParser;
 use Drupal\external_content\Domain\TextFormatType;
-use Drupal\external_content\Node\ContentNode;
-use Drupal\external_content\Node\FormatNode;
+use Drupal\external_content\DataStructure\Nodes\ContentNode;
+use Drupal\external_content\DataStructure\Nodes\FormatNode;
 
 final class FormatParser implements HtmlNodeParser {
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Importer\Html\Parser;
 
-use Drupal\external_content\Contract\Importer\HtmlNodeParser;
+use Drupal\external_content\Contract\DataStructure\HtmlNodeParser;
 use Drupal\external_content\Utils\PrioritizedList;
 
 final readonly class HtmlParser {
 
   /**
-   * @var \Drupal\external_content\Utils\PrioritizedList<\Drupal\external_content\Contract\Importer\HtmlNodeParser>
+   * @var \Drupal\external_content\Utils\PrioritizedList<\Drupal\external_content\Contract\DataStructure\HtmlNodeParser>
    */
   private PrioritizedList $parsers;
 

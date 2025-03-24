@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Node;
+namespace Drupal\external_content\DataStructure\Nodes;
 
 final class RootNode extends ContentNode {
 

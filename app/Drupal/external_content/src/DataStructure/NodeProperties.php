@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Domain;
+namespace Drupal\external_content\DataStructure;
 
 /**
  * A flat key/value storage for properties.

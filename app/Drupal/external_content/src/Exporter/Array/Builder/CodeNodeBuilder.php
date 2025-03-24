@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Drupal\external_content\Exporter\Array\Builder;
 
 use Drupal\external_content\Contract\Exporter\ArrayElementBuilder;
-use Drupal\external_content\Node\CodeNode;
+use Drupal\external_content\DataStructure\ArrayElement;
+use Drupal\external_content\DataStructure\Nodes\CodeNode;
 
 final readonly class CodeNodeBuilder implements ArrayElementBuilder {
 

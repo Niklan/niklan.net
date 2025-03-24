@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Importer\Html\Parser;
 
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
-use Drupal\external_content\Node\ContentNode;
+use Drupal\external_content\DataStructure\Nodes\ContentNode;
 
 final readonly class HtmlParseRequest {
 

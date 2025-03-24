@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Node;
 
-use Drupal\external_content\Node\ContentNode;
+use Drupal\external_content\DataStructure\Nodes\ContentNode;
 
 final class RemoteVideoNode extends ContentNode {
 
