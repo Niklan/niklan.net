@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Contract\Node;
+namespace Drupal\external_content\Contract\DataStructure\Node;
 
 interface LiteralAware {
 

@@ -7,6 +7,7 @@ use Drupal\external_content\Exporter\Array\Builder\ArrayBuilder;
 use Drupal\external_content\Exporter\Array\Builder\CodeNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\ContentNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\ElementNodeBuilder;
+use Drupal\external_content\Exporter\Array\Builder\LiteralNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\TextNodeBuilder;
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
@@ -56,8 +57,7 @@ $root_node = $html_importer->import($request);
 $array_structure_builder = new ArrayBuilder();
 $array_structure_builder->addBuilder(new ContentNodeBuilder(), -100);
 $array_structure_builder->addBuilder(new ElementNodeBuilder(), -90);
-$array_structure_builder->addBuilder(new TextNodeBuilder());
-$array_structure_builder->addBuilder(new CodeNodeBuilder());
+$array_structure_builder->addBuilder(new LiteralNodeBuilder());
 
 $array_export_request = new ArrayExportRequest($root_node, new ArrayExporterContext($logger), $array_structure_builder);
 $array_exporter = new ArrayExporter();

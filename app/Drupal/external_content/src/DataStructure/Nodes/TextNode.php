@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\DataStructure\Nodes;
 
-use Drupal\external_content\Contract\Node\LiteralAware;
+use Drupal\external_content\Contract\DataStructure\Node\LiteralAware;
 
 final class TextNode extends ContentNode implements LiteralAware {
 
