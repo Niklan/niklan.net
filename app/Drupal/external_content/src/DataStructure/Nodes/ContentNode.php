@@ -20,13 +20,7 @@ abstract class ContentNode {
   protected array $children = [];
   private ?RootNode $cachedRootNode = NULL;
 
-  public function __construct(
-    protected string $type,
-  ) {}
-
-  public function getType(): string {
-    return $this->type;
-  }
+  abstract public static function getType(): string;
 
   public function addChild(self $node): void {
     $node->setParent($this);

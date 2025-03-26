@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\external_content\Contract\Importer\Array\Parser\LiteralArrayParser;
 use Drupal\external_content\Exporter\Array\ArrayExporter;
 use Drupal\external_content\Exporter\Array\ArrayExporterContext;
 use Drupal\external_content\Exporter\Array\ArrayExportRequest;
@@ -9,6 +10,13 @@ use Drupal\external_content\Exporter\Array\Builder\ContentNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\ElementNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\LiteralNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\TextNodeBuilder;
+use Drupal\external_content\Importer\Array\ArrayImporter;
+use Drupal\external_content\Importer\Array\ArrayImportRequest;
+use Drupal\external_content\Importer\Array\Parser\ArrayParser;
+use Drupal\external_content\Importer\Array\Parser\ArrayParseRequest;
+use Drupal\external_content\Importer\Array\Parser\ElementArrayParser;
+use Drupal\external_content\Importer\Html\ArrayImporterContext;
+use Drupal\external_content\Importer\Html\ArrayImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
 use Drupal\external_content\Importer\Html\Parser\HtmlParser;
@@ -65,4 +73,17 @@ $array = $array_exporter->export($array_export_request);
 
 $json = json_encode($array->toArray());
 $array = json_decode($json, TRUE);
-dump($array);
+
+// Array importer.
+$array_parser = new ArrayParser();
+$array_parser->addParser(new ElementArrayParser());
+$array_parser->addParser(new LiteralArrayParser());
+
+$array_import_request = new ArrayImportRequest(
+  new ArrayImporterSource($array),
+  new ArrayImporterContext($logger),
+  $array_parser,
+);
+$array_importer = new ArrayImporter();
+$ast = $array_importer->import($array_import_request);
+dump($ast);

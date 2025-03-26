@@ -6,8 +6,8 @@ namespace Drupal\external_content\DataStructure\Nodes;
 
 final class ThematicBreakNode extends ElementNode {
 
-  public function __construct() {
-    parent::__construct('thematic_break');
+  public static function getType(): string {
+    return 'thematic_break';
   }
 
 }

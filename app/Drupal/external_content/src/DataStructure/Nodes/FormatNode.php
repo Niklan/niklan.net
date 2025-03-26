@@ -11,7 +11,7 @@ final class FormatNode extends ElementNode {
   public function __construct(
     TextFormatType $format,
   ) {
-    parent::__construct('format');
+    parent::__construct();
     $this->setFormat($format);
   }
 
@@ -21,6 +21,10 @@ final class FormatNode extends ElementNode {
 
   public function setFormat(TextFormatType $format): void {
     $this->getProperties()->setProperty('format', $format->value);
+  }
+
+  public static function getType(): string {
+    return 'format';
   }
 
 }

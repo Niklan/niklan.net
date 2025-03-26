@@ -16,7 +16,7 @@ final readonly class ContentNodeBuilder implements ArrayElementBuilder {
 
   public function build(ArrayBuildRequest $request): ArrayElement {
     \assert($request->currentAstNode instanceof ContentNode);
-    $element = new ArrayElement($request->currentAstNode->getType());
+    $element = new ArrayElement($request->currentAstNode::getType());
     $request->exportRequest->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
 
     return $element;

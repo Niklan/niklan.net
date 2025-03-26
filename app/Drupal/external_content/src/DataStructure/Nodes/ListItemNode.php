@@ -6,8 +6,8 @@ namespace Drupal\external_content\DataStructure\Nodes;
 
 final class ListItemNode extends ElementNode {
 
-  public function __construct() {
-    parent::__construct('list_item');
+  public static function getType(): string {
+    return 'list_item';
   }
 
 }

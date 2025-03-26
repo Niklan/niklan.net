@@ -10,9 +10,7 @@ final class TextNode extends ContentNode implements LiteralAware {
 
   public function __construct(
     private string $text,
-  ) {
-    parent::__construct('text');
-  }
+  ) {}
 
   #[\Override]
   public function setLiteral(string $literal): void {
@@ -22,6 +20,10 @@ final class TextNode extends ContentNode implements LiteralAware {
   #[\Override]
   public function getLiteral(): string {
     return $this->text;
+  }
+
+  public static function getType(): string {
+    return 'text';
   }
 
 }

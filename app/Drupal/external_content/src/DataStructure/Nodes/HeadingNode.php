@@ -8,10 +8,12 @@ use Drupal\external_content\Domain\HeadingTagType;
 
 final class HeadingNode extends ElementNode {
 
+  public const string TYPE = 'heading';
+
   public function __construct(
     HeadingTagType $tag,
   ) {
-    parent::__construct('heading');
+    parent::__construct();
     $this->setTag($tag);
   }
 
@@ -21,6 +23,10 @@ final class HeadingNode extends ElementNode {
 
   public function setTag(HeadingTagType $tag): void {
     $this->getProperties()->setProperty('tag', $tag->value);
+  }
+
+  public static function getType(): string {
+    return 'heading';
   }
 
 }

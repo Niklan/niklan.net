@@ -12,7 +12,7 @@ final class LinkNode extends ElementNode {
     ?string $rel = NULL,
     ?string $title = NULL,
   ) {
-    parent::__construct('link');
+    parent::__construct();
     $this->setUrl($url);
     $this->setTarget($target);
     $this->setRel($rel);
@@ -61,6 +61,10 @@ final class LinkNode extends ElementNode {
     return $this->getProperties()->hasProperty('title')
         ? $this->getProperties()->getProperty('title')
         : NULL;
+  }
+
+  public static function getType(): string {
+    return 'link';
   }
 
 }

@@ -6,11 +6,13 @@ namespace Drupal\external_content\DataStructure\Nodes;
 
 final class ImageNode extends ElementNode {
 
+  public const string TYPE = 'image';
+
   public function __construct(
     string $src,
     string $alt,
   ) {
-    parent::__construct('image');
+    parent::__construct();
     $this->setSrc($src);
     $this->setAlt($alt);
   }
@@ -29,6 +31,10 @@ final class ImageNode extends ElementNode {
 
   public function getAlt(): string {
     return $this->getProperties()->getProperty('alt');
+  }
+
+  public static function getType(): string {
+    return 'image';
   }
 
 }

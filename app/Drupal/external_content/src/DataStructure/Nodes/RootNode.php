@@ -6,10 +6,6 @@ namespace Drupal\external_content\DataStructure\Nodes;
 
 final class RootNode extends ContentNode {
 
-  public function __construct() {
-    parent::__construct('root');
-  }
-
   /**
    * @throws \LogicException
    */
@@ -21,6 +17,10 @@ final class RootNode extends ContentNode {
   #[\Override]
   public function hasParent(): bool {
     return FALSE;
+  }
+
+  public static function getType(): string {
+    return 'root';
   }
 
 }

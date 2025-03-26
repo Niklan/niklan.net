@@ -18,7 +18,7 @@ final readonly class LiteralNodeBuilder implements ArrayElementBuilder {
     \assert($request->currentAstNode instanceof LiteralAware);
 
     return new ArrayElement(
-      $request->currentAstNode->getType(),
+      $request->currentAstNode::getType(),
       ['literal' => $request->currentAstNode->getLiteral()],
     );
   }

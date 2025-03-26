@@ -11,7 +11,7 @@ final class ListNode extends ElementNode {
   public function __construct(
     ListType $type,
   ) {
-    parent::__construct('list');
+    parent::__construct();
     $this->setListType($type);
   }
 
@@ -21,6 +21,10 @@ final class ListNode extends ElementNode {
 
   public function getListType(): ListType {
     return ListType::from($this->getProperties()->getProperty('type'));
+  }
+
+  public static function getType(): string {
+    return 'list';
   }
 
 }

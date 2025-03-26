@@ -14,7 +14,7 @@ use Drupal\external_content\Importer\Array\Parser\ArrayParseRequest;
 final class LiteralArrayParser extends TypedArrayParser {
 
   public function __construct() {
-    $this->registerDefaultTypes();
+    $this->withDefaultTypes();
   }
 
   public function supports(ArrayParseRequest $request): bool {
@@ -47,7 +47,7 @@ final class LiteralArrayParser extends TypedArrayParser {
     }
   }
 
-  private function registerDefaultTypes(): void {
+  private function withDefaultTypes(): void {
     $this->registerType('code', CodeNode::class);
     $this->registerType('text', TextNode::class);
   }

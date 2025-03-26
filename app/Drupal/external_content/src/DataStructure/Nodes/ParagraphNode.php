@@ -6,8 +6,8 @@ namespace Drupal\external_content\DataStructure\Nodes;
 
 final class ParagraphNode extends ElementNode {
 
-  public function __construct() {
-    parent::__construct('paragraph');
+  public static function getType(): string {
+    return 'paragraph';
   }
 
 }

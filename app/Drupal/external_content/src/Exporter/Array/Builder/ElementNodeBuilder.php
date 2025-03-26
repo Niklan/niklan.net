@@ -16,7 +16,7 @@ final readonly class ElementNodeBuilder implements ArrayElementBuilder {
 
   public function build(ArrayBuildRequest $request): ArrayElement {
     \assert($request->currentAstNode instanceof ElementNode);
-    $element = new ArrayElement($request->currentAstNode->getType(), $request->currentAstNode->getProperties()->all());
+    $element = new ArrayElement($request->currentAstNode::getType(), $request->currentAstNode->getProperties()->all());
     $request->exportRequest->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
 
     return $element;

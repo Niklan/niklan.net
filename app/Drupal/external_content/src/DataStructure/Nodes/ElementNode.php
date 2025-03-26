@@ -12,11 +12,8 @@ use Drupal\external_content\DataStructure\NodeProperties;
 abstract class ElementNode extends ContentNode {
 
   public function __construct(
-    string $type,
     protected NodeProperties $properties = new NodeProperties(),
-  ) {
-    parent::__construct($type);
-  }
+  ) {}
 
   public function getProperties(): NodeProperties {
     return $this->properties;

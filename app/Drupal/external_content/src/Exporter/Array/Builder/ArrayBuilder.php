@@ -37,7 +37,7 @@ final class ArrayBuilder {
       return;
     }
 
-    $build_request->exportRequest->getContext()->getLogger()->error("No Array builder found for node type: {$build_request->currentAstNode->getType()}");
+    $build_request->exportRequest->getContext()->getLogger()->error("No Array builder found for node type: {$build_request->currentAstNode::getType()}");
   }
 
 }

@@ -13,8 +13,7 @@ final class ContentArrayParser extends TypedArrayParser {
   public function parse(ArrayParseRequest $request): ContentNode {
     $node = $this->createNode($request->currentArrayElement->type);
     \assert($node instanceof ElementNode);
-    // @todo Make sure it is correct.
-    $request->importRequest->getArrayParser()->parseChildren($request->withNewArrayElement($request->currentArrayElement));
+    $request->importRequest->getArrayParser()->parseChildren($request->withNewContentNode($node));
 
     return $node;
   }

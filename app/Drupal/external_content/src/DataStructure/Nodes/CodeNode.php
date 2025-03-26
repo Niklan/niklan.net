@@ -11,7 +11,7 @@ final class CodeNode extends ElementNode implements LiteralAware {
   public function __construct(
     private string $code,
   ) {
-    parent::__construct('code');
+    parent::__construct();
   }
 
   #[\Override]
@@ -22,6 +22,10 @@ final class CodeNode extends ElementNode implements LiteralAware {
   #[\Override]
   public function getLiteral(): string {
     return $this->code;
+  }
+
+  public static function getType(): string {
+    return 'code';
   }
 
 }
