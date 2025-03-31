@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Importer\Html;
+namespace Drupal\external_content\Importer\Array;
 
 use Drupal\external_content\Contract\Importer\ImporterSource;
 

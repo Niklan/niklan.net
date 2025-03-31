@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Importer\Array\Parser;
 
-use Drupal\external_content\Contract\Importer\Array\Parser\TypedArrayParser;
 use Drupal\external_content\DataStructure\Nodes\CodeNode;
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
 use Drupal\external_content\DataStructure\Nodes\ElementNode;

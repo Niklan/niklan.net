@@ -10,7 +10,7 @@ use Drupal\external_content\Contract\Importer\ImportRequest;
 use Drupal\external_content\Importer\Array\Parser\ArrayParser;
 
 /**
- * @implements \Drupal\external_content\Contract\Importer\ImportRequest<\Drupal\external_content\Importer\Html\ArrayImporterSource, \Drupal\external_content\Importer\Array\ArrayImporterContext>
+ * @implements \Drupal\external_content\Contract\Importer\ImportRequest<\Drupal\external_content\Importer\Array\ArrayImporterSource, \Drupal\external_content\Importer\Array\ArrayImporterContext>
  */
 final readonly class ArrayImportRequest implements ImportRequest {
 
@@ -21,14 +21,14 @@ final readonly class ArrayImportRequest implements ImportRequest {
   ) {}
 
   /**
-   * @return \Drupal\external_content\Importer\Html\ArrayImporterSource
+   * @return \Drupal\external_content\Importer\Array\ArrayImporterSource
    */
   public function getSource(): ImporterSource {
     return $this->source;
   }
 
   /**
-   * @return \Drupal\external_content\Importer\Html\ArrayImporterContext
+   * @return \Drupal\external_content\Importer\Array\ArrayImporterContext
    */
   public function getContext(): ImporterContext {
     return $this->context;

@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Contract\Importer\Array\Parser;
+namespace Drupal\external_content\Importer\Array\Parser;
 
-use Drupal\external_content\Contract\DataStructure\Node\LiteralAware;
+use Drupal\external_content\Contract\DataStructure\Nodes\LiteralAware;
 use Drupal\external_content\DataStructure\Nodes\CodeNode;
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
 use Drupal\external_content\DataStructure\Nodes\ElementNode;
 use Drupal\external_content\DataStructure\Nodes\TextNode;
-use Drupal\external_content\Importer\Array\Parser\ArrayParseRequest;
 
 final class LiteralArrayParser extends TypedArrayParser {
 
@@ -25,9 +24,11 @@ final class LiteralArrayParser extends TypedArrayParser {
   }
 
   public function parse(ArrayParseRequest $request): ContentNode {
-    $node = $this->createNode($request->currentArrayElement->type);
+    $node = $this->createNode(
+      $request->currentArrayElement->type,
+      [$request->currentArrayElement->properties['literal']],
+    );
     \assert($node instanceof LiteralAware);
-    $node->setLiteral($request->currentArrayElement->properties['literal']);
     $this->applyAdditionalProperties($node, $request->currentArrayElement->properties);
 
     return $node;
