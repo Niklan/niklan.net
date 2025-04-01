@@ -12,8 +12,17 @@ use Drupal\external_content\Importer\Array\ArrayImporterContext;
 use Drupal\external_content\Importer\Array\ArrayImporterSource;
 use Drupal\external_content\Importer\Array\ArrayImportRequest;
 use Drupal\external_content\Importer\Array\Parser\ArrayParser;
+use Drupal\external_content\Importer\Array\Parser\CodeArrayParser;
 use Drupal\external_content\Importer\Array\Parser\ElementArrayParser;
+use Drupal\external_content\Importer\Array\Parser\FormatArrayParser;
+use Drupal\external_content\Importer\Array\Parser\HeadingArrayParser;
+use Drupal\external_content\Importer\Array\Parser\ImageArrayParser;
+use Drupal\external_content\Importer\Array\Parser\LinkArrayParser;
+use Drupal\external_content\Importer\Array\Parser\ListArrayParser;
+use Drupal\external_content\Importer\Array\Parser\ListItemArrayParser;
 use Drupal\external_content\Importer\Array\Parser\LiteralArrayParser;
+use Drupal\external_content\Importer\Array\Parser\ParagraphArrayParser;
+use Drupal\external_content\Importer\Array\Parser\TextArrayParser;
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
 use Drupal\external_content\Importer\Html\Parser\HtmlParser;
@@ -73,8 +82,15 @@ $array = json_decode($json, TRUE);
 
 // Array importer.
 $array_parser = new ArrayParser();
-$array_parser->addParser(new ElementArrayParser());
-$array_parser->addParser(new LiteralArrayParser());
+$array_parser->addParser(new FormatArrayParser());
+$array_parser->addParser(new HeadingArrayParser());
+$array_parser->addParser(new LinkArrayParser());
+$array_parser->addParser(new ListArrayParser());
+$array_parser->addParser(new ListItemArrayParser());
+$array_parser->addParser(new ParagraphArrayParser());
+$array_parser->addParser(new TextArrayParser());
+$array_parser->addParser(new CodeArrayParser());
+$array_parser->addParser(new ImageArrayParser());
 
 $array_import_request = new ArrayImportRequest(
   new ArrayImporterSource($array),
