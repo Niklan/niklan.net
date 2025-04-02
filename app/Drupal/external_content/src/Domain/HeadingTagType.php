@@ -15,7 +15,7 @@ enum HeadingTagType: string {
 
   public static function fromHtmlTag(string $tag): self {
     return match ($tag) {
-      default => throw new \InvalidArgumentException("{$tag} is unsupported by HeadintTagType."),
+      default => throw new \InvalidArgumentException("{$tag} is unsupported by HeadingTagType."),
       'h1' => self::H1,
       'h2' => self::H2,
       'h3' => self::H3,
