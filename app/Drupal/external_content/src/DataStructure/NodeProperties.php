@@ -33,7 +33,7 @@ final class NodeProperties {
   }
 
   /**
-   * @throw OutOfBoundsException
+   * @throws \OutOfBoundsException
    */
   public function getProperty(string $property): string {
     if (!$this->hasProperty($property)) {

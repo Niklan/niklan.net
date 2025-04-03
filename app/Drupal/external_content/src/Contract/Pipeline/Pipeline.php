@@ -11,7 +11,7 @@ namespace Drupal\external_content\Contract\Pipeline;
 interface Pipeline {
 
   /**
-   * @param TStage $stage
+   * @param TStage<TContext> $stage
    */
   public function addStage(PipelineStage $stage, int $priority = 0): void;
 

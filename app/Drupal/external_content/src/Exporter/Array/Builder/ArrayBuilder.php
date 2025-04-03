@@ -2,23 +2,16 @@
 
 namespace Drupal\external_content\Exporter\Array\Builder;
 
-use Drupal\external_content\Contract\Exporter\ArrayElementBuilder;
-use Drupal\external_content\Utils\PrioritizedList;
+use Drupal\external_content\Utils\Registry;
 
-final class ArrayBuilder {
+final readonly class ArrayBuilder {
 
   /**
-   * @var \Drupal\external_content\Utils\PrioritizedList<\Drupal\external_content\Contract\Exporter\ArrayElementBuilder>
+   * @param \Drupal\external_content\Utils\Registry<\Drupal\external_content\Exporter\Array\Builder\ArrayElementBuilder> $builders
    */
-  private PrioritizedList $parsers;
-
-  public function __construct() {
-    $this->parsers = new PrioritizedList();
-  }
-
-  public function addBuilder(ArrayElementBuilder $builder, int $priority = 0): void {
-    $this->parsers->add($builder, $priority);
-  }
+  public function __construct(
+    private Registry $builders,
+  ) {}
 
   public function buildChildren(ArrayBuildRequest $build_request): void {
     foreach ($build_request->currentAstNode->getChildren() as $child) {
@@ -27,12 +20,12 @@ final class ArrayBuilder {
   }
 
   private function buildChild(ArrayBuildRequest $build_request): void {
-    foreach ($this->parsers as $parser) {
-      if (!$parser->supports($build_request)) {
+    foreach ($this->builders->getAll() as $builder) {
+      if (!$builder->supports($build_request)) {
         continue;
       }
 
-      $build_request->currentArrayElement->addChild($parser->build($build_request));
+      $build_request->currentArrayElement->addChild($builder->build($build_request));
 
       return;
     }

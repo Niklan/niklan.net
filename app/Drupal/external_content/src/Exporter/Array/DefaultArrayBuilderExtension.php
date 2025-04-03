@@ -5,21 +5,21 @@ declare(strict_types=1);
 namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Exporter\Array\Builder\ArrayBuilder;
 use Drupal\external_content\Exporter\Array\Builder\ContentNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\ElementNodeBuilder;
 use Drupal\external_content\Exporter\Array\Builder\LiteralNodeBuilder;
+use Drupal\external_content\Utils\Registry;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Exporter\Array\Builder\ArrayBuilder>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Exporter\Array\ArrayElementBuilder>>
  */
 final readonly class DefaultArrayBuilderExtension implements Extension {
 
   public function register(object $target): void {
-    \assert($target instanceof ArrayBuilder);
-    $target->addBuilder(new ContentNodeBuilder(), -100);
-    $target->addBuilder(new ElementNodeBuilder(), -90);
-    $target->addBuilder(new LiteralNodeBuilder());
+    \assert($target instanceof Registry);
+    $target->add(new ContentNodeBuilder(), -100);
+    $target->add(new ElementNodeBuilder(), -90);
+    $target->add(new LiteralNodeBuilder());
   }
 
 }

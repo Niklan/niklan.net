@@ -10,4 +10,6 @@ interface PipelineContext {
 
   public function getLogger(): LoggerInterface;
 
+  public function isStrictMode(): bool;
+
 }

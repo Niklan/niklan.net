@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Importer\Html\Parser;
 
-use Drupal\external_content\Contract\DataStructure\HtmlNodeParser;
-use Drupal\external_content\Utils\PrioritizedList;
+use Drupal\external_content\Utils\Registry;
 
 final readonly class HtmlParser {
 
   /**
-   * @var \Drupal\external_content\Utils\PrioritizedList<\Drupal\external_content\Contract\DataStructure\HtmlNodeParser>
+   * @param \Drupal\external_content\Utils\Registry<\Drupal\external_content\Importer\Html\Parser\HtmlNodeParser> $parsers
    */
-  private PrioritizedList $parsers;
-
-  public function __construct() {
-    $this->parsers = new PrioritizedList();
-  }
-
-  public function addParser(HtmlNodeParser $parser, int $priority = 0): void {
-    $this->parsers->add($parser, $priority);
-  }
+  public function __construct(
+    private Registry $parsers,
+  ) {}
 
   public function parseChildren(HtmlParseRequest $parse_request): void {
     foreach ($parse_request->currentHtmlNode->childNodes as $child_html_node) {
@@ -29,7 +22,7 @@ final readonly class HtmlParser {
   }
 
   private function parseChild(HtmlParseRequest $parse_request): void {
-    foreach ($this->parsers as $parser) {
+    foreach ($this->parsers->getAll() as $parser) {
       if (!$parser->supports($parse_request)) {
         continue;
       }

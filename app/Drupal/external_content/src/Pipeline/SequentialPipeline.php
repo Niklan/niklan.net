@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Pipeline;
 
+use Drupal\external_content\Contract\Exception\PipelineException;
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Utils\PrioritizedList;
+use Psr\Log\LogLevel;
 
 /**
  * @implements \Drupal\external_content\Contract\Pipeline\Pipeline<\Drupal\external_content\Contract\Pipeline\PipelineStage, \Drupal\external_content\Contract\Pipeline\PipelineContext>
@@ -32,14 +34,32 @@ final class SequentialPipeline implements Pipeline {
       try {
         $stage->process($context);
       }
-      catch (\Throwable $e) {
-        $context->getLogger()->error('Stage {stage} failed: {message}', [
-          'stage' => $stage::class,
-          'message' => $e->getMessage(),
-          'exception' => $e,
-        ]);
+      catch (PipelineException $exception) {
+        $this->handleCheckedException($context, $exception, $stage);
+      }
+      catch (\Throwable $exception) {
+        $this->handleUncheckedException($context, $exception, $stage);
       }
     }
+  }
+
+  private function handleCheckedException(PipelineContext $context, PipelineException $exception, PipelineStage $stage): void {
+    $this->logException($context, $exception, $stage, LogLevel::ERROR);
+    if ($context->isStrictMode()) {
+      throw $exception;
+    }
+  }
+
+  private function handleUncheckedException(PipelineContext $context, \Throwable $exception, PipelineStage $stage): void {
+    $this->logException($context, $exception, $stage, LogLevel::CRITICAL);
+  }
+
+  private function logException(PipelineContext $context, \Throwable $exception, PipelineStage $stage, string $log_level): void {
+    $context->getLogger()->log($log_level, 'Stage {stage} failed: {message}', [
+      'stage' => $stage::class,
+      'message' => $exception->getMessage(),
+      'exception' => $exception,
+    ]);
   }
 
 }
