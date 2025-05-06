@@ -58,6 +58,11 @@ final class ExternalContentFieldItem extends FieldItemBase {
       ->setLabel(new TranslatableMarkup('Serialized external content document'))
       ->setRequired(TRUE);
 
+    $properties['environment_id'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Environment ID'))
+      ->setDescription(new TranslatableMarkup('The environment ID defined in the service container.'))
+      ->setRequired(TRUE);
+
     $properties['data'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Data'))
       ->setDescription(new TranslatableMarkup('A JSON string with additional data.'));
@@ -85,6 +90,11 @@ final class ExternalContentFieldItem extends FieldItemBase {
           'type' => 'text',
           'size' => 'medium',
           'not null' => FALSE,
+        ],
+        'environment_id' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
         ],
         'data' => [
           'type' => 'json',
