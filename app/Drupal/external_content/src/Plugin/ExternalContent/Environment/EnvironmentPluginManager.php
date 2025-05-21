@@ -8,11 +8,14 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final class EnvironmentPluginManager extends DefaultPluginManager {
 
   public function __construct(
+    #[Autowire(service: 'container.namespaces')]
     \Traversable $namespaces,
+    #[Autowire(service: 'cache.discovery')]
     CacheBackendInterface $cache_backend,
     ModuleHandlerInterface $module_handler,
   ) {

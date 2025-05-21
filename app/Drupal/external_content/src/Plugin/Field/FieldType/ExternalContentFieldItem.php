@@ -16,7 +16,7 @@ use Drupal\external_content\Plugin\Validation\Constraint\ExternalContentValidJso
   id: self::ID,
   label: new TranslatableMarkup('External content'),
   description: new TranslatableMarkup('Stores the external content.'),
-  category: new TranslatableMarkup('External content'),
+  category: 'External content',
 )]
 final class ExternalContentFieldItem extends FieldItemBase {
 
