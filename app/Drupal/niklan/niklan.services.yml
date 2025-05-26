@@ -10,6 +10,10 @@ services:
     parent: logger.channel_base
     arguments: [ 'niklan.telegram' ]
 
+  logger.channel.niklan.external_content:
+    parent: logger.channel_base
+    arguments: [ 'niklan.external_content' ]
+
   Drupal\niklan\StaticPage\About\Repository\AboutSettings: { }
   Drupal\niklan\StaticPage\Contact\Repository\ContactSettings: { }
   Drupal\niklan\StaticPage\Services\Repository\ServicesSettings: { }

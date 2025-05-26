@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Node;
+namespace Drupal\niklan\ExternalContent\DataStructure\Nodes;
 
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
 

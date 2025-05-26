@@ -1,27 +1,15 @@
 <?php
 
-use Drupal\niklan\ExternalContent\Domain\BlogSyncPipelineContext;
-use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
-use Drupal\niklan\ExternalContent\Stages\MarkdownToHtmlConverter;
-use Drupal\niklan\ExternalContent\Validation\XmlValidator;
-use Drupal\niklan\ExternalContent\Pipeline\BlogArticleProcessPipeline;
-use Drupal\niklan\ExternalContent\Pipeline\BlogSyncPipeline;
-use Drupal\niklan\ExternalContent\Stages\BlogArticleFinderPipelineStage;
-use Drupal\niklan\ExternalContent\Stages\BlogArticleProcessPipelineStage;
-use League\CommonMark\MarkdownConverter;
+use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
+use Drupal\niklan\ExternalContent\Importer\Markdown\BlogArticleMarkdownSource;
+use Drupal\niklan\Plugin\ExternalContent\Environment\BlogArticle;
 
-$logger = \Drupal::logger('system');
+$source = file_get_contents('private://content/blog/2021/09/29/drupal-warmer-2/article.ru.md');
 
-$context = new BlogSyncPipelineContext('private://content/blog', $logger);
-$pipeline = new BlogSyncPipeline();
-$pipeline->addStage(new BlogArticleFinderPipelineStage(new ArticleXmlParser(new XmlValidator())));
+$manager = \Drupal::service(EnvironmentManager::class);
+$environment = $manager->createInstance(BlogArticle::ID);
+\assert($environment instanceof BlogArticle);
+$content = $environment->parse(new BlogArticleMarkdownSource($source));
 
-$markdown_converter = \Drupal::service(MarkdownConverter::class);
-
-$blog_article_process_pipeline = new BlogArticleProcessPipeline();
-// @todo Add BlogArticleParsePipeline
-//   Add AST setter/getter for BlogArticleTranslation
-$blog_article_process_pipeline->addStage(new MarkdownToHtmlConverter($markdown_converter));
-$pipeline->addStage(new BlogArticleProcessPipelineStage($blog_article_process_pipeline));
-
-$context = $pipeline->run($context);
+$json = $environment->normalize($content);
+$ast = $environment->denormalize($json);

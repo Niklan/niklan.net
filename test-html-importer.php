@@ -64,4 +64,3 @@ $array_import_request = new ArrayImportRequest(
 );
 $array_importer = new ArrayImporter();
 $ast = $array_importer->import($array_import_request);
-dump($ast);

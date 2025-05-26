@@ -7,7 +7,7 @@ namespace Drupal\external_content\Field;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\TypedData;
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
-use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager;
+use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 
 /**
  * @see \Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem
@@ -37,8 +37,8 @@ final class ExternalContentComputedProperty extends TypedData {
     return $this->value;
   }
 
-  private static function getEnvironmentPluginManager(): EnvironmentPluginManager {
-    return \Drupal::service(EnvironmentPluginManager::class);
+  private static function getEnvironmentPluginManager(): EnvironmentManager {
+    return \Drupal::service(EnvironmentManager::class);
   }
 
 }

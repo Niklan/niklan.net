@@ -14,6 +14,7 @@ parameters:
     # Custom channels.
     niklan: ['rotating_file.niklan']
     niklan.telegram: ['rotating_file.niklan.telegram']
+    niklan.external_content: ['rotating_file.niklan.external_content']
 
 services:
   monolog.handler.rotating_file.default:
@@ -49,3 +50,6 @@ services:
   monolog.handler.rotating_file.niklan.telegram:
     class: Monolog\Handler\RotatingFileHandler
     arguments: [ '../var/log/telegram.log', 7 ]
+  monolog.handler.rotating_file.niklan.external_content:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: [ '../var/log/external-content.log', 7 ]

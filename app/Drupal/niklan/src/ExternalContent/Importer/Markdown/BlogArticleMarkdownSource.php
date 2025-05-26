@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Importer\Html;
+namespace Drupal\niklan\ExternalContent\Importer\Markdown;
 
 use Drupal\external_content\Contract\Importer\ImporterSource;
 
 /**
  * @implements \Drupal\external_content\Contract\Importer\ImporterSource<string>
  */
-final readonly class HtmlImporterSource implements ImporterSource {
+final readonly class BlogArticleMarkdownSource implements ImporterSource {
 
   public function __construct(
-    private string $rawHtml,
+    private string $markdown,
   ) {}
 
   public function getSourceData(): string {
-    return $this->rawHtml;
+    return $this->markdown;
   }
 
 }

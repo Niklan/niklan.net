@@ -12,7 +12,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
 use Drupal\external_content\DataStructure\Nodes\RootNode;
-use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentPluginManager;
+use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -36,7 +36,7 @@ final class ExternalContentEnvironmentFieldFormatter extends FormatterBase imple
     $label,
     $view_mode,
     array $third_party_settings,
-    private readonly EnvironmentPluginManager $environmentPluginManager,
+    private readonly EnvironmentManager $environmentPluginManager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
@@ -51,7 +51,7 @@ final class ExternalContentEnvironmentFieldFormatter extends FormatterBase imple
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get(EnvironmentPluginManager::class),
+      $container->get(EnvironmentManager::class),
     );
   }
 

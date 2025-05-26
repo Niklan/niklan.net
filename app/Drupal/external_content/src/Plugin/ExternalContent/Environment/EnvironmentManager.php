@@ -10,7 +10,7 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-final class EnvironmentPluginManager extends DefaultPluginManager {
+final class EnvironmentManager extends DefaultPluginManager {
 
   public function __construct(
     #[Autowire(service: 'container.namespaces')]
