@@ -19,7 +19,7 @@ final readonly class DefaultArrayBuilderExtension implements Extension {
     \assert($target instanceof Registry);
     $target->add(new ContentNodeBuilder(), -100);
     $target->add(new ElementNodeBuilder(), -90);
-    $target->add(new LiteralNodeBuilder());
+    $target->add(new LiteralNodeBuilder(), -80);
   }
 
 }

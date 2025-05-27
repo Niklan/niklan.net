@@ -32,14 +32,14 @@ final readonly class HtmlParser {
       return;
     }
 
-    $node_name = $parse_request->currentHtmlNode->nodeName;
-    $content = self::domNodeToString($parse_request->currentHtmlNode);
-
     $parse_request
       ->importRequest
       ->getContext()
       ->getLogger()
-      ->debug("No HTML parser found for node: \"{$node_name}\". Content: \"{$content}\".");
+      ->debug('No HTML parser found for node.', [
+        'node_name' => $parse_request->currentHtmlNode->nodeName,
+        'content' => self::domNodeToString($parse_request->currentHtmlNode),
+      ]);
   }
 
   private static function domNodeToString(\DOMNode $node): string {

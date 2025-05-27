@@ -30,7 +30,9 @@ use Drupal\external_content\Importer\Html\Parser\HtmlParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
+use Drupal\niklan\ExternalContent\Exporter\Array\RemoteVideoBuilder as RemoteVideoArrayElementBuilder;
 use Drupal\niklan\ExternalContent\Importer\Array\RemoteVideoParser as RemoteVideoArrayParser;
+use Drupal\niklan\ExternalContent\Importer\Html\CalloutParser as CalloutHtmlParser;
 use Drupal\niklan\ExternalContent\Importer\Html\RemoteVideoParser as RemoteVideoHtmlParser;
 use Drupal\niklan\ExternalContent\Importer\Markdown\BlogArticleMarkdownSource;
 use League\CommonMark\MarkdownConverter;
@@ -70,6 +72,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $parsers = new Registry();
     (new DefaultHtmlParserExtension())->register($parsers);
     $parsers->add(new RemoteVideoHtmlParser());
+    $parsers->add(new CalloutHtmlParser());
 
     $request = new HtmlImportRequest(
       new HtmlImporterSource($html->getContent()),
@@ -97,6 +100,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
   public function normalize(RootNode $content): string {
     $builders = new Registry();
     (new DefaultArrayBuilderExtension())->register($builders);
+    $builders->add(new RemoteVideoArrayElementBuilder());
 
     $request = new ArrayExportRequest(
       $content,

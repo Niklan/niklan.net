@@ -23,4 +23,8 @@ final readonly class HtmlParseRequest {
     return new self($new_html_node, $this->currentAstNode, $this->importRequest);
   }
 
+  public function withNewNodes(\DOMNode $new_html_node, ContentNode $new_content_node): self {
+    return new self($new_html_node, $new_content_node, $this->importRequest);
+  }
+
 }
