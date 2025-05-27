@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Importer\Markdown;
+namespace Drupal\niklan\ExternalContent\Domain;
 
 use Drupal\external_content\Contract\Importer\ImporterSource;
 

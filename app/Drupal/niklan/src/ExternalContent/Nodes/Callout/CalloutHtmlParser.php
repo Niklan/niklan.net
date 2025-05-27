@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Importer\Html;
+namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 
 use Drupal\external_content\Contract\DataStructure\HtmlNodeParser;
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
 use Drupal\external_content\DataStructure\Nodes\RootNode;
 use Drupal\external_content\Importer\Html\Parser\HtmlParseRequest;
-use Drupal\niklan\ExternalContent\DataStructure\Nodes\CalloutNode;
 use Symfony\Component\DomCrawler\Crawler;
 
-final readonly class CalloutParser implements HtmlNodeParser {
+final readonly class CalloutHtmlParser implements HtmlNodeParser {
 
   public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {

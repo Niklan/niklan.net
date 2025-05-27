@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\DataStructure\Nodes;
+namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
 

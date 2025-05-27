@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Exporter\Array;
+namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
 use Drupal\external_content\Contract\Exporter\ArrayElementBuilder;
 use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Exporter\Array\Builder\ArrayBuildRequest;
-use Drupal\niklan\ExternalContent\DataStructure\Nodes\RemoteVideoNode;
 
-final readonly class RemoteVideoBuilder implements ArrayElementBuilder {
+final readonly class RemoteVideoArrayElementBuilder implements ArrayElementBuilder {
 
   public function supports(ArrayBuildRequest $request): bool {
     return $request->currentAstNode instanceof RemoteVideoNode;

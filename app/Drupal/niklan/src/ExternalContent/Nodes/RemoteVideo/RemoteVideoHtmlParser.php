@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Importer\Html;
+namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
 use Drupal\external_content\Contract\DataStructure\HtmlNodeParser;
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
 use Drupal\external_content\Importer\Html\Parser\HtmlParseRequest;
-use Drupal\niklan\ExternalContent\DataStructure\Nodes\RemoteVideoNode;
 
-final readonly class RemoteVideoParser implements HtmlNodeParser {
+final readonly class RemoteVideoHtmlParser implements HtmlNodeParser {
 
   public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
