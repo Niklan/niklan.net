@@ -12,6 +12,33 @@ final class CalloutNode extends ContentNode {
     public string $type,
   ) {}
 
+  public function addChild(ContentNode $node): void {
+    if (!$node instanceof CalloutTitleNode && !$node instanceof CalloutBodyNode) {
+      throw new \InvalidArgumentException('Only CalloutTitleNode and CalloutBodyNode can be added as children.');
+    }
+    parent::addChild($node);
+  }
+
+  public function getBody(): ?CalloutBodyNode {
+    foreach ($this->children as $child) {
+      if ($child instanceof CalloutBodyNode) {
+        return $child;
+      }
+    }
+
+    return NULL;
+  }
+
+  public function getTitle(): ?CalloutTitleNode {
+    foreach ($this->children as $child) {
+      if ($child instanceof CalloutTitleNode) {
+        return $child;
+      }
+    }
+
+    return NULL;
+  }
+
   public static function getType(): string {
     return 'niklan:callout';
   }

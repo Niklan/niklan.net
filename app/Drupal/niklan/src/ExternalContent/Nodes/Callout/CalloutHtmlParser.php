@@ -6,7 +6,6 @@ namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 
 use Drupal\external_content\Contract\DataStructure\HtmlNodeParser;
 use Drupal\external_content\DataStructure\Nodes\ContentNode;
-use Drupal\external_content\DataStructure\Nodes\RootNode;
 use Drupal\external_content\Importer\Html\Parser\HtmlParseRequest;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -17,52 +16,45 @@ final readonly class CalloutHtmlParser implements HtmlNodeParser {
       return FALSE;
     }
 
-    if (!$request->currentHtmlNode->hasAttribute('data-selector') || $request->currentHtmlNode->getAttribute('data-selector') !== 'niklan:container-directive') {
-      return FALSE;
-    }
-
-    $allowed_types = ['note', 'tip', 'important', 'warning', 'caution'];
-
-    return \in_array($request->currentHtmlNode->getAttribute('data-type'), $allowed_types);
+    return $request->currentHtmlNode->getAttribute('data-selector') === 'niklan:container-directive'
+      && \in_array(
+        $request->currentHtmlNode->getAttribute('data-type'),
+        ['note', 'tip', 'important', 'warning', 'caution'],
+        TRUE,
+      );
   }
 
   public function parse(HtmlParseRequest $request): ContentNode {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $callout = new CalloutNode($request->currentHtmlNode->getAttribute('data-type'));
     $this->parseTitle($request->withNewContentNode($callout));
-    $this->parseContent($request->withNewContentNode($callout));
+    $this->parseBody($request->withNewContentNode($callout));
 
     return $callout;
   }
 
   private function parseTitle(HtmlParseRequest $request): void {
     $crawler = new Crawler($request->currentHtmlNode);
-    $crawler = $crawler->filter('[data-selector="inline-content"]');
-
-    if (!$crawler->count() || !$crawler->getNode(0) instanceof \DOMNode) {
+    $title_node = $crawler->filter('[data-selector="inline-content"]')->getNode(0);
+    if (!$title_node instanceof \DOMNode) {
       return;
     }
 
-    $heading = new RootNode();
-    $sub_request = $request->withNewNodes($crawler->getNode(0), $heading);
-    $sub_request->importRequest->getHtmlParser()->parseChildren($sub_request);
-
-    $callout = $request->currentAstNode;
-    \assert($callout instanceof CalloutNode);
-    foreach ($heading->getChildren() as $child) {
-      $callout->addTitleChild($child);
-    }
+    $title = new CalloutTitleNode();
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewNodes($title_node, $title));
+    $request->currentAstNode->addChild($title);
   }
 
-  private function parseContent(HtmlParseRequest $request): void {
+  private function parseBody(HtmlParseRequest $request): void {
     $crawler = new Crawler($request->currentHtmlNode);
-    $crawler = $crawler->filter('[data-selector="content"]');
-
-    if (!$crawler->count() || !$crawler->getNode(0) instanceof \DOMNode) {
+    $body_node = $crawler->filter('[data-selector="content"]')->getNode(0);
+    if (!$body_node instanceof \DOMNode) {
       return;
     }
 
-    $request->importRequest->getHtmlParser()->parseChildren($request->withNewHtmlNode($crawler->getNode(0)));
+    $body = new CalloutBodyNode();
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewNodes($body_node, $body));
+    $request->currentAstNode->addChild($body);
   }
 
 }

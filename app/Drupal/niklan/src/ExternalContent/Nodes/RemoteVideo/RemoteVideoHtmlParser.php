@@ -15,7 +15,7 @@ final readonly class RemoteVideoHtmlParser implements HtmlNodeParser {
       return FALSE;
     }
 
-    if (!$request->currentHtmlNode->hasAttribute('data-selector') || $request->currentHtmlNode->getAttribute('data-selector') !== 'niklan:leaf-directive') {
+    if ($request->currentHtmlNode->getAttribute('data-selector') !== 'niklan:leaf-directive') {
       return FALSE;
     }
 
