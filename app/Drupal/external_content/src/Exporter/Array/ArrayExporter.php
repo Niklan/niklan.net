@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Exporter\Array;
 
-use Drupal\external_content\Contract\Exporter\ExportRequest;
 use Drupal\external_content\Contract\Exporter\Exporter;
-use Drupal\external_content\Exporter\Array\Builder\ArrayBuildRequest;
+use Drupal\external_content\Contract\Exporter\ExportRequest;
 use Drupal\external_content\DataStructure\ArrayElement;
 
 /**

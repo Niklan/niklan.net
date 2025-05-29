@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
 use Drupal\external_content\Contract\Exporter\ArrayElementBuilder;
 use Drupal\external_content\DataStructure\ArrayElement;
-use Drupal\external_content\Exporter\Array\Builder\ArrayBuildRequest;
+use Drupal\external_content\Exporter\Array\ArrayBuildRequest;
 
 final readonly class RemoteVideoArrayElementBuilder implements ArrayElementBuilder {
 

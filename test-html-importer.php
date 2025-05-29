@@ -1,22 +1,22 @@
 <?php
 
+use Drupal\external_content\Exporter\Array\ArrayBuilder;
 use Drupal\external_content\Exporter\Array\ArrayExporter;
 use Drupal\external_content\Exporter\Array\ArrayExporterContext;
 use Drupal\external_content\Exporter\Array\ArrayExportRequest;
-use Drupal\external_content\Exporter\Array\Builder\ArrayBuilder;
 use Drupal\external_content\Exporter\Array\DefaultArrayBuilderExtension;
 use Drupal\external_content\Importer\Array\ArrayImporter;
 use Drupal\external_content\Importer\Array\ArrayImporterContext;
 use Drupal\external_content\Importer\Array\ArrayImporterSource;
 use Drupal\external_content\Importer\Array\ArrayImportRequest;
+use Drupal\external_content\Importer\Array\ArrayParser;
 use Drupal\external_content\Importer\Array\DefaultArrayParserExtension;
-use Drupal\external_content\Importer\Array\Parser\ArrayParser;
 use Drupal\external_content\Importer\Html\DefaultHtmlParserExtension;
 use Drupal\external_content\Importer\Html\HtmlImporter;
 use Drupal\external_content\Importer\Html\HtmlImporterContext;
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
-use Drupal\external_content\Importer\Html\Parser\HtmlParser;
+use Drupal\external_content\Importer\Html\HtmlParser;
 use Drupal\external_content\Utils\Registry;
 use League\CommonMark\MarkdownConverter;
 

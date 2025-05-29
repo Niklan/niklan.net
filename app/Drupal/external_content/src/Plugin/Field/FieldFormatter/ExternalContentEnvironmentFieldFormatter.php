@@ -11,7 +11,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
-use Drupal\external_content\DataStructure\Nodes\RootNode;
+use Drupal\external_content\Nodes\RootNode;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;

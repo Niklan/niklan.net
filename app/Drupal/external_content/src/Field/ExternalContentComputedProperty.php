@@ -6,7 +6,7 @@ namespace Drupal\external_content\Field;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\TypedData;
-use Drupal\external_content\DataStructure\Nodes\ContentNode;
+use Drupal\external_content\Nodes\ContentNode;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 
 /**

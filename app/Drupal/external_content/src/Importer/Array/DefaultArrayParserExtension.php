@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Drupal\external_content\Importer\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Importer\Array\Parser\CodeArrayParser;
-use Drupal\external_content\Importer\Array\Parser\FormatArrayParser;
-use Drupal\external_content\Importer\Array\Parser\HeadingArrayParser;
-use Drupal\external_content\Importer\Array\Parser\ImageArrayParser;
-use Drupal\external_content\Importer\Array\Parser\LinkArrayParser;
-use Drupal\external_content\Importer\Array\Parser\ListArrayParser;
-use Drupal\external_content\Importer\Array\Parser\ListItemArrayParser;
-use Drupal\external_content\Importer\Array\Parser\ParagraphArrayParser;
-use Drupal\external_content\Importer\Array\Parser\TextArrayParser;
+use Drupal\external_content\Nodes\Code\CodeArrayParser;
+use Drupal\external_content\Nodes\Format\FormatArrayParser;
+use Drupal\external_content\Nodes\Heading\HeadingArrayParser;
+use Drupal\external_content\Nodes\Image\ImageArrayParser;
+use Drupal\external_content\Nodes\Link\LinkArrayParser;
+use Drupal\external_content\Nodes\List\ListArrayParser;
+use Drupal\external_content\Nodes\ListItem\ListItemArrayParser;
+use Drupal\external_content\Nodes\Paragraph\ParagraphArrayParser;
+use Drupal\external_content\Nodes\Text\TextArrayParser;
 use Drupal\external_content\Utils\Registry;
 
 /**

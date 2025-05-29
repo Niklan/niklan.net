@@ -6,8 +6,7 @@ namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Exporter\ExporterContext;
 use Drupal\external_content\Contract\Exporter\ExportRequest;
-use Drupal\external_content\Exporter\Array\Builder\ArrayBuilder;
-use Drupal\external_content\DataStructure\Nodes\RootNode;
+use Drupal\external_content\Nodes\RootNode;
 
 /**
  * @implements \Drupal\external_content\Contract\Exporter\ExportRequest<\Drupal\external_content\Exporter\Array\ArrayExporterContext>

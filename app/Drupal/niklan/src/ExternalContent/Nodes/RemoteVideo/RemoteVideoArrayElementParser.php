@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
 use Drupal\external_content\Contract\DataStructure\ArrayElementParser;
-use Drupal\external_content\DataStructure\Nodes\ContentNode;
-use Drupal\external_content\Importer\Array\Parser\ArrayParseRequest;
+use Drupal\external_content\Importer\Array\ArrayParseRequest;
+use Drupal\external_content\Nodes\ContentNode;
 
 final readonly class RemoteVideoArrayElementParser implements ArrayElementParser {
 

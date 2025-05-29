@@ -7,8 +7,7 @@ namespace Drupal\external_content\Importer\Array;
 use Drupal\external_content\Contract\Importer\Importer;
 use Drupal\external_content\Contract\Importer\ImportRequest;
 use Drupal\external_content\DataStructure\ArrayElement;
-use Drupal\external_content\DataStructure\Nodes\RootNode;
-use Drupal\external_content\Importer\Array\Parser\ArrayParseRequest;
+use Drupal\external_content\Nodes\RootNode;
 
 /**
  * @implements \Drupal\external_content\Contract\Importer\Importer<\Drupal\external_content\Importer\Array\ArrayImportRequest>

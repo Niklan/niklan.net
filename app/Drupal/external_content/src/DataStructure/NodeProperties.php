@@ -39,7 +39,6 @@ final class NodeProperties {
     if (!$this->hasProperty($property)) {
       throw new \OutOfBoundsException("Property '{$property}' not found.");
     }
-
     return $this->properties[$property];
   }
 
@@ -47,7 +46,6 @@ final class NodeProperties {
     if ($property === '' || $value === '') {
       throw new \InvalidArgumentException("Property key and value shouldn't be an empty string");
     }
-
     $this->properties[$property] = $value;
   }
 

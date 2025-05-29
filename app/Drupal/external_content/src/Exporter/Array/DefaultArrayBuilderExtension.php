@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Exporter\Array\Builder\ContentNodeBuilder;
-use Drupal\external_content\Exporter\Array\Builder\ElementNodeBuilder;
-use Drupal\external_content\Exporter\Array\Builder\LiteralNodeBuilder;
+use Drupal\external_content\Nodes\ContentNodeBuilder;
+use Drupal\external_content\Nodes\ElementNodeBuilder;
+use Drupal\external_content\Nodes\LiteralNodeBuilder;
 use Drupal\external_content\Utils\Registry;
 
 /**

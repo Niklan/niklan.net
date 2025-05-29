@@ -7,7 +7,6 @@ namespace Drupal\external_content\Importer\Array;
 use Drupal\external_content\Contract\Importer\ImporterContext;
 use Drupal\external_content\Contract\Importer\ImporterSource;
 use Drupal\external_content\Contract\Importer\ImportRequest;
-use Drupal\external_content\Importer\Array\Parser\ArrayParser;
 
 /**
  * @implements \Drupal\external_content\Contract\Importer\ImportRequest<\Drupal\external_content\Importer\Array\ArrayImporterSource, \Drupal\external_content\Importer\Array\ArrayImporterContext>

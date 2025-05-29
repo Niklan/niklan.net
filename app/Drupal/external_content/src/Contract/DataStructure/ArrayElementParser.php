@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Contract\DataStructure;
 
-use Drupal\external_content\Importer\Array\Parser\ArrayParseRequest;
-use Drupal\external_content\DataStructure\Nodes\ContentNode;
+use Drupal\external_content\Importer\Array\ArrayParseRequest;
+use Drupal\external_content\Nodes\ContentNode;
 
 interface ArrayElementParser {
 

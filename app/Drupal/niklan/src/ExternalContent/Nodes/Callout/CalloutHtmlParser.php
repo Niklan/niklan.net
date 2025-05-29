@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 
 use Drupal\external_content\Contract\DataStructure\HtmlNodeParser;
-use Drupal\external_content\DataStructure\Nodes\ContentNode;
-use Drupal\external_content\Importer\Html\Parser\HtmlParseRequest;
+use Drupal\external_content\Importer\Html\HtmlParseRequest;
+use Drupal\external_content\Nodes\ContentNode;
 use Symfony\Component\DomCrawler\Crawler;
 
 final readonly class CalloutHtmlParser implements HtmlNodeParser {
