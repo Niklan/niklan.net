@@ -6,8 +6,6 @@ namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Nodes\ContentNodeBuilder;
-use Drupal\external_content\Nodes\ElementNodeBuilder;
-use Drupal\external_content\Nodes\LiteralNodeBuilder;
 use Drupal\external_content\Utils\Registry;
 
 /**
@@ -18,8 +16,6 @@ final readonly class DefaultArrayBuilderExtension implements Extension {
   public function register(object $target): void {
     \assert($target instanceof Registry);
     $target->add(new ContentNodeBuilder(), -100);
-    $target->add(new ElementNodeBuilder(), -90);
-    $target->add(new LiteralNodeBuilder(), -80);
   }
 
 }

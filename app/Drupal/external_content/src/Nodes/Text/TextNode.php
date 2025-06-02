@@ -11,6 +11,7 @@ final class TextNode extends ContentNode {
   public function __construct(
     string $text,
   ) {
+    parent::__construct();
     $this->setText($text);
   }
 

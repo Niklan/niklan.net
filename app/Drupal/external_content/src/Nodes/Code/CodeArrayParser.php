@@ -15,7 +15,7 @@ final readonly class CodeArrayParser implements ArrayElementParser {
   }
 
   public function parse(ArrayParseRequest $request): ContentNode {
-    return new CodeNode($request->currentArrayElement->properties['literal']);
+    return new CodeNode($request->currentArrayElement->properties['code']);
   }
 
 }

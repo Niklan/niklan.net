@@ -10,7 +10,9 @@ final class RemoteVideoNode extends ContentNode {
 
   public function __construct(
     public string $videoUrl,
-  ) {}
+  ) {
+    parent::__construct();
+  }
 
   public static function getType(): string {
     return 'niklan:remote_video';

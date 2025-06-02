@@ -15,7 +15,7 @@ final readonly class TextArrayParser implements ArrayElementParser {
   }
 
   public function parse(ArrayParseRequest $request): ContentNode {
-    return new TextNode($request->currentArrayElement->properties['literal']);
+    return new TextNode($request->currentArrayElement->properties['text']);
   }
 
 }

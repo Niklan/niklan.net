@@ -10,7 +10,9 @@ final class CalloutNode extends ContentNode {
 
   public function __construct(
     public string $type,
-  ) {}
+  ) {
+    parent::__construct();
+  }
 
   public function addChild(ContentNode $node): void {
     if (!$node instanceof CalloutTitleNode && !$node instanceof CalloutBodyNode) {
