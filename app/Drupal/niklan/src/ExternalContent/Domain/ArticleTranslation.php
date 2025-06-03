@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Domain;
 
-final class BlogArticleTranslation {
+final class ArticleTranslation {
 
   /**
    * @var array{}|list<array{src: string, title: string}>

@@ -30,7 +30,7 @@ use Drupal\external_content\Nodes\RootNode;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
-use Drupal\niklan\ExternalContent\Domain\BlogArticleMarkdownSource;
+use Drupal\niklan\ExternalContent\Domain\MarkdownSource;
 use Drupal\niklan\ExternalContent\Nodes\Callout\CalloutHtmlParser;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoArrayElementBuilder;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoArrayElementParser as RemoteVideoArrayParser;
@@ -66,7 +66,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
   }
 
   public function parse(ImporterSource $source): RootNode {
-    \assert($source instanceof BlogArticleMarkdownSource);
+    \assert($source instanceof MarkdownSource);
     $html = $this->markdownConverter->convert($source->getSourceData());
 
     $parsers = new Registry();

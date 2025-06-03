@@ -5,23 +5,22 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
-use Drupal\external_content\Contract\Pipeline\PipelineConfig;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\niklan\ExternalContent\Domain\BlogSyncPipelineContext;
+use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
 use Symfony\Component\Finder\Finder;
 
-final readonly class BlogArticleFinderPipelineStage implements PipelineStage {
+final readonly class ArticleFinder implements PipelineStage {
 
   public function __construct(
     private ArticleXmlParser $articleParser,
   ) {}
 
   /**
-   * @param \Drupal\niklan\ExternalContent\Domain\BlogSyncPipelineContext $context
+   * @param \Drupal\niklan\ExternalContent\Domain\SyncContext $context
    */
-  public function process(PipelineContext $context, PipelineConfig $config): void {
-    \assert($context instanceof BlogSyncPipelineContext);
+  public function process(PipelineContext $context): void {
+    \assert($context instanceof SyncContext);
 
     $context->getLogger()->info(\sprintf('Looking for blog articles in %s', $context->workingDirectory));
     $finder = new Finder();

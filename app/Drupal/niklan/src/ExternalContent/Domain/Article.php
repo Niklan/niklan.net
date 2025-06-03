@@ -7,12 +7,12 @@ namespace Drupal\niklan\ExternalContent\Domain;
 use Drupal\niklan\ExternalContent\Exception\PrimaryTranslationNotFoundException;
 
 /**
- * @implements \IteratorAggregate<int, \Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation>
+ * @implements \IteratorAggregate<int, \Drupal\niklan\ExternalContent\Domain\ArticleTranslation>
  */
-final class BlogArticle implements \IteratorAggregate, \Countable {
+final class Article implements \IteratorAggregate, \Countable {
 
   /**
-   * @var list<\Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation>
+   * @var list<\Drupal\niklan\ExternalContent\Domain\ArticleTranslation>
    */
   private array $translations = [];
 
@@ -29,7 +29,7 @@ final class BlogArticle implements \IteratorAggregate, \Countable {
     public array $tags,
   ) {}
 
-  public function addTranslation(BlogArticleTranslation $translation): void {
+  public function addTranslation(ArticleTranslation $translation): void {
     if ($translation->isPrimary && $this->hasPrimaryTranslation()) {
       throw new \InvalidArgumentException('Only one primary translation allowed');
     }
@@ -37,7 +37,7 @@ final class BlogArticle implements \IteratorAggregate, \Countable {
   }
 
   /**
-   * @return \ArrayIterator<int, \Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation>
+   * @return \ArrayIterator<int, \Drupal\niklan\ExternalContent\Domain\ArticleTranslation>
    */
   public function getIterator(): \ArrayIterator {
     return new \ArrayIterator($this->translations);
@@ -59,7 +59,7 @@ final class BlogArticle implements \IteratorAggregate, \Countable {
     return FALSE;
   }
 
-  public function getPrimaryTranslation(): BlogArticleTranslation {
+  public function getPrimaryTranslation(): ArticleTranslation {
     foreach ($this->translations as $translation) {
       if ($translation->isPrimary) {
         return $translation;
@@ -70,7 +70,7 @@ final class BlogArticle implements \IteratorAggregate, \Countable {
   }
 
   /**
-   * @return array{}|list<\Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation>
+   * @return array{}|list<\Drupal\niklan\ExternalContent\Domain\ArticleTranslation>
    */
   public function getTranslations(): array {
     return $this->translations;

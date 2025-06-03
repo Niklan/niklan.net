@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Parser;
 
-use Drupal\niklan\ExternalContent\Domain\BlogArticle;
-use Drupal\niklan\ExternalContent\Domain\BlogArticleTranslation;
+use Drupal\niklan\ExternalContent\Domain\Article;
+use Drupal\niklan\ExternalContent\Domain\ArticleTranslation;
 use Drupal\niklan\ExternalContent\Exception\ArticleParseException;
 use Drupal\niklan\ExternalContent\Exception\XmlLoadException;
 use Drupal\niklan\ExternalContent\Exception\XmlValidationException;
@@ -20,7 +20,7 @@ final readonly class ArticleXmlParser {
   /**
    * @throws \Drupal\niklan\ExternalContent\Exception\ArticleParseException
    */
-  public function parse(string $file_path): BlogArticle {
+  public function parse(string $file_path): Article {
     try {
       $this->xmlValidator->validate($file_path);
     }
@@ -34,7 +34,7 @@ final readonly class ArticleXmlParser {
 
     $article_node = $this->getArticleNode($xpath);
     $tags = $this->parseTags($xpath);
-    $article = new BlogArticle(
+    $article = new Article(
       id: $article_node->getAttribute('id'),
       created: $article_node->getAttribute('created'),
       updated: $article_node->getAttribute('updated'),
@@ -83,14 +83,14 @@ final readonly class ArticleXmlParser {
     return $translations;
   }
 
-  private function createTranslationFromNode(\DOMXPath $xpath, \DOMElement $translation_node): BlogArticleTranslation {
+  private function createTranslationFromNode(\DOMXPath $xpath, \DOMElement $translation_node): ArticleTranslation {
     $is_primary = $this->getAttributeAsBoolean($translation_node, 'primary');
 
     $title = $this->getTextContent($xpath, $translation_node, 'title');
     $description = $this->getTextContent($xpath, $translation_node, 'description');
     $poster_path = $this->getAttributeFromElement($xpath, $translation_node, 'poster', 'src');
 
-    return new BlogArticleTranslation(
+    return new ArticleTranslation(
       sourcePath: $translation_node->getAttribute('src'),
       language: $translation_node->getAttribute('language'),
       title: $this->cleanText($title),

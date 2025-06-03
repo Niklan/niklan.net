@@ -9,10 +9,10 @@ use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-final class BlogSyncPipelineContext implements PipelineContext {
+final class SyncContext implements PipelineContext {
 
   /**
-   * @var array{}|list<\Drupal\niklan\ExternalContent\Domain\BlogArticle>
+   * @var array{}|list<\Drupal\niklan\ExternalContent\Domain\Article>
    */
   private array $articles = [];
 
@@ -25,12 +25,12 @@ final class BlogSyncPipelineContext implements PipelineContext {
     return $this->logger;
   }
 
-  public function addArticle(BlogArticle $article): void {
+  public function addArticle(Article $article): void {
     $this->articles[] = $article;
   }
 
   /**
-   * @return array{}|list<\Drupal\niklan\ExternalContent\Domain\BlogArticle>
+   * @return array{}|list<\Drupal\niklan\ExternalContent\Domain\Article>
    */
   public function getArticles(): array {
     return $this->articles;

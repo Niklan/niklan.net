@@ -9,7 +9,7 @@ use Drupal\external_content\Contract\Importer\ImporterSource;
 /**
  * @implements \Drupal\external_content\Contract\Importer\ImporterSource<string>
  */
-final readonly class BlogArticleMarkdownSource implements ImporterSource {
+final readonly class MarkdownSource implements ImporterSource {
 
   public function __construct(
     private string $markdown,
