@@ -31,17 +31,14 @@ final readonly class ArticleProcessPipeline implements Pipeline {
   }
 
   /**
-   * @param \Drupal\niklan\ExternalContent\Domain\SyncContext $context
+   * @param ArticleProcessContext $context
    */
   public function run(PipelineContext $context): void {
-    if (!$context instanceof SyncContext) {
+    if (!$context instanceof ArticleProcessContext) {
       throw new \InvalidArgumentException('Invalid context');
     }
 
-    foreach ($context->getArticles() as $article) {
-      $article_process_context = new ArticleProcessContext($article, $context);
-      $this->pipeline->run($article_process_context);
-    }
+    $this->pipeline->run($context);
   }
 
 }

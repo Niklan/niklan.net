@@ -21,12 +21,14 @@ final class Article implements \IteratorAggregate, \Countable {
    * @param string $created
    * @param string $updated
    * @param array{}|list<string> $tags
+   * @param string $articleDirectory
    */
   public function __construct(
     public string $id,
     public string $created,
     public string $updated,
     public array $tags,
+    public string $articleDirectory,
   ) {}
 
   public function addTranslation(ArticleTranslation $translation): void {

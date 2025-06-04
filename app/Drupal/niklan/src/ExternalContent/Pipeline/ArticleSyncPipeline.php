@@ -11,6 +11,7 @@ use Drupal\external_content\Pipeline\SequentialPipeline;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
 use Drupal\niklan\ExternalContent\Stages\ArticleFinder;
+use Drupal\niklan\ExternalContent\Stages\ArticleProcessor;
 use Drupal\niklan\ExternalContent\Validation\XmlValidator;
 
 final readonly class ArticleSyncPipeline implements Pipeline {
@@ -23,7 +24,7 @@ final readonly class ArticleSyncPipeline implements Pipeline {
 
     $this->pipeline = new SequentialPipeline();
     $this->pipeline->addStage(new ArticleFinder($article_xml_parser));
-    $this->pipeline->addStage(new ArticleProcessPipeline());
+    $this->pipeline->addStage(new ArticleProcessor());
   }
 
   public function addStage(PipelineStage $stage, int $priority = 0): void {
