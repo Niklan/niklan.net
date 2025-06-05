@@ -7,7 +7,7 @@ namespace Drupal\niklan\ExternalContent\Stages;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\niklan\ExternalContent\Domain\ArticleProcessContext;
+use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline;
 
@@ -25,9 +25,18 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
 
     foreach ($context->getArticles() as $article) {
-      // @todo Find/create node and pass translation for process as well.
-      $article_process_context = new ArticleProcessContext($article, $context);
+      // @todo Find/create node.
+      // @todo Process primary translation.
+      foreach ($article->getTranslations() as $translation) {
+        if ($translation->isPrimary) {
+          continue;
+        }
+        // @todo Process other translations.
+      }
+      $article_process_context = new ArticleTranslationProcessContext($article, $context);
       $this->pipeline->run($article_process_context);
+      // @todo upadteArticleMetadata.
+      // @todo Save node.
     }
   }
 

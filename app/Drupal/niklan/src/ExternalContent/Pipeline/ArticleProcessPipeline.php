@@ -8,8 +8,9 @@ use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Pipeline\SequentialPipeline;
-use Drupal\niklan\ExternalContent\Domain\ArticleProcessContext;
-use Drupal\niklan\ExternalContent\Domain\SyncContext;
+use Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater;
+use Drupal\niklan\ExternalContent\Stages\AssetSynchronizer;
+use Drupal\niklan\ExternalContent\Stages\HtmlToAstParser;
 use Drupal\niklan\ExternalContent\Stages\MarkdownToHtmlConverter;
 use League\CommonMark\MarkdownConverter;
 
@@ -22,8 +23,9 @@ final readonly class ArticleProcessPipeline implements Pipeline {
     // @todo Use DI.
     $markdown_converter = \Drupal::service(MarkdownConverter::class);
     $this->pipeline->addStage(new MarkdownToHtmlConverter($markdown_converter));
-    // @todo Parse.
-    //   $this->pipeline->addStage(new ArticleProcessor());
+    $this->pipeline->addStage(new HtmlToAstParser());
+    $this->pipeline->addStage(new AssetSynchronizer());
+    $this->pipeline->addStage(new ArticleTranslationFieldUpdater());
   }
 
   public function addStage(PipelineStage $stage, int $priority = 0): void {
@@ -31,13 +33,9 @@ final readonly class ArticleProcessPipeline implements Pipeline {
   }
 
   /**
-   * @param ArticleProcessContext $context
+   * @param \Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext $context
    */
   public function run(PipelineContext $context): void {
-    if (!$context instanceof ArticleProcessContext) {
-      throw new \InvalidArgumentException('Invalid context');
-    }
-
     $this->pipeline->run($context);
   }
 

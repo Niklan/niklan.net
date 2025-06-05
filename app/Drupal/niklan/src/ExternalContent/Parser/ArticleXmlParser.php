@@ -39,7 +39,7 @@ final readonly class ArticleXmlParser {
       created: $article_node->getAttribute('created'),
       updated: $article_node->getAttribute('updated'),
       tags: $tags,
-      articleDirectory: dirname($file_path),
+      directory: \dirname($file_path),
     );
 
     foreach ($this->parseTranslations($xpath) as $translation) {

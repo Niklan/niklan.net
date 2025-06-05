@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\niklan\ExternalContent\Domain\ArticleProcessContext;
+use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\Utils\PathHelper;
 use League\CommonMark\MarkdownConverter;
 
@@ -18,8 +18,8 @@ final readonly class MarkdownToHtmlConverter implements PipelineStage {
 
   #[\Override]
   public function process(PipelineContext $context): void {
-    \assert($context instanceof ArticleProcessContext);
-    dump(PathHelper::normalizePath($context->article->articleDirectory . '/'. $context->article->getPrimaryTranslation()->sourcePath));
+    \assert($context instanceof ArticleTranslationProcessContext);
+    \dump(PathHelper::normalizePath($context->article->directory . '/' . $context->article->getPrimaryTranslation()->sourcePath));
   }
 
 }

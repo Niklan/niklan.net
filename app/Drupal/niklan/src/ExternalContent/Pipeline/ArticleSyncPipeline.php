@@ -8,7 +8,6 @@ use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Pipeline\SequentialPipeline;
-use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
 use Drupal\niklan\ExternalContent\Stages\ArticleFinder;
 use Drupal\niklan\ExternalContent\Stages\ArticleProcessor;
@@ -35,10 +34,6 @@ final readonly class ArticleSyncPipeline implements Pipeline {
    * @param \Drupal\niklan\ExternalContent\Domain\SyncContext $context
    */
   public function run(PipelineContext $context): void {
-    if (!$context instanceof SyncContext) {
-      throw new \InvalidArgumentException('Invalid context');
-    }
-
     $this->pipeline->run($context);
   }
 
