@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Nodes\Code\CodeHtmlParser;
 use Drupal\external_content\Nodes\Format\FormatHtmlParser;
 use Drupal\external_content\Nodes\Heading\HeadingHtmlParser;
+use Drupal\external_content\Nodes\HtmlElement\HtmlElementHtmlParser;
 use Drupal\external_content\Nodes\Image\ImageHtmlParser;
 use Drupal\external_content\Nodes\Link\LinkHtmlParser;
 use Drupal\external_content\Nodes\List\ListHtmlParser;
@@ -34,6 +35,8 @@ final readonly class DefaultHtmlParserExtension implements Extension {
     $target->add(new ListItemHtmlParser());
     $target->add(new CodeHtmlParser());
     $target->add(new ThematicBreakHtmlParser());
+    // As a fallback for any other HTML element which is not parsed directly.
+    $target->add(new HtmlElementHtmlParser(), -100);
   }
 
 }

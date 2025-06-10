@@ -10,4 +10,4 @@ use Drupal\niklan\ExternalContent\Validation\XmlValidator;
 use Drupal\niklan\Plugin\ExternalContent\Environment\BlogArticle;
 
 $pipeline = new ArticleSyncPipeline();
-$pipeline->run(new SyncContext('private://content'));
+$pipeline->run(new SyncContext('private://content', \Drupal::logger('niklan.external_content')));

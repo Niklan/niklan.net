@@ -10,9 +10,7 @@ use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Pipeline\SequentialPipeline;
 use Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater;
 use Drupal\niklan\ExternalContent\Stages\AssetSynchronizer;
-use Drupal\niklan\ExternalContent\Stages\HtmlToAstParser;
-use Drupal\niklan\ExternalContent\Stages\MarkdownToHtmlConverter;
-use League\CommonMark\MarkdownConverter;
+use Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser;
 
 final readonly class ArticleProcessPipeline implements Pipeline {
 
@@ -20,10 +18,7 @@ final readonly class ArticleProcessPipeline implements Pipeline {
 
   public function __construct() {
     $this->pipeline = new SequentialPipeline();
-    // @todo Use DI.
-    $markdown_converter = \Drupal::service(MarkdownConverter::class);
-    $this->pipeline->addStage(new MarkdownToHtmlConverter($markdown_converter));
-    $this->pipeline->addStage(new HtmlToAstParser());
+    $this->pipeline->addStage(new MarkdownToAstParser());
     $this->pipeline->addStage(new AssetSynchronizer());
     $this->pipeline->addStage(new ArticleTranslationFieldUpdater());
   }

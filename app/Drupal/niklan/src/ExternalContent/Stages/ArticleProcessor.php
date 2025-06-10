@@ -10,6 +10,7 @@ use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline;
+use Drupal\niklan\Node\Entity\BlogEntryInterface;
 
 final readonly class ArticleProcessor implements PipelineStage {
 
@@ -25,19 +26,28 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
 
     foreach ($context->getArticles() as $article) {
-      // @todo Find/create node.
-      // @todo Process primary translation.
+      $context->getLogger()->info('Processing article', ['article' => $article]);
+      $article_entity = $this->findOrCreateArticleEntity();
+      $translation = $article->getPrimaryTranslation();
+      $context->getLogger()->info('Processing translation', ['translation' => $translation]);
+      $article_process_context = new ArticleTranslationProcessContext($article, $translation, $article_entity, $context);
+      $this->pipeline->run($article_process_context);
       foreach ($article->getTranslations() as $translation) {
         if ($translation->isPrimary) {
           continue;
         }
-        // @todo Process other translations.
+        $context->getLogger()->info('Processing translation', ['translation' => $translation]);
+        $article_process_context = new ArticleTranslationProcessContext($article, $translation, $article_entity, $context);
+        $this->pipeline->run($article_process_context);
       }
-      $article_process_context = new ArticleTranslationProcessContext($article, $context);
-      $this->pipeline->run($article_process_context);
       // @todo upadteArticleMetadata.
       // @todo Save node.
     }
+  }
+
+  private function findOrCreateArticleEntity(): BlogEntryInterface {
+    // @todo Complete it.
+    return \Drupal::entityTypeManager()->getStorage('node')->create(['type' => 'blog_entry']);
   }
 
 }
