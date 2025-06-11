@@ -2,20 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
+namespace Drupal\niklan\ExternalContent\Nodes\ContainerDirective;
 
 use Drupal\external_content\Contract\DataStructure\ArrayElementParser;
 use Drupal\external_content\Importer\Array\ArrayParseRequest;
 use Drupal\external_content\Nodes\ContentNode;
 
-final readonly class RemoteVideoArrayElementParser implements ArrayElementParser {
+final class ContainerDirectiveArrayParser implements ArrayElementParser {
 
   public function supports(ArrayParseRequest $request): bool {
-    return $request->currentArrayElement->type === VideoNode::getType();
+    return $request->currentArrayElement->type === ContainerDirectiveNode::getType();
   }
 
   public function parse(ArrayParseRequest $request): ContentNode {
-    return new VideoNode($request->currentArrayElement->properties['url']);
+    return new ContainerDirectiveNode(
+      $request->currentArrayElement->properties['directiveType'],
+    );
   }
 
 }

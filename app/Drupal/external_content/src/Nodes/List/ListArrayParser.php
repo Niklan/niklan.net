@@ -18,7 +18,6 @@ final readonly class ListArrayParser implements ArrayElementParser {
   public function parse(ArrayParseRequest $request): ContentNode {
     $node = new ListNode(ListType::from($request->currentArrayElement->properties['type']));
     $request->importRequest->getArrayParser()->parseChildren($request->withNewContentNode($node));
-
     return $node;
   }
 

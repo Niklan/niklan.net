@@ -22,7 +22,6 @@ final class HtmlElementHtmlParser implements HtmlNodeParser {
         $element->getProperties()->setProperty($attribute->name, $attribute->value);
       }
     }
-    \dump($element);
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($element));
     return $element;
   }

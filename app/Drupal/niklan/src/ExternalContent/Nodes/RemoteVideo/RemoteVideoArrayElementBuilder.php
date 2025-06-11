@@ -11,11 +11,11 @@ use Drupal\external_content\Exporter\Array\ArrayBuildRequest;
 final readonly class RemoteVideoArrayElementBuilder implements ArrayElementBuilder {
 
   public function supports(ArrayBuildRequest $request): bool {
-    return $request->currentAstNode instanceof RemoteVideoNode;
+    return $request->currentAstNode instanceof VideoNode;
   }
 
   public function build(ArrayBuildRequest $request): ArrayElement {
-    \assert($request->currentAstNode instanceof RemoteVideoNode);
+    \assert($request->currentAstNode instanceof VideoNode);
 
     return new ArrayElement($request->currentAstNode::getType(), ['url' => $request->currentAstNode->videoUrl]);
   }
