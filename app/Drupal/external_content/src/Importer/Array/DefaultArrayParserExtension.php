@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Nodes\Code\CodeArrayParser;
 use Drupal\external_content\Nodes\Format\FormatArrayParser;
 use Drupal\external_content\Nodes\Heading\HeadingArrayParser;
+use Drupal\external_content\Nodes\HtmlElement\HtmlElementArrayParser;
 use Drupal\external_content\Nodes\Image\ImageArrayParser;
 use Drupal\external_content\Nodes\Link\LinkArrayParser;
 use Drupal\external_content\Nodes\List\ListArrayParser;
@@ -32,6 +33,7 @@ final readonly class DefaultArrayParserExtension implements Extension {
     $target->add(new TextArrayParser());
     $target->add(new CodeArrayParser());
     $target->add(new ImageArrayParser());
+    $target->add(new HtmlElementArrayParser());
   }
 
 }

@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
+namespace Drupal\external_content\Nodes\HtmlElement;
 
 use Drupal\external_content\Contract\DataStructure\ArrayElementParser;
 use Drupal\external_content\Importer\Array\ArrayParseRequest;
 use Drupal\external_content\Nodes\ContentNode;
 
-final readonly class RemoteVideoArrayElementParser implements ArrayElementParser {
+final readonly class HtmlElementArrayParser implements ArrayElementParser {
 
   public function supports(ArrayParseRequest $request): bool {
-    return $request->currentArrayElement->type === RemoteVideoNode::getType();
+    return $request->currentArrayElement->type === HtmlElementNode::getType();
   }
 
   public function parse(ArrayParseRequest $request): ContentNode {
-    return new RemoteVideoNode($request->currentArrayElement->properties['url']);
+    return new HtmlElementNode($request->currentArrayElement->properties['tag']);
   }
 
 }

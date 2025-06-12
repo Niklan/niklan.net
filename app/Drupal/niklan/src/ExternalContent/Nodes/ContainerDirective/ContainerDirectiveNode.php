@@ -11,10 +11,17 @@ use Drupal\external_content\Nodes\ContentNode;
  */
 final class ContainerDirectiveNode extends ContentNode {
 
-  public function __construct(
-    public readonly string $directiveType,
-  ) {
+  public function __construct(string $directiveType) {
     parent::__construct();
+    $this->setDirectiveType($directiveType);
+  }
+
+  public function setDirectiveType(string $directiveType): void {
+    $this->getProperties()->setProperty('directiveType', $directiveType);
+  }
+
+  public function getDirectiveType(): string {
+    return $this->getProperties()->getProperty('directiveType');
   }
 
   public static function getType(): string {

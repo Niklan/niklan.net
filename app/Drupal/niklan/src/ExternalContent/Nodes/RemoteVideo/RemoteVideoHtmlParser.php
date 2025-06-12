@@ -30,7 +30,7 @@ final readonly class RemoteVideoHtmlParser implements HtmlNodeParser {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $video_id = $request->currentHtmlNode->getAttribute('data-vid');
 
-    return new VideoNode("https://youtu.be/{$video_id}");
+    return new RemoteVideoNode("https://youtu.be/{$video_id}");
   }
 
 }

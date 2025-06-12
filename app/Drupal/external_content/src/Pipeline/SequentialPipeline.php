@@ -35,30 +35,27 @@ final class SequentialPipeline implements Pipeline {
         $stage->process($context);
       }
       catch (PipelineException $exception) {
-        $this->handleCheckedException($context, $exception, $stage);
+        $this->handleException($context, $exception, $stage, LogLevel::ERROR);
       }
       catch (\Throwable $exception) {
-        $this->handleUncheckedException($context, $exception, $stage);
+        $this->handleException($context, $exception, $stage, LogLevel::CRITICAL);
       }
     }
   }
 
-  private function handleCheckedException(PipelineContext $context, PipelineException $exception, PipelineStage $stage): void {
-    $this->logException($context, $exception, $stage, LogLevel::ERROR);
+  private function handleException(PipelineContext $context, \Throwable $exception, PipelineStage $stage, string $log_level): void {
+    $this->logException($context, $exception, $stage, $log_level);
     if ($context->isStrictMode()) {
       throw $exception;
     }
   }
 
-  private function handleUncheckedException(PipelineContext $context, \Throwable $exception, PipelineStage $stage): void {
-    $this->logException($context, $exception, $stage, LogLevel::CRITICAL);
-  }
-
   private function logException(PipelineContext $context, \Throwable $exception, PipelineStage $stage, string $log_level): void {
-    $context->getLogger()->log($log_level, 'Stage {stage} failed: {message}', [
+    $context->getLogger()->log($log_level, 'Stage processing failed', [
       'stage' => $stage::class,
       'message' => $exception->getMessage(),
       'exception' => $exception,
+      'trace' => $exception->getTraceAsString(),
     ]);
   }
 

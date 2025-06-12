@@ -26,17 +26,34 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
 
     foreach ($context->getArticles() as $article) {
-      $context->getLogger()->info('Processing article', ['article' => $article]);
+      $context->getLogger()->info('Processing article', [
+        'article_id' => $article->id,
+        'directory' => $article->directory,
+      ]);
+
       $article_entity = $this->findOrCreateArticleEntity();
       $translation = $article->getPrimaryTranslation();
-      $context->getLogger()->info('Processing translation', ['translation' => $translation]);
+
+      $context->getLogger()->info('Processing article translation', [
+        'article_id' => $article->id,
+        'language' => $translation->language,
+        'source_file' => $translation->sourcePath,
+      ]);
+
       $article_process_context = new ArticleTranslationProcessContext($article, $translation, $article_entity, $context);
       $this->pipeline->run($article_process_context);
+
       foreach ($article->getTranslations() as $translation) {
         if ($translation->isPrimary) {
           continue;
         }
-        $context->getLogger()->info('Processing translation', ['translation' => $translation]);
+
+        $context->getLogger()->info('Processing article translation', [
+          'article_id' => $article->id,
+          'language' => $translation->language,
+          'source_file' => $translation->sourcePath,
+        ]);
+
         $article_process_context = new ArticleTranslationProcessContext($article, $translation, $article_entity, $context);
         $this->pipeline->run($article_process_context);
       }

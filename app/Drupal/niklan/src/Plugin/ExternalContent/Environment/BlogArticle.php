@@ -31,14 +31,8 @@ use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Domain\MarkdownSource;
-use Drupal\niklan\ExternalContent\Nodes\Callout\CalloutHtmlParser;
-use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\ContainerDirectiveArrayBuilder;
-use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\ContainerDirectiveArrayParser;
-use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\ContainerDirectiveHtmlParser;
-use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoArrayElementBuilder;
-use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoArrayElementParser as RemoteVideoArrayParser;
-use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoHtmlParser;
-use Drupal\niklan\ExternalContent\Nodes\Video\VideoHtmlParser;
+use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension;
+use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension;
 use League\CommonMark\MarkdownConverter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -75,10 +69,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
 
     $parsers = new Registry();
     (new DefaultHtmlParserExtension())->register($parsers);
-    $parsers->add(new RemoteVideoHtmlParser());
-    $parsers->add(new VideoHtmlParser());
-    $parsers->add(new CalloutHtmlParser());
-    $parsers->add(new ContainerDirectiveHtmlParser(), -10);
+    (new HtmlParserExtension())->register($parsers);
 
     $request = new HtmlImportRequest(
       new HtmlImporterSource($html->getContent()),
@@ -92,10 +83,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
   public function denormalize(string $json): RootNode {
     $parsers = new Registry();
     (new DefaultArrayParserExtension())->register($parsers);
-    $parsers->add(new RemoteVideoArrayParser());
-    // @todo Video
-    // @todo Callout
-    $parsers->add(new ContainerDirectiveArrayParser());
+    (new ArrayParserExtension())->register($parsers);
 
     $request = new ArrayImportRequest(
       new ArrayImporterSource(\json_decode($json, TRUE)),
@@ -109,10 +97,6 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
   public function normalize(RootNode $content): string {
     $builders = new Registry();
     (new DefaultArrayBuilderExtension())->register($builders);
-    $builders->add(new RemoteVideoArrayElementBuilder());
-    // @todo Video
-    // @todo Callout
-    $builders->add(new ContainerDirectiveArrayBuilder());
 
     $request = new ArrayExportRequest(
       $content,

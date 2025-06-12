@@ -25,7 +25,12 @@ final readonly class MarkdownToAstParser implements PipelineStage {
 
     \assert($context instanceof ArticleTranslationProcessContext);
     $markdown_file = PathHelper::normalizePath($context->article->directory . '/' . $context->article->getPrimaryTranslation()->sourcePath);
-    $context->getLogger()->info('Converting Markdown to AST', ['file' => $markdown_file]);
+
+    $context->getLogger()->info('Markdown conversion started', [
+      'file' => $markdown_file,
+      'environment_id' => $environment->getPluginId(),
+    ]);
+
     $source = new MarkdownSource(\file_get_contents($markdown_file));
     $context->ast = $environment->parse($source);
   }

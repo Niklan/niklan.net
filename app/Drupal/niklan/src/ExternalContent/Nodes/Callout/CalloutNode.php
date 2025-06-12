@@ -8,10 +8,17 @@ use Drupal\external_content\Nodes\ContentNode;
 
 final class CalloutNode extends ContentNode {
 
-  public function __construct(
-    public string $type,
-  ) {
+  public function __construct(string $calloutType) {
     parent::__construct();
+    $this->setCalloutType($calloutType);
+  }
+
+  public function setCalloutType(string $calloutType): void {
+    $this->getProperties()->setProperty('calloutType', $calloutType);
+  }
+
+  public function getCalloutType(): string {
+    return $this->getProperties()->getProperty('calloutType');
   }
 
   public function addChild(ContentNode $node): void {
@@ -27,7 +34,6 @@ final class CalloutNode extends ContentNode {
         return $child;
       }
     }
-
     return NULL;
   }
 

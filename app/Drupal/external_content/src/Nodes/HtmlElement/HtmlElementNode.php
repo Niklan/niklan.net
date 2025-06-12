@@ -9,9 +9,18 @@ use Drupal\external_content\Nodes\ContentNode;
 final class HtmlElementNode extends ContentNode {
 
   public function __construct(
-    public readonly string $nodeName,
+    string $tag,
   ) {
     parent::__construct();
+    $this->setTag($tag);
+  }
+
+  public function setTag(string $tag): void {
+    $this->getProperties()->setProperty('tag', $tag);
+  }
+
+  public function getTag(): string {
+    return $this->getProperties()->getProperty('tag');
   }
 
   public static function getType(): string {

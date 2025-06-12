@@ -21,12 +21,19 @@ final readonly class ArticleFinder implements PipelineStage {
    */
   public function process(PipelineContext $context): void {
     \assert($context instanceof SyncContext);
+    $pattern = 'article.xml';
+    $context->getLogger()->info('Blog article search initiated', [
+      'working_directory' => $context->workingDirectory,
+      'search_pattern' => $pattern,
+    ]);
 
-    $context->getLogger()->info(\sprintf('Looking for blog articles in %s', $context->workingDirectory));
     $finder = new Finder();
     $finder->in($context->workingDirectory);
-    $finder->name('article.xml');
-    $context->getLogger()->info(\sprintf('Found %s article sources', $finder->count()));
+    $finder->name($pattern);
+
+    $context->getLogger()->info('Blog articles search completed', [
+      'count' => $finder->count(),
+    ]);
 
     foreach ($finder as $file) {
       if ($file->isDir()) {
