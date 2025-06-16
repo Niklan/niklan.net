@@ -21,6 +21,9 @@ services:
   Drupal\niklan\StaticPage\Home\Repository\HomeSettings: { }
   Drupal\niklan\Portfolio\Repository\PortfolioSettings: { }
 
+  Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: {}
+  Drupal\niklan\File\Contract\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'
+
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
   Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
 

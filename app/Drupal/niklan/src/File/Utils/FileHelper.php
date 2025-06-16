@@ -10,7 +10,6 @@ final class FileHelper {
     if (!\file_exists($uri)) {
       return NULL;
     }
-
     return \md5_file($uri) ?: NULL;
   }
 
@@ -20,7 +19,6 @@ final class FileHelper {
     // The ".gz" extension is usually consists of two parts.
     if ($extension === 'gz') {
       $filename = \pathinfo($filename, \PATHINFO_FILENAME);
-
       // Only continue if filename still contains dot.
       if (\str_contains($filename, '.')) {
         return self::extension($filename, '.gz');
