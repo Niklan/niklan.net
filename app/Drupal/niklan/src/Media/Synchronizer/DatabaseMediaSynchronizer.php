@@ -7,12 +7,13 @@ namespace Drupal\niklan\Media\Synchronizer;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\file\FileInterface;
-use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaStorage;
 use Drupal\media\MediaTypeInterface;
 use Drupal\niklan\File\Contract\FileSynchronizer;
+use Drupal\niklan\Media\Contract\MediaRepository;
 use Drupal\niklan\Media\Contract\MediaSynchronizer;
+use Drupal\niklan\Utils\PathHelper;
 use Drupal\niklan\Utils\YouTubeHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -22,17 +23,13 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
   public function __construct(
     private FileSynchronizer $fileSynchronizer,
     private EntityTypeManagerInterface $entityTypeManager,
-    #[Autowire(service: 'file.usage')]
-    private FileUsageInterface $fileUsage,
+    private MediaRepository $mediaRepository,
     #[Autowire(service: 'logger.channel.niklan')]
     private LoggerInterface $logger,
   ) {}
 
   public function sync(string $path): ?MediaInterface {
-    // Replace spaces '%20' with an actual space. Without that, it can lead to
-    // a wrong file detection.
-    $normalized_path = \urldecode($path);
-
+    $normalized_path = PathHelper::normalizePath($path);
     // First handle special cases like YouTube.
     $media = $this->handleSpecialProviders($normalized_path);
     if ($media) {
@@ -68,24 +65,8 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
   }
 
   private function resolveMediaForFile(FileInterface $file): ?MediaInterface {
-    $media = $this->findMediaByFileUsage($file);
+    $media = $this->mediaRepository->findByFile($file);
     return $media ?? $this->createMediaForFile($file);
-  }
-
-  private function findMediaByFileUsage(FileInterface $file): ?MediaInterface {
-    $usage = $this->fileUsage->listUsage($file);
-    if (!isset($usage['file']['media'])) {
-      return NULL;
-    }
-
-    // Since there is possible to have multiple usage of the same file in
-    // different media entities through code and other modules, we just pick the
-    // first one.
-    $media_ids = \array_keys($usage['file']['media']);
-    $media_id = \reset($media_ids);
-
-    $media = $this->getMediaStorage()->load($media_id);
-    return $media instanceof MediaInterface ? $media : NULL;
   }
 
   private function createMediaForFile(FileInterface $file): ?MediaInterface {
@@ -136,7 +117,7 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     $source_field = $this->getMediaTypeSourceField($media_type);
     $standard_url = "https://youtu.be/{$video_id}";
 
-    $media = $this->findMediaBySourceField($media_type, $source_field, $standard_url);
+    $media = $this->mediaRepository->findBySourceField($media_type, $source_field, $standard_url);
     if ($media) {
       return $media;
     }
@@ -148,24 +129,6 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     $media->save();
 
     return $media;
-  }
-
-  private function findMediaBySourceField(string $bundle, string $source_field, string $value): ?MediaInterface {
-    $ids = $this
-      ->getMediaStorage()
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('bundle', $bundle)
-      ->condition($source_field, $value)
-      ->range(0, 1)
-      ->execute();
-
-    if (!$ids) {
-      return NULL;
-    }
-
-    $media = $this->getMediaStorage()->load(\reset($ids));
-    return $media instanceof MediaInterface ? $media : NULL;
   }
 
   private function getMediaTypeSourceField(string $media_type_id): string {

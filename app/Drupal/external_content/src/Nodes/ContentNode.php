@@ -58,7 +58,6 @@ abstract class ContentNode {
     }
 
     $node = $this;
-
     while ($node->hasParent()) {
       $node = $node->getParent();
     }
@@ -68,7 +67,6 @@ abstract class ContentNode {
     }
 
     $this->cachedRootNode = $node;
-
     return $node;
   }
 
@@ -92,6 +90,38 @@ abstract class ContentNode {
 
   public function setParent(self $node): void {
     $this->parent = $node;
+    $this->resetRootCacheRecursively();
+  }
+
+  public function replaceChild(self $old, self $new): void {
+    $index = \array_search($old, $this->children, TRUE);
+    if ($index === FALSE) {
+      throw new \InvalidArgumentException('The old node is not a child of this node.');
+    }
+
+    $this->children[$index] = $new;
+    $old->parent = NULL;
+    $old->resetRootCacheRecursively();
+    $new->setParent($this);
+  }
+
+  public function removeChild(self $child): void {
+    $index = \array_search($child, $this->children, TRUE);
+    if ($index === FALSE) {
+      throw new \InvalidArgumentException('The node is not a child of this node.');
+    }
+
+    unset($this->children[$index]);
+    $this->children = \array_values($this->children);
+    $child->parent = NULL;
+    $child->resetRootCacheRecursively();
+  }
+
+  private function resetRootCacheRecursively(): void {
+    $this->cachedRootNode = NULL;
+    foreach ($this->children as $child) {
+      $child->resetRootCacheRecursively();
+    }
   }
 
 }

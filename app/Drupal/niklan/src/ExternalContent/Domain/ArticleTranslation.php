@@ -17,6 +17,7 @@ final class ArticleTranslation {
     public readonly string $title,
     public readonly string $description,
     public readonly string $posterPath,
+    public readonly string $contentDirectory,
     public readonly bool $isPrimary = FALSE,
   ) {}
 

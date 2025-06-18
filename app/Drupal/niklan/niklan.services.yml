@@ -24,6 +24,12 @@ services:
   Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: {}
   Drupal\niklan\File\Contract\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'
 
+  Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer: {}
+  Drupal\niklan\Media\Contract\MediaSynchronizer: '@Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer'
+
+  Drupal\niklan\Media\Repository\DatabaseMediaRepository: {}
+  Drupal\niklan\Media\Contract\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
+
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
   Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
 
@@ -70,8 +76,6 @@ services:
     arguments:
       - '@niklan.markdown.environment'
   League\CommonMark\MarkdownConverter: '@niklan.markdown.converter'
-
-  #  Drupal\niklan\ExternalContent\Asset\AssetManager: { }
 
   Drupal\niklan\Markup\Twig\Extension\ImageDimensions:
     tags:

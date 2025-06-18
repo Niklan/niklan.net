@@ -14,6 +14,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\niklan\File\Contract\FileSynchronizer;
 use Drupal\niklan\File\Entity\FileInterface;
 use Drupal\niklan\File\Utils\FileHelper;
+use Drupal\niklan\Utils\PathHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
@@ -34,9 +35,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
   ) {}
 
   public function sync(string $path): ?FileInterface {
-    // Replace spaces '%20' with an actual space. Without that, it can lead to
-    // a wrong file detection.
-    $normalized_path = \urldecode($path);
+    $normalized_path = PathHelper::normalizePath($path);
     return UrlHelper::isExternal($normalized_path)
       ? $this->handleExternalUrl($normalized_path)
       : $this->syncInternal($normalized_path);

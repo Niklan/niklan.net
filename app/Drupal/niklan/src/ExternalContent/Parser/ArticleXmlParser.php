@@ -10,6 +10,7 @@ use Drupal\niklan\ExternalContent\Exception\ArticleParseException;
 use Drupal\niklan\ExternalContent\Exception\XmlLoadException;
 use Drupal\niklan\ExternalContent\Exception\XmlValidationException;
 use Drupal\niklan\ExternalContent\Validation\XmlValidator;
+use Drupal\niklan\Utils\PathHelper;
 
 final readonly class ArticleXmlParser {
 
@@ -42,7 +43,7 @@ final readonly class ArticleXmlParser {
       directory: \dirname($file_path),
     );
 
-    foreach ($this->parseTranslations($xpath) as $translation) {
+    foreach ($this->parseTranslations($xpath, $article) as $translation) {
       $article->addTranslation($translation);
     }
 
@@ -71,25 +72,26 @@ final readonly class ArticleXmlParser {
     return $tags;
   }
 
-  private function parseTranslations(\DOMXPath $xpath): array {
+  private function parseTranslations(\DOMXPath $xpath, Article $article): array {
     $translation_list = $xpath->query('/article/translations/translation');
     \assert($translation_list instanceof \DOMNodeList);
 
     $translations = [];
     foreach ($translation_list as $translation_node) {
       \assert($translation_node instanceof \DOMElement);
-      $translations[] = $this->createTranslationFromNode($xpath, $translation_node);
+      $translations[] = $this->createTranslationFromNode($xpath, $translation_node, $article);
     }
 
     return $translations;
   }
 
-  private function createTranslationFromNode(\DOMXPath $xpath, \DOMElement $translation_node): ArticleTranslation {
+  private function createTranslationFromNode(\DOMXPath $xpath, \DOMElement $translation_node, Article $article): ArticleTranslation {
     $is_primary = $this->getAttributeAsBoolean($translation_node, 'primary');
 
     $title = $this->getTextContent($xpath, $translation_node, 'title');
     $description = $this->getTextContent($xpath, $translation_node, 'description');
     $poster_path = $this->getAttributeFromElement($xpath, $translation_node, 'poster', 'src');
+    $directory = PathHelper::normalizePath($article->directory . '/' . $translation_node->getAttribute('src'));
 
     return new ArticleTranslation(
       sourcePath: $translation_node->getAttribute('src'),
@@ -97,6 +99,7 @@ final readonly class ArticleXmlParser {
       title: $this->cleanText($title),
       description: $this->cleanText($description),
       posterPath: $poster_path,
+      contentDirectory: \dirname($directory),
       isPrimary: $is_primary,
     );
   }

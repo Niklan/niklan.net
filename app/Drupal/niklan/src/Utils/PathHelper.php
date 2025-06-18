@@ -21,6 +21,9 @@ final class PathHelper {
    * @see https://stackoverflow.com/a/10067975/4751623
    */
   public static function normalizePath(string $path): string {
+    // Replace spaces '%20' with an actual space. Without that, it can lead to
+    // a wrong file detection.
+    $path = \urldecode($path);
     // Scheme separator should be preserved as is.
     $path = \str_replace(
       search: '://',
