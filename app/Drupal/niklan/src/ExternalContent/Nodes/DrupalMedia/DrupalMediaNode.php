@@ -8,9 +8,12 @@ use Drupal\external_content\Nodes\ContentNode;
 
 final class DrupalMediaNode extends ContentNode {
 
-  public function __construct(private string $uuid) {
+  public function __construct(private string $uuid, private array $mediaMetadata = []) {
     parent::__construct();
     $this->setUuid($this->uuid);
+    foreach ($this->mediaMetadata as $key => $value) {
+      $this->getProperties()->setProperty($key, $value);
+    }
   }
 
   public function setUuid(string $uuid): void {

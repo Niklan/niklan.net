@@ -26,6 +26,8 @@ final readonly class AssetSynchronizer implements PipelineStage {
   public function process(PipelineContext $context): void {
     \assert($context instanceof ArticleTranslationProcessContext);
     $this->syncRecursively($context->ast, $context);
+    // @todo Sync Attachments.
+    // @todo Sync Promo image
   }
 
   private function syncRecursively(ContentNode $node, ArticleTranslationProcessContext $context): void {
@@ -44,11 +46,10 @@ final readonly class AssetSynchronizer implements PipelineStage {
     };
   }
 
-  private function replaceNodeWithMedia(ContentNode $original_node, string $asset_source, array $media_metadata = []): void {
+  private function replaceWithMediaReferenceNode(ContentNode $original_node, string $asset_source, array $media_metadata = []): void {
     $media = $this->mediaSynchronizer->sync($asset_source);
     if ($media) {
-      // @todo Add 'media_metadata' support.
-      $media_node = new DrupalMediaNode($media->uuid());
+      $media_node = new DrupalMediaNode($media->uuid(), $media_metadata);
       $original_node->getParent()->replaceChild($original_node, $media_node);
     }
     else {
@@ -62,7 +63,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
       'src' => $node->getSrc(),
       'alt' => $node->getAlt(),
     ];
-    $this->replaceNodeWithMedia($node, $asset_path, $data);
+    $this->replaceWithMediaReferenceNode($node, $asset_path, $data);
   }
 
   private function syncVideo(VideoNode $node, ArticleTranslationProcessContext $context): void {
@@ -70,11 +71,11 @@ final readonly class AssetSynchronizer implements PipelineStage {
     $data = [
       'title' => $node->getTitle(),
     ];
-    $this->replaceNodeWithMedia($node, $asset_path, $data);
+    $this->replaceWithMediaReferenceNode($node, $asset_path, $data);
   }
 
   private function syncRemoteVideo(RemoteVideoNode $node, ArticleTranslationProcessContext $context): void {
-    $this->replaceNodeWithMedia($node, $node->getUrl());
+    $this->replaceWithMediaReferenceNode($node, $node->getUrl());
   }
 
 }

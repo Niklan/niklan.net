@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.chip
+    - field.field.taxonomy_term.tags.external_id
     - taxonomy.vocabulary.tags
   module:
     - layout_builder
@@ -25,6 +26,7 @@ content:
     weight: 0
     region: content
 hidden:
+  external_id: true
   extra_field_niklan_taxonomy_tag_statistics: true
   langcode: true
   search_api_excerpt: true

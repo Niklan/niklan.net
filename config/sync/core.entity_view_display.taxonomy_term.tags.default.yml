@@ -3,6 +3,7 @@ langcode: ru
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.tags.external_id
     - taxonomy.vocabulary.tags
   module:
     - text
@@ -17,6 +18,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  external_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   extra_field_niklan_taxonomy_tag_statistics: true
