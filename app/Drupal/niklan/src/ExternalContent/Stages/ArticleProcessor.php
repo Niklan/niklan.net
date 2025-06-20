@@ -13,7 +13,6 @@ use Drupal\niklan\ExternalContent\Domain\ArticleTranslation;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline;
-use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\Node\Entity\BlogEntryInterface;
 use Drupal\node\NodeStorageInterface;
 
@@ -53,7 +52,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
   }
 
-  private function processArticleTranslation(Article $article, ArticleTranslation $translation, BlogEntry $article_entity, SyncContext $context): void {
+  private function processArticleTranslation(Article $article, ArticleTranslation $translation, BlogEntryInterface $article_entity, SyncContext $context): void {
     $context->getLogger()->info('Processing article translation', [
       'article_id' => $article->id,
       'language' => $translation->language,
@@ -70,12 +69,8 @@ final readonly class ArticleProcessor implements PipelineStage {
   }
 
   private function findOrCreateArticleEntity(Article $article): BlogEntryInterface {
-    $article_entity = $this->findExistingEntity($article);
-    if ($article_entity) {
-      return $article_entity;
-    }
     // @phpstan-ignore-next-line
-    return $this->getBlogStorage()->create([
+    return $this->findExistingEntity($article) ?? $this->getBlogStorage()->create([
       'type' => 'blog_entry',
       'external_id' => $article->id,
     ]);
