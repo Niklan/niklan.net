@@ -32,6 +32,11 @@ services:
 
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
   Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
+  Drupal\niklan\Tag\Repository\DatabaseTagRepository: {}
+  Drupal\niklan\Tag\Contract\TagRepository: '@Drupal\niklan\Tag\Repository\DatabaseTagRepository'
+
+  Drupal\niklan\Blog\Repository\DatabaseBlogRepository: {}
+  Drupal\niklan\Blog\Contract\BlogRepository: '@Drupal\niklan\Blog\Repository\DatabaseBlogRepository'
 
   Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: { }
   keyvalue.language_aware: '@Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory'

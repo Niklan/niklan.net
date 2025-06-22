@@ -8,20 +8,28 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
+use Drupal\niklan\Blog\Contract\BlogRepository;
 use Drupal\niklan\ExternalContent\Domain\Article;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslation;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline;
 use Drupal\niklan\Node\Entity\BlogEntryInterface;
+use Drupal\niklan\Tag\Contract\TagRepository;
+use Drupal\niklan\Tag\Entity\TagFields;
 use Drupal\node\NodeStorageInterface;
 
 final readonly class ArticleProcessor implements PipelineStage {
 
   private Pipeline $pipeline;
+  private TagRepository $tagRepository;
+  private BlogRepository $blogRepository;
 
   public function __construct() {
     $this->pipeline = new ArticleProcessPipeline();
+    // @todo Use DI.
+    $this->tagRepository = \Drupal::service(TagRepository::class);
+    $this->blogRepository = \Drupal::service(BlogRepository::class);
   }
 
   public function process(PipelineContext $context): void {
@@ -70,22 +78,10 @@ final readonly class ArticleProcessor implements PipelineStage {
 
   private function findOrCreateArticleEntity(Article $article): BlogEntryInterface {
     // @phpstan-ignore-next-line
-    return $this->findExistingEntity($article) ?? $this->getBlogStorage()->create([
+    return $this->blogRepository->findByExternalId($article->id) ?? $this->getBlogStorage()->create([
       'type' => 'blog_entry',
       'external_id' => $article->id,
     ]);
-  }
-
-  private function findExistingEntity(Article $article): ?BlogEntryInterface {
-    $ids = $this
-      ->getBlogStorage()
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('external_id', $article->id)
-      ->range(0, 1)
-      ->execute();
-    // @phpstan-ignore-next-line
-    return $ids ? $this->getBlogStorage()->load(\reset($ids)) : NULL;
   }
 
   private function updateArticleMetadata(Article $article, BlogEntryInterface $article_entity): void {
@@ -95,7 +91,18 @@ final readonly class ArticleProcessor implements PipelineStage {
     $updated_date = DrupalDateTime::createFromFormat('Y-m-d\TH:i:s', $article->updated, 'UTC');
     $article_entity->setChangedTime($updated_date->getTimestamp());
 
-    // @todo Sync tags.
+    $this->updateTags($article, $article_entity);
+  }
+
+  private function updateTags(Article $article, BlogEntryInterface $article_entity): void {
+    $article_entity->set(TagFields::EXTERNAL_ID, NULL);
+    foreach ($article->tags as $tag) {
+      $tag_entity = $this->tagRepository->findByExternalId($tag);
+      if (!$tag_entity) {
+        continue;
+      }
+      $article_entity->get(TagFields::EXTERNAL_ID)->appendItem($tag_entity);
+    }
   }
 
 }

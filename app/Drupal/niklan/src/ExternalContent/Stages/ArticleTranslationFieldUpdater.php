@@ -19,7 +19,7 @@ final readonly class ArticleTranslationFieldUpdater implements PipelineStage {
     \assert($environment instanceof BlogArticle);
     \assert($context instanceof ArticleTranslationProcessContext);
     // dump($environment->normalize($context->ast));.
-    $environment->denormalize($environment->normalize($context->ast));
+    $environment->denormalize($environment->normalize($context->externalContent));
     // Set to data links MD5
     // https://github.com/Niklan/niklan.net/blob/8f05155e0ec7a5833368f1ead52d7b3e68753a4f/app/Drupal/niklan/src/ExternalContent/Loader/Blog.php#L325-L329
   }

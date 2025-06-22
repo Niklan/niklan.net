@@ -32,7 +32,7 @@ final readonly class MarkdownToAstParser implements PipelineStage {
     ]);
 
     $source = new MarkdownSource(\file_get_contents($markdown_file));
-    $context->ast = $environment->parse($source);
+    $context->externalContent = $environment->parse($source);
   }
 
 }
