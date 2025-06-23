@@ -31,7 +31,7 @@ services:
   Drupal\niklan\Media\Contract\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
 
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
-  Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
+  Drupal\niklan\Tag\Contract\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
   Drupal\niklan\Tag\Repository\DatabaseTagRepository: {}
   Drupal\niklan\Tag\Contract\TagRepository: '@Drupal\niklan\Tag\Repository\DatabaseTagRepository'
 

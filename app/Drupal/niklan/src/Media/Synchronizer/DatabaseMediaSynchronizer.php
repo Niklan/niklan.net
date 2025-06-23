@@ -28,48 +28,48 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     private LoggerInterface $logger,
   ) {}
 
-  public function sync(string $path): ?MediaInterface {
+  public function sync(string $path, array $extra = []): ?MediaInterface {
     $normalized_path = PathHelper::normalizePath($path);
     // First handle special cases like YouTube.
-    $media = $this->handleSpecialProviders($normalized_path);
+    $media = $this->handleSpecialProviders($normalized_path, $extra);
     if ($media) {
       return $media;
     }
 
     return UrlHelper::isExternal($normalized_path)
-      ? $this->handleExternalUrl($normalized_path)
-      : $this->handleInternalPath($normalized_path);
+      ? $this->handleExternalUrl($normalized_path, $extra)
+      : $this->handleInternalPath($normalized_path, $extra);
   }
 
-  private function handleSpecialProviders(string $url): ?MediaInterface {
+  private function handleSpecialProviders(string $url, array $extra): ?MediaInterface {
     // Currently only supports YouTube.
     if (YouTubeHelper::isYouTubeUrl($url)) {
-      return $this->syncYouTubeMedia($url);
+      return $this->syncYouTubeMedia($url, $extra);
     }
     return NULL;
   }
 
-  private function handleExternalUrl(string $url): ?MediaInterface {
+  private function handleExternalUrl(string $url, array $extra): ?MediaInterface {
     $file = $this->fileSynchronizer->sync($url);
     if ($file) {
-      return $this->resolveMediaForFile($file);
+      return $this->resolveMediaForFile($file, $extra);
     }
 
     $this->logger->warning('Unsupported external URL', ['url' => $url]);
     return NULL;
   }
 
-  private function handleInternalPath(string $path): ?MediaInterface {
+  private function handleInternalPath(string $path, array $extra): ?MediaInterface {
     $file = $this->fileSynchronizer->sync($path);
-    return $file ? $this->resolveMediaForFile($file) : NULL;
+    return $file ? $this->resolveMediaForFile($file, $extra) : NULL;
   }
 
-  private function resolveMediaForFile(FileInterface $file): ?MediaInterface {
+  private function resolveMediaForFile(FileInterface $file, array $extra): ?MediaInterface {
     $media = $this->mediaRepository->findByFile($file);
-    return $media ?? $this->createMediaForFile($file);
+    return $media ?? $this->createMediaForFile($file, $extra);
   }
 
-  private function createMediaForFile(FileInterface $file): ?MediaInterface {
+  private function createMediaForFile(FileInterface $file, array $extra): ?MediaInterface {
     $mime_type = $file->getMimeType();
     $media_type = $this->determineMediaType($mime_type);
 
@@ -85,7 +85,7 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     $media = $this->getMediaStorage()->create(['bundle' => $media_type]);
     \assert($media instanceof MediaInterface);
     $media->set($source_field, $file);
-    $media->setName($file->getFilename());
+    $media->setName($extra['title'] ?? $file->getFilename());
     $media->save();
 
     return $media;
@@ -106,7 +106,7 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     };
   }
 
-  private function syncYouTubeMedia(string $url): ?MediaInterface {
+  private function syncYouTubeMedia(string $url, array $extra): ?MediaInterface {
     $video_id = YouTubeHelper::extractVideoId($url);
     if (!$video_id) {
       $this->logger->warning('Invalid YouTube URL', ['url' => $url]);
@@ -125,7 +125,7 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     $media = $this->getMediaStorage()->create(['bundle' => $media_type]);
     \assert($media instanceof MediaInterface);
     $media->set($source_field, $standard_url);
-    $media->setName("YouTube: $video_id");
+    $media->setName($extra['title'] ?? "YouTube: $video_id");
     $media->save();
 
     return $media;

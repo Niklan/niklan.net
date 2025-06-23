@@ -8,6 +8,6 @@ use Drupal\media\MediaInterface;
 
 interface MediaSynchronizer {
 
-  public function sync(string $path): ?MediaInterface;
+  public function sync(string $path, array $extra = []): ?MediaInterface;
 
 }

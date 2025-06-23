@@ -15,7 +15,6 @@ final class BlogEntry extends Node implements BlogEntryInterface {
   #[\Override]
   public function setExternalId(string $external_id): BlogEntryInterface {
     $this->set('external_id', $external_id);
-
     return $this;
   }
 
@@ -27,11 +26,9 @@ final class BlogEntry extends Node implements BlogEntryInterface {
   #[\Override]
   public function getCacheTagsToInvalidate(): array {
     $cache_tags = parent::getCacheTagsToInvalidate();
-
     $external_content_data = $this->getExternalContentData();
-
-    if (\array_key_exists('pathname_md5', $external_content_data)) {
-      $cache_tags[] = 'external_content:' . $external_content_data['pathname_md5'];
+    if (\array_key_exists('source_path_hash', $external_content_data)) {
+      $cache_tags[] = 'external_content:' . $external_content_data['source_path_hash'];
     }
 
     return $cache_tags;

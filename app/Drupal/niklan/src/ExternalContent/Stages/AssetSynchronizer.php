@@ -8,6 +8,7 @@ use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Nodes\ContentNode;
 use Drupal\external_content\Nodes\Image\ImageNode;
+use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\ExternalContent\Nodes\DrupalMedia\DrupalMediaNode;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoNode;
@@ -25,19 +26,36 @@ final readonly class AssetSynchronizer implements PipelineStage {
 
   public function process(PipelineContext $context): void {
     \assert($context instanceof ArticleTranslationProcessContext);
-    $this->syncRecursively($context->externalContent, $context);
-    // @todo Sync Promo image
-    // @todo Sync Attachments.
+    $this->syncExternalContentRecursively($context->externalContent, $context);
+    $this->syncPoster($context);
+    $this->syncAttachments($context);
   }
 
-  private function syncRecursively(ContentNode $node, ArticleTranslationProcessContext $context): void {
-    foreach ($node->getChildren() as $child) {
-      $this->syncRecursively($child, $context);
+  private function syncPoster(ArticleTranslationProcessContext $context): void {
+    $asset_path = $context->articleTranslation->contentDirectory . '/' . $context->articleTranslation->posterPath;
+    $context->posterMedia = $this->mediaSynchronizer->sync($asset_path);
+  }
+
+  private function syncAttachments(ArticleTranslationProcessContext $context): void {
+    foreach ($context->articleTranslation->getAttachments() as $attachment) {
+      $asset_path = $context->articleTranslation->contentDirectory . '/' . $attachment['src'];
+      $attachment_media = $this->mediaSynchronizer->sync($asset_path, ['title' => $attachment['title']]);
+      if (!($attachment_media instanceof MediaInterface)) {
+        continue;
+      }
+
+      $context->attachmentsMedia[] = $attachment_media;
     }
-    $this->syncSingle($node, $context);
   }
 
-  private function syncSingle(ContentNode $node, ArticleTranslationProcessContext $context): void {
+  private function syncExternalContentRecursively(ContentNode $node, ArticleTranslationProcessContext $context): void {
+    foreach ($node->getChildren() as $child) {
+      $this->syncExternalContentRecursively($child, $context);
+    }
+    $this->syncExternalContentNode($node, $context);
+  }
+
+  private function syncExternalContentNode(ContentNode $node, ArticleTranslationProcessContext $context): void {
     match ($node::class) {
       ImageNode::class => $this->syncImage($node, $context),
       VideoNode::class => $this->syncVideo($node, $context),

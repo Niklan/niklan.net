@@ -108,7 +108,9 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
   }
 
   public function view(RootNode $content, ViewRequest $request): array {
-    // TODO: Implement view() method.
+    return [
+      '#markup' => 'TODO',
+    ];
   }
 
 }

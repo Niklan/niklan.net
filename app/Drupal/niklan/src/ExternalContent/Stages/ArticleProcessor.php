@@ -48,16 +48,38 @@ final readonly class ArticleProcessor implements PipelineStage {
     ]);
 
     $article_entity = $this->findOrCreateArticleEntity($article);
+
+    if ($this->shouldSkipUpdate($article, $article_entity)) {
+      $context->getLogger()->info('Skipping update, article not changed', [
+        'article_id' => $article->id,
+      ]);
+      return;
+    }
+
     $this->updateArticleMetadata($article, $article_entity);
+
     $translation = $article->getPrimaryTranslation();
     $this->processArticleTranslation($article, $translation, $article_entity, $context);
 
     foreach ($article->getTranslations() as $translation) {
-      if ($translation->isPrimary) {
+      if ($translation->isPrimary || !$article_entity->isTranslatable()) {
         continue;
       }
       $this->processArticleTranslation($article, $translation, $article_entity, $context);
     }
+
+    // @todo Figure out it is no working before loop.
+    $article_entity->setExternalId($article->id);
+    $article_entity->save();
+  }
+
+  private function shouldSkipUpdate(Article $article, BlogEntryInterface $article_entity): bool {
+    if ($article_entity->isNew()) {
+      return FALSE;
+    }
+
+    $article_updated = DrupalDateTime::createFromFormat('Y-m-d\TH:i:s', $article->updated, 'UTC')->getTimestamp();
+    return $article_entity->getChangedTime() >= $article_updated;
   }
 
   private function processArticleTranslation(Article $article, ArticleTranslation $translation, BlogEntryInterface $article_entity, SyncContext $context): void {
@@ -66,6 +88,10 @@ final readonly class ArticleProcessor implements PipelineStage {
       'language' => $translation->language,
       'source_file' => $translation->sourcePath,
     ]);
+
+    $article_entity = $article_entity->hasTranslation($translation->language)
+      ? $article_entity->getTranslation($translation->language)
+      : $article_entity->addTranslation($translation->language);
 
     $article_process_context = new ArticleTranslationProcessContext($article, $translation, $article_entity, $context);
     $this->pipeline->run($article_process_context);
@@ -80,7 +106,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     // @phpstan-ignore-next-line
     return $this->blogRepository->findByExternalId($article->id) ?? $this->getBlogStorage()->create([
       'type' => 'blog_entry',
-      'external_id' => $article->id,
+      'uid' => 1,
     ]);
   }
 
@@ -101,7 +127,7 @@ final readonly class ArticleProcessor implements PipelineStage {
       if (!$tag_entity) {
         continue;
       }
-      $article_entity->get(TagFields::EXTERNAL_ID)->appendItem($tag_entity);
+      $article_entity->get(TagFields::EXTERNAL_ID)->appendItem($tag_entity->id());
     }
   }
 

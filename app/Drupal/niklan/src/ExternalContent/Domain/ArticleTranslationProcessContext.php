@@ -21,8 +21,8 @@ final class ArticleTranslationProcessContext implements PipelineContext {
     public readonly BlogEntryInterface $articleEntity,
     public readonly SyncContext $syncContext,
     public ?RootNode $externalContent = NULL,
-    public ?MediaInterface $promoImageMeda = NULL,
-    public ?array $attachmentsMedia = NULL,
+    public ?MediaInterface $posterMedia = NULL,
+    public array $attachmentsMedia = [],
   ) {}
 
   #[\Override]

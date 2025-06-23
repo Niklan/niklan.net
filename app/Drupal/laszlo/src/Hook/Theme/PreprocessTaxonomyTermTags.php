@@ -26,15 +26,9 @@ final readonly class PreprocessTaxonomyTermTags implements ContainerInjectionInt
     $term = $variables['term'];
     \assert($term instanceof TermInterface);
 
-    $variables['publications_count'] = $this
-      ->statistics
-      ->count((int) $term->id());
-    $variables['first_publication_date'] = $this
-      ->statistics
-      ->firstPublicationDate((int) $term->id());
-    $variables['last_publication_date'] = $this
-      ->statistics
-      ->lastPublicationDate((int) $term->id());
+    $variables['publications_count'] = $this->statistics->count((int) $term->id());
+    $variables['first_publication_date'] = $this->statistics->firstPublicationDate((int) $term->id());
+    $variables['last_publication_date'] = $this->statistics->lastPublicationDate((int) $term->id());
   }
 
 }

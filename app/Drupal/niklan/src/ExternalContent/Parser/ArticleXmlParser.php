@@ -101,7 +101,24 @@ final readonly class ArticleXmlParser {
       posterPath: $poster_path,
       contentDirectory: \dirname($directory),
       isPrimary: $is_primary,
+      attachments: $this->parseAttachments($xpath, $translation_node),
     );
+  }
+
+  private function parseAttachments(\DOMXPath $xpath, \DOMElement $parent): array {
+    $attachment_list = $xpath->query('attachments/attachment', $parent);
+    \assert($attachment_list instanceof \DOMNodeList);
+
+    $attachments = [];
+    foreach ($attachment_list as $attachment_node) {
+      \assert($attachment_node instanceof \DOMElement);
+      $attachments[] = [
+        'src' => $attachment_node->getAttribute('src'),
+        'title' => $attachment_node->getAttribute('title'),
+      ];
+    }
+
+    return $attachments;
   }
 
   private function getAttributeAsBoolean(\DOMElement $node, string $attribute): bool {
