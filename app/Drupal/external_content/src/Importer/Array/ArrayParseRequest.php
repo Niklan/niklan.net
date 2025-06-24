@@ -12,7 +12,7 @@ final readonly class ArrayParseRequest {
   public function __construct(
     public ArrayElement $currentArrayElement,
     public ContentNode $currentAstNode,
-    public ArrayImportRequest $importRequest,
+    public ArrayContentImportRequest $importRequest,
   ) {}
 
   public function withNewContentNode(ContentNode $new_content_node): self {

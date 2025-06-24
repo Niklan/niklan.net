@@ -7,30 +7,30 @@ namespace Drupal\niklan\Plugin\ExternalContent\Environment;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\external_content\Contract\Importer\ImporterSource;
+use Drupal\external_content\Contract\Importer\ContentImporterSource;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
-use Drupal\external_content\Exporter\Array\ArrayBuilder;
-use Drupal\external_content\Exporter\Array\ArrayExporter;
-use Drupal\external_content\Exporter\Array\ArrayExporterContext;
-use Drupal\external_content\Exporter\Array\ArrayExportRequest;
-use Drupal\external_content\Exporter\Array\DefaultArrayBuilderExtension;
-use Drupal\external_content\Importer\Array\ArrayImporter;
-use Drupal\external_content\Importer\Array\ArrayImporterContext;
-use Drupal\external_content\Importer\Array\ArrayImporterSource;
-use Drupal\external_content\Importer\Array\ArrayImportRequest;
+use Drupal\external_content\Exporter\Array\Builder;
+use Drupal\external_content\Exporter\Array\Exporter;
+use Drupal\external_content\Exporter\Array\ExporterContext;
+use Drupal\external_content\Exporter\Array\ExportRequest;
+use Drupal\external_content\Exporter\Array\DefaultExtension;
+use Drupal\external_content\Importer\Array\ArrayContentImporter;
+use Drupal\external_content\Importer\Array\ArrayContentImporterContext;
+use Drupal\external_content\Importer\Array\ArrayContentImporterSource;
+use Drupal\external_content\Importer\Array\ArrayContentImportRequest;
 use Drupal\external_content\Importer\Array\ArrayParser;
 use Drupal\external_content\Importer\Array\DefaultArrayParserExtension;
 use Drupal\external_content\Importer\Html\DefaultHtmlParserExtension;
-use Drupal\external_content\Importer\Html\HtmlImporter;
-use Drupal\external_content\Importer\Html\HtmlImporterContext;
-use Drupal\external_content\Importer\Html\HtmlImporterSource;
-use Drupal\external_content\Importer\Html\HtmlImportRequest;
+use Drupal\external_content\Importer\Html\HtmlContentImporter;
+use Drupal\external_content\Importer\Html\HtmlContentImporterContext;
+use Drupal\external_content\Importer\Html\HtmlContentImporterSource;
+use Drupal\external_content\Importer\Html\HtmlContentImportRequest;
 use Drupal\external_content\Importer\Html\HtmlParser;
 use Drupal\external_content\Nodes\RootNode;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
-use Drupal\niklan\ExternalContent\Domain\MarkdownSource;
+use Drupal\niklan\ExternalContent\Domain\MarkdownSourceContent;
 use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension;
 use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension;
 use League\CommonMark\MarkdownConverter;
@@ -63,21 +63,21 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     );
   }
 
-  public function parse(ImporterSource $source): RootNode {
-    \assert($source instanceof MarkdownSource);
+  public function parse(ContentImporterSource $source): RootNode {
+    \assert($source instanceof MarkdownSourceContent);
     $html = $this->markdownConverter->convert($source->getSourceData());
 
     $parsers = new Registry();
     (new DefaultHtmlParserExtension())->register($parsers);
     (new HtmlParserExtension())->register($parsers);
 
-    $request = new HtmlImportRequest(
-      new HtmlImporterSource($html->getContent()),
-      new HtmlImporterContext($this->logger),
+    $request = new HtmlContentImportRequest(
+      new HtmlContentImporterSource($html->getContent()),
+      new HtmlContentImporterContext($this->logger),
       new HtmlParser($parsers),
     );
 
-    return (new HtmlImporter())->import($request);
+    return (new HtmlContentImporter())->import($request);
   }
 
   public function denormalize(string $json): RootNode {
@@ -85,26 +85,26 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     (new DefaultArrayParserExtension())->register($parsers);
     (new ArrayParserExtension())->register($parsers);
 
-    $request = new ArrayImportRequest(
-      new ArrayImporterSource(\json_decode($json, TRUE)),
-      new ArrayImporterContext($this->logger),
+    $request = new ArrayContentImportRequest(
+      new ArrayContentImporterSource(\json_decode($json, TRUE)),
+      new ArrayContentImporterContext($this->logger),
       new ArrayParser($parsers),
     );
 
-    return (new ArrayImporter())->import($request);
+    return (new ArrayContentImporter())->import($request);
   }
 
   public function normalize(RootNode $content): string {
     $builders = new Registry();
-    (new DefaultArrayBuilderExtension())->register($builders);
+    (new DefaultExtension())->register($builders);
 
-    $request = new ArrayExportRequest(
+    $request = new ExportRequest(
       $content,
-      new ArrayExporterContext($this->logger),
-      new ArrayBuilder($builders),
+      new ExporterContext($this->logger),
+      new Builder($builders),
     );
 
-    return \json_encode((new ArrayExporter())->export($request)->toArray());
+    return \json_encode((new Exporter())->export($request)->toArray());
   }
 
   public function view(RootNode $content, ViewRequest $request): array {

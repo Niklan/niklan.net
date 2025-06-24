@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Importer\Array;
 
-use Drupal\external_content\Contract\DataStructure\ArrayElementParser;
+use Drupal\external_content\Contract\Importer\ContentArrayElementParser;
 use Drupal\external_content\Utils\Registry;
 
 final readonly class ArrayParser {
@@ -34,7 +34,7 @@ final readonly class ArrayParser {
 
     $parse_request->importRequest->getContext()->getLogger()->warning('Missing parser for custom element', [
       'element_type' => $parse_request->currentArrayElement->type,
-      'parser_type' => ArrayElementParser::class,
+      'parser_type' => ContentArrayElementParser::class,
     ]);
   }
 

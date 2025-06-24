@@ -11,7 +11,7 @@ final readonly class HtmlParseRequest {
   public function __construct(
     public \DOMNode $currentHtmlNode,
     public ContentNode $currentAstNode,
-    public HtmlImportRequest $importRequest,
+    public HtmlContentImportRequest $importRequest,
   ) {}
 
   public function withNewContentNode(ContentNode $new_content_node): self {

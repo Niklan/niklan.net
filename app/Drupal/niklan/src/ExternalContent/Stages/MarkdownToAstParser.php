@@ -8,7 +8,7 @@ use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
-use Drupal\niklan\ExternalContent\Domain\MarkdownSource;
+use Drupal\niklan\ExternalContent\Domain\MarkdownSourceContent;
 use Drupal\niklan\Plugin\ExternalContent\Environment\BlogArticle;
 use Drupal\niklan\Utils\PathHelper;
 
@@ -31,7 +31,7 @@ final readonly class MarkdownToAstParser implements PipelineStage {
       'environment_id' => $environment->getPluginId(),
     ]);
 
-    $source = new MarkdownSource(\file_get_contents($markdown_file));
+    $source = new MarkdownSourceContent(\file_get_contents($markdown_file));
     $context->externalContent = $environment->parse($source);
   }
 

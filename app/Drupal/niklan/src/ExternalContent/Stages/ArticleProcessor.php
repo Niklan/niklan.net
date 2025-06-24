@@ -16,7 +16,6 @@ use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline;
 use Drupal\niklan\Node\Entity\BlogEntryInterface;
 use Drupal\niklan\Tag\Contract\TagRepository;
-use Drupal\niklan\Tag\Entity\TagFields;
 use Drupal\node\NodeStorageInterface;
 
 final readonly class ArticleProcessor implements PipelineStage {
@@ -48,7 +47,6 @@ final readonly class ArticleProcessor implements PipelineStage {
     ]);
 
     $article_entity = $this->findOrCreateArticleEntity($article);
-
     if ($this->shouldSkipUpdate($article, $article_entity)) {
       $context->getLogger()->info('Skipping update, article not changed', [
         'article_id' => $article->id,
@@ -68,8 +66,6 @@ final readonly class ArticleProcessor implements PipelineStage {
       $this->processArticleTranslation($article, $translation, $article_entity, $context);
     }
 
-    // @todo Figure out it is no working before loop.
-    $article_entity->setExternalId($article->id);
     $article_entity->save();
   }
 
@@ -79,7 +75,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
 
     $article_updated = DrupalDateTime::createFromFormat('Y-m-d\TH:i:s', $article->updated, 'UTC')->getTimestamp();
-    return $article_entity->getChangedTime() >= $article_updated;
+    return $article_updated > $article_entity->getChangedTime();
   }
 
   private function processArticleTranslation(Article $article, ArticleTranslation $translation, BlogEntryInterface $article_entity, SyncContext $context): void {
@@ -103,11 +99,16 @@ final readonly class ArticleProcessor implements PipelineStage {
   }
 
   private function findOrCreateArticleEntity(Article $article): BlogEntryInterface {
+    $article_entity = $this->blogRepository->findByExternalId($article->id)
+      ?? $this->getBlogStorage()->create(['type' => 'blog_entry']);
+
+    if ($article_entity->isNew()) {
+      $article_entity->setExternalId($article->id);
+      $article_entity->setOwnerId(1);
+    }
+
     // @phpstan-ignore-next-line
-    return $this->blogRepository->findByExternalId($article->id) ?? $this->getBlogStorage()->create([
-      'type' => 'blog_entry',
-      'uid' => 1,
-    ]);
+    return $article_entity;
   }
 
   private function updateArticleMetadata(Article $article, BlogEntryInterface $article_entity): void {
@@ -121,13 +122,13 @@ final readonly class ArticleProcessor implements PipelineStage {
   }
 
   private function updateTags(Article $article, BlogEntryInterface $article_entity): void {
-    $article_entity->set(TagFields::EXTERNAL_ID, NULL);
+    $article_entity->set('field_tags', NULL);
     foreach ($article->tags as $tag) {
       $tag_entity = $this->tagRepository->findByExternalId($tag);
       if (!$tag_entity) {
         continue;
       }
-      $article_entity->get(TagFields::EXTERNAL_ID)->appendItem($tag_entity->id());
+      $article_entity->get('field_tags')->appendItem($tag_entity->id());
     }
   }
 
