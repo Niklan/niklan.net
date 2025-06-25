@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\ContainerDirective;
 
-use Drupal\external_content\Nodes\ContentNode;
+use Drupal\external_content\Nodes\Content\Content;
 
 /**
  * A generic container directive node.
  */
-final class ContainerDirectiveNode extends ContentNode {
+final class ContainerDirectiveNode extends Content {
 
   public function __construct(string $directiveType) {
     parent::__construct();

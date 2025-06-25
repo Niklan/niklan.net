@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
-use Drupal\external_content\Nodes\ContentNode;
+use Drupal\external_content\Nodes\Content\Content;
 
-final class RemoteVideoNode extends ContentNode {
+final class RemoteVideoNode extends Content {
 
   public function __construct(public string $url) {
     parent::__construct();

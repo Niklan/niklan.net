@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Importer\Html;
 
-use Drupal\external_content\Nodes\ContentNode;
+use Drupal\external_content\Nodes\Content\Content;
 
 final readonly class HtmlParseRequest {
 
   public function __construct(
     public \DOMNode $currentHtmlNode,
-    public ContentNode $currentAstNode,
-    public HtmlContentImportRequest $importRequest,
+    public Content $currentAstNode,
+    public HtmlImportRequest $importRequest,
   ) {}
 
-  public function withNewContentNode(ContentNode $new_content_node): self {
+  public function withNewContentNode(Content $new_content_node): self {
     return new self($this->currentHtmlNode, $new_content_node, $this->importRequest);
   }
 
@@ -22,7 +22,7 @@ final readonly class HtmlParseRequest {
     return new self($new_html_node, $this->currentAstNode, $this->importRequest);
   }
 
-  public function withNewNodes(\DOMNode $new_html_node, ContentNode $new_content_node): self {
+  public function withNewNodes(\DOMNode $new_html_node, Content $new_content_node): self {
     return new self($new_html_node, $new_content_node, $this->importRequest);
   }
 

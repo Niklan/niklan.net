@@ -6,13 +6,13 @@ namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\external_content\Nodes\ContentNode;
-use Drupal\external_content\Nodes\Image\ImageNode;
+use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Image\Image;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
-use Drupal\niklan\ExternalContent\Nodes\DrupalMedia\DrupalMediaNode;
+use Drupal\niklan\ExternalContent\Nodes\LocalVideo\VideoNode;
+use Drupal\niklan\ExternalContent\Nodes\MediaReference\MediaReference;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoNode;
-use Drupal\niklan\ExternalContent\Nodes\Video\VideoNode;
 use Drupal\niklan\Media\Contract\MediaSynchronizer;
 
 final readonly class AssetSynchronizer implements PipelineStage {
@@ -48,26 +48,26 @@ final readonly class AssetSynchronizer implements PipelineStage {
     }
   }
 
-  private function syncExternalContentRecursively(ContentNode $node, ArticleTranslationProcessContext $context): void {
+  private function syncExternalContentRecursively(Content $node, ArticleTranslationProcessContext $context): void {
     foreach ($node->getChildren() as $child) {
       $this->syncExternalContentRecursively($child, $context);
     }
     $this->syncExternalContentNode($node, $context);
   }
 
-  private function syncExternalContentNode(ContentNode $node, ArticleTranslationProcessContext $context): void {
+  private function syncExternalContentNode(Content $node, ArticleTranslationProcessContext $context): void {
     match ($node::class) {
-      ImageNode::class => $this->syncImage($node, $context),
+      Image::class => $this->syncImage($node, $context),
       VideoNode::class => $this->syncVideo($node, $context),
       RemoteVideoNode::class => $this->syncRemoteVideo($node, $context),
       default => NULL,
     };
   }
 
-  private function replaceWithMediaReferenceNode(ContentNode $original_node, string $asset_source, array $media_metadata = []): void {
+  private function replaceWithMediaReferenceNode(Content $original_node, string $asset_source, array $media_metadata = []): void {
     $media = $this->mediaSynchronizer->sync($asset_source);
     if ($media) {
-      $media_node = new DrupalMediaNode($media->uuid(), $media_metadata);
+      $media_node = new MediaReference($media->uuid(), $media_metadata);
       $original_node->getParent()->replaceChild($original_node, $media_node);
     }
     else {
@@ -75,7 +75,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
     }
   }
 
-  private function syncImage(ImageNode $node, ArticleTranslationProcessContext $context): void {
+  private function syncImage(Image $node, ArticleTranslationProcessContext $context): void {
     $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->getSrc();
     $data = [
       'src' => $node->getSrc(),

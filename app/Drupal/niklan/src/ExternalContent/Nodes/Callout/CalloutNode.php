@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 
-use Drupal\external_content\Nodes\ContentNode;
+use Drupal\external_content\Nodes\Content\Content;
 
-final class CalloutNode extends ContentNode {
+final class CalloutNode extends Content {
 
   public function __construct(string $calloutType) {
     parent::__construct();
@@ -21,7 +21,7 @@ final class CalloutNode extends ContentNode {
     return $this->getProperties()->getProperty('calloutType');
   }
 
-  public function addChild(ContentNode $node): void {
+  public function addChild(Content $node): void {
     if (!$node instanceof CalloutTitleNode && !$node instanceof CalloutBodyNode) {
       throw new \InvalidArgumentException('Only CalloutTitleNode and CalloutBodyNode can be added as children.');
     }

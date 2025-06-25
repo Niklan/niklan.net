@@ -6,9 +6,9 @@ namespace Drupal\external_content\Plugin\ExternalContent\Environment;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\external_content\Contract\Importer\ContentImporterSource;
+use Drupal\external_content\Contract\Importer\ImporterSource;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
-use Drupal\external_content\Nodes\RootNode;
+use Drupal\external_content\Nodes\Root;
 
 #[Environment(
   id: self::ID,
@@ -18,19 +18,19 @@ final class Broken extends PluginBase implements EnvironmentPlugin {
 
   public const string ID = 'broken';
 
-  public function parse(ContentImporterSource $source): RootNode {
-    return new RootNode();
+  public function parse(ImporterSource $source): Root {
+    return new Root();
   }
 
-  public function denormalize(string $json): RootNode {
-    return new RootNode();
+  public function denormalize(string $json): Root {
+    return new Root();
   }
 
-  public function normalize(RootNode $content): string {
+  public function normalize(Root $content): string {
     return '';
   }
 
-  public function view(RootNode $content, ViewRequest $request): array {
+  public function view(Root $content, ViewRequest $request): array {
     return ['#markup' => 'Broken environment is used for this content.'];
   }
 
