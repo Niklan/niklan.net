@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\Plugin\ExternalContent\Environment;
 
 use Drupal\Component\Plugin\PluginBase;
+use Drupal\Component\Utility\Timer;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Contract\Importer\ImporterSource;
@@ -13,13 +14,19 @@ use Drupal\external_content\Exporter\Array\ArrayBuilder;
 use Drupal\external_content\Exporter\Array\ArrayExporter;
 use Drupal\external_content\Exporter\Array\ArrayExporterContext;
 use Drupal\external_content\Exporter\Array\ArrayExportRequest;
-use Drupal\external_content\Exporter\Array\ArrayExtension as ArrayBuilderExtension;
+use Drupal\external_content\Exporter\Array\ArrayExtension as DefaultArrayBuilderExtension;
+use Drupal\external_content\Exporter\RenderArray\RenderArrayBuilder;
+use Drupal\external_content\Exporter\RenderArray\RenderArrayExporter;
+use Drupal\external_content\Exporter\RenderArray\RenderArrayExporterContext;
+use Drupal\external_content\Exporter\RenderArray\RenderArrayExportRequest;
+use Drupal\external_content\Exporter\RenderArray\RenderArrayExtension as DefaultRenderArrayExtension;
+use Drupal\external_content\Importer\Array\ArrayExtension as DefaultArrayParserExtension;
 use Drupal\external_content\Importer\Array\ArrayImporter;
 use Drupal\external_content\Importer\Array\ArrayImporterContext;
 use Drupal\external_content\Importer\Array\ArrayImporterSource;
 use Drupal\external_content\Importer\Array\ArrayImportRequest;
 use Drupal\external_content\Importer\Array\ArrayParser;
-use Drupal\external_content\Importer\Html\HtmlExtension;
+use Drupal\external_content\Importer\Html\HtmlExtension as DefaultHtmlParserExtension;
 use Drupal\external_content\Importer\Html\HtmlImporter;
 use Drupal\external_content\Importer\Html\HtmlImporterContext;
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
@@ -30,8 +37,8 @@ use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Domain\MarkdownSource;
-use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension;
-use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension;
+use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension as CustomArrayParserExtension;
+use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension as CustomHtmlParserExtension;
 use League\CommonMark\MarkdownConverter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -67,13 +74,13 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $html = $this->markdownConverter->convert($source->getSourceData());
 
     $parsers = new Registry();
-    (new HtmlExtension())->register($parsers);
-    (new HtmlParserExtension())->register($parsers);
+    (new DefaultHtmlParserExtension())->register($parsers);
+    (new CustomHtmlParserExtension())->register($parsers);
 
     $request = new HtmlImportRequest(
-      new HtmlImporterSource($html->getContent()),
-      new HtmlImporterContext($this->logger),
-      new HtmlParser($parsers),
+      source: new HtmlImporterSource($html->getContent()),
+      context: new HtmlImporterContext($this->logger),
+      htmlParser: new HtmlParser($parsers),
     );
 
     return (new HtmlImporter())->import($request);
@@ -81,13 +88,13 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
 
   public function denormalize(string $json): Root {
     $parsers = new Registry();
-    (new ArrayBuilderExtension())->register($parsers);
-    (new ArrayParserExtension())->register($parsers);
+    (new DefaultArrayParserExtension())->register($parsers);
+    (new CustomArrayParserExtension())->register($parsers);
 
     $request = new ArrayImportRequest(
-      new ArrayImporterSource(\json_decode($json, TRUE)),
-      new ArrayImporterContext($this->logger),
-      new ArrayParser($parsers),
+      source: new ArrayImporterSource(\json_decode($json, TRUE)),
+      context: new ArrayImporterContext($this->logger),
+      parser: new ArrayParser($parsers),
     );
 
     return (new ArrayImporter())->import($request);
@@ -95,21 +102,31 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
 
   public function normalize(Root $content): string {
     $builders = new Registry();
-    (new ArrayBuilderExtension())->register($builders);
+    (new DefaultArrayBuilderExtension())->register($builders);
 
     $request = new ArrayExportRequest(
-      $content,
-      new ArrayExporterContext($this->logger),
-      new ArrayBuilder($builders),
+      content: $content,
+      context: new ArrayExporterContext($this->logger),
+      builder: new ArrayBuilder($builders),
     );
 
     return \json_encode((new ArrayExporter())->export($request)->toArray());
   }
 
   public function view(Root $content, ViewRequest $request): array {
-    return [
-      '#markup' => 'TODO',
-    ];
+    $builders = new Registry();
+    (new DefaultRenderArrayExtension())->register($builders);
+
+    $request = new RenderArrayExportRequest(
+      content: $content,
+      context: new RenderArrayExporterContext($this->logger),
+      builder: new RenderArrayBuilder($builders),
+    );
+
+    Timer::start('render-time');
+    $result = (new RenderArrayExporter())->export($request)->toRenderArray();
+    \dump(Timer::stop('render-time')['time']);
+    return $result;
   }
 
 }

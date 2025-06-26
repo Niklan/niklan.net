@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Nodes\Code;
+namespace Drupal\external_content\Nodes\CodeBlock;
 
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
@@ -20,8 +20,7 @@ final class HtmlParser implements Parser {
 
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->firstChild instanceof \DOMElement);
-
-    return new Code($request->currentHtmlNode->firstChild->textContent);
+    return new CodeBlock($request->currentHtmlNode->firstChild->textContent);
   }
 
 }

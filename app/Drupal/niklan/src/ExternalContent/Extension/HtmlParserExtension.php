@@ -6,10 +6,10 @@ namespace Drupal\niklan\ExternalContent\Extension;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Utils\Registry;
-use Drupal\niklan\ExternalContent\Nodes\Callout\CalloutHtmlParser as CalloutParser;
-use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\ContainerDirectiveHtmlParser as ContainerDirectiveParser;
-use Drupal\niklan\ExternalContent\Nodes\LocalVideo\VideoHtmlParser as LocalVideoParser;
-use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoHtmlParser as RemoteVideoParser;
+use Drupal\niklan\ExternalContent\Nodes\Callout\HtmlParser as CalloutParser;
+use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\HtmlParser as ContainerDirectiveParser;
+use Drupal\niklan\ExternalContent\Nodes\LocalVideo\HtmlParser as LocalVideoParser;
+use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\HtmlParser as RemoteVideoParser;
 
 /**
  * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\niklan\ExternalContent\Extension\HtmlNodeParser>>

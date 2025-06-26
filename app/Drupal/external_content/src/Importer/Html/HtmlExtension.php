@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Importer\Html;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Nodes\Code\HtmlParser as CodeParser;
+use Drupal\external_content\Nodes\CodeBlock\HtmlParser as CodeParser;
 use Drupal\external_content\Nodes\Format\HtmlParser as FormatParser;
 use Drupal\external_content\Nodes\Heading\HtmlParser as HeadingParser;
 use Drupal\external_content\Nodes\HtmlElement\HtmlParser as HtmlElementParser;

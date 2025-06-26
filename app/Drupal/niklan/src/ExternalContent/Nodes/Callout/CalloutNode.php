@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 
 use Drupal\external_content\Nodes\Content\Content;
+use Drupal\niklan\ExternalContent\Nodes\CalloutBody\CalloutBody;
+use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\CalloutTitle;
 
 final class CalloutNode extends Content {
 
@@ -22,24 +24,24 @@ final class CalloutNode extends Content {
   }
 
   public function addChild(Content $node): void {
-    if (!$node instanceof CalloutTitleNode && !$node instanceof CalloutBodyNode) {
+    if (!$node instanceof CalloutTitle && !$node instanceof CalloutBody) {
       throw new \InvalidArgumentException('Only CalloutTitleNode and CalloutBodyNode can be added as children.');
     }
     parent::addChild($node);
   }
 
-  public function getBody(): ?CalloutBodyNode {
+  public function getBody(): ?CalloutBody {
     foreach ($this->children as $child) {
-      if ($child instanceof CalloutBodyNode) {
+      if ($child instanceof CalloutBody) {
         return $child;
       }
     }
     return NULL;
   }
 
-  public function getTitle(): ?CalloutTitleNode {
+  public function getTitle(): ?CalloutTitle {
     foreach ($this->children as $child) {
-      if ($child instanceof CalloutTitleNode) {
+      if ($child instanceof CalloutTitle) {
         return $child;
       }
     }

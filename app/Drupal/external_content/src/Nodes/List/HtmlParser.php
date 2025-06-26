@@ -19,7 +19,7 @@ final class HtmlParser implements Parser {
 
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMElement);
-    $list_node = new List(ListType::fromHtmlTag($request->currentHtmlNode->nodeName));
+    $list_node = new ListNode(ListType::fromHtmlTag($request->currentHtmlNode->nodeName));
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($list_node));
 
     return $list_node;

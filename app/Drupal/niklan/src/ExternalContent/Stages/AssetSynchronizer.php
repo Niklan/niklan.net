@@ -10,9 +10,9 @@ use Drupal\external_content\Nodes\Content\Content;
 use Drupal\external_content\Nodes\Image\Image;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
-use Drupal\niklan\ExternalContent\Nodes\LocalVideo\VideoNode;
+use Drupal\niklan\ExternalContent\Nodes\LocalVideo\Video;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\MediaReference;
-use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoNode;
+use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideo;
 use Drupal\niklan\Media\Contract\MediaSynchronizer;
 
 final readonly class AssetSynchronizer implements PipelineStage {
@@ -58,8 +58,8 @@ final readonly class AssetSynchronizer implements PipelineStage {
   private function syncExternalContentNode(Content $node, ArticleTranslationProcessContext $context): void {
     match ($node::class) {
       Image::class => $this->syncImage($node, $context),
-      VideoNode::class => $this->syncVideo($node, $context),
-      RemoteVideoNode::class => $this->syncRemoteVideo($node, $context),
+      Video::class => $this->syncVideo($node, $context),
+      RemoteVideo::class => $this->syncRemoteVideo($node, $context),
       default => NULL,
     };
   }
@@ -84,7 +84,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
     $this->replaceWithMediaReferenceNode($node, $asset_path, $data);
   }
 
-  private function syncVideo(VideoNode $node, ArticleTranslationProcessContext $context): void {
+  private function syncVideo(Video $node, ArticleTranslationProcessContext $context): void {
     $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->getSrc();
     $data = [
       'title' => $node->getTitle(),
@@ -92,7 +92,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
     $this->replaceWithMediaReferenceNode($node, $asset_path, $data);
   }
 
-  private function syncRemoteVideo(RemoteVideoNode $node, ArticleTranslationProcessContext $context): void {
+  private function syncRemoteVideo(RemoteVideo $node, ArticleTranslationProcessContext $context): void {
     $this->replaceWithMediaReferenceNode($node, $node->getUrl());
   }
 

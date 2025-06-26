@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Importer\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Nodes\Code\ArrayParser as CodeParser;
+use Drupal\external_content\Nodes\CodeBlock\ArrayParser as CodeParser;
 use Drupal\external_content\Nodes\Format\ArrayParser as FormatParser;
 use Drupal\external_content\Nodes\Heading\ArrayParser as HeadingParser;
 use Drupal\external_content\Nodes\HtmlElement\ArrayParser as HtmlElementParser;

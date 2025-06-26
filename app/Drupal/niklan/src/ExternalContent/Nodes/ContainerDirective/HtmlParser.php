@@ -8,7 +8,7 @@ use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
 use Drupal\external_content\Nodes\Content\Content;
 
-final class ContainerDirectiveHtmlParser implements Parser {
+final class HtmlParser implements Parser {
 
   public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
@@ -21,7 +21,7 @@ final class ContainerDirectiveHtmlParser implements Parser {
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $type = $request->currentHtmlNode->getAttribute('data-type');
-    $node = new ContainerDirectiveNode($type);
+    $node = new ContainerDirective($type);
 
     if ($request->currentHtmlNode->hasAttributes()) {
       foreach ($request->currentHtmlNode->attributes as $attribute) {

@@ -25,7 +25,6 @@ final readonly class MarkdownToAstParser implements PipelineStage {
 
     \assert($context instanceof ArticleTranslationProcessContext);
     $markdown_file = PathHelper::normalizePath($context->article->directory . '/' . $context->article->getPrimaryTranslation()->sourcePath);
-
     $context->getLogger()->info('Markdown conversion started', [
       'file' => $markdown_file,
       'environment_id' => $environment->getPluginId(),

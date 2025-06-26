@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Nodes\Content\ArrayBuilder as CodeBuilder;
+use Drupal\external_content\Nodes\Content\ArrayBuilder as CodeBlockBuilder;
 use Drupal\external_content\Utils\Registry;
 
 /**
@@ -15,7 +15,7 @@ final readonly class ArrayExtension implements Extension {
 
   public function register(object $target): void {
     \assert($target instanceof Registry);
-    $target->add(new CodeBuilder(), -100);
+    $target->add(new CodeBlockBuilder(), -100);
   }
 
 }

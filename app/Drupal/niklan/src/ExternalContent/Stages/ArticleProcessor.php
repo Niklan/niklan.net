@@ -51,7 +51,7 @@ final readonly class ArticleProcessor implements PipelineStage {
       $context->getLogger()->info('Skipping update, article not changed', [
         'article_id' => $article->id,
       ]);
-      return;
+      // return;.
     }
 
     $this->updateArticleMetadata($article, $article_entity);

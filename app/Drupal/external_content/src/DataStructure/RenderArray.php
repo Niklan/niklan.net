@@ -11,11 +11,11 @@ final class RenderArray {
   /**
    * @var list<\Drupal\external_content\DataStructure\RenderArray> */
   private array $children = [];
-  private CacheableMetadata $cacheMetadata;
 
-  public function __construct(private array $element = []) {
-    $this->cacheMetadata = new CacheableMetadata();
-  }
+  public function __construct(
+    private array $element = [],
+    private CacheableMetadata $cacheableMetadata = new CacheableMetadata(),
+  ) {}
 
   public function setProperty(string $key, mixed $value): void {
     $this->element["#$key"] = $value;
@@ -35,7 +35,7 @@ final class RenderArray {
   }
 
   public function applyCacheMetadata(array &$build): void {
-    $this->cacheMetadata->applyTo($build);
+    $this->cacheableMetadata->applyTo($build);
   }
 
   public function getElement(): array {
@@ -46,8 +46,8 @@ final class RenderArray {
     return $this->children;
   }
 
-  public function getCacheMetadata(): CacheableMetadata {
-    return $this->cacheMetadata;
+  public function getCacheableMetadata(): CacheableMetadata {
+    return $this->cacheableMetadata;
   }
 
 }

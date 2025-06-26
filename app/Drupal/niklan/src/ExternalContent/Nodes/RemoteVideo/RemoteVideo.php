@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
 use Drupal\external_content\Nodes\Content\Content;
 
-final class RemoteVideoNode extends Content {
+final class RemoteVideo extends Content {
 
   public function __construct(public string $url) {
     parent::__construct();

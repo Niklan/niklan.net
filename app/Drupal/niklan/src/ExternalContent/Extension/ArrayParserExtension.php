@@ -6,13 +6,13 @@ namespace Drupal\niklan\ExternalContent\Extension;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Utils\Registry;
-use Drupal\niklan\ExternalContent\Nodes\Callout\CalloutArrayParser as CalloutParser;
-use Drupal\niklan\ExternalContent\Nodes\Callout\CalloutBodyArrayParser as CalloutBodyParser;
-use Drupal\niklan\ExternalContent\Nodes\Callout\CalloutTitleArrayParser as CalloutTitleParser;
-use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\ContainerDirectiveArrayParser as ContainerDirectiveParser;
-use Drupal\niklan\ExternalContent\Nodes\LocalVideo\VideoArrayParser as LocalVideoParser;
-use Drupal\niklan\ExternalContent\Nodes\MediaReference\MediaReferenceParser;
-use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideoParser;
+use Drupal\niklan\ExternalContent\Nodes\Callout\ArrayParser as CalloutParser;
+use Drupal\niklan\ExternalContent\Nodes\CalloutBody\ArrayParser as CalloutBodyParser;
+use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\ArrayParser as CalloutTitleParser;
+use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\ArrayParser as ContainerDirectiveParser;
+use Drupal\niklan\ExternalContent\Nodes\LocalVideo\ArrayParser as LocalVideoParser;
+use Drupal\niklan\ExternalContent\Nodes\MediaReference\ArrayParser as MediaReferenceParser;
+use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\ArrayParser as RemoteVideoParser;
 
 /**
  * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\niklan\ExternalContent\Extension\ArrayElementParser>>

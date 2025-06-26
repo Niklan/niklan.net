@@ -9,7 +9,7 @@ use Drupal\external_content\Importer\Html\HtmlParseRequest;
 use Drupal\external_content\Nodes\Content\Content;
 use Symfony\Component\DomCrawler\Crawler;
 
-final readonly class VideoHtmlParser implements Parser {
+final readonly class HtmlParser implements Parser {
 
   public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
@@ -29,7 +29,7 @@ final readonly class VideoHtmlParser implements Parser {
 
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMElement);
-    return new VideoNode(
+    return new Video(
       src: $request->currentHtmlNode->getAttribute('data-argument'),
       title: $this->prepareTitle($request),
     );

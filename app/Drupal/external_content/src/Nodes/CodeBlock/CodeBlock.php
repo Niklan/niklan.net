@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Nodes\Code;
+namespace Drupal\external_content\Nodes\CodeBlock;
 
 use Drupal\external_content\Nodes\Content\Content;
 
-final class Code extends Content {
+final class CodeBlock extends Content {
 
   public function __construct(
     string $code,

@@ -8,7 +8,7 @@ use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
 use Drupal\external_content\Nodes\Content\Content;
 
-final readonly class RemoteVideoHtmlParser implements Parser {
+final readonly class HtmlParser implements Parser {
 
   public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
@@ -30,7 +30,7 @@ final readonly class RemoteVideoHtmlParser implements Parser {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $video_id = $request->currentHtmlNode->getAttribute('data-vid');
 
-    return new RemoteVideoNode("https://youtu.be/{$video_id}");
+    return new RemoteVideo("https://youtu.be/{$video_id}");
   }
 
 }

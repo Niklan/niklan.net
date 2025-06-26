@@ -7,9 +7,11 @@ namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
 use Drupal\external_content\Nodes\Content\Content;
+use Drupal\niklan\ExternalContent\Nodes\CalloutBody\CalloutBody;
+use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\CalloutTitle;
 use Symfony\Component\DomCrawler\Crawler;
 
-final readonly class CalloutHtmlParser implements Parser {
+final readonly class HtmlParser implements Parser {
 
   public function supports(HtmlParseRequest $request): bool {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
@@ -40,7 +42,7 @@ final readonly class CalloutHtmlParser implements Parser {
       return;
     }
 
-    $title = new CalloutTitleNode();
+    $title = new CalloutTitle();
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewNodes($title_node, $title));
     $request->currentAstNode->addChild($title);
   }
@@ -52,7 +54,7 @@ final readonly class CalloutHtmlParser implements Parser {
       return;
     }
 
-    $body = new CalloutBodyNode();
+    $body = new CalloutBody();
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewNodes($body_node, $body));
     $request->currentAstNode->addChild($body);
   }

@@ -9,7 +9,7 @@ use Drupal\external_content\Nodes\Content\Content;
 /**
  * A generic container directive node.
  */
-final class ContainerDirectiveNode extends Content {
+final class ContainerDirective extends Content {
 
   public function __construct(string $directiveType) {
     parent::__construct();
