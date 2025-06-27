@@ -1,10 +1,8 @@
 services:
-  # niklan.sync.blog:
-  #   class: Drupal\niklan\ExternalContent\Command\BlogSync
-  #   arguments:
-  #     - '@Drupal\external_content\ExternalContent\ExternalContentManager'
-  #   tags:
-  #     - { name: console.command }
+  niklan.external_content.sync:
+    class: Drupal\niklan\ExternalContent\Command\Sync
+    tags:
+      - { name: console.command }
   niklan.telegram.set_webhook:
     class: Drupal\niklan\Telegram\Command\SetWebhook
     arguments:

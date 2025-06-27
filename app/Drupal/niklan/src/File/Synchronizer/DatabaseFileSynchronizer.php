@@ -51,7 +51,6 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
 
   private function syncInternal(string $path): ?FileInterface {
     $checksum = FileHelper::checksum($path);
-
     if (!$checksum) {
       $this->logger->warning('Failed to calculate file checksum', ['path' => $path]);
       return NULL;
