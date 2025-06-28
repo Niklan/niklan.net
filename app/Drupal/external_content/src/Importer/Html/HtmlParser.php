@@ -28,7 +28,6 @@ final readonly class HtmlParser {
       }
 
       $parse_request->currentAstNode->addChild($parser->parse($parse_request));
-
       return;
     }
 

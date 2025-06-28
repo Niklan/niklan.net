@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Importer\Html;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Nodes\CodeBlock\HtmlParser as CodeParser;
+use Drupal\external_content\Nodes\CodeBlock\HtmlParser as CodeBlockParser;
 use Drupal\external_content\Nodes\Format\HtmlParser as FormatParser;
 use Drupal\external_content\Nodes\Heading\HtmlParser as HeadingParser;
 use Drupal\external_content\Nodes\HtmlElement\HtmlParser as HtmlElementParser;
@@ -28,11 +28,11 @@ final readonly class HtmlExtension implements Extension {
     $target->add(new TextParser());
     $target->add(new ParagraphParser());
     $target->add(new FormatParser());
-    $target->add(new CodeParser());
-    $target->add(new ImageParser());
-    $target->add(new LinkParser());
-    $target->add(new ListParser());
-    $target->add(new ListItemParser());
+    $target->add(new CodeBlockParser());
+//    $target->add(new ImageParser());
+//    $target->add(new LinkParser());
+//    $target->add(new ListParser());
+//    $target->add(new ListItemParser());
     $target->add(new HeadingParser());
     $target->add(new ThematicBreakParser());
     // As a fallback for any other HTML element which is not parsed directly.

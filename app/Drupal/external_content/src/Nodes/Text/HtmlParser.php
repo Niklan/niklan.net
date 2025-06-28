@@ -39,7 +39,6 @@ final class HtmlParser implements Parser {
 
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMText);
-
     return new Text($request->currentHtmlNode->nodeValue ?? '');
   }
 
