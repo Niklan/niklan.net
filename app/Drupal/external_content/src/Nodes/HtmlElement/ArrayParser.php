@@ -15,7 +15,12 @@ final readonly class ArrayParser implements Parser {
   }
 
   public function parse(ArrayParseRequest $request): Content {
-    return new HtmlElement($request->currentArrayElement->properties['tag']);
+    $element = new HtmlElement(
+      tag: $request->currentArrayElement->properties['tag'],
+      attributes: $request->currentArrayElement->properties['attributes'] ?? [],
+    );
+    $request->importRequest->getArrayParser()->parseChildren($request->withNewContentNode($element));
+    return $element;
   }
 
 }

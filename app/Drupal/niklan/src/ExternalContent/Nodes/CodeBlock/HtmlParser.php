@@ -20,6 +20,13 @@ final class HtmlParser implements Parser {
 
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->firstChild instanceof \DOMElement);
+    $attributes = [];
+    if ($request->currentHtmlNode->hasAttributes()) {
+      foreach ($request->currentHtmlNode->attributes as $attribute) {
+        \assert($attribute instanceof \DOMAttr);
+        $attributes[$attribute->name] = $attribute->value;
+      }
+    }
     return new CodeBlock($request->currentHtmlNode->firstChild->textContent);
   }
 

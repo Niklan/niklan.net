@@ -19,7 +19,7 @@ final class HtmlParser implements Parser {
     if ($request->currentHtmlNode->hasAttributes()) {
       foreach ($request->currentHtmlNode->attributes as $attribute) {
         \assert($attribute instanceof \DOMAttr);
-        $element->getProperties()->setProperty($attribute->name, $attribute->value);
+        $element->attributes()->set($attribute->name, $attribute->value);
       }
     }
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($element));

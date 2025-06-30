@@ -16,7 +16,15 @@ final readonly class ArrayBuilder implements Builder {
 
   public function build(ArrayBuildRequest $request): ArrayElement {
     \assert($request->currentAstNode instanceof HtmlElement);
-    return new ArrayElement($request->currentAstNode::getType(), ['tag' => $request->currentAstNode->tag]);
+    $element = new ArrayElement(
+      type: $request->currentAstNode::getType(),
+      properties: [
+        'tag' => $request->currentAstNode->getTag(),
+        'attributes' => $request->currentAstNode->attributes()->all(),
+      ],
+    );
+    $request->exportRequest->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
+    return $element;
   }
 
 }

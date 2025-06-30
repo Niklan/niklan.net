@@ -19,6 +19,7 @@ final readonly class RenderArrayBuilder implements Builder {
     $element = new RenderArray([
       '#type' => 'html_tag',
       '#tag' => $request->currentAstNode->getTag(),
+      '#attributes' => $request->currentAstNode->attributes()->all(),
     ]);
     $request->exportRequest->getRenderArrayBuilder()->buildChildren($request->withNewRenderArray($element));
     return $element;

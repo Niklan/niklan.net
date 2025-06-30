@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Command;
 
 use Drupal\Core\Site\Settings;
+use Drupal\niklan\Console\Log\ConsoleLogger;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -31,9 +32,11 @@ final class Sync extends Command {
   protected function execute(InputInterface $input, OutputInterface $output): int {
     // @todo Add proper DI.
     $output->writeln('Start syncing...');
+    $logger = new ConsoleLogger(\Drupal::logger('niklan.external_content'), $output);
+
     $pipeline = new ArticleSyncPipeline();
     // @todo Add logger decorator with CLI support.
-    $pipeline->run(new SyncContext($input->getArgument('sourceUri'), \Drupal::logger('niklan.external_content')));
+    $pipeline->run(new SyncContext($input->getArgument('sourceUri'), $logger));
     return self::SUCCESS;
   }
 

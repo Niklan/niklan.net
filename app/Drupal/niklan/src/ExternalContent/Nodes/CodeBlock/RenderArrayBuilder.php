@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\CodeBlock;
 
+use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\external_content\Contract\Exporter\RenderArray\Builder;
 use Drupal\external_content\DataStructure\RenderArray;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
+use Drupal\external_content\Nodes\Format\RenderArrayBuilder as FormatRenderArrayBuilder;
 
 final readonly class RenderArrayBuilder implements Builder {
 
@@ -19,6 +21,11 @@ final readonly class RenderArrayBuilder implements Builder {
     return new RenderArray([
       '#type' => 'html_tag',
       '#tag' => 'pre',
+      // Make sure that the processing is consistent with the element builder.
+      '#pre_render' => [
+        HtmlTag::preRenderHtmlTag(...),
+        FormatRenderArrayBuilder::preRenderTag(...),
+      ],
       'code' => [
         '#type' => 'html_tag',
         '#tag' => 'code',
