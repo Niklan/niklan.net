@@ -21,7 +21,7 @@ final class RenderArrayExtension implements Extension {
     $target->add(new TextBuilder());
     $target->add(new FormatBuilder());
     $target->add(new HeadingBuilder());
-    $target->add(new HtmlElementBuilder());
+    $target->add(new HtmlElementBuilder(), -100);
   }
 
 }

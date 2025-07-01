@@ -22,4 +22,4 @@ props:
       type: string
 libraryOverrides:
   dependencies:
-    - niklan/highlight.js
+    - niklan/hljs

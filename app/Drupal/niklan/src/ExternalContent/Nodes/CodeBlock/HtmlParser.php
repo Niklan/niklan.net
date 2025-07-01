@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Nodes\CodeBlock;
+namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
@@ -14,7 +14,6 @@ final class HtmlParser implements Parser {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
-
     return $request->currentHtmlNode->nodeName === 'pre' && $request->currentHtmlNode->firstChild?->nodeName === 'code';
   }
 
@@ -27,7 +26,7 @@ final class HtmlParser implements Parser {
         $attributes[$attribute->name] = $attribute->value;
       }
     }
-    return new CodeBlock($request->currentHtmlNode->firstChild->textContent);
+    return new CodeBlock($request->currentHtmlNode->firstChild->textContent, $attributes);
   }
 
 }

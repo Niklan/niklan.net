@@ -9,6 +9,7 @@ use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Nodes\Callout\ArrayParser as CalloutParser;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\ArrayParser as CalloutBodyParser;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\ArrayParser as CalloutTitleParser;
+use Drupal\niklan\ExternalContent\Nodes\CodeBlock\ArrayParser as CodeBlockParser;
 use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\ArrayParser as ContainerDirectiveParser;
 use Drupal\niklan\ExternalContent\Nodes\LocalVideo\ArrayParser as LocalVideoParser;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\ArrayParser as MediaReferenceParser;
@@ -21,6 +22,7 @@ final readonly class ArrayParserExtension implements Extension {
 
   public function register(object $target): void {
     \assert($target instanceof Registry);
+    $target->add(new CodeBlockParser());
     $target->add(new RemoteVideoParser());
     $target->add(new LocalVideoParser());
     $target->add(new CalloutParser());

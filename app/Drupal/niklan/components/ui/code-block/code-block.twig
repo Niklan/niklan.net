@@ -1,0 +1,19 @@
+{% set pre_attributes = create_attribute() %}
+{% if language %}
+  {% do attributes.setAttribute('data-language', language) %}
+{% endif %}
+{% if highlighted_lines %}
+  {% do attributes.setAttribute('data-highlight', highlighted_lines) %}
+  {% do attributes.setAttribute('data-highlighted-line-class', 'code-block__highlighted') %}
+{% endif %}
+<section{{ attributes.addClass('code-block') }}>
+  {% if heading %}
+    <header class="code-block__header">
+      <div class="code-block__title">{{ heading }}</div>
+    </header>
+  {% endif %}
+
+  <div class="code-block__main">
+    <pre><code>{{ code }}</code></pre>
+  </div>
+</section>

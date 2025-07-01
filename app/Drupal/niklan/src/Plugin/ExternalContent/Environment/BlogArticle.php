@@ -37,8 +37,10 @@ use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Domain\MarkdownSource;
+use Drupal\niklan\ExternalContent\Extension\ArrayBuilderExtension as CustomArrayBuilderExtension;
 use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension as CustomArrayParserExtension;
 use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension as CustomHtmlParserExtension;
+use Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension as CustomRenderArrayExtension;
 use League\CommonMark\MarkdownConverter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -103,6 +105,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
   public function normalize(Root $content): string {
     $builders = new Registry();
     (new DefaultArrayBuilderExtension())->register($builders);
+    (new CustomArrayBuilderExtension())->register($builders);
 
     $request = new ArrayExportRequest(
       content: $content,
@@ -116,6 +119,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
   public function view(Root $content, ViewRequest $request): array {
     $builders = new Registry();
     (new DefaultRenderArrayExtension())->register($builders);
+    (new CustomRenderArrayExtension())->register($builders);
 
     $request = new RenderArrayExportRequest(
       content: $content,

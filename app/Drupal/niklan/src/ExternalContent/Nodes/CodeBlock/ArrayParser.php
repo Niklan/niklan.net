@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Nodes\CodeBlock;
+namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
 use Drupal\external_content\Contract\Importer\Array\Parser;
 use Drupal\external_content\Importer\Array\ArrayParseRequest;
@@ -15,7 +15,10 @@ final readonly class ArrayParser implements Parser {
   }
 
   public function parse(ArrayParseRequest $request): Content {
-    return new CodeBlock($request->currentArrayElement->properties['code']);
+    return new CodeBlock(
+      code: $request->currentArrayElement->properties['code'],
+      attributes: $request->currentArrayElement->properties['attributes'],
+    );
   }
 
 }
