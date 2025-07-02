@@ -127,6 +127,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
       builder: new RenderArrayBuilder($builders),
     );
 
+    \dump($content);
     Timer::start('render-time');
     $result = (new RenderArrayExporter())->export($request)->toRenderArray();
     \dump(Timer::stop('render-time')['time']);

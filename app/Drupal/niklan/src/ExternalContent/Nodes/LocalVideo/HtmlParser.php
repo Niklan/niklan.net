@@ -29,7 +29,7 @@ final readonly class HtmlParser implements Parser {
 
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMElement);
-    return new Video(
+    return new LocalVideo(
       src: $request->currentHtmlNode->getAttribute('data-argument'),
       title: $this->prepareTitle($request),
     );

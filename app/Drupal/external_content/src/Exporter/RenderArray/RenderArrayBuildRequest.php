@@ -23,4 +23,8 @@ final readonly class RenderArrayBuildRequest {
     return new self($this->currentAstNode, $render_array, $this->exportRequest);
   }
 
+  public function withNewNodeAndRenderArray(Content $new_content_node, RenderArray $render_array): self {
+    return new self($new_content_node, $render_array, $this->exportRequest);
+  }
+
 }

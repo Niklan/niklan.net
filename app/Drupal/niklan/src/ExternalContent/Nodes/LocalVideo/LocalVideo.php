@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\LocalVideo;
 
 use Drupal\external_content\Nodes\Content\Content;
 
-final class Video extends Content {
+final class LocalVideo extends Content {
 
   public function __construct(string $src, string $title) {
     parent::__construct();

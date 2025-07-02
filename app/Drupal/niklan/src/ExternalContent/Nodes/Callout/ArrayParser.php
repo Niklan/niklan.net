@@ -11,11 +11,11 @@ use Drupal\external_content\Nodes\Content\Content;
 final readonly class ArrayParser implements Parser {
 
   public function supports(ArrayParseRequest $request): bool {
-    return $request->currentArrayElement->type === CalloutNode::getType();
+    return $request->currentArrayElement->type === Callout::getType();
   }
 
   public function parse(ArrayParseRequest $request): Content {
-    $node = new CalloutNode($request->currentArrayElement->properties['calloutType']);
+    $node = new Callout($request->currentArrayElement->properties['calloutType']);
     $request->importRequest->getArrayParser()->parseChildren($request->withNewContentNode($node));
     return $node;
   }

@@ -8,7 +8,7 @@ use Drupal\external_content\Nodes\Content\Content;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\CalloutBody;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\CalloutTitle;
 
-final class CalloutNode extends Content {
+final class Callout extends Content {
 
   public function __construct(string $calloutType) {
     parent::__construct();

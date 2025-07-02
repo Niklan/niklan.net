@@ -1,5 +1,5 @@
 @layer component.ui {
-  .alert {
+  .callout {
     --note-color: var(--color-scrim);
     --icon-width: 24px;
 
@@ -14,7 +14,7 @@
     box-shadow: var(--elevation-1);
   }
 
-  .alert__heading {
+  .callout__heading {
     display: flex;
     align-items: flex-start;
     padding-bottom: var(--spacing-4);
@@ -23,31 +23,31 @@
     gap: var(--spacing-2);
   }
 
-  .alert__heading .icon {
+  .callout__heading .icon {
     color: var(--note-color);
   }
 
-  .alert__content {
+  .callout__content {
     font: var(--typography-body-medium);
   }
 
-  .alert--note {
+  .callout--note {
     --note-color: #046cd3;
   }
 
-  .alert--tip {
+  .callout--tip {
     --note-color: #1c7e37;
   }
 
-  .alert--important {
+  .callout--important {
     --note-color: #8453e4;
   }
 
-  .alert--warning {
+  .callout--warning {
     --note-color: #9e6d03;
   }
 
-  .alert--caution {
+  .callout--caution {
     --note-color: #d12327;
   }
 }

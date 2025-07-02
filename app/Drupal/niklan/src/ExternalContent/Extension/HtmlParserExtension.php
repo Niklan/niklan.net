@@ -23,7 +23,7 @@ final readonly class HtmlParserExtension implements Extension {
     $target->add(new LocalVideoParser());
     $target->add(new CalloutParser());
     $target->add(new CodeBlockParser());
-    $target->add(new ContainerDirectiveParser(), -10);
+    $target->add(new ContainerDirectiveParser(), -50);
   }
 
 }

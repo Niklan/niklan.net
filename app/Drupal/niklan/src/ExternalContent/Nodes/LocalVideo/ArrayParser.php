@@ -11,11 +11,11 @@ use Drupal\external_content\Nodes\Content\Content;
 final readonly class ArrayParser implements Parser {
 
   public function supports(ArrayParseRequest $request): bool {
-    return $request->currentArrayElement->type === Video::getType();
+    return $request->currentArrayElement->type === LocalVideo::getType();
   }
 
   public function parse(ArrayParseRequest $request): Content {
-    return new Video(
+    return new LocalVideo(
       src: $request->currentArrayElement->properties['src'],
       title: $request->currentArrayElement->properties['title'],
     );

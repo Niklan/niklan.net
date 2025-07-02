@@ -20,15 +20,15 @@ final readonly class HtmlParser implements Parser {
 
     return $request->currentHtmlNode->getAttribute('data-selector') === 'niklan:container-directive'
       && \in_array(
-        $request->currentHtmlNode->getAttribute('data-type'),
-        ['note', 'tip', 'important', 'warning', 'caution'],
-        TRUE,
+        needle: $request->currentHtmlNode->getAttribute('data-type'),
+        haystack: ['note', 'tip', 'important', 'warning', 'caution'],
+        strict: TRUE,
       );
   }
 
   public function parse(HtmlParseRequest $request): Content {
     \assert($request->currentHtmlNode instanceof \DOMElement);
-    $callout = new CalloutNode($request->currentHtmlNode->getAttribute('data-type'));
+    $callout = new Callout($request->currentHtmlNode->getAttribute('data-type'));
     $this->parseTitle($request->withNewContentNode($callout));
     $this->parseBody($request->withNewContentNode($callout));
 
@@ -37,7 +37,11 @@ final readonly class HtmlParser implements Parser {
 
   private function parseTitle(HtmlParseRequest $request): void {
     $crawler = new Crawler($request->currentHtmlNode);
-    $title_node = $crawler->filter('[data-selector="inline-content"]')->getNode(0);
+    // Since callouts can be nested within each other, there is a possibility
+    // that a parent callout may not have a title while a nested one does.
+    // Therefore, it is crucial that the title is searched only among direct
+    // child elements and not throughout the entire child tree.
+    $title_node = $crawler->filterXPath('.//*[1]/div[@data-selector="inline-content"]')->getNode(0);
     if (!$title_node instanceof \DOMNode) {
       return;
     }

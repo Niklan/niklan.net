@@ -8,7 +8,7 @@ use Drupal\external_content\Nodes\Content\Content;
 
 final class MediaReference extends Content {
 
-  public function __construct(private string $uuid, private array $mediaMetadata = []) {
+  public function __construct(private readonly string $uuid, private readonly array $mediaMetadata = []) {
     parent::__construct();
     $this->setUuid($this->uuid);
     foreach ($this->mediaMetadata as $key => $value) {
@@ -25,7 +25,7 @@ final class MediaReference extends Content {
   }
 
   public static function getType(): string {
-    return 'niklan:drupal_media';
+    return 'niklan:media_reference';
   }
 
 }

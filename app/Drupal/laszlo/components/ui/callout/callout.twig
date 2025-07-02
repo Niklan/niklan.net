@@ -22,12 +22,14 @@
     }
   }
 %}
-<div{{ attributes.addClass('alert', 'alert--' ~ type|clean_class) }}>
-  <div class="alert__heading">
-    {% include 'laszlo:icon' with { icon: switch[type].icon } only %}
-    {% block heading %}{{ switch[type].label }}{% endblock %}
+<div{{ attributes.addClass('callout', 'callout--' ~ type|clean_class) }}>
+  <div class="callout__heading">
+    {% include 'laszlo:icon' with { icon: switch[type].icon } only -%}
+    <div class="callout__label">
+      {%- block title %}{{- switch[type].label -}}{% endblock -%}
+    </div>
   </div>
-  <div class="prose alert__content">
-    {% block content %}{% endblock %}
+  <div class="prose callout__content">
+    {% block body %}{% endblock %}
   </div>
 </div>

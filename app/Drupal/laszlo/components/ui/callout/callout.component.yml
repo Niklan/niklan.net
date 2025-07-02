@@ -1,8 +1,8 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-replaces: 'niklan:alert'
-name: Alert
+replaces: 'niklan:callout'
+name: Callout
 status: experimental
-group: molecules
+group: ui
 props:
   type: object
   required:
@@ -18,8 +18,8 @@ props:
         - warning
         - caution
 slots:
-  heading:
-    title: Heading
-  content:
-    title: Content
+  title:
+    title: Title
+  body:
+    title: Body
     required: true
