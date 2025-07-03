@@ -32,7 +32,7 @@ use Drupal\external_content\Importer\Html\HtmlImporterContext;
 use Drupal\external_content\Importer\Html\HtmlImporterSource;
 use Drupal\external_content\Importer\Html\HtmlImportRequest;
 use Drupal\external_content\Importer\Html\HtmlParser;
-use Drupal\external_content\Nodes\Root;
+use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
@@ -71,7 +71,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     );
   }
 
-  public function parse(ImporterSource $source): Root {
+  public function parse(ImporterSource $source): Document {
     \assert($source instanceof MarkdownSource);
     $html = $this->markdownConverter->convert($source->getSourceData());
 
@@ -88,7 +88,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     return (new HtmlImporter())->import($request);
   }
 
-  public function denormalize(string $json): Root {
+  public function denormalize(string $json): Document {
     $parsers = new Registry();
     (new DefaultArrayParserExtension())->register($parsers);
     (new CustomArrayParserExtension())->register($parsers);
@@ -102,7 +102,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     return (new ArrayImporter())->import($request);
   }
 
-  public function normalize(Root $content): string {
+  public function normalize(Document $content): string {
     $builders = new Registry();
     (new DefaultArrayBuilderExtension())->register($builders);
     (new CustomArrayBuilderExtension())->register($builders);
@@ -116,7 +116,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     return \json_encode((new ArrayExporter())->export($request)->toArray());
   }
 
-  public function view(Root $content, ViewRequest $request): array {
+  public function view(Document $content, ViewRequest $request): array {
     $builders = new Registry();
     (new DefaultRenderArrayExtension())->register($builders);
     (new CustomRenderArrayExtension())->register($builders);

@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
 final class HtmlParser implements Parser {
 
@@ -17,8 +17,12 @@ final class HtmlParser implements Parser {
     return $request->currentHtmlNode->nodeName === 'pre' && $request->currentHtmlNode->firstChild?->nodeName === 'code';
   }
 
-  public function parse(HtmlParseRequest $request): Content {
+  public function parse(HtmlParseRequest $request): Node {
     \assert($request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->firstChild instanceof \DOMElement);
+    return new CodeBlock($request->currentHtmlNode->firstChild->textContent, $this->parseAttributes($request));
+  }
+
+  public function parseAttributes(HtmlParseRequest $request): array {
     $attributes = [];
     if ($request->currentHtmlNode->hasAttributes()) {
       foreach ($request->currentHtmlNode->attributes as $attribute) {
@@ -26,7 +30,7 @@ final class HtmlParser implements Parser {
         $attributes[$attribute->name] = $attribute->value;
       }
     }
-    return new CodeBlock($request->currentHtmlNode->firstChild->textContent, $attributes);
+    return $attributes;
   }
 
 }

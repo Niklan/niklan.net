@@ -4,26 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\Text;
 
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
-final class Text extends Content {
+final class Text extends Node {
 
   public function __construct(
-    string $text,
-  ) {
-    parent::__construct();
-    $this->setText($text);
-  }
+    public readonly string $text,
+  ) {}
 
-  public function setText(string $text): void {
-    $this->properties->setProperty('text', $text);
-  }
-
-  public function getText(): string {
-    return $this->properties->getProperty('text');
-  }
-
-  public static function getType(): string {
+  public static function getNodeType(): string {
     return 'text';
   }
 

@@ -11,16 +11,16 @@ use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
 final readonly class RenderArrayBuilder implements Builder {
 
   public function supports(RenderArrayBuildRequest $request): bool {
-    return $request->currentAstNode instanceof Heading;
+    return $request->node instanceof Heading;
   }
 
   public function build(RenderArrayBuildRequest $request): RenderArray {
-    \assert($request->currentAstNode instanceof Heading);
+    \assert($request->node instanceof Heading);
     $element = new RenderArray([
       '#type' => 'html_tag',
-      '#tag' => $request->currentAstNode->getTag()->value,
+      '#tag' => $request->node->tagType->value,
     ]);
-    $request->exportRequest->getRenderArrayBuilder()->buildChildren($request->withNewRenderArray($element));
+    $request->request->getRenderArrayBuilder()->buildChildren($request->withNewRenderArray($element));
     return $element;
   }
 

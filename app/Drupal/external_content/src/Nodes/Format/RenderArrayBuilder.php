@@ -14,20 +14,20 @@ use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
 final readonly class RenderArrayBuilder implements Builder, TrustedCallbackInterface {
 
   public function supports(RenderArrayBuildRequest $request): bool {
-    return $request->currentAstNode instanceof Format;
+    return $request->node instanceof Format;
   }
 
   public function build(RenderArrayBuildRequest $request): RenderArray {
-    \assert($request->currentAstNode instanceof Format);
+    \assert($request->node instanceof Format);
     $element = new RenderArray([
       '#type' => 'html_tag',
-      '#tag' => $request->currentAstNode->getFormat()->toHtmlTag(),
+      '#tag' => $request->node->format->toHtmlTag(),
       '#pre_render' => [
         HtmlTag::preRenderHtmlTag(...),
         self::preRenderTag(...),
       ],
     ]);
-    $request->exportRequest->getRenderArrayBuilder()->buildChildren($request->withNewRenderArray($element));
+    $request->request->getRenderArrayBuilder()->buildChildren($request->withNewRenderArray($element));
     return $element;
   }
 

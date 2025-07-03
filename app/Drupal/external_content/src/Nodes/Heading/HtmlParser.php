@@ -7,7 +7,7 @@ namespace Drupal\external_content\Nodes\Heading;
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Domain\HeadingTagType;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
 final class HtmlParser implements Parser {
 
@@ -15,13 +15,10 @@ final class HtmlParser implements Parser {
     if (!$request->currentHtmlNode instanceof \DOMElement) {
       return FALSE;
     }
-
-    $heading_elements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-
-    return \in_array($request->currentHtmlNode->nodeName, $heading_elements);
+    return \in_array($request->currentHtmlNode->nodeName, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
   }
 
-  public function parse(HtmlParseRequest $request): Content {
+  public function parse(HtmlParseRequest $request): Node {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $heading = new Heading(HeadingTagType::fromHtmlTag($request->currentHtmlNode->nodeName));
     $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($heading));

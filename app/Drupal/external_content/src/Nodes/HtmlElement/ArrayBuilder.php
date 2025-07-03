@@ -11,19 +11,19 @@ use Drupal\external_content\Exporter\Array\ArrayBuildRequest;
 final readonly class ArrayBuilder implements Builder {
 
   public function supports(ArrayBuildRequest $request): bool {
-    return $request->currentAstNode instanceof HtmlElement;
+    return $request->node instanceof HtmlElement;
   }
 
   public function build(ArrayBuildRequest $request): ArrayElement {
-    \assert($request->currentAstNode instanceof HtmlElement);
+    \assert($request->node instanceof HtmlElement);
     $element = new ArrayElement(
-      type: $request->currentAstNode::getType(),
+      type: $request->node::getNodeType(),
       properties: [
-        'tag' => $request->currentAstNode->getTag(),
-        'attributes' => $request->currentAstNode->attributes()->all(),
+        'tag' => $request->node->tag,
+        'attributes' => $request->node->attributes,
       ],
     );
-    $request->exportRequest->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
+    $request->request->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
     return $element;
   }
 

@@ -8,7 +8,6 @@ use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Nodes\Callout\HtmlParser as CalloutParser;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\HtmlParser as CodeBlockParser;
-use Drupal\niklan\ExternalContent\Nodes\ContainerDirective\HtmlParser as ContainerDirectiveParser;
 use Drupal\niklan\ExternalContent\Nodes\LocalVideo\HtmlParser as LocalVideoParser;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\HtmlParser as RemoteVideoParser;
 
@@ -23,7 +22,6 @@ final readonly class HtmlParserExtension implements Extension {
     $target->add(new LocalVideoParser());
     $target->add(new CalloutParser());
     $target->add(new CodeBlockParser());
-    $target->add(new ContainerDirectiveParser(), -50);
   }
 
 }

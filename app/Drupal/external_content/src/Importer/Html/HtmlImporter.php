@@ -7,7 +7,7 @@ namespace Drupal\external_content\Importer\Html;
 use Drupal\external_content\Contract\Importer\Importer;
 use Drupal\external_content\Contract\Importer\ImportRequest;
 use Drupal\external_content\Factory\DomDocumentFactory;
-use Drupal\external_content\Nodes\Root;
+use Drupal\external_content\Nodes\Document;
 
 /**
  * @implements \Drupal\external_content\Contract\Importer\Importer<\Drupal\external_content\Importer\Html\HtmlImportRequest>
@@ -23,8 +23,8 @@ final readonly class HtmlImporter implements Importer {
   /**
    * @param \Drupal\external_content\Importer\Html\HtmlImportRequest $request
    */
-  public function import(ImportRequest $request): Root {
-    $content_root_node = new Root();
+  public function import(ImportRequest $request): Document {
+    $content_root_node = new Document();
 
     $document = $this->domDocumentFactory->createFromHtml($request->getSource()->getSourceData());
     $body = $document->getElementsByTagName('body')->item(0);

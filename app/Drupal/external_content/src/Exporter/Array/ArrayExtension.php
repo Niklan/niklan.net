@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
-use Drupal\external_content\Nodes\Content\ArrayBuilder as ContentBuilder;
+use Drupal\external_content\Nodes\Format\ArrayBuilder as FormatBuilder;
+use Drupal\external_content\Nodes\Heading\ArrayBuilder as HeadingBuilder;
 use Drupal\external_content\Nodes\HtmlElement\ArrayBuilder as HtmlElementBuilder;
+use Drupal\external_content\Nodes\Text\ArrayBuilder as TextBuilder;
 use Drupal\external_content\Utils\Registry;
 
 /**
@@ -16,8 +18,10 @@ final readonly class ArrayExtension implements Extension {
 
   public function register(object $target): void {
     \assert($target instanceof Registry);
+    $target->add(new FormatBuilder());
+    $target->add(new HeadingBuilder());
     $target->add(new HtmlElementBuilder());
-    $target->add(new ContentBuilder(), -100);
+    $target->add(new TextBuilder());
   }
 
 }

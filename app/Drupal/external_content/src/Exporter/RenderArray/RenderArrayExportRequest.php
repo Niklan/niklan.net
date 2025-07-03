@@ -6,7 +6,7 @@ namespace Drupal\external_content\Exporter\RenderArray;
 
 use Drupal\external_content\Contract\Exporter\ExporterContext;
 use Drupal\external_content\Contract\Exporter\ExportRequest;
-use Drupal\external_content\Nodes\Root;
+use Drupal\external_content\Nodes\Document;
 
 /**
  * @implements \Drupal\external_content\Contract\Exporter\ExportRequest<\Drupal\external_content\Exporter\RenderArray\RenderArrayExportRequest>
@@ -14,12 +14,12 @@ use Drupal\external_content\Nodes\Root;
 final class RenderArrayExportRequest implements ExportRequest {
 
   public function __construct(
-    private Root $content,
+    private Document $content,
     private RenderArrayExporterContext $context,
     private RenderArrayBuilder $builder,
   ) {}
 
-  public function getContent(): Root {
+  public function getContent(): Document {
     return $this->content;
   }
 

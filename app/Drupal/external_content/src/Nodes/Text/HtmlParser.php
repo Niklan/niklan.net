@@ -6,7 +6,7 @@ namespace Drupal\external_content\Nodes\Text;
 
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
 final class HtmlParser implements Parser {
 
@@ -37,7 +37,7 @@ final class HtmlParser implements Parser {
     return TRUE;
   }
 
-  public function parse(HtmlParseRequest $request): Content {
+  public function parse(HtmlParseRequest $request): Node {
     \assert($request->currentHtmlNode instanceof \DOMText);
     return new Text($request->currentHtmlNode->nodeValue ?? '');
   }

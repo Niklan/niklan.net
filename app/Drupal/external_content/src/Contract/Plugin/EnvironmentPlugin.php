@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Drupal\external_content\Contract\Plugin;
 
 use Drupal\external_content\Contract\Importer\ImporterSource;
-use Drupal\external_content\Nodes\Root;
+use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 
 interface EnvironmentPlugin {
 
-  public function parse(ImporterSource $source): Root;
+  public function parse(ImporterSource $source): Document;
 
-  public function denormalize(string $json): Root;
+  public function denormalize(string $json): Document;
 
-  public function normalize(Root $content): string;
+  public function normalize(Document $content): string;
 
-  public function view(Root $content, ViewRequest $request): array;
+  public function view(Document $content, ViewRequest $request): array;
 
 }

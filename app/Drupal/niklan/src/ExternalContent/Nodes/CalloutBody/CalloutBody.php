@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\CalloutBody;
 
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
-final class CalloutBody extends Content {
+final class CalloutBody extends Node {
 
-  public static function getType(): string {
+  public static function getNodeType(): string {
     return 'niklan:callout_body';
   }
 

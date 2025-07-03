@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\DataStructure\ArrayElement;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
 final readonly class ArrayBuildRequest {
 
   public function __construct(
-    public Content $currentAstNode,
-    public ArrayElement $currentArrayElement,
-    public ArrayExportRequest $exportRequest,
+    public Node $node,
+    public ArrayElement $arrayElement,
+    public ArrayExportRequest $request,
   ) {}
 
-  public function withNewAstNode(Content $new_content_node): self {
-    return new self($new_content_node, $this->currentArrayElement, $this->exportRequest);
+  public function withNewNode(Node $new_content_node): self {
+    return new self($new_content_node, $this->arrayElement, $this->request);
   }
 
   public function withNewArrayElement(ArrayElement $new_array_element): self {
-    return new self($this->currentAstNode, $new_array_element, $this->exportRequest);
+    return new self($this->node, $new_array_element, $this->request);
   }
 
 }

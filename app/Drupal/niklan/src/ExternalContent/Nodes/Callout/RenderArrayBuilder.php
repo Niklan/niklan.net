@@ -11,16 +11,16 @@ use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
 final readonly class RenderArrayBuilder implements Builder {
 
   public function supports(RenderArrayBuildRequest $request): bool {
-    return $request->currentAstNode instanceof Callout;
+    return $request->node instanceof Callout;
   }
 
   public function build(RenderArrayBuildRequest $request): RenderArray {
-    \assert($request->currentAstNode instanceof Callout);
+    \assert($request->node instanceof Callout);
     $build = [
       '#type' => 'component',
       '#component' => 'niklan:callout',
       '#props' => [
-        'type' => $request->currentAstNode->getCalloutType(),
+        'type' => $request->node->type,
       ],
     ];
 
@@ -38,26 +38,26 @@ final readonly class RenderArrayBuilder implements Builder {
   }
 
   private function prepareBody(RenderArrayBuildRequest $request): ?array {
-    \assert($request->currentAstNode instanceof Callout);
-    if (!$request->currentAstNode->getBody()) {
+    \assert($request->node instanceof Callout);
+    if (!$request->node->getBody()) {
       return NULL;
     }
 
     $result = new RenderArray();
-    $child_request = $request->withNewNodeAndRenderArray($request->currentAstNode->getBody(), $result);
-    $request->exportRequest->getRenderArrayBuilder()->buildChildren($child_request);
+    $child_request = $request->withNewNodeAndRenderArray($request->node->getBody(), $result);
+    $request->request->getRenderArrayBuilder()->buildChildren($child_request);
     return $result->toRenderArray();
   }
 
   private function prepareTitle(RenderArrayBuildRequest $request): ?array {
-    \assert($request->currentAstNode instanceof Callout);
-    if (!$request->currentAstNode->getTitle()) {
+    \assert($request->node instanceof Callout);
+    if (!$request->node->getTitle()) {
       return NULL;
     }
 
     $result = new RenderArray();
-    $child_request = $request->withNewNodeAndRenderArray($request->currentAstNode->getTitle(), $result);
-    $request->exportRequest->getRenderArrayBuilder()->buildChildren($child_request);
+    $child_request = $request->withNewNodeAndRenderArray($request->node->getTitle(), $result);
+    $request->request->getRenderArrayBuilder()->buildChildren($child_request);
     return $result->toRenderArray();
   }
 

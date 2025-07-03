@@ -4,26 +4,17 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\CalloutBody;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\CalloutTitle;
 
-final class Callout extends Content {
+final class Callout extends Node {
 
-  public function __construct(string $calloutType) {
-    parent::__construct();
-    $this->setCalloutType($calloutType);
-  }
+  public function __construct(
+    public readonly string $type,
+  ) {}
 
-  public function setCalloutType(string $calloutType): void {
-    $this->getProperties()->setProperty('calloutType', $calloutType);
-  }
-
-  public function getCalloutType(): string {
-    return $this->getProperties()->getProperty('calloutType');
-  }
-
-  public function addChild(Content $node): void {
+  public function addChild(Node $node): void {
     if (!$node instanceof CalloutTitle && !$node instanceof CalloutBody) {
       throw new \InvalidArgumentException('Only CalloutTitleNode and CalloutBodyNode can be added as children.');
     }
@@ -49,7 +40,7 @@ final class Callout extends Content {
     return NULL;
   }
 
-  public static function getType(): string {
+  public static function getNodeType(): string {
     return 'niklan:callout';
   }
 

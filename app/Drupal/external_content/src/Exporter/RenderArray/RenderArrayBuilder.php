@@ -11,8 +11,8 @@ final readonly class RenderArrayBuilder {
   ) {}
 
   public function buildChildren(RenderArrayBuildRequest $build_request): void {
-    foreach ($build_request->currentAstNode->getChildren() as $child) {
-      $this->buildChild($build_request->withNewAstNode($child));
+    foreach ($build_request->node->getChildren() as $child) {
+      $this->buildChild($build_request->withNewNode($child));
     }
   }
 
@@ -25,9 +25,9 @@ final readonly class RenderArrayBuilder {
       return;
     }
 
-    $build_request->exportRequest->getContext()->getLogger()->error(
+    $build_request->request->getContext()->getLogger()->error(
       message: 'No Render Array Builder found',
-      context: ['type' => $build_request->currentAstNode::getType()],
+      context: ['type' => $build_request->node::getNodeType()],
     );
   }
 

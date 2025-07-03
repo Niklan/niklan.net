@@ -6,7 +6,7 @@ namespace Drupal\external_content\Nodes\HtmlElement;
 
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
 final class HtmlParser implements Parser {
 
@@ -14,16 +14,21 @@ final class HtmlParser implements Parser {
     return $request->currentHtmlNode instanceof \DOMNode;
   }
 
-  public function parse(HtmlParseRequest $request): Content {
-    $element = new HtmlElement($request->currentHtmlNode->nodeName);
+  public function parse(HtmlParseRequest $request): Node {
+    $element = new HtmlElement($request->currentHtmlNode->nodeName, $this->parseAttributes($request));
+    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($element));
+    return $element;
+  }
+
+  private function parseAttributes(HtmlParseRequest $request): array {
+    $attributes = [];
     if ($request->currentHtmlNode->hasAttributes()) {
       foreach ($request->currentHtmlNode->attributes as $attribute) {
         \assert($attribute instanceof \DOMAttr);
-        $element->attributes()->set($attribute->name, $attribute->value);
+        $attributes[$attribute->name] = $attribute->value;
       }
     }
-    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($element));
-    return $element;
+    return $attributes;
   }
 
 }

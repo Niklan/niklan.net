@@ -4,24 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\RemoteVideo;
 
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
-final class RemoteVideo extends Content {
+final class RemoteVideo extends Node {
 
-  public function __construct(public string $url) {
-    parent::__construct();
-    $this->setUrl($url);
-  }
+  public function __construct(
+    public readonly string $url,
+  ) {}
 
-  public function setUrl(string $url): void {
-    $this->getProperties()->setProperty('url', $url);
-  }
-
-  public function getUrl(): string {
-    return $this->getProperties()->getProperty('url');
-  }
-
-  public static function getType(): string {
+  public static function getNodeType(): string {
     return 'niklan:remote_video';
   }
 

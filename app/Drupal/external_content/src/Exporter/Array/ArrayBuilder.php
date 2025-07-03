@@ -14,8 +14,8 @@ final readonly class ArrayBuilder {
   ) {}
 
   public function buildChildren(ArrayBuildRequest $build_request): void {
-    foreach ($build_request->currentAstNode->getChildren() as $child) {
-      $this->buildChild($build_request->withNewAstNode($child));
+    foreach ($build_request->node->getChildren() as $child) {
+      $this->buildChild($build_request->withNewNode($child));
     }
   }
 
@@ -24,13 +24,13 @@ final readonly class ArrayBuilder {
       if (!$builder->supports($build_request)) {
         continue;
       }
-      $build_request->currentArrayElement->addChild($builder->build($build_request));
+      $build_request->arrayElement->addChild($builder->build($build_request));
       return;
     }
 
-    $build_request->exportRequest->getContext()->getLogger()->error(
+    $build_request->request->getContext()->getLogger()->error(
       message: 'No Array Builder found',
-      context: ['type' => $build_request->currentAstNode::getType()],
+      context: ['type' => $build_request->node::getNodeType()],
     );
   }
 

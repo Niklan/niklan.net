@@ -11,13 +11,13 @@ use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
 final readonly class RenderArrayBuilder implements Builder {
 
   public function supports(RenderArrayBuildRequest $request): bool {
-    return $request->currentAstNode instanceof Text;
+    return $request->node instanceof Text;
   }
 
   public function build(RenderArrayBuildRequest $request): RenderArray {
-    \assert($request->currentAstNode instanceof Text);
+    \assert($request->node instanceof Text);
     return new RenderArray([
-      '#markup' => $request->currentAstNode->getText(),
+      '#markup' => $request->node->text,
     ]);
   }
 

@@ -6,7 +6,7 @@ namespace Drupal\external_content\Field;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\TypedData\TypedData;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 
 /**
@@ -14,10 +14,10 @@ use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManage
  */
 final class ExternalContentComputedProperty extends TypedData {
 
-  protected ?Content $value = NULL;
+  protected ?Node $value = NULL;
 
   #[\Override]
-  public function getValue(): ?Content {
+  public function getValue(): ?Node {
     if ($this->value) {
       return $this->value;
     }

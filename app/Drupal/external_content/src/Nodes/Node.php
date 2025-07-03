@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Nodes\Content;
-
-use Drupal\external_content\DataStructure\NodeProperties;
-use Drupal\external_content\Nodes\Root;
+namespace Drupal\external_content\Nodes;
 
 /**
  * An abstract node representing content structure leaf.
@@ -13,7 +10,7 @@ use Drupal\external_content\Nodes\Root;
  * Do not be confused, this is not an HTML node, this is a simple content leaf
  * for a specific purpose.
  */
-abstract class Content {
+abstract class Node {
 
   protected ?self $parent = NULL;
 
@@ -21,18 +18,9 @@ abstract class Content {
    * @var array<self>
    */
   protected array $children = [];
-  protected NodeProperties $properties;
-  private ?Root $cachedRootNode = NULL;
+  private ?Document $cachedDocument = NULL;
 
-  abstract public static function getType(): string;
-
-  public function __construct() {
-    $this->properties = new NodeProperties();
-  }
-
-  public function getProperties(): NodeProperties {
-    return $this->properties;
-  }
+  abstract public static function getNodeType(): string;
 
   public function addChild(self $node): void {
     $node->setParent($this);
@@ -53,9 +41,9 @@ abstract class Content {
   /**
    * @throws \LogicException
    */
-  public function getRoot(): Root {
-    if ($this->cachedRootNode) {
-      return $this->cachedRootNode;
+  public function getDocument(): Document {
+    if ($this->cachedDocument) {
+      return $this->cachedDocument;
     }
 
     $node = $this;
@@ -63,11 +51,11 @@ abstract class Content {
       $node = $node->getParent();
     }
 
-    if (!$node instanceof Root) {
-      throw new \LogicException('Element does not have a root node.');
+    if (!$node instanceof Document) {
+      throw new \LogicException('Element does not have a document node.');
     }
 
-    $this->cachedRootNode = $node;
+    $this->cachedDocument = $node;
     return $node;
   }
 
@@ -91,7 +79,7 @@ abstract class Content {
 
   public function setParent(self $node): void {
     $this->parent = $node;
-    $this->resetRootCacheRecursively();
+    $this->resetDocumentCacheRecursively();
   }
 
   public function replaceChild(self $old, self $new): void {
@@ -102,7 +90,7 @@ abstract class Content {
 
     $this->children[$index] = $new;
     $old->parent = NULL;
-    $old->resetRootCacheRecursively();
+    $old->resetDocumentCacheRecursively();
     $new->setParent($this);
   }
 
@@ -115,13 +103,13 @@ abstract class Content {
     unset($this->children[$index]);
     $this->children = \array_values($this->children);
     $child->parent = NULL;
-    $child->resetRootCacheRecursively();
+    $child->resetDocumentCacheRecursively();
   }
 
-  private function resetRootCacheRecursively(): void {
-    $this->cachedRootNode = NULL;
+  private function resetDocumentCacheRecursively(): void {
+    $this->cachedDocument = NULL;
     foreach ($this->children as $child) {
-      $child->resetRootCacheRecursively();
+      $child->resetDocumentCacheRecursively();
     }
   }
 

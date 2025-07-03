@@ -6,7 +6,7 @@ namespace Drupal\external_content\Exporter\Array;
 
 use Drupal\external_content\Contract\Exporter\ExporterContext;
 use Drupal\external_content\Contract\Exporter\ExportRequest;
-use Drupal\external_content\Nodes\Root;
+use Drupal\external_content\Nodes\Document;
 
 /**
  * @implements \Drupal\external_content\Contract\Exporter\ExportRequest<\Drupal\external_content\Exporter\Array\ArrayExporterContext>
@@ -14,12 +14,12 @@ use Drupal\external_content\Nodes\Root;
 final class ArrayExportRequest implements ExportRequest {
 
   public function __construct(
-    private Root $content,
+    private Document $content,
     private ExporterContext $context,
     private ArrayBuilder $builder,
   ) {}
 
-  public function getContent(): Root {
+  public function getContent(): Document {
     return $this->content;
   }
 

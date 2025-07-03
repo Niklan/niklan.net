@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Extension;
 
 use Drupal\external_content\Contract\Extension\Extension;
+use Drupal\niklan\ExternalContent\Nodes\Callout\ArrayBuilder as CalloutBuilder;
+use Drupal\niklan\ExternalContent\Nodes\CalloutBody\ArrayBuilder as CalloutBodyBuilder;
+use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\ArrayBuilder as CalloutTitleBuilder;
 use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\ArrayBuilder as CodeBlockBuilder;
+use Drupal\niklan\ExternalContent\Nodes\MediaReference\ArrayBuilder as MediaReferenceBuilder;
 
 /**
  * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Exporter\Array\ArrayBuilder>>
@@ -15,7 +19,11 @@ final readonly class ArrayBuilderExtension implements Extension {
 
   public function register(object $target): void {
     \assert($target instanceof Registry);
+    $target->add(new CalloutBuilder());
+    $target->add(new CalloutBodyBuilder());
+    $target->add(new CalloutTitleBuilder());
     $target->add(new CodeBlockBuilder());
+    $target->add(new MediaReferenceBuilder());
   }
 
 }

@@ -6,8 +6,8 @@ namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\external_content\Nodes\Content\Content;
 use Drupal\external_content\Nodes\Image\Image;
+use Drupal\external_content\Nodes\Node;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\ExternalContent\Nodes\LocalVideo\LocalVideo;
@@ -48,14 +48,14 @@ final readonly class AssetSynchronizer implements PipelineStage {
     }
   }
 
-  private function syncExternalContentRecursively(Content $node, ArticleTranslationProcessContext $context): void {
+  private function syncExternalContentRecursively(Node $node, ArticleTranslationProcessContext $context): void {
     foreach ($node->getChildren() as $child) {
       $this->syncExternalContentRecursively($child, $context);
     }
     $this->syncExternalContentNode($node, $context);
   }
 
-  private function syncExternalContentNode(Content $node, ArticleTranslationProcessContext $context): void {
+  private function syncExternalContentNode(Node $node, ArticleTranslationProcessContext $context): void {
     match ($node::class) {
       Image::class => $this->syncImage($node, $context),
       LocalVideo::class => $this->syncLocalVideo($node, $context),
@@ -64,7 +64,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
     };
   }
 
-  private function replaceWithMediaReferenceNode(Content $original_node, string $asset_source, array $media_metadata = []): void {
+  private function replaceWithMediaReferenceNode(Node $original_node, string $asset_source, array $media_metadata = []): void {
     $media = $this->mediaSynchronizer->sync($asset_source);
     if ($media) {
       $media_node = new MediaReference($media->uuid(), $media_metadata);
@@ -76,7 +76,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
   }
 
   private function syncImage(Image $node, ArticleTranslationProcessContext $context): void {
-    $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->getSrc();
+    $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->src;
     $data = [
       'src' => $node->getSrc(),
       'alt' => $node->getAlt(),
@@ -85,13 +85,13 @@ final readonly class AssetSynchronizer implements PipelineStage {
   }
 
   private function syncLocalVideo(LocalVideo $node, ArticleTranslationProcessContext $context): void {
-    $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->getSrc();
-    $data = ['title' => $node->getTitle()];
+    $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->src;
+    $data = ['title' => $node->title];
     $this->replaceWithMediaReferenceNode($node, $asset_path, $data);
   }
 
   private function syncRemoteVideo(RemoteVideo $node, ArticleTranslationProcessContext $context): void {
-    $this->replaceWithMediaReferenceNode($node, $node->getUrl());
+    $this->replaceWithMediaReferenceNode($node, $node->url);
   }
 
 }

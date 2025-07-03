@@ -4,27 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\MediaReference;
 
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
-final class MediaReference extends Content {
+final class MediaReference extends Node {
 
-  public function __construct(private readonly string $uuid, private readonly array $mediaMetadata = []) {
-    parent::__construct();
-    $this->setUuid($this->uuid);
-    foreach ($this->mediaMetadata as $key => $value) {
-      $this->getProperties()->setProperty($key, $value);
-    }
-  }
+  public function __construct(
+    public readonly string $uuid,
+    public readonly array $metadata = [],
+  ) {}
 
-  public function setUuid(string $uuid): void {
-    $this->getProperties()->setProperty('uuid', $uuid);
-  }
-
-  public function getUuid(): string {
-    return $this->getProperties()->getProperty('uuid');
-  }
-
-  public static function getType(): string {
+  public static function getNodeType(): string {
     return 'niklan:media_reference';
   }
 

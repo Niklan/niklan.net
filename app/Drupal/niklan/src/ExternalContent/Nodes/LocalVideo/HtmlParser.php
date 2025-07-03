@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\LocalVideo;
 
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 use Symfony\Component\DomCrawler\Crawler;
 
 final readonly class HtmlParser implements Parser {
@@ -27,7 +27,7 @@ final readonly class HtmlParser implements Parser {
     return $request->currentHtmlNode->hasAttribute('data-argument');
   }
 
-  public function parse(HtmlParseRequest $request): Content {
+  public function parse(HtmlParseRequest $request): Node {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     return new LocalVideo(
       src: $request->currentHtmlNode->getAttribute('data-argument'),

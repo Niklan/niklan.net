@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\Callout;
 
 use Drupal\external_content\Contract\Importer\Html\Parser;
 use Drupal\external_content\Importer\Html\HtmlParseRequest;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\CalloutBody;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\CalloutTitle;
 use Symfony\Component\DomCrawler\Crawler;
@@ -26,7 +26,7 @@ final readonly class HtmlParser implements Parser {
       );
   }
 
-  public function parse(HtmlParseRequest $request): Content {
+  public function parse(HtmlParseRequest $request): Node {
     \assert($request->currentHtmlNode instanceof \DOMElement);
     $callout = new Callout($request->currentHtmlNode->getAttribute('data-type'));
     $this->parseTitle($request->withNewContentNode($callout));

@@ -4,35 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\HtmlElement;
 
-use Drupal\external_content\DataStructure\HtmlAttributes;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
-final class HtmlElement extends Content {
-
-  private HtmlAttributes $attributes;
+final class HtmlElement extends Node {
 
   public function __construct(
-    string $tag,
-    array $attributes = [],
-  ) {
-    parent::__construct();
-    $this->setTag($tag);
-    $this->attributes = new HtmlAttributes($attributes);
-  }
+    public readonly string $tag,
+    public readonly array $attributes = [],
+  ) {}
 
-  public function setTag(string $tag): void {
-    $this->getProperties()->setProperty('tag', $tag);
-  }
-
-  public function getTag(): string {
-    return $this->getProperties()->getProperty('tag');
-  }
-
-  public function attributes(): HtmlAttributes {
-    return $this->attributes;
-  }
-
-  public static function getType(): string {
+  public static function getNodeType(): string {
     return 'html_element';
   }
 

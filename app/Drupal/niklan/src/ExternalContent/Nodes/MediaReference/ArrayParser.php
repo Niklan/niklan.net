@@ -6,23 +6,19 @@ namespace Drupal\niklan\ExternalContent\Nodes\MediaReference;
 
 use Drupal\external_content\Contract\Importer\Array\Parser;
 use Drupal\external_content\Importer\Array\ArrayParseRequest;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
 final readonly class ArrayParser implements Parser {
 
   public function supports(ArrayParseRequest $request): bool {
-    return $request->currentArrayElement->type === MediaReference::getType();
+    return $request->currentArrayElement->type === MediaReference::getNodeType();
   }
 
-  public function parse(ArrayParseRequest $request): Content {
-    $node = new MediaReference($request->currentArrayElement->properties['uuid']);
-    foreach ($request->currentArrayElement->properties as $name => $value) {
-      if ($name === 'uuid') {
-        continue;
-      }
-      $node->getProperties()->setProperty($name, $value);
-    }
-    return $node;
+  public function parse(ArrayParseRequest $request): Node {
+    return new MediaReference(
+      uuid: $request->currentArrayElement->properties['uuid'],
+      metadata: $request->currentArrayElement->properties['metadata'] ?? [],
+    );
   }
 
 }

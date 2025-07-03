@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Drupal\external_content\Importer\Array;
 
 use Drupal\external_content\DataStructure\ArrayElement;
-use Drupal\external_content\Nodes\Content\Content;
+use Drupal\external_content\Nodes\Node;
 
 final readonly class ArrayParseRequest {
 
   public function __construct(
     public ArrayElement $currentArrayElement,
-    public Content $currentAstNode,
+    public Node $currentAstNode,
     public ArrayImportRequest $importRequest,
   ) {}
 
-  public function withNewContentNode(Content $new_content_node): self {
+  public function withNewContentNode(Node $new_content_node): self {
     return new self($this->currentArrayElement, $new_content_node, $this->importRequest);
   }
 
