@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\ExternalContent\Domain;
+namespace Drupal\external_content\Parser\Html;
 
 use Drupal\external_content\Contract\Parser\ParserSource;
 
 /**
  * @implements \Drupal\external_content\Contract\Parser\ParserSource<string>
  */
-final readonly class MarkdownSource implements ParserSource {
+final readonly class HtmlParserSource implements ParserSource {
 
   public function __construct(
-    private string $markdown,
+    private string $rawHtml,
   ) {}
 
   public function getSourceData(): string {
-    return $this->markdown;
+    return $this->rawHtml;
   }
 
 }

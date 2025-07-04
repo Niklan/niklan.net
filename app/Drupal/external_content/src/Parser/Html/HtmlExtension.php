@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Importer\Html;
+namespace Drupal\external_content\Parser\Html;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Nodes\Format\HtmlParser as FormatParser;

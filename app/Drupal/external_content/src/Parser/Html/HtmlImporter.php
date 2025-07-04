@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Importer\Html;
+namespace Drupal\external_content\Parser\Html;
 
-use Drupal\external_content\Contract\Importer\Importer;
-use Drupal\external_content\Contract\Importer\ImportRequest;
+use Drupal\external_content\Contract\Parser\ParseRequest;
+use Drupal\external_content\Contract\Parser\Parser;
 use Drupal\external_content\Factory\DomDocumentFactory;
 use Drupal\external_content\Nodes\Document;
 
 /**
- * @implements \Drupal\external_content\Contract\Importer\Importer<\Drupal\external_content\Importer\Html\HtmlImportRequest>
+ * @implements \Drupal\external_content\Contract\Parser\Parser<\Drupal\external_content\Parser\Html\HtmlParseRequest>
  */
-final readonly class HtmlImporter implements Importer {
+final readonly class HtmlParser implements Parser {
 
   private DomDocumentFactory $domDocumentFactory;
 
@@ -21,9 +21,9 @@ final readonly class HtmlImporter implements Importer {
   }
 
   /**
-   * @param \Drupal\external_content\Importer\Html\HtmlImportRequest $request
+   * @param \Drupal\external_content\Parser\Html\HtmlParseRequest $request
    */
-  public function import(ImportRequest $request): Document {
+  public function parse(ParseRequest $request): Document {
     $content_root_node = new Document();
 
     $document = $this->domDocumentFactory->createFromHtml($request->getSource()->getSourceData());

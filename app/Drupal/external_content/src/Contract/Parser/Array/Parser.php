@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Contract\Importer\Array;
+namespace Drupal\external_content\Contract\Parser\Array;
 
-use Drupal\external_content\Importer\Array\ArrayParseRequest;
 use Drupal\external_content\Nodes\Node;
+use Drupal\external_content\Parser\Array\ArrayParseRequest;
 
 interface Parser {
 

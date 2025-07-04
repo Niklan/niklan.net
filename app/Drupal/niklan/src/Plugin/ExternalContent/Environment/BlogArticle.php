@@ -8,7 +8,7 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Component\Utility\Timer;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\external_content\Contract\Importer\ImporterSource;
+use Drupal\external_content\Contract\Parser\ParserSource;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
 use Drupal\external_content\Exporter\Array\ArrayBuilder;
 use Drupal\external_content\Exporter\Array\ArrayExporter;
@@ -20,19 +20,19 @@ use Drupal\external_content\Exporter\RenderArray\RenderArrayExporter;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayExporterContext;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayExportRequest;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayExtension as DefaultRenderArrayExtension;
-use Drupal\external_content\Importer\Array\ArrayExtension as DefaultArrayParserExtension;
-use Drupal\external_content\Importer\Array\ArrayImporter;
-use Drupal\external_content\Importer\Array\ArrayImporterContext;
-use Drupal\external_content\Importer\Array\ArrayImporterSource;
-use Drupal\external_content\Importer\Array\ArrayImportRequest;
-use Drupal\external_content\Importer\Array\ArrayParser;
-use Drupal\external_content\Importer\Html\HtmlExtension as DefaultHtmlParserExtension;
-use Drupal\external_content\Importer\Html\HtmlImporter;
-use Drupal\external_content\Importer\Html\HtmlImporterContext;
-use Drupal\external_content\Importer\Html\HtmlImporterSource;
-use Drupal\external_content\Importer\Html\HtmlImportRequest;
-use Drupal\external_content\Importer\Html\HtmlParser;
 use Drupal\external_content\Nodes\Document;
+use Drupal\external_content\Parser\Array\ArrayExtension as DefaultArrayParserExtension;
+use Drupal\external_content\Parser\Array\ArrayParserSource;
+use Drupal\external_content\Parser\Array\ArrayParseRequest;
+use Drupal\external_content\Parser\Array\ArrayParser;
+use Drupal\external_content\Parser\Array\ArrayParser;
+use Drupal\external_content\Parser\Array\ArrayParserContext;
+use Drupal\external_content\Parser\Html\HtmlExtension as DefaultHtmlParserExtension;
+use Drupal\external_content\Parser\Html\HtmlParserSource;
+use Drupal\external_content\Parser\Html\HtmlParseRequest;
+use Drupal\external_content\Parser\Html\HtmlParser;
+use Drupal\external_content\Parser\Html\HtmlParser;
+use Drupal\external_content\Parser\Html\HtmlParserContext;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
@@ -71,7 +71,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     );
   }
 
-  public function parse(ImporterSource $source): Document {
+  public function parse(ParserSource $source): Document {
     \assert($source instanceof MarkdownSource);
     $html = $this->markdownConverter->convert($source->getSourceData());
 
@@ -79,13 +79,13 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     (new DefaultHtmlParserExtension())->register($parsers);
     (new CustomHtmlParserExtension())->register($parsers);
 
-    $request = new HtmlImportRequest(
-      source: new HtmlImporterSource($html->getContent()),
-      context: new HtmlImporterContext($this->logger),
+    $request = new HtmlParseRequest(
+      source: new HtmlParserSource($html->getContent()),
+      context: new HtmlParserContext($this->logger),
       htmlParser: new HtmlParser($parsers),
     );
 
-    return (new HtmlImporter())->import($request);
+    return (new HtmlParser())->parse($request);
   }
 
   public function denormalize(string $json): Document {
@@ -93,13 +93,13 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     (new DefaultArrayParserExtension())->register($parsers);
     (new CustomArrayParserExtension())->register($parsers);
 
-    $request = new ArrayImportRequest(
-      source: new ArrayImporterSource(\json_decode($json, TRUE)),
-      context: new ArrayImporterContext($this->logger),
+    $request = new ArrayParseRequest(
+      source: new ArrayParserSource(\json_decode($json, TRUE)),
+      context: new ArrayParserContext($this->logger),
       parser: new ArrayParser($parsers),
     );
 
-    return (new ArrayImporter())->import($request);
+    return (new ArrayParser())->parse($request);
   }
 
   public function normalize(Document $content): string {

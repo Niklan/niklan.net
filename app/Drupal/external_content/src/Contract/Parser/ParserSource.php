@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Contract\Importer;
+namespace Drupal\external_content\Contract\Parser;
 
 /**
  * @template T
  */
-interface ImporterSource {
+interface ParserSource {
 
   /**
    * @return T

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Contract\Importer\Html;
+namespace Drupal\external_content\Contract\Parser\Html;
 
-use Drupal\external_content\Importer\Html\HtmlParseRequest;
 use Drupal\external_content\Nodes\Node;
+use Drupal\external_content\Parser\Html\HtmlParseRequest;
 
 interface Parser {
 

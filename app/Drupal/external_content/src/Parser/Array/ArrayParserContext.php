@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Importer\Html;
+namespace Drupal\external_content\Parser\Array;
 
-use Drupal\external_content\Contract\Importer\ImporterContext;
+use Drupal\external_content\Contract\Parser\ParserContext;
 use Psr\Log\LoggerInterface;
 
-final readonly class HtmlImporterContext implements ImporterContext {
+final readonly class ArrayParserContext implements ParserContext {
 
   public function __construct(
     private LoggerInterface $logger,

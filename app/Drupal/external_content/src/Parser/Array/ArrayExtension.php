@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Importer\Array;
+namespace Drupal\external_content\Parser\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Nodes\Format\ArrayParser as FormatParser;
@@ -12,7 +12,7 @@ use Drupal\external_content\Nodes\Text\ArrayParser as TextParser;
 use Drupal\external_content\Utils\Registry;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Importer\Array\ArrayParser>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Parser\Array\ArrayParser>>
  */
 final readonly class ArrayExtension implements Extension {
 

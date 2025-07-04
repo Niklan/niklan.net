@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\Format;
 
-use Drupal\external_content\Contract\Importer\Html\Parser;
+use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Domain\TextFormatType;
-use Drupal\external_content\Importer\Html\HtmlParseRequest;
 use Drupal\external_content\Nodes\Node;
+use Drupal\external_content\Parser\Html\HtmlParseRequest;
 
 final class HtmlParser implements Parser {
 

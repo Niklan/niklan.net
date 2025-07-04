@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
-use Drupal\external_content\Contract\Importer\Array\Parser;
-use Drupal\external_content\Importer\Array\ArrayParseRequest;
+use Drupal\external_content\Contract\Parser\Array\Parser;
 use Drupal\external_content\Nodes\Node;
+use Drupal\external_content\Parser\Array\ArrayParseRequest;
 
 final readonly class ArrayParser implements Parser {
 
