@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\HtmlElement;
 
+use Drupal\external_content\Contract\Parser\Array\ChildParser;
 use Drupal\external_content\Contract\Parser\Array\Parser;
+use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Nodes\Node;
-use Drupal\external_content\Parser\Array\ArrayParseRequest;
 
 final readonly class ArrayParser implements Parser {
 
-  public function supports(ArrayParseRequest $request): bool {
-    return $request->currentArrayElement->type === HtmlElement::getNodeType();
+  public function supports(ArrayElement $array): bool {
+    return $array->type === HtmlElement::getNodeType();
   }
 
-  public function parse(ArrayParseRequest $request): Node {
-    $element = new HtmlElement(
-      tag: $request->currentArrayElement->properties['tag'],
-      attributes: $request->currentArrayElement->properties['attributes'] ?? [],
-    );
-    $request->importRequest->getArrayParser()->parseChildren($request->withNewContentNode($element));
-    return $element;
+  public function parseElement(ArrayElement $array, ChildParser $child_parser): Node {
+    $node = new HtmlElement($array->properties['tag'], $array->properties['attributes'] ?? []);
+    $child_parser->parseChildren($array->getChildren(), $node);
+    return $node;
   }
 
 }

@@ -4,50 +4,65 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Parser\Array;
 
+use Drupal\external_content\Contract\Parser\Array\ChildParser;
 use Drupal\external_content\Contract\Parser\Array\Parser;
 use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Nodes\Document;
+use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\Registry;
+use Psr\Log\LoggerInterface;
 
-final readonly class ArrayParser {
+final readonly class ArrayParser implements Parser, ChildParser {
 
   /**
    * @param \Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Parser\Array\Parser> $parsers
    */
   public function __construct(
     private Registry $parsers,
+    private LoggerInterface $logger,
   ) {}
 
-  public function parse(ArrayParseRequest $request): Document {
+  public function parseRoot(ArrayElement $array): Document {
+    \assert(self::supports($array), 'Array element must represent a document');
     $document = new Document();
-
-    $array_element = ArrayElement::fromArray($request->getSource()->getSourceData());
-    $parse_request = new ArrayParseRequest($array_element, $document, $request);
-    $this->parseChildren($parse_request);
-
+    $this->parseChildren([$array], $document);
     return $document;
   }
 
-  public function parseChildren(ArrayParseRequest $parse_request): void {
-    foreach ($parse_request->currentArrayElement->getChildren() as $child_array_element) {
-      $this->parseChild($parse_request->withNewArrayElement($child_array_element));
-    }
-  }
-
-  private function parseChild(ArrayParseRequest $parse_request): void {
-    foreach ($this->parsers->getAll() as $parser) {
-      if (!$parser->supports($parse_request)) {
+  public function parseChildren(iterable $arrays, Node $parent_node): void {
+    foreach ($arrays as $array) {
+      $child_node = $this->parseElement($array, $this);
+      if (!$child_node) {
         continue;
       }
 
-      $parse_request->currentAstNode->addChild($parser->parse($parse_request));
-      return;
+      $parent_node->addChild($child_node);
+    }
+  }
+
+  public function parseElement(ArrayElement $array, ChildParser $child_parser): ?Node {
+    foreach ($this->parsers->getAll() as $parser) {
+      if (!$parser->supports($array)) {
+        continue;
+      }
+
+      $node = $parser->parse($array, $child_parser);
+      if (!$node) {
+        continue;
+      }
+
+      $child_parser->parseChildren($array->getChildren(), $node);
+      return $node;
     }
 
-    $parse_request->getContext()->getLogger()->warning('Missing parser for custom element', [
-      'element_type' => $parse_request->currentArrayElement->type,
-      'parser_type' => Parser::class,
+    $this->logger->warning('Missing parser for array element', [
+      'type' => $array->type,
     ]);
+    return NULL;
+  }
+
+  public function supports(ArrayElement $array): bool {
+    return $array->type === Document::getNodeType();
   }
 
 }

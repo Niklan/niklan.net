@@ -99,7 +99,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
       parser: new ArrayParser($parsers),
     );
 
-    return (new ArrayParser())->parse($request);
+    return (new ArrayParser())->parseElement($request);
   }
 
   public function normalize(Document $content): string {

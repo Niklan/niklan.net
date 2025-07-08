@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
+use Drupal\external_content\Contract\Parser\Array\ChildParser;
 use Drupal\external_content\Contract\Parser\Array\Parser;
+use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Nodes\Node;
-use Drupal\external_content\Parser\Array\ArrayParseRequest;
 
 final readonly class ArrayParser implements Parser {
 
-  public function supports(ArrayParseRequest $request): bool {
-    return $request->currentArrayElement->type === CodeBlock::getNodeType();
+  public function supports(ArrayElement $array): bool {
+    return $array->type === CodeBlock::getNodeType();
   }
 
-  public function parse(ArrayParseRequest $request): Node {
-    return new CodeBlock(
-      code: $request->currentArrayElement->properties['code'],
-      attributes: $request->currentArrayElement->properties['attributes'] ?? [],
-    );
+  public function parseElement(ArrayElement $array, ChildParser $child_parser): Node {
+    return new CodeBlock($array->properties['code'], $array->properties['attributes'] ?? []);
   }
 
 }
