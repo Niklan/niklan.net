@@ -85,7 +85,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
       htmlParser: new HtmlParser($parsers),
     );
 
-    return (new HtmlParser())->parse($request);
+    return (new HtmlParser())->parseHtml($request);
   }
 
   public function denormalize(string $json): Document {

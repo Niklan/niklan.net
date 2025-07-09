@@ -29,14 +29,13 @@ final readonly class ArrayParser implements Parser, ChildParser {
     return $document;
   }
 
-  public function parseChildren(iterable $arrays, Node $parent_node): void {
+  public function parseChildren(iterable $arrays, Node $content_node): void {
     foreach ($arrays as $array) {
       $child_node = $this->parseElement($array, $this);
       if (!$child_node) {
         continue;
       }
-
-      $parent_node->addChild($child_node);
+      $content_node->addChild($child_node);
     }
   }
 

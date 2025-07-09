@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\HtmlElement;
 
+use Drupal\external_content\Contract\Parser\Html\ChildParser;
 use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Nodes\Node;
-use Drupal\external_content\Parser\Html\HtmlParseRequest;
 
 final class HtmlParser implements Parser {
 
-  public function supports(HtmlParseRequest $request): bool {
-    return $request->currentHtmlNode instanceof \DOMNode;
+  public function supports(\DOMNode $dom_node): bool {
+    return TRUE;
   }
 
-  public function parse(HtmlParseRequest $request): Node {
-    $element = new HtmlElement($request->currentHtmlNode->nodeName, $this->parseAttributes($request));
-    $request->importRequest->getHtmlParser()->parseChildren($request->withNewContentNode($element));
+  public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
+    $element = new HtmlElement($dom_node->nodeName, $this->parseAttributes($dom_node));
+    $child_parser->parseChildren($dom_node, $element);
     return $element;
   }
 
-  private function parseAttributes(HtmlParseRequest $request): array {
+  private function parseAttributes(\DOMNode $dom_node): array {
     $attributes = [];
-    if ($request->currentHtmlNode->hasAttributes()) {
-      foreach ($request->currentHtmlNode->attributes as $attribute) {
+    if ($dom_node->hasAttributes()) {
+      foreach ($dom_node->attributes as $attribute) {
         \assert($attribute instanceof \DOMAttr);
         $attributes[$attribute->name] = $attribute->value;
       }

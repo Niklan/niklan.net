@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\Text;
 
+use Drupal\external_content\Contract\Parser\Html\ChildParser;
 use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Nodes\Node;
-use Drupal\external_content\Parser\Html\HtmlParseRequest;
 
 final class HtmlParser implements Parser {
 
-  public function supports(HtmlParseRequest $request): bool {
-    if (!$request->currentHtmlNode instanceof \DOMText) {
+  public function supports(\DOMNode $dom_node): bool {
+    if (!$dom_node instanceof \DOMText) {
       return FALSE;
     }
 
@@ -37,9 +37,9 @@ final class HtmlParser implements Parser {
     return TRUE;
   }
 
-  public function parse(HtmlParseRequest $request): Node {
-    \assert($request->currentHtmlNode instanceof \DOMText);
-    return new Text($request->currentHtmlNode->nodeValue ?? '');
+  public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
+    \assert($dom_node instanceof \DOMText);
+    return new Text($dom_node->nodeValue ?? '');
   }
 
 }

@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
+use Drupal\external_content\Contract\Parser\Html\ChildParser;
 use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Nodes\Node;
-use Drupal\external_content\Parser\Html\HtmlParseRequest;
 
 final class HtmlParser implements Parser {
 
-  public function supports(HtmlParseRequest $request): bool {
-    if (!$request->currentHtmlNode instanceof \DOMElement) {
+  public function supports(\DOMNode $dom_node): bool {
+    if (!$dom_node instanceof \DOMElement) {
       return FALSE;
     }
-    return $request->currentHtmlNode->nodeName === 'pre' && $request->currentHtmlNode->firstChild?->nodeName === 'code';
+    return $dom_node->nodeName === 'pre' && $dom_node->firstChild?->nodeName === 'code';
   }
 
-  public function parse(HtmlParseRequest $request): Node {
-    \assert($request->currentHtmlNode instanceof \DOMElement && $request->currentHtmlNode->firstChild instanceof \DOMElement);
-    return new CodeBlock($request->currentHtmlNode->firstChild->textContent, $this->parseAttributes($request));
+  public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
+    \assert($dom_node instanceof \DOMElement && $dom_node->firstChild instanceof \DOMElement);
+    return new CodeBlock($dom_node->firstChild->textContent, $this->parseAttributes($dom_node));
   }
 
-  public function parseAttributes(HtmlParseRequest $request): array {
+  public function parseAttributes(\DOMNode $dom_node): array {
     $attributes = [];
-    if ($request->currentHtmlNode->hasAttributes()) {
-      foreach ($request->currentHtmlNode->attributes as $attribute) {
+    if ($dom_node->hasAttributes()) {
+      foreach ($dom_node->attributes as $attribute) {
         \assert($attribute instanceof \DOMAttr);
         $attributes[$attribute->name] = $attribute->value;
       }

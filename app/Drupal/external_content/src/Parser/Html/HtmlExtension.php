@@ -12,7 +12,7 @@ use Drupal\external_content\Nodes\Text\HtmlParser as TextParser;
 use Drupal\external_content\Utils\Registry;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Importer\Html\HtmlNodeParser>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Contract\Parser\Html\Parser>>
  */
 final readonly class HtmlExtension implements Extension {
 

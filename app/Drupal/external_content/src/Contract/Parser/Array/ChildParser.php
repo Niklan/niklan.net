@@ -11,6 +11,6 @@ interface ChildParser {
   /**
    * @param iterable<\Drupal\external_content\DataStructure\ArrayElement> $arrays
    */
-  public function parseChildren(iterable $arrays, Node $parent_node): void;
+  public function parseChildren(iterable $arrays, Node $content_node): void;
 
 }
