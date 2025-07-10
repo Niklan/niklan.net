@@ -22,7 +22,7 @@ final readonly class HtmlParser implements Parser, ChildParser {
     private LoggerInterface $logger,
   ) {}
 
-  public function parseHtml(string $html): Document {
+  public function parse(string $html): Document {
     $content_document = new Document();
 
     // @todo DI

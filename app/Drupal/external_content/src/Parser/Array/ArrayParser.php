@@ -22,15 +22,15 @@ final readonly class ArrayParser implements Parser, ChildParser {
     private LoggerInterface $logger,
   ) {}
 
-  public function parseRoot(ArrayElement $array): Document {
+  public function parse(ArrayElement $array): Document {
     \assert(self::supports($array), 'Array element must represent a document');
     $document = new Document();
-    $this->parseChildren([$array], $document);
+    $this->parseChildren($array, $document);
     return $document;
   }
 
-  public function parseChildren(iterable $arrays, Node $content_node): void {
-    foreach ($arrays as $array) {
+  public function parseChildren(ArrayElement $parent_array, Node $content_node): void {
+    foreach ($parent_array->getChildren() as $array) {
       $child_node = $this->parseElement($array, $this);
       if (!$child_node) {
         continue;
@@ -50,7 +50,7 @@ final readonly class ArrayParser implements Parser, ChildParser {
         continue;
       }
 
-      $child_parser->parseChildren($array->getChildren(), $node);
+      $child_parser->parseChildren($array, $node);
       return $node;
     }
 

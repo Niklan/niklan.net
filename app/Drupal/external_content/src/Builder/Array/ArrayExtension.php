@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\external_content\Exporter\Array;
+namespace Drupal\external_content\Builder\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Nodes\Format\ArrayBuilder as FormatBuilder;

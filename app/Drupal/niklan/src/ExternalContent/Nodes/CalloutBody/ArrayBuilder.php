@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\CalloutBody;
 
-use Drupal\external_content\Contract\Exporter\Array\Builder;
+use Drupal\external_content\Contract\Builder\Array\Builder;
+use Drupal\external_content\Contract\Builder\Array\ChildBuilder;
 use Drupal\external_content\DataStructure\ArrayElement;
-use Drupal\external_content\Exporter\Array\ArrayBuildRequest;
+use Drupal\external_content\Nodes\Node;
 
+/**
+ * @implements \Drupal\external_content\Contract\Builder\Array\Builder<\Drupal\niklan\ExternalContent\Nodes\CalloutBody\CalloutBody>
+ */
 final readonly class ArrayBuilder implements Builder {
 
-  public function supports(ArrayBuildRequest $request): bool {
-    return $request->node instanceof CalloutBody;
+  public function supports(Node $node): bool {
+    return $node instanceof CalloutBody;
   }
 
-  public function build(ArrayBuildRequest $request): ArrayElement {
-    \assert($request->node instanceof CalloutBody);
-    $element = new ArrayElement($request->node::getNodeType());
-    $request->request->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
+  public function buildElement(Node $node, ChildBuilder $child_builder): ArrayElement {
+    $element = new ArrayElement($node::getNodeType());
+    $child_builder->buildChildren($node, $element);
     return $element;
   }
 

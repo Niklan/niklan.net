@@ -8,13 +8,13 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Component\Utility\Timer;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\external_content\Builder\Array\ArrayBuilder;
+use Drupal\external_content\Builder\Array\ArrayExtension as DefaultArrayBuilderExtension;
 use Drupal\external_content\Contract\Parser\ParserSource;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
-use Drupal\external_content\Exporter\Array\ArrayBuilder;
 use Drupal\external_content\Exporter\Array\ArrayExporter;
 use Drupal\external_content\Exporter\Array\ArrayExporterContext;
 use Drupal\external_content\Exporter\Array\ArrayExportRequest;
-use Drupal\external_content\Exporter\Array\ArrayExtension as DefaultArrayBuilderExtension;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayBuilder;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayExporter;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayExporterContext;
@@ -22,17 +22,17 @@ use Drupal\external_content\Exporter\RenderArray\RenderArrayExportRequest;
 use Drupal\external_content\Exporter\RenderArray\RenderArrayExtension as DefaultRenderArrayExtension;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Parser\Array\ArrayExtension as DefaultArrayParserExtension;
-use Drupal\external_content\Parser\Array\ArrayParserSource;
-use Drupal\external_content\Parser\Array\ArrayParseRequest;
 use Drupal\external_content\Parser\Array\ArrayParser;
 use Drupal\external_content\Parser\Array\ArrayParser;
 use Drupal\external_content\Parser\Array\ArrayParserContext;
+use Drupal\external_content\Parser\Array\ArrayParseRequest;
+use Drupal\external_content\Parser\Array\ArrayParserSource;
 use Drupal\external_content\Parser\Html\HtmlExtension as DefaultHtmlParserExtension;
-use Drupal\external_content\Parser\Html\HtmlParserSource;
-use Drupal\external_content\Parser\Html\HtmlParseRequest;
 use Drupal\external_content\Parser\Html\HtmlParser;
 use Drupal\external_content\Parser\Html\HtmlParser;
 use Drupal\external_content\Parser\Html\HtmlParserContext;
+use Drupal\external_content\Parser\Html\HtmlParseRequest;
+use Drupal\external_content\Parser\Html\HtmlParserSource;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
@@ -85,7 +85,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
       htmlParser: new HtmlParser($parsers),
     );
 
-    return (new HtmlParser())->parseHtml($request);
+    return (new HtmlParser())->parse($request);
   }
 
   public function denormalize(string $json): Document {

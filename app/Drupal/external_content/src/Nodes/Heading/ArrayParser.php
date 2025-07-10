@@ -18,7 +18,7 @@ final readonly class ArrayParser implements Parser {
 
   public function parseElement(ArrayElement $array, ChildParser $child_parser): Node {
     $node = new Heading(HeadingTagType::from($array->properties['tagType']));
-    $child_parser->parseChildren($array->getChildren(), $node);
+    $child_parser->parseChildren($array, $node);
     return $node;
   }
 

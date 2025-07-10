@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
-use Drupal\external_content\Contract\Exporter\Array\Builder;
+use Drupal\external_content\Contract\Builder\Array\Builder;
+use Drupal\external_content\Contract\Builder\Array\ChildBuilder;
 use Drupal\external_content\DataStructure\ArrayElement;
-use Drupal\external_content\Exporter\Array\ArrayBuildRequest;
+use Drupal\external_content\Nodes\Node;
 
+/**
+ * @implements \Drupal\external_content\Contract\Builder\Array\Builder<\Drupal\niklan\ExternalContent\Nodes\CodeBlock\CodeBlock>
+ */
 final readonly class ArrayBuilder implements Builder {
 
-  public function supports(ArrayBuildRequest $request): bool {
-    return $request->node instanceof CodeBlock;
+  public function supports(Node $node): bool {
+    return $node instanceof CodeBlock;
   }
 
-  public function build(ArrayBuildRequest $request): ArrayElement {
-    \assert($request->node instanceof CodeBlock);
-    $element = new ArrayElement(
-      type: $request->node::getNodeType(),
-      properties: [
-        'code' => $request->node->code,
-        'attributes' => $request->node->attributes,
-      ],
-    );
-    $request->request->getArrayStructureBuilder()->buildChildren($request->withNewArrayElement($element));
+  public function buildElement(Node $node, ChildBuilder $child_builder): ArrayElement {
+    $element = new ArrayElement($node::getNodeType(), [
+      'code' => $node->code,
+      'attributes' => $node->attributes,
+    ]);
+    $child_builder->buildChildren($node, $element);
     return $element;
   }
 
