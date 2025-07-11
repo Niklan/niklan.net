@@ -7,27 +7,30 @@ namespace Drupal\external_content\Nodes\Format;
 use Drupal\Core\Render\Element\HtmlTag;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Security\TrustedCallbackInterface;
-use Drupal\external_content\Contract\Exporter\RenderArray\Builder;
+use Drupal\external_content\Contract\Builder\RenderArray\Builder;
+use Drupal\external_content\Contract\Builder\RenderArray\ChildBuilder;
 use Drupal\external_content\DataStructure\RenderArray;
-use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
+use Drupal\external_content\Nodes\Node;
 
+/**
+ * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\external_content\Nodes\Format\Format>
+ */
 final readonly class RenderArrayBuilder implements Builder, TrustedCallbackInterface {
 
-  public function supports(RenderArrayBuildRequest $request): bool {
-    return $request->node instanceof Format;
+  public function supports(Node $node): bool {
+    return $node instanceof Format;
   }
 
-  public function build(RenderArrayBuildRequest $request): RenderArray {
-    \assert($request->node instanceof Format);
+  public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
     $element = new RenderArray([
       '#type' => 'html_tag',
-      '#tag' => $request->node->format->toHtmlTag(),
+      '#tag' => $node->format->toHtmlTag(),
       '#pre_render' => [
         HtmlTag::preRenderHtmlTag(...),
         self::preRenderTag(...),
       ],
     ]);
-    $request->request->getRenderArrayBuilder()->buildChildren($request->withNewRenderArray($element));
+    $child_builder->buildChildren($node, $element);
     return $element;
   }
 

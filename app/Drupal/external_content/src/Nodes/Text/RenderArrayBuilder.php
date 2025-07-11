@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\Text;
 
-use Drupal\external_content\Contract\Exporter\RenderArray\Builder;
+use Drupal\external_content\Contract\Builder\RenderArray\Builder;
+use Drupal\external_content\Contract\Builder\RenderArray\ChildBuilder;
 use Drupal\external_content\DataStructure\RenderArray;
-use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
+use Drupal\external_content\Nodes\Node;
 
+/**
+ * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\external_content\Nodes\Text\Text>
+ */
 final readonly class RenderArrayBuilder implements Builder {
 
-  public function supports(RenderArrayBuildRequest $request): bool {
-    return $request->node instanceof Text;
+  public function supports(Node $node): bool {
+    return $node instanceof Text;
   }
 
-  public function build(RenderArrayBuildRequest $request): RenderArray {
-    \assert($request->node instanceof Text);
-    return new RenderArray([
-      '#markup' => $request->node->text,
-    ]);
+  public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
+    return new RenderArray(['#markup' => $node->text]);
   }
 
 }

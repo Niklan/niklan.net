@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\Heading;
 
-use Drupal\external_content\Contract\Exporter\RenderArray\Builder;
+use Drupal\external_content\Contract\Builder\RenderArray\Builder;
+use Drupal\external_content\Contract\Builder\RenderArray\ChildBuilder;
 use Drupal\external_content\DataStructure\RenderArray;
-use Drupal\external_content\Exporter\RenderArray\RenderArrayBuildRequest;
+use Drupal\external_content\Nodes\Node;
 
+/**
+ * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\external_content\Nodes\Heading\Heading>
+ */
 final readonly class RenderArrayBuilder implements Builder {
 
-  public function supports(RenderArrayBuildRequest $request): bool {
-    return $request->node instanceof Heading;
+  public function supports(Node $node): bool {
+    return $node instanceof Heading;
   }
 
-  public function build(RenderArrayBuildRequest $request): RenderArray {
-    \assert($request->node instanceof Heading);
+  public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
     $element = new RenderArray([
       '#type' => 'html_tag',
-      '#tag' => $request->node->tagType->value,
+      '#tag' => $node->tagType->value,
     ]);
-    $request->request->getRenderArrayBuilder()->buildChildren($request->withNewRenderArray($element));
+    $child_builder->buildChildren($node, $element);
     return $element;
   }
 
