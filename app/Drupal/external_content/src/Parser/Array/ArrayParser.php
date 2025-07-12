@@ -7,10 +7,10 @@ namespace Drupal\external_content\Parser\Array;
 use Drupal\external_content\Contract\Parser\Array\ChildParser;
 use Drupal\external_content\Contract\Parser\Array\Parser;
 use Drupal\external_content\DataStructure\ArrayElement;
+use Drupal\external_content\Exception\UnsupportedElementException;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\Registry;
-use Psr\Log\LoggerInterface;
 
 final readonly class ArrayParser implements Parser, ChildParser {
 
@@ -19,7 +19,6 @@ final readonly class ArrayParser implements Parser, ChildParser {
    */
   public function __construct(
     private Registry $parsers,
-    private LoggerInterface $logger,
   ) {}
 
   public function parse(ArrayElement $array): Document {
@@ -39,7 +38,7 @@ final readonly class ArrayParser implements Parser, ChildParser {
     }
   }
 
-  public function parseElement(ArrayElement $array, ChildParser $child_parser): ?Node {
+  public function parseElement(ArrayElement $array, ChildParser $child_parser): Node {
     foreach ($this->parsers->getAll() as $parser) {
       if (!$parser->supports($array)) {
         continue;
@@ -54,10 +53,7 @@ final readonly class ArrayParser implements Parser, ChildParser {
       return $node;
     }
 
-    $this->logger->warning('Missing parser for array element', [
-      'type' => $array->type,
-    ]);
-    return NULL;
+    throw new UnsupportedElementException(self::class, $array->type);
   }
 
   public function supports(ArrayElement $array): bool {

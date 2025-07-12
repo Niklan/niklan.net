@@ -14,10 +14,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(
-  name: 'niklan:external-content:sync',
-  description: 'Sync external content from remote sources.',
-)]
+#[AsCommand(name: 'niklan:blog:sync', description: 'Sync blog articles.')]
 final class Sync extends Command {
 
   protected function configure(): void {

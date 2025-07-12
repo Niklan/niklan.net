@@ -5,10 +5,10 @@ namespace Drupal\external_content\Builder\RenderArray;
 use Drupal\external_content\Contract\Builder\RenderArray\Builder;
 use Drupal\external_content\Contract\Builder\RenderArray\ChildBuilder;
 use Drupal\external_content\DataStructure\RenderArray;
+use Drupal\external_content\Exception\UnsupportedElementException;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\Registry;
-use Psr\Log\LoggerInterface;
 
 final readonly class RenderArrayBuilder implements Builder, ChildBuilder {
 
@@ -17,7 +17,6 @@ final readonly class RenderArrayBuilder implements Builder, ChildBuilder {
    */
   public function __construct(
     private Registry $builders,
-    private LoggerInterface $logger,
   ) {}
 
   public function build(Document $document): RenderArray {
@@ -36,7 +35,7 @@ final readonly class RenderArrayBuilder implements Builder, ChildBuilder {
     }
   }
 
-  public function buildElement(Node $node, ChildBuilder $child_builder): ?RenderArray {
+  public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
     foreach ($this->builders->getAll() as $builder) {
       if (!$builder->supports($node)) {
         continue;
@@ -51,10 +50,7 @@ final readonly class RenderArrayBuilder implements Builder, ChildBuilder {
       return $array;
     }
 
-    $this->logger->warning('Missing render array builder', [
-      'type' => $node::getNodeType(),
-    ]);
-    return NULL;
+    throw new UnsupportedElementException(self::class, $node::getNodeType());
   }
 
   public function supports(Node $node): bool {

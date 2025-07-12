@@ -20,10 +20,7 @@ final readonly class HtmlParser implements Parser {
 
   public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
     \assert($dom_node instanceof \DOMElement);
-    return new LocalVideo(
-      src: $dom_node->getAttribute('data-argument'),
-      title: $this->prepareTitle($dom_node),
-    );
+    return new LocalVideo($dom_node->getAttribute('data-argument'), $this->prepareTitle($dom_node));
   }
 
   private function prepareTitle(\DOMNode $dom_node): string {

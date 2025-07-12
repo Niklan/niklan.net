@@ -16,7 +16,12 @@ final class Callout extends Node {
 
   public function addChild(Node $node): void {
     if (!$node instanceof CalloutTitle && !$node instanceof CalloutBody) {
-      throw new \InvalidArgumentException('Only CalloutTitleNode and CalloutBodyNode can be added as children.');
+      throw new \InvalidArgumentException(\sprintf('
+        Only %s and %s can be added as children, %s given.',
+        CalloutTitle::class,
+        CalloutBody::class,
+        $node::class,
+      ));
     }
     parent::addChild($node);
   }

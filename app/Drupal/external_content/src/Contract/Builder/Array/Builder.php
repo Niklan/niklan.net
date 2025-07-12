@@ -20,6 +20,6 @@ interface Builder {
   /**
    * @param T $node
    */
-  public function buildElement(Node $node, ChildBuilder $child_builder): ?ArrayElement;
+  public function buildElement(Node $node, ChildBuilder $child_builder): ArrayElement;
 
 }

@@ -6,11 +6,11 @@ namespace Drupal\external_content\Parser\Html;
 
 use Drupal\external_content\Contract\Parser\Html\ChildParser;
 use Drupal\external_content\Contract\Parser\Html\Parser;
+use Drupal\external_content\Exception\UnsupportedElementException;
 use Drupal\external_content\Factory\DomDocumentFactory;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\Registry;
-use Psr\Log\LoggerInterface;
 
 final readonly class HtmlParser implements Parser, ChildParser {
 
@@ -19,7 +19,6 @@ final readonly class HtmlParser implements Parser, ChildParser {
    */
   public function __construct(
     private Registry $parsers,
-    private LoggerInterface $logger,
   ) {}
 
   public function parse(string $html): Document {
@@ -44,13 +43,13 @@ final readonly class HtmlParser implements Parser, ChildParser {
     }
   }
 
-  public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): ?Node {
+  public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
     foreach ($this->parsers->getAll() as $parser) {
       if (!$parser->supports($dom_node)) {
         continue;
       }
 
-      $content_node = $parser->parse($dom_node, $child_parser);
+      $content_node = $parser->parseElement($dom_node, $child_parser);
       if (!$content_node) {
         continue;
       }
@@ -59,11 +58,7 @@ final readonly class HtmlParser implements Parser, ChildParser {
       return $content_node;
     }
 
-    $this->logger->warning('Missing parser for HTML element', [
-      'type' => $dom_node->nodeName,
-      'content' => self::domNodeToString($dom_node),
-    ]);
-    return NULL;
+    throw new UnsupportedElementException(self::class, self::domNodeToString($dom_node));
   }
 
   public function supports(\DOMNode $dom_node): bool {

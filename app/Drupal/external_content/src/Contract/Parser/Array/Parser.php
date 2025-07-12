@@ -11,6 +11,6 @@ interface Parser {
 
   public function supports(ArrayElement $array): bool;
 
-  public function parseElement(ArrayElement $array, ChildParser $child_parser): ?Node;
+  public function parseElement(ArrayElement $array, ChildParser $child_parser): Node;
 
 }

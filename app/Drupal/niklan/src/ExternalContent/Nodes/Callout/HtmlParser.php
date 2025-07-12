@@ -31,7 +31,6 @@ final readonly class HtmlParser implements Parser {
     $callout = new Callout($dom_node->getAttribute('data-type'));
     $this->parseTitle($dom_node, $callout, $child_parser);
     $this->parseBody($dom_node, $callout, $child_parser);
-
     return $callout;
   }
 

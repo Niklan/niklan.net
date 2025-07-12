@@ -5,10 +5,10 @@ namespace Drupal\external_content\Builder\Array;
 use Drupal\external_content\Contract\Builder\Array\Builder;
 use Drupal\external_content\Contract\Builder\Array\ChildBuilder;
 use Drupal\external_content\DataStructure\ArrayElement;
+use Drupal\external_content\Exception\UnsupportedElementException;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\Registry;
-use Psr\Log\LoggerInterface;
 
 final readonly class ArrayBuilder implements Builder, ChildBuilder {
 
@@ -17,7 +17,6 @@ final readonly class ArrayBuilder implements Builder, ChildBuilder {
    */
   public function __construct(
     private Registry $builders,
-    private LoggerInterface $logger,
   ) {}
 
   public function build(Document $document): ArrayElement {
@@ -36,13 +35,13 @@ final readonly class ArrayBuilder implements Builder, ChildBuilder {
     }
   }
 
-  public function buildElement(Node $node, ChildBuilder $child_builder): ?ArrayElement {
+  public function buildElement(Node $node, ChildBuilder $child_builder): ArrayElement {
     foreach ($this->builders->getAll() as $builder) {
       if (!$builder->supports($node)) {
         continue;
       }
 
-      $array = $builder->buildElement($node);
+      $array = $builder->buildElement($node, $this);
       if (!$array) {
         continue;
       }
@@ -51,10 +50,7 @@ final readonly class ArrayBuilder implements Builder, ChildBuilder {
       return $array;
     }
 
-    $this->logger->warning('Missing array builder', [
-      'type' => $node::getNodeType(),
-    ]);
-    return NULL;
+    throw new UnsupportedElementException(self::class, $node::getNodeType());
   }
 
   public function supports(Node $node): bool {

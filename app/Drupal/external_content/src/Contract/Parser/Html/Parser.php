@@ -10,6 +10,6 @@ interface Parser {
 
   public function supports(\DOMNode $dom_node): bool;
 
-  public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): ?Node;
+  public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node;
 
 }

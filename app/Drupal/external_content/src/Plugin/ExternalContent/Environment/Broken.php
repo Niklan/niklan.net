@@ -6,7 +6,6 @@ namespace Drupal\external_content\Plugin\ExternalContent\Environment;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\external_content\Contract\Parser\ParserSource;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
 use Drupal\external_content\Nodes\Document;
 
@@ -18,7 +17,7 @@ final class Broken extends PluginBase implements EnvironmentPlugin {
 
   public const string ID = 'broken';
 
-  public function parse(ParserSource $source): Document {
+  public function parse(mixed $source): Document {
     return new Document();
   }
 
