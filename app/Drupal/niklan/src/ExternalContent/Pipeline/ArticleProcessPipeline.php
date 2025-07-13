@@ -10,6 +10,7 @@ use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Pipeline\SequentialPipeline;
 use Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater;
 use Drupal\niklan\ExternalContent\Stages\AssetSynchronizer;
+use Drupal\niklan\ExternalContent\Stages\LinkProcessor;
 use Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser;
 
 final readonly class ArticleProcessPipeline implements Pipeline {
@@ -20,6 +21,7 @@ final readonly class ArticleProcessPipeline implements Pipeline {
     $this->pipeline = new SequentialPipeline();
     $this->pipeline->addStage(new MarkdownToAstParser());
     $this->pipeline->addStage(new AssetSynchronizer());
+    $this->pipeline->addStage(new LinkProcessor());
     $this->pipeline->addStage(new ArticleTranslationFieldUpdater());
   }
 

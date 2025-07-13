@@ -21,7 +21,6 @@ final readonly class MarkdownToAstParser implements PipelineStage {
     $environment_manager = \Drupal::service(EnvironmentManager::class);
     $environment = $environment_manager->createInstance(BlogArticle::ID);
     \assert($environment instanceof BlogArticle);
-
     \assert($context instanceof ArticleTranslationProcessContext);
     $markdown_file = PathHelper::normalizePath($context->article->directory . '/' . $context->article->getPrimaryTranslation()->sourcePath);
     $context->getLogger()->info('Markdown conversion started', [

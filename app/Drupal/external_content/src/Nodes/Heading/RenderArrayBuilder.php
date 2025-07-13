@@ -23,7 +23,7 @@ final readonly class RenderArrayBuilder implements Builder {
   public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
     $element = new RenderArray([
       '#type' => 'html_tag',
-      '#tag' => $node->tagType->value,
+      '#tag' => $node->tag->value,
       '#pre_render' => [
         HtmlTag::preRenderHtmlTag(...),
         HtmlTagHelper::preRenderTag(...),

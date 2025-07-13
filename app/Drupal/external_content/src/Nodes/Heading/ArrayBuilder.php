@@ -19,7 +19,7 @@ final readonly class ArrayBuilder implements Builder {
   }
 
   public function buildElement(Node $node, ChildBuilder $child_builder): ArrayElement {
-    $element = new ArrayElement($node::getNodeType(), ['tagType' => $node->tagType->value]);
+    $element = new ArrayElement($node::getNodeType(), ['tag' => $node->tag->value]);
     $child_builder->buildChildren($node, $element);
     return $element;
   }

@@ -10,7 +10,7 @@ final class HtmlElement extends Node {
 
   public function __construct(
     public readonly string $tag,
-    public readonly array $attributes = [],
+    public array $attributes = [],
   ) {}
 
   public static function getNodeType(): string {

@@ -10,7 +10,7 @@ use Drupal\external_content\Nodes\Node;
 final class Heading extends Node {
 
   public function __construct(
-    public readonly HeadingTagType $tagType,
+    public readonly HeadingTagType $tag,
   ) {}
 
   public static function getNodeType(): string {

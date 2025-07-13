@@ -53,7 +53,7 @@ final readonly class ArticleTranslationFieldUpdater implements PipelineStage {
   private function syncExternalContent(ArticleTranslationProcessContext $context): void {
     $environment = $this->environmentManager->createInstance(BlogArticle::ID);
     \assert($environment instanceof BlogArticle);
-    $source_path = PathHelper::normalizePath($context->articleTranslation->contentDirectory . '/' . $context->articleTranslation->sourcePath);
+    $source_path = PathHelper::normalizePath($context->articleTranslation->contentDirectory . \DIRECTORY_SEPARATOR . $context->articleTranslation->sourcePath);
     $context->articleEntity->set('external_content', [
       'value' => $environment->normalize($context->externalContent),
       'environment_id' => BlogArticle::ID,

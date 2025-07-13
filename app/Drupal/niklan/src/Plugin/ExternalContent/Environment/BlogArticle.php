@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\Plugin\ExternalContent\Environment;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\Component\Utility\Timer;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Builder\Array\ArrayBuilder;
@@ -27,7 +26,6 @@ use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension as CustomArrayP
 use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension as CustomHtmlParserExtension;
 use Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension as CustomRenderArrayExtension;
 use League\CommonMark\MarkdownConverter;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -46,7 +44,6 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $plugin_id,
     $plugin_definition,
     private readonly MarkdownConverter $markdownConverter,
-    private readonly LoggerInterface $logger,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -55,7 +52,6 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     return new self(
       $configuration, $plugin_id, $plugin_definition,
       $container->get(MarkdownConverter::class),
-      $container->get('logger.channel.niklan.external_content'),
     );
   }
 
@@ -88,10 +84,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     (new DefaultRenderArrayExtension())->register($builders);
     (new CustomRenderArrayExtension())->register($builders);
 
-    Timer::start('render-time');
-    $result = (new RenderArrayBuilder($builders))->build($content)->toRenderArray();
-    \dump(Timer::stop('render-time')['time']);
-    return $result;
+    return (new RenderArrayBuilder($builders))->build($content)->toRenderArray();
   }
 
 }

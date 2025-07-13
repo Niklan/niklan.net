@@ -44,7 +44,7 @@ final class ArrayElement {
       'properties' => $this->properties,
     ];
 
-    if (!empty($this->children)) {
+    if (\count($this->children) !== 0) {
       $data['children'] = \array_map(
         static fn (self $child) => $child->toArray(),
         $this->children,
