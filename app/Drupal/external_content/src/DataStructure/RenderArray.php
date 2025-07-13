@@ -14,7 +14,7 @@ final class RenderArray {
 
   public function __construct(
     private array $element = [],
-    private CacheableMetadata $cacheableMetadata = new CacheableMetadata(),
+    public CacheableMetadata $cacheableMetadata = new CacheableMetadata(),
   ) {}
 
   public function setProperty(string $key, mixed $value): void {
@@ -30,12 +30,8 @@ final class RenderArray {
     foreach ($this->children as $child) {
       $build[] = $child->toRenderArray();
     }
-    $this->applyCacheMetadata($build);
-    return $build;
-  }
-
-  public function applyCacheMetadata(array &$build): void {
     $this->cacheableMetadata->applyTo($build);
+    return $build;
   }
 
   public function getElement(): array {
@@ -44,10 +40,6 @@ final class RenderArray {
 
   public function getChildren(): array {
     return $this->children;
-  }
-
-  public function getCacheableMetadata(): CacheableMetadata {
-    return $this->cacheableMetadata;
   }
 
 }

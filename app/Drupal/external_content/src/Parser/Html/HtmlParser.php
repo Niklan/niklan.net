@@ -35,11 +35,7 @@ final readonly class HtmlParser implements Parser, ChildParser {
 
   public function parseChildren(\DOMNode $html_node, Node $content_node): void {
     foreach ($html_node->childNodes as $child_html_node) {
-      $child_content_node = $this->parseElement($child_html_node, $this);
-      if (!$child_content_node) {
-        continue;
-      }
-      $content_node->addChild($child_content_node);
+      $content_node->addChild($this->parseElement($child_html_node, $this));
     }
   }
 
@@ -48,14 +44,7 @@ final readonly class HtmlParser implements Parser, ChildParser {
       if (!$parser->supports($dom_node)) {
         continue;
       }
-
-      $content_node = $parser->parseElement($dom_node, $child_parser);
-      if (!$content_node) {
-        continue;
-      }
-
-      $child_parser->parseChildren($dom_node, $content_node);
-      return $content_node;
+      return $parser->parseElement($dom_node, $child_parser);
     }
 
     throw new UnsupportedElementException(self::class, self::domNodeToString($dom_node));

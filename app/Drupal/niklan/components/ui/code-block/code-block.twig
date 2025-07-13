@@ -6,14 +6,9 @@
   {% do attributes.setAttribute('data-highlight', highlighted_lines) %}
   {% do attributes.setAttribute('data-highlighted-line-class', 'code-block__highlighted') %}
 {% endif %}
-<section{{ attributes.addClass('code-block') }}>
+<figure{{ attributes.addClass('code-block') }}>
   {% if heading %}
-    <header class="code-block__header">
-      <div class="code-block__title">{{ heading }}</div>
-    </header>
+    <figcaption class="code-block__title">{{ heading }}</figcaption>
   {% endif %}
-
-  <div class="code-block__main">
-    <pre><code>{{ code }}</code></pre>
-  </div>
-</section>
+  <pre class="code-block__main"><code>{{ code }}</code></pre>
+</figure>

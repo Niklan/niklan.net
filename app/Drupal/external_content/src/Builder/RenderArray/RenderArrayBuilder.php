@@ -10,7 +10,7 @@ use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\Registry;
 
-final readonly class RenderArrayBuilder implements Builder, ChildBuilder {
+final class RenderArrayBuilder implements Builder, ChildBuilder {
 
   /**
    * @param \Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Builder\RenderArray\Builder> $builders
@@ -27,11 +27,7 @@ final readonly class RenderArrayBuilder implements Builder, ChildBuilder {
 
   public function buildChildren(Node $parent_node, RenderArray $render_array): void {
     foreach ($parent_node->getChildren() as $child) {
-      $render_array = $this->buildElement($child, $this);
-      if (!$render_array) {
-        continue;
-      }
-      $render_array->addChild($render_array);
+      $render_array->addChild($this->buildElement($child, $this));
     }
   }
 
@@ -40,14 +36,7 @@ final readonly class RenderArrayBuilder implements Builder, ChildBuilder {
       if (!$builder->supports($node)) {
         continue;
       }
-
-      $array = $builder->buildElement($node);
-      if (!$array) {
-        continue;
-      }
-
-      $child_builder->buildChildren($node, $array);
-      return $array;
+      return $builder->buildElement($node, $child_builder);
     }
 
     throw new UnsupportedElementException(self::class, $node::getNodeType());

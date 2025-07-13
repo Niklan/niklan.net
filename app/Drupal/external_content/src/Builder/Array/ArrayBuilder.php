@@ -20,18 +20,14 @@ final readonly class ArrayBuilder implements Builder, ChildBuilder {
   ) {}
 
   public function build(Document $document): ArrayElement {
-    $root = new ArrayElement('root');
-    $this->buildChildren($document, $root);
-    return $root;
+    $array = new ArrayElement(Document::getNodeType());
+    $this->buildChildren($document, $array);
+    return $array;
   }
 
   public function buildChildren(Node $parent_node, ArrayElement $array): void {
     foreach ($parent_node->getChildren() as $child) {
-      $array = $this->buildElement($child, $this);
-      if (!$array) {
-        continue;
-      }
-      $array->addChild($array);
+      $array->addChild($this->buildElement($child, $this));
     }
   }
 
@@ -40,14 +36,7 @@ final readonly class ArrayBuilder implements Builder, ChildBuilder {
       if (!$builder->supports($node)) {
         continue;
       }
-
-      $array = $builder->buildElement($node, $this);
-      if (!$array) {
-        continue;
-      }
-
-      $child_builder->buildChildren($node, $array);
-      return $array;
+      return $builder->buildElement($node, $child_builder);
     }
 
     throw new UnsupportedElementException(self::class, $node::getNodeType());

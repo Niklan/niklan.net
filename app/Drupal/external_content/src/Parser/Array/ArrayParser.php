@@ -30,11 +30,7 @@ final readonly class ArrayParser implements Parser, ChildParser {
 
   public function parseChildren(ArrayElement $parent_array, Node $content_node): void {
     foreach ($parent_array->getChildren() as $array) {
-      $child_node = $this->parseElement($array, $this);
-      if (!$child_node) {
-        continue;
-      }
-      $content_node->addChild($child_node);
+      $content_node->addChild($this->parseElement($array, $this));
     }
   }
 
@@ -43,14 +39,7 @@ final readonly class ArrayParser implements Parser, ChildParser {
       if (!$parser->supports($array)) {
         continue;
       }
-
-      $node = $parser->parse($array, $child_parser);
-      if (!$node) {
-        continue;
-      }
-
-      $child_parser->parseChildren($array, $node);
-      return $node;
+      return $parser->parseElement($array, $child_parser);
     }
 
     throw new UnsupportedElementException(self::class, $array->type);

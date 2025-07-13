@@ -19,15 +19,15 @@ final readonly class RenderArrayBuilder implements Builder {
   }
 
   public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
-    $info = \json_decode($request->node->attributes['data-info'] ?? '');
+    $info = \json_decode($node->attributes['data-info'] ?? '');
     return new RenderArray([
       '#type' => 'component',
       '#component' => 'niklan:code-block',
       '#props' => [
-        'language' => $request->node->attributes['data-language'],
+        'language' => $node->attributes['data-language'],
         'highlighted_lines' => $info->highlighted_lines ?? NULL,
         'heading' => $info->header ?? NULL,
-        'code' => $request->node->code,
+        'code' => $node->code,
       ],
     ]);
   }

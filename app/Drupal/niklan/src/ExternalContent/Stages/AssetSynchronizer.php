@@ -6,10 +6,10 @@ namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\external_content\Nodes\Image\Image;
 use Drupal\external_content\Nodes\Node;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
+use Drupal\niklan\ExternalContent\Nodes\Image\Image;
 use Drupal\niklan\ExternalContent\Nodes\LocalVideo\LocalVideo;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\MediaReference;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideo;
@@ -78,8 +78,8 @@ final readonly class AssetSynchronizer implements PipelineStage {
   private function syncImage(Image $node, ArticleTranslationProcessContext $context): void {
     $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->src;
     $data = [
-      'src' => $node->getSrc(),
-      'alt' => $node->getAlt(),
+      'src' => $node->src,
+      'alt' => $node->alt,
     ];
     $this->replaceWithMediaReferenceNode($node, $asset_path, $data);
   }
