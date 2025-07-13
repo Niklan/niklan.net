@@ -52,7 +52,8 @@ final class NiklanMarkdownExtension implements ConfigurableExtensionInterface {
     $builder->set('renderer', [
       'block_separator' => '',
       'inner_separator' => '',
-      'soft_break' => '',
+      // Note that soft break must be a space, or words will be merged.
+      'soft_break' => ' ',
     ]);
   }
 
