@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\CodeBlock;
 
 use Drupal\external_content\Nodes\Node;
 
-final class CodeBlock extends Node {
+final class CodeBlock extends Node implements \Stringable {
 
   public function __construct(
     public readonly string $code,
@@ -15,6 +15,10 @@ final class CodeBlock extends Node {
 
   public static function getNodeType(): string {
     return 'niklan:code_block';
+  }
+
+  public function __toString(): string {
+    return $this->code;
   }
 
 }

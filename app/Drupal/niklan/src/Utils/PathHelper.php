@@ -6,48 +6,39 @@ namespace Drupal\niklan\Utils;
 
 final class PathHelper {
 
-  // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase
-  private const string SCHEME_PLACEHOLDER = '__scheme__';
-
   /**
-   * Normalize path like standard realpath() does.
-   *
-   * The main difference is that this implementation doesn't care about file or
-   * directory existence, it's just working with path.
-   *
-   * E.g., 'path/to/something/../../file.md' will be converted to
-   * 'path/file.md'.
-   *
-   * @see https://stackoverflow.com/a/10067975/4751623
+   * Normalizes path similar to realpath() without filesystem checks.
    */
   public static function normalizePath(string $path): string {
-    // Replace spaces '%20' with an actual space. Without that, it can lead to
-    // a wrong file detection.
-    $path = \urldecode($path);
-    // Scheme separator should be preserved as is.
-    $path = \str_replace(
-      search: '://',
-      replace: self::SCHEME_PLACEHOLDER,
-      subject: $path,
-    );
-    $root = $path[0] === \DIRECTORY_SEPARATOR ? \DIRECTORY_SEPARATOR : '';
-    $segments = \explode(
-      separator: \DIRECTORY_SEPARATOR,
-      string: \trim($path, \DIRECTORY_SEPARATOR),
-    );
-    $new_segments = [];
+    $scheme_separator_position = \strpos($path, '://');
 
+    if ($scheme_separator_position !== FALSE) {
+      $scheme = \substr($path, 0, $scheme_separator_position);
+      $path_after_scheme = \substr($path, $scheme_separator_position + 3);
+      $normalized_path = self::normalizePathWithoutScheme($path_after_scheme);
+      return "{$scheme}://{$normalized_path}";
+    }
+
+    return self::normalizePathWithoutScheme($path);
+  }
+
+  private static function normalizePathWithoutScheme(string $path): string {
+    $decoded_path = \urldecode($path);
+    $is_absolute = $decoded_path !== '' && $decoded_path[0] === \DIRECTORY_SEPARATOR;
+
+    $segments = \explode(\DIRECTORY_SEPARATOR, \trim($decoded_path, \DIRECTORY_SEPARATOR));
+
+    $result_segments = [];
     foreach ($segments as $segment) {
       match ($segment) {
         '', '.' => NULL,
-        '..' => \array_pop($new_segments),
-        default => \array_push($new_segments, $segment),
+        '..' => \array_pop($result_segments),
+        default => \array_push($result_segments, $segment)
       };
     }
 
-    $result = $root . \implode(\DIRECTORY_SEPARATOR, $new_segments);
-
-    return \str_replace(self::SCHEME_PLACEHOLDER, '://', $result);
+    $path_start = $is_absolute ? \DIRECTORY_SEPARATOR : '';
+    return $path_start . \implode(\DIRECTORY_SEPARATOR, $result_segments);
   }
 
 }

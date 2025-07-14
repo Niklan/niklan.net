@@ -12,7 +12,7 @@ use Drupal\external_content\Nodes\Text\ArrayParser as TextParser;
 use Drupal\external_content\Utils\Registry;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Contract\Parser\Array\Parser>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Parser\Array\Parser>>
  */
 final readonly class ArrayExtension implements Extension {
 

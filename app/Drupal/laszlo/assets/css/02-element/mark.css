@@ -5,4 +5,8 @@
     border-radius: var(--spacing-1);
     background-color: var(--color-primary-container);
   }
+
+  mark > * {
+    color: var(--color-on-surface);
+  }
 }

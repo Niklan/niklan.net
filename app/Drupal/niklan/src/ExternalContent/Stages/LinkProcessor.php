@@ -18,7 +18,10 @@ use Drupal\niklan\Utils\PathHelper;
  */
 final readonly class LinkProcessor implements PipelineStage {
 
+  public const string DATA_HASH_ATTRIBUTE = 'data-source-path-hash';
+
   public function process(PipelineContext $context): void {
+    \assert($context->externalContent instanceof Node);
     $this->traverseNodeHierarchy($context->externalContent, $context);
   }
 
@@ -43,6 +46,9 @@ final readonly class LinkProcessor implements PipelineStage {
     $this->updateLinkBasedOnPathType($node, $full_path);
   }
 
+  /**
+   * @phpstan-assert-if-true HtmlElement $node
+   */
   private function isValidLinkElement(Node $node): bool {
     return $node instanceof HtmlElement
       && $node->tag === 'a'

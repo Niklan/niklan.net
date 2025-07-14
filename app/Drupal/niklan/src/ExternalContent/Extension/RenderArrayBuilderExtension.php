@@ -6,6 +6,7 @@ namespace Drupal\niklan\ExternalContent\Extension;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Utils\Registry;
+use Drupal\niklan\ExternalContent\Nodes\ArticleLink\RenderArrayBuilder as ArticleLinkBuilder;
 use Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder as CalloutBuilder;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder as CodeBlockBuilder;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder as MediaReferenceBuilder;
@@ -20,6 +21,7 @@ final readonly class RenderArrayBuilderExtension implements Extension {
     $target->add(new CodeBlockBuilder());
     $target->add(new CalloutBuilder());
     $target->add(new MediaReferenceBuilder());
+    $target->add(new ArticleLinkBuilder(), 10);
   }
 
 }

@@ -19,10 +19,6 @@ final readonly class ArticleProcessPipeline implements Pipeline {
 
   public function __construct() {
     $this->pipeline = new SequentialPipeline();
-    $this->pipeline->addStage(new MarkdownToAstParser());
-    $this->pipeline->addStage(new AssetSynchronizer());
-    $this->pipeline->addStage(new LinkProcessor());
-    $this->pipeline->addStage(new ArticleTranslationFieldUpdater());
   }
 
   public function addStage(PipelineStage $stage, int $priority = 0): void {

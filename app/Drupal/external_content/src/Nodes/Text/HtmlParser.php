@@ -10,31 +10,27 @@ use Drupal\external_content\Nodes\Node;
 
 final class HtmlParser implements Parser {
 
+  /**
+   * Historical context: Empty string check was intentionally removed.
+   *
+   * Previously contained:
+   * @code
+   * return trim($nodeValue) !== '';
+   * @endcode
+   *
+   * Why removed:
+   * 1. Caused incorrect space handling between inline elements:
+   *    @code
+   *    <a>Foo</a> <code>Bar</code> → space between elements was lost
+   *    @endcode
+   * 2. Text node processing should be context-agnostic
+   *
+   * Do NOT reintroduce this check:
+   * - Whitespace handling must be managed by parent parser
+   * - Empty DOMText nodes are valid and should be processed
+   */
   public function supports(\DOMNode $dom_node): bool {
-    if (!$dom_node instanceof \DOMText) {
-      return FALSE;
-    }
-
-    // Previously, here was a check for an empty string (e.g. space character).
-    // It was checked by trim() function and parser returned stop signal for
-    // that element. This is wrong, because in cases when multiple consecutive
-    // inline HTML elements are added, this logic will fail.
-    //
-    // Example:
-    // @code
-    //   <a href="#">foo</a> <code>bar</code>
-    //                      ^
-    //                      this space is lost, and they are concatenated.
-    // @endcode
-    //
-    // The result was:
-    // @code
-    //   <a href="#">foo</a><code>bar</code>
-    // @endcode
-    //
-    // This is clearly unwanted behavior. Make sure not to add this check here
-    // again.
-    return TRUE;
+    return $dom_node instanceof \DOMText;
   }
 
   public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {

@@ -70,7 +70,7 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
   }
 
   private function createMediaForFile(FileInterface $file, array $extra): ?MediaInterface {
-    $mime_type = $file->getMimeType();
+    $mime_type = $file->getMimeType() ?? '';
     $media_type = $this->determineMediaType($mime_type);
 
     if (!$mime_type || !$media_type) {

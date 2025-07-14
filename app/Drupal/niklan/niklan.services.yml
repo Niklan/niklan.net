@@ -21,21 +21,21 @@ services:
   Drupal\niklan\StaticPage\Home\Repository\HomeSettings: { }
   Drupal\niklan\Portfolio\Repository\PortfolioSettings: { }
 
-  Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: {}
+  Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: { }
   Drupal\niklan\File\Contract\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'
 
-  Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer: {}
+  Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer: { }
   Drupal\niklan\Media\Contract\MediaSynchronizer: '@Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer'
 
-  Drupal\niklan\Media\Repository\DatabaseMediaRepository: {}
+  Drupal\niklan\Media\Repository\DatabaseMediaRepository: { }
   Drupal\niklan\Media\Contract\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
 
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
   Drupal\niklan\Tag\Contract\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
-  Drupal\niklan\Tag\Repository\DatabaseTagRepository: {}
+  Drupal\niklan\Tag\Repository\DatabaseTagRepository: { }
   Drupal\niklan\Tag\Contract\TagRepository: '@Drupal\niklan\Tag\Repository\DatabaseTagRepository'
 
-  Drupal\niklan\Blog\Repository\DatabaseBlogRepository: {}
+  Drupal\niklan\Blog\Repository\DatabaseBlogRepository: { }
   Drupal\niklan\Blog\Contract\BlogRepository: '@Drupal\niklan\Blog\Repository\DatabaseBlogRepository'
 
   Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: { }
@@ -114,3 +114,14 @@ services:
     tags:
       - { name: event_subscriber }
   Drupal\niklan\Comment\Telegram\CommentModerationHandler: { }
+
+  Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser: { }
+  Drupal\niklan\ExternalContent\Stages\AssetSynchronizer: { }
+  Drupal\niklan\ExternalContent\Stages\LinkProcessor: { }
+  Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater: { }
+  Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline:
+    calls:
+      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser' ] ]
+      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\AssetSynchronizer' ] ]
+      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\LinkProcessor' ] ]
+      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater' ] ]

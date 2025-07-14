@@ -1,6 +1,8 @@
 services:
   niklan.external_content.sync:
     class: Drupal\niklan\ExternalContent\Command\Sync
+    arguments:
+      - '@niklan.external_content'
     tags:
       - { name: console.command }
   niklan.telegram.set_webhook:

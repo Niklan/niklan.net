@@ -68,7 +68,10 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     (new DefaultArrayParserExtension())->register($parsers);
     (new CustomArrayParserExtension())->register($parsers);
 
-    return (new ArrayParser($parsers))->parse(ArrayElement::fromArray(\json_decode($json, TRUE)));
+    $array = \json_decode($json, TRUE);
+    \assert(\is_array($array));
+
+    return (new ArrayParser($parsers))->parse(ArrayElement::fromArray($array));
   }
 
   public function normalize(Document $content): string {
@@ -76,7 +79,10 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     (new DefaultArrayBuilderExtension())->register($builders);
     (new CustomArrayBuilderExtension())->register($builders);
 
-    return \json_encode((new ArrayBuilder($builders))->build($content)->toArray());
+    $json = \json_encode((new ArrayBuilder($builders))->build($content)->toArray());
+    \assert(\is_string($json));
+
+    return $json;
   }
 
   public function view(Document $content, ViewRequest $request): array {

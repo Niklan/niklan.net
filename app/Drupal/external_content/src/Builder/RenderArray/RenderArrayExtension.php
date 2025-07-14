@@ -12,7 +12,7 @@ use Drupal\external_content\Nodes\Text\RenderArrayBuilder as TextBuilder;
 use Drupal\external_content\Utils\Registry;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Contract\Builder\RenderArray\Builder>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Builder\RenderArray\Builder>>>
  */
 final class RenderArrayExtension implements Extension {
 

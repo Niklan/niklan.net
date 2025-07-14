@@ -8,6 +8,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\niklan\Console\Log\ConsoleLogger;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,6 +17,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'niklan:blog:sync', description: 'Sync blog articles.')]
 final class Sync extends Command {
+
+  public function __construct(
+    private LoggerInterface $logger,
+  ) {
+    parent::__construct();
+  }
 
   protected function configure(): void {
     $this->addArgument(
@@ -27,12 +34,10 @@ final class Sync extends Command {
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
-    // @todo Add proper DI.
     $output->writeln('Start syncing...');
-    $logger = new ConsoleLogger(\Drupal::logger('niklan.external_content'), $output);
+    $logger = new ConsoleLogger($this->logger, $output);
 
     $pipeline = new ArticleSyncPipeline();
-    // @todo Add logger decorator with CLI support.
     $pipeline->run(new SyncContext($input->getArgument('sourceUri'), $logger));
     return self::SUCCESS;
   }

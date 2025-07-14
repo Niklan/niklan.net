@@ -15,17 +15,18 @@ use Drupal\niklan\ExternalContent\Nodes\MediaReference\MediaReference;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideo;
 use Drupal\niklan\Media\Contract\MediaSynchronizer;
 
+/**
+ * @implements \Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext>
+ */
 final readonly class AssetSynchronizer implements PipelineStage {
 
-  private MediaSynchronizer $mediaSynchronizer;
-
-  public function __construct() {
-    // @todo Use DI.
-    $this->mediaSynchronizer = \Drupal::service(MediaSynchronizer::class);
-  }
+  public function __construct(
+    private MediaSynchronizer $mediaSynchronizer,
+  ) {}
 
   public function process(PipelineContext $context): void {
     \assert($context instanceof ArticleTranslationProcessContext);
+    \assert($context->externalContent instanceof Node);
     $this->syncExternalContentRecursively($context->externalContent, $context);
     $this->syncPoster($context);
     $this->syncAttachments($context);
@@ -66,7 +67,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
 
   private function replaceWithMediaReferenceNode(Node $original_node, string $asset_source, array $media_metadata = []): void {
     $media = $this->mediaSynchronizer->sync($asset_source);
-    if ($media) {
+    if ($media?->uuid()) {
       $media_node = new MediaReference($media->uuid(), $media_metadata);
       $original_node->getParent()->replaceChild($original_node, $media_node);
     }

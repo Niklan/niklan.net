@@ -41,7 +41,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
       : $this->syncInternal($normalized_path);
   }
 
-  private function handleExternalUrl(string $url): ?FileInterface {
+  private function handleExternalUrl(string $url): null {
     // External URLs are not supported at the moment, as there is no need for
     // that. If you are interested in how to do this, check the following:
     // https://github.com/Druki-ru/website/blob/b40b30fccc2b3429424aea540d9804b27beed22e/web/modules/custom/druki/src/Repository/MediaImageRepository.php#L124-L126
@@ -144,7 +144,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
       destination: $destination_directory . \DIRECTORY_SEPARATOR . $destination_filename,
       fileExists: FileExists::Error,
     );
-    if (!$destination_uri) {
+    if (!\is_string($destination_uri)) {
       $this->logger->error('Destination file URI is already exists', ['destination' => $destination_uri]);
       return NULL;
     }

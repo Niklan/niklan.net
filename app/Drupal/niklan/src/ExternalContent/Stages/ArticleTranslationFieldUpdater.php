@@ -6,8 +6,10 @@ namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
+use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
+use Drupal\niklan\Node\Entity\Node;
 use Drupal\niklan\Plugin\ExternalContent\Environment\BlogArticle;
 use Drupal\niklan\Utils\PathHelper;
 
@@ -16,14 +18,14 @@ use Drupal\niklan\Utils\PathHelper;
  */
 final readonly class ArticleTranslationFieldUpdater implements PipelineStage {
 
-  private EnvironmentManager $environmentManager;
+  public const string SOURCE_PATH_HASH_PROPERTY = 'source_path_hash';
 
-  public function __construct() {
-    // @todo Add proper DI.
-    $this->environmentManager = \Drupal::service(EnvironmentManager::class);
-  }
+  public function __construct(
+    private EnvironmentManager $environmentManager,
+  ) {}
 
   public function process(PipelineContext $context): void {
+    \assert($context->externalContent instanceof Document);
     $this->syncTitle($context);
     $this->syncDescription($context);
     $this->syncExternalContent($context);
@@ -51,15 +53,17 @@ final readonly class ArticleTranslationFieldUpdater implements PipelineStage {
   }
 
   private function syncExternalContent(ArticleTranslationProcessContext $context): void {
+    \assert($context->externalContent instanceof Document);
     $environment = $this->environmentManager->createInstance(BlogArticle::ID);
     \assert($environment instanceof BlogArticle);
+
     $source_path = PathHelper::normalizePath($context->articleTranslation->contentDirectory . \DIRECTORY_SEPARATOR . $context->articleTranslation->sourcePath);
     $context->articleEntity->set('external_content', [
       'value' => $environment->normalize($context->externalContent),
       'environment_id' => BlogArticle::ID,
       'data' => \json_encode([
         // MD5 simply for less data to store.
-        'source_path_hash' => \md5($source_path),
+        self::SOURCE_PATH_HASH_PROPERTY => \md5($source_path),
       ]),
     ]);
   }
