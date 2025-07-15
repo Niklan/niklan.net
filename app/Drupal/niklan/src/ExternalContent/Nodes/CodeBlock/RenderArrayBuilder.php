@@ -19,6 +19,12 @@ final readonly class RenderArrayBuilder implements Builder {
   }
 
   public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
+    /**
+     * @var \stdClass{
+     *   highlighted_lines?: string,
+     *   header?: string,
+     * } $info
+     */
     $info = \json_decode($node->attributes['data-info'] ?? '');
     return new RenderArray([
       '#type' => 'component',

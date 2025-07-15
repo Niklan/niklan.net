@@ -16,7 +16,7 @@ final readonly class HtmlParser implements Parser {
 
   public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
     \assert($dom_node instanceof \DOMElement);
-    return new Image($dom_node->getAttribute('src'), $dom_node->getAttribute('alt') ?? '');
+    return new Image($dom_node->getAttribute('src'), $dom_node->getAttribute('alt'));
   }
 
 }

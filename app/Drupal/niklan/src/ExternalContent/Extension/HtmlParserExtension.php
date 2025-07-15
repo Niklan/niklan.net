@@ -13,7 +13,7 @@ use Drupal\niklan\ExternalContent\Nodes\LocalVideo\HtmlParser as LocalVideoParse
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\HtmlParser as RemoteVideoParser;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\niklan\ExternalContent\Extension\HtmlNodeParser>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Parser\Html\Parser>>
  */
 final readonly class HtmlParserExtension implements Extension {
 

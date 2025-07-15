@@ -23,12 +23,9 @@ use Drupal\niklan\ExternalContent\Stages\LinkProcessor;
  */
 final readonly class RenderArrayBuilder implements Builder {
 
-  private Connection $connection;
-
-  public function __construct() {
-    // @todo Use DI.
-    $this->connection = \Drupal::database();
-  }
+  public function __construct(
+    private Connection $database,
+  ) {}
 
   public function supports(Node $node): bool {
     return $node instanceof HtmlElement
@@ -61,7 +58,7 @@ final readonly class RenderArrayBuilder implements Builder {
 
   private function findDestination(string $link_checksum): ?string {
     $query = $this
-      ->connection
+      ->database
       ->select('node__external_content', 'ecf')
       ->condition('ecf.bundle', 'blog_entry')
       ->fields('ecf', ['entity_id'])

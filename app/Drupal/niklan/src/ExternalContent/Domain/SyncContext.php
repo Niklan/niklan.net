@@ -37,7 +37,9 @@ final class SyncContext implements PipelineContext {
   }
 
   public function isStrictMode(): bool {
-    return Settings::get('niklan_external_content_strict_mode', FALSE);
+    $strict_mode = Settings::get('niklan_external_content_strict_mode', FALSE);
+    \assert(\is_bool($strict_mode));
+    return $strict_mode;
   }
 
 }

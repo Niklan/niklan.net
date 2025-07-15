@@ -12,7 +12,7 @@ use Drupal\external_content\Nodes\Text\ArrayBuilder as TextBuilder;
 use Drupal\external_content\Utils\Registry;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Exporter\Array\ArrayElementBuilder>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Builder\Array\Builder>>
  */
 final readonly class ArrayExtension implements Extension {
 

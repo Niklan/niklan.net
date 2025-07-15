@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Nodes\MediaReference;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\external_content\Contract\Builder\RenderArray\Builder;
 use Drupal\external_content\Contract\Builder\RenderArray\ChildBuilder;
@@ -16,6 +17,10 @@ use Drupal\niklan\Utils\MediaHelper;
  * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\niklan\ExternalContent\Nodes\MediaReference\MediaReference>
  */
 final readonly class RenderArrayBuilder implements Builder {
+
+  public function __construct(
+    private EntityTypeManagerInterface $entityTypeManager,
+  ) {}
 
   public function supports(Node $node): bool {
     return $node instanceof MediaReference;
@@ -91,14 +96,12 @@ final readonly class RenderArrayBuilder implements Builder {
   }
 
   private function buildRemoteVideo(MediaReference $node, MediaInterface $media): RenderArray {
-    // @todo DI
-    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('media');
+    $view_builder = $this->entityTypeManager->getViewBuilder('media');
     return new RenderArray($view_builder->view($media));
   }
 
   private function loadByUuid(MediaReference $node): ?MediaInterface {
-    // @todo Use DI
-    $storage = \Drupal::entityTypeManager()->getStorage('media');
+    $storage = $this->entityTypeManager->getStorage('media');
     $ids = $storage->getQuery()->accessCheck(FALSE)->condition('uuid', $node->uuid)->range(0, 1)->sort('mid')->execute();
     if (!$ids) {
       return NULL;

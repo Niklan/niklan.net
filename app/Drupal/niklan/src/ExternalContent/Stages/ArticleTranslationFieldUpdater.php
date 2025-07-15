@@ -9,7 +9,6 @@ use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
-use Drupal\niklan\Node\Entity\Node;
 use Drupal\niklan\Plugin\ExternalContent\Environment\BlogArticle;
 use Drupal\niklan\Utils\PathHelper;
 

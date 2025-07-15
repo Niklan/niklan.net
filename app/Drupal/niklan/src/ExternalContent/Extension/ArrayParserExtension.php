@@ -13,7 +13,7 @@ use Drupal\niklan\ExternalContent\Nodes\CodeBlock\ArrayParser as CodeBlockParser
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\ArrayParser as MediaReferenceParser;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\niklan\ExternalContent\Extension\ArrayElementParser>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Parser\Array\Parser>>
  */
 final readonly class ArrayParserExtension implements Extension {
 

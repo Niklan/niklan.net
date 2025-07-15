@@ -12,12 +12,14 @@ use Drupal\external_content\Utils\PrioritizedList;
 use Psr\Log\LogLevel;
 
 /**
- * @implements \Drupal\external_content\Contract\Pipeline\Pipeline<\Drupal\external_content\Contract\Pipeline\PipelineStage, \Drupal\external_content\Contract\Pipeline\PipelineContext>
+ * @template TStage of \Drupal\external_content\Contract\Pipeline\PipelineStage
+ * @template TContext of \Drupal\external_content\Contract\Pipeline\PipelineContext
+ * @implements \Drupal\external_content\Contract\Pipeline\Pipeline<TStage, TContext>
  */
 final class SequentialPipeline implements Pipeline {
 
   /**
-   * @var \Drupal\external_content\Utils\PrioritizedList<\Drupal\external_content\Contract\Pipeline\PipelineStage>
+   * @var \Drupal\external_content\Utils\PrioritizedList<TStage>
    */
   private PrioritizedList $stages;
 

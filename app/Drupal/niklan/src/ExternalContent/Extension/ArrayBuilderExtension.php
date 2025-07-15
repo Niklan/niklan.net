@@ -13,7 +13,7 @@ use Drupal\niklan\ExternalContent\Nodes\CodeBlock\ArrayBuilder as CodeBlockBuild
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\ArrayBuilder as MediaReferenceBuilder;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Builder\Array\ArrayBuilder>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Builder\Array\Builder>>
  */
 final readonly class ArrayBuilderExtension implements Extension {
 

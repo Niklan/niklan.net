@@ -34,7 +34,7 @@ final readonly class MarkdownToAstParser implements PipelineStage {
     ]);
 
     $contents = \file_get_contents($markdown_file);
-    \assert(is_string($contents));
+    \assert(\is_string($contents));
     $context->externalContent = $environment->parse($contents);
   }
 

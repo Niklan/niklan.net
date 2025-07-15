@@ -10,6 +10,9 @@ use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
 use Symfony\Component\Finder\Finder;
 
+/**
+ * @implements \Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\SyncContext>
+ */
 final readonly class ArticleFinder implements PipelineStage {
 
   public function __construct(
@@ -39,8 +42,6 @@ final readonly class ArticleFinder implements PipelineStage {
       if ($file->isDir()) {
         continue;
       }
-
-      // @todo https://github.com/Niklan/niklan.net/blob/main/app/Drupal/external_content/src/Source/File.php#L74
       $article = $this->articleParser->parse($file->getPathname());
       $context->addArticle($article);
     }

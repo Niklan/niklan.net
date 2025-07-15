@@ -26,7 +26,7 @@ final class Sync extends Command {
 
   protected function configure(): void {
     $this->addArgument(
-      name: 'sourceUri',
+      name: 'source-uri',
       mode: InputArgument::OPTIONAL,
       description: 'The source content URI. If omitted, the default source URI will be used.',
       default: Settings::get('external_content_directory'),
@@ -37,8 +37,11 @@ final class Sync extends Command {
     $output->writeln('Start syncing...');
     $logger = new ConsoleLogger($this->logger, $output);
 
+    $source_uri = $input->getArgument('source-uri');
+    \assert(\is_string($source_uri));
+
     $pipeline = new ArticleSyncPipeline();
-    $pipeline->run(new SyncContext($input->getArgument('sourceUri'), $logger));
+    $pipeline->run(new SyncContext($source_uri, $logger));
     return self::SUCCESS;
   }
 

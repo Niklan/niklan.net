@@ -12,16 +12,23 @@ use Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder as CodeBloc
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder as MediaReferenceBuilder;
 
 /**
- * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Exporter\RenderArray\Builder>>
+ * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Builder\RenderArray\Builder>>
  */
 final readonly class RenderArrayBuilderExtension implements Extension {
 
+  public function __construct(
+    private CodeBlockBuilder $codeBlockBuilder,
+    private CalloutBuilder $calloutBuilder,
+    private MediaReferenceBuilder $mediaReferenceBuilder,
+    private ArticleLinkBuilder $articleLinkBuilder,
+  ) {}
+
   public function register(object $target): void {
     \assert($target instanceof Registry);
-    $target->add(new CodeBlockBuilder());
-    $target->add(new CalloutBuilder());
-    $target->add(new MediaReferenceBuilder());
-    $target->add(new ArticleLinkBuilder(), 10);
+    $target->add($this->codeBlockBuilder);
+    $target->add($this->calloutBuilder);
+    $target->add($this->mediaReferenceBuilder);
+    $target->add($this->articleLinkBuilder, 10);
   }
 
 }

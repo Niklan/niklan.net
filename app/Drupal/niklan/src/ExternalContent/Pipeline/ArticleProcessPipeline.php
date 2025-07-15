@@ -12,10 +12,25 @@ use Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater;
 use Drupal\niklan\ExternalContent\Stages\AssetSynchronizer;
 use Drupal\niklan\ExternalContent\Stages\LinkProcessor;
 use Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+/**
+ * @implements \Drupal\external_content\Contract\Pipeline\Pipeline<\Drupal\external_content\Contract\Pipeline\PipelineStage, \Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext>
+ */
+#[Autoconfigure(
+  calls: [
+    ['addStage', [MarkdownToAstParser::class]],
+    ['addStage', [AssetSynchronizer::class]],
+    ['addStage', [LinkProcessor::class]],
+    ['addStage', [ArticleTranslationFieldUpdater::class]],
+  ],
+)]
 final readonly class ArticleProcessPipeline implements Pipeline {
 
-  private Pipeline $pipeline;
+  /**
+   * @var \Drupal\external_content\Pipeline\SequentialPipeline<\Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext>, \Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext>
+   */
+  private SequentialPipeline $pipeline;
 
   public function __construct() {
     $this->pipeline = new SequentialPipeline();

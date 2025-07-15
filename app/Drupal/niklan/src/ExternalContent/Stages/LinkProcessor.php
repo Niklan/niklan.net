@@ -47,7 +47,7 @@ final readonly class LinkProcessor implements PipelineStage {
   }
 
   /**
-   * @phpstan-assert-if-true HtmlElement $node
+   * @phpstan-assert-if-true \Drupal\external_content\Nodes\HtmlElement\HtmlElement $node
    */
   private function isValidLinkElement(Node $node): bool {
     return $node instanceof HtmlElement

@@ -115,13 +115,19 @@ services:
       - { name: event_subscriber }
   Drupal\niklan\Comment\Telegram\CommentModerationHandler: { }
 
+  Drupal\niklan\ExternalContent\Validation\XmlValidator: {}
+  Drupal\niklan\ExternalContent\Parser\ArticleXmlParser: {}
   Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser: { }
   Drupal\niklan\ExternalContent\Stages\AssetSynchronizer: { }
   Drupal\niklan\ExternalContent\Stages\LinkProcessor: { }
   Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater: { }
-  Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline:
-    calls:
-      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser' ] ]
-      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\AssetSynchronizer' ] ]
-      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\LinkProcessor' ] ]
-      - [ addStage, [ '@Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater' ] ]
+  Drupal\niklan\ExternalContent\Stages\ArticleProcessor: {}
+  Drupal\niklan\ExternalContent\Stages\ArticleFinder: {}
+  Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline: {}
+  Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline: {}
+  Drupal\niklan\ExternalContent\Nodes\ArticleLink\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension: {}
+  Drupal\niklan\ExternalContent\Extension\HtmlParserExtension: {}

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\external_content\Contract\Pipeline\Pipeline;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\niklan\Blog\Contract\BlogRepository;
@@ -18,17 +18,19 @@ use Drupal\niklan\Node\Entity\BlogEntryInterface;
 use Drupal\niklan\Tag\Contract\TagRepository;
 use Drupal\node\NodeStorageInterface;
 
+/**
+ * @implements \Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\SyncContext>
+ */
 final readonly class ArticleProcessor implements PipelineStage {
 
-  private Pipeline $pipeline;
-  private TagRepository $tagRepository;
-  private BlogRepository $blogRepository;
+  private ArticleProcessPipeline $pipeline;
 
-  public function __construct() {
+  public function __construct(
+    private TagRepository $tagRepository,
+    private BlogRepository $blogRepository,
+    private EntityTypeManagerInterface $entityTypeManager,
+  ) {
     $this->pipeline = new ArticleProcessPipeline();
-    // @todo Use DI.
-    $this->tagRepository = \Drupal::service(TagRepository::class);
-    $this->blogRepository = \Drupal::service(BlogRepository::class);
   }
 
   public function process(PipelineContext $context): void {
@@ -94,20 +96,19 @@ final readonly class ArticleProcessor implements PipelineStage {
   }
 
   private function getBlogStorage(): NodeStorageInterface {
-    // @todo Replace by DI.
-    return \Drupal::entityTypeManager()->getStorage('node');
+    return $this->entityTypeManager->getStorage('node');
   }
 
   private function findOrCreateArticleEntity(Article $article): BlogEntryInterface {
     $article_entity = $this->blogRepository->findByExternalId($article->id)
       ?? $this->getBlogStorage()->create(['type' => 'blog_entry']);
+    \assert($article_entity instanceof BlogEntryInterface);
 
     if ($article_entity->isNew()) {
       $article_entity->setExternalId($article->id);
       $article_entity->setOwnerId(1);
     }
 
-    // @phpstan-ignore-next-line
     return $article_entity;
   }
 

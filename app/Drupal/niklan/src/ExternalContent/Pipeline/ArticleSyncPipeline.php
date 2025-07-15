@@ -8,31 +8,34 @@ use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\Pipeline;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Pipeline\SequentialPipeline;
-use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
 use Drupal\niklan\ExternalContent\Stages\ArticleFinder;
 use Drupal\niklan\ExternalContent\Stages\ArticleProcessor;
-use Drupal\niklan\ExternalContent\Validation\XmlValidator;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+/**
+ * @implements \Drupal\external_content\Contract\Pipeline\Pipeline<\Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\SyncContext>, \Drupal\niklan\ExternalContent\Domain\SyncContext>
+ */
+#[Autoconfigure(
+  calls: [
+    ['addStage', [ArticleFinder::class]],
+    ['addStage', [ArticleProcessor::class]],
+  ],
+)]
 final readonly class ArticleSyncPipeline implements Pipeline {
 
-  private Pipeline $pipeline;
+  /**
+   * @var \Drupal\external_content\Pipeline\SequentialPipeline<\Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\SyncContext>, \Drupal\niklan\ExternalContent\Domain\SyncContext>
+   */
+  private SequentialPipeline $pipeline;
 
   public function __construct() {
-    $article_xml_validator = new XmlValidator();
-    $article_xml_parser = new ArticleXmlParser($article_xml_validator);
-
     $this->pipeline = new SequentialPipeline();
-    $this->pipeline->addStage(new ArticleFinder($article_xml_parser));
-    $this->pipeline->addStage(new ArticleProcessor());
   }
 
   public function addStage(PipelineStage $stage, int $priority = 0): void {
     $this->pipeline->addStage($stage, $priority);
   }
 
-  /**
-   * @param \Drupal\niklan\ExternalContent\Domain\SyncContext $context
-   */
   public function run(PipelineContext $context): void {
     $this->pipeline->run($context);
   }
