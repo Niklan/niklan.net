@@ -20,7 +20,7 @@ final class ConsoleLogger implements LoggerInterface {
 
   public function log($level, string|\Stringable $message, array $context = []): void {
     $this->innerLogger->log($level, $message, $context);
-
+    \assert(\is_string($level));
     $formatted = $this->format($level, $message, $context);
 
     if (\in_array($level, ['error', 'critical', 'alert', 'emergency'], TRUE)) {
@@ -62,7 +62,7 @@ final class ConsoleLogger implements LoggerInterface {
     $this->log('debug', $message, $context);
   }
 
-  private function format(string $level, string $message, array $context): string {
+  private function format(string $level, string|\Stringable $message, array $context): string {
     return \sprintf('[%s] %s %s', \strtoupper($level), $message, \json_encode($context));
   }
 

@@ -46,6 +46,9 @@ final class TableOfContentsBuilder {
     }
   }
 
+  /**
+   * @phpstan-assert-if-true \Drupal\external_content\Nodes\HtmlElement\HtmlElement $node
+   */
   private function isHeadingAnchorLink(Node $node): bool {
     return $node instanceof HtmlElement
       && $node->tag === 'a'

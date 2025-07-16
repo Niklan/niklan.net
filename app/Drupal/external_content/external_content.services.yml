@@ -3,3 +3,10 @@ services:
     autowire: true
 
   Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager: {}
+
+  Drupal\external_content\Extension\ContainerExtensionManager: {}
+  Drupal\external_content\Contract\Extension\ExtensionManager: '@Drupal\external_content\Extension\ContainerExtensionManager'
+
+  Drupal\external_content\Parser\Array\ArrayExtension:
+    tags:
+      - { name: external_content.extension, id: default_array_parser }

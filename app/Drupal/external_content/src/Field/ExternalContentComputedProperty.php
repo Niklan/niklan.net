@@ -29,6 +29,7 @@ final class ExternalContentComputedProperty extends TypedData {
     }
 
     $environment_id = $field_item->get('environment_id')->getValue();
+    \assert(\is_string($environment_id));
     $raw_value = $field_item->get('value')->getValue();
 
     $environment_plugin = self::getEnvironmentPluginManager()->createInstance($environment_id);

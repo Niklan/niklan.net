@@ -8,7 +8,7 @@ use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Nodes\Node;
 
 /**
- * @template T of \Drupal\external_content\Nodes\Node
+ * @template T of \Drupal\external_content\Nodes\Node = \Drupal\external_content\Nodes\Node
  */
 interface Builder {
 

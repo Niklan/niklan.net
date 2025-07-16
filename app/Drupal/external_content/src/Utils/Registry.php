@@ -27,9 +27,9 @@ final class Registry {
   }
 
   /**
-   * @return \Traversable<T>
+   * @return \Drupal\external_content\Utils\PrioritizedList<T>
    */
-  public function getAll(): \Traversable {
+  public function getAll(): PrioritizedList {
     return $this->list;
   }
 

@@ -11,6 +11,9 @@ use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
+/**
+ * @method createInstance($plugin_id, array $configuration = []): EnvironmentPlugin
+ */
 final class EnvironmentManager extends DefaultPluginManager implements FallbackPluginManagerInterface {
 
   public function __construct(

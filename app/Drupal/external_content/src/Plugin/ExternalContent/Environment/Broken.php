@@ -9,6 +9,9 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
 use Drupal\external_content\Nodes\Document;
 
+/**
+ * @implements \Drupal\external_content\Contract\Plugin\EnvironmentPlugin<string>
+ */
 #[Environment(
   id: self::ID,
   label: new TranslatableMarkup('Blog article'),

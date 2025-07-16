@@ -12,8 +12,8 @@ use Drupal\external_content\Utils\PrioritizedList;
 use Psr\Log\LogLevel;
 
 /**
- * @template TStage of \Drupal\external_content\Contract\Pipeline\PipelineStage
- * @template TContext of \Drupal\external_content\Contract\Pipeline\PipelineContext
+ * @template TStage of \Drupal\external_content\Contract\Pipeline\PipelineStage = \Drupal\external_content\Contract\Pipeline\PipelineStage
+ * @template TContext of \Drupal\external_content\Contract\Pipeline\PipelineContext = \Drupal\external_content\Contract\Pipeline\PipelineContext
  * @implements \Drupal\external_content\Contract\Pipeline\Pipeline<TStage, TContext>
  */
 final class SequentialPipeline implements Pipeline {
@@ -27,6 +27,9 @@ final class SequentialPipeline implements Pipeline {
     $this->stages = new PrioritizedList();
   }
 
+  /**
+   * @param TStage $stage
+   */
   public function addStage(PipelineStage $stage, int $priority = 0): void {
     $this->stages->add($stage, $priority);
   }

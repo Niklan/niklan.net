@@ -28,6 +28,7 @@ final readonly class HtmlParser implements Parser, ChildParser {
     $dom_document_factory = new DomDocumentFactory();
     $html_document = $dom_document_factory->createFromHtml($html);
     $body = $html_document->getElementsByTagName('body')->item(0);
+    \assert($body instanceof \DOMNode);
     $this->parseChildren($body, $content_document);
 
     return $content_document;
@@ -58,7 +59,9 @@ final readonly class HtmlParser implements Parser, ChildParser {
     $document = new \DOMDocument();
     $cloned_node = $document->importNode($node->cloneNode(TRUE), TRUE);
     $document->appendChild($cloned_node);
-    $content = \trim($document->saveHTML());
+    $html = $document->saveHTML();
+    \assert(\is_string($html));
+    $content = \trim($html);
 
     return $content === '' ? '[empty]' : $content;
   }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\external_content\Contract\Pipeline;
 
 /**
- * @template TStage = \Drupal\external_content\Contract\Pipeline\PipelineStage
- * @template TContext = \Drupal\external_content\Contract\Pipeline\PipelineContext
+ * @template TStage of \Drupal\external_content\Contract\Pipeline\PipelineStage = \Drupal\external_content\Contract\Pipeline\PipelineStage
+ * @template TContext of \Drupal\external_content\Contract\Pipeline\PipelineContext = \Drupal\external_content\Contract\Pipeline\PipelineContext
  */
 interface Pipeline {
 

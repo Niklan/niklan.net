@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 final class ArticleTranslationProcessContext implements PipelineContext {
 
   /**
-   * @param array<int,\Drupal\media\MediaInterface>|null $attachmentsMedia
+   * @param array<int,\Drupal\media\MediaInterface> $attachmentsMedia
    */
   public function __construct(
     public readonly Article $article,

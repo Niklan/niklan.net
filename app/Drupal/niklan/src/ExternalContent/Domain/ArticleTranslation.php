@@ -6,9 +6,6 @@ namespace Drupal\niklan\ExternalContent\Domain;
 
 final class ArticleTranslation {
 
-  /**
-   * @var array{}|list<array{src: string, title: string}>
-   */
   public function __construct(
     public readonly string $sourcePath,
     public readonly string $language,
