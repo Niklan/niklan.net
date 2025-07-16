@@ -10,10 +10,16 @@ use Drupal\external_content\Nodes\Heading\ArrayParser as HeadingParser;
 use Drupal\external_content\Nodes\HtmlElement\ArrayParser as HtmlElementParser;
 use Drupal\external_content\Nodes\Text\ArrayParser as TextParser;
 use Drupal\external_content\Utils\Registry;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**
  * @implements \Drupal\external_content\Contract\Extension\Extension<\Drupal\external_content\Utils\Registry<\Drupal\external_content\Contract\Parser\Array\Parser>>
  */
+#[Autoconfigure(
+  tags: [
+    ['name' => 'external_content.extension', 'id' => 'default_array_parser'],
+  ]
+)]
 final readonly class ArrayExtension implements Extension {
 
   public function register(object $target): void {
