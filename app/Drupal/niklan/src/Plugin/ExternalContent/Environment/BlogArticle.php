@@ -11,19 +11,18 @@ use Drupal\external_content\Builder\Array\ArrayBuilder;
 use Drupal\external_content\Builder\Array\ArrayExtension as DefaultArrayBuilderExtension;
 use Drupal\external_content\Builder\RenderArray\RenderArrayBuilder;
 use Drupal\external_content\Builder\RenderArray\RenderArrayExtension as DefaultRenderArrayExtension;
+use Drupal\external_content\Contract\Extension\ExtensionManager;
 use Drupal\external_content\Contract\Plugin\EnvironmentPlugin;
 use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Parser\Array\ArrayExtension as DefaultArrayParserExtension;
 use Drupal\external_content\Parser\Array\ArrayParser;
-use Drupal\external_content\Parser\Html\HtmlExtension as DefaultHtmlParserExtension;
 use Drupal\external_content\Parser\Html\HtmlParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Extension\ArrayBuilderExtension as CustomArrayBuilderExtension;
 use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension as CustomArrayParserExtension;
-use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension as CustomHtmlParserExtension;
 use Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension as CustomRenderArrayExtension;
 use League\CommonMark\MarkdownConverter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -44,6 +43,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $plugin_id,
     $plugin_definition,
     private readonly MarkdownConverter $markdownConverter,
+    private readonly ExtensionManager $extensionManager,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -52,21 +52,22 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     return new self(
       $configuration, $plugin_id, $plugin_definition,
       $container->get(MarkdownConverter::class),
+      $container->get(ExtensionManager::class),
     );
   }
 
   public function parse(mixed $source): Document {
     $parsers = new Registry();
-    (new DefaultHtmlParserExtension())->register($parsers);
-    (new CustomHtmlParserExtension())->register($parsers);
+    $this->extensionManager->get(DefaultArrayParserExtension::ID)->register($parsers);
+    $this->extensionManager->get(CustomArrayParserExtension::ID)->register($parsers);
 
     return (new HtmlParser($parsers))->parse($this->markdownConverter->convert($source)->getContent());
   }
 
   public function denormalize(string $json): Document {
     $parsers = new Registry();
-    (new DefaultArrayParserExtension())->register($parsers);
-    (new CustomArrayParserExtension())->register($parsers);
+    $this->extensionManager->get(DefaultArrayParserExtension::ID)->register($parsers);
+    $this->extensionManager->get(CustomArrayParserExtension::ID)->register($parsers);
 
     $array = \json_decode($json, TRUE);
     \assert(\is_array($array));
@@ -76,8 +77,8 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
 
   public function normalize(Document $content): string {
     $builders = new Registry();
-    (new DefaultArrayBuilderExtension())->register($builders);
-    (new CustomArrayBuilderExtension())->register($builders);
+    $this->extensionManager->get(DefaultArrayBuilderExtension::ID)->register($builders);
+    $this->extensionManager->get(CustomArrayBuilderExtension::ID)->register($builders);
 
     $json = \json_encode((new ArrayBuilder($builders))->build($content)->toArray());
     \assert(\is_string($json));
@@ -87,8 +88,8 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
 
   public function view(Document $content, ViewRequest $request): array {
     $builders = new Registry();
-    (new DefaultRenderArrayExtension())->register($builders);
-    (new CustomRenderArrayExtension())->register($builders);
+    $this->extensionManager->get(DefaultRenderArrayExtension::ID)->register($builders);
+    $this->extensionManager->get(CustomRenderArrayExtension::ID)->register($builders);
 
     return (new RenderArrayBuilder($builders))->build($content)->toRenderArray();
   }

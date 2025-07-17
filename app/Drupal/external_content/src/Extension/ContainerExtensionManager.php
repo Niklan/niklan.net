@@ -11,13 +11,17 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 
 final readonly class ContainerExtensionManager implements ExtensionManager {
 
+  public const string TAG_NAME = 'external_content.extension';
+
   public function __construct(
-    #[AutowireLocator('external_content.extension', 'id')]
+    #[AutowireLocator(self::TAG_NAME, 'id')]
     private ContainerInterface $extensions,
   ) {}
 
   public function get(string $id): Extension {
-    return $this->extensions->get($id);
+    $extension = $this->extensions->get($id);
+    \assert($extension instanceof Extension);
+    return $extension;
   }
 
   public function has(string $id): bool {

@@ -1,6 +1,7 @@
 services:
   _defaults:
     autowire: true
+    autoconfigure: true
 
   logger.channel.niklan:
     parent: logger.channel_base
@@ -117,17 +118,27 @@ services:
 
   Drupal\niklan\ExternalContent\Validation\XmlValidator: {}
   Drupal\niklan\ExternalContent\Parser\ArticleXmlParser: {}
+
+  # External Content: Stages.
   Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser: { }
   Drupal\niklan\ExternalContent\Stages\AssetSynchronizer: { }
   Drupal\niklan\ExternalContent\Stages\LinkProcessor: { }
   Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater: { }
   Drupal\niklan\ExternalContent\Stages\ArticleProcessor: {}
   Drupal\niklan\ExternalContent\Stages\ArticleFinder: {}
+
+  # External Content: Pipelines.
   Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline: {}
   Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline: {}
+
+  # External Content: Nodes.
   Drupal\niklan\ExternalContent\Nodes\ArticleLink\RenderArrayBuilder: {}
   Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder: {}
   Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder: {}
   Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder: {}
+
+  # External Content: Extensions.
   Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension: {}
   Drupal\niklan\ExternalContent\Extension\HtmlParserExtension: {}
+  Drupal\niklan\ExternalContent\Extension\ArrayBuilderExtension: {}
+  Drupal\niklan\ExternalContent\Extension\ArrayParserExtension: {}

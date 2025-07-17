@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\external_content\Parser\Array;
 
 use Drupal\external_content\Contract\Extension\Extension;
+use Drupal\external_content\Extension\ContainerExtensionManager;
 use Drupal\external_content\Nodes\Format\ArrayParser as FormatParser;
 use Drupal\external_content\Nodes\Heading\ArrayParser as HeadingParser;
 use Drupal\external_content\Nodes\HtmlElement\ArrayParser as HtmlElementParser;
@@ -17,10 +18,12 @@ use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
  */
 #[Autoconfigure(
   tags: [
-    ['name' => 'external_content.extension', 'id' => 'default_array_parser'],
-  ]
+    ['name' => ContainerExtensionManager::TAG_NAME, 'id' => self::ID],
+  ],
 )]
 final readonly class ArrayExtension implements Extension {
+
+  public const string ID = 'external_content.array_parser';
 
   public function register(object $target): void {
     \assert($target instanceof Registry);

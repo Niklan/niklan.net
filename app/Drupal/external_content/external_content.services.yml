@@ -8,4 +8,7 @@ services:
   Drupal\external_content\Extension\ContainerExtensionManager: {}
   Drupal\external_content\Contract\Extension\ExtensionManager: '@Drupal\external_content\Extension\ContainerExtensionManager'
 
+  Drupal\external_content\Builder\Array\ArrayExtension: {}
+  Drupal\external_content\Builder\RenderArray\RenderArrayExtension: {}
   Drupal\external_content\Parser\Array\ArrayExtension: {}
+  Drupal\external_content\Parser\Html\HtmlExtension: {}
