@@ -33,13 +33,6 @@
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
   <rule ref="SlevomatCodingStandard.Classes.ClassStructure"/>
-  <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
-    <properties>
-      <property name="jumpStatements" type="array">
-        <element value="return"/>
-      </property>
-    </properties>
-  </rule>
   <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>
   <rule ref="SlevomatCodingStandard.Classes.PropertySpacing">
     <properties>

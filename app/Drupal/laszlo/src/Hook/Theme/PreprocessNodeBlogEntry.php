@@ -12,7 +12,7 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\ExternalContent\Utils\TocBuilder;
+use Drupal\niklan\ExternalContent\Builder\TableOfContentsBuilder;
 use Drupal\niklan\File\Entity\FileInterface;
 use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\Utils\MediaHelper;
@@ -84,9 +84,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
 
     $content = $node->get('external_content')->first();
     \assert($content instanceof ExternalContentFieldItem);
-
-    $toc_builder = new TocBuilder();
-    $variables['toc_links'] = $toc_builder->getTree($content);
+    $variables['toc_links'] = (new TableOfContentsBuilder())->build($content);
   }
 
   private function addTags(BlogEntry $node, array &$variables): void {

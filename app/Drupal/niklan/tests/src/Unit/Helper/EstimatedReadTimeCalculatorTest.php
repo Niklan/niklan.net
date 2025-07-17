@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Unit\Helper;
 
-use Drupal\external_content\Node\Code;
-use Drupal\external_content\Node\PlainText;
+use Drupal\external_content\Nodes\Text\Text;
+use Drupal\niklan\ExternalContent\Nodes\CodeBlock\CodeBlock;
 use Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator;
 use Drupal\Tests\UnitTestCase;
 
@@ -23,14 +23,14 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
 
   public function testCalculateEmptyText(): void {
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate(new PlainText(''));
+    $result = $calculator->calculateTotalTime(new Text(''));
 
     self::assertEquals(0, $result);
   }
 
   public function testCalculateText(): void {
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate(new PlainText($this->fishText));
+    $result = $calculator->calculateTotalTime(new Text($this->fishText));
 
     // Text using multiplier '2'.
     self::assertEquals(3, $result);
@@ -38,7 +38,7 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
 
   public function testCalculateEmptyCode(): void {
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate(new Code(''));
+    $result = $calculator->calculateTotalTime(new CodeBlock(''));
 
     self::assertEquals(0, $result);
   }
@@ -48,7 +48,7 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
    */
   public function testCalculateCode(): void {
     $calculator = new EstimatedReadTimeCalculator();
-    $result = $calculator->calculate(new Code($this->fishText));
+    $result = $calculator->calculateTotalTime(new CodeBlock($this->fishText));
 
     // Code using multiplier '3'.
     self::assertEquals(3 * 3, $result);

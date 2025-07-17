@@ -1,8 +1,9 @@
 services:
-  niklan.sync.blog:
-    class: Drupal\niklan\ExternalContent\Command\BlogSync
+  niklan.external_content.sync:
+    class: Drupal\niklan\ExternalContent\Command\Sync
     arguments:
-      - '@Drupal\external_content\ExternalContent\ExternalContentManager'
+      - '@logger.channel.niklan.external_content'
+      - '@Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline'
     tags:
       - { name: console.command }
   niklan.telegram.set_webhook:

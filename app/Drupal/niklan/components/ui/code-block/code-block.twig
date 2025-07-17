@@ -1,0 +1,14 @@
+{% set pre_attributes = create_attribute() %}
+{% if language %}
+  {% do attributes.setAttribute('data-language', language) %}
+{% endif %}
+{% if highlighted_lines %}
+  {% do attributes.setAttribute('data-highlight', highlighted_lines) %}
+  {% do attributes.setAttribute('data-highlighted-line-class', 'code-block__highlighted') %}
+{% endif %}
+<figure{{ attributes.addClass('code-block') }}>
+  {% if heading %}
+    <figcaption class="code-block__title">{{ heading }}</figcaption>
+  {% endif %}
+  <pre class="code-block__main"><code>{{ code }}</code></pre>
+</figure>

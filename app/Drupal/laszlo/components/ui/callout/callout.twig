@@ -1,0 +1,35 @@
+{%
+  set switch = {
+    'note': {
+      'icon': 'info',
+      'label': 'Note'|t,
+    },
+    'tip': {
+      'icon': 'lightbulb',
+      'label': 'Tip'|t,
+    },
+    'important': {
+      'icon': 'warning',
+      'label': 'Important'|t,
+    },
+    'warning': {
+      'icon': 'warning',
+      'label': 'Warning'|t,
+    },
+    'caution': {
+      'icon': 'warning',
+      'label': 'Caution'|t,
+    }
+  }
+%}
+<div{{ attributes.addClass('callout', 'callout--' ~ type|clean_class) }}>
+  <div class="callout__heading">
+    {% include 'laszlo:icon' with { icon: switch[type].icon } only -%}
+    <div class="callout__label">
+      {%- block title %}{{- switch[type].label -}}{% endblock -%}
+    </div>
+  </div>
+  <div class="prose callout__content">
+    {% block body %}{% endblock %}
+  </div>
+</div>

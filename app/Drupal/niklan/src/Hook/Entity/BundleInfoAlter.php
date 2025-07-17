@@ -9,6 +9,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\File\Entity\File;
 use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\Node\Entity\Portfolio;
+use Drupal\niklan\Tag\Entity\Tag;
 
 final class BundleInfoAlter {
 
@@ -28,6 +29,12 @@ final class BundleInfoAlter {
         'file' => [
           'class' => File::class,
           'label' => new TranslatableMarkup('File'),
+        ],
+      ],
+      'taxonomy_term' => [
+        'tags' => [
+          'class' => Tag::class,
+          'label' => new TranslatableMarkup('Tag'),
         ],
       ],
     ];

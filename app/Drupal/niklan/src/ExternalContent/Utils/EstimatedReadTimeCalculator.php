@@ -4,51 +4,49 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Utils;
 
-use Drupal\external_content\Contract\Node\NodeInterface;
-use Drupal\external_content\Contract\Node\StringContainerInterface;
-use Drupal\external_content\Node\Code;
+use Drupal\external_content\Nodes\Node;
+use Drupal\niklan\ExternalContent\Nodes\CodeBlock\CodeBlock;
 
 final class EstimatedReadTimeCalculator {
 
-  /**
-   * The expected read speed in words per minute.
-   *
-   * @see https://en.wikipedia.org/wiki/Words_per_minute
-   */
-  protected int $wordsPerMinute = 143;
+  private const int WORDS_PER_MINUTE = 143;
+  private const int SECONDS_IN_MINUTE = 60;
+  private const array CONTENT_TYPE_MULTIPLIERS = [
+    CodeBlock::class => 3,
+  ];
 
-  public function calculate(NodeInterface $content): int {
-    $estimated_read_time = 0;
-    $this->calculateRecursive($content, $estimated_read_time);
-
-    if ($estimated_read_time > 60) {
-      return (int) \ceil($estimated_read_time / 60);
-    }
-
-    return 0;
+  public function calculateTotalTime(Node $content): int {
+    $totalSeconds = $this->calculateNodeTime($content);
+    return $this->convertToMinutes($totalSeconds);
   }
 
-  protected function calculateEstimatedReadTime(int $words_count, int|float $read_time_multiplier = 1): int|float {
-    return \floor($words_count * $read_time_multiplier / $this->wordsPerMinute * 60);
-  }
+  private function calculateNodeTime(Node $node): int {
+    $time = 0;
 
-  private function calculateRecursive(NodeInterface $node, int|float &$estimated): void {
     foreach ($node->getChildren() as $child) {
-      $this->calculateRecursive($child, $estimated);
+      $time += $this->calculateNodeTime($child);
     }
 
-    if (!($node instanceof StringContainerInterface)) {
-      return;
+    if ($node instanceof \Stringable) {
+      $time += $this->calculateNodeSelfTime($node);
     }
 
-    $read_time_multiplier = match ($node::class) {
-      default => 1,
-      Code::class => 3,
-    };
-    $estimated += $this->calculateEstimatedReadTime(
-      words_count: \str_word_count($node->getLiteral()),
-      read_time_multiplier: $read_time_multiplier,
-    );
+    return $time;
+  }
+
+  private function calculateNodeSelfTime(\Stringable $node): int {
+    $word_count = \str_word_count((string) $node);
+    $multiplier = self::CONTENT_TYPE_MULTIPLIERS[$node::class] ?? 1;
+    return (int) \floor($word_count * $multiplier / self::WORDS_PER_MINUTE * self::SECONDS_IN_MINUTE);
+  }
+
+  private function convertToMinutes(int $total_seconds): int {
+    if ($total_seconds === 0) {
+      return 0;
+    }
+
+    $minutes = (int) \ceil($total_seconds / self::SECONDS_IN_MINUTE);
+    return \max(1, $minutes);
   }
 
 }

@@ -16,11 +16,8 @@
     box-shadow: var(--elevation-1);
   }
 
-  .code-block__header {
-    padding-inline: var(--spacing-6);
-  }
-
   .code-block__title {
+    padding-inline: var(--spacing-6);
     text-align: center;
     word-wrap: break-word;
     color: var(--color-on-surface);

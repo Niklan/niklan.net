@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\external_content\Field\ExternalContentComputedProperty;
+use Drupal\external_content\Plugin\Validation\Constraint\ExternalContentValidJsonConstraint;
 
-/**
- * Provides a field for external content document storage.
- *
- * @FieldType(
- *   id = "external_content",
- *   label = @Translation("External content"),
- *   description = @Translation("Stores the external content."),
- *   category = @Translation("External content"),
- *   default_formatter = "external_content_render_array",
- * )
- */
+#[FieldType(
+  id: self::ID,
+  label: new TranslatableMarkup('External content'),
+  description: new TranslatableMarkup('Stores the external content.'),
+  category: 'external_content',
+)]
 final class ExternalContentFieldItem extends FieldItemBase {
+
+  public const string ID = 'external_content';
 
   #[\Override]
   public function getConstraints(): array {
@@ -33,10 +32,10 @@ final class ExternalContentFieldItem extends FieldItemBase {
 
     $constraints[] = $constraint_manager->create('ComplexData', [
       'value' => [
-        'ExternalContentValidJson' => [],
+        ExternalContentValidJsonConstraint::ID => [],
       ],
       'data' => [
-        'ExternalContentValidJson' => [],
+        ExternalContentValidJsonConstraint::ID => [],
       ],
     ]);
 

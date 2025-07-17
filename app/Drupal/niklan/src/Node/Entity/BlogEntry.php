@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Node\Entity;
 
-use Drupal\external_content\Contract\Node\NodeInterface as ContentNodeInterface;
+use Drupal\external_content\Nodes\Node as ContentNode;
+use Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater;
 use Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator;
 
 /**
@@ -15,7 +16,6 @@ final class BlogEntry extends Node implements BlogEntryInterface {
   #[\Override]
   public function setExternalId(string $external_id): BlogEntryInterface {
     $this->set('external_id', $external_id);
-
     return $this;
   }
 
@@ -27,11 +27,9 @@ final class BlogEntry extends Node implements BlogEntryInterface {
   #[\Override]
   public function getCacheTagsToInvalidate(): array {
     $cache_tags = parent::getCacheTagsToInvalidate();
-
     $external_content_data = $this->getExternalContentData();
-
-    if (\array_key_exists('pathname_md5', $external_content_data)) {
-      $cache_tags[] = 'external_content:' . $external_content_data['pathname_md5'];
+    if (\array_key_exists(ArticleTranslationFieldUpdater::SOURCE_PATH_HASH_PROPERTY, $external_content_data)) {
+      $cache_tags[] = 'external_content:' . $external_content_data[ArticleTranslationFieldUpdater::SOURCE_PATH_HASH_PROPERTY];
     }
 
     return $cache_tags;
@@ -51,19 +49,11 @@ final class BlogEntry extends Node implements BlogEntryInterface {
   }
 
   public function getEstimatedReadTime(): int {
-    $content = $this
-      ->get('external_content')
-      ->first()
-      ?->get('content')
-        ->getValue();
-
-    if (!$content instanceof ContentNodeInterface) {
+    $content = $this->get('external_content')->first()?->get('content')->getValue();
+    if (!$content instanceof ContentNode) {
       return 0;
     }
-
-    $calculator = new EstimatedReadTimeCalculator();
-
-    return $calculator->calculate($content);
+    return (new EstimatedReadTimeCalculator())->calculateTotalTime($content);
   }
 
 }

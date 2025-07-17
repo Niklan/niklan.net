@@ -4,6 +4,7 @@
     --_link-color-hover: var(--link-color-hover, var(--color-primary));
     --_link-visited: var(--link-visited, var(--color-primary));
     --_link-color-active: var(--link-color-active, var(--color-primary));
+    --_link-color-broken: var(--link-color-broken, var(--color-error));
     --_link-text-decoration-thickness: var(
       --link-text-decoration-thickness,
       2px
@@ -32,6 +33,10 @@
     &:hover,
     &:active {
       text-underline-offset: 4px;
+    }
+
+    &:not([href]) {
+      color: var(--_link-color-broken);
     }
   }
 }

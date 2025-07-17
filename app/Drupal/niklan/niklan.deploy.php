@@ -14,6 +14,8 @@ use Drupal\niklan\Hook\Deploy\Deploy0004;
 use Drupal\niklan\Hook\Deploy\Deploy0005;
 use Drupal\niklan\Hook\Deploy\Deploy0006;
 use Drupal\niklan\Hook\Deploy\Deploy0007;
+use Drupal\niklan\Hook\Deploy\Deploy0008;
+use Drupal\niklan\Hook\Deploy\Deploy0009;
 
 /**
  * Migrate contact submission values into native fields.
@@ -62,4 +64,18 @@ function niklan_deploy_0006(array &$sandbox): string {
  */
 function niklan_deploy_0007(array &$sandbox): string {
   return \Drupal::classResolver(Deploy0007::class)($sandbox);
+}
+
+/**
+ * Set initial external IDs for categories.
+ */
+function niklan_deploy_0008(array &$sandbox): string {
+  return \Drupal::classResolver(Deploy0008::class)($sandbox);
+}
+
+/**
+ * Removed tags without External ID.
+ */
+function niklan_deploy_0009(array &$sandbox): string {
+  return \Drupal::classResolver(Deploy0009::class)($sandbox);
 }

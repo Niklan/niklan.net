@@ -30,6 +30,31 @@ final class NiklanMarkdownExtension implements ConfigurableExtensionInterface {
   #[\Override]
   public function configureSchema(ConfigurationBuilderInterface $builder): void {
     $builder->set('heading_permalink/insert', 'after');
+
+    // Prevents unwanted line breaks in rendered HTML. Markdown line breaks are
+    // for source formatting (e.g., 80-char width) but add bloat in HTML output.
+    //
+    // Default behavior:
+    // @code
+    // <h2>Title</h2>\n
+    // <p>Text with\nline breaks</p>\n
+    // @endcode
+    //
+    // With these settings:
+    // @code
+    // <h2>Title</h2><p>Text with line breaks</p>
+    // @endcode
+    //
+    // Note: it won't remove line breaks from code blocks and hard-breaks <br>.
+    //
+    // For some reason it is no longer documented, so check the source code:
+    // @see \League\CommonMark\Environment\Environment::createDefaultConfiguration
+    $builder->set('renderer', [
+      'block_separator' => '',
+      'inner_separator' => '',
+      // Note that soft break must be a space, or words will be merged.
+      'soft_break' => ' ',
+    ]);
   }
 
 }

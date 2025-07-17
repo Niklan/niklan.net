@@ -1,0 +1,25 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+replaces: 'niklan:callout'
+name: Callout
+status: experimental
+group: ui
+props:
+  type: object
+  required:
+    - type
+  properties:
+    type:
+      title: Type
+      type: string
+      enum:
+        - note
+        - tip
+        - important
+        - warning
+        - caution
+slots:
+  title:
+    title: Title
+  body:
+    title: Body
+    required: true

@@ -1,0 +1,19 @@
+uuid: 740a9717-1dd1-4a63-8cff-69b840a10f09
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.external_id
+    - taxonomy.vocabulary.tags
+id: taxonomy_term.tags.external_id
+field_name: external_id
+entity_type: taxonomy_term
+bundle: tags
+label: 'External ID'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

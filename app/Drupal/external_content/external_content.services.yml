@@ -1,136 +1,14 @@
-parameters:
-  # These parameters set in the compiler pass. Check if for more info.
-  external_content.environments: []
-  external_content.extensions: []
-  external_content.finders: []
-  external_content.identifiers: []
-  external_content.bundlers: []
-  external_content.converters: []
-  external_content.loaders: []
-  external_content.html_parsers: []
-  external_content.serializers: []
-  external_content.render_array_builders: []
-
 services:
   _defaults:
     autowire: true
+    autoconfigure: true
 
-  Drupal\external_content\Contract\ExternalContent\ExternalContentManagerInterface: '@Drupal\external_content\ExternalContent\ExternalContentManager'
-  Drupal\external_content\ExternalContent\ExternalContentManager: { }
+  Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager: {}
 
-  # Environment.
-  Drupal\external_content\Contract\Environment\EnvironmentManagerInterface: '@Drupal\external_content\Environment\EnvironmentManager'
-  Drupal\external_content\Environment\EnvironmentManager:
-    arguments:
-      $environments: '%external_content.environments%'
+  Drupal\external_content\Extension\ContainerExtensionManager: {}
+  Drupal\external_content\Contract\Extension\ExtensionManager: '@Drupal\external_content\Extension\ContainerExtensionManager'
 
-  # Extensions.
-  Drupal\external_content\Contract\Extension\ExtensionManagerInterface: '@Drupal\external_content\Extension\ExtensionManager'
-  Drupal\external_content\Extension\ExtensionManager:
-    arguments:
-      $extensions: '%external_content.extensions%'
-  Drupal\external_content\Extension\FileFinderExtension:
-    tags:
-      - { name: external_content.extension, id: file_finder }
-  Drupal\external_content\Extension\BasicHtmlExtension:
-    tags:
-      - { name: external_content.extension, id: basic_html }
-
-  # Finders.
-  Drupal\external_content\Contract\Finder\FinderManagerInterface: '@Drupal\external_content\Finder\FinderManager'
-  Drupal\external_content\Finder\FinderManager:
-    arguments:
-      $finders: '%external_content.finders%'
-  Drupal\external_content\Finder\FileFinder:
-    arguments:
-      $mimeTypeGuesser: '@file.mime_type.guesser'
-    tags:
-      - { name: external_content.finder, id: file }
-
-  # Identifiers.
-  Drupal\external_content\Contract\Identifier\IdentifierManagerInterface: '@Drupal\external_content\Identifier\IdentifierManager'
-  Drupal\external_content\Identifier\IdentifierManager:
-    arguments:
-      $identifiers: '%external_content.identifiers%'
-
-  # Bundlers.
-  Drupal\external_content\Contract\Bundler\BundlerManagerInterface: '@Drupal\external_content\Bundler\BundlerManager'
-  Drupal\external_content\Bundler\BundlerManager:
-    arguments:
-      $bundlers: '%external_content.bundlers%'
-  Drupal\external_content\Bundler\SameIdBundler:
-    tags:
-      - { name: external_content.bundler, id: same_id }
-
-  # Converters.
-  Drupal\external_content\Contract\Converter\ConverterManagerInterface: '@Drupal\external_content\Converter\ConverterManager'
-  Drupal\external_content\Converter\ConverterManager:
-    arguments:
-      $converters: '%external_content.converters%'
-  Drupal\external_content\Converter\HtmlConverter:
-    shared: false
-    tags:
-      - { name: external_content.converter, id: html }
-
-  # Loaders.
-  Drupal\external_content\Contract\Loader\LoaderManagerInterface: '@Drupal\external_content\Loader\LoaderManager'
-  Drupal\external_content\Loader\LoaderManager:
-    arguments:
-      $loaders: '%external_content.loaders%'
-
-  # HTML Parsers.
-  Drupal\external_content\Contract\Parser\HtmlParserManagerInterface: '@Drupal\external_content\Parser\HtmlParserManager'
-  Drupal\external_content\Parser\HtmlParserManager:
-    arguments:
-      $htmlParsers: '%external_content.html_parsers%'
-  Drupal\external_content\Contract\Parser\ChildHtmlParserInterface: '@Drupal\external_content\Parser\ChildHtmlParser'
-  Drupal\external_content\Parser\ChildHtmlParser: {}
-  Drupal\external_content\Parser\PlainTextParser:
-    tags:
-      - { name: external_content.html_parser, id: plain_text }
-  Drupal\external_content\Parser\ElementParser:
-    tags:
-      - { name: external_content.html_parser, id: element }
-  Drupal\external_content\Parser\CodeParser:
-    tags:
-      - { name: external_content.html_parser, id: code }
-
-  # Serializer.
-  Drupal\external_content\Contract\Serializer\SerializerManagerInterface: '@Drupal\external_content\Serializer\SerializerManager'
-  Drupal\external_content\Serializer\SerializerManager:
-    arguments:
-      $serializers: '%external_content.serializers%'
-  Drupal\external_content\Contract\Serializer\ChildSerializerInterface: '@Drupal\external_content\Serializer\ChildSerializer'
-  Drupal\external_content\Serializer\ChildSerializer: {}
-  Drupal\external_content\Serializer\ContentSerializer:
-    tags:
-      - { name: external_content.serializer, id: content }
-  Drupal\external_content\Serializer\ElementSerializer:
-    tags:
-      - { name: external_content.serializer, id: element }
-  Drupal\external_content\Serializer\PlainTextSerializer:
-    tags:
-      - { name: external_content.serializer, id: plain_text }
-  Drupal\external_content\Serializer\CodeSerializer:
-    tags:
-      - { name: external_content.serializer, id: code }
-
-  # Render array builder.
-  Drupal\external_content\Contract\Builder\RenderArrayBuilderManagerInterface: '@Drupal\external_content\Builder\RenderArrayBuilderManager'
-  Drupal\external_content\Builder\RenderArrayBuilderManager:
-    arguments:
-      $renderArrayBuilders: '%external_content.render_array_builders%'
-  Drupal\external_content\Contract\Builder\ChildRenderArrayBuilderInterface: '@Drupal\external_content\Builder\ChildRenderArrayBuilder'
-  Drupal\external_content\Builder\ChildRenderArrayBuilder: {}
-  Drupal\external_content\Builder\PlainTextRenderArrayBuilder:
-    tags:
-      - { name: external_content.render_array_builder, id: plain_text }
-  Drupal\external_content\Builder\ElementRenderArrayBuilder:
-    tags:
-      - { name: external_content.render_array_builder, id: element }
-  Drupal\external_content\Builder\ContentRenderArrayBuilder:
-    tags:
-      - { name: external_content.render_array_builder, id: content }
-  Drupal\external_content\Builder\CodeRenderArrayBuilder:
-    tags:
-      - { name: external_content.render_array_builder, id: code }
+  Drupal\external_content\Builder\Array\ArrayExtension: {}
+  Drupal\external_content\Builder\RenderArray\RenderArrayExtension: {}
+  Drupal\external_content\Parser\Array\ArrayExtension: {}
+  Drupal\external_content\Parser\Html\HtmlExtension: {}

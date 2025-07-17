@@ -1,6 +1,7 @@
 services:
   _defaults:
     autowire: true
+    autoconfigure: true
 
   logger.channel.niklan:
     parent: logger.channel_base
@@ -10,6 +11,10 @@ services:
     parent: logger.channel_base
     arguments: [ 'niklan.telegram' ]
 
+  logger.channel.niklan.external_content:
+    parent: logger.channel_base
+    arguments: [ 'niklan.external_content' ]
+
   Drupal\niklan\StaticPage\About\Repository\AboutSettings: { }
   Drupal\niklan\StaticPage\Contact\Repository\ContactSettings: { }
   Drupal\niklan\StaticPage\Services\Repository\ServicesSettings: { }
@@ -17,8 +22,22 @@ services:
   Drupal\niklan\StaticPage\Home\Repository\HomeSettings: { }
   Drupal\niklan\Portfolio\Repository\PortfolioSettings: { }
 
+  Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: { }
+  Drupal\niklan\File\Contract\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'
+
+  Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer: { }
+  Drupal\niklan\Media\Contract\MediaSynchronizer: '@Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer'
+
+  Drupal\niklan\Media\Repository\DatabaseMediaRepository: { }
+  Drupal\niklan\Media\Contract\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
+
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
-  Drupal\niklan\Tag\Repository\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
+  Drupal\niklan\Tag\Contract\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
+  Drupal\niklan\Tag\Repository\DatabaseTagRepository: { }
+  Drupal\niklan\Tag\Contract\TagRepository: '@Drupal\niklan\Tag\Repository\DatabaseTagRepository'
+
+  Drupal\niklan\Blog\Repository\DatabaseBlogRepository: { }
+  Drupal\niklan\Blog\Contract\BlogRepository: '@Drupal\niklan\Blog\Repository\DatabaseBlogRepository'
 
   Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: { }
   keyvalue.language_aware: '@Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory'
@@ -52,10 +71,6 @@ services:
   Drupal\niklan\Console\Process\Git: { }
   Drupal\niklan\Console\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
 
-  Drupal\niklan\ExternalContent\EventSubscriber\BlogExtension:
-    tags:
-      - { name: event_subscriber }
-
   Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension: { }
 
   niklan.markdown.environment:
@@ -66,61 +81,7 @@ services:
     class: League\CommonMark\MarkdownConverter
     arguments:
       - '@niklan.markdown.environment'
-
-  Drupal\niklan\ExternalContent\Asset\AssetManager: { }
-
-  # External content.
-  Drupal\niklan\ExternalContent\Extension\Blog:
-    tags:
-      - { name: external_content.extension, id: blog }
-  Drupal\niklan\ExternalContent\Identifier\FrontMatter:
-    tags:
-      - { name: external_content.identifier, id: front_matter }
-  Drupal\niklan\ExternalContent\Serializer\DrupalMediaSerializer:
-    tags:
-      - { name: external_content.serializer, id: drupal_media }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\DrupalMedia:
-    tags:
-      - { name: external_content.render_array_builder, id: drupal_media }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\CodeBlock:
-    tags:
-      - { name: external_content.render_array_builder, id: code_block }
-  Drupal\niklan\ExternalContent\Serializer\AlertSerializer:
-    tags:
-      - { name: external_content.serializer, id: alert }
-  Drupal\niklan\ExternalContent\Parser\AlertParser:
-    tags:
-      - { name: external_content.html_parser, id: alert }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\Alert:
-    tags:
-      - { name: external_content.render_array_builder, id: alert }
-  Drupal\niklan\ExternalContent\Parser\RemoteVideo:
-    tags:
-      - { name: external_content.html_parser, id: remote_video }
-  Drupal\niklan\ExternalContent\RenderArrayBuilder\Link:
-    tags:
-      - { name: external_content.render_array_builder, id: link }
-  Drupal\niklan\ExternalContent\Loader\Blog:
-    tags:
-      - { name: external_content.loader, id: blog }
-  Drupal\niklan\ExternalContent\Converter\Markdown:
-    arguments:
-      - '@niklan.markdown.converter'
-    tags:
-      - { name: external_content.converter, id: niklan_markdown }
-  Drupal\niklan\ExternalContent\Parser\Container:
-    tags:
-      - { name: external_content.html_parser, id: container }
-  Drupal\niklan\ExternalContent\Parser\Video:
-    tags:
-      - { name: external_content.html_parser, id: video }
-
-  external_content.environment.blog:
-    class: Drupal\external_content\Environment\Environment
-    calls:
-      - [ addExtension, [ '@Drupal\niklan\ExternalContent\Extension\Blog' ] ]
-    tags:
-      - { name: external_content.environment, id: blog, label: 'Blog articles' }
+  League\CommonMark\MarkdownConverter: '@niklan.markdown.converter'
 
   Drupal\niklan\Markup\Twig\Extension\ImageDimensions:
     tags:
@@ -154,3 +115,30 @@ services:
     tags:
       - { name: event_subscriber }
   Drupal\niklan\Comment\Telegram\CommentModerationHandler: { }
+
+  Drupal\niklan\ExternalContent\Validation\XmlValidator: {}
+  Drupal\niklan\ExternalContent\Parser\ArticleXmlParser: {}
+
+  # External Content: Stages.
+  Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser: { }
+  Drupal\niklan\ExternalContent\Stages\AssetSynchronizer: { }
+  Drupal\niklan\ExternalContent\Stages\LinkProcessor: { }
+  Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater: { }
+  Drupal\niklan\ExternalContent\Stages\ArticleProcessor: {}
+  Drupal\niklan\ExternalContent\Stages\ArticleFinder: {}
+
+  # External Content: Pipelines.
+  Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline: {}
+  Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline: {}
+
+  # External Content: Nodes.
+  Drupal\niklan\ExternalContent\Nodes\ArticleLink\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder: {}
+
+  # External Content: Extensions.
+  Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension: {}
+  Drupal\niklan\ExternalContent\Extension\HtmlParserExtension: {}
+  Drupal\niklan\ExternalContent\Extension\ArrayBuilderExtension: {}
+  Drupal\niklan\ExternalContent\Extension\ArrayParserExtension: {}
