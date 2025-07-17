@@ -19,7 +19,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class Sync extends Command {
 
   public function __construct(
-    private LoggerInterface $logger,
+    private readonly LoggerInterface $logger,
+    private readonly ArticleSyncPipeline $syncPipeline,
   ) {
     parent::__construct();
   }
@@ -37,11 +38,10 @@ final class Sync extends Command {
     $output->writeln('Start syncing...');
     $logger = new ConsoleLogger($this->logger, $output);
 
-    $source_uri = $input->getArgument('source-uri');
+    $source_uri = $input->getArgument('source-uri') ?? Settings::get('external_content_directory');
     \assert(\is_string($source_uri));
 
-    $pipeline = new ArticleSyncPipeline();
-    $pipeline->run(new SyncContext($source_uri, $logger));
+    $this->syncPipeline->run(new SyncContext($source_uri, $logger));
     return self::SUCCESS;
   }
 

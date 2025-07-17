@@ -19,10 +19,10 @@ use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
  */
 #[Autoconfigure(
   calls: [
-    ['addStage', [MarkdownToAstParser::class]],
-    ['addStage', [AssetSynchronizer::class]],
-    ['addStage', [LinkProcessor::class]],
-    ['addStage', [ArticleTranslationFieldUpdater::class]],
+    ['addStage', ['@' . MarkdownToAstParser::class]],
+    ['addStage', ['@' . AssetSynchronizer::class]],
+    ['addStage', ['@' . LinkProcessor::class]],
+    ['addStage', ['@' . ArticleTranslationFieldUpdater::class]],
   ],
 )]
 final readonly class ArticleProcessPipeline implements Pipeline {

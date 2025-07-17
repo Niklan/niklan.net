@@ -17,8 +17,8 @@ use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
  */
 #[Autoconfigure(
   calls: [
-    ['addStage', [ArticleFinder::class]],
-    ['addStage', [ArticleProcessor::class]],
+    ['addStage', ['@' . ArticleFinder::class]],
+    ['addStage', ['@' . ArticleProcessor::class]],
   ],
 )]
 final readonly class ArticleSyncPipeline implements Pipeline {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Nodes\Text;
 
+use Drupal\Component\Utility\Html;
 use Drupal\external_content\Contract\Builder\RenderArray\Builder;
 use Drupal\external_content\Contract\Builder\RenderArray\ChildBuilder;
 use Drupal\external_content\DataStructure\RenderArray;
@@ -19,7 +20,12 @@ final readonly class RenderArrayBuilder implements Builder {
   }
 
   public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
-    return new RenderArray(['#markup' => $node->text]);
+    // Escape HTML to prevent tag misinterpretation and DOM injection. Ensures:
+    // - '<ul>' renders as text, not HTML element
+    // - Complies with Drupal security standards
+    // Example: Unescaped '<code><ul></code>' becomes broken
+    // '<code></code><ul></ul>'.
+    return new RenderArray(['#markup' => Html::escape($node->text)]);
   }
 
 }

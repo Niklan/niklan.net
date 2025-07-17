@@ -3,6 +3,7 @@ services:
     class: Drupal\niklan\ExternalContent\Command\Sync
     arguments:
       - '@logger.channel.niklan.external_content'
+      - '@Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline'
     tags:
       - { name: console.command }
   niklan.telegram.set_webhook:
