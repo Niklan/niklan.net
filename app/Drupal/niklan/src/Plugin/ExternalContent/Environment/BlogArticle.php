@@ -17,12 +17,14 @@ use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Parser\Array\ArrayExtension as DefaultArrayParserExtension;
 use Drupal\external_content\Parser\Array\ArrayParser;
+use Drupal\external_content\Parser\Html\HtmlExtension as DefaultHtmlParserExtension;
 use Drupal\external_content\Parser\Html\HtmlParser;
 use Drupal\external_content\Plugin\ExternalContent\Environment\Environment;
 use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Extension\ArrayBuilderExtension as CustomArrayBuilderExtension;
 use Drupal\niklan\ExternalContent\Extension\ArrayParserExtension as CustomArrayParserExtension;
+use Drupal\niklan\ExternalContent\Extension\HtmlParserExtension as CustomHtmlParserExtension;
 use Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension as CustomRenderArrayExtension;
 use League\CommonMark\MarkdownConverter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -58,8 +60,8 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
 
   public function parse(mixed $source): Document {
     $parsers = new Registry();
-    $this->extensionManager->get(DefaultArrayParserExtension::ID)->register($parsers);
-    $this->extensionManager->get(CustomArrayParserExtension::ID)->register($parsers);
+    $this->extensionManager->get(DefaultHtmlParserExtension::ID)->register($parsers);
+    $this->extensionManager->get(CustomHtmlParserExtension::ID)->register($parsers);
 
     return (new HtmlParser($parsers))->parse($this->markdownConverter->convert($source)->getContent());
   }

@@ -23,15 +23,12 @@ use Drupal\node\NodeStorageInterface;
  */
 final readonly class ArticleProcessor implements PipelineStage {
 
-  private ArticleProcessPipeline $pipeline;
-
   public function __construct(
     private TagRepository $tagRepository,
     private BlogRepository $blogRepository,
     private EntityTypeManagerInterface $entityTypeManager,
-  ) {
-    $this->pipeline = new ArticleProcessPipeline();
-  }
+    private ArticleProcessPipeline $pipeline,
+  ) {}
 
   public function process(PipelineContext $context): void {
     if (!$context instanceof SyncContext) {
