@@ -9,9 +9,9 @@
 # custom module, theme, etc., are not ignored unless you purposely do so.
 /vendor/
 
-# Ignore paths that contain user-generated content.
-/.local
-/var/
+# Ignore paths that contain content specific to users and environments.
+/local
+/var
 
 # Ignore IDE project settings.
 .idea
