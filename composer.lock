@@ -4862,7 +4862,7 @@
             "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
-                "url": "app/Drupal/external_content",
+                "url": "app/modules/external_content",
                 "reference": "e33bbd99c339b82340574fc17578375049b643eb"
             },
             "require": {
@@ -4882,7 +4882,7 @@
             "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
-                "url": "app/Drupal/laszlo",
+                "url": "app/themes/laszlo",
                 "reference": "f248b5dd1dfe695f1050570fe06d54bfab76f716"
             },
             "require": {
@@ -4904,7 +4904,7 @@
             "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
-                "url": "app/Drupal/niklan",
+                "url": "app/modules/niklan",
                 "reference": "f1f01feee7438cabe8e2a4298755ad2d9f61964b"
             },
             "require": {
@@ -10779,7 +10779,7 @@
             "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
-                "url": "app/Drupal/niklan_dev",
+                "url": "app/modules/niklan_dev",
                 "reference": "941433d78eeec2982d782dbc4c3a8bc1535bb776"
             },
             "type": "drupal-custom-module",
