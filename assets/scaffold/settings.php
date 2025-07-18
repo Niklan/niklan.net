@@ -15,4 +15,4 @@ $settings['skip_permissions_hardening'] = TRUE;
 
 $settings['database_cache_max_rows']['default'] = 100_000;
 
-include __DIR__ . '/../../../.local/settings.php';
+include DRUPAL_ROOT . '/../local/settings.php';
