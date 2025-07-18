@@ -1,0 +1,29 @@
+<div class="maintenance-page">
+  <div class="maintenance-page__pane">
+    {% if logo %}
+      {% include 'laszlo:image' with {
+        attributes: create_attribute({
+          class: 'maintenance-page__logo',
+        }),
+        src: logo,
+        width: 200,
+      } only %}
+    {% endif %}
+    {% if title %}
+      <h1 class="maintenance-page__title">{{ title }}</h1>
+    {% endif %}
+    {% if content %}
+      <div class="prose maintenance-page__content">{{ content }}</div>
+    {% endif %}
+    {% if links %}
+      <ul class="maintenance-page__links">
+        {% for link in links %}
+          <li class="maintenance-page__link-item">
+            <a href="{{ link.url }}" class="maintenance-page__link">{{ link.title }}</a>
+            {% if not loop.last %}<span class="maintenance-page__link-separator">•</span>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
