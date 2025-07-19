@@ -2,7 +2,8 @@
 <span{{ attributes }}>
   <a href="{{ url }}"
      class="photoswipe lightbox__link"
-     data-size="{{ size }}"
+     data-pswp-width="{{ lightbox_width }}"
+     data-pswp-height="{{ lightbox_height }}"
      aria-label="{{ 'Open bigger image'|t }}">
     {% block thumbnail %}{% endblock %}
     {% include 'laszlo:icon' with {

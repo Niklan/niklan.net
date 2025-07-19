@@ -6,7 +6,7 @@ description: >-
   for whenever the shit hits the wind. Make me completely unrecognizable.
 type: theme
 base theme: false
-core_version_requirement: ^10
+core_version_requirement: ^10 || ^11
 regions:
   content: Content
 libraries:
@@ -17,7 +17,6 @@ libraries-override:
   # useless styles.
   # This library is attached always, so it is kind of bad.
   system/base: false
-  core/picturefill: false
 
 libraries-extend:
   niklan/hljs:

@@ -17,6 +17,9 @@ use Drupal\external_content\Plugin\ExternalContent\Environment\ViewRequest;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @extends \Drupal\Core\Field\FormatterBase<\Drupal\Core\Field\FieldItemListInterface<\Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem>>
+ */
 #[FieldFormatter(
   id: self::ID,
   label: new TranslatableMarkup('Environment-based render array builder'),

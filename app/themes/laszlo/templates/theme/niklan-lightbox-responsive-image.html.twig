@@ -2,7 +2,8 @@
 {% embed 'laszlo:lightbox' with {
   uri,
   url: uri|image_style('big_image'),
-  size: dimensions|join('x'),
+  lightbox_width: dimensions.width,
+  lightbox_height: dimensions.height,
   responsive_image,
   alt,
 } only %}

@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 )]
 final readonly class HtmlParserExtension implements Extension {
 
-  public const ID = 'niklan.html_parser';
+  public const string ID = 'niklan.html_parser';
 
   public function register(object $target): void {
     \assert($target instanceof Registry);

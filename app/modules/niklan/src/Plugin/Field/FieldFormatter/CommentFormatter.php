@@ -16,6 +16,9 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @extends \Drupal\Core\Field\FormatterBase<\Drupal\comment\CommentFieldItemList>
+ */
 #[FieldFormatter(
   id: 'niklan_comment',
   label: new TranslatableMarkup('Improved comment list'),

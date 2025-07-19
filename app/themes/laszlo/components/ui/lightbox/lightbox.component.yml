@@ -9,9 +9,12 @@ props:
     url:
       title: Image URL
       type: string
-    size:
-      title: Image size
-      type: string
+    lightbox_width:
+      title: Lightbox image width
+      type: [string, integer]
+    lightbox_height:
+      title: Lightbox image height
+      type: [string, integer]
 slots:
   thumbnail:
     title: Thumbnail
