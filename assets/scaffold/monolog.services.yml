@@ -1,20 +1,57 @@
 parameters:
   monolog.channel_handlers:
     # Drupal's core channels.
-    default: ['rotating_file.default']
-    php: ['rotating_file.php']
-    image: ['rotating_file.image']
-    cron: ['rotating_file.cron']
-    file: ['rotating_file.file']
-    security: ['rotating_file.security']
-    mail: ['rotating_file.mail']
-    system: ['rotating_file.system']
+    default:
+      handlers:
+        - name: rotating_file.default
+          formatter: 'json'
+    php:
+      handlers:
+        - name: rotating_file.php
+          formatter: 'json'
+    image:
+      handlers:
+        - name: rotating_file.image
+          formatter: 'json'
+    cron:
+      handlers:
+        - name: rotating_file.cron
+          formatter: 'json'
+    file:
+      handlers:
+        - name: rotating_file.file
+          formatter: 'json'
+    security:
+      handlers:
+        - name: rotating_file.security
+          formatter: 'json'
+    mail:
+      handlers:
+        - name: rotating_file.mail
+          formatter: 'json'
+    system:
+      handlers:
+        - name: rotating_file.system
+          formatter: 'json'
     # Third-party channels.
-    csp: ['rotating_file.csp']
+    csp:
+      handlers:
+        - name: rotating_file.csp
+          formatter: 'json'
     # Custom channels.
-    niklan: ['rotating_file.niklan']
-    niklan.telegram: ['rotating_file.niklan.telegram']
-    niklan.external_content: ['rotating_file.niklan.external_content']
+    niklan:
+      handlers:
+        - name: rotating_file.niklan
+          formatter: 'json'
+    niklan.telegram:
+      handlers:
+        - name: rotating_file.niklan.telegram
+          formatter: 'json'
+    niklan.external_content:
+      handlers:
+        - name: rotating_file.niklan.external_content
+          formatter: 'json'
+
 
 services:
   monolog.handler.rotating_file.default:
