@@ -6,8 +6,7 @@
     "config/sync/**/*",
     "var/**/*",
     "web/**/*",
-    "vendor/**/*",
-    "app/Drupal/mechanical/**/*"
+    "vendor/**/*"
   ],
   "globals": {
     "ColorScheme": true,

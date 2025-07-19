@@ -24,6 +24,7 @@
     "../web/**",
     "../private/**",
     "../vendor/**",
+    "../local",
     "node_modules",
     "**/*.sql",
     "**/*/composer.json",

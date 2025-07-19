@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 )]
 final readonly class RenderArrayBuilderExtension implements Extension {
 
-  public const ID = 'niklan.render_array_builder';
+  public const string ID = 'niklan.render_array_builder';
 
   public function __construct(
     private CodeBlockBuilder $codeBlockBuilder,

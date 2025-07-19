@@ -18,16 +18,16 @@
 
   <testsuites>
     <testsuite name="unit">
-      <directory>../app/Drupal/*/tests/src/Unit</directory>
+      <directory>../app/modules/*/tests/src/Unit</directory>
     </testsuite>
     <testsuite name="kernel">
-      <directory>../app/Drupal/*/tests/src/Kernel</directory>
+      <directory>../app/modules/*/tests/src/Kernel</directory>
     </testsuite>
     <testsuite name="functional">
-      <directory>../app/Drupal/*/tests/src/Functional</directory>
+      <directory>../app/modules/*/tests/src/Functional</directory>
     </testsuite>
     <testsuite name="functional-javascript">
-      <directory>../app/Drupal/*/tests/src/FunctionalJavascript</directory>
+      <directory>../app/modules/*/tests/src/FunctionalJavascript</directory>
     </testsuite>
   </testsuites>
 
@@ -41,11 +41,11 @@
     </include>
 
     <exclude>
-      <directory>../app/Drupal/*/tests</directory>
+      <directory>../app/modules/*/tests</directory>
       <!-- There is no reason for test for one-time use code. -->
-      <directory>../app/Drupal/*/src/Hook/Deploy</directory>
+      <directory>../app/modules/*/src/Hook/Deploy</directory>
       <!-- There is no point in testing the dev module, as it is not used in production. -->
-      <directory>../app/Drupal/niklan_dev</directory>
+      <directory>../app/modules/niklan_dev</directory>
     </exclude>
 
     <report>
