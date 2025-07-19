@@ -23,14 +23,12 @@
     </text>
     <text fill="black" xml:space="preserve" style="white-space: pre" font-family="Lora, Lora-Bold, serif" font-size="32" font-weight="bold" letter-spacing="0em">
       <tspan x="838" y="548.212">
-        {%- apply spaceless %}
-          {% set count = comment_count %}
-          {% trans %}
-            @count comment
-          {% plural count %}
-            @count comments
-          {% endtrans %}
-        {% endapply -%}
+        {%- set count = comment_count -%}
+        {%- trans -%}
+          @count comment
+        {%- plural count -%}
+          @count comments
+        {%- endtrans -%}
       </tspan>
     </text>
     <path opacity="0.5" d="M792 558C804.15 558 814 548.15 814 536C814 523.85 804.15 514 792 514C779.85 514 770 523.85 770 536C770 539.52 770.826 542.846 772.296 545.796C772.686 546.58 772.816 547.476 772.59 548.322L771.28 553.218C771.15 553.703 771.151 554.213 771.281 554.697C771.41 555.182 771.665 555.624 772.02 555.978C772.375 556.333 772.816 556.588 773.301 556.719C773.785 556.849 774.295 556.849 774.78 556.72L779.68 555.41C780.529 555.198 781.426 555.302 782.204 555.704C785.247 557.219 788.601 558.005 792 558Z" fill="black"/>

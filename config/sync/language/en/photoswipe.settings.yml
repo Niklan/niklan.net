@@ -1,0 +1,7 @@
+options:
+  closeTitle: Close
+  zoomTitle: Zoom
+  arrowPrevTitle: Previous
+  arrowNextTitle: Next
+  indexIndicatorSep: ' / '
+  errorMsg: 'The image could not be loaded.'
