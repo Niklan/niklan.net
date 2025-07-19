@@ -26,7 +26,7 @@ tasks:
     requires:
       vars:
         - COMPOSER_BIN_DIR
-    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/drush {{.CLI_ARGS}}'
+    cmd: '{{.COMPOSER_BIN_DIR}}/drush {{.CLI_ARGS}}'
 
   phpstorm-meta:
     label: PHPStorm metadata

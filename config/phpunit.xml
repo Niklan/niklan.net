@@ -1,20 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="../web/core/tests/bootstrap.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="../web/core/tests/bootstrap.php"
          colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
+         failOnRisky="true"
          failOnWarning="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
          cacheResult="false"
-         verbose="true">
+         cacheDirectory=".phpunit.cache">
   <php>
-    <!-- @todo Switch to 32767 and fix all tests. -->
     <ini name="error_reporting" value="32767"/>
     <ini name="memory_limit" value="-1"/>
-    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value=""/>
+    <env name="BROWSERTEST_OUTPUT_BASE_URL" value=""/>
     <!--<env name="SIMPLETEST_BASE_URL" value="http://nginx"/>-->
     <!--<env name="SIMPLETEST_DB" value="sqlite://localhost//mnt/tmpfs/test.sqlite"/>-->
     <!--<env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","goog:chromeOptions":{"args":["&#45;&#45;disable-gpu","&#45;&#45;headless"]}}, "http://chrome:9515"]'/>-->
+    <env name="MINK_DRIVER_CLASS" value=''/>
+    <env name="MINK_DRIVER_ARGS" value=''/>
+    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value=''/>
   </php>
+
+  <extensions>
+    <!-- Functional tests HTML output logging. -->
+    <bootstrap class="Drupal\TestTools\Extension\HtmlLogging\HtmlOutputLogger">
+      <!-- The directory where the browser output will be stored. If a relative
+        path is specified, it will be relative to the current working directory
+        of the process running the PHPUnit CLI. In CI environments, this can be
+        overridden by the value set for the "BROWSERTEST_OUTPUT_DIRECTORY"
+        environment variable.
+      -->
+      <parameter name="outputDirectory" value="sites/simpletest/browser_output"/>
+      <!-- By default browser tests print the individual links in the test run
+        report. To avoid overcrowding the output in CI environments, you can
+        set the "verbose" parameter or the "BROWSERTEST_OUTPUT_VERBOSE"
+        environment variable to "false". In GitLabCI, the output is saved
+        anyway as an artifact that can be browsed or downloaded from Gitlab.
+      -->
+      <parameter name="verbose" value="true"/>
+    </bootstrap>
+  </extensions>
 
   <testsuites>
     <testsuite name="unit">
@@ -30,28 +60,4 @@
       <directory>../app/modules/*/tests/src/FunctionalJavascript</directory>
     </testsuite>
   </testsuites>
-
-  <listeners>
-    <listener class="\Drupal\Tests\Listeners\DrupalListener"/>
-  </listeners>
-
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory>../app/Drupal/*/src</directory>
-    </include>
-
-    <exclude>
-      <directory>../app/modules/*/tests</directory>
-      <!-- There is no reason for test for one-time use code. -->
-      <directory>../app/modules/*/src/Hook/Deploy</directory>
-      <!-- There is no point in testing the dev module, as it is not used in production. -->
-      <directory>../app/modules/niklan_dev</directory>
-    </exclude>
-
-    <report>
-      <!-- Write it here, because PHPUnit run under web user has no access to write into other directories. -->
-      <clover outputFile="../web/sites/default/files/coverage.xml"/>
-      <html outputDirectory="../web/sites/default/files/coverage/html" lowUpperBound="50" highLowerBound="90"/>
-    </report>
-  </coverage>
 </phpunit>

@@ -1,8 +1,6 @@
 <?php
-use Symfony\Component\ErrorHandler\Debug;
 
-$error_handler = Debug::enable();
-$error_handler->setExceptionHandler([$error_handler, 'renderException']);
+declare(strict_types=1);
 
 $databases['default']['default'] = [
   'database' => getenv('MARIADB_DATABASE') ?: 'drupal',
