@@ -74,7 +74,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
 
     $article_updated = DrupalDateTime::createFromFormat('Y-m-d\TH:i:s', $article->updated, 'UTC')->getTimestamp();
-    return $article_updated > $article_entity->getChangedTime();
+    return $article_entity->getChangedTime() >= $article_updated;
   }
 
   private function processArticleTranslation(Article $article, ArticleTranslation $translation, BlogEntryInterface $article_entity, SyncContext $context): void {
