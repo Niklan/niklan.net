@@ -37,16 +37,6 @@ $settings['config_exclude_modules'] = [
   'niklan_dev',
 ];
 
-$config['symfony_mailer.mailer_transport.smtp']['configuration']['user'] = 'example@example.com';
-$config['symfony_mailer.mailer_transport.smtp']['configuration']['pass'] = 'password';
-$config['symfony_mailer.mailer_transport.smtp']['configuration']['host'] = 'smtp.yandex.ru';
-$config['symfony_mailer.mailer_transport.smtp']['configuration']['port'] = 465;
-$config['symfony_mailer.settings']['default_transport'] = 'sendmail';
-$config['symfony_mailer.mailer_transport.sendmail']['configuration']['query']['command'] = getenv('PHP_SENDMAIL_PATH') . ' ' . getenv('SSMTP_MAILHUB');
-$settings['mailer_sendmail_commands'] = [
-  $config['symfony_mailer.mailer_transport.sendmail']['configuration']['query']['command'],
-];
-
 $config['system.mail']['interface'] = [ 'default' => 'symfony_mailer' ];
 $config['system.mail']['mailer_dsn'] = [
   'scheme' => 'smtp',

@@ -49,7 +49,6 @@
         "drupal/redirect": "^1.0@alpha",
         "drupal/search_api": "^1.8",
         "drupal/simple_sitemap": "^4.1",
-        "drupal/symfony_mailer": "^1.2@beta",
         "drupal/taxonomy_custom_controller": "^1.0",
         "drupal/token": "^1.0",
         "drupal/twig_tweak": "^3.0",
