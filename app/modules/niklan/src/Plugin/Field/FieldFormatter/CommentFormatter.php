@@ -59,8 +59,6 @@ final class CommentFormatter extends FormatterBase {
 
   #[\Override]
   public function viewElements(FieldItemListInterface $items, $langcode): array {
-    \assert($items instanceof CommentFieldItemList);
-
     if (!$this->isVisible($items)) {
       return [];
     }

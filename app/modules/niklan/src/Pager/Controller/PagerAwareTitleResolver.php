@@ -40,6 +40,7 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
     }
 
     if (Element::isRenderArray($title)) {
+      \assert(\is_array($title));
       $title = $this->renderer->renderInIsolation($title);
     }
 

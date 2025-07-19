@@ -54,10 +54,7 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   protected function getSettings(): SupportSettings {
-    $settings = $this->getContainer()->get(SupportSettings::class);
-    \assert($settings instanceof SupportSettings);
-
-    return $settings;
+    return $this->getContainer()->get(SupportSettings::class);
   }
 
 }

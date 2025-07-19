@@ -83,7 +83,6 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
 
     $source_field = $this->getMediaTypeSourceField($media_type);
     $media = $this->getMediaStorage()->create(['bundle' => $media_type]);
-    \assert($media instanceof MediaInterface);
     $media->set($source_field, $file);
     $media->setName($extra['title'] ?? $file->getFilename());
     $media->save();
@@ -123,7 +122,6 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     }
 
     $media = $this->getMediaStorage()->create(['bundle' => $media_type]);
-    \assert($media instanceof MediaInterface);
     $media->set($source_field, $standard_url);
     $media->setName($extra['title'] ?? "YouTube: $video_id");
     $media->save();

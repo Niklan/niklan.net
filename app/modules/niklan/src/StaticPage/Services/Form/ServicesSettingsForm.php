@@ -54,10 +54,7 @@ final class ServicesSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   protected function getSettings(): ServicesSettings {
-    $settings = $this->getContainer()->get(ServicesSettings::class);
-    \assert($settings instanceof ServicesSettings);
-
-    return $settings;
+    return $this->getContainer()->get(ServicesSettings::class);
   }
 
 }

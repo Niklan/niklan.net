@@ -17,8 +17,6 @@ final class SearchApiResultItemsHelper {
     $entity_ids = [];
 
     foreach ($result_set->getResultItems() as $result_item) {
-      \assert($result_item instanceof ItemInterface);
-
       if (!\preg_match('/entity:[a-z_]+\/[0-9]+:[a-z]{2}/m', $result_item->getId())) {
         continue;
       }

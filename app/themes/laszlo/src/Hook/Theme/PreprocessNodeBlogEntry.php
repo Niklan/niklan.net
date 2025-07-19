@@ -9,7 +9,6 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\Core\Field\FieldItemInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Builder\TableOfContentsBuilder;
@@ -58,7 +57,6 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     $variables['attachments'] = [];
 
     foreach ($node->get('field_media_attachments') as $attachment_item) {
-      \assert($attachment_item instanceof FieldItemInterface);
       $media = $attachment_item->get('entity')->getValue();
       \assert($media instanceof MediaInterface);
       $file = MediaHelper::getFile($media);
@@ -125,7 +123,9 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     }
 
     $storage = $this->entityTypeManager->getStorage('node');
-    $previous = $storage->load(\reset($id));
+    $id = \reset($id);
+    \assert(\is_string($id));
+    $previous = $storage->load($id);
     \assert($previous instanceof EntityInterface);
 
     $variables['previous_link'] = [
@@ -151,7 +151,9 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     }
 
     $storage = $this->entityTypeManager->getStorage('node');
-    $next = $storage->load(\reset($id));
+    $id = \reset($id);
+    \assert(\is_string($id));
+    $next = $storage->load($id);
     \assert($next instanceof EntityInterface);
 
     $variables['next_link'] = [
