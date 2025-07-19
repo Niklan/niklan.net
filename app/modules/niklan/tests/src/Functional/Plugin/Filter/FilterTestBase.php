@@ -14,13 +14,6 @@ abstract class FilterTestBase extends NiklanTestBase {
 
   protected FilterPluginManager $filterManager;
 
-  /**
-   * {@inheritdoc}
-   */
-  protected static $modules = [
-    'extra_field',
-  ];
-
   #[\Override]
   protected function setUp(): void {
     parent::setUp();
