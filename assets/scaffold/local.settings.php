@@ -37,8 +37,6 @@ $settings['config_exclude_modules'] = [
   'niklan_dev',
 ];
 
-$config['field_ui.settings']['field_prefix'] = '';
-
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['user'] = 'example@example.com';
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['pass'] = 'password';
 $config['symfony_mailer.mailer_transport.smtp']['configuration']['host'] = 'smtp.yandex.ru';
@@ -68,3 +66,5 @@ $settings['website_repository_url'] = 'https://example.com/username/repository';
 $settings['telegram_token'] = NULL;
 $settings['telegram_chat_id'] = NULL;
 $settings['telegram_secret_token'] = NULL;
+
+$config['cache_pilot.settings']['connection_dsn'] = 'tcp://php:9000';
