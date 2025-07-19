@@ -16,6 +16,7 @@
   <php>
     <ini name="error_reporting" value="32767"/>
     <ini name="memory_limit" value="-1"/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value=""/>
     <env name="BROWSERTEST_OUTPUT_BASE_URL" value=""/>
     <!--<env name="SIMPLETEST_BASE_URL" value="http://nginx"/>-->
     <!--<env name="SIMPLETEST_DB" value="sqlite://localhost//mnt/tmpfs/test.sqlite"/>-->
