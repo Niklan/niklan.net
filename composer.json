@@ -128,7 +128,6 @@
         },
         "patches": {
             "drupal/core": {
-                "Unhelpful error message with enumeration problem (dgo.to/3462700)": "https://git.drupalcode.org/project/drupal/-/merge_requests/8846.patch",
                 "SDC incorrectly throws an exception about embedded slots (dgo.to/3446933)": "./assets/patch/core-3446933-mr-8234.patch",
                 "Drupal install produces a warning 'Undefined array key \"major\"' with Drupal version 11.x (dgo.to/3482367)": "./assets/patch/core-3482367-mr-9902.patch"
             }
