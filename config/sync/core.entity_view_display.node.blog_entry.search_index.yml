@@ -34,7 +34,7 @@ content:
     weight: 9
     region: content
   external_content:
-    type: external_content_render_array
+    type: external_content_environment
     label: hidden
     settings: {  }
     third_party_settings: {  }

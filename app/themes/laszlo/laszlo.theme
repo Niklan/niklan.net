@@ -15,6 +15,7 @@ use Drupal\laszlo\Hook\Theme\PreprocessInput;
 use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageFooter;
 use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader;
 use Drupal\laszlo\Hook\Theme\PreprocessLinks;
+use Drupal\laszlo\Hook\Theme\PreprocessMaintenancePage;
 use Drupal\laszlo\Hook\Theme\PreprocessNode;
 use Drupal\laszlo\Hook\Theme\PreprocessPage;
 use Drupal\laszlo\Hook\Theme\PreprocessTaxonomyTerm;
@@ -137,4 +138,11 @@ function laszlo_preprocess_taxonomy_term(array &$variables): void {
  */
 function laszlo_page_attachments_alter(array &$attachments): void {
   Drupal::classResolver(AttachmentsAlter::class)($attachments);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function laszlo_preprocess_maintenance_page(array &$variables): void {
+  Drupal::classResolver(PreprocessMaintenancePage::class)($variables);
 }

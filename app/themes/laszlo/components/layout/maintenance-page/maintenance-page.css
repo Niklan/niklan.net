@@ -1,0 +1,42 @@
+@layer component.layout {
+  .maintenance-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .maintenance-page__logo {
+    max-height: 80px;
+  }
+
+  .maintenance-page__title {
+    font: var(--typography-display-small);
+  }
+
+  .maintenance-page__pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--spacing-8) var(--spacing-2);
+    text-align: center;
+    gap: var(--spacing-4);
+  }
+
+  .maintenance-page__links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .maintenance-page__link-separator {
+    margin-left: var(--spacing-2);
+    color: var(--color-outline-variant);
+  }
+}

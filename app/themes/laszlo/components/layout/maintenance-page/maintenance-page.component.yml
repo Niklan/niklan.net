@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Maintenance Page
+status: experimental
+group: layout
+props:
+  type: object
+  properties:
+    attributes:
+      type: Drupal\Core\Template\Attribute
+      title: Attributes
+    logo:
+      type: ['null', string]
+      title: Logo
+    site_name:
+      type: ['null', string]
+      title: Site name
+    title:
+      type: ['null', string]
+      title: Title
+    content:
+      type: ['null', array, string]
+      title: Message
+    links:
+      type: ['null', array]
+      title: Links
+

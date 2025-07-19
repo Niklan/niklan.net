@@ -31,6 +31,7 @@ jobs:
         run: |
           ssh server <<< "
             cd ${{ secrets.cd_production_app_root }}
+            drush maint:set 1
             mkdir -p ${{ secrets.cd_production_deploy_files }}
             drush sql:dump \
               --gzip \
@@ -46,4 +47,5 @@ jobs:
             task import/translations
             drush queue:delete warmer
             drush warmer:enqueue entity
+            drush maint:set 0
           "
