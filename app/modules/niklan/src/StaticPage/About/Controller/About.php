@@ -29,13 +29,11 @@ final readonly class About implements ContainerInjectionInterface {
 
   private function preparePhotoUri(): ?string {
     $id = $this->settings->getPhotoMediaId();
-
-    if (!$id) {
+    if (!is_string($id)) {
       return NULL;
     }
 
-    $media = $this->entityTypeManager->getStorage('media')->load($this->settings->getPhotoMediaId());
-
+    $media = $this->entityTypeManager->getStorage('media')->load($id);
     return MediaHelper::getFileUri($media);
   }
 

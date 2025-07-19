@@ -96,10 +96,7 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   protected function getSettings(): AboutSettings {
-    $settings = $this->getContainer()->get(AboutSettings::class);
-    \assert($settings instanceof AboutSettings);
-
-    return $settings;
+    return $this->getContainer()->get(AboutSettings::class);
   }
 
   private function buildPhotoSettings(array &$form, FormStateInterface $form_state): void {

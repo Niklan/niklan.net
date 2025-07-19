@@ -23,16 +23,35 @@ final readonly class AjaxFormHelper {
   public static function refresh(array $form, FormStateInterface $form_state): AjaxResponse {
     $triggering_element = $form_state->getTriggeringElement();
     $element = NULL;
+
     if (isset($triggering_element['#ajax']['element'])) {
       $element = NestedArray::getValue($form, $triggering_element['#ajax']['element']);
     }
-    // Element not specified or not found. Show messages on top of the form.
-    if (!$element) {
-      $element = $form;
-    }
+
+    $element = \is_array($element) ? $element : $form;
     $response = new AjaxResponse();
-    $response->addCommand(new ReplaceCommand('[data-drupal-selector="' . $form['#attributes']['data-drupal-selector'] . '"]', $form));
-    $response->addCommand(new PrependCommand('[data-drupal-selector="' . $element['#attributes']['data-drupal-selector'] . '"]', ['#type' => 'status_messages']));
+
+    $form_selector = isset($form['#attributes']['data-drupal-selector']) && \is_string($form['#attributes']['data-drupal-selector'])
+      ? $form['#attributes']['data-drupal-selector']
+      : NULL;
+
+    if ($form_selector) {
+      $response->addCommand(new ReplaceCommand(
+        selector: \sprintf('[data-drupal-selector="%s"]', $form_selector),
+        content: $form,
+      ));
+    }
+
+    $element_selector = isset($element['#attributes']['data-drupal-selector']) && \is_string($element['#attributes']['data-drupal-selector'])
+      ? $element['#attributes']['data-drupal-selector']
+      : NULL;
+
+    if ($element_selector) {
+      $response->addCommand(new PrependCommand(
+        selector: \sprintf('[data-drupal-selector="%s"]', $element_selector),
+        content: ['#type' => 'status_messages'],
+      ));
+    }
 
     return $response;
   }

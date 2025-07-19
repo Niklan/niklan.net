@@ -33,7 +33,6 @@ final readonly class MainMenuSiteMap implements SiteMapBuilderInterface {
     ];
 
     foreach ($this->menuLinkTree->transform($tree, $manipulators) as $element) {
-      \assert($element instanceof MenuLinkTreeElement);
       $element->link->getUrlObject();
       $section->add(Link::fromTextAndUrl($element->link->getTitle(), $element->link->getUrlObject()));
     }

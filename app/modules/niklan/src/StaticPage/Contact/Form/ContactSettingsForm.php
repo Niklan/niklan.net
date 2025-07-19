@@ -62,10 +62,7 @@ final class ContactSettingsForm extends LanguageAwareStoreForm {
   }
 
   protected function getSettings(): ContactSettings {
-    $settings = $this->getContainer()->get(ContactSettings::class);
-    \assert($settings instanceof ContactSettings);
-
-    return $settings;
+    return $this->getContainer()->get(ContactSettings::class);
   }
 
 }

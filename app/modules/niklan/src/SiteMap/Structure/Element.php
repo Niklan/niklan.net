@@ -12,7 +12,7 @@ namespace Drupal\niklan\SiteMap\Structure;
 abstract class Element implements \IteratorAggregate, \Countable, \ArrayAccess {
 
   /**
-   * @var list<T>
+   * @var array<mixed, T>
    */
   protected array $collection = [];
 

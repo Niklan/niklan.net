@@ -63,6 +63,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $this->extensionManager->get(DefaultHtmlParserExtension::ID)->register($parsers);
     $this->extensionManager->get(CustomHtmlParserExtension::ID)->register($parsers);
 
+    // @phpstan-ignore-next-line argument.type
     return (new HtmlParser($parsers))->parse($this->markdownConverter->convert($source)->getContent());
   }
 
@@ -74,6 +75,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $array = \json_decode($json, TRUE);
     \assert(\is_array($array));
 
+    // @phpstan-ignore-next-line argument.type
     return (new ArrayParser($parsers))->parse(ArrayElement::fromArray($array));
   }
 
@@ -82,6 +84,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $this->extensionManager->get(DefaultArrayBuilderExtension::ID)->register($builders);
     $this->extensionManager->get(CustomArrayBuilderExtension::ID)->register($builders);
 
+    // @phpstan-ignore-next-line argument.type
     $json = \json_encode((new ArrayBuilder($builders))->build($content)->toArray());
     \assert(\is_string($json));
 
@@ -93,6 +96,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $this->extensionManager->get(DefaultRenderArrayExtension::ID)->register($builders);
     $this->extensionManager->get(CustomRenderArrayExtension::ID)->register($builders);
 
+    // @phpstan-ignore-next-line argument.type
     return (new RenderArrayBuilder($builders))->build($content)->toRenderArray();
   }
 
