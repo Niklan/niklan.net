@@ -22,15 +22,9 @@ final class MarkdownTest extends FilterTestBase {
     \assert($filter instanceof FilterInterface);
 
     $text = '**strong**';
-    $result = $filter->process(
-      $text,
-      LanguageInterface::LANGCODE_NOT_SPECIFIED,
-    );
+    $result = $filter->process($text, LanguageInterface::LANGCODE_NOT_SPECIFIED);
 
-    self::assertStringContainsString(
-      '<strong>strong</strong>',
-      $result->getProcessedText(),
-    );
+    self::assertStringContainsString('<strong>strong</strong>', $result->getProcessedText());
   }
 
 }
