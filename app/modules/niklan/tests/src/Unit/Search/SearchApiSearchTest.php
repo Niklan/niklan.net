@@ -14,13 +14,10 @@ use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\search_api\Utility\QueryHelperInterface;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;
 
-/**
- * Provides test for an abstract Search API search.
- *
- * @coversDefaultClass \Drupal\niklan\Search\Repository\SearchApiSearch
- */
+#[CoversClass(SearchApiSearch::class)]
 final class SearchApiSearchTest extends UnitTestCase {
 
   /**

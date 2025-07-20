@@ -6,12 +6,9 @@ namespace Drupal\Tests\niklan_dev\Kernel\Hook\Toolbar;
 
 use Drupal\niklan_dev\Hook\Toolbar\DevelopmentWarningToolbar;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Provides a test for a development warning in toolbar.
- *
- * @covers \Drupal\niklan_dev\Hook\Toolbar\DevelopmentWarningToolbar
- */
+#[CoversClass(DevelopmentWarningToolbar::class)]
 final class DevelopmentWarningToolbarTest extends NiklanTestBase {
 
   /**

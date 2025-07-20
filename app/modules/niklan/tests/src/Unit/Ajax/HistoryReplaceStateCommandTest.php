@@ -6,12 +6,9 @@ namespace Drupal\Tests\niklan\Unit\Ajax;
 
 use Drupal\niklan\Http\Ajax\HistoryReplaceStateCommand;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Provides a test for history replace state AJAX command.
- *
- * @coversDefaultClass \Drupal\niklan\Http\Ajax\HistoryReplaceStateCommand
- */
+#[CoversClass(HistoryReplaceStateCommand::class)]
 final class HistoryReplaceStateCommandTest extends UnitTestCase {
 
   /**

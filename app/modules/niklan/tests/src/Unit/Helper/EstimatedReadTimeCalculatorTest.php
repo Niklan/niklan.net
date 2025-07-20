@@ -8,12 +8,9 @@ use Drupal\external_content\Nodes\Text\Text;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\CodeBlock;
 use Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Provides test for estimated read time calculator.
- *
- * @coversDefaultClass \Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator
- */
+#[CoversClass(EstimatedReadTimeCalculator::class)]
 final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
 
   /**

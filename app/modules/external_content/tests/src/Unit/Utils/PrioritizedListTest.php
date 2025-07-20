@@ -6,13 +6,11 @@ namespace Drupal\Tests\external_content\Unit\Utils;
 
 use Drupal\external_content\Utils\PrioritizedList;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * Provides a prioritized list test.
- *
- * @covers \Drupal\external_content\Utils\PrioritizedList
- * @group external_content
- */
+#[CoversClass(PrioritizedList::class)]
+#[Group('external_content')]
 final class PrioritizedListTest extends UnitTestCase {
 
   public function testObject(): void {
