@@ -43,7 +43,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     ]);
 
     $article_entity = $this->findOrCreateArticleEntity($article);
-    if ($this->shouldSkipUpdate($article, $article_entity)) {
+    if ($this->shouldSkipUpdate($article, $article_entity, $context)) {
       $context->getLogger()->info('Skipping update, article not changed', [
         'article_id' => $article->id,
       ]);
@@ -51,22 +51,36 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
 
     $this->updateArticleMetadata($article, $article_entity);
-
-    $translation = $article->getPrimaryTranslation();
-    $this->processArticleTranslation($article, $translation, $article_entity, $context);
-
-    foreach ($article->getTranslations() as $translation) {
-      if ($translation->isPrimary || !$article_entity->isTranslatable()) {
-        continue;
-      }
-      $this->processArticleTranslation($article, $translation, $article_entity, $context);
-    }
+    $this->processTranslations($article, $article_entity, $context);
 
     $article_entity->save();
   }
 
-  private function shouldSkipUpdate(Article $article, BlogEntryInterface $article_entity): bool {
-    if ($article_entity->isNew()) {
+  private function processTranslations(Article $article, BlogEntryInterface $entity, SyncContext $context): void {
+    $this->processPrimaryTranslation($article, $entity, $context);
+    $this->processAdditionalTranslations($article, $entity, $context);
+  }
+
+  private function processPrimaryTranslation(Article $article, BlogEntryInterface $entity, SyncContext $context): void {
+    $primary_translation = $article->getPrimaryTranslation();
+    $this->processArticleTranslation($article, $primary_translation, $entity, $context);
+  }
+
+  private function processAdditionalTranslations(Article $article, BlogEntryInterface $entity, SyncContext $context): void {
+    if (!$entity->isTranslatable()) {
+      return;
+    }
+
+    foreach ($article->getTranslations() as $translation) {
+      if ($translation->isPrimary) {
+        continue;
+      }
+      $this->processArticleTranslation($article, $translation, $entity, $context);
+    }
+  }
+
+  private function shouldSkipUpdate(Article $article, BlogEntryInterface $article_entity, SyncContext $context): bool {
+    if ($context->isForced() || $article_entity->isNew()) {
       return FALSE;
     }
 

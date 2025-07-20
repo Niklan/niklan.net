@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Command;
 
+use Composer\Console\Input\InputOption;
 use Drupal\Core\Site\Settings;
 use Drupal\niklan\Console\Log\ConsoleLogger;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
@@ -32,6 +33,13 @@ final class Sync extends Command {
       description: 'The source content URI. If omitted, the default source URI will be used.',
       default: Settings::get('external_content_directory'),
     );
+
+    $this->addOption(
+      name: 'force',
+      shortcut: 'f',
+      mode: InputOption::VALUE_NONE,
+      description: 'Force sync even if up-to-date.',
+    );
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
@@ -41,7 +49,10 @@ final class Sync extends Command {
     $source_uri = $input->getArgument('source-uri') ?? Settings::get('external_content_directory');
     \assert(\is_string($source_uri));
 
-    $this->syncPipeline->run(new SyncContext($source_uri, $logger));
+    $context = new SyncContext($source_uri, $logger);
+    $context->setForceStatus((bool) $input->getOption('force'));
+    $this->syncPipeline->run($context);
+
     return self::SUCCESS;
   }
 
