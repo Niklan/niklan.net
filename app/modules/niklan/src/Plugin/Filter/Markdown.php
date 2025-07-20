@@ -12,12 +12,14 @@ use Drupal\filter\Plugin\FilterInterface;
 use League\CommonMark\CommonMarkConverter;
 
 #[Filter(
-  id: 'niklan_markdown',
+  id: self::ID,
   title: new TranslatableMarkup('Markdown'),
   type: FilterInterface::TYPE_MARKUP_LANGUAGE,
   weight: -10,
 )]
 final class Markdown extends FilterBase {
+
+  public const string ID = 'niklan_markdown';
 
   #[\Override]
   public function process($text, $langcode): FilterProcessResult {
