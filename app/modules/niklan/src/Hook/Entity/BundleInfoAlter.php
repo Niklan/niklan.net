@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Drupal\niklan\Hook\Entity;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\File\Entity\File;
 use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\Node\Entity\Portfolio;
 use Drupal\niklan\Tag\Entity\Tag;
 
+#[Hook('entity_bundle_info_alter')]
 final class BundleInfoAlter {
 
   protected function alterBundleClasses(array &$bundles): void {

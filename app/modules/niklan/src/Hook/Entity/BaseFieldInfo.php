@@ -6,8 +6,10 @@ namespace Drupal\niklan\Hook\Entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
+#[Hook('entity_base_field_info')]
 final class BaseFieldInfo {
 
   protected function file(): array {

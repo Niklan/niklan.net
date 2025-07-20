@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan_dev\Hook\Toolbar;
 
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
@@ -11,6 +12,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  *
  * @ingroup toolbar
  */
+#[Hook('toolbar')]
 final class DevelopmentWarningToolbar {
 
   /**

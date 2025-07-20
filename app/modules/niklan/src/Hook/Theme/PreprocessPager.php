@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Drupal\niklan\Hook\Theme;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Url;
 
 /**
  * @ingroup seo_pager
  */
+#[Hook('preprocess_pager')]
 final class PreprocessPager {
 
   /**
