@@ -72,7 +72,7 @@ final class LibraryInfoAlterTest extends NiklanTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    $this->libraryInfoAlter = LibraryInfoAlter::create($this->container);
+    $this->libraryInfoAlter = $this->container->get(LibraryInfoAlter::class);
   }
 
 }

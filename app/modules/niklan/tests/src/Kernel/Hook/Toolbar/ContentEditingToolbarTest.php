@@ -24,7 +24,7 @@ final class ContentEditingToolbarTest extends NiklanTestBase {
    * Tests toolbar on unsupported route.
    */
   public function testUnsupportedRoute(): void {
-    $implementation = ContentEditingToolbar::create($this->container);
+    $implementation = $this->container->get(ContentEditingToolbar::class);
 
     $result = $implementation();
 
@@ -42,7 +42,7 @@ final class ContentEditingToolbarTest extends NiklanTestBase {
     $route_match->getRouteName()->willReturn('entity.user.canonical');
     $this->container->set('current_route_match', $route_match->reveal());
 
-    $implementation = ContentEditingToolbar::create($this->container);
+    $implementation = $this->container->get(ContentEditingToolbar::class);
 
     $result = $implementation();
 
