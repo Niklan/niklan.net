@@ -6,7 +6,6 @@ namespace Drupal\niklan\ExternalContent\Extension;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Extension\ContainerExtensionManager;
-use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Nodes\Callout\HtmlParser as CalloutParser;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\HtmlParser as CodeBlockParser;
 use Drupal\niklan\ExternalContent\Nodes\Image\HtmlParser as ImageParser;
@@ -27,7 +26,6 @@ final readonly class HtmlParserExtension implements Extension {
   public const string ID = 'niklan.html_parser';
 
   public function register(object $target): void {
-    \assert($target instanceof Registry);
     $target->add(new RemoteVideoParser());
     $target->add(new LocalVideoParser());
     $target->add(new CalloutParser());

@@ -31,9 +31,6 @@ final readonly class ArticleProcessor implements PipelineStage {
   ) {}
 
   public function process(PipelineContext $context): void {
-    if (!$context instanceof SyncContext) {
-      throw new \InvalidArgumentException('Invalid context');
-    }
     foreach ($context->getArticles() as $article) {
       $this->processArticle($article, $context);
     }
@@ -50,7 +47,7 @@ final readonly class ArticleProcessor implements PipelineStage {
       $context->getLogger()->info('Skipping update, article not changed', [
         'article_id' => $article->id,
       ]);
-      return;
+      // return;.
     }
 
     $this->updateArticleMetadata($article, $article_entity);

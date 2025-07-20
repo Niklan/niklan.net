@@ -40,10 +40,10 @@ final readonly class CommentModerationHandler {
   }
 
   public function onCallbackQuery(Nutgram $bot): void {
-    \preg_match_all('/([a-z-]+:[a-z-]+):([0-9]+)/', $bot->callbackQuery()?->data ?? '', $matches, \PREG_SET_ORDER);
+    \preg_match_all('/([a-z-]+:[a-z-]+):([0-9]+)/', $bot->callbackQuery()->data ?? '', $matches, \PREG_SET_ORDER);
     [, $callback_type, $comment_id] = $matches[0];
 
-    if (!CommentModerationCallbackType::tryFrom($callback_type) || !\is_numeric($comment_id)) {
+    if (!CommentModerationCallbackType::tryFrom($callback_type)) {
       return;
     }
 

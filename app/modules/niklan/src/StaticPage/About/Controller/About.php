@@ -29,7 +29,7 @@ final readonly class About implements ContainerInjectionInterface {
 
   private function preparePhotoUri(): ?string {
     $id = $this->settings->getPhotoMediaId();
-    if (!is_string($id)) {
+    if (!\is_string($id)) {
       return NULL;
     }
 

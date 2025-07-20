@@ -6,6 +6,11 @@ namespace Drupal\niklan\ExternalContent\Domain;
 
 final class ArticleTranslation {
 
+  /**
+   * @var list<array{src: string, title: string}>
+   */
+  private array $attachments = [];
+
   public function __construct(
     public readonly string $sourcePath,
     public readonly string $language,
@@ -14,7 +19,6 @@ final class ArticleTranslation {
     public readonly string $posterPath,
     public readonly string $contentDirectory,
     public readonly bool $isPrimary = FALSE,
-    private array $attachments = [],
   ) {}
 
   /**

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\Search\Utils;
 
 use Drupal\niklan\Search\Data\EntitySearchResult;
-use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 
 final class SearchApiResultItemsHelper {

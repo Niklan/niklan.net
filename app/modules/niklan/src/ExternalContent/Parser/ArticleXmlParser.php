@@ -59,6 +59,9 @@ final readonly class ArticleXmlParser {
     return $article_node;
   }
 
+  /**
+   * @return list<string>
+   */
   private function parseTags(\DOMXPath $xpath): array {
     $tags_list = $xpath->query('/article/tags/tag');
     \assert($tags_list instanceof \DOMNodeList);
@@ -66,6 +69,10 @@ final readonly class ArticleXmlParser {
     $tags = [];
     foreach ($tags_list as $tag_node) {
       \assert($tag_node instanceof \DOMElement);
+      if ($tag_node->nodeValue === NULL) {
+        continue;
+      }
+
       $tags[] = $tag_node->nodeValue;
     }
 
@@ -93,7 +100,7 @@ final readonly class ArticleXmlParser {
     $poster_path = $this->getAttributeFromElement($xpath, $translation_node, 'poster', 'src');
     $directory = PathHelper::normalizePath($article->directory . '/' . $translation_node->getAttribute('src'));
 
-    return new ArticleTranslation(
+    $article_translation = new ArticleTranslation(
       sourcePath: $translation_node->getAttribute('src'),
       language: $translation_node->getAttribute('language'),
       title: $this->cleanText($title),
@@ -101,24 +108,22 @@ final readonly class ArticleXmlParser {
       posterPath: $poster_path,
       contentDirectory: \dirname($directory),
       isPrimary: $is_primary,
-      attachments: $this->parseAttachments($xpath, $translation_node),
     );
+    $this->parseAttachments($xpath, $translation_node, $article_translation);
+    return $article_translation;
   }
 
-  private function parseAttachments(\DOMXPath $xpath, \DOMElement $parent): array {
+  private function parseAttachments(\DOMXPath $xpath, \DOMElement $parent, ArticleTranslation $article_translation): void {
     $attachment_list = $xpath->query('attachments/attachment', $parent);
     \assert($attachment_list instanceof \DOMNodeList);
 
-    $attachments = [];
     foreach ($attachment_list as $attachment_node) {
       \assert($attachment_node instanceof \DOMElement);
-      $attachments[] = [
+      $article_translation->addAttachment([
         'src' => $attachment_node->getAttribute('src'),
         'title' => $attachment_node->getAttribute('title'),
-      ];
+      ]);
     }
-
-    return $attachments;
   }
 
   private function getAttributeAsBoolean(\DOMElement $node, string $attribute): bool {

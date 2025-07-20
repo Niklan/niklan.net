@@ -19,7 +19,6 @@ final readonly class ArrayBuilder implements Builder {
   }
 
   public function buildElement(Node $node, ChildBuilder $child_builder): ArrayElement {
-    \assert($node instanceof Text);
     $element = new ArrayElement($node::getNodeType(), ['text' => $node->text]);
     $child_builder->buildChildren($node, $element);
     return $element;

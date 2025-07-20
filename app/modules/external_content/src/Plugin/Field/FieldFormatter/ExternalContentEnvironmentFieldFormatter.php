@@ -63,7 +63,6 @@ final class ExternalContentEnvironmentFieldFormatter extends FormatterBase imple
     $element = [];
 
     foreach ($items as $item) {
-      \assert($item instanceof ExternalContentFieldItem);
       if ($item->validate()->count()) {
         continue;
       }

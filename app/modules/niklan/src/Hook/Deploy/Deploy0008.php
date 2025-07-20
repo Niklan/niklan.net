@@ -6,7 +6,6 @@ namespace Drupal\niklan\Hook\Deploy;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Deploy0008 implements ContainerInjectionInterface {
@@ -48,7 +47,6 @@ final readonly class Deploy0008 implements ContainerInjectionInterface {
     $ids = \array_keys($mapping);
     $storage = $this->entityTypeManager->getStorage('taxonomy_term');
     foreach ($storage->loadMultiple($ids) as $term) {
-      \assert($term instanceof TermInterface);
       $term->set('external_id', $mapping[(int) $term->id()]);
       $term->save();
     }

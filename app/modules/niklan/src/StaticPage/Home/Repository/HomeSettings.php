@@ -47,7 +47,7 @@ final class HomeSettings extends LanguageAwareSettingsStore {
    *   media_id: string,
    *   title: string,
    *   description: string,
-   *  }>
+   *   }>
    */
   public function getCards(): array {
     $cards = $this->getStore()->get('cards', []);

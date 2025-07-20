@@ -60,9 +60,9 @@ final class CommonMarkDirectiveHelper {
     $cursor = new Cursor($info_line);
     $result = [
       'type' => $cursor->match(self::TYPE_REGEX),
-      'inline-content' => NULL,
-      'argument' => NULL,
-      'attributes' => NULL,
+      'inline-content' => '',
+      'argument' => '',
+      'attributes' => '',
     ];
 
     // The type should be presented.
@@ -122,13 +122,13 @@ final class CommonMarkDirectiveHelper {
     if ($result['class']) {
       // Filter the class array to remove non-string or empty elements.
       $result['class'] = \array_filter(
-        array: $result['class'],
-        callback: static fn (?string $class): bool => \is_string($class) && \strlen($class) > 0,
+        $result['class'],
+        static fn (?string $class): bool => \is_string($class) && $class !== '',
       );
       // Remove CSS notation (dots) from class names.
-      \array_walk(
-        array: $result['class'],
-        callback: static fn (string &$class): string => $class = \str_replace('.', '', $class),
+      $result['class'] = \array_map(
+        static fn (string $class): string => \str_replace('.', '', $class),
+        $result['class'],
       );
     }
 
@@ -149,11 +149,7 @@ final class CommonMarkDirectiveHelper {
     return $attributes;
   }
 
-  private static function parseGroup(Cursor $cursor, string $closing_char, ?string &$result): void {
-    if (!$result) {
-      $result = '';
-    }
-
+  private static function parseGroup(Cursor $cursor, string $closing_char, string &$result): void {
     $cursor->advanceBy(1);
 
     do {

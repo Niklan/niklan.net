@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\Navigation\SiteMap;
 
 use Drupal\Core\Link;
-use Drupal\Core\Menu\MenuLinkTreeElement;
 use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\StringTranslation\TranslatableMarkup;

@@ -82,7 +82,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
 
   public static function addCard(array &$form, FormStateInterface $form_state): void {
     $cards_count = $form_state->get('cards_count');
-    \assert(is_int($cards_count));
+    \assert(\is_int($cards_count));
     $form_state->set('cards_count', $cards_count + 1);
     $form_state->set('keep_cards_open', TRUE);
     $form_state->setRebuild();
@@ -108,7 +108,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $rows = \array_values($rows);
 
     $cards_count = $form_state->get('cards_count');
-    \assert(is_int($cards_count));
+    \assert(\is_int($cards_count));
 
     if ($cards_count > 0) {
       $form_state->set('cards_count', $cards_count - 1);

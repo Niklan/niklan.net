@@ -7,7 +7,6 @@ namespace Drupal\niklan\ExternalContent\Stages;
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
-use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\Plugin\ExternalContent\Environment\BlogArticle;
 use Drupal\niklan\Utils\PathHelper;
 
@@ -26,7 +25,6 @@ final readonly class MarkdownToAstParser implements PipelineStage {
   public function process(PipelineContext $context): void {
     $environment = $this->environmentManager->createInstance(BlogArticle::ID);
     \assert($environment instanceof BlogArticle);
-    \assert($context instanceof ArticleTranslationProcessContext);
     $markdown_file = PathHelper::normalizePath($context->article->directory . '/' . $context->article->getPrimaryTranslation()->sourcePath);
     $context->getLogger()->info('Markdown conversion started', [
       'file' => $markdown_file,

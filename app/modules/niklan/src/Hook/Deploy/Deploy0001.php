@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\Hook\Deploy;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\contact\MessageInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
@@ -71,8 +70,6 @@ final class Deploy0001 implements ContainerInjectionInterface {
       ->loadMultiple($ids);
 
     foreach ($contact_messages as $contact_message) {
-      \assert($contact_message instanceof MessageInterface);
-
       if (!$contact_message->get('field_email')->isEmpty()) {
         $email = $contact_message->get('field_email')->getString();
         $contact_message->setSenderMail($email);
