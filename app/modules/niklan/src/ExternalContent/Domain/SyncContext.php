@@ -15,6 +15,7 @@ final class SyncContext implements PipelineContext {
    * @var array{}|list<\Drupal\niklan\ExternalContent\Domain\Article>
    */
   private array $articles = [];
+  private bool $isForced = FALSE;
 
   public function __construct(
     public readonly string $workingDirectory,
@@ -40,6 +41,14 @@ final class SyncContext implements PipelineContext {
     $strict_mode = Settings::get('niklan_external_content_strict_mode', FALSE);
     \assert(\is_bool($strict_mode));
     return $strict_mode;
+  }
+
+  public function setForceStatus(bool $status): void {
+    $this->isForced = $status;
+  }
+
+  public function isForced(): bool {
+    return $this->isForced;
   }
 
 }

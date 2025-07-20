@@ -43,7 +43,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     ]);
 
     $article_entity = $this->findOrCreateArticleEntity($article);
-    if ($this->shouldSkipUpdate($article, $article_entity)) {
+    if (!$context->isForced() && $this->shouldSkipUpdate($article, $article_entity)) {
       $context->getLogger()->info('Skipping update, article not changed', [
         'article_id' => $article->id,
       ]);
