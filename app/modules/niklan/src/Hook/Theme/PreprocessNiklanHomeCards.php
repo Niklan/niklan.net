@@ -4,25 +4,18 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Hook\Theme;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\StaticPage\Home\Repository\HomeSettings;
 use Drupal\niklan\Utils\MediaHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class PreprocessNiklanHomeCards implements ContainerInjectionInterface {
+#[Hook('preprocess_niklan_home_cards')]
+final readonly class PreprocessNiklanHomeCards {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
   ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(EntityTypeManagerInterface::class),
-    );
-  }
 
   public function __invoke(array &$variables): void {
     $media_storage = $this->entityTypeManager->getStorage('media');

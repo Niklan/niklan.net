@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Hook\Theme;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Hook\Attribute\Hook;
 
-final class LibraryInfoAlter implements ContainerInjectionInterface {
+#[Hook('library_info_alter')]
+final class LibraryInfoAlter {
 
   public function __construct(
     protected ModuleExtensionList $moduleExtensionList,
   ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(ModuleExtensionList::class),
-    );
-  }
 
   protected function alterDrupalAjax(array &$libraries, string $extension): void {
     if ($extension !== 'core' || !isset($libraries['drupal.ajax'])) {

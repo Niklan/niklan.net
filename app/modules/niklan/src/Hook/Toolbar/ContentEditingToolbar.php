@@ -4,26 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Hook\Toolbar;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class ContentEditingToolbar implements ContainerInjectionInterface {
+#[Hook('toolbar')]
+final class ContentEditingToolbar {
 
   private array $items = [];
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
   ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(RouteMatchInterface::class),
-    );
-  }
 
   protected function prepareContentEditingToolbar(): void {
     $this->items['niklan_content_editing'] = [

@@ -28,6 +28,7 @@ abstract class NiklanTestBase extends BrowserTestBase {
     'comment',
     'block',
     'external_content',
+    'photoswipe',
   ];
 
 }

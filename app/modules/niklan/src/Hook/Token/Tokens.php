@@ -4,34 +4,23 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Hook\Token;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Url;
 use Drupal\niklan\Blog\Generator\BannerGenerator;
 use Drupal\niklan\Node\Entity\BlogEntry;
 use Drupal\niklan\Utils\MediaHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class Tokens implements ContainerInjectionInterface {
+#[Hook('tokens')]
+final readonly class Tokens {
 
   public function __construct(
     private BannerGenerator $bannerGenerator,
     private FileUrlGeneratorInterface $fileUrlGenerator,
     private PagerManagerInterface $pagerManager,
   ) {}
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(BannerGenerator::class),
-      $container->get(FileUrlGeneratorInterface::class),
-      $container->get(PagerManagerInterface::class),
-    );
-  }
 
   private function replaceNodeArticleBannerImage(string $original, State $state): void {
     $node = $state->getData()['node'];

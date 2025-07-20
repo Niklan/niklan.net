@@ -4,30 +4,23 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Hook\Theme;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\image\ImageStyleInterface;
 use Drupal\photoswipe\PhotoswipeAssetsManagerInterface;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-final readonly class PreprocessNiklanLightboxResponsiveImage implements ContainerInjectionInterface {
+#[Hook('preprocess_niklan_lightbox_responsive_image')]
+final readonly class PreprocessNiklanLightboxResponsiveImage {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private ImageFactory $imageFactory,
+    #[Autowire(service: 'photoswipe.assets_manager')]
     private PhotoswipeAssetsManagerInterface $photoswipeAssetsManager,
   ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(EntityTypeManagerInterface::class),
-      $container->get(ImageFactory::class),
-      $container->get('photoswipe.assets_manager'),
-    );
-  }
 
   private function prepareResponsiveImage(array &$variables): void {
     \assert($variables['thumbnail_responsive_image_style_id']);

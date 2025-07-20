@@ -38,6 +38,7 @@ abstract class NiklanTestBase extends KernelTestBase {
     'search_api',
     'twig_tweak',
     'external_content',
+    'photoswipe',
   ];
 
 }

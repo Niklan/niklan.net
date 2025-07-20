@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\Hook\Token;
 
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
+#[Hook('token_info')]
 final readonly class TokenInfo {
 
   private function defineTokens(): array {
