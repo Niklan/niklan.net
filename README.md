@@ -1,6 +1,6 @@
 # Niklan.net
 
-<img src="./app/Drupal/laszlo/logo.svg" alt="Niklan.net" width="128" align="right">
+<img src="./app/themes/laszlo/logo.svg" alt="Niklan.net" width="128" align="right">
 
 [![Niklan.net website repository](https://img.shields.io/badge/website-blue?style=flat&logo=github&label=niklan.net)](https://github.com/Niklan/niklan.net)
 [![Niklan.net content repository](https://img.shields.io/badge/content-f4f2ef?style=flat&logo=github&label=niklan.net)](https://github.com/Niklan/niklan.net-content)\
