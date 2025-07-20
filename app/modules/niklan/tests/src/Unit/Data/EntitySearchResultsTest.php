@@ -7,24 +7,13 @@ namespace Drupal\Tests\niklan\Unit\Data;
 use Drupal\niklan\Search\Data\EntitySearchResult;
 use Drupal\niklan\Search\Data\EntitySearchResults;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Provides a test for entity search results collection.
- *
- * @coversDefaultClass \Drupal\niklan\Search\Data\EntitySearchResults
- */
+#[CoversClass(EntitySearchResults::class)]
 final class EntitySearchResultsTest extends UnitTestCase {
 
-  /**
-   * Tests that class works as expected.
-   *
-   * @param array $input
-   *   An array with input data.
-   * @param array $expected
-   *   An array with expected values.
-   *
-   * @dataProvider dataProvider
-   */
+  #[DataProvider('dataProvider')]
   public function testObject(array $input, array $expected): void {
     $results = new EntitySearchResults(
       $input['items'],
@@ -48,10 +37,7 @@ final class EntitySearchResultsTest extends UnitTestCase {
     self::assertEquals($expected['entity_ids'], $results->getEntityIds());
   }
 
-  /**
-   * Provides data for testing.
-   */
-  public function dataProvider(): \Generator {
+  public static function dataProvider(): \Generator {
     yield 'empty' => [
       'input' => [
         'items' => [],

@@ -8,21 +8,15 @@ use Drupal\niklan\Search\Data\SearchParams;
 use Drupal\niklan\Search\Repository\GlobalSearch;
 use Drupal\Tests\niklan\Traits\SearchTrait;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Provides test for global search.
- *
- * @covers \Drupal\niklan\Search\Repository\GlobalSearch
- */
+#[CoversClass(GlobalSearch::class)]
 final class GlobalSearchTest extends UnitTestCase {
 
   use SearchTrait;
 
-  /**
-   * Tests that search works as expected.
-   *
-   * @dataProvider dataProvider
-   */
+  #[DataProvider('dataProvider')]
   public function testSearch(SearchParams $params, array $query_results): void {
     $search = new GlobalSearch(
       $this->prepareSearchApiQueryHelper($query_results),
@@ -34,10 +28,7 @@ final class GlobalSearchTest extends UnitTestCase {
     self::assertCount(\count($query_results), $search_results);
   }
 
-  /**
-   * Provides data for testing.
-   */
-  public function dataProvider(): \Generator {
+  public static function dataProvider(): \Generator {
     yield [new SearchParams(NULL, 10), []];
     yield [
       new SearchParams('Drupal', 10),

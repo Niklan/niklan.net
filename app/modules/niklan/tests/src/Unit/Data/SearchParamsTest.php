@@ -6,19 +6,13 @@ namespace Drupal\Tests\niklan\Unit\Data;
 
 use Drupal\niklan\Search\Data\SearchParams;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Provides a test for search params.
- *
- * @coversDefaultClass \Drupal\niklan\Search\Data\SearchParams
- */
+#[CoversClass(SearchParams::class)]
 final class SearchParamsTest extends UnitTestCase {
 
-  /**
-   * Tests that object works as expected.
-   *
-   * @dataProvider dataProvider
-   */
+  #[DataProvider('dataProvider')]
   public function testObject(?string $keys, int $limit, int $offset = 0): void {
     $params = new SearchParams($keys, $limit, $offset);
 
@@ -27,10 +21,7 @@ final class SearchParamsTest extends UnitTestCase {
     self::assertEquals($params->getOffset(), $offset);
   }
 
-  /**
-   * Provides data for testing.
-   */
-  public function dataProvider(): \Generator {
+  public static function dataProvider(): \Generator {
     yield 'without keys' => [NULL, 10];
     yield 'with keys' => ['foo', 20];
     yield 'with offset' => [NULL, 10, 50];
