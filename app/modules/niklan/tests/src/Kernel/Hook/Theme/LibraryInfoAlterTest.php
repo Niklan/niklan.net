@@ -6,17 +6,11 @@ namespace Drupal\Tests\niklan\Kernel\Hook\Theme;
 
 use Drupal\niklan\Hook\Theme\LibraryInfoAlter;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Tests hook_library_info_alter() implementation.
- *
- * @coversDefaultClass \Drupal\niklan\Hook\Theme\LibraryInfoAlter
- */
+#[CoversClass(LibraryInfoAlter::class)]
 final class LibraryInfoAlterTest extends NiklanTestBase {
 
-  /**
-   * The library info alter.
-   */
   protected LibraryInfoAlter $libraryInfoAlter;
 
   /**

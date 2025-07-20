@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Kernel\Process;
 
+use Drupal\niklan\Console\Process\Git;
 use Drupal\niklan\Console\Process\GitInterface;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Provides test for testing Git process.
- *
- * @coversDefaultClass \Drupal\niklan\Console\Process\Git
- */
+#[CoversClass(Git::class)]
 final class GitTest extends NiklanTestBase {
 
   /**

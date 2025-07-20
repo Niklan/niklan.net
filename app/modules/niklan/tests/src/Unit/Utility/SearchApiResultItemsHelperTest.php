@@ -9,13 +9,10 @@ use Drupal\niklan\Search\Utils\SearchApiResultItemsHelper;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-/**
- * Provides a test for Search API result items helper.
- *
- * @coversDefaultClass \Drupal\niklan\Search\Utils\SearchApiResultItemsHelper
- */
+#[CoversClass(SearchApiResultItemsHelper::class)]
 final class SearchApiResultItemsHelperTest extends UnitTestCase {
 
   use ProphecyTrait;

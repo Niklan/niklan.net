@@ -7,15 +7,12 @@ namespace Drupal\Tests\niklan\Unit\Process;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\niklan\Console\Process\Terminal;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Process\Process;
 
-/**
- * Provides test for terminal wrapper.
- *
- * @coversDefaultClass \Drupal\niklan\Console\Process\Terminal
- */
+#[CoversClass(Terminal::class)]
 final class TerminalTest extends UnitTestCase {
 
   use ProphecyTrait;

@@ -6,19 +6,17 @@ namespace Drupal\Tests\niklan\Functional\Plugin\Filter;
 
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\filter\Plugin\FilterInterface;
+use Drupal\niklan\Plugin\Filter\Markdown;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Provides a test for markdown filter.
- *
- * @coversDefaultClass \Drupal\niklan\Plugin\Filter\Markdown
- */
+#[CoversClass(Markdown::class)]
 final class MarkdownTest extends FilterTestBase {
 
   /**
    * Tests that filter works as expected.
    */
   public function testFilter(): void {
-    $filter = $this->filterManager->createInstance('niklan_markdown');
+    $filter = $this->filterManager->createInstance(Markdown::ID);
     \assert($filter instanceof FilterInterface);
 
     $text = '**strong**';

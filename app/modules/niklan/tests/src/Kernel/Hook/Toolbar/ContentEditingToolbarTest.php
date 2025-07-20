@@ -7,12 +7,9 @@ namespace Drupal\Tests\niklan\Kernel\Hook\Toolbar;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\niklan\Hook\Toolbar\ContentEditingToolbar;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * Provides a test for content editing toolbar.
- *
- * @covers \Drupal\niklan\Hook\Toolbar\ContentEditingToolbar
- */
+#[CoversClass(ContentEditingToolbar::class)]
 final class ContentEditingToolbarTest extends NiklanTestBase {
 
   /**

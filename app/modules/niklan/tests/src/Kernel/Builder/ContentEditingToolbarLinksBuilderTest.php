@@ -11,13 +11,10 @@ use Drupal\Core\Security\DoTrustedCallbackTrait;
 use Drupal\Core\Url;
 use Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;
 
-/**
- * Provides a test for content editing toolbar links.
- *
- * @covers \Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder
- */
+#[CoversClass(ContentEditingToolbarLinksBuilder::class)]
 final class ContentEditingToolbarLinksBuilderTest extends NiklanTestBase {
 
   use DoTrustedCallbackTrait;
