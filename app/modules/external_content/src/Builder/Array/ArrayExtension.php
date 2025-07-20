@@ -10,7 +10,6 @@ use Drupal\external_content\Nodes\Format\ArrayBuilder as FormatBuilder;
 use Drupal\external_content\Nodes\Heading\ArrayBuilder as HeadingBuilder;
 use Drupal\external_content\Nodes\HtmlElement\ArrayBuilder as HtmlElementBuilder;
 use Drupal\external_content\Nodes\Text\ArrayBuilder as TextBuilder;
-use Drupal\external_content\Utils\Registry;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**
@@ -26,7 +25,6 @@ final readonly class ArrayExtension implements Extension {
   public const string ID = 'external_content.array_builder';
 
   public function register(object $target): void {
-    \assert($target instanceof Registry);
     $target->add(new FormatBuilder());
     $target->add(new HeadingBuilder());
     $target->add(new HtmlElementBuilder());

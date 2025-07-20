@@ -12,29 +12,59 @@ use Drupal\Core\Form\FormStateInterface;
 
 final readonly class AjaxFormHelper {
 
-  /**
-   * Provides a simple way to refresh AJAX form.
-   *
-   * This is basically copy of \Drupal\commerce\AjaxFormTrait::ajaxRefreshForm.
-   *
-   * Note that both the form and the element need to have an #id specified,
-   * as a workaround to core bug #2897377.
-   */
   public static function refresh(array $form, FormStateInterface $form_state): AjaxResponse {
-    $triggering_element = $form_state->getTriggeringElement();
-    $element = NULL;
-    if (isset($triggering_element['#ajax']['element'])) {
-      $element = NestedArray::getValue($form, $triggering_element['#ajax']['element']);
-    }
-    // Element not specified or not found. Show messages on top of the form.
-    if (!$element) {
-      $element = $form;
-    }
+    $element = self::resolveTargetElement($form, $form_state);
     $response = new AjaxResponse();
-    $response->addCommand(new ReplaceCommand('[data-drupal-selector="' . $form['#attributes']['data-drupal-selector'] . '"]', $form));
-    $response->addCommand(new PrependCommand('[data-drupal-selector="' . $element['#attributes']['data-drupal-selector'] . '"]', ['#type' => 'status_messages']));
+
+    self::addFormReplaceCommand($form, $response);
+    self::addStatusMessagesCommand($element, $response);
 
     return $response;
+  }
+
+  private static function resolveTargetElement(array $form, FormStateInterface $form_state): array {
+    $triggering_element = $form_state->getTriggeringElement();
+
+    if (isset($triggering_element['#ajax']['element'])) {
+      $element = NestedArray::getValue($form, $triggering_element['#ajax']['element']);
+      return \is_array($element) ? $element : $form;
+    }
+
+    return $form;
+  }
+
+  private static function addFormReplaceCommand(array $form, AjaxResponse $response): void {
+    $form_selector = self::extractDataSelector($form);
+
+    if (!$form_selector) {
+      return;
+    }
+
+    $response->addCommand(new ReplaceCommand(
+    self::formatSelector($form_selector),
+    $form,
+    ));
+  }
+
+  private static function addStatusMessagesCommand(array $element, AjaxResponse $response): void {
+    $element_selector = self::extractDataSelector($element);
+
+    if (!$element_selector) {
+      return;
+    }
+
+    $response->addCommand(new PrependCommand(
+    self::formatSelector($element_selector),
+    ['#type' => 'status_messages'],
+    ));
+  }
+
+  private static function extractDataSelector(array $element): ?string {
+    return $element['#attributes']['data-drupal-selector'] ?? NULL;
+  }
+
+  private static function formatSelector(string $selector): string {
+    return \sprintf('[data-drupal-selector="%s"]', $selector);
   }
 
 }

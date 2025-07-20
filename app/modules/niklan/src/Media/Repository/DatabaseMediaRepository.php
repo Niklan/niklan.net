@@ -31,6 +31,7 @@ final readonly class DatabaseMediaRepository implements MediaRepository {
     // first one.
     $media_ids = \array_keys($usage['file']['media']);
     $media_id = \reset($media_ids);
+    \assert(\is_numeric($media_id));
 
     $media = $this->getStorage()->load($media_id);
     return $media instanceof MediaInterface ? $media : NULL;

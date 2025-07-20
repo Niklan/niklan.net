@@ -2,7 +2,8 @@ name: Niklan Development
 type: module
 description: The module with some functionality related to the project development.
 package: Development
-core_version_requirement: ^10 || ^11
+core_version_requirement: ^11
+container_rebuild_required: false
 
 # NOTE! If you add some module into development dependencies, consider to add it
 # to 'config_exclude_modules' setting.

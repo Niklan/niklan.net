@@ -6,7 +6,6 @@ namespace Drupal\niklan\ExternalContent\Stages;
 
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Parser\ArticleXmlParser;
 use Symfony\Component\Finder\Finder;
 
@@ -23,7 +22,6 @@ final readonly class ArticleFinder implements PipelineStage {
    * @param \Drupal\niklan\ExternalContent\Domain\SyncContext $context
    */
   public function process(PipelineContext $context): void {
-    \assert($context instanceof SyncContext);
     $pattern = 'article.xml';
     $context->getLogger()->info('Blog article search initiated', [
       'working_directory' => $context->workingDirectory,

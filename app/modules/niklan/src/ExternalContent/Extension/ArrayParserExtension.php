@@ -6,7 +6,6 @@ namespace Drupal\niklan\ExternalContent\Extension;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Extension\ContainerExtensionManager;
-use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Nodes\Callout\ArrayParser as CalloutParser;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\ArrayParser as CalloutBodyParser;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\ArrayParser as CalloutTitleParser;
@@ -27,7 +26,6 @@ final readonly class ArrayParserExtension implements Extension {
   public const string ID = 'niklan.array_parser';
 
   public function register(object $target): void {
-    \assert($target instanceof Registry);
     $target->add(new CodeBlockParser());
     $target->add(new CalloutParser());
     $target->add(new CalloutTitleParser());

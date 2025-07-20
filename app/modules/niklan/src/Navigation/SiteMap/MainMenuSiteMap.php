@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\Navigation\SiteMap;
 
 use Drupal\Core\Link;
-use Drupal\Core\Menu\MenuLinkTreeElement;
 use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -33,7 +32,6 @@ final readonly class MainMenuSiteMap implements SiteMapBuilderInterface {
     ];
 
     foreach ($this->menuLinkTree->transform($tree, $manipulators) as $element) {
-      \assert($element instanceof MenuLinkTreeElement);
       $element->link->getUrlObject();
       $section->add(Link::fromTextAndUrl($element->link->getTitle(), $element->link->getUrlObject()));
     }

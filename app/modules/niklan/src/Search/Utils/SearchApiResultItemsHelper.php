@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\Search\Utils;
 
 use Drupal\niklan\Search\Data\EntitySearchResult;
-use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 
 final class SearchApiResultItemsHelper {
@@ -17,8 +16,6 @@ final class SearchApiResultItemsHelper {
     $entity_ids = [];
 
     foreach ($result_set->getResultItems() as $result_item) {
-      \assert($result_item instanceof ItemInterface);
-
       if (!\preg_match('/entity:[a-z_]+\/[0-9]+:[a-z]{2}/m', $result_item->getId())) {
         continue;
       }

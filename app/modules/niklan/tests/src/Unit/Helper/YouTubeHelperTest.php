@@ -6,21 +6,19 @@ namespace Drupal\niklan\Helper;
 
 use Drupal\niklan\Utils\YouTubeHelper;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * @coversDefaultClass \Drupal\niklan\Utils\YouTubeHelper
- */
+#[CoversClass(YouTubeHelper::class)]
 final class YouTubeHelperTest extends UnitTestCase {
 
-  /**
-   * @dataProvider youTubeUrlsProvider
-   */
+  #[DataProvider('youTubeUrlsProvider')]
   public function testHelper(string $url, bool $is_youtube_url, ?string $video_id): void {
     self::assertSame($is_youtube_url, YouTubeHelper::isYouTubeUrl($url));
     self::assertSame($video_id, YouTubeHelper::extractVideoId($url));
   }
 
-  public function youTubeUrlsProvider(): \Generator {
+  public static function youTubeUrlsProvider(): \Generator {
     // https://www.youtube.com/watch?v=Y1I7zGn6F-w
     yield [
       'url' => 'https://google.com',

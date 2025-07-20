@@ -6,26 +6,13 @@ namespace Drupal\Tests\niklan\Unit\Data;
 
 use Drupal\niklan\Search\Data\EntitySearchResult;
 use Drupal\Tests\UnitTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Tests the entity search result item DTO.
- *
- * @coversDefaultClass \Drupal\niklan\Search\Data\EntitySearchResult
- */
+#[CoversClass(\Drupal\niklan\Search\Data\EntitySearchResult::class)]
 final class EntitySearchResultTest extends UnitTestCase {
 
-  /**
-   * Tests that object works as expected.
-   *
-   * @param string $entity_type_id
-   *   The entity type ID.
-   * @param int|string $entity_id
-   *   The entity ID.
-   * @param string $language
-   *   The entity langcode.
-   *
-   * @dataProvider dataProvider
-   */
+  #[DataProvider('dataProvider')]
   public function testObject(string $entity_type_id, int|string $entity_id, string $language): void {
     $item = new EntitySearchResult($entity_type_id, $entity_id, $language);
 
@@ -34,10 +21,7 @@ final class EntitySearchResultTest extends UnitTestCase {
     self::assertEquals($language, $item->language);
   }
 
-  /**
-   * Provides testing data.
-   */
-  public function dataProvider(): \Generator {
+  public static function dataProvider(): \Generator {
     yield ['node', '1', 'ru'];
     yield ['node', 1, 'en'];
   }

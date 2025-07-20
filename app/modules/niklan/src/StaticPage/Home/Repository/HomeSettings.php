@@ -45,13 +45,14 @@ final class HomeSettings extends LanguageAwareSettingsStore {
   /**
    * @return array{}|array<int, array{
    *   media_id: string,
-   *    title: string,
-   *    description: string,
-   *   }> */
+   *   title: string,
+   *   description: string,
+   *   }>
+   */
   public function getCards(): array {
     $cards = $this->getStore()->get('cards', []);
     \assert(\is_array($cards), 'The cards must be an array.');
-
+    // @phpstan-ignore-next-line
     return $cards;
   }
 

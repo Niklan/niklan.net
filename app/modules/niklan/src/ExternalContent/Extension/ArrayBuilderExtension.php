@@ -6,7 +6,6 @@ namespace Drupal\niklan\ExternalContent\Extension;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Extension\ContainerExtensionManager;
-use Drupal\external_content\Utils\Registry;
 use Drupal\niklan\ExternalContent\Nodes\Callout\ArrayBuilder as CalloutBuilder;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\ArrayBuilder as CalloutBodyBuilder;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\ArrayBuilder as CalloutTitleBuilder;
@@ -27,7 +26,6 @@ final readonly class ArrayBuilderExtension implements Extension {
   public const string ID = 'niklan.array_builder';
 
   public function register(object $target): void {
-    \assert($target instanceof Registry);
     $target->add(new CalloutBuilder());
     $target->add(new CalloutBodyBuilder());
     $target->add(new CalloutTitleBuilder());

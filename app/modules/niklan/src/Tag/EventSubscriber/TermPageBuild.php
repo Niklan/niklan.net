@@ -23,9 +23,8 @@ final class TermPageBuild implements EventSubscriberInterface {
       return;
     }
 
-    $controller = $this
-      ->classResolver
-      ->getInstanceFromDefinition(Tag::class);
+    $controller = $this->classResolver->getInstanceFromDefinition(Tag::class);
+    // @phpstan-ignore-next-line
     \assert($controller instanceof Tag);
     $event->setBuildArray($controller($taxonomy_term));
   }

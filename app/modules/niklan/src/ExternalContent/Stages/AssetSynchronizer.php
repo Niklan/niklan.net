@@ -25,7 +25,6 @@ final readonly class AssetSynchronizer implements PipelineStage {
   ) {}
 
   public function process(PipelineContext $context): void {
-    \assert($context instanceof ArticleTranslationProcessContext);
     \assert($context->externalContent instanceof Node);
     $this->syncExternalContentRecursively($context->externalContent, $context);
     $this->syncPoster($context);

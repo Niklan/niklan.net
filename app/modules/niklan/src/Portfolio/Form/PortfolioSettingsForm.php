@@ -43,10 +43,7 @@ final class PortfolioSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   protected function getSettings(): PortfolioSettings {
-    $settings = $this->getContainer()->get(PortfolioSettings::class);
-    \assert($settings instanceof PortfolioSettings);
-
-    return $settings;
+    return $this->getContainer()->get(PortfolioSettings::class);
   }
 
 }
