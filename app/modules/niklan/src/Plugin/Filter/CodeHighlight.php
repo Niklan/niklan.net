@@ -11,13 +11,15 @@ use Drupal\filter\Plugin\FilterBase;
 use Drupal\filter\Plugin\FilterInterface;
 
 #[Filter(
-  id: 'niklan_code_highlight',
+  id: self::ID,
   title: new TranslatableMarkup('Code highlight'),
   type: FilterInterface::TYPE_MARKUP_LANGUAGE,
   description: new TranslatableMarkup('Adds code highlight library if the pre element is detected.'),
   weight: 100,
 )]
 final class CodeHighlight extends FilterBase {
+
+  public const string ID = 'niklan_code_highlight';
 
   #[\Override]
   public function process($text, $langcode): FilterProcessResult {

@@ -20,13 +20,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @extends \Drupal\Core\Field\FormatterBase<\Drupal\comment\CommentFieldItemList>
  */
 #[FieldFormatter(
-  id: 'niklan_comment',
+  id: self::ID,
   label: new TranslatableMarkup('Improved comment list'),
   field_types: [
     'comment',
   ],
 )]
 final class CommentFormatter extends FormatterBase {
+
+  public const string ID = 'niklan_comment';
 
   public function __construct(
     string $plugin_id,
