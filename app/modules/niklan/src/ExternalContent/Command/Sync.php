@@ -50,7 +50,7 @@ final class Sync extends Command {
     \assert(\is_string($source_uri));
 
     $context = new SyncContext($source_uri, $logger);
-    $context->setForceStatus($input->getOption('force'));
+    $context->setForceStatus((bool) $input->getOption('force'));
     $this->syncPipeline->run($context);
 
     return self::SUCCESS;
