@@ -9,7 +9,7 @@ use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Nodes\Node;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\CalloutBody;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\CalloutTitle;
-use Symfony\Component\DomCrawler\Crawler;
+use Drupal\niklan\ExternalContent\Utils\ContainerDirectiveHelper;
 
 final readonly class HtmlParser implements Parser {
 
@@ -35,12 +35,7 @@ final readonly class HtmlParser implements Parser {
   }
 
   private function parseTitle(\DOMNode $dom_node, Node $callout, ChildParser $child_parser): void {
-    $crawler = new Crawler($dom_node);
-    // Since callouts can be nested within each other, there is a possibility
-    // that a parent callout may not have a title while a nested one does.
-    // Therefore, it is crucial that the title is searched only among direct
-    // child elements and not throughout the entire child tree.
-    $title_node = $crawler->filterXPath('.//*[1]/div[@data-selector="inline-content"]')->getNode(0);
+    $title_node = ContainerDirectiveHelper::findDomInlineContent($dom_node);
     if (!$title_node instanceof \DOMNode) {
       return;
     }
@@ -51,8 +46,7 @@ final readonly class HtmlParser implements Parser {
   }
 
   private function parseBody(\DOMNode $dom_node, Node $callout, ChildParser $child_parser): void {
-    $crawler = new Crawler($dom_node);
-    $body_node = $crawler->filter('[data-selector="content"]')->getNode(0);
+    $body_node = ContainerDirectiveHelper::findDomContent($dom_node);
     if (!$body_node instanceof \DOMNode) {
       return;
     }

@@ -9,6 +9,8 @@ use Drupal\external_content\Extension\ContainerExtensionManager;
 use Drupal\niklan\ExternalContent\Nodes\ArticleLink\RenderArrayBuilder as ArticleLinkBuilder;
 use Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder as CalloutBuilder;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder as CodeBlockBuilder;
+use Drupal\niklan\ExternalContent\Nodes\Figcaption\RenderArrayBuilder as FigcaptionBuilder;
+use Drupal\niklan\ExternalContent\Nodes\Figure\RenderArrayBuilder as FigureBuilder;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder as MediaReferenceBuilder;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
@@ -36,6 +38,8 @@ final readonly class RenderArrayBuilderExtension implements Extension {
     $target->add($this->calloutBuilder);
     $target->add($this->mediaReferenceBuilder);
     $target->add($this->articleLinkBuilder, 10);
+    $target->add(new FigureBuilder());
+    $target->add(new FigcaptionBuilder());
   }
 
 }

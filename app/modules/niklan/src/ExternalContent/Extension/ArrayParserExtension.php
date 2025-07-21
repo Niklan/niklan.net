@@ -10,6 +10,8 @@ use Drupal\niklan\ExternalContent\Nodes\Callout\ArrayParser as CalloutParser;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\ArrayParser as CalloutBodyParser;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\ArrayParser as CalloutTitleParser;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\ArrayParser as CodeBlockParser;
+use Drupal\niklan\ExternalContent\Nodes\Figcaption\ArrayParser as FigcaptionParser;
+use Drupal\niklan\ExternalContent\Nodes\Figure\ArrayParser as FigureParser;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\ArrayParser as MediaReferenceParser;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
@@ -31,6 +33,8 @@ final readonly class ArrayParserExtension implements Extension {
     $target->add(new CalloutTitleParser());
     $target->add(new CalloutBodyParser());
     $target->add(new MediaReferenceParser());
+    $target->add(new FigureParser());
+    $target->add(new FigcaptionParser());
   }
 
 }

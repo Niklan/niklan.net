@@ -10,6 +10,8 @@ use Drupal\niklan\ExternalContent\Nodes\Callout\ArrayBuilder as CalloutBuilder;
 use Drupal\niklan\ExternalContent\Nodes\CalloutBody\ArrayBuilder as CalloutBodyBuilder;
 use Drupal\niklan\ExternalContent\Nodes\CalloutTitle\ArrayBuilder as CalloutTitleBuilder;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\ArrayBuilder as CodeBlockBuilder;
+use Drupal\niklan\ExternalContent\Nodes\Figcaption\ArrayBuilder as FigcaptionBuilder;
+use Drupal\niklan\ExternalContent\Nodes\Figure\ArrayBuilder as FigureBuilder;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\ArrayBuilder as MediaReferenceBuilder;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
@@ -31,6 +33,8 @@ final readonly class ArrayBuilderExtension implements Extension {
     $target->add(new CalloutTitleBuilder());
     $target->add(new CodeBlockBuilder());
     $target->add(new MediaReferenceBuilder());
+    $target->add(new FigureBuilder());
+    $target->add(new FigcaptionBuilder());
   }
 
 }
