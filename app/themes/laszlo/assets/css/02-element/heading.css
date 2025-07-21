@@ -1,5 +1,6 @@
 @layer element {
   h1 {
+    letter-spacing: -0.5px;
     font: var(--typography-display-large);
   }
 
@@ -20,7 +21,7 @@
   }
 
   h6 {
-    font: var(--typography-title-medium);
+    font: var(--typography-body-large);
   }
 
   h1,

@@ -182,13 +182,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: var(--spacing-6);
+    padding: var(--spacing-4) var(--spacing-2);
     border-radius: var(--spacing-4);
     background-color: var(--_article-main-background);
     gap: var(--spacing-6);
     margin-inline: calc(var(--page-side-gap) * -1);
 
     @media screen and (min-width: 640px) {
+      padding: var(--spacing-4);
       margin-inline: initial;
     }
 
