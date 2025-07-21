@@ -59,6 +59,22 @@
     margin-top: var(--spacing-3);
   }
 
+  .prose figure {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-4);
+    border: 1px solid var(--color-surface-dim);
+    border-radius: var(--spacing-3);
+    background: var(--color-surface-container);
+    gap: var(--spacing-4);
+  }
+
+  .prose figure > figcaption {
+    text-align: center;
+    font: var(--typography-body-medium);
+    font-style: italic;
+  }
+
   body:not(.is-using-mouse) .prose .heading-permalink {
     visibility: visible;
   }

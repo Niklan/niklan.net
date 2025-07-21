@@ -8,6 +8,8 @@ use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Extension\ContainerExtensionManager;
 use Drupal\niklan\ExternalContent\Nodes\Callout\HtmlParser as CalloutParser;
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\HtmlParser as CodeBlockParser;
+use Drupal\niklan\ExternalContent\Nodes\Figcaption\HtmlParser as FigcaptionParser;
+use Drupal\niklan\ExternalContent\Nodes\Figure\HtmlParser as FigureParser;
 use Drupal\niklan\ExternalContent\Nodes\Image\HtmlParser as ImageParser;
 use Drupal\niklan\ExternalContent\Nodes\LocalVideo\HtmlParser as LocalVideoParser;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\HtmlParser as RemoteVideoParser;
@@ -31,6 +33,8 @@ final readonly class HtmlParserExtension implements Extension {
     $target->add(new CalloutParser());
     $target->add(new CodeBlockParser());
     $target->add(new ImageParser());
+    $target->add(new FigureParser());
+    $target->add(new FigcaptionParser());
   }
 
 }
