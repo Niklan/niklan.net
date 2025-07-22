@@ -1,12 +1,12 @@
 @layer component.ui {
   .callout {
-    --_callout-color: var(--collout-color, var(--color-scrim));
+    --_callout-color: var(--callout-color, var(--color-scrim));
     --_callout-background-color: var(
       --callout-background-color,
       var(--color-surface-bright)
     );
     --_callout-border-color: var(
-      --collout-border-color,
+      --callout-border-color,
       var(--color-outline-variant)
     );
     --icon-width: 24px;
@@ -40,54 +40,54 @@
   }
 
   .callout--note {
-    --collout-color: #086ddd;
+    --callout-color: #086ddd;
     --callout-background-color: #086ddd1a;
-    --collout-border-color: #086ddd25;
+    --callout-border-color: #086ddd25;
   }
 
   .callout--tip {
-    --collout-color: #00bfbc;
+    --callout-color: #00bfbc;
     --callout-background-color: #00bfbc1a;
-    --collout-border-color: #00bfbc25;
+    --callout-border-color: #00bfbc25;
   }
 
   .callout--important,
   .callout--warning {
-    --collout-color: #ec7500;
+    --callout-color: #ec7500;
     --callout-background-color: #ec75001a;
-    --collout-border-color: #ec750025;
+    --callout-border-color: #ec750025;
   }
 
   .callout--caution {
-    --collout-color: #e93147;
+    --callout-color: #e93147;
     --callout-background-color: #e931471a;
-    --collout-border-color: #e9314725;
+    --callout-border-color: #e9314725;
   }
 
   [data-theme="dark"] {
     .callout--note {
-      --collout-color: #027aff;
+      --callout-color: #027aff;
       --callout-background-color: #027aff1a;
-      --collout-border-color: #027aff25;
+      --callout-border-color: #027aff25;
     }
 
     .callout--tip {
-      --collout-color: #53dfdd;
+      --callout-color: #53dfdd;
       --callout-background-color: #53dfdd1a;
-      --collout-border-color: #53dfdd25;
+      --callout-border-color: #53dfdd25;
     }
 
     .callout--important,
     .callout--warning {
-      --collout-color: #e9973f;
+      --callout-color: #e9973f;
       --callout-background-color: #e9973f1a;
-      --collout-border-color: #e9973f25;
+      --callout-border-color: #e9973f25;
     }
 
     .callout--caution {
-      --collout-color: #fb464c;
+      --callout-color: #fb464c;
       --callout-background-color: #fb464c1a;
-      --collout-border-color: #fb464c25;
+      --callout-border-color: #fb464c25;
     }
   }
 }
