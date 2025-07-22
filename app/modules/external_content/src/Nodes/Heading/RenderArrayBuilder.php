@@ -13,6 +13,7 @@ use Drupal\external_content\Utils\HtmlTagHelper;
 
 /**
  * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\external_content\Nodes\Heading\Heading>
+ * @deprecated Exactly the same as HtmlElement.
  */
 final readonly class RenderArrayBuilder implements Builder {
 

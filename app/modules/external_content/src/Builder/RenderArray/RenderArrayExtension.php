@@ -26,7 +26,9 @@ final class RenderArrayExtension implements Extension {
 
   public function register(object $target): void {
     $target->add(new TextBuilder());
+    // @phpstan-ignore-next-line new.deprecatedClass
     $target->add(new FormatBuilder());
+    // @phpstan-ignore-next-line new.deprecatedClass
     $target->add(new HeadingBuilder());
     $target->add(new HtmlElementBuilder(), -100);
   }

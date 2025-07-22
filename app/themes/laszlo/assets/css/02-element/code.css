@@ -1,5 +1,11 @@
 @layer element {
   code {
+    font-family: var(--font-monospace);
+  }
+
+  p > code,
+  li > code,
+  pre > code {
     font: var(--typography-code);
   }
 

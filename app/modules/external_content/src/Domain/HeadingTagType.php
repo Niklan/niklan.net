@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Domain;
 
+/**
+ * @deprecated Not needed after Heading node is removed.
+ */
 enum HeadingTagType: string {
 
   case H1 = 'h1';

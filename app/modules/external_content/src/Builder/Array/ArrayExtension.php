@@ -25,7 +25,9 @@ final readonly class ArrayExtension implements Extension {
   public const string ID = 'external_content.array_builder';
 
   public function register(object $target): void {
+    // @phpstan-ignore-next-line new.deprecatedClass
     $target->add(new FormatBuilder());
+    // @phpstan-ignore-next-line new.deprecatedClass
     $target->add(new HeadingBuilder());
     $target->add(new HtmlElementBuilder());
     $target->add(new TextBuilder());

@@ -13,6 +13,7 @@ use Drupal\external_content\Utils\HtmlTagHelper;
 
 /**
  * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\external_content\Nodes\Format\Format>
+ * @deprecated Exactly the same as HtmlElement.
  */
 final readonly class RenderArrayBuilder implements Builder {
 
@@ -24,6 +25,7 @@ final readonly class RenderArrayBuilder implements Builder {
     $element = new RenderArray([
       '#type' => 'html_tag',
       '#tag' => $node->format->toHtmlTag(),
+      '#attributes' => $node->attributes,
       '#pre_render' => [
         HtmlTag::preRenderHtmlTag(...),
         HtmlTagHelper::preRenderTag(...),

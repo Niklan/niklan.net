@@ -10,6 +10,9 @@ use Drupal\external_content\DataStructure\ArrayElement;
 use Drupal\external_content\Domain\HeadingTagType;
 use Drupal\external_content\Nodes\Node;
 
+/**
+ * @deprecated Exactly the same as HtmlElement.
+ */
 final readonly class ArrayParser implements Parser {
 
   public function supports(ArrayElement $array): bool {

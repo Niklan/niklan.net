@@ -7,6 +7,9 @@ namespace Drupal\external_content\Nodes\Heading;
 use Drupal\external_content\Domain\HeadingTagType;
 use Drupal\external_content\Nodes\Node;
 
+/**
+ * @deprecated Exactly the same as HtmlElement.
+ */
 final class Heading extends Node {
 
   public function __construct(

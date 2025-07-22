@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Domain;
 
+/**
+ * @deprecated Not needed after Format node is removed.
+ */
 enum TextFormatType: string {
 
   case Bold = 'bold';

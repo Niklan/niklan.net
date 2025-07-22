@@ -66,10 +66,12 @@ final class TableOfContentsBuilder {
     $headings[] = [
       'text' => $this->extractHeadingTextContent($heading),
       'anchor' => (string) ($link->attributes['href'] ?? ''),
+      // @phpstan-ignore-next-line property.deprecateClass
       'indent' => $this->determineHeadingLevel($heading->tag->value),
     ];
   }
 
+  // @phpstan-ignore-next-line parameter.deprecateClass
   private function extractHeadingTextContent(Heading $heading): string {
     $textContent = '';
     foreach ($heading->getChildren() as $child) {
