@@ -140,7 +140,7 @@ final class CommonMarkDirectiveHelper {
 
     if (\array_key_exists('key-value', $attributes)) {
       foreach ($attributes['key-value'] as $key => $value) {
-        $attributes["data-$key"] = $value;
+        $attributes[$key] = $value;
       }
 
       unset($attributes['key-value']);
@@ -164,7 +164,14 @@ final class CommonMarkDirectiveHelper {
   private static function parseKeyValuePairs(Cursor $cursor, array &$key_value): void {
     $key = $cursor->match(self::ATTRIBUTES_KEY_REGEX);
 
-    // Skip '='.
+    // For value-less attributes, example: '{autoplay muted controls}'.
+    // It returns NULL when it is the end of attributes.
+    if ($cursor->getCurrentCharacter() === ' ' || $cursor->getCurrentCharacter() === NULL) {
+      $key_value[$key] = '';
+      $cursor->advanceBy(1);
+      return;
+    }
+
     $cursor->advanceBy(1);
     $has_string_opening = $cursor->getCurrentCharacter() === '"';
 

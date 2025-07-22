@@ -75,15 +75,15 @@ final readonly class RenderArrayBuilder implements Builder {
     $source_attributes->setAttribute('src', $file->createFileUrl());
     $source_attributes->setAttribute('type', $file->getMimeType());
 
+    $video_attributes = [
+      'width' => 640,
+      'height' => 480,
+      ...$node->metadata,
+    ];
+
     $render_array = new RenderArray([
       '#theme' => 'file_video',
-      '#attributes' => [
-        'width' => 640,
-        'height' => 480,
-        'controls' => 'controls',
-        'loop' => 'loop',
-        'muted' => TRUE,
-      ],
+      '#attributes' => $video_attributes,
       '#files' => [
         [
           'file' => $file,

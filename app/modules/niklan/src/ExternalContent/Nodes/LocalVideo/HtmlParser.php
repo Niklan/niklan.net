@@ -7,6 +7,7 @@ namespace Drupal\niklan\ExternalContent\Nodes\LocalVideo;
 use Drupal\external_content\Contract\Parser\Html\ChildParser;
 use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Nodes\Node;
+use Drupal\external_content\Utils\HtmlDomHelper;
 use Symfony\Component\DomCrawler\Crawler;
 
 final readonly class HtmlParser implements Parser {
@@ -20,7 +21,14 @@ final readonly class HtmlParser implements Parser {
 
   public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
     \assert($dom_node instanceof \DOMElement);
-    return new LocalVideo($dom_node->getAttribute('data-argument'), $this->prepareTitle($dom_node));
+    return new LocalVideo(
+      src: $dom_node->getAttribute('data-argument'),
+      title: $this->prepareTitle($dom_node),
+      attributes: \array_intersect_key(
+        HtmlDomHelper::parseAttributes($dom_node),
+        \array_flip(['autoplay', 'loop', 'controls', 'muted']),
+      ),
+    );
   }
 
   private function prepareTitle(\DOMNode $dom_node): string {
