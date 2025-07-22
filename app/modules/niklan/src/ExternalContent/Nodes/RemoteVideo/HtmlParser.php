@@ -14,12 +14,12 @@ final readonly class HtmlParser implements Parser {
     return $dom_node instanceof \DOMElement
       && $dom_node->getAttribute('data-selector') === 'niklan:leaf-directive'
       && $dom_node->getAttribute('data-type') === 'youtube'
-      && $dom_node->hasAttribute('data-vid');
+      && $dom_node->hasAttribute('vid');
   }
 
   public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
     \assert($dom_node instanceof \DOMElement);
-    $video_id = $dom_node->getAttribute('data-vid');
+    $video_id = $dom_node->getAttribute('vid');
     return new RemoteVideo("https://youtu.be/$video_id");
   }
 

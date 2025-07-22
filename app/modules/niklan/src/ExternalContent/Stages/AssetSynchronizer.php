@@ -86,7 +86,7 @@ final readonly class AssetSynchronizer implements PipelineStage {
 
   private function syncLocalVideo(LocalVideo $node, ArticleTranslationProcessContext $context): void {
     $asset_path = $context->articleTranslation->contentDirectory . '/' . $node->src;
-    $data = ['title' => $node->title];
+    $data = ['title' => $node->title, ...$node->attributes];
     $this->replaceWithMediaReferenceNode($node, $asset_path, $data);
   }
 

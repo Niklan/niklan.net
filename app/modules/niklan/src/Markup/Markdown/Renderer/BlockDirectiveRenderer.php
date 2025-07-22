@@ -42,7 +42,13 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
       $attributes += $node->attributes;
     }
 
-    return \array_filter($attributes);
+    // It is important to filter out only NULL values and empty arrays. An empty
+    // string is a valid value for attributes like 'autoplay', 'loop',
+    // 'controls', etc.
+    return \array_filter(
+      array: $attributes,
+      callback: static fn ($value) => !(\is_null($value) || (\is_array($value) && \count($value) === 0)),
+    );
   }
 
   private function prepareContents(BlockDirective $node, ChildNodeRendererInterface $childRenderer): string {
