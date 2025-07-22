@@ -1,17 +1,25 @@
 @layer component.ui {
   .callout {
-    --note-color: var(--color-scrim);
+    --_callout-color: var(--callout-color, var(--color-scrim));
+    --_callout-background-color: var(
+      --callout-background-color,
+      var(--color-surface-bright)
+    );
+    --_callout-border-color: var(
+      --callout-border-color,
+      var(--color-outline-variant)
+    );
     --icon-width: 24px;
 
     display: flex;
     flex-direction: column;
     padding: var(--spacing-4);
     color: var(--color-on-surface);
-    border-left: var(--spacing-1) solid var(--note-color);
+    border: 1px solid var(--_callout-border-color);
+    border-left: var(--spacing-2) solid var(--_callout-color);
     border-radius: var(--spacing-1);
-    background-color: var(--color-surface-bright);
+    background-color: var(--_callout-background-color);
     gap: var(--spacing-4);
-    box-shadow: var(--elevation-1);
   }
 
   .callout__heading {
@@ -24,7 +32,7 @@
   }
 
   .callout__heading .icon {
-    color: var(--note-color);
+    color: var(--_callout-color);
   }
 
   .callout__content {
@@ -32,22 +40,54 @@
   }
 
   .callout--note {
-    --note-color: #046cd3;
+    --callout-color: #086ddd;
+    --callout-background-color: #086ddd1a;
+    --callout-border-color: #086ddd25;
   }
 
   .callout--tip {
-    --note-color: #1c7e37;
+    --callout-color: #00bfbc;
+    --callout-background-color: #00bfbc1a;
+    --callout-border-color: #00bfbc25;
   }
 
-  .callout--important {
-    --note-color: #8453e4;
-  }
-
+  .callout--important,
   .callout--warning {
-    --note-color: #9e6d03;
+    --callout-color: #ec7500;
+    --callout-background-color: #ec75001a;
+    --callout-border-color: #ec750025;
   }
 
   .callout--caution {
-    --note-color: #d12327;
+    --callout-color: #e93147;
+    --callout-background-color: #e931471a;
+    --callout-border-color: #e9314725;
+  }
+
+  [data-theme="dark"] {
+    .callout--note {
+      --callout-color: #027aff;
+      --callout-background-color: #027aff1a;
+      --callout-border-color: #027aff25;
+    }
+
+    .callout--tip {
+      --callout-color: #53dfdd;
+      --callout-background-color: #53dfdd1a;
+      --callout-border-color: #53dfdd25;
+    }
+
+    .callout--important,
+    .callout--warning {
+      --callout-color: #e9973f;
+      --callout-background-color: #e9973f1a;
+      --callout-border-color: #e9973f25;
+    }
+
+    .callout--caution {
+      --callout-color: #fb464c;
+      --callout-background-color: #fb464c1a;
+      --callout-border-color: #fb464c25;
+    }
   }
 }
