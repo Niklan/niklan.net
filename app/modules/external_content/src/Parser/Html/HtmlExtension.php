@@ -6,8 +6,6 @@ namespace Drupal\external_content\Parser\Html;
 
 use Drupal\external_content\Contract\Extension\Extension;
 use Drupal\external_content\Extension\ContainerExtensionManager;
-use Drupal\external_content\Nodes\Format\HtmlParser as FormatParser;
-use Drupal\external_content\Nodes\Heading\HtmlParser as HeadingParser;
 use Drupal\external_content\Nodes\HtmlElement\HtmlParser as HtmlElementParser;
 use Drupal\external_content\Nodes\Text\HtmlParser as TextParser;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
@@ -26,8 +24,6 @@ final readonly class HtmlExtension implements Extension {
 
   public function register(object $target): void {
     $target->add(new TextParser());
-    $target->add(new FormatParser());
-    $target->add(new HeadingParser());
     // As a fallback for any other HTML element which is not parsed directly.
     $target->add(new HtmlElementParser(), -100);
   }

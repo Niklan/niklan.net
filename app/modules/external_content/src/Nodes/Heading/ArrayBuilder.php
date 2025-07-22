@@ -11,6 +11,7 @@ use Drupal\external_content\Nodes\Node;
 
 /**
  * @implements \Drupal\external_content\Contract\Builder\Array\Builder<\Drupal\external_content\Nodes\Heading\Heading>
+ * @deprecated Exactly the same as HtmlElement.
  */
 final readonly class ArrayBuilder implements Builder {
 

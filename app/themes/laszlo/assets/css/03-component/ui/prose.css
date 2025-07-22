@@ -75,6 +75,34 @@
     font-style: italic;
   }
 
+  .prose .footnote-ref,
+  .prose .footnote-backref {
+    --link-color: var(--color-on-secondary-container);
+
+    padding: var(--spacing-1) var(--spacing-2);
+    text-decoration: none;
+    border-radius: var(--spacing-4);
+    background-color: var(--color-secondary-container);
+    font: var(--typography-label-small);
+  }
+
+  .prose .footnotes {
+    --link-text-decoration-thickness: 1px;
+
+    font: var(--typography-body-small);
+  }
+
+  .prose .footnotes ol {
+    gap: var(--spacing-2);
+  }
+
+  .prose .footnotes hr {
+    margin: 0;
+    margin-bottom: var(--spacing-6);
+    border: none;
+    border-top: 1px dashed var(--color-outline-variant);
+  }
+
   body:not(.is-using-mouse) .prose .heading-permalink {
     visibility: visible;
   }

@@ -25,8 +25,10 @@ final readonly class ArrayExtension implements Extension {
   public const string ID = 'external_content.array_parser';
 
   public function register(object $target): void {
+    // @phpstan-ignore-next-line new.deprecatedClass
     $target->add(new HeadingParser());
     $target->add(new TextParser());
+    // @phpstan-ignore-next-line new.deprecatedClass
     $target->add(new FormatParser());
     $target->add(new HtmlElementParser());
   }

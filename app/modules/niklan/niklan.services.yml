@@ -71,12 +71,12 @@ services:
   Drupal\niklan\Console\Process\Git: { }
   Drupal\niklan\Console\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
 
-  Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension: { }
+  Drupal\niklan\Markup\Markdown\Extension\ArticleMarkdownExtension: { }
 
   niklan.markdown.environment:
     class: League\CommonMark\Environment\Environment
     calls:
-      - [ addExtension, [ '@Drupal\niklan\Markup\Markdown\Extension\NiklanMarkdownExtension' ] ]
+      - [ addExtension, [ '@Drupal\niklan\Markup\Markdown\Extension\ArticleMarkdownExtension' ] ]
   niklan.markdown.converter:
     class: League\CommonMark\MarkdownConverter
     arguments:

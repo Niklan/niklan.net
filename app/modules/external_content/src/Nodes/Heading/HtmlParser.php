@@ -9,6 +9,9 @@ use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Domain\HeadingTagType;
 use Drupal\external_content\Nodes\Node;
 
+/**
+ * @deprecated Exactly the same as HtmlElement.
+ */
 final class HtmlParser implements Parser {
 
   public function supports(\DOMNode $dom_node): bool {

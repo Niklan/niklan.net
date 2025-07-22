@@ -9,13 +9,14 @@ use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\ConfigurableExtensionInterface;
+use League\CommonMark\Extension\Footnote\FootnoteExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\Config\ConfigurationBuilderInterface;
 
 /**
  * @ingroup markdown
  */
-final class NiklanMarkdownExtension implements ConfigurableExtensionInterface {
+final class ArticleMarkdownExtension implements ConfigurableExtensionInterface {
 
   #[\Override]
   public function register(EnvironmentBuilderInterface $environment): void {
@@ -23,6 +24,7 @@ final class NiklanMarkdownExtension implements ConfigurableExtensionInterface {
     $environment->addExtension(new HeadingPermalinkExtension());
     $environment->addExtension(new ContainerBlockDirectiveExtension());
     $environment->addExtension(new LeafBlockDirectiveExtension());
+    $environment->addExtension(new FootnoteExtension());
 
     $environment->addRenderer(FencedCode::class, new FencedCodeRenderer(), 50);
   }

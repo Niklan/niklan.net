@@ -8,7 +8,11 @@ use Drupal\external_content\Contract\Parser\Html\ChildParser;
 use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Domain\TextFormatType;
 use Drupal\external_content\Nodes\Node;
+use Drupal\external_content\Utils\HtmlDomHelper;
 
+/**
+ * @deprecated Exactly the same as HtmlElement.
+ */
 final class HtmlParser implements Parser {
 
   public function supports(\DOMNode $dom_node): bool {
@@ -23,7 +27,10 @@ final class HtmlParser implements Parser {
 
   public function parseElement(\DOMNode $dom_node, ChildParser $child_parser): Node {
     \assert($dom_node instanceof \DOMElement);
-    $format_node = new Format(TextFormatType::fromHtmlTag($dom_node->nodeName));
+    $format_node = new Format(
+      TextFormatType::fromHtmlTag($dom_node->nodeName),
+      HtmlDomHelper::parseAttributes($dom_node),
+    );
     $child_parser->parseChildren($dom_node, $format_node);
     return $format_node;
   }
