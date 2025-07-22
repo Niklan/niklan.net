@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\niklan\ExternalContent\Builder;
 
 use Drupal\external_content\Nodes\Document;
-use Drupal\external_content\Nodes\Heading\Heading;
 use Drupal\external_content\Nodes\HtmlElement\HtmlElement;
 use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Nodes\Text\Text;
@@ -42,7 +41,7 @@ final class TableOfContentsBuilder {
         continue;
       }
 
-      $this->processNestedNodes($child, $headings);
+      $this->traverseNodes($child, $headings);
     }
   }
 
@@ -53,7 +52,8 @@ final class TableOfContentsBuilder {
     return $node instanceof HtmlElement
       && $node->tag === 'a'
       && ($node->attributes['class'] ?? '') === 'heading-permalink'
-      && $node->getParent() instanceof Heading;
+      && $node->getParent() instanceof HtmlElement
+      && \in_array($node->getParent()->tag, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']);
   }
 
   /**
@@ -61,27 +61,23 @@ final class TableOfContentsBuilder {
    */
   private function addHeadingEntry(HtmlElement $link, array &$headings): void {
     $heading = $link->getParent();
-    \assert($heading instanceof Heading);
+    \assert($heading instanceof HtmlElement);
 
     $headings[] = [
       'text' => $this->extractHeadingTextContent($heading),
       'anchor' => (string) ($link->attributes['href'] ?? ''),
-      // @phpstan-ignore-next-line property.deprecateClass
-      'indent' => $this->determineHeadingLevel($heading->tag->value),
+      'indent' => $this->determineHeadingLevel($heading->tag),
     ];
   }
 
-  // @phpstan-ignore-next-line parameter.deprecateClass
-  private function extractHeadingTextContent(Heading $heading): string {
-    $textContent = '';
-    foreach ($heading->getChildren() as $child) {
-      if (!($child instanceof Text)) {
-        continue;
-      }
-
-      $textContent .= $child->text;
-    }
-    return $textContent;
+  private function extractHeadingTextContent(HtmlElement $heading): string {
+    return \array_reduce(
+      $heading->getChildren(),
+      static fn (string $carry, Node $child) => $child instanceof Text
+        ? $carry . $child->text
+        : $carry,
+      '',
+    );
   }
 
   private function determineHeadingLevel(string $tag): int {
@@ -93,17 +89,6 @@ final class TableOfContentsBuilder {
       'h6' => 4,
       default => throw new \InvalidArgumentException("Unsupported heading tag: $tag"),
     };
-  }
-
-  /**
-   * @param array<array{text: string, anchor: string, indent: int}> $headings
-   */
-  private function processNestedNodes(Node $node, array &$headings): void {
-    if (!$node->hasChildren()) {
-      return;
-    }
-
-    $this->traverseNodes($node, $headings);
   }
 
 }
