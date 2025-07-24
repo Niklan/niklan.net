@@ -2,7 +2,7 @@
   .prose {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-6);
+    gap: clamp(var(--spacing-4), calc(0.7727rem + 0.9697vw), var(--spacing-6));
     width: 100%;
   }
 
@@ -51,7 +51,7 @@
   .prose ol {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-3);
+    gap: clamp(var(--spacing-1), calc(0.02275rem + 0.9697vw), var(--spacing-3));
   }
 
   .prose li > ul,
@@ -62,11 +62,15 @@
   .prose figure {
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-4);
+    padding: clamp(
+      var(--spacing-2),
+      calc(0.2727rem + 0.9697vw),
+      var(--spacing-4)
+    );
     border: 1px solid var(--color-surface-dim);
     border-radius: var(--spacing-3);
     background: var(--color-surface-container);
-    gap: var(--spacing-4);
+    gap: clamp(var(--spacing-2), calc(0.2727rem + 0.9697vw), var(--spacing-4));
   }
 
   .prose figure > figcaption {
