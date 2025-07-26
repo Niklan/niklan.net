@@ -3103,16 +3103,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "13.6.0",
+            "version": "13.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "570a05dce7aea9770f17306808804290764127ad"
+                "reference": "fde8e2593fe78824acf7305c8faf8ff6c3ac352c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/570a05dce7aea9770f17306808804290764127ad",
-                "reference": "570a05dce7aea9770f17306808804290764127ad",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/fde8e2593fe78824acf7305c8faf8ff6c3ac352c",
+                "reference": "fde8e2593fe78824acf7305c8faf8ff6c3ac352c",
                 "shasum": ""
             },
             "require": {
@@ -3152,7 +3152,7 @@
                 "drupal/semver_example": "2.3.0",
                 "jetbrains/phpstorm-attributes": "^1.0",
                 "mglaman/phpstan-drupal": "^1.2",
-                "phpunit/phpunit": "^9 || ^10",
+                "phpunit/phpunit": "^9 || ^10 || ^11",
                 "rector/rector": "^1",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -3239,7 +3239,7 @@
                 "issues": "https://github.com/drush-ops/drush/issues",
                 "security": "https://github.com/drush-ops/drush/security/advisories",
                 "slack": "https://drupal.slack.com/messages/C62H9CWQM",
-                "source": "https://github.com/drush-ops/drush/tree/13.6.0"
+                "source": "https://github.com/drush-ops/drush/tree/13.6.1"
             },
             "funding": [
                 {
@@ -3247,7 +3247,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-22T12:14:13+00:00"
+            "time": "2025-07-24T10:42:08+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -3923,7 +3923,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v12.20.0",
+            "version": "v12.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -4089,16 +4089,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.7.0",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405"
+                "reference": "10732241927d3971d28e7ea7b5712721fa2296ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
-                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/10732241927d3971d28e7ea7b5712721fa2296ca",
+                "reference": "10732241927d3971d28e7ea7b5712721fa2296ca",
                 "shasum": ""
             },
             "require": {
@@ -4127,7 +4127,7 @@
                 "symfony/process": "^5.4 | ^6.0 | ^7.0",
                 "symfony/yaml": "^2.3 | ^3.0 | ^4.0 | ^5.0 | ^6.0 | ^7.0",
                 "unleashedtech/php-coding-standard": "^3.1.1",
-                "vimeo/psalm": "^4.24.0 || ^5.0.0"
+                "vimeo/psalm": "^4.24.0 || ^5.0.0 || ^6.0.0"
             },
             "suggest": {
                 "symfony/yaml": "v2.3+ required if using the Front Matter extension"
@@ -4192,7 +4192,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-05T12:20:28+00:00"
+            "time": "2025-07-20T12:47:49+00:00"
         },
         {
             "name": "league/config",
@@ -4854,11 +4854,11 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/external_content",
-                "reference": "e33bbd99c339b82340574fc17578375049b643eb"
+                "reference": "c05c40b7a61b4d912e27c811f412d92a289ee379"
             },
             "require": {
                 "league/config": "^1.2",
-                "symfony/config": "^7.0"
+                "symfony/config": "^6.0|^7.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -4896,7 +4896,7 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/niklan",
-                "reference": "94f20fda954ad6c513d01dd04d3f487ea3c4be59"
+                "reference": "91eb40d9d56a38624684b6234bb39ea31e767297"
             },
             "require": {
                 "drupal/media_library_form_element": "^2",
@@ -4907,7 +4907,9 @@
                 "niklan-asset/hljs": "^11.9",
                 "nutgram/nutgram": "^4.31",
                 "scrivo/highlight.php": "^9.0",
-                "symfony/dom-crawler": "^7.0"
+                "symfony/config": "^6.0|^7.0",
+                "symfony/css-selector": "^6.0|^7.0",
+                "symfony/dom-crawler": "^6.0|^7.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -4979,16 +4981,16 @@
         },
         {
             "name": "nutgram/nutgram",
-            "version": "4.38.0",
+            "version": "4.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nutgram/nutgram.git",
-                "reference": "b6d4c230fdb89770fe5a40e870c4b22d5c694f03"
+                "reference": "fcd925efc48773674fe7c257f2de7dbd75dae657"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nutgram/nutgram/zipball/b6d4c230fdb89770fe5a40e870c4b22d5c694f03",
-                "reference": "b6d4c230fdb89770fe5a40e870c4b22d5c694f03",
+                "url": "https://api.github.com/repos/nutgram/nutgram/zipball/fcd925efc48773674fe7c257f2de7dbd75dae657",
+                "reference": "fcd925efc48773674fe7c257f2de7dbd75dae657",
                 "shasum": ""
             },
             "require": {
@@ -5050,7 +5052,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nutgram/nutgram/issues",
-                "source": "https://github.com/nutgram/nutgram/tree/4.38.0"
+                "source": "https://github.com/nutgram/nutgram/tree/4.38.1"
             },
             "funding": [
                 {
@@ -5062,7 +5064,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-04T18:53:50+00:00"
+            "time": "2025-07-07T20:44:08+00:00"
         },
         {
             "name": "pear/archive_tar",
@@ -6499,6 +6501,71 @@
                 }
             ],
             "time": "2025-06-27T19:55:54+00:00"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v7.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "601a5ce9aaad7bf10797e3663faefce9e26c24e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/601a5ce9aaad7bf10797e3663faefce9e26c24e2",
+                "reference": "601a5ce9aaad7bf10797e3663faefce9e26c24e2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Converts CSS selectors to XPath expressions",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/css-selector/tree/v7.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-09-25T14:21:43+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -12298,16 +12365,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.18",
+            "version": "2.1.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ee1f390b7a70cdf74a2b737e554f68afea885db7"
+                "reference": "473a8c30e450d87099f76313edcbb90852f9afdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ee1f390b7a70cdf74a2b737e554f68afea885db7",
-                "reference": "ee1f390b7a70cdf74a2b737e554f68afea885db7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/473a8c30e450d87099f76313edcbb90852f9afdf",
+                "reference": "473a8c30e450d87099f76313edcbb90852f9afdf",
                 "shasum": ""
             },
             "require": {
@@ -12352,7 +12419,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-17T17:22:31+00:00"
+            "time": "2025-07-21T19:58:24+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -12403,21 +12470,21 @@
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "6b92469f8a7995e626da3aa487099617b8dfa260"
+                "reference": "9a9b161baee88a5f5c58d816943cff354ff233dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/6b92469f8a7995e626da3aa487099617b8dfa260",
-                "reference": "6b92469f8a7995e626da3aa487099617b8dfa260",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/9a9b161baee88a5f5c58d816943cff354ff233dc",
+                "reference": "9a9b161baee88a5f5c58d816943cff354ff233dc",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpstan": "^2.0.4"
+                "phpstan/phpstan": "^2.1.18"
             },
             "conflict": {
                 "phpunit/phpunit": "<7.0"
@@ -12450,9 +12517,9 @@
             "description": "PHPUnit extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
-                "source": "https://github.com/phpstan/phpstan-phpunit/tree/2.0.6"
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/2.0.7"
             },
-            "time": "2025-03-26T12:47:06+00:00"
+            "time": "2025-07-13T11:31:46+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -14494,71 +14561,6 @@
                 }
             ],
             "time": "2025-03-05T10:15:41+00:00"
-        },
-        {
-            "name": "symfony/css-selector",
-            "version": "v7.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/css-selector.git",
-                "reference": "601a5ce9aaad7bf10797e3663faefce9e26c24e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/601a5ce9aaad7bf10797e3663faefce9e26c24e2",
-                "reference": "601a5ce9aaad7bf10797e3663faefce9e26c24e2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\CssSelector\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Jean-François Simon",
-                    "email": "jeanfrancois.simon@sensiolabs.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Converts CSS selectors to XPath expressions",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v7.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-09-25T14:21:43+00:00"
         },
         {
             "name": "symfony/lock",
