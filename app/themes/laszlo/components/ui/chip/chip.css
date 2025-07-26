@@ -13,7 +13,10 @@
     );
     --_chip-border-radius: var(--chip-border-radius, var(--spacing-5));
     --_chip-color: var(--chip-color, var(--color-on-surface, black));
-    --_chip-color-hover: var(--chip-color-hover, black);
+    --_chip-color-hover: var(
+      --chip-color-hover,
+      var(--color-on-surface, black)
+    );
     --_chip-font: var(--chip-font, var(--typography-label-medium));
 
     display: inline-flex;

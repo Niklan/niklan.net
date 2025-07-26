@@ -26,17 +26,15 @@
   }
 
   .main-navigation__extra-button {
-    --fab-background-color: var(--color-surface-container-low);
-    --fab-background-color-hover: var(--color-primary-container);
-    --fab-color: var(--color-primary);
-    --fab-color-hover: var(--color-on-primary-container);
-
     position: relative;
     z-index: 70;
+    color: var(--color-on-surface);
+    background: color-mix(in sRGB, var(--color-surface-tint), transparent 50%);
     box-shadow:
       rgb(17 17 26 / 0.1) 0 8px 24px,
       rgb(17 17 26 / 0.1) 0 16px 56px,
       rgb(17 17 26 / 0.1) 0 24px 80px;
+    backdrop-filter: saturate(280%) blur(40px);
   }
 
   .main-navigation__extra-button--extra-menu {

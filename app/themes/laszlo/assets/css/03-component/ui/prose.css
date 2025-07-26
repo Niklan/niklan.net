@@ -2,7 +2,7 @@
   .prose {
     display: flex;
     flex-direction: column;
-    gap: clamp(var(--spacing-4), calc(0.7727rem + 0.9697vw), var(--spacing-6));
+    gap: 2ch;
     width: 100%;
   }
 
@@ -51,12 +51,14 @@
   .prose ol {
     display: flex;
     flex-direction: column;
-    gap: clamp(var(--spacing-1), calc(0.02275rem + 0.9697vw), var(--spacing-3));
+    gap: 1ch;
+    padding-inline-start: 3ch;
   }
 
   .prose li > ul,
   .prose li > ol {
     margin-top: var(--spacing-3);
+    border-left: 1px solid var(--color-outline-variant);
   }
 
   .prose figure {
@@ -93,7 +95,7 @@
   .prose .footnotes {
     --link-text-decoration-thickness: 1px;
 
-    font: var(--typography-body-small);
+    font: var(--typography-body-medium);
   }
 
   .prose .footnotes ol {
