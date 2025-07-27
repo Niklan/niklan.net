@@ -1,6 +1,5 @@
 @layer component {
   .hljs {
-    display: block;
     color: #24292e;
   }
 
