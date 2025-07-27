@@ -1,14 +1,14 @@
 {% set pre_attributes = create_attribute() %}
 {% if language %}
-  {% do attributes.setAttribute('data-language', language) %}
+  {% do pre_attributes.setAttribute('data-language', language) %}
 {% endif %}
 {% if highlighted_lines %}
-  {% do attributes.setAttribute('data-highlight', highlighted_lines) %}
-  {% do attributes.setAttribute('data-highlighted-line-class', 'code-block__highlighted') %}
+  {% do pre_attributes.setAttribute('data-highlight', highlighted_lines) %}
+  {% do pre_attributes.setAttribute('data-highlighted-line-class', 'code-block__highlighted') %}
 {% endif %}
 <div{{ attributes.addClass('code-block') }}>
   {% if heading %}
     <div class="code-block__title">{{ heading }}</div>
   {% endif %}
-  <pre class="code-block__main"><code>{{ code }}</code></pre>
+  <pre{{ pre_attributes.addClass('code-block__main')}}><code>{{ code }}</code></pre>
 </div>
