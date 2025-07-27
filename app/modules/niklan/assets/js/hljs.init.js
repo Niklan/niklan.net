@@ -1,54 +1,50 @@
 ((Drupal, once, drupalSettings) => {
-
   let worker;
 
-  function registerIntersectionObserver() {
-    const intersectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
-
-        const preElement = entry.target.parentElement;
-        const codeElement = entry.target;
-        codeElement.classList.add('hljs');
-        worker.postMessage({
-          code: codeElement.textContent,
-          language: preElement.dataset.language,
-          libraryPath: drupalSettings.highlightJs.libraryPath,
-        });
-        worker.onmessage = (event) => {
-          codeElement.innerHTML = event.data;
-        }
-
-        intersectionObserver.unobserve(preElement);
-      });
+  const createHighlightedEvent = (element, html) =>
+    new CustomEvent('niklan-highlight:highlighted', {
+      detail: {
+        element,
+        originalCode: element.textContent,
+        highlightedHTML: html
+      },
+      bubbles: true
     });
 
-    []
-        .slice
-        .call(once('code-highlight', 'pre > code'))
-        .forEach((codeBlockElement) => {
-          intersectionObserver.observe(codeBlockElement);
-        });
+  const handleIntersection = (entries, observer) => {
+    entries.forEach(({ isIntersecting, target: codeElement }) => {
+      if (!isIntersecting) return;
 
+      const preElement = codeElement.parentElement;
+      codeElement.classList.add('hljs');
+
+      worker.postMessage({
+        code: codeElement.textContent,
+        language: preElement.dataset.language,
+        libraryPath: drupalSettings.highlightJs.libraryPath
+      });
+
+      worker.addEventListener('message', ({ data }) => {
+        codeElement.innerHTML = data;
+        codeElement.dispatchEvent(createHighlightedEvent(codeElement, data));
+        observer.unobserve(codeElement);
+      }, { once: true });
+    });
+  };
+
+  const registerIntersectionObserver = () => {
+    const observer = new IntersectionObserver(handleIntersection);
+    Array
+      .from(once('code-highlight', 'pre > code'))
+      .forEach(code => observer.observe(code));
     worker = new Worker(drupalSettings.highlightJs.workerPath);
-  }
+  };
 
-  function lazyCallback(callback) {
-    if (window.requestIdleCallback) {
-      requestIdleCallback(callback);
-    }
-    else {
-      // Fallback for browsers doesn't support IDLE callbacks.
-      callback();
-    }
-  }
+  const lazyCallback = callback =>
+    window.requestIdleCallback ? requestIdleCallback(callback) : callback();
 
   Drupal.behaviors.niklanHighlight = {
-    attach() {
-      lazyCallback(registerIntersectionObserver);
-    }
-  }
+    attach: () => lazyCallback(registerIntersectionObserver)
+  };
 
 })(Drupal, once, drupalSettings);

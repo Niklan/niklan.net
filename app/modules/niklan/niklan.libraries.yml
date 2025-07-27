@@ -16,6 +16,7 @@ hljs:
     url: https://raw.githubusercontent.com/highlightjs/highlight.js/main/LICENSE
   js:
     assets/js/hljs.init.js: { weight: -1 }
+    assets/js/hljs.copy.js: { }
   drupalSettings:
     highlightJs:
       workerPath: null

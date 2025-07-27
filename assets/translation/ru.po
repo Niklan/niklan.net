@@ -491,3 +491,10 @@ msgstr "Комментарий удалён"
 
 msgid "Edit on website"
 msgstr "Редактировать на сайте"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Copied!"
+msgstr "Скопировано!"
+
