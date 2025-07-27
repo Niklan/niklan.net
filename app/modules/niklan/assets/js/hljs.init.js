@@ -21,7 +21,7 @@
       worker.postMessage({
         code: codeElement.textContent,
         language: preElement.dataset.language,
-        libraryPath: drupalSettings.highlightJs.libraryPath
+        esModulesBasePath: drupalSettings.highlightJs.esModulesBasePath
       });
 
       worker.addEventListener('message', ({ data }) => {
@@ -37,7 +37,7 @@
     Array
       .from(once('code-highlight', 'pre > code'))
       .forEach(code => observer.observe(code));
-    worker = new Worker(drupalSettings.highlightJs.workerPath);
+    worker = new Worker(drupalSettings.highlightJs.workerPath, { type: 'module' });
   };
 
   const lazyCallback = callback =>

@@ -20,7 +20,7 @@ hljs:
   drupalSettings:
     highlightJs:
       workerPath: null
-      libraryPath: '/libraries/hljs/highlight.min.js'
+      esModulesBasePath: '/libraries/hljs'
   dependencies:
     - core/drupal
     - core/once
