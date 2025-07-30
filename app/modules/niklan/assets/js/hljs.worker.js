@@ -14,30 +14,34 @@ const supportedLanguages = {
 
 onmessage = async (event) => {
   try {
-    const hljsModule = await import(`${event.data.esModulesBasePath}/highlight.min.js`);
+    const { requestId, code, language, esModulesBasePath } = event.data;
+
+    const hljsModule = await import(`${esModulesBasePath}/highlight.min.js`);
     const hljs = hljsModule.default;
 
-    if (event.data.language && supportedLanguages[event.data.language]) {
-      const langModule = await import(`${event.data.esModulesBasePath}/${supportedLanguages[event.data.language]}`);
-      hljs.registerLanguage(event.data.language, langModule.default);
+    if (language && supportedLanguages[language]) {
+      const langModule = await import(`${esModulesBasePath}/${supportedLanguages[language]}`);
+      hljs.registerLanguage(language, langModule.default);
     }
 
     let result;
 
-    if (event.data.language && hljs.getLanguage(event.data.language)) {
-      result = hljs.highlight(event.data.code, {
-        language: event.data.language,
-      });
+    if (language && hljs.getLanguage(language)) {
+      result = hljs.highlight(code, { language });
     } else {
-      result = hljs.highlightAuto(event.data.code);
+      result = hljs.highlightAuto(code);
     }
 
-    postMessage(result.value);
+    postMessage({
+      requestId,
+      result: result.value
+    });
 
   } catch (error) {
     postMessage({
+      requestId: event.data.requestId,
       error: `Processing failed: ${error.message}`
     });
   }
-
 };
+
