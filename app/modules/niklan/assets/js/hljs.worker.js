@@ -14,13 +14,13 @@ const supportedLanguages = {
 
 onmessage = async (event) => {
   try {
-    const { requestId, code, language, esModulesBasePath } = event.data;
+    const { requestId, code, language, esModulesBasePath, cacheBustingQueryString } = event.data;
 
-    const hljsModule = await import(`${esModulesBasePath}/highlight.min.js`);
+    const hljsModule = await import(`${esModulesBasePath}/highlight.min.js?${cacheBustingQueryString}`);
     const hljs = hljsModule.default;
 
     if (language && supportedLanguages[language]) {
-      const langModule = await import(`${esModulesBasePath}/${supportedLanguages[language]}`);
+      const langModule = await import(`${esModulesBasePath}/${supportedLanguages[language]}?${cacheBustingQueryString}`);
       hljs.registerLanguage(language, langModule.default);
     }
 

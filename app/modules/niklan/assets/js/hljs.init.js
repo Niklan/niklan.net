@@ -1,5 +1,4 @@
 ((Drupal, once, drupalSettings) => {
-
   let worker;
   let requestId = 0;
   const pendingRequests = new Map();
@@ -9,9 +8,9 @@
       detail: {
         element,
         originalCode: element.textContent,
-        highlightedHTML: html
+        highlightedHTML: html,
       },
-      bubbles: true
+      bubbles: true,
     });
 
   const handleIntersection = (entries) => {
@@ -29,7 +28,8 @@
         requestId: currentRequestId,
         code: codeElement.textContent,
         language: preElement.dataset.language,
-        esModulesBasePath: drupalSettings.highlightJs.esModulesBasePath
+        esModulesBasePath: drupalSettings.highlightJs.esModulesBasePath,
+        cacheBustingQueryString: drupalSettings.cacheQueryBustingString,
       });
     });
   };
@@ -57,8 +57,11 @@
       .from(once('code-highlight', 'pre > code'))
       .forEach(code => observer.observe(code));
 
-    worker = new Worker(drupalSettings.highlightJs.workerPath, { type: 'module' });
-    worker.addEventListener('message', handleWorkerMessage);
+    worker = new Worker(
+      `${drupalSettings.highlightJs.workerPath}?${drupalSettings.cacheQueryBustingString}`,
+      { type: "module" },
+    );
+    worker.addEventListener("message", handleWorkerMessage);
   };
 
 
