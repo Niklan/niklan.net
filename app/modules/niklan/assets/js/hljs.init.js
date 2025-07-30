@@ -14,14 +14,15 @@
       bubbles: true
     });
 
-  const handleIntersection = (entries, observer) => {
+  const handleIntersection = (entries) => {
     entries.forEach(({ isIntersecting, target: codeElement }) => {
       if (!isIntersecting) return;
 
       const preElement = codeElement.parentElement;
       codeElement.classList.add('hljs');
 
-      const currentRequestId = requestId++;
+      const currentRequestId = requestId;
+      requestId += 1;
       pendingRequests.set(currentRequestId, codeElement);
 
       worker.postMessage({
@@ -34,6 +35,7 @@
   };
 
   const handleWorkerMessage = ({ data }) => {
+    // eslint-disable-next-line no-shadow
     const { requestId, result, error } = data;
     const codeElement = pendingRequests.get(requestId);
 
