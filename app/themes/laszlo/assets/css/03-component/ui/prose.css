@@ -108,4 +108,17 @@
   body:not(.is-using-mouse) .prose .heading-permalink {
     visibility: visible;
   }
+
+  .prose a[href^="http"]::after {
+    display: inline-block;
+    width: 1.5ch;
+    height: 1.5ch;
+    margin-left: 0.25ch;
+    content: "";
+    vertical-align: middle;
+    background-color: currentColor;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm11-3v9l-3.794-3.793l-5.999 6l-1.414-1.414l5.999-6L12 3z'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+  }
 }
