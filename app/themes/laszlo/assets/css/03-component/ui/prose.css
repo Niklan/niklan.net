@@ -95,7 +95,7 @@
   .prose .footnotes {
     --link-text-decoration-thickness: 1px;
 
-    font: var(--typography-body-medium);
+    font: var(--typography-body-small);
   }
 
   .prose .footnotes hr {

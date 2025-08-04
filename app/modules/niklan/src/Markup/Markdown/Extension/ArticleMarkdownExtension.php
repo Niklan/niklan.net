@@ -57,6 +57,12 @@ final class ArticleMarkdownExtension implements ConfigurableExtensionInterface {
       // Note that soft break must be a space, or words will be merged.
       'soft_break' => ' ',
     ]);
+
+    // Default prefixes are not valid CSS IDs (with ':' char).
+    $builder->set('footnote', [
+      'ref_id_prefix' => 'fn-ref-',
+      'footnote_id_prefix' => 'fn-',
+    ]);
   }
 
 }

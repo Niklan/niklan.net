@@ -136,6 +136,7 @@ services:
   Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder: {}
   Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder: {}
   Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder: {}
+  Drupal\niklan\ExternalContent\Nodes\Footnote\RenderArrayBuilder: {}
 
   # External Content: Extensions.
   Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension: {}
