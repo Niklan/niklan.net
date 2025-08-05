@@ -86,16 +86,23 @@
     --link-color: var(--color-on-secondary-container);
 
     padding: var(--spacing-1) var(--spacing-2);
+    transition: all ease-in-out 0.1s;
     text-decoration: none;
     border-radius: var(--spacing-4);
     background-color: var(--color-secondary-container);
     font: var(--typography-label-small);
+
+    &:hover {
+      --link-color: var(--color-on-secondary);
+
+      background-color: var(--color-secondary);
+    }
   }
 
   .prose .footnotes {
     --link-text-decoration-thickness: 1px;
 
-    font: var(--typography-body-medium);
+    font: var(--typography-body-small);
   }
 
   .prose .footnotes hr {

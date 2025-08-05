@@ -1,0 +1,21 @@
+.tooltip {
+  --link-text-decoration-thickness: 1px;
+
+  position: absolute;
+  width: 100%;
+  max-width: 360px;
+  padding: var(--spacing-4);
+  color: var(--color-on-background);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--spacing-2);
+  background: color-mix(in sRGB, var(--color-background), transparent);
+  box-shadow:
+    rgb(0 0 0 / 0.1) 0 20px 25px -5px,
+    rgb(0 0 0 / 0.04) 0 10px 10px -5px;
+  font: var(--typography-body-medium);
+  backdrop-filter: blur(20px);
+}
+
+.tooltip .footnote-backref {
+  display: none;
+}

@@ -19,5 +19,6 @@
     word-break: break-word;
     border-radius: var(--spacing-1);
     background: var(--color-surface-variant);
+    font-size: 0.8em;
   }
 }

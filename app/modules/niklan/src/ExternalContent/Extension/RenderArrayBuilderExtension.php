@@ -11,6 +11,7 @@ use Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder as CalloutBui
 use Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder as CodeBlockBuilder;
 use Drupal\niklan\ExternalContent\Nodes\Figcaption\RenderArrayBuilder as FigcaptionBuilder;
 use Drupal\niklan\ExternalContent\Nodes\Figure\RenderArrayBuilder as FigureBuilder;
+use Drupal\niklan\ExternalContent\Nodes\Footnote\RenderArrayBuilder as FootnoteBuilder;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder as MediaReferenceBuilder;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
@@ -31,6 +32,7 @@ final readonly class RenderArrayBuilderExtension implements Extension {
     private CalloutBuilder $calloutBuilder,
     private MediaReferenceBuilder $mediaReferenceBuilder,
     private ArticleLinkBuilder $articleLinkBuilder,
+    private FootnoteBuilder $footnoteBuilder,
   ) {}
 
   public function register(object $target): void {
@@ -40,6 +42,7 @@ final readonly class RenderArrayBuilderExtension implements Extension {
     $target->add($this->articleLinkBuilder, 10);
     $target->add(new FigureBuilder());
     $target->add(new FigcaptionBuilder());
+    $target->add($this->footnoteBuilder);
   }
 
 }

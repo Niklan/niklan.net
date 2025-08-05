@@ -58,3 +58,8 @@ comment-comment-node-blog-entry-form:
   css:
     theme:
       assets/css/03-component/form/comment-comment-node-blog-entry-form.css: { }
+
+tooltip:
+  css:
+    theme:
+      assets/css/03-component/ui/tooltip.css: { }
