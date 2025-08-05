@@ -13,14 +13,14 @@ use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\HtmlTagHelper;
 
 /**
- * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<HtmlElement>
+ * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\external_content\Nodes\HtmlElement\HtmlElement>
  */
 final readonly class RenderArrayBuilder implements Builder {
 
   public function supports(Node $node): bool {
     return $node instanceof HtmlElement
       && isset($node->attributes['class'])
-      && str_contains($node->attributes['class'], 'footnote-ref');
+      && \str_contains($node->attributes['class'], 'footnote-ref');
   }
 
   public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {

@@ -28,11 +28,11 @@ final readonly class RenderArrayBuilderExtension implements Extension {
   public const string ID = 'niklan.render_array_builder';
 
   public function __construct(
-    private CodeBlockBuilder      $codeBlockBuilder,
-    private CalloutBuilder        $calloutBuilder,
+    private CodeBlockBuilder $codeBlockBuilder,
+    private CalloutBuilder $calloutBuilder,
     private MediaReferenceBuilder $mediaReferenceBuilder,
-    private ArticleLinkBuilder    $articleLinkBuilder,
-    private FootnoteBuilder       $footnoteBuilder,
+    private ArticleLinkBuilder $articleLinkBuilder,
+    private FootnoteBuilder $footnoteBuilder,
   ) {}
 
   public function register(object $target): void {

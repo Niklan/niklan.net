@@ -1,3 +1,4 @@
+// cspell:ignore UIDOM
 ((Drupal, once, { computePosition, offset, shift, flip, inline }) => {
 
   const createTooltipElement = (content) => {
@@ -75,7 +76,7 @@
 
   Drupal.theme.niklanFootnoteTooltipWrapper = (content) => `
     <div class="tooltip tooltip--type--footnote">
-      <div class="tooltip__content">${content.innerHTML}</div>
+      <div class="prose tooltip__content">${content.innerHTML}</div>
     </div>
   `;
 
