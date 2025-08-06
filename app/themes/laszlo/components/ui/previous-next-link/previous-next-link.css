@@ -7,7 +7,7 @@
     padding: var(--spacing-6);
     text-decoration: none;
     border-radius: var(--spacing-4);
-    background: var(--color-surface-container-low);
+    background: var(--color-surface-variant);
     gap: var(--spacing-4);
 
     &:hover,

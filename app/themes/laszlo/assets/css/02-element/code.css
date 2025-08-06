@@ -16,7 +16,9 @@
 
   :not(pre) > code {
     padding: var(--spacing-1);
+    vertical-align: middle;
     word-break: break-word;
+    color: var(--color-on-surface-variant);
     border-radius: var(--spacing-1);
     background: var(--color-surface-variant);
     font-size: 0.8em;

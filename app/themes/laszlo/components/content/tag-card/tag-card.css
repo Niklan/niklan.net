@@ -7,7 +7,7 @@
     transition: background-color 0.25s linear;
     color: var(--color-on-surface);
     border-radius: var(--spacing-2);
-    background: var(--color-surface-container);
+    background: var(--color-surface);
     gap: var(--spacing-2);
 
     &:focus-within,

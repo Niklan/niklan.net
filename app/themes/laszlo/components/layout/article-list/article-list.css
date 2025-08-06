@@ -7,14 +7,14 @@
 
   .article-list--variant--card {
     --_grid-columns: 1fr;
-    --_grid-gap: var(--page-side-gap, var(--spacing-6));
+    --_grid-gap: var(--page-side-gap, var(--spacing-2));
 
     @media screen and (min-width: 640px) {
       --_grid-columns: repeat(2, 1fr);
     }
 
     @media screen and (min-width: 1200px) {
-      --_grid-gap: var(--spacing-6);
+      --_grid-gap: var(--spacing-4);
     }
   }
 
