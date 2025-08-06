@@ -28,7 +28,7 @@
     background-color: color-mix(
       in sRGB,
       var(--_article-header-background),
-      transparent 10%
+      transparent 20%
     );
     gap: var(--spacing-6);
     margin-inline: calc(var(--page-side-gap) * -1);
@@ -44,7 +44,8 @@
       width: 100%;
       height: 100%;
       content: "";
-      filter: blur(var(--spacing-10)) saturate(280%);
+      animation: article-header-rgb-gamer-edition linear 60s infinite;
+      filter: blur(var(--spacing-16)) saturate(280%);
       background: var(--background-image);
       background-position: center;
       background-size: cover;
@@ -218,5 +219,16 @@
   .article__comment-items {
     width: 100%;
     max-width: 900px;
+  }
+
+  @keyframes article-header-rgb-gamer-edition {
+    0% {
+      transform: rotate(0deg);
+      filter: blur(var(--spacing-16)) saturate(280%) hue-rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+      filter: blur(var(--spacing-16)) saturate(280%) hue-rotate(360deg);
+    }
   }
 }
