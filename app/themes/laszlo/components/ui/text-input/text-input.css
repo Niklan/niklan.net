@@ -12,7 +12,7 @@
     --_input-border-width: var(--input-border-width, 1px);
     --_input-background-color: var(
       --input-background-color,
-      var(--color-surface-container-lowest)
+      var(--color-surface-bright)
     );
     --_input-color: var(--input-color, var(--color-on-surface));
     --_input-placeholder-color: var(
@@ -35,9 +35,11 @@
     height: var(--_input-height);
     margin: 0;
     cursor: text;
+    transition: all 0.15s cubic-bezier(0.39, 0.58, 0.57, 1);
     color: var(--_input-color);
     border: var(--_input-border-width) solid var(--_input-border-color);
     border-radius: var(--_input-border-radius);
+    outline: var(--default-focus-outline-width) solid transparent;
     background-color: var(--_input-background-color);
     box-shadow: var(--_input-box-shadow);
     font: var(--_input-font);

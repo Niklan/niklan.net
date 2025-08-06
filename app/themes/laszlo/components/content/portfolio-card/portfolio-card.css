@@ -7,7 +7,7 @@
     padding: var(--spacing-6);
     color: var(--color-on-surface);
     border-radius: var(--spacing-4);
-    background-color: var(--color-surface-container-high);
+    background-color: var(--color-surface-container);
     gap: var(--spacing-4);
 
     &:focus-within,

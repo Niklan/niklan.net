@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: var(--spacing-6);
   border-radius: var(--spacing-4);
-  background-color: var(--color-surface-container-highest);
+  background-color: var(--color-surface);
   gap: var(--spacing-6);
 }
 
@@ -14,11 +14,13 @@
 }
 
 .sitemap-section__link {
+  --link-color: var(--color-on-surface);
+
   display: inline-block;
   padding: var(--spacing-2) var(--spacing-4);
   text-decoration: unset;
   border-radius: var(--spacing-4);
-  background-color: var(--color-surface-container-low);
+  background-color: var(--color-surface-container-high);
   font: var(--typography-body-small);
 
   &:hover {

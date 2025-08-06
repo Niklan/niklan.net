@@ -67,12 +67,12 @@
     padding: clamp(
       var(--spacing-2),
       calc(0.2727rem + 0.9697vw),
-      var(--spacing-4)
+      var(--spacing-8)
     );
-    border: 1px solid var(--color-surface-dim);
+    border: 1px solid var(--color-surface-container);
     border-radius: var(--spacing-3);
-    background: var(--color-surface-container);
-    gap: 1ch;
+    background: var(--color-surface-container-low);
+    gap: clamp(var(--spacing-2), calc(0.2727rem + 0.9697vw), var(--spacing-8));
   }
 
   .prose figure > figcaption {
@@ -83,19 +83,19 @@
 
   .prose .footnote-ref,
   .prose .footnote-backref {
-    --link-color: var(--color-on-secondary-container);
+    --link-color: var(--color-on-tertiary-fixed);
 
     padding: var(--spacing-1) var(--spacing-2);
     transition: all ease-in-out 0.1s;
     text-decoration: none;
     border-radius: var(--spacing-4);
-    background-color: var(--color-secondary-container);
+    background-color: var(--color-tertiary-fixed);
     font: var(--typography-label-small);
 
     &:hover {
-      --link-color: var(--color-on-secondary);
+      --link-color: var(--color-on-tertiary);
 
-      background-color: var(--color-secondary);
+      background-color: var(--color-tertiary);
     }
   }
 

@@ -1,8 +1,7 @@
 @layer element {
   mark {
-    padding: 0 var(--spacing-1);
+    padding: 0.25ch 0.5ch;
     color: var(--color-on-primary-container);
-    border-radius: var(--spacing-1);
     background-color: var(--color-primary-container);
   }
 

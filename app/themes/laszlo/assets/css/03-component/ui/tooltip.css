@@ -7,7 +7,7 @@
   padding: var(--spacing-4);
   color: var(--color-on-background);
   border: 1px solid var(--color-outline-variant);
-  border-radius: var(--spacing-2);
+  border-radius: var(--spacing-1);
   background: color-mix(in sRGB, var(--color-background), transparent);
   box-shadow:
     rgb(0 0 0 / 0.1) 0 20px 25px -5px,

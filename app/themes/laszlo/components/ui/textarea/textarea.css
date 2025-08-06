@@ -12,7 +12,7 @@
     --_textarea-border-width: var(--textarea-border-width, 1px);
     --_textarea-background-color: var(
       --textarea-background-color,
-      var(--color-surface-container-lowest)
+      var(--color-surface-bright)
     );
     --_textarea-color: var(--textarea-color, var(--color-on-surface));
     --_textarea-placeholder-color: var(
@@ -40,9 +40,11 @@
     padding-top: var(--_textarea-padding-inline);
     padding-bottom: var(--_textarea-padding-inline);
     cursor: text;
+    transition: all 0.15s cubic-bezier(0.39, 0.58, 0.57, 1);
     color: var(--_textarea-color);
     border: var(--_textarea-border-width) solid var(--_textarea-border-color);
     border-radius: var(--_textarea-border-radius);
+    outline: var(--default-focus-outline-width) solid transparent;
     background-color: var(--_textarea-background-color);
     box-shadow: var(--_textarea-box-shadow);
     font: var(--_textarea-font);

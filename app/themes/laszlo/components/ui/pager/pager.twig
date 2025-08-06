@@ -34,6 +34,7 @@
           }),
           component: 'a',
           href: items.previous.href,
+          color: 'primary',
           variant: 'text',
         } only %}
           {% block start_icon %}
@@ -59,8 +60,8 @@
           }),
           component: 'a',
           href: item.href,
-          variant: 'contained',
-          color: current_page == key ? 'primary' : 'secondary',
+          variant: current_page == key ? 'contained' : 'text',
+          color: 'primary',
           value: key,
         } only %}
           {% block children %}{{ value }}{% endblock %}
@@ -79,7 +80,7 @@
           }),
           component: 'a',
           href: items.next.href,
-          variant: 'contained',
+          color: 'primary',
           variant: 'text',
         } only %}
           {% block end_icon %}
@@ -118,7 +119,7 @@
           'x-bind': 'loadMoreButton',
           'x-ref': 'loadMoreButton',
         }),
-        color: 'secondary',
+        color: 'primary',
         variant: 'contained',
       } only %}
         {% block children %}

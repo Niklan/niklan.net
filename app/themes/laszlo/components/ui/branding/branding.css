@@ -1,15 +1,35 @@
 @layer component.ui {
   .branding {
-    --logo-fill-1: var(--color-surface-container-high);
-    --logo-fill-2: var(--color-surface-container-highest);
-    --logo-fill-3: var(--color-surface-container-low);
-    --logo-fill-4: var(--color-surface-tint);
+    --logo-color-primary: var(--color-primary);
+    --logo-color-secondary: white;
+    --logo-fill-1: color-mix(
+      in sRGB,
+      var(--logo-color-primary),
+      var(--logo-color-secondary) 70%
+    );
+    --logo-fill-2: color-mix(
+      in sRGB,
+      var(--logo-color-primary),
+      var(--logo-color-secondary) 80%
+    );
+    --logo-fill-3: color-mix(
+      in sRGB,
+      var(--logo-color-primary),
+      var(--logo-color-secondary) 90%
+    );
+    --logo-fill-4: var(--logo-color-primary);
 
     display: flex;
     flex-shrink: 0;
     align-items: center;
     text-decoration: none;
     gap: var(--spacing-5);
+  }
+
+  [data-theme="dark"] {
+    .branding {
+      --logo-color-secondary: black;
+    }
   }
 
   .branding svg {
@@ -26,7 +46,7 @@
   }
 
   .branding__name {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     font: var(--typography-headline-medium);
   }
 

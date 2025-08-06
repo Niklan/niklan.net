@@ -21,10 +21,7 @@
     height: var(--_button-height);
     margin: 0;
     cursor: pointer;
-    transition:
-      color 250ms cubic-bezier(0.39, 0.58, 0.57, 1),
-      border-color 250ms cubic-bezier(0.39, 0.58, 0.57, 1),
-      background-color 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
+    transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
     text-decoration: none;
     color: var(--_button-color);
     border: 2px solid var(--_button-border-color);
@@ -46,16 +43,16 @@
   /* Variants and colors. */
   .button--variant--text.button--color--primary {
     --button-background-color: transparent;
-    --button-background-color-hover: var(--color-surface-container);
+    --button-background-color-hover: var(--color-primary);
     --button-color: var(--color-primary);
-    --button-color-hover: var(--button-color);
+    --button-color-hover: var(--color-on-primary);
   }
 
   .button--variant--text.button--color--secondary {
     --button-background-color: transparent;
-    --button-background-color-hover: var(--color-surface-container);
+    --button-background-color-hover: var(--color-secondary);
     --button-color: var(--color-secondary);
-    --button-color-hover: var(--button-color);
+    --button-color-hover: var(--color-on-secondary);
   }
 
   .button--variant--text.button--color--danger {
@@ -66,22 +63,34 @@
   }
 
   .button--variant--contained.button--color--primary {
-    --button-background-color: var(--color-primary-container);
-    --button-background-color-hover: var(--color-primary);
-    --button-color: var(--color-on-primary-container);
+    --button-background-color: var(--color-primary);
+    --button-background-color-hover: color-mix(
+      in sRGB,
+      var(--button-background-color),
+      black 30%
+    );
+    --button-color: var(--color-on-primary);
     --button-color-hover: var(--color-on-primary);
   }
 
   .button--variant--contained.button--color--secondary {
-    --button-background-color: var(--color-secondary-container);
-    --button-background-color-hover: var(--color-secondary);
-    --button-color: var(--color-on-secondary-container);
+    --button-background-color: var(--color-secondary);
+    --button-background-color-hover: color-mix(
+      in sRGB,
+      var(--button-background-color),
+      black 30%
+    );
+    --button-color: var(--color-on-secondary);
     --button-color-hover: var(--color-on-secondary);
   }
 
   .button--variant--contained.button--color--danger {
     --button-background-color: var(--color-error);
-    --button-background-color-hover: var(--button-background-color);
+    --button-background-color-hover: color-mix(
+      in sRGB,
+      var(--button-background-color),
+      black 30%
+    );
     --button-color: var(--color-on-error);
     --button-color-hover: var(--color-error-container);
   }

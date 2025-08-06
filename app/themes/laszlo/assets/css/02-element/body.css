@@ -1,6 +1,6 @@
 @layer element {
   :root {
-    --page-background-color: var(--color-surface);
+    --page-background-color: var(--color-surface-container);
   }
 
   body {

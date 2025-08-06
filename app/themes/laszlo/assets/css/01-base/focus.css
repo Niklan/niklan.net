@@ -1,7 +1,7 @@
 @layer base {
   :root {
     --default-focus-outline-width: 2px;
-    --default-focus-outline-color: var(--color-primary-container);
+    --default-focus-outline-color: var(--color-primary);
     --default-focus-outline: var(--default-focus-outline-width) solid
       var(--default-focus-outline-color);
   }
