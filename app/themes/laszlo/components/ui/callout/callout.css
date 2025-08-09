@@ -1,38 +1,47 @@
 @layer component.ui {
   .callout {
+    --_callout-expected-heading-height: 28px;
     --_callout-color: var(--callout-color, var(--color-scrim));
-    --_callout-background-color: var(
-      --callout-background-color,
-      var(--color-surface-bright)
+    --_callout-border-color: color-mix(
+      in sRGB,
+      var(--_callout-color),
+      var(--color-surface) 30%
     );
-    --_callout-border-color: var(
-      --callout-border-color,
-      var(--color-outline-variant)
-    );
-    --icon-width: 24px;
+    --icon-wrapper-width: 18px;
 
     display: flex;
     flex-direction: column;
+    margin-top: calc(var(--_callout-expected-heading-height) / 2);
     padding: var(--spacing-4);
+    padding-top: 0;
     color: var(--color-on-surface);
     border: 1px solid var(--_callout-border-color);
-    border-left: var(--spacing-2) solid var(--_callout-color);
     border-radius: var(--spacing-1);
-    background-color: var(--_callout-background-color);
+    background-color: color-mix(
+      in sRGB,
+      var(--_callout-color),
+      var(--color-surface) 90%
+    );
     gap: var(--spacing-4);
   }
 
   .callout__heading {
-    display: flex;
+    display: inline-flex;
     align-items: flex-start;
-    padding-bottom: var(--spacing-4);
-    border-bottom: 1px solid var(--color-outline-variant);
-    font: var(--typography-title-medium);
+    align-self: flex-start;
+    width: fit-content;
+    margin-top: calc(var(--_callout-expected-heading-height) / -2);
+    padding: var(--spacing-1) var(--spacing-2);
+    color: var(--color-on-surface);
+    border-radius: var(--spacing-1);
+    background-color: color-mix(
+      in sRGB,
+      var(--_callout-color),
+      var(--color-surface) 70%
+    );
+    font: var(--typography-label-large);
+    font-weight: bold;
     gap: var(--spacing-2);
-  }
-
-  .callout__heading .icon {
-    color: var(--_callout-color);
   }
 
   .callout__content {
@@ -41,53 +50,21 @@
 
   .callout--note {
     --callout-color: #086ddd;
-    --callout-background-color: #086ddd1a;
-    --callout-border-color: #086ddd25;
   }
 
   .callout--tip {
-    --callout-color: #00bfbc;
-    --callout-background-color: #00bfbc1a;
-    --callout-border-color: #00bfbc25;
+    --callout-color: #e3c800;
   }
 
-  .callout--important,
+  .callout--important {
+    --callout-color: #f0a30a;
+  }
+
   .callout--warning {
-    --callout-color: #ec7500;
-    --callout-background-color: #ec75001a;
-    --callout-border-color: #ec750025;
+    --callout-color: #fa6800;
   }
 
   .callout--caution {
-    --callout-color: #e93147;
-    --callout-background-color: #e931471a;
-    --callout-border-color: #e9314725;
-  }
-
-  [data-theme="dark"] {
-    .callout--note {
-      --callout-color: #027aff;
-      --callout-background-color: #027aff1a;
-      --callout-border-color: #027aff25;
-    }
-
-    .callout--tip {
-      --callout-color: #53dfdd;
-      --callout-background-color: #53dfdd1a;
-      --callout-border-color: #53dfdd25;
-    }
-
-    .callout--important,
-    .callout--warning {
-      --callout-color: #e9973f;
-      --callout-background-color: #e9973f1a;
-      --callout-border-color: #e9973f25;
-    }
-
-    .callout--caution {
-      --callout-color: #fb464c;
-      --callout-background-color: #fb464c1a;
-      --callout-border-color: #fb464c25;
-    }
+    --callout-color: #e51400;
   }
 }
