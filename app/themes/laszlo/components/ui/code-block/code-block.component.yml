@@ -24,3 +24,5 @@ props:
 libraryOverrides:
   dependencies:
     - niklan/hljs
+    - core/once
+    - core/drupal
