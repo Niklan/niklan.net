@@ -81,22 +81,20 @@
     font-style: italic;
   }
 
-  .prose .footnote-ref,
-  .prose .footnote-backref {
-    --link-color: var(--color-on-tertiary-fixed);
-
-    padding: var(--spacing-1) var(--spacing-2);
-    transition: all ease-in-out 0.1s;
+  .prose .footnote-ref {
     text-decoration: none;
-    border-radius: var(--spacing-4);
-    background-color: var(--color-tertiary-fixed);
-    font: var(--typography-label-small);
 
-    &:hover {
-      --link-color: var(--color-on-tertiary);
-
-      background-color: var(--color-tertiary);
+    &::before {
+      content: "[";
     }
+
+    &::after {
+      content: "]";
+    }
+  }
+
+  .prose .footnote-backref {
+    text-decoration: none;
   }
 
   .prose .footnotes {
