@@ -1,5 +1,7 @@
 @layer component.ui {
   .code-block {
+    --collapse-height: 60px;
+
     display: flex;
     flex-direction: column;
     border-radius: var(--spacing-4);
@@ -9,6 +11,36 @@
 
   .code-block__main {
     position: relative;
+
+    &::after {
+      position: absolute;
+      right: 1px;
+      bottom: 1px;
+      left: 1px;
+      overflow: hidden;
+      height: var(--collapse-height);
+      content: "";
+      transition: opacity 0.2s;
+      pointer-events: none;
+      opacity: 0;
+      border-top: 1px solid var(--color-outline-variant);
+      border-radius: 0 0 var(--spacing-1) var(--spacing-1);
+      background: color-mix(
+        in sRGB,
+        var(--color-secondary-fixed),
+        transparent 50%
+      );
+      backdrop-filter: blur(var(--spacing-1));
+    }
+  }
+
+  .code-block--collapsed .code-block__main::after {
+    opacity: 1;
+  }
+
+  .code-block--collapsed code {
+    overflow: hidden;
+    max-height: 415px;
   }
 
   .code-block__title {
@@ -17,5 +49,20 @@
     word-wrap: break-word;
     color: var(--color-on-surface);
     font: var(--typography-title-medium);
+  }
+
+  .code-block__button {
+    all: unset;
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--collapse-height);
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--color-on-secondary-fixed);
+    font: var(--typography-label-large);
   }
 }

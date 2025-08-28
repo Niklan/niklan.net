@@ -498,3 +498,5 @@ msgstr "Копировать"
 msgid "Copied!"
 msgstr "Скопировано!"
 
+msgid "Expand code block"
+msgstr "Раскрыть блок кода"

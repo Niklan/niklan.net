@@ -6,9 +6,13 @@
   {% do pre_attributes.setAttribute('data-highlight', highlighted_lines) %}
   {% do pre_attributes.setAttribute('data-highlighted-line-class', 'code-block__highlighted') %}
 {% endif %}
-<div{{ attributes.addClass('code-block') }}>
+{% do attributes.setAttribute('data-selector', 'code-block') %}
+{% do attributes.setAttribute('data-collapsed-class', 'code-block--collapsed') %}
+{% do attributes.setAttribute('data-collapsed-height', 415) %}
+{% do attributes.setAttribute('data-collapse-button-class', 'code-block__button') %}
+<div{{ attributes.addClass('code-block', 'code-block--collapsed') }}>
   {% if heading %}
     <div class="code-block__title">{{ heading }}</div>
   {% endif %}
-  <pre{{ pre_attributes.addClass('code-block__main')}}><code>{{ code }}</code></pre>
+  <pre{{ pre_attributes.addClass('code-block__main')}}><code data-code>{{ code }}</code></pre>
 </div>
