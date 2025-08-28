@@ -7,46 +7,46 @@
 
     /* Display */
     --typography-display-large: 400 normal
-      clamp(36px, calc(1.6534rem + 2.5455vw), 57px) / 1.19 var(--font-family);
+      clamp(36px, calc(1.6534rem + 2.5455vw), 57px) / 1.3 var(--font-family);
     --typography-display-medium: 400 normal
-      clamp(28px, calc(1.2671rem + 2.0606vw), 45px) / 1.16 var(--font-family);
+      clamp(28px, calc(1.2671rem + 2.0606vw), 45px) / 1.25 var(--font-family);
     --typography-display-small: 400 normal
-      clamp(24px, calc(1.1591rem + 1.4545vw), 36px) / 1.22 var(--font-family);
+      clamp(24px, calc(1.1591rem + 1.4545vw), 36px) / 1.3 var(--font-family);
 
     /* Headline */
     --typography-headline-large: 400 normal
-      clamp(24px, calc(1.2727rem + 0.9697vw), 32px) / 1.25 var(--font-family);
+      clamp(24px, calc(1.2727rem + 0.9697vw), 32px) / 1.35 var(--font-family);
     --typography-headline-medium: 400 normal
-      clamp(20px, calc(1.0227rem + 0.9697vw), 28px) / 1.29 var(--font-family);
+      clamp(20px, calc(1.0227rem + 0.9697vw), 28px) / 1.4 var(--font-family);
     --typography-headline-small: 400 normal
-      clamp(18px, calc(0.9546rem + 0.7273vw), 24px) / 1.33 var(--font-family);
+      clamp(18px, calc(0.9546rem + 0.7273vw), 24px) / 1.45 var(--font-family);
 
     /* Title */
     --typography-title-large: 400 normal
-      clamp(16px, calc(0.8864rem + 0.4848vw), 20px) / 1.4 var(--font-family);
+      clamp(16px, calc(0.8864rem + 0.4848vw), 20px) / 1.5 var(--font-family);
     --typography-title-medium: 500 normal
-      clamp(14px, calc(0.8182rem + 0.2424vw), 16px) / 1.5 var(--font-family);
+      clamp(14px, calc(0.8182rem + 0.2424vw), 16px) / 1.6 var(--font-family);
     --typography-title-small: 500 normal
-      clamp(12px, calc(0.6932rem + 0.2424vw), 14px) / 1.43 var(--font-family);
+      clamp(12px, calc(0.6932rem + 0.2424vw), 14px) / 1.55 var(--font-family);
 
     /* Label */
     --typography-label-large: 500 normal
-      clamp(12px, calc(0.6932rem + 0.2424vw), 14px) / 1.43 var(--font-family);
+      clamp(12px, calc(0.6932rem + 0.2424vw), 14px) / 1.55 var(--font-family);
     --typography-label-medium: 500 normal
-      clamp(10px, calc(0.5682rem + 0.2424vw), 12px) / 1.33 var(--font-family);
+      clamp(10px, calc(0.5682rem + 0.2424vw), 12px) / 1.45 var(--font-family);
     --typography-label-small: 500 normal
-      clamp(9px, calc(0.5057rem + 0.2424vw), 11px) / 1.55 var(--font-family);
+      clamp(9px, calc(0.5057rem + 0.2424vw), 11px) / 1.7 var(--font-family);
 
     /* Body */
     --typography-body-large: 400 normal
-      clamp(16px, calc(0.9148rem + 0.3636vw), 19px) / 1.52 var(--font-family);
+      clamp(16px, calc(0.9148rem + 0.3636vw), 19px) / 1.7 var(--font-family);
     --typography-body-medium: 400 normal
-      clamp(14px, calc(0.8182rem + 0.2424vw), 16px) / 1.25 var(--font-family);
+      clamp(14px, calc(0.8182rem + 0.2424vw), 16px) / 1.4 var(--font-family);
     --typography-body-small: 400 normal
-      clamp(12px, calc(0.6932rem + 0.2424vw), 14px) / 1.14 var(--font-family);
+      clamp(12px, calc(0.6932rem + 0.2424vw), 14px) / 1.3 var(--font-family);
 
     /* Code */
     --typography-code: 400 normal
-      clamp(12px, calc(0.6364rem + 0.4848vw), 16px) / 1.63 var(--font-monospace);
+      clamp(12px, calc(0.6364rem + 0.4848vw), 16px) / 1.8 var(--font-monospace);
   }
 }
