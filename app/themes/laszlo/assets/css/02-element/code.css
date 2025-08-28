@@ -1,26 +1,22 @@
 @layer element {
   code {
-    font-family: var(--font-monospace);
-  }
-
-  p > code,
-  li > code,
-  pre > code {
+    color: var(--color-on-surface-variant);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--spacing-1);
+    background: var(--color-surface-container-lowest);
     font: var(--typography-code);
   }
 
   pre > code {
     display: block;
     overflow-x: auto;
+    padding: var(--spacing-5);
   }
 
   :not(pre) > code {
     padding: var(--spacing-1);
     vertical-align: middle;
     word-break: break-word;
-    color: var(--color-on-surface-variant);
-    border-radius: var(--spacing-1);
-    background: var(--color-surface-variant);
     font-size: 0.8em;
   }
 }
