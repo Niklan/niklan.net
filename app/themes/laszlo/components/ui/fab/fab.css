@@ -1,12 +1,12 @@
 @layer component.ui {
   .fab {
-    --_background-color: var(--fab-background-color, var(--color-tertiary));
+    --_background-color: var(--fab-background-color, var(--color-secondary));
     --_background-color-hover: var(
       --fab-background-color-hover,
-      var(--color-tertiary)
+      var(--color-secondary)
     );
-    --_color: var(--fab-color, var(--color-on-tertiary));
-    --_color-hover: var(--fab-color-hover, var(--color-on-tertiary));
+    --_color: var(--fab-color, var(--color-on-secondary));
+    --_color-hover: var(--fab-color-hover, var(--color-on-secondary));
     --icon-wrapper-width: 32px;
     --_border-radius: var(--fab-border-radius, var(--spacing-4));
 
