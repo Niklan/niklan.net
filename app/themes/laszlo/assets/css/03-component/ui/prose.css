@@ -83,6 +83,7 @@
 
   .prose .footnote-ref {
     text-decoration: none;
+    font: var(--typography-body-small);
 
     &::before {
       content: "[";
