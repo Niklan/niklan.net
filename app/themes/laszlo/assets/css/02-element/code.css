@@ -3,8 +3,9 @@
     color: var(--color-on-surface-variant);
     border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-1);
-    background: var(--color-surface-container-lowest);
+    background: color-mix(in sRGB, var(--color-surface-container-lowest), transparent);
     font: var(--typography-code);
+    box-decoration-break: clone;
   }
 
   pre > code {
