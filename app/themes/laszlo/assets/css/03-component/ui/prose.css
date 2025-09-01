@@ -57,8 +57,19 @@
 
   .prose li > ul,
   .prose li > ol {
-    margin-top: 1ch;
     border-left: 1px solid var(--color-outline-variant);
+  }
+
+  .prose li > * {
+    margin-block: 1ch;
+
+    &:first-child {
+      margin-top: unset;
+    }
+
+    &:last-child {
+      margin-bottom: unset;
+    }
   }
 
   .prose figure {
