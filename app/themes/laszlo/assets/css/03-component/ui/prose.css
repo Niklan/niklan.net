@@ -1,5 +1,8 @@
 @layer component.ui {
   .prose {
+    --prose-list-vertical-spacing: 1ch;
+    --prose-list-horizontal-spacing: 3ch;
+
     display: flex;
     flex-direction: column;
     gap: 2ch;
@@ -49,27 +52,31 @@
 
   .prose ul,
   .prose ol {
-    display: flex;
-    flex-direction: column;
-    gap: 1ch;
-    padding-inline-start: 3ch;
+    padding-inline-start: var(--prose-list-horizontal-spacing);
+    margin-block: calc(var(--prose-list-vertical-spacing) * -1);
   }
 
   .prose li > ul,
   .prose li > ol {
-    border-left: 1px solid var(--color-outline-variant);
+    position: relative;
+
+    &::before {
+      position: absolute;
+      left: calc(var(--prose-list-horizontal-spacing) / -2);
+      height: 100%;
+      content: "";
+      border-left: 1px solid var(--color-outline-variant);
+    }
   }
 
+  .prose ul > *,
+  .prose ol > *,
   .prose li > * {
-    margin-block: 1ch;
+    margin-block: var(--prose-list-vertical-spacing);
+  }
 
-    &:first-child {
-      margin-top: unset;
-    }
-
-    &:last-child {
-      margin-bottom: unset;
-    }
+  .prose li::marker {
+    color: var(--color-outline);
   }
 
   .prose figure {
