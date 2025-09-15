@@ -11,12 +11,11 @@
 
     display: flex;
     flex-direction: column;
-    margin-top: calc(var(--_callout-expected-heading-height) / 2);
-    padding: var(--spacing-4);
+    padding: var(--spacing-6);
     padding-top: 0;
     color: var(--color-on-surface);
     border: 1px solid var(--_callout-border-color);
-    border-radius: var(--spacing-1);
+    border-radius: var(--spacing-3);
     background-color: color-mix(
       in sRGB,
       var(--_callout-color),

@@ -1,11 +1,20 @@
 @layer element {
   :root {
     --page-background-color: var(--color-surface-container);
+    --page-background-image: radial-gradient(
+      at 50%,
+      var(--color-surface-container-low) 30%,
+      var(--color-surface-dim) 120%
+    );
   }
 
   body {
     color: var(--color-on-surface);
     background: var(--page-background-color);
+    background-image: var(--page-background-image);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: auto 100vw;
     font: var(--typography-body-large);
   }
 }

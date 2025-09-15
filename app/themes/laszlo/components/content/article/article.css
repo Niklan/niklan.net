@@ -9,10 +9,21 @@
       --article-main-background,
       var(--color-surface, transparent)
     );
+    --article-border: 1px solid var(--color-outline-variant);
+    --article-border-radius: var(--spacing-4);
+    --article-box-shadow:
+      rgb(0 0 0 / 0.05) 0px 4px 16px, rgb(0 0 0 / 0.05) 0px 8px 32px;
 
     display: flex;
     flex-direction: column;
     gap: var(--_article-spacing);
+  }
+
+  .article__main-pane {
+    overflow: hidden;
+    border: var(--article-border);
+    border-radius: var(--article-border-radius);
+    box-shadow: var(--article-box-shadow);
   }
 
   .article__header {
@@ -22,9 +33,7 @@
     flex-flow: column;
     align-items: flex-start;
     padding: var(--spacing-4);
-    border: 1px solid var(--color-surface-variant);
-    border-bottom: unset;
-    border-radius: var(--spacing-4) var(--spacing-4) 0 0;
+    border-bottom: var(--article-border);
     background-color: color-mix(
       in sRGB,
       var(--_article-header-background),
@@ -48,7 +57,7 @@
       filter: blur(var(--spacing-16)) saturate(280%);
       background: var(--background-image);
       background-position: center;
-      background-size: cover;
+      aspect-ratio: 1/1;
     }
 
     @media screen and (min-width: 640px) {
@@ -102,10 +111,7 @@
     display: flex;
     flex-flow: wrap;
     align-items: flex-start;
-    margin-top: calc(var(--_article-spacing) * -1);
     padding: var(--spacing-4);
-    border: 1px solid var(--color-surface-variant);
-    border-radius: 0 0 var(--spacing-4) var(--spacing-4);
     background-color: var(--_article-main-background);
     gap: var(--spacing-6);
     margin-inline: calc(var(--page-side-gap) * -1);
@@ -188,11 +194,12 @@
     flex-direction: column;
     align-items: center;
     padding: var(--spacing-4) var(--spacing-2);
-    border: 1px solid var(--color-surface-variant);
+    border: var(--article-border);
     border-radius: var(--spacing-4);
-    background-color: var(--color-surface-container-low);
+    background-color: var(--_article-main-background);
     gap: var(--spacing-6);
     margin-inline: calc(var(--page-side-gap) * -1);
+    box-shadow: var(--article-box-shadow);
 
     @media screen and (min-width: 640px) {
       padding: var(--spacing-4);

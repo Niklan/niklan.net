@@ -16,7 +16,7 @@
     flex-direction: column;
     order: 2;
     padding: var(--page-side-gap);
-    border: 1px solid var(--color-surface-variant);
+    border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-4);
     background-color: var(--color-surface);
     gap: var(--author-page-content-gap);
