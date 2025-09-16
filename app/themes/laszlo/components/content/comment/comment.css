@@ -13,10 +13,7 @@
   }
 
   .comment__body {
-    display: flex;
-    flex-direction: column;
     font: var(--typography-body-medium);
-    gap: var(--spacing-4);
   }
 
   .comment__attribution {

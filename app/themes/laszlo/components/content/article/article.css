@@ -12,7 +12,8 @@
     --article-border: 1px solid var(--color-outline-variant);
     --article-border-radius: var(--spacing-4);
     --article-box-shadow:
-      rgb(0 0 0 / 0.05) 0px 4px 16px, rgb(0 0 0 / 0.05) 0px 8px 32px;
+      color-mix(in sRGB, var(--color-shadow), transparent 95%) 0px 4px 16px,
+      color-mix(in sRGB, var(--color-shadow), transparent 99%) 0px 8px 32px;
 
     display: flex;
     flex-direction: column;
@@ -20,7 +21,7 @@
   }
 
   .article__main-pane {
-    overflow: hidden;
+    overflow: clip;
     border: var(--article-border);
     border-radius: var(--article-border-radius);
     box-shadow: var(--article-box-shadow);

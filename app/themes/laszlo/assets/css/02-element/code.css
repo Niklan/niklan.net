@@ -2,8 +2,8 @@
   code {
     color: var(--color-on-surface);
     border: 1px solid var(--color-outline-variant);
-    border-radius: var(--spacing-2);
-    background: var(--color-surface);
+    border-radius: var(--spacing-1);
+    background: var(--color-surface-container-low);
     box-decoration-break: clone;
     font: var(--typography-code);
   }
@@ -12,6 +12,8 @@
     display: block;
     overflow-x: auto;
     padding: var(--spacing-5);
+    border-radius: var(--spacing-2);
+    background: var(--color-surface-container-lowest);
   }
 
   :not(pre) > code {

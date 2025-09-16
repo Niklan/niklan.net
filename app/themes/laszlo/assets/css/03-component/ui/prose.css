@@ -1,10 +1,13 @@
 @layer component.ui {
   .prose {
     --prose-vertical-spacing: 2ch;
-    --prose-list-vertical-spacing: 1ch;
+    --prose-list-vertical-spacing: 0.5ch;
     --prose-list-horizontal-spacing: 2ch;
+    --prose-color: var(--color-on-surface-variant);
+    --prose-secondary-color: var(--color-on-surface);
 
     width: 100%;
+    color: var(--prose-color);
   }
 
   .prose > * {
@@ -19,14 +22,19 @@
     }
   }
 
+  .prose h2 {
+    border-bottom: 1px solid var(--color-surface-container-high);
+    padding-bottom: 0.5ch;
+  }
+
   .prose h2,
   .prose h3,
   .prose h4,
   .prose h5,
   .prose h6 {
+    color: var(--prose-secondary-color);
     margin-top: calc(var(--prose-vertical-spacing) + 1ch);
-    padding-bottom: 0.5ch;
-    border-bottom: 1px solid var(--color-surface-container-high);
+    font-weight: 500;
   }
 
   .prose h2:first-child,
@@ -96,9 +104,9 @@
       calc(0.2727rem + 0.9697vw),
       var(--spacing-8)
     );
-    border: 1px solid var(--color-surface-variant);
+    border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-4);
-    background: var(--color-surface-container-low);
+    background: var(--color-surface-variant);
     gap: clamp(var(--spacing-2), calc(0.2727rem + 0.9697vw), var(--spacing-8));
   }
 

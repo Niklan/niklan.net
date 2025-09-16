@@ -10,10 +10,10 @@
   border-radius: var(--spacing-3);
   background: color-mix(in sRGB, var(--color-background), transparent);
   box-shadow:
-    rgb(0 0 0 / 0.08) 0 12px 24px -4px,
-    rgb(0 0 0 / 0.04) 0 8px 16px -4px;
+    color-mix(in sRGB, var(--color-shadow), transparent 95%) 0 4px 16px,
+    color-mix(in sRGB, var(--color-shadow), transparent 99%) 0 8px 32px;
   font: var(--typography-body-medium);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
 }
 
 .tooltip .footnote-backref {

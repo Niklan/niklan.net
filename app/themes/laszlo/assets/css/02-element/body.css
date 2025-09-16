@@ -2,9 +2,9 @@
   :root {
     --page-background-color: var(--color-surface-container);
     --page-background-image: radial-gradient(
-      at 50%,
-      var(--color-surface-container-low) 30%,
-      var(--color-surface-dim) 120%
+      at 50% 100%,
+      var(--color-surface-bright) 20%,
+      var(--color-surface-dim) 130%
     );
   }
 
