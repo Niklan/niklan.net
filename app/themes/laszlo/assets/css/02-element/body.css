@@ -4,7 +4,7 @@
     --page-background-image: radial-gradient(
       at 50% 100%,
       var(--color-surface-bright) 20%,
-      var(--color-surface-dim) 130%
+      var(--color-surface-dim) 120%
     );
   }
 
@@ -14,7 +14,6 @@
     background-image: var(--page-background-image);
     background-attachment: fixed;
     background-position: center;
-    background-size: auto 100vw;
     font: var(--typography-body-large);
   }
 }
