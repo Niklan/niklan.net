@@ -2,25 +2,19 @@
   .callout {
     --_callout-expected-heading-height: 28px;
     --_callout-color: var(--callout-color, var(--color-scrim));
-    --_callout-border-color: color-mix(
-      in sRGB,
-      var(--_callout-color),
-      var(--color-surface) 30%
-    );
-    --icon-wrapper-width: 18px;
+    --icon-wrapper-width: 24px;
 
     display: flex;
     flex-direction: column;
-    margin-top: calc(var(--_callout-expected-heading-height) / 2);
-    padding: var(--spacing-4);
-    padding-top: 0;
+    padding: var(--spacing-6);
     color: var(--color-on-surface);
-    border: 1px solid var(--_callout-border-color);
-    border-radius: var(--spacing-1);
-    background-color: color-mix(
-      in sRGB,
-      var(--_callout-color),
-      var(--color-surface) 90%
+    border: 2px solid
+      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 30%);
+    border-radius: var(--spacing-3);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 90%),
+      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 85%)
     );
     gap: var(--spacing-4);
   }
@@ -30,16 +24,12 @@
     align-items: flex-start;
     align-self: flex-start;
     width: fit-content;
-    margin-top: calc(var(--_callout-expected-heading-height) / -2);
-    padding: var(--spacing-1) var(--spacing-2);
-    color: var(--color-on-surface);
-    border-radius: var(--spacing-1);
-    background-color: color-mix(
+    color: color-mix(
       in sRGB,
       var(--_callout-color),
-      var(--color-surface) 70%
+      var(--color-on-surface) 80%
     );
-    font: var(--typography-label-large);
+    font: var(--typography-title-medium);
     font-weight: bold;
     gap: var(--spacing-2);
   }

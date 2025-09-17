@@ -5,17 +5,20 @@
     --_chip-gap: var(--chip-gap, var(--spacing-2));
     --_chip-background-color: var(
       --chip-background-color,
-      var(--color-surface-bright, transparent)
+      var(--color-secondary-container, transparent)
     );
     --_chip-background-color-hover: var(
       --chip-background-color-hover,
-      var(--color-surface-container-lowest, transparent)
+      var(--color-secondary, transparent)
     );
     --_chip-border-radius: var(--chip-border-radius, var(--spacing-5));
-    --_chip-color: var(--chip-color, var(--color-on-surface, black));
+    --_chip-color: var(
+      --chip-color,
+      var(--color-on-secondary-container, black)
+    );
     --_chip-color-hover: var(
       --chip-color-hover,
-      var(--color-on-surface, black)
+      var(--color-on-secondary, black)
     );
     --_chip-font: var(--chip-font, var(--typography-label-medium));
 

@@ -8,6 +8,7 @@
       --button-background-color-hover,
       transparent
     );
+    --_button-border-width: var(--button-border-width, 2px);
     --_button-border-color: var(--button-border-color, transparent);
     --_button-border-color-hover: var(--button-border-color-hover, transparent);
     --_button-color: var(--button-color, black);
@@ -24,7 +25,7 @@
     transition: all 250ms cubic-bezier(0.39, 0.58, 0.57, 1);
     text-decoration: none;
     color: var(--_button-color);
-    border: 2px solid var(--_button-border-color);
+    border: var(--_button-border-width) solid var(--_button-border-color);
     border-radius: var(--_button-border-radius);
     background: var(--_button-background-color);
     font: var(--_button-font);

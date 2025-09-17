@@ -68,6 +68,8 @@
   }
 
   .home-cards__description {
+    --prose-color: var(--color-on-secondary);
+
     font: var(--typography-body-medium);
   }
 }

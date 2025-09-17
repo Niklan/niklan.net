@@ -10,15 +10,18 @@
     padding: var(--spacing-4);
     transition: all 0.25s cubic-bezier(0.39, 0.58, 0.57, 1);
     color: var(--color-on-surface);
-    border: 1px solid var(--color-surface-variant);
+    border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-4);
     outline: var(--default-focus-outline-width) solid transparent;
-    background: var(--color-surface-bright);
+    background: var(--color-surface);
     gap: var(--spacing-6);
+    box-shadow: color-mix(in sRGB, var(--color-shadow), transparent 90%) 0 2px
+      8px 0;
 
     &:focus-within,
     &:hover,
     &:active {
+      border-color: transparent;
       outline: var(--default-focus-outline);
       background-color: var(--color-surface-container-highest);
     }

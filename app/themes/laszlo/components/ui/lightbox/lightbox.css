@@ -1,4 +1,9 @@
 @layer component.ui {
+  .lightbox {
+    display: flex;
+    justify-content: center;
+  }
+
   .lightbox__link {
     position: relative;
     display: flex;
@@ -17,13 +22,16 @@
 
     position: absolute;
     z-index: 5;
-    top: var(--spacing-8);
-    right: var(--spacing-8);
+    top: var(--spacing-2);
+    right: var(--spacing-2);
     transition: opacity 0.25s linear;
     opacity: 0;
+    border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-2);
     background-color: var(--color-surface-container-low);
-    box-shadow: var(--elevation-5);
+    box-shadow:
+      color-mix(in sRGB, var(--color-scrim), transparent 90%) 0 10px 15px -3px,
+      color-mix(in sRGB, var(--color-scrim), transparent 95%) 0 4px 6px -2px;
   }
 
   .lightbox:hover .lightbox__icon {

@@ -1,12 +1,15 @@
 @layer component.ui {
   .fab {
-    --_background-color: var(--fab-background-color, var(--color-secondary));
+    --_background-color: var(
+      --fab-background-color,
+      var(--color-tertiary-container)
+    );
     --_background-color-hover: var(
       --fab-background-color-hover,
-      var(--color-secondary)
+      var(--color-tertiary)
     );
-    --_color: var(--fab-color, var(--color-on-secondary));
-    --_color-hover: var(--fab-color-hover, var(--color-on-secondary));
+    --_color: var(--fab-color, var(--color-on-tertiary-container));
+    --_color-hover: var(--fab-color-hover, var(--color-on-tertiary));
     --icon-wrapper-width: 32px;
     --_border-radius: var(--fab-border-radius, var(--spacing-4));
 
@@ -19,9 +22,7 @@
     margin: 0;
     padding: 0;
     cursor: pointer;
-    transition:
-      transform 0.15s linear,
-      box-shadow 0.15s linear;
+    transition: all 0.25s cubic-bezier(0.39, 0.58, 0.57, 1);
     color: var(--_color);
     border: none;
     border-radius: var(--_border-radius);

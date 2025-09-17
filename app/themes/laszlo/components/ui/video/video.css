@@ -3,7 +3,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    border: 1px solid var(--color-surface-dim);
+    border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-2);
   }
 }

@@ -1,104 +1,106 @@
 <article{{ attributes.addClass('article') }}>
-  <header class="article__header" style="--background-image: url({{ poster_uri|image_style('200x264') }})">
-    {% include 'laszlo:image' with {
-      attributes: create_attribute({
-        class: ['article__poster'],
-      }),
-      src: poster_uri|image_style('200x264'),
-      width: 200,
-      height: 264,
-      alt: title,
-      loading: 'eager',
-      sizes: [
-        '200px',
-      ],
-      srcset: {
-        '200w': poster_uri|image_style('200x264'),
-        '400w': poster_uri|image_style('400x528'),
-      }
-    } only %}
+  <div class="article__main-pane">
+    <header class="article__header" style="--background-image: url({{ poster_uri|image_style('200x264') }})">
+      {% include 'laszlo:image' with {
+        attributes: create_attribute({
+          class: ['article__poster'],
+        }),
+        src: poster_uri|image_style('200x264'),
+        width: 200,
+        height: 264,
+        alt: title,
+        loading: 'eager',
+        sizes: [
+          '200px',
+        ],
+        srcset: {
+          '200w': poster_uri|image_style('200x264'),
+          '400w': poster_uri|image_style('400x528'),
+        }
+      } only %}
 
-    <div class="article__info">
-      <div class="article__breadcrumbs">
-        {{ drupal_breadcrumb() }}
-      </div>
-      <h1 class="article__title">{{ title }}</h1>
-      <div class="article__summary">
-        {% block summary %}{% endblock %}
-      </div>
-
-      {% if tags %}
-        <div class="article__tags">
-          {{ tags }}
+      <div class="article__info">
+        <div class="article__breadcrumbs">
+          {{ drupal_breadcrumb() }}
         </div>
-      {% endif %}
+        <h1 class="article__title">{{ title }}</h1>
+        <div class="article__summary">
+          {% block summary %}{% endblock %}
+        </div>
 
-      <div class="article__meta">
-        {% include 'laszlo:meta' with {
-          icon: 'calendar',
-          label: 'Published'|t,
-          value: published_timestamp|format_date('dmy'),
-        } only %}
-        <span class="article__meta-separator">•</span>
-        {% include 'laszlo:meta' with {
-          icon: 'read-time',
-          label: 'Time to read'|t,
-          value: '@minutes min.'|t({'@minutes': estimated_read_time}),
-        } only %}
+        {% if tags %}
+          <div class="article__tags">
+            {{ tags }}
+          </div>
+        {% endif %}
+
+        <div class="article__meta">
+          {% include 'laszlo:meta' with {
+            icon: 'calendar',
+            label: 'Published'|t,
+            value: published_timestamp|format_date('dmy'),
+          } only %}
+          <span class="article__meta-separator">•</span>
+          {% include 'laszlo:meta' with {
+            icon: 'read-time',
+            label: 'Time to read'|t,
+            value: '@minutes min.'|t({'@minutes': estimated_read_time}),
+          } only %}
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <div class="article__main">
-    <aside class="article__sidebar">
-      {% if toc_links %}
+    <div class="article__main">
+      <aside class="article__sidebar">
+        {% if toc_links %}
+          {% include 'laszlo:fab' with {
+            attributes: create_attribute({
+              'class': ['article__sidebar-fab'],
+              'x-data': '',
+              '@click.prevent': "$dispatch('show-toc')",
+            }),
+            label: 'Table of Contents'|t,
+            icon: 'notebook-bookmark-bold-duotone',
+          } only %}
+        {% endif %}
         {% include 'laszlo:fab' with {
           attributes: create_attribute({
             'class': ['article__sidebar-fab'],
             'x-data': '',
-            '@click.prevent': "$dispatch('show-toc')",
+            '@click.prevent': "$dispatch('show-share')",
           }),
-          label: 'Table of Contents'|t,
-          icon: 'notebook-bookmark-bold-duotone',
+          label: 'Share'|t,
+          icon: 'square-share-line-bold-duotone',
         } only %}
-      {% endif %}
-      {% include 'laszlo:fab' with {
-        attributes: create_attribute({
-          'class': ['article__sidebar-fab'],
-          'x-data': '',
-          '@click.prevent': "$dispatch('show-share')",
-        }),
-        label: 'Share'|t,
-        icon: 'square-share-line-bold-duotone',
-      } only %}
-      {% include 'laszlo:fab' with {
-        attributes: create_attribute({
-          'class': ['article__sidebar-fab'],
-        }),
-        label: 'Comments'|t,
-        icon: 'chat-round-dots-bold-duotone',
-        url: '#comments',
-        counter: comment_count,
-      } only %}
-    </aside>
+        {% include 'laszlo:fab' with {
+          attributes: create_attribute({
+            'class': ['article__sidebar-fab'],
+          }),
+          label: 'Comments'|t,
+          icon: 'chat-round-dots-bold-duotone',
+          url: '#comments',
+          counter: comment_count,
+        } only %}
+      </aside>
 
-    <section class="prose article__content">
-      {% block content %}{% endblock %}
+      <section class="prose article__content">
+        {% block content %}{% endblock %}
 
-      {% if attachments %}
-        <h2>{{ 'Files'|t }}</h2>
-        <div class="article__attachments">
-          {% for attachment in attachments %}
-            {% include 'laszlo:attachment-file' with {
-              label: attachment.media_label,
-              filename: attachment.filename,
-              file_uri: attachment.file_uri,
-              size: attachment.size,
-            } only %}
-          {% endfor %}
-        </div>
-      {% endif %}
-    </section>
+        {% if attachments %}
+          <h2>{{ 'Files'|t }}</h2>
+          <div class="article__attachments">
+            {% for attachment in attachments %}
+              {% include 'laszlo:attachment-file' with {
+                label: attachment.media_label,
+                filename: attachment.filename,
+                file_uri: attachment.file_uri,
+                size: attachment.size,
+              } only %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </section>
+    </div>
   </div>
 
   {% if next_link or previous_link %}

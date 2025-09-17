@@ -16,9 +16,12 @@
     flex-direction: column;
     order: 2;
     padding: var(--page-side-gap);
-    border: 1px solid var(--color-surface-variant);
+    border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-4);
     background-color: var(--color-surface);
+    box-shadow:
+      color-mix(in sRGB, var(--color-shadow), transparent 95%) 0 4px 16px,
+      color-mix(in sRGB, var(--color-shadow), transparent 99%) 0 8px 32px;
     gap: var(--author-page-content-gap);
     margin-inline: calc(var(--page-side-gap) * -1);
 

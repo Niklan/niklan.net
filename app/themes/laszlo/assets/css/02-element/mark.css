@@ -1,8 +1,10 @@
 @layer element {
   mark {
     padding: 0.25ch 0.5ch;
-    color: var(--color-on-primary-container);
-    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-fixed);
+    background-color: var(--color-tertiary-container);
+    box-decoration-break: clone;
+    box-shadow: 0 2px 0 var(--color-tertiary);
   }
 
   mark > * {
