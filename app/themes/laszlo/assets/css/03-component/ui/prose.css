@@ -23,8 +23,8 @@
   }
 
   .prose h2 {
-    border-bottom: 1px solid var(--color-surface-container-high);
     padding-bottom: 0.5ch;
+    border-bottom: 1px solid var(--color-surface-container-high);
   }
 
   .prose h2,
@@ -32,8 +32,8 @@
   .prose h4,
   .prose h5,
   .prose h6 {
-    color: var(--prose-secondary-color);
     margin-top: calc(var(--prose-vertical-spacing) + 1ch);
+    color: var(--prose-secondary-color);
     font-weight: 500;
   }
 
@@ -106,7 +106,7 @@
     );
     border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-4);
-    background: var(--color-surface-variant);
+    background: var(--color-surface-container-low);
     gap: clamp(var(--spacing-2), calc(0.2727rem + 0.9697vw), var(--spacing-8));
   }
 
@@ -127,10 +127,6 @@
     &::after {
       content: "]";
     }
-  }
-
-  .prose .callout {
-    margin-block-start: calc(var(--prose-vertical-spacing) + 1ch);
   }
 
   .prose .footnote-backref {

@@ -1,8 +1,10 @@
 @layer component.ui {
   .breadcrumb-item {
     --arrow-size: var(--spacing-3);
-    --arrow-background-color: var(--color-surface-bright);
+    --arrow-background-color: var(--color-surface-container-low);
+    --arrow-background-color-hover: var(--color-surface);
     --arrow-color: var(--color-on-surface);
+    --arrow-color-hover: var(--color-on-surface);
     --arrow-border-radius: var(--spacing-1);
     --arrow-padding: var(--spacing-2);
 
@@ -16,7 +18,12 @@
       background-color 150ms ease-in-out;
     text-decoration: none;
     color: var(--arrow-color);
-    background-color: var(--arrow-background-color);
+    background-color: color-mix(
+      in sRGB,
+      var(--arrow-background-color),
+      transparent 50%
+    );
+    backdrop-filter: blur(var(--spacing-4));
     font: var(--typography-label-large);
     clip-path: polygon(
       calc(100% - var(--arrow-size)) 0%,
@@ -29,9 +36,9 @@
 
     &:hover,
     &:focus {
-      color: var(--arrow-background-color);
+      color: var(--arrow-color-hover);
       outline: none;
-      background-color: var(--arrow-color);
+      background-color: var(--arrow-background-color-hover);
     }
   }
 

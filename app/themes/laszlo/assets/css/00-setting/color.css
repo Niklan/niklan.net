@@ -55,10 +55,6 @@
     --color-surface-container: rgb(245 237 224);
     --color-surface-container-high: rgb(239 231 218);
     --color-surface-container-highest: rgb(233 226 213);
-    --md-extended-color-accent-color: rgb(0 55 207);
-    --md-extended-color-accent-on-color: rgb(255 255 255);
-    --md-extended-color-accent-color-container: rgb(45 83 235);
-    --md-extended-color-accent-on-color-container: rgb(220 224 255);
   }
 
   [data-theme="dark"] {
@@ -111,9 +107,5 @@
     --color-surface-container: rgb(34 31 23);
     --color-surface-container-high: rgb(45 42 33);
     --color-surface-container-highest: rgb(56 52 44);
-    --md-extended-color-accent-color: rgb(185 195 255);
-    --md-extended-color-accent-on-color: rgb(0 34 138);
-    --md-extended-color-accent-color-container: rgb(45 83 235);
-    --md-extended-color-accent-on-color-container: rgb(220 224 255);
   }
 }

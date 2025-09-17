@@ -16,7 +16,7 @@
   }
 
   .dialog::backdrop {
-    opacity: 0.7;
+    opacity: 0.3;
     background-color: var(--color-scrim);
   }
 
@@ -26,7 +26,8 @@
     width: 100%;
     color: var(--color-on-surface);
     border-radius: var(--dialog-radius, 8px);
-    background-color: var(--color-surface);
+    background-color: color-mix(in sRGB, var(--color-surface), transparent 30%);
+    backdrop-filter: blur(var(--spacing-6));
     box-shadow: var(--elevation-5);
     margin-inline: var(--page-side-gap);
     margin-block: var(--page-side-gap);
