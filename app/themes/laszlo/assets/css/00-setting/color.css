@@ -1,5 +1,6 @@
 /**
  * - Source color: #EFCD58
+ * - Tertiary: #2E7D32 (adjusted manually)
  * - [x] Color match
  * - [x] Harmonize extended colors
  * - [x] Check contrast
@@ -15,10 +16,10 @@
     --color-on-secondary: rgb(255 255 255);
     --color-secondary-container: rgb(242 223 167);
     --color-on-secondary-container: rgb(112 98 53);
-    --color-tertiary: rgb(77 103 15);
+    --color-tertiary: rgb(13 99 27);
     --color-on-tertiary: rgb(255 255 255);
-    --color-tertiary-container: rgb(187 219 120);
-    --color-on-tertiary-container: rgb(71 96 7);
+    --color-tertiary-container: rgb(46 125 50);
+    --color-on-tertiary-container: rgb(203 255 194);
     --color-error: rgb(186 26 26);
     --color-on-error: rgb(255 255 255);
     --color-error-container: rgb(255 218 214);
@@ -44,10 +45,10 @@
     --color-on-secondary-fixed: rgb(35 27 0);
     --color-secondary-fixed-dim: rgb(216 197 143);
     --color-on-secondary-fixed-variant: rgb(82 70 28);
-    --color-tertiary-fixed: rgb(206 238 137);
-    --color-on-tertiary-fixed: rgb(20 31 0);
-    --color-tertiary-fixed-dim: rgb(178 210 112);
-    --color-on-tertiary-fixed-variant: rgb(56 78 0);
+    --color-tertiary-fixed: rgb(163 246 156);
+    --color-on-tertiary-fixed: rgb(0 34 4);
+    --color-tertiary-fixed-dim: rgb(136 217 130);
+    --color-on-tertiary-fixed-variant: rgb(0 83 18);
     --color-surface-dim: rgb(224 217 204);
     --color-surface-bright: rgb(255 248 240);
     --color-surface-container-lowest: rgb(255 255 255);
@@ -67,10 +68,10 @@
     --color-on-secondary: rgb(58 47 7);
     --color-secondary-container: rgb(85 72 30);
     --color-on-secondary-container: rgb(201 183 130);
-    --color-tertiary: rgb(215 248 145);
-    --color-on-tertiary: rgb(37 54 0);
-    --color-tertiary-container: rgb(187 219 120);
-    --color-on-tertiary-container: rgb(71 96 7);
+    --color-tertiary: rgb(136 217 130);
+    --color-on-tertiary: rgb(0 57 9);
+    --color-tertiary-container: rgb(46 125 50);
+    --color-on-tertiary-container: rgb(203 255 194);
     --color-error: rgb(255 180 171);
     --color-on-error: rgb(105 0 5);
     --color-error-container: rgb(147 0 10);
@@ -96,10 +97,10 @@
     --color-on-secondary-fixed: rgb(35 27 0);
     --color-secondary-fixed-dim: rgb(216 197 143);
     --color-on-secondary-fixed-variant: rgb(82 70 28);
-    --color-tertiary-fixed: rgb(206 238 137);
-    --color-on-tertiary-fixed: rgb(20 31 0);
-    --color-tertiary-fixed-dim: rgb(178 210 112);
-    --color-on-tertiary-fixed-variant: rgb(56 78 0);
+    --color-tertiary-fixed: rgb(163 246 156);
+    --color-on-tertiary-fixed: rgb(0 34 4);
+    --color-tertiary-fixed-dim: rgb(136 217 130);
+    --color-on-tertiary-fixed-variant: rgb(0 83 18);
     --color-surface-dim: rgb(22 19 12);
     --color-surface-bright: rgb(61 57 48);
     --color-surface-container-lowest: rgb(16 14 7);

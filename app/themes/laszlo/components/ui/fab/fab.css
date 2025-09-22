@@ -2,14 +2,9 @@
   .fab {
     --_background-color: var(
       --fab-background-color,
-      var(--color-tertiary-container)
+      var(--color-secondary-container)
     );
-    --_background-color-hover: var(
-      --fab-background-color-hover,
-      var(--color-tertiary)
-    );
-    --_color: var(--fab-color, var(--color-on-tertiary-container));
-    --_color-hover: var(--fab-color-hover, var(--color-on-tertiary));
+    --_color: var(--fab-color, var(--color-on-secondary-container));
     --icon-wrapper-width: 32px;
     --_border-radius: var(--fab-border-radius, var(--spacing-4));
 
@@ -32,10 +27,17 @@
     &:focus,
     &:active,
     &:hover {
-      --_background-color: var(--_background-color-hover);
-      --_color: var(--_color-hover);
-
       transform: translateY(calc(var(--spacing-1) * -1));
+      color: color-mix(
+        in sRGB,
+        var(--_color),
+        var(--color-surface-container-lowest) 10%
+      );
+      background-color: color-mix(
+        in sRGB,
+        var(--_background-color),
+        var(--color-surface-container-lowest) 10%
+      );
       box-shadow: var(--elevation-3);
     }
   }

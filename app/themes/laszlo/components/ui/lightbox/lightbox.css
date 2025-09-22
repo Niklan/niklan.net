@@ -26,9 +26,9 @@
     right: var(--spacing-2);
     transition: opacity 0.25s linear;
     opacity: 0;
-    border: 1px solid var(--color-outline-variant);
+    color: var(--color-on-tertiary-container);
     border-radius: var(--spacing-2);
-    background-color: var(--color-surface-container-low);
+    background-color: var(--color-tertiary-container);
     box-shadow:
       color-mix(in sRGB, var(--color-scrim), transparent 90%) 0 10px 15px -3px,
       color-mix(in sRGB, var(--color-scrim), transparent 95%) 0 4px 6px -2px;
