@@ -4,6 +4,7 @@ global:
       # This file is also altered by HOOK_css_alter().
       assets/css/00-setting/layer.css:
         weight: -1000
+      assets/css/00-setting/color-scheme.css: { }
       assets/css/00-setting/color.css: { }
       assets/css/00-setting/elevation.css: { }
       assets/css/00-setting/spacing.css: { }

@@ -28,6 +28,15 @@
 <!DOCTYPE html>
 <html{{ html_attributes }}>
   <head>
+    {# Initialize color scheme immediately to prevent flash #}
+    <script>
+      (function() {
+        var scheme = localStorage.getItem('color-scheme');
+        if (scheme && (scheme === 'light' || scheme === 'dark')) {
+          document.documentElement.setAttribute('data-theme', scheme);
+        }
+      })();
+    </script>
     <head-placeholder token="{{ placeholder_token }}">
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token }}">

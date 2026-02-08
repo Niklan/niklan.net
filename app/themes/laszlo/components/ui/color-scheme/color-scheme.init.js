@@ -1,3 +1,33 @@
+/**
+ * Color Scheme Manager
+ *
+ * IMPORTANT: This script requires an inline <script> in <head> to prevent FOUC
+ * (Flash of Unstyled Content) when the page loads.
+ *
+ * The inline script must be placed BEFORE CSS loading in html.html.twig:
+ *
+ * <head>
+ *   <script>
+ *     (function() {
+ *       var scheme = localStorage.getItem('color-scheme');
+ *       if (scheme && (scheme === 'light' || scheme === 'dark')) {
+ *         document.documentElement.setAttribute('data-theme', scheme);
+ *       }
+ *     })();
+ *   </script>
+ *   <css-placeholder>
+ * </head>
+ *
+ * WHY: Without the inline script, users would see a brief flash of the wrong
+ * theme while the page loads and this script executes. The inline script runs
+ * synchronously before CSS is applied, ensuring the correct theme is set
+ * immediately.
+ *
+ * This script then handles:
+ * - User interaction with theme toggle UI
+ * - Listening to system theme changes (prefers-color-scheme)
+ * - Persisting user preferences to localStorage
+ */
 (() => {
 
   function ColorScheme() {
@@ -64,8 +94,18 @@
     },
 
     update () {
-      this.dispatchEvent('onUpdate', this.getColorScheme(), this.isSchemeFromSystem());
-      document.documentElement.setAttribute('data-theme', this.getColorScheme());
+      const scheme = this.getColorScheme();
+      const isSystemScheme = this.isSchemeFromSystem();
+
+      this.dispatchEvent('onUpdate', scheme, isSystemScheme);
+
+      if (isSystemScheme) {
+        // Remove data-theme to let prefers-color-scheme work
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        // Force theme via data-theme attribute
+        document.documentElement.setAttribute('data-theme', this.store.getItem(this.name));
+      }
     },
 
     onUpdate (handler) {

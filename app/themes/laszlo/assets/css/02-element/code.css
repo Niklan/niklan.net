@@ -1,16 +1,12 @@
 @layer element {
   code {
-    --inline-color: #e36209;
+    --inline-color: light-dark(#e36209, #ffa657);
 
     color: var(--color-on-surface);
     border-radius: var(--spacing-1);
     background: var(--color-surface-container-high);
     box-decoration-break: clone;
     font: var(--typography-code);
-  }
-
-  [data-theme="dark"] {
-    --inline-color: #ffa657;
   }
 
   pre > code {
