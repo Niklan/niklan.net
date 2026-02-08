@@ -116,6 +116,23 @@
     font-style: italic;
   }
 
+  .prose hr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-block: var(--prose-vertical-spacing);
+    border: none;
+
+    &::before {
+      display: block;
+      content: "∗∗∗";
+      letter-spacing: var(--spacing-2);
+      color: var(--color-outline-variant);
+      font: var(--typography-display-medium);
+      line-height: 1;
+    }
+  }
+
   .prose .footnote-ref {
     text-decoration: none;
     font: var(--typography-body-small);
@@ -144,6 +161,10 @@
     margin-bottom: 2ch;
     border: none;
     border-top: 1px dashed var(--color-outline-variant);
+
+    &::before {
+      display: none;
+    }
   }
 
   body:not(.is-using-mouse) .prose .heading-permalink {
