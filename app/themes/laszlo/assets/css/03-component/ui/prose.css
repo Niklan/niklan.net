@@ -106,7 +106,7 @@
     );
     border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-4);
-    background: var(--color-surface-container-low);
+    background: var(--color-surface-container-lowest);
     gap: clamp(var(--spacing-2), calc(0.2727rem + 0.9697vw), var(--spacing-8));
   }
 
