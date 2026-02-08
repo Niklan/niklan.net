@@ -1,8 +1,8 @@
 @layer component.ui {
   .prose {
     --prose-vertical-spacing: 2ch;
-    --prose-list-vertical-spacing: 0.5ch;
-    --prose-list-horizontal-spacing: 2ch;
+    --prose-list-vertical-spacing: 1ch;
+    --prose-list-horizontal-spacing: 3ch;
     --prose-color: var(--color-on-surface-variant);
     --prose-secondary-color: var(--color-on-surface);
 
@@ -83,6 +83,16 @@
       height: 100%;
       content: "";
       border-left: 1px solid var(--color-outline-variant);
+    }
+  }
+
+  .prose li > p {
+    &:first-child {
+      margin-block-start: 0;
+    }
+
+    &:last-child {
+      margin-block-end: 0;
     }
   }
 
