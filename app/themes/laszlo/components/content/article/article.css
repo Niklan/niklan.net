@@ -1,14 +1,8 @@
 @layer component.content {
   .article {
     --_article-spacing: var(--spacing-8);
-    --_article-header-background: var(
-      --article-header-background,
-      var(--color-surface, transparent)
-    );
-    --_article-main-background: var(
-      --article-main-background,
-      var(--color-surface, transparent)
-    );
+    --_article-header-background: var(--color-surface-container-lowest);
+    --_article-main-background: var(--color-surface-container-lowest);
     --article-border: 1px solid var(--color-outline-variant);
     --article-border-radius: var(--spacing-4);
     --article-box-shadow:

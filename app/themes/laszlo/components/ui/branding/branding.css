@@ -5,17 +5,17 @@
     --logo-fill-1: color-mix(
       in sRGB,
       var(--logo-color-primary),
-      var(--logo-color-secondary) 70%
+      var(--logo-color-secondary) 85%
     );
     --logo-fill-2: color-mix(
       in sRGB,
       var(--logo-color-primary),
-      var(--logo-color-secondary) 80%
+      var(--logo-color-secondary) 92%
     );
     --logo-fill-3: color-mix(
       in sRGB,
       var(--logo-color-primary),
-      var(--logo-color-secondary) 90%
+      var(--logo-color-secondary) 98%
     );
     --logo-fill-4: var(--color-primary);
 
@@ -42,6 +42,7 @@
   .branding__name {
     color: var(--color-primary);
     font: var(--typography-headline-medium);
+    font-weight: 900;
   }
 
   .branding__slogan {
