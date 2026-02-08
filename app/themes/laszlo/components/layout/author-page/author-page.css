@@ -18,7 +18,7 @@
     padding: var(--page-side-gap);
     border: 1px solid var(--color-outline-variant);
     border-radius: var(--spacing-4);
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-container-lowest);
     box-shadow:
       color-mix(in sRGB, var(--color-shadow), transparent 95%) 0 4px 16px,
       color-mix(in sRGB, var(--color-shadow), transparent 99%) 0 8px 32px;

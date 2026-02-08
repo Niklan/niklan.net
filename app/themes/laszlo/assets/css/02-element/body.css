@@ -1,13 +1,7 @@
 @layer element {
   :root {
     --page-background-color: var(--color-background);
-    --page-background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.1'/></svg%3E"),
-      radial-gradient(
-        at 50% 30%,
-        var(--color-surface-bright) 10%,
-        var(--color-surface-dim) 70%
-      );
+    --page-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/></svg%3E");
   }
 
   body {
