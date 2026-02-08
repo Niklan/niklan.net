@@ -3,7 +3,7 @@
   'article-list',
   'article-list--variant--' ~ variant,
 ] %}
-<section{{ attributes.addClass(class) }}>
+<div{{ attributes.addClass(class) }}>
   {% if heading %}
     <h2 class="article-list__heading">{{ heading }}</h2>
   {% endif %}
@@ -29,4 +29,4 @@
       {{ pager }}
     </footer>
   {% endif %}
-</section>
+</div>

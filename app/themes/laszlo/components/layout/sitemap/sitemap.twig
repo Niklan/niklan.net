@@ -1,8 +1,8 @@
-<section{{ attributes.addClass('sitemap') }}>
+<div{{ attributes.addClass('sitemap') }}>
   {% for category in sitemap %}
     {% include 'laszlo:sitemap-category' with {
       heading: category.heading,
       sections: category.sections,
     } only %}
   {% endfor %}
-</section>
+</div>
