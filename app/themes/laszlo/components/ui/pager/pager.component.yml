@@ -49,3 +49,4 @@ libraryOverrides:
   dependencies:
     - core/drupal
     - niklan/alpinejs
+    - laszlo/request-idle-callback

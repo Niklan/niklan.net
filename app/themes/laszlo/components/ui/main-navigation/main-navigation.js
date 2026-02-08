@@ -15,10 +15,11 @@
   }
 
   function init() {
-    requestIdleCallback(() => {
+    const callback = () => {
       registerEventListeners();
       updateBlogExtraButtonVisibility();
-    });
+    };
+    requestIdleCallback(callback);
   }
 
   AlpineOnce(() => {

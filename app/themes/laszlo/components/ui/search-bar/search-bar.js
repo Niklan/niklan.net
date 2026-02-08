@@ -9,9 +9,10 @@
   Drupal.behaviors.searchBar = {
     attach: () => {
       once('search-bar', '[data-selector="laszlo:search-bar"]').forEach((element) => {
-        requestIdleCallback(() => {
+        const callback = () => {
           processSearchBar(element);
-        });
+        };
+        requestIdleCallback(callback);
       });
     },
   };

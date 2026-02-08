@@ -70,7 +70,7 @@
   }
 
   function init () {
-    requestIdleCallback(() => {
+    const callback = () => {
       const settingsElement = this.$root.closest('[data-load-more-settings]');
 
       if (!settingsElement) {
@@ -80,7 +80,8 @@
       const loadMoreSettings = JSON.parse(settingsElement.dataset.loadMoreSettings);
       this.loadMoreState.settings = loadMoreSettings;
       this.loadMoreState.visible = Object.keys(loadMoreSettings.append).length > 0 || Object.keys(loadMoreSettings.replace).length > 0;
-    });
+    };
+    requestIdleCallback(callback);
   }
 
   const definition = () => ({

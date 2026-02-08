@@ -12,3 +12,4 @@ libraryOverrides:
   dependencies:
     - niklan/alpinejs
     - core/drupalSettings
+    - laszlo/request-idle-callback

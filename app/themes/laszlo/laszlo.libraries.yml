@@ -28,6 +28,10 @@ global:
   dependencies:
     - laszlo/lora
 
+request-idle-callback:
+  js:
+    assets/js/request-idle-callback.polyfill.js: { }
+
 messages:
   js:
     assets/js/messages.js: { }
