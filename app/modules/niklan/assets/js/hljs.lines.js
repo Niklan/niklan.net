@@ -47,7 +47,7 @@
         const lineNumber = index + 1;
         const cls = highlightedLines.has(lineNumber) ? ` class="${highlightClass}"` : '';
 
-        return `<span${cls}>${line}\n</span>`;
+        return `<span${cls}>${line}</span>\n`;
       })
       .join('');
   };
