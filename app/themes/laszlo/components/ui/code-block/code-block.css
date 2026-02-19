@@ -51,6 +51,14 @@
     font: var(--typography-title-medium);
   }
 
+  .code-block__highlighted {
+    display: inline-block;
+    min-width: calc(100% + var(--spacing-5) * 2);
+    margin-inline: calc(-1 * var(--spacing-5));
+    padding-inline: var(--spacing-5);
+    background-color: light-dark(oklch(90% 0.05 90), oklch(30% 0.03 250));
+  }
+
   .code-block__button {
     all: unset;
     position: absolute;
