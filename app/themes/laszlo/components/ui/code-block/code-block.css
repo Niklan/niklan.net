@@ -56,7 +56,7 @@
     min-width: calc(100% + var(--spacing-5) * 2);
     margin-inline: calc(-1 * var(--spacing-5));
     padding-inline: var(--spacing-5);
-    background-color: light-dark(oklch(90% 0.05 145), oklch(30% 0.06 145));
+    background-color: light-dark(oklch(90% 0.05 145), oklch(35% 0.1 145));
   }
 
   .code-block__button {
