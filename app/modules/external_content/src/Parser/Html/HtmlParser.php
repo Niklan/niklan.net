@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\external_content\Parser\Html;
 
+use Drupal\Component\Utility\Html;
 use Drupal\external_content\Contract\Parser\Html\ChildParser;
 use Drupal\external_content\Contract\Parser\Html\Parser;
 use Drupal\external_content\Exception\UnsupportedElementException;
-use Drupal\external_content\Factory\DomDocumentFactory;
 use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Nodes\Node;
 use Drupal\external_content\Utils\Registry;
@@ -24,9 +24,7 @@ final readonly class HtmlParser implements Parser, ChildParser {
   public function parse(string $html): Document {
     $content_document = new Document();
 
-    // @todo DI
-    $dom_document_factory = new DomDocumentFactory();
-    $html_document = $dom_document_factory->createFromHtml($html);
+    $html_document = Html::load($html);
     $body = $html_document->getElementsByTagName('body')->item(0);
     \assert($body instanceof \DOMNode);
     $this->parseChildren($body, $content_document);
