@@ -72,6 +72,9 @@ final readonly class Home implements ContainerInjectionInterface {
         callback: fn ($node) => $this->getNodeViewBuilder()->view($node, 'preview'),
         array: $this->getNodeStorage()->loadMultiple($ids),
       ),
+      '#cache' => [
+        'tags' => ['node_list:blog_entry'],
+      ],
     ];
   }
 
@@ -99,6 +102,9 @@ final readonly class Home implements ContainerInjectionInterface {
         callback: fn ($node) => $this->getNodeViewBuilder()->view($node, 'preview'),
         array: $this->getNodeStorage()->loadMultiple($ids),
       ),
+      '#cache' => [
+        'tags' => ['node_list:blog_entry'],
+      ],
     ];
   }
 
@@ -127,6 +133,9 @@ final readonly class Home implements ContainerInjectionInterface {
         callback: fn (EntityInterface $node) => $this->getNodeViewBuilder()->view($node, 'preview'),
         array: $this->getNodeStorage()->loadMultiple($ids),
       ),
+      '#cache' => [
+        'tags' => ['node_list:blog_entry'],
+      ],
     ];
   }
 
@@ -152,6 +161,9 @@ final readonly class Home implements ContainerInjectionInterface {
         callback: fn (EntityInterface $comment) => $this->entityTypeManager->getViewBuilder('comment')->view($comment, 'teaser'),
         array: $storage->loadMultiple($ids),
       ),
+      '#cache' => [
+        'tags' => ['comment_list'],
+      ],
     ];
   }
 

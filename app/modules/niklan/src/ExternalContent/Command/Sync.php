@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\ExternalContent\Command;
 
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\niklan\Console\Log\ConsoleLogger;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
@@ -19,9 +20,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'niklan:blog:sync', description: 'Sync blog articles.')]
 final class Sync extends Command {
 
+  public const string CACHE_TAG = 'niklan:content_sync';
+
   public function __construct(
     private readonly LoggerInterface $logger,
     private readonly ArticleSyncPipeline $syncPipeline,
+    private readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
   ) {
     parent::__construct();
   }
@@ -52,6 +56,7 @@ final class Sync extends Command {
     $context = new SyncContext($source_uri, $logger);
     $context->setForceStatus((bool) $input->getOption('force'));
     $this->syncPipeline->run($context);
+    $this->cacheTagsInvalidator->invalidateTags([self::CACHE_TAG]);
 
     return self::SUCCESS;
   }
