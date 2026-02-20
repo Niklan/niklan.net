@@ -28,6 +28,8 @@ final class SiteMap extends Element implements RefinableCacheableDependencyInter
       $this->add($category);
     }
 
+    $this->addCacheableDependency($sitemap);
+
     return $this;
   }
 
