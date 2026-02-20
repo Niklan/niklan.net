@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\niklan\ExternalContent\Command\Sync;
+
 final readonly class PreprocessPage {
 
   private function prepareHeader(array &$variables): void {
@@ -20,6 +22,7 @@ final readonly class PreprocessPage {
       '#theme' => 'laszlo_page_footer',
       '#cache' => [
         'keys' => ['laszlo', 'page', 'footer'],
+        'tags' => [Sync::CACHE_TAG],
       ],
     ];
   }
