@@ -52,11 +52,14 @@
   }
 
   .code-block__highlighted {
+    --background: light-dark(#bee6be, #294436);
+
     display: inline-block;
-    min-width: calc(100% + var(--spacing-5) * 2);
-    margin-inline: calc(-1 * var(--spacing-5));
-    padding-inline: var(--spacing-5);
-    background-color: light-dark(oklch(90% 0.05 145), oklch(35% 0.1 145));
+    min-width: 100%;
+    background-color: var(--background);
+    box-shadow:
+      calc(-1 * var(--spacing-5)) 0 0 0 var(--background),
+      var(--spacing-5) 0 0 0 var(--background);
   }
 
   .code-block__button {
