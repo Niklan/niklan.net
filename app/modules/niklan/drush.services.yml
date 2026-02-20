@@ -4,6 +4,7 @@ services:
     arguments:
       - '@logger.channel.niklan.external_content'
       - '@Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline'
+      - '@Drupal\Core\Cache\CacheTagsInvalidatorInterface'
     tags:
       - { name: console.command }
   niklan.telegram.set_webhook:
