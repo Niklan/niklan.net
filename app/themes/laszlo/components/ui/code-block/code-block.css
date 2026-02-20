@@ -51,6 +51,17 @@
     font: var(--typography-title-medium);
   }
 
+  .code-block__highlighted {
+    --background: light-dark(#bee6be, #294436);
+
+    display: inline-block;
+    min-width: 100%;
+    background-color: var(--background);
+    box-shadow:
+      calc(-1 * var(--spacing-5)) 0 0 0 var(--background),
+      var(--spacing-5) 0 0 0 var(--background);
+  }
+
   .code-block__button {
     all: unset;
     position: absolute;

@@ -17,6 +17,7 @@ hljs:
   js:
     assets/js/hljs.init.js: { weight: -1 }
     assets/js/hljs.copy.js: { }
+    assets/js/hljs.lines.js: { }
   drupalSettings:
     highlightJs:
       workerPath: null
