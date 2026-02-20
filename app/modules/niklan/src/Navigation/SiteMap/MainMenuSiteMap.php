@@ -38,6 +38,7 @@ final readonly class MainMenuSiteMap implements SiteMapBuilderInterface {
 
     $category->add($section);
     $sitemap->add($category);
+    $sitemap->addCacheTags(['config:system.menu.main']);
 
     return $sitemap;
   }
