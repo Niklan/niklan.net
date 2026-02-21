@@ -43,7 +43,7 @@ final readonly class LinkProcessor implements PipelineStage {
     }
 
     $full_path = $this->buildFullPath($link_url, $context);
-    $this->updateLinkBasedOnPathType($node, $full_path);
+    $this->updateLinkBasedOnPathType($node, $full_path, $context);
   }
 
   /**
@@ -60,14 +60,14 @@ final readonly class LinkProcessor implements PipelineStage {
   }
 
   private function buildFullPath(string $relative_path, ArticleTranslationProcessContext $context): string {
-    $relativePathname = $context->articleTranslation->contentDirectory . \DIRECTORY_SEPARATOR . $relative_path;
-    return PathHelper::normalizePath($relativePathname);
+    $relative_pathname = $context->articleTranslation->contentDirectory . \DIRECTORY_SEPARATOR . $relative_path;
+    return PathHelper::normalizePath($relative_pathname);
   }
 
-  private function updateLinkBasedOnPathType(HtmlElement $node, string $full_path): void {
+  private function updateLinkBasedOnPathType(HtmlElement $node, string $full_path, ArticleTranslationProcessContext $context): void {
     match (TRUE) {
       \is_dir($full_path) => $this->convertToRepositoryLink($node, $full_path),
-      \is_file($full_path) => $this->markAsInternalArticleLink($node, $full_path),
+      \is_file($full_path) => $this->markAsInternalArticleLink($node, $full_path, $context),
       default => NULL,
     };
   }
@@ -86,9 +86,12 @@ final readonly class LinkProcessor implements PipelineStage {
     );
   }
 
-  private function markAsInternalArticleLink(HtmlElement $node, string $path): void {
+  private function markAsInternalArticleLink(HtmlElement $node, string $path, ArticleTranslationProcessContext $context): void {
     unset($node->attributes['href']);
-    $node->attributes['data-source-path-hash'] = \md5($path);
+    $node->attributes[self::DATA_HASH_ATTRIBUTE] = PathHelper::hashRelativePath(
+      path: $path,
+      base_path: $context->syncContext->contentRoot,
+    );
   }
 
 }
