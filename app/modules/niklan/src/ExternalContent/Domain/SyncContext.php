@@ -19,6 +19,7 @@ final class SyncContext implements PipelineContext {
 
   public function __construct(
     public readonly string $workingDirectory,
+    public readonly string $contentRoot,
     public readonly LoggerInterface $logger = new NullLogger(),
   ) {}
 

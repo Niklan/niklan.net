@@ -17,6 +17,16 @@ use Drupal\niklan\Utils\PathHelper;
  */
 final readonly class ArticleTranslationFieldUpdater implements PipelineStage {
 
+  /**
+   * MD5 hash of the source file path relative to the working directory.
+   *
+   * Using a relative path (instead of absolute) ensures the hash is stable
+   * across environments (production, local dev, etc.) where the absolute mount
+   * points differ.
+   *
+   * @see self::syncExternalContent()
+   * @see \Drupal\niklan\ExternalContent\Stages\LinkProcessor::markAsInternalArticleLink()
+   */
   public const string SOURCE_PATH_HASH_PROPERTY = 'source_path_hash';
 
   public function __construct(
@@ -56,13 +66,15 @@ final readonly class ArticleTranslationFieldUpdater implements PipelineStage {
     $environment = $this->environmentManager->createInstance(BlogArticle::ID);
     \assert($environment instanceof BlogArticle);
 
-    $source_path = PathHelper::normalizePath($context->articleTranslation->contentDirectory . \DIRECTORY_SEPARATOR . $context->articleTranslation->sourcePath);
+    $source_path = $context->articleTranslation->contentDirectory . \DIRECTORY_SEPARATOR . $context->articleTranslation->sourcePath;
     $context->articleEntity->set('external_content', [
       'value' => $environment->normalize($context->externalContent),
       'environment_id' => BlogArticle::ID,
       'data' => \json_encode([
-        // MD5 simply for less data to store.
-        self::SOURCE_PATH_HASH_PROPERTY => \md5($source_path),
+        self::SOURCE_PATH_HASH_PROPERTY => PathHelper::hashRelativePath(
+          path: $source_path,
+          base_path: $context->syncContext->contentRoot,
+        ),
       ]),
     ]);
   }

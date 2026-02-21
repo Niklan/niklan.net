@@ -34,8 +34,7 @@ final class Sync extends Command {
     $this->addArgument(
       name: 'source-uri',
       mode: InputArgument::OPTIONAL,
-      description: 'The source content URI. If omitted, the default source URI will be used.',
-      default: Settings::get('external_content_directory'),
+      description: 'Absolute path or path relative to the content root. If omitted, the content root is used.',
     );
 
     $this->addOption(
@@ -50,10 +49,18 @@ final class Sync extends Command {
     $output->writeln('Start syncing...');
     $logger = new ConsoleLogger($this->logger, $output);
 
-    $source_uri = $input->getArgument('source-uri') ?? Settings::get('external_content_directory');
-    \assert(\is_string($source_uri));
+    $content_root = Settings::get('external_content_directory');
+    \assert(\is_string($content_root));
+    $source_uri = $input->getArgument('source-uri');
+    \assert(\is_string($source_uri) || \is_null($source_uri));
+    $working_directory = match (TRUE) {
+      $source_uri === NULL => $content_root,
+      // Resolve relative paths against the content root.
+      !\str_starts_with($source_uri, '/') && !\str_contains($source_uri, '://') => $content_root . '/' . $source_uri,
+      default => $source_uri,
+    };
 
-    $context = new SyncContext($source_uri, $logger);
+    $context = new SyncContext($working_directory, $content_root, $logger);
     $context->setForceStatus((bool) $input->getOption('force'));
     $this->syncPipeline->run($context);
     $this->cacheTagsInvalidator->invalidateTags([self::CACHE_TAG]);
