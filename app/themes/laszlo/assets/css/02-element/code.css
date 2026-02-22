@@ -1,6 +1,6 @@
 @layer element {
   code {
-    --inline-color: light-dark(#e36209, #ffa657);
+    --inline-color: light-dark(#005cc5, #79c0ff);
 
     color: var(--color-on-surface);
     border-radius: var(--spacing-1);
