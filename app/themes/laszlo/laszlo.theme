@@ -12,8 +12,6 @@ use Drupal\laszlo\Hook\Theme\ElementInfoAlter;
 use Drupal\laszlo\Hook\Theme\Preprocess;
 use Drupal\laszlo\Hook\Theme\PreprocessComment;
 use Drupal\laszlo\Hook\Theme\PreprocessInput;
-use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageFooter;
-use Drupal\laszlo\Hook\Theme\PreprocessLaszloPageHeader;
 use Drupal\laszlo\Hook\Theme\PreprocessLinks;
 use Drupal\laszlo\Hook\Theme\PreprocessMaintenancePage;
 use Drupal\laszlo\Hook\Theme\PreprocessNode;
@@ -26,14 +24,6 @@ use Drupal\laszlo\Hook\Theme\ThemeSuggestionsAlter;
  */
 function laszlo_theme(array $existing, string $type, string $theme, string $path): array {
   return [
-    'laszlo_page_header' => [
-      'variables' => [],
-      'path' => "$path/templates/layout",
-    ],
-    'laszlo_page_footer' => [
-      'variables' => [],
-      'path' => "$path/templates/layout",
-    ],
     'comment_form__node__blog_entry__comment_node_blog_entry' => [
       'render element' => 'form',
       'path' => "$path/templates/form",
@@ -75,20 +65,6 @@ function laszlo_preprocess_page(array &$variables): void {
  */
 function laszlo_preprocess_node(array &$variables): void {
   Drupal::classResolver(PreprocessNode::class)($variables);
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function laszlo_preprocess_laszlo_page_header(array &$variables): void {
-  Drupal::classResolver(PreprocessLaszloPageHeader::class)($variables);
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function laszlo_preprocess_laszlo_page_footer(array &$variables): void {
-  Drupal::classResolver(PreprocessLaszloPageFooter::class)($variables);
 }
 
 /**
