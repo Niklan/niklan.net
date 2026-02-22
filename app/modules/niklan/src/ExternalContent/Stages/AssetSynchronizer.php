@@ -13,7 +13,7 @@ use Drupal\niklan\ExternalContent\Nodes\Image\Image;
 use Drupal\niklan\ExternalContent\Nodes\LocalVideo\LocalVideo;
 use Drupal\niklan\ExternalContent\Nodes\MediaReference\MediaReference;
 use Drupal\niklan\ExternalContent\Nodes\RemoteVideo\RemoteVideo;
-use Drupal\niklan\Media\Contract\MediaSynchronizer;
+use Drupal\app_contract\Contract\Media\MediaSynchronizer;
 
 /**
  * @implements \Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext>

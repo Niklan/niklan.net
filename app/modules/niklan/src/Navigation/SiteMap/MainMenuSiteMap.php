@@ -8,12 +8,12 @@ use Drupal\Core\Link;
 use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\SiteMap\Structure\Category;
-use Drupal\niklan\SiteMap\Structure\Section;
-use Drupal\niklan\SiteMap\Structure\SiteMap;
-use Drupal\niklan\SiteMap\Structure\SiteMapBuilderInterface;
+use Drupal\app_contract\Contract\SiteMap\Category;
+use Drupal\app_contract\Contract\SiteMap\Section;
+use Drupal\app_contract\Contract\SiteMap\SiteMap;
+use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
 
-final readonly class MainMenuSiteMap implements SiteMapBuilderInterface {
+final readonly class MainMenuSiteMap implements SiteMapBuilder {
 
   public function __construct(
     private MenuLinkTreeInterface $menuLinkTree,

@@ -9,7 +9,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\File\Entity\FileInterface;
+use Drupal\app_contract\Contract\File\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -71,7 +71,7 @@ final class Deploy0003 implements ContainerInjectionInterface {
       ->loadMultiple($ids);
 
     foreach ($files as $file) {
-      \assert($file instanceof FileInterface);
+      \assert($file instanceof File);
       $file->save();
 
       $sandbox['current']++;

@@ -11,8 +11,8 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\niklan\File\Contract\FileSynchronizer;
-use Drupal\niklan\File\Entity\FileInterface;
+use Drupal\app_contract\Contract\File\File;
+use Drupal\app_contract\Contract\File\FileSynchronizer;
 use Drupal\niklan\File\Utils\FileHelper;
 use Drupal\niklan\Utils\PathHelper;
 use Psr\Log\LoggerInterface;
@@ -34,7 +34,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
     private LoggerInterface $logger,
   ) {}
 
-  public function sync(string $path): ?FileInterface {
+  public function sync(string $path): ?File {
     $normalized_path = PathHelper::normalizePath($path);
     return UrlHelper::isExternal($normalized_path)
       ? $this->handleExternalUrl($normalized_path)
@@ -49,7 +49,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
     return NULL;
   }
 
-  private function syncInternal(string $path): ?FileInterface {
+  private function syncInternal(string $path): ?File {
     $checksum = FileHelper::checksum($path);
     if (!$checksum) {
       $this->logger->warning('Failed to calculate file checksum', ['path' => $path]);
@@ -59,14 +59,14 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
     return $this->findFileByChecksum($checksum, $path) ?? $this->saveToFile($path);
   }
 
-  private function findFileByChecksum(string $checksum, string $source_path): ?FileInterface {
+  private function findFileByChecksum(string $checksum, string $source_path): ?File {
     $file_id = $this->findExistingFileId($checksum);
     if (!$file_id) {
       return NULL;
     }
 
     $file = $this->getFileStorage()->load($file_id);
-    if (!$file instanceof FileInterface) {
+    if (!$file instanceof File) {
       $this->logger->error('Missing file entity', ['fid' => $file_id]);
       return NULL;
     }
@@ -92,7 +92,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
     return $this->entityTypeManager->getStorage('file');
   }
 
-  private function ensurePhysicalFileExists(FileInterface $file, string $source_path): void {
+  private function ensurePhysicalFileExists(File $file, string $source_path): void {
     $file_uri = $file->getFileUri();
     if (!$file_uri) {
       $this->logger->error('File entity has empty URI', ['fid' => $file->id()]);
@@ -128,7 +128,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
     ]);
   }
 
-  private function saveToFile(string $source_path): ?FileInterface {
+  private function saveToFile(string $source_path): ?File {
     $destination_directory = $this->prepareDestinationDirectory();
     $is_directory_prepared = $this->fileSystem->prepareDirectory(
       directory: $destination_directory,
@@ -151,7 +151,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
 
     $this->fileSystem->copy($source_path, $destination_uri);
     $file = $this->getFileStorage()->create();
-    \assert($file instanceof FileInterface);
+    \assert($file instanceof File);
     $file->setFilename($destination_filename);
     $file->setFileUri($destination_uri);
     $file->setMimeType($this->mimeTypeGuesser->guessMimeType($destination_uri));

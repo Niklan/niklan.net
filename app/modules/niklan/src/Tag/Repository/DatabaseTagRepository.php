@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\niklan\Tag\Repository;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Tag\Contract\TagRepository;
-use Drupal\niklan\Tag\Entity\Tag;
+use Drupal\app_contract\Contract\Tag\TagRepository;
+use Drupal\niklan\Tag\Entity\TagBundle;
 use Drupal\taxonomy\TermStorageInterface;
 
 final readonly class DatabaseTagRepository implements TagRepository {
@@ -17,7 +17,7 @@ final readonly class DatabaseTagRepository implements TagRepository {
     private EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  public function findByExternalId(string $external_id): ?Tag {
+  public function findByExternalId(string $external_id): ?TagBundle {
     $ids = $this
       ->getStorage()
       ->getQuery()

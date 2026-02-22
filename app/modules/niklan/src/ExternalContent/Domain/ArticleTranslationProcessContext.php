@@ -7,7 +7,7 @@ namespace Drupal\niklan\ExternalContent\Domain;
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Nodes\Document;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\Node\Entity\BlogEntryInterface;
+use Drupal\app_contract\Contract\Node\Article as ArticleNode;
 use Psr\Log\LoggerInterface;
 
 final class ArticleTranslationProcessContext implements PipelineContext {
@@ -18,7 +18,7 @@ final class ArticleTranslationProcessContext implements PipelineContext {
   public function __construct(
     public readonly Article $article,
     public readonly ArticleTranslation $articleTranslation,
-    public readonly BlogEntryInterface $articleEntity,
+    public readonly ArticleNode $articleEntity,
     public readonly SyncContext $syncContext,
     public ?Document $externalContent = NULL,
     public ?MediaInterface $posterMedia = NULL,

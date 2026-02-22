@@ -7,10 +7,10 @@ namespace Drupal\niklan\Hook\Entity;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\File\Entity\File;
-use Drupal\niklan\Node\Entity\BlogEntry;
-use Drupal\niklan\Node\Entity\Portfolio;
-use Drupal\niklan\Tag\Entity\Tag;
+use Drupal\niklan\File\Entity\FileBundle;
+use Drupal\niklan\Node\Entity\ArticleBundle;
+use Drupal\niklan\Node\Entity\PortfolioBundle;
+use Drupal\niklan\Tag\Entity\TagBundle;
 
 #[Hook('entity_bundle_info_alter')]
 final class BundleInfoAlter {
@@ -19,23 +19,23 @@ final class BundleInfoAlter {
     $bundle_classes_map = [
       'node' => [
         'blog_entry' => [
-          'class' => BlogEntry::class,
+          'class' => ArticleBundle::class,
           'label' => new TranslatableMarkup('Blog article'),
         ],
         'portfolio' => [
-          'class' => Portfolio::class,
+          'class' => PortfolioBundle::class,
           'label' => new TranslatableMarkup('Portfolio project'),
         ],
       ],
       'file' => [
         'file' => [
-          'class' => File::class,
+          'class' => FileBundle::class,
           'label' => new TranslatableMarkup('File'),
         ],
       ],
       'taxonomy_term' => [
         'tags' => [
-          'class' => Tag::class,
+          'class' => TagBundle::class,
           'label' => new TranslatableMarkup('Tag'),
         ],
       ],

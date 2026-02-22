@@ -9,7 +9,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\Node\Entity\BlogEntryInterface;
+use Drupal\app_contract\Contract\Node\Article;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -71,7 +71,7 @@ final class Deploy0002 implements ContainerInjectionInterface {
       ->loadMultiple($ids);
 
     foreach ($blog_posts as $blog_post) {
-      \assert($blog_post instanceof BlogEntryInterface);
+      \assert($blog_post instanceof Article);
 
       $external_id = $this->getExternalIdMapping()[$blog_post->id()];
       $blog_post->setExternalId($external_id);

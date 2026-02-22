@@ -6,13 +6,13 @@ namespace Drupal\niklan\Blog\SiteMap;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Node\Entity\BlogEntry;
-use Drupal\niklan\SiteMap\Structure\Category;
-use Drupal\niklan\SiteMap\Structure\Section;
-use Drupal\niklan\SiteMap\Structure\SiteMap;
-use Drupal\niklan\SiteMap\Structure\SiteMapBuilderInterface;
+use Drupal\app_contract\Contract\Node\Article;
+use Drupal\app_contract\Contract\SiteMap\Category;
+use Drupal\app_contract\Contract\SiteMap\Section;
+use Drupal\app_contract\Contract\SiteMap\SiteMap;
+use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
 
-final readonly class BlogSiteMap implements SiteMapBuilderInterface {
+final readonly class BlogSiteMap implements SiteMapBuilder {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
@@ -25,7 +25,7 @@ final readonly class BlogSiteMap implements SiteMapBuilderInterface {
     $section = new Section(new TranslatableMarkup('Articles'));
 
     foreach ($this->articles() as $article) {
-      \assert($article instanceof BlogEntry);
+      \assert($article instanceof Article);
       $section->add($article->toLink());
     }
 

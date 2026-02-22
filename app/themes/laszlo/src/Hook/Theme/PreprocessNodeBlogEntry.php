@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\app_contract\Contract\File\File;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -12,8 +13,7 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\ExternalContent\Builder\TableOfContentsBuilder;
-use Drupal\niklan\File\Entity\FileInterface;
-use Drupal\niklan\Node\Entity\BlogEntry;
+use Drupal\niklan\Node\Entity\ArticleBundle;
 use Drupal\niklan\Utils\MediaHelper;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,7 +31,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     );
   }
 
-  private function addFullVariables(BlogEntry $node, array &$variables): void {
+  private function addFullVariables(ArticleBundle $node, array &$variables): void {
     $this->addAttachments($node, $variables);
     $this->addTableOfContents($node, $variables);
     $this->addTags($node, $variables);
@@ -39,11 +39,11 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     $variables['#attached']['drupalSettings']['path']['isBlogArticlePage'] = TRUE;
   }
 
-  private function addEstimatedReadTime(BlogEntry $node, array &$variables): void {
+  private function addEstimatedReadTime(ArticleBundle $node, array &$variables): void {
     $variables['estimated_read_time'] = $node->getEstimatedReadTime();
   }
 
-  private function addPosterUri(BlogEntry $node, array &$variables): void {
+  private function addPosterUri(ArticleBundle $node, array &$variables): void {
     $variables['poster_uri'] = MediaHelper::getFileFromMediaField(
       entity: $node,
       field_name: 'field_media_image',
@@ -53,7 +53,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     \assert($variables['poster_uri'] !== NULL, \sprintf('The node ID %s is missing poster image.', $node->id()));
   }
 
-  private function addAttachments(BlogEntry $node, array &$variables): void {
+  private function addAttachments(ArticleBundle $node, array &$variables): void {
     $variables['attachments'] = [];
 
     foreach ($node->get('field_media_attachments') as $attachment_item) {
@@ -61,7 +61,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
       \assert($media instanceof MediaInterface);
       $file = MediaHelper::getFile($media);
 
-      if (!$file instanceof FileInterface) {
+      if (!$file instanceof File) {
         continue;
       }
 
@@ -75,7 +75,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     }
   }
 
-  private function addTableOfContents(BlogEntry $node, array &$variables): void {
+  private function addTableOfContents(ArticleBundle $node, array &$variables): void {
     if ($node->get('external_content')->isEmpty()) {
       return;
     }
@@ -85,7 +85,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     $variables['toc_links'] = (new TableOfContentsBuilder())->build($content);
   }
 
-  private function addTags(BlogEntry $node, array &$variables): void {
+  private function addTags(ArticleBundle $node, array &$variables): void {
     $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
     $variables['tags'] = \array_map(
       callback: static fn (TermInterface $term): array => $view_builder->view(
@@ -96,14 +96,14 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     );
   }
 
-  private function addPreviousNext(BlogEntry $node, array &$variables): void {
+  private function addPreviousNext(ArticleBundle $node, array &$variables): void {
     $variables['previous_link'] = $variables['next_link'] = NULL;
 
     $this->preparePreviousLink($node, $variables);
     $this->prepareNextLink($node, $variables);
   }
 
-  private function preparePreviousNextQuery(BlogEntry $node, string $created_operator): QueryInterface {
+  private function preparePreviousNextQuery(ArticleBundle $node, string $created_operator): QueryInterface {
     return $this
       ->entityTypeManager
       ->getStorage('node')
@@ -115,7 +115,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
       ->sort('created', $created_operator === '<' ? 'DESC' : 'ASC');
   }
 
-  private function preparePreviousLink(BlogEntry $node, array &$variables): void {
+  private function preparePreviousLink(ArticleBundle $node, array &$variables): void {
     $id = $this->preparePreviousNextQuery($node, '>')->execute();
 
     if (!\is_array($id) || \count($id) !== 1) {
@@ -138,7 +138,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
     $cache->applyTo($variables);
   }
 
-  private function prepareNextLink(BlogEntry $node, array &$variables): void {
+  private function prepareNextLink(ArticleBundle $node, array &$variables): void {
     $cache = CacheableMetadata::createFromRenderArray($variables);
     $id = $this->preparePreviousNextQuery($node, '<')->execute();
 
@@ -167,7 +167,7 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
 
   public function __invoke(array &$variables): void {
     $node = $variables['node'];
-    \assert($node instanceof BlogEntry);
+    \assert($node instanceof ArticleBundle);
     $this->addEstimatedReadTime($node, $variables);
     $this->addPosterUri($node, $variables);
 

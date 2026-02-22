@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\niklan\Kernel\Process;
 
-use Drupal\niklan\Console\Process\Git;
-use Drupal\niklan\Console\Process\GitInterface;
+use Drupal\app_contract\Contract\Console\Git;
+use Drupal\niklan\Console\Process\ProcessGit;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass(Git::class)]
+#[CoversClass(ProcessGit::class)]
 final class GitTest extends NiklanTestBase {
 
   /**
    * The git process.
    */
-  protected GitInterface $git;
+  protected Git $git;
 
   /**
    * Tests process creation for pulling from repository.
@@ -47,7 +47,7 @@ final class GitTest extends NiklanTestBase {
   #[\Override]
   protected function setUp(): void {
     parent::setUp();
-    $this->git = $this->container->get(GitInterface::class);
+    $this->git = $this->container->get(Git::class);
   }
 
 }

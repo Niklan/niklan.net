@@ -8,14 +8,14 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\external_content\Contract\Pipeline\PipelineContext;
 use Drupal\external_content\Contract\Pipeline\PipelineStage;
-use Drupal\niklan\Blog\Contract\BlogRepository;
+use Drupal\app_contract\Contract\Blog\ArticleRepository;
+use Drupal\app_contract\Contract\Node\Article as ArticleNode;
+use Drupal\app_contract\Contract\Tag\TagRepository;
 use Drupal\niklan\ExternalContent\Domain\Article;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslation;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline;
-use Drupal\niklan\Node\Entity\BlogEntryInterface;
-use Drupal\niklan\Tag\Contract\TagRepository;
 use Drupal\node\NodeStorageInterface;
 
 /**
@@ -25,7 +25,7 @@ final readonly class ArticleProcessor implements PipelineStage {
 
   public function __construct(
     private TagRepository $tagRepository,
-    private BlogRepository $blogRepository,
+    private ArticleRepository $articleRepository,
     private EntityTypeManagerInterface $entityTypeManager,
     private ArticleProcessPipeline $pipeline,
   ) {}
@@ -56,17 +56,17 @@ final readonly class ArticleProcessor implements PipelineStage {
     $article_entity->save();
   }
 
-  private function processTranslations(Article $article, BlogEntryInterface $entity, SyncContext $context): void {
+  private function processTranslations(Article $article, ArticleNode $entity, SyncContext $context): void {
     $this->processPrimaryTranslation($article, $entity, $context);
     $this->processAdditionalTranslations($article, $entity, $context);
   }
 
-  private function processPrimaryTranslation(Article $article, BlogEntryInterface $entity, SyncContext $context): void {
+  private function processPrimaryTranslation(Article $article, ArticleNode $entity, SyncContext $context): void {
     $primary_translation = $article->getPrimaryTranslation();
     $this->processArticleTranslation($article, $primary_translation, $entity, $context);
   }
 
-  private function processAdditionalTranslations(Article $article, BlogEntryInterface $entity, SyncContext $context): void {
+  private function processAdditionalTranslations(Article $article, ArticleNode $entity, SyncContext $context): void {
     if (!$entity->isTranslatable()) {
       return;
     }
@@ -79,7 +79,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     }
   }
 
-  private function shouldSkipUpdate(Article $article, BlogEntryInterface $article_entity, SyncContext $context): bool {
+  private function shouldSkipUpdate(Article $article, ArticleNode $article_entity, SyncContext $context): bool {
     if ($context->isForced() || $article_entity->isNew()) {
       return FALSE;
     }
@@ -88,7 +88,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     return $article_entity->getChangedTime() >= $article_updated;
   }
 
-  private function processArticleTranslation(Article $article, ArticleTranslation $translation, BlogEntryInterface $article_entity, SyncContext $context): void {
+  private function processArticleTranslation(Article $article, ArticleTranslation $translation, ArticleNode $article_entity, SyncContext $context): void {
     $context->getLogger()->info('Processing article translation', [
       'article_id' => $article->id,
       'language' => $translation->language,
@@ -107,10 +107,10 @@ final readonly class ArticleProcessor implements PipelineStage {
     return $this->entityTypeManager->getStorage('node');
   }
 
-  private function findOrCreateArticleEntity(Article $article): BlogEntryInterface {
-    $article_entity = $this->blogRepository->findByExternalId($article->id)
+  private function findOrCreateArticleEntity(Article $article): ArticleNode {
+    $article_entity = $this->articleRepository->findByExternalId($article->id)
       ?? $this->getBlogStorage()->create(['type' => 'blog_entry']);
-    \assert($article_entity instanceof BlogEntryInterface);
+    \assert($article_entity instanceof ArticleNode);
 
     if ($article_entity->isNew()) {
       $article_entity->setExternalId($article->id);
@@ -120,7 +120,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     return $article_entity;
   }
 
-  private function updateArticleMetadata(Article $article, BlogEntryInterface $article_entity): void {
+  private function updateArticleMetadata(Article $article, ArticleNode $article_entity): void {
     $created_date = DrupalDateTime::createFromFormat('Y-m-d\TH:i:s', $article->created, 'UTC');
     $article_entity->setCreatedTime($created_date->getTimestamp());
 
@@ -130,7 +130,7 @@ final readonly class ArticleProcessor implements PipelineStage {
     $this->updateTags($article, $article_entity);
   }
 
-  private function updateTags(Article $article, BlogEntryInterface $article_entity): void {
+  private function updateTags(Article $article, ArticleNode $article_entity): void {
     $article_entity->set('field_tags', NULL);
     foreach ($article->tags as $tag) {
       $tag_entity = $this->tagRepository->findByExternalId($tag);

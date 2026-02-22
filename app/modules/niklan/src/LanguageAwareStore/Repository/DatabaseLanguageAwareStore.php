@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\LanguageAwareStore\Repository;
 
+use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareStore;
 use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\DatabaseException;

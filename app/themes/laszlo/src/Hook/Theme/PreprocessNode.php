@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\app_contract\Contract\Node\Node;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Node\Entity\BlogEntry;
-use Drupal\niklan\Node\Entity\NodeInterface;
-use Drupal\niklan\Node\Entity\Portfolio;
+use Drupal\niklan\Node\Entity\ArticleBundle;
+use Drupal\niklan\Node\Entity\PortfolioBundle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessNode implements ContainerInjectionInterface {
@@ -24,12 +24,12 @@ final readonly class PreprocessNode implements ContainerInjectionInterface {
     );
   }
 
-  private function addCommonVariables(NodeInterface $node, array &$variables): void {
+  private function addCommonVariables(Node $node, array &$variables): void {
     $variables['url_absolute'] = $node->toUrl()->setAbsolute()->toString();
     $variables['published_timestamp'] = $node->getCreatedTime();
   }
 
-  private function addCommentVariables(NodeInterface $node, array &$variables): void {
+  private function addCommentVariables(Node $node, array &$variables): void {
     if (!$node->hasField('comment_node_blog_entry') || $node->get('comment_node_blog_entry')->isEmpty()) {
       return;
     }
@@ -39,15 +39,15 @@ final readonly class PreprocessNode implements ContainerInjectionInterface {
 
   public function __invoke(array &$variables): void {
     $node = $variables['node'];
-    \assert($node instanceof NodeInterface);
+    \assert($node instanceof Node);
 
     $this->addCommonVariables($node, $variables);
     $this->addCommentVariables($node, $variables);
 
     $class = match ($node::class) {
       default => NULL,
-      BlogEntry::class => PreprocessNodeBlogEntry::class,
-      Portfolio::class => PreprocessNodePortfolio::class,
+      ArticleBundle::class => PreprocessNodeBlogEntry::class,
+      PortfolioBundle::class => PreprocessNodePortfolio::class,
     };
 
     if (!$class) {

@@ -6,19 +6,19 @@ namespace Drupal\laszlo\Hook\Theme\PropsAlter;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\Console\Process\GitInterface;
+use Drupal\app_contract\Contract\Console\Git;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PageFooterPropsAlter implements ContainerInjectionInterface {
 
   public function __construct(
-    private GitInterface $git,
+    private Git $git,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get(GitInterface::class),
+      $container->get(Git::class),
     );
   }
 

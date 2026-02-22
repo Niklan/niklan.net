@@ -7,7 +7,7 @@ namespace Drupal\niklan\Tag\Controller;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Node\Entity\NodeInterface;
+use Drupal\app_contract\Contract\Node\Node;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -38,7 +38,7 @@ final readonly class Tag implements ContainerInjectionInterface {
 
     return \array_map(
       // @phpstan-ignore-next-line
-      callback: static fn (NodeInterface $node): array => $view_builder->view(
+      callback: static fn (Node $node): array => $view_builder->view(
         entity: $node,
         view_mode: 'teaser',
       ),

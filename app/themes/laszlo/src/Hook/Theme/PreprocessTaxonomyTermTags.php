@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\Tag\Contract\TagUsageStatistics;
+use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

@@ -8,7 +8,7 @@ use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\niklan\LanguageAwareStore\Factory\LanguageAwareFactory;
+use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareFactory;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 abstract class LanguageAwareSettingsStore implements CacheableDependencyInterface {
