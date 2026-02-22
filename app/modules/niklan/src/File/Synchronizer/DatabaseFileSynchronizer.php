@@ -169,7 +169,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
   }
 
   private function prepareDestinationFilename(string $path): string {
-    $extension = FileHelper::extension($path);
+    $extension = PathHelper::extension($path);
     return "{$this->uuid->generate()}.{$extension}";
   }
 
