@@ -1,0 +1,10 @@
+name: 'App: Search'
+description: 'Search feature: search page, Search API integration, search results.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Feature
+dependencies:
+  - niklan:niklan
+  - niklan:app_contract
+  - drupal:search_api

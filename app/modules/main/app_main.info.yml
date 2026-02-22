@@ -1,0 +1,17 @@
+name: 'App: Main'
+description: 'Application glue: static pages, navigation, cross-feature hooks, orchestration.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Integration
+dependencies:
+  - niklan:niklan
+  - niklan:app_contract
+  - niklan:app_platform
+  - niklan:app_blog
+  - niklan:app_comment
+  - niklan:app_tag
+  - niklan:app_search
+  - niklan:app_portfolio
+  - drupal:system
+  - drupal:user

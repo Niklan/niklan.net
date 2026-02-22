@@ -1,9 +1,11 @@
-name: Niklan
-description: 'My custom code is here!'
+name: Niklan (Deprecated)
+description: 'Deprecated: being split into app_* modules.'
 type: module
 core_version_requirement: ^11
 container_rebuild_required: false
 package: Custom
+lifecycle: deprecated
+lifecycle_link: https://niklan.net
 dependencies:
   - drupal:media
   - drupal:file

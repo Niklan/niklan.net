@@ -33,6 +33,7 @@ $settings['config_exclude_modules'] = [
   'field_ui',
   'views_ui',
   'niklan_dev',
+  'app_dev',
 ];
 
 $config['system.mail']['interface'] = [ 'default' => 'symfony_mailer' ];

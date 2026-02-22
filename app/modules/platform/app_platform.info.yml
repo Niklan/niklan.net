@@ -1,0 +1,9 @@
+name: 'App: Platform'
+description: 'Reusable infrastructure: language-aware store, console utilities, pager, sitemap framework.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Integration
+dependencies:
+  - niklan:niklan
+  - niklan:app_contract

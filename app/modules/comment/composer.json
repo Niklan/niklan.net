@@ -1,0 +1,11 @@
+{
+    "name": "niklan/app_comment",
+    "type": "drupal-custom-module",
+    "version": "1.0.0-dev",
+    "keywords": [
+        "Drupal"
+    ],
+    "require": {
+        "nutgram/nutgram": "^4.31"
+    }
+}

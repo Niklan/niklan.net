@@ -1,0 +1,8 @@
+name: 'App: Contract'
+description: 'Contracts, interfaces, DTOs, and value objects shared across application modules.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Contract
+dependencies:
+  - niklan:niklan

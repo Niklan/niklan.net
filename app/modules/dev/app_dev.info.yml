@@ -1,0 +1,11 @@
+name: 'App: Dev'
+description: 'Development utilities and tools.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Integration
+dependencies:
+  - niklan:niklan
+  - niklan:app_main
+  - drupal:field_ui
+  - drupal:views_ui

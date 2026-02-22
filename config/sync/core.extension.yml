@@ -2,6 +2,14 @@ _core:
   default_config_hash: m2GVq11UAOVuNgj8x0t5fMOPujpvQQ_zxLoaly1BMEU
 module:
   antibot: 0
+  app_blog: 0
+  app_comment: 0
+  app_contract: 0
+  app_main: 0
+  app_platform: 0
+  app_portfolio: 0
+  app_search: 0
+  app_tag: 0
   block: 0
   breakpoint: 0
   cache_pilot: 0

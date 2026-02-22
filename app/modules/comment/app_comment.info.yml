@@ -1,0 +1,10 @@
+name: 'App: Comment'
+description: 'Comments feature: comment display, reply handling, Telegram moderation.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Feature
+dependencies:
+  - niklan:niklan
+  - niklan:app_contract
+  - drupal:comment

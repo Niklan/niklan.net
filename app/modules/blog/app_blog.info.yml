@@ -1,0 +1,16 @@
+name: 'App: Blog'
+description: 'Blog feature: articles, external content integration, markdown processing, banner generation.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Feature
+dependencies:
+  - niklan:niklan
+  - niklan:app_contract
+  - drupal:media
+  - drupal:file
+  - drupal:image
+  - drupal:responsive_image
+  - niklan:external_content
+  # The default MIME guesser can't handle Markdown.
+  - sophron:sophron_guesser
