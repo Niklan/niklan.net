@@ -4,5 +4,11 @@
     "version": "1.0.0-dev",
     "keywords": [
         "Drupal"
-    ]
+    ],
+    "description": "Temporary: autoload is needed for the initial deploy where app_contract is not yet enabled but niklan already references its interfaces. Remove after deploy.",
+    "autoload": {
+        "psr-4": {
+            "Drupal\\app_contract\\": "src/"
+        }
+    }
 }

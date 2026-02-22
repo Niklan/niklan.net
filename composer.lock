@@ -4904,7 +4904,7 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/contract",
-                "reference": "0360aa36a5948328feefe846670e721c6621c580"
+                "reference": "3ae39dc9495e683a4dfe81e01848e3a83ab6a6ba"
             },
             "type": "drupal-custom-module",
             "autoload": {
@@ -4912,6 +4912,7 @@
                     "Drupal\\app_contract\\": "src/"
                 }
             },
+            "description": "Temporary: autoload is needed for the initial deploy where app_contract is not yet enabled but niklan already references its interfaces. Remove after deploy.",
             "keywords": [
                 "Drupal"
             ],
