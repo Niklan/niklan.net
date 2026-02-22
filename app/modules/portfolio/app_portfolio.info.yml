@@ -1,0 +1,9 @@
+name: 'App: Portfolio'
+description: 'Portfolio feature: portfolio listing, settings, entity bundle.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Feature
+dependencies:
+  - niklan:niklan
+  - niklan:app_contract

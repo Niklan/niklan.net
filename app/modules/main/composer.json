@@ -1,0 +1,19 @@
+{
+    "name": "niklan/app_main",
+    "type": "drupal-custom-module",
+    "version": "1.0.0-dev",
+    "keywords": [
+        "Drupal"
+    ],
+    "require": {
+        "niklan/app_contract": "^1.0",
+        "niklan/app_platform": "^1.0",
+        "niklan/app_blog": "^1.0",
+        "niklan/app_comment": "^1.0",
+        "niklan/app_tag": "^1.0",
+        "niklan/app_search": "^1.0",
+        "niklan/app_portfolio": "^1.0",
+        "drupal/media_library_form_element": "^2",
+        "niklan-asset/alpinejs": "^3.14"
+    }
+}

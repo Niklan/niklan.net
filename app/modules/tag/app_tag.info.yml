@@ -1,0 +1,9 @@
+name: 'App: Tag'
+description: 'Tags feature: tag entities, usage statistics, tag pages, sitemap.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Feature
+dependencies:
+  - niklan:niklan
+  - niklan:app_contract

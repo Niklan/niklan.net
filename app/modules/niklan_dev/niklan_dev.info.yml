@@ -1,6 +1,8 @@
-name: Niklan Development
+name: Niklan Development (Deprecated)
 type: module
-description: The module with some functionality related to the project development.
+description: 'Deprecated: replaced by app_dev.'
+lifecycle: deprecated
+lifecycle_link: https://niklan.net
 package: Development
 core_version_requirement: ^11
 container_rebuild_required: false
