@@ -1,6 +1,0 @@
-{
-    "name": "niklan/niklan_dev",
-    "description": "The module with some functionality related to the project development.",
-    "type": "drupal-custom-module",
-    "version": "1.0.0-dev"
-}

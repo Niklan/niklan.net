@@ -96,7 +96,7 @@ tasks:
       - task: drush
         vars: { CLI_ARGS: 'site:install -y --existing-config' }
       - task: drush
-        vars: {CLI_ARGS: 'pm:install niklan_dev -y'}
+        vars: {CLI_ARGS: 'pm:install app_dev -y'}
       - task: drush
         vars: { CLI_ARGS: 'deploy:mark-complete -y' }
       - task: phpstorm-meta

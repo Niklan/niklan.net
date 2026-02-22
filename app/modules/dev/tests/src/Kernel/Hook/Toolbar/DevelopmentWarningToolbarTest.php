@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan_dev\Kernel\Hook\Toolbar;
+namespace Drupal\Tests\app_dev\Kernel\Hook\Toolbar;
 
-use Drupal\niklan_dev\Hook\Toolbar\DevelopmentWarningToolbar;
+use Drupal\app_dev\Hook\Toolbar\DevelopmentWarningToolbar;
 use Drupal\Tests\niklan\Kernel\NiklanTestBase;
 use PHPUnit\Framework\Attributes\CoversClass;
 

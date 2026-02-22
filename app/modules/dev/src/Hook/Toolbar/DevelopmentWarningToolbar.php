@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan_dev\Hook\Toolbar;
+namespace Drupal\app_dev\Hook\Toolbar;
 
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -34,7 +34,7 @@ final class DevelopmentWarningToolbar {
         'label' => $label,
       ],
       '#attached' => [
-        'library' => ['niklan_dev/development-warning.toolbar'],
+        'library' => ['app_dev/development-warning.toolbar'],
       ],
     ];
 

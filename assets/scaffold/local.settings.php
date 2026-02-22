@@ -32,7 +32,6 @@ $settings['config_exclude_modules'] = [
   'devel',
   'field_ui',
   'views_ui',
-  'niklan_dev',
   'app_dev',
 ];
 
