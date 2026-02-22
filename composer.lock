@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3fca1afa2c8014a5cb81a35ed5edbaf",
+    "content-hash": "a20394a7e80abb17973735de89fd26b1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4904,9 +4904,14 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/contract",
-                "reference": "c650a4ba99f0e1fef533cb37a712b93cb2fc8a1f"
+                "reference": "0360aa36a5948328feefe846670e721c6621c580"
             },
             "type": "drupal-custom-module",
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\app_contract\\": "src/"
+                }
+            },
             "keywords": [
                 "Drupal"
             ],
@@ -11340,20 +11345,6 @@
             }
         },
         {
-            "name": "niklan/niklan_dev",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/niklan_dev",
-                "reference": "941433d78eeec2982d782dbc4c3a8bc1535bb776"
-            },
-            "type": "drupal-custom-module",
-            "description": "The module with some functionality related to the project development.",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "nyholm/psr7-server",
             "version": "1.1.0",
             "source": {
@@ -15306,8 +15297,7 @@
         "niklan/app_tag": 20,
         "niklan/external_content": 20,
         "niklan/laszlo": 20,
-        "niklan/niklan": 20,
-        "niklan/niklan_dev": 20
+        "niklan/niklan": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
