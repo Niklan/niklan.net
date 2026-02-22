@@ -23,21 +23,21 @@ services:
   Drupal\niklan\Portfolio\Repository\PortfolioSettings: { }
 
   Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: { }
-  Drupal\niklan\File\Contract\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'
+  Drupal\app_contract\Contract\File\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'
 
   Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer: { }
-  Drupal\niklan\Media\Contract\MediaSynchronizer: '@Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer'
+  Drupal\app_contract\Contract\Media\MediaSynchronizer: '@Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer'
 
   Drupal\niklan\Media\Repository\DatabaseMediaRepository: { }
-  Drupal\niklan\Media\Contract\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
+  Drupal\app_contract\Contract\Media\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
 
   Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
-  Drupal\niklan\Tag\Contract\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
+  Drupal\app_contract\Contract\Tag\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
   Drupal\niklan\Tag\Repository\DatabaseTagRepository: { }
-  Drupal\niklan\Tag\Contract\TagRepository: '@Drupal\niklan\Tag\Repository\DatabaseTagRepository'
+  Drupal\app_contract\Contract\Tag\TagRepository: '@Drupal\niklan\Tag\Repository\DatabaseTagRepository'
 
-  Drupal\niklan\Blog\Repository\DatabaseBlogRepository: { }
-  Drupal\niklan\Blog\Contract\BlogRepository: '@Drupal\niklan\Blog\Repository\DatabaseBlogRepository'
+  Drupal\niklan\Blog\Repository\DatabaseArticleRepository: { }
+  Drupal\app_contract\Contract\Blog\ArticleRepository: '@Drupal\niklan\Blog\Repository\DatabaseArticleRepository'
 
   Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: { }
   keyvalue.language_aware: '@Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory'
@@ -65,11 +65,11 @@ services:
     arguments: [ '@plugin.manager.menu.local_task', '@current_route_match' ]
 
   niklan.process.terminal:
-    class: Drupal\niklan\Console\Process\Terminal
+    class: Drupal\niklan\Console\Process\ProcessTerminal
     arguments: [ '@file_system' ]
 
-  Drupal\niklan\Console\Process\Git: { }
-  Drupal\niklan\Console\Process\GitInterface: '@Drupal\niklan\Console\Process\Git'
+  Drupal\niklan\Console\Process\ProcessGit: { }
+  Drupal\app_contract\Contract\Console\Git: '@Drupal\niklan\Console\Process\ProcessGit'
 
   Drupal\niklan\Markup\Markdown\Extension\ArticleMarkdownExtension: { }
 

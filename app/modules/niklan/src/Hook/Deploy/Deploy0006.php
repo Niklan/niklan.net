@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\Node\Entity\BlogEntry;
+use Drupal\niklan\Node\Entity\ArticleBundle;
 use Drupal\pathauto\PathautoState;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -51,7 +51,7 @@ final readonly class Deploy0006 implements ContainerInjectionInterface {
     yield from $this->getStorage()->loadMultiple($ids);
   }
 
-  private function process(BlogEntry $article): void {
+  private function process(ArticleBundle $article): void {
     $article->set('path', ['pathauto' => PathautoState::CREATE]);
     $article->save();
   }
@@ -70,7 +70,7 @@ final readonly class Deploy0006 implements ContainerInjectionInterface {
     }
 
     foreach ($this->article($sandbox) as $article) {
-      \assert($article instanceof BlogEntry);
+      \assert($article instanceof ArticleBundle);
       $this->process($article);
     }
 

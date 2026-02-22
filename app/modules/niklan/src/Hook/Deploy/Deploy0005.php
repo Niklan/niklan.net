@@ -11,7 +11,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\File\Entity\FileInterface;
+use Drupal\app_contract\Contract\File\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -63,7 +63,7 @@ final readonly class Deploy0005 implements ContainerInjectionInterface {
       ?->get('entity')
         ->getValue();
 
-    if (!$file instanceof FileInterface) {
+    if (!$file instanceof File) {
       return;
     }
 

@@ -10,7 +10,7 @@ use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Url;
 use Drupal\niklan\Blog\Generator\BannerGenerator;
-use Drupal\niklan\Node\Entity\BlogEntry;
+use Drupal\niklan\Node\Entity\ArticleBundle;
 use Drupal\niklan\Utils\MediaHelper;
 
 #[Hook('tokens')]
@@ -25,7 +25,7 @@ final readonly class Tokens {
   private function replaceNodeArticleBannerImage(string $original, State $state): void {
     $node = $state->getData()['node'];
 
-    if (!$node instanceof BlogEntry) {
+    if (!$node instanceof ArticleBundle) {
       return;
     }
 

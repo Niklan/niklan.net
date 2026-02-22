@@ -6,13 +6,13 @@ namespace Drupal\niklan\Tag\SiteMap;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\SiteMap\Structure\Category;
-use Drupal\niklan\SiteMap\Structure\Section;
-use Drupal\niklan\SiteMap\Structure\SiteMap;
-use Drupal\niklan\SiteMap\Structure\SiteMapBuilderInterface;
+use Drupal\app_contract\Contract\SiteMap\Category;
+use Drupal\app_contract\Contract\SiteMap\Section;
+use Drupal\app_contract\Contract\SiteMap\SiteMap;
+use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
 use Drupal\taxonomy\TermInterface;
 
-final readonly class TagSiteMap implements SiteMapBuilderInterface {
+final readonly class TagSiteMap implements SiteMapBuilder {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,

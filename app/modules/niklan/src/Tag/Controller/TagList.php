@@ -6,7 +6,7 @@ namespace Drupal\niklan\Tag\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Tag\Contract\TagUsageStatistics;
+use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

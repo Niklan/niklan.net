@@ -6,7 +6,7 @@ namespace Drupal\niklan\Tag\Repository;
 
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Tag\Contract\TagUsageStatistics;
+use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
 use Drupal\node\NodeInterface;
 
 final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {

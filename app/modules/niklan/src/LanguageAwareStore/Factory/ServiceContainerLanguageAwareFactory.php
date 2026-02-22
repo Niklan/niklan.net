@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\LanguageAwareStore\Factory;
 
+use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareFactory;
 use Drupal\Component\Assertion\Inspector;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareStore;
+use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareStore;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -30,7 +31,7 @@ final class ServiceContainerLanguageAwareFactory implements LanguageAwareFactory
   /**
    * The list of initialized storages.
    *
-   * @var array<string, array<string, \Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareStore>>
+   * @var array<string, array<string, \Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareStore>>
    */
   private array $stores = [];
 

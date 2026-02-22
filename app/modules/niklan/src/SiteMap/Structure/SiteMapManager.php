@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\SiteMap\Structure;
 
+use Drupal\app_contract\Contract\SiteMap\SiteMap;
+use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
-final readonly class SiteMapManager implements SiteMapBuilderInterface {
+final readonly class SiteMapManager implements SiteMapBuilder {
 
   public function __construct(
     #[AutowireIterator('niklan.sitemap')]
@@ -18,7 +20,7 @@ final readonly class SiteMapManager implements SiteMapBuilderInterface {
     $sitemap = new SiteMap();
 
     foreach ($this->siteMaps as $sitemap_builder) {
-      \assert($sitemap_builder instanceof SiteMapBuilderInterface);
+      \assert($sitemap_builder instanceof SiteMapBuilder);
       $sitemap->mergeSiteMap($sitemap_builder->build());
     }
 
