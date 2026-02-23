@@ -6,6 +6,7 @@
         "Drupal"
     ],
     "require": {
+        "niklan/niklan": "^1.0",
         "niklan/app_main": "^1.0"
     }
 }
