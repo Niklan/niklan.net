@@ -10,7 +10,7 @@ use Drupal\external_content\Nodes\Document;
 use Drupal\external_content\Plugin\ExternalContent\Environment\EnvironmentManager;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
 use Drupal\niklan\Plugin\ExternalContent\Environment\BlogArticle;
-use Drupal\niklan\Utils\PathHelper;
+use Drupal\app_contract\Utils\PathHelper;
 
 /**
  * @implements \Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext>

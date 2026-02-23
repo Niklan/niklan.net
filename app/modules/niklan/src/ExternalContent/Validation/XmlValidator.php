@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Validation;
 
 use Drupal\niklan\ExternalContent\Exception\XmlLoadException;
 use Drupal\niklan\ExternalContent\Exception\XmlValidationException;
-use Drupal\niklan\Utils\PathHelper;
+use Drupal\app_contract\Utils\PathHelper;
 
 final readonly class XmlValidator {
 

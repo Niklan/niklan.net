@@ -11,7 +11,7 @@ use Drupal\external_content\Contract\Pipeline\PipelineStage;
 use Drupal\external_content\Nodes\HtmlElement\HtmlElement;
 use Drupal\external_content\Nodes\Node;
 use Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext;
-use Drupal\niklan\Utils\PathHelper;
+use Drupal\app_contract\Utils\PathHelper;
 
 /**
  * @implements \Drupal\external_content\Contract\Pipeline\PipelineStage<\Drupal\niklan\ExternalContent\Domain\ArticleTranslationProcessContext>

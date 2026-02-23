@@ -29,24 +29,8 @@ services:
   Drupal\niklan\Blog\Repository\DatabaseArticleRepository: { }
   Drupal\app_contract\Contract\Blog\ArticleRepository: '@Drupal\niklan\Blog\Repository\DatabaseArticleRepository'
 
-  Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory: { }
-  keyvalue.language_aware: '@Drupal\niklan\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory'
-  Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory: { }
-  keyvalue.language_aware.database: '@Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory'
-
-  Drupal\niklan\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes:
-    tags:
-      - { name: event_subscriber }
-
   Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:
     arguments: [ '@plugin.manager.menu.local_task', '@current_route_match' ]
-
-  niklan.process.terminal:
-    class: Drupal\niklan\Console\Process\ProcessTerminal
-    arguments: [ '@file_system' ]
-
-  Drupal\niklan\Console\Process\ProcessGit: { }
-  Drupal\app_contract\Contract\Console\Git: '@Drupal\niklan\Console\Process\ProcessGit'
 
   Drupal\niklan\Markup\Markdown\Extension\ArticleMarkdownExtension: { }
 
@@ -60,26 +44,13 @@ services:
       - '@niklan.markdown.environment'
   League\CommonMark\MarkdownConverter: '@niklan.markdown.converter'
 
-  Drupal\niklan\Markup\Twig\Extension\ImageDimensions:
-    tags:
-      - { name: twig.extension }
-
   Drupal\niklan\Blog\Generator\BannerGenerator: { }
-  Drupal\niklan\SiteMap\Structure\SiteMapManager: { }
   Drupal\niklan\Blog\SiteMap\BlogSiteMap:
     tags:
       - { name: app_sitemap }
   Drupal\niklan\Navigation\SiteMap\MainMenuSiteMap:
     tags:
       - { name: app_sitemap }
-  Drupal\niklan\Pager\EventSubscriber\PagerRedirect:
-    tags:
-      - { name: event_subscriber }
-  Drupal\niklan\Pager\PathProcessor\PagerPathProcessor:
-    tags:
-      - { name: path_processor_inbound, priority: 1000 }
-      - { name: path_processor_outbound, priority: -1000 }
-  Drupal\niklan\Pager\Controller\PagerAwareTitleResolver: { }
 
   Drupal\niklan\ExternalContent\Validation\XmlValidator: {}
   Drupal\niklan\ExternalContent\Parser\ArticleXmlParser: {}

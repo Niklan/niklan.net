@@ -6,7 +6,7 @@ namespace Drupal\niklan\ExternalContent\Command;
 
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\Console\Log\ConsoleLogger;
+use Drupal\app_platform\Console\Log\ConsoleLogger;
 use Drupal\niklan\ExternalContent\Domain\SyncContext;
 use Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline;
 use Psr\Log\LoggerInterface;

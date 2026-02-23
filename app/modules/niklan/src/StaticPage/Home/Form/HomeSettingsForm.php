@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\niklan\StaticPage\Home\Repository\HomeSettings;
-use Drupal\niklan\Utils\AjaxFormHelper;
+use Drupal\app_platform\Utils\AjaxFormHelper;
 
 final class HomeSettingsForm extends LanguageAwareStoreForm {
 

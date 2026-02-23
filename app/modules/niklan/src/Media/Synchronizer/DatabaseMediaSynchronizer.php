@@ -13,7 +13,7 @@ use Drupal\media\MediaTypeInterface;
 use Drupal\app_contract\Contract\File\FileSynchronizer;
 use Drupal\app_contract\Contract\Media\MediaRepository;
 use Drupal\app_contract\Contract\Media\MediaSynchronizer;
-use Drupal\niklan\Utils\PathHelper;
+use Drupal\app_contract\Utils\PathHelper;
 use Drupal\niklan\Utils\YouTubeHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
