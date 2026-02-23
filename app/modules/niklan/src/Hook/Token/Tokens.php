@@ -9,9 +9,9 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Url;
-use Drupal\niklan\Blog\Generator\BannerGenerator;
-use Drupal\niklan\Node\Entity\ArticleBundle;
-use Drupal\niklan\Utils\MediaHelper;
+use Drupal\app_blog\Generator\BannerGenerator;
+use Drupal\app_blog\Node\ArticleBundle;
+use Drupal\app_contract\Utils\MediaHelper;
 
 #[Hook('tokens')]
 final readonly class Tokens {

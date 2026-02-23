@@ -1,9 +1,0 @@
-services:
-  niklan.external_content.sync:
-    class: Drupal\niklan\ExternalContent\Command\Sync
-    arguments:
-      - '@logger.channel.niklan.external_content'
-      - '@Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline'
-      - '@Drupal\Core\Cache\CacheTagsInvalidatorInterface'
-    tags:
-      - { name: console.command }

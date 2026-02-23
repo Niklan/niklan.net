@@ -15,7 +15,7 @@ final class LibraryInfoAlter {
   ) {}
 
   private function alterHighlightJs(array &$libraries, string $extension): void {
-    if ($extension !== 'niklan' || !isset($libraries['hljs'])) {
+    if ($extension !== 'app_blog' || !isset($libraries['hljs'])) {
       return;
     }
 

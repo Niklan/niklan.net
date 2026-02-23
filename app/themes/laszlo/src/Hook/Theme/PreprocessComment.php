@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\comment\CommentInterface;
-use Drupal\niklan\Utils\MediaHelper;
+use Drupal\app_contract\Utils\MediaHelper;
 
 final readonly class PreprocessComment {
 

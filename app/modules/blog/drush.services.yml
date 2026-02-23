@@ -1,0 +1,9 @@
+services:
+  app_blog.external_content.sync:
+    class: Drupal\app_blog\ExternalContent\Command\Sync
+    arguments:
+      - '@logger.channel.app_blog.external_content'
+      - '@Drupal\app_blog\ExternalContent\Pipeline\ArticleSyncPipeline'
+      - '@Drupal\Core\Cache\CacheTagsInvalidatorInterface'
+    tags:
+      - { name: console.command }

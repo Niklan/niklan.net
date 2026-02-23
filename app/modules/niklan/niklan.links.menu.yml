@@ -56,7 +56,7 @@ niklan.home:
 
 niklan.blog:
   title: Blog
-  route_name: niklan.blog_list
+  route_name: app_blog.blog_list
   menu_name: main
   weight: 1
   metadata:

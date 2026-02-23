@@ -1,8 +1,0 @@
-uuid: 50a906e9-4653-40e3-abcf-2b2b6da3656b
-langcode: ru
-status: true
-dependencies: {  }
-id: niklan.blog_list
-label: /blog
-tags:
-  description: 'Последние материалы в блоге: веб-разработка, советы по Drupal и многое другое. '

@@ -12,9 +12,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
-use Drupal\niklan\ExternalContent\Builder\TableOfContentsBuilder;
-use Drupal\niklan\Node\Entity\ArticleBundle;
-use Drupal\niklan\Utils\MediaHelper;
+use Drupal\app_blog\ExternalContent\Builder\TableOfContentsBuilder;
+use Drupal\app_blog\Node\ArticleBundle;
+use Drupal\app_contract\Utils\MediaHelper;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

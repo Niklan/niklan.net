@@ -19,8 +19,8 @@ libraries-override:
   system/base: false
 
 libraries-extend:
-  niklan/hljs:
+  app_blog/hljs:
     - laszlo/hljs
-  niklan/footnote.tooltip:
+  app_blog/footnote.tooltip:
     - laszlo/tooltip
   core/drupal.message: false

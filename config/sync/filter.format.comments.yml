@@ -3,13 +3,25 @@ langcode: ru
 status: true
 dependencies:
   module:
+    - app_blog
     - editor
     - media
-    - niklan
 name: Комментарии
 format: comments
 weight: -10
 filters:
+  app_blog_code_highlight:
+    id: app_blog_code_highlight
+    provider: app_blog
+    status: true
+    weight: -46
+    settings: {  }
+  app_blog_markdown:
+    id: app_blog_markdown
+    provider: app_blog
+    status: true
+    weight: -50
+    settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
@@ -83,15 +95,3 @@ filters:
       default_view_mode: default
       allowed_view_modes: {  }
       allowed_media_types: {  }
-  niklan_code_highlight:
-    id: niklan_code_highlight
-    provider: niklan
-    status: true
-    weight: -46
-    settings: {  }
-  niklan_markdown:
-    id: niklan_markdown
-    provider: niklan
-    status: true
-    weight: -50
-    settings: {  }

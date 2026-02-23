@@ -54,7 +54,7 @@ final readonly class Tag implements ContainerInjectionInterface {
       '#title' => new TranslatableMarkup('Publications with the @name tag', [
         '@name' => $taxonomy_term->label(),
       ]),
-      '#theme' => 'niklan_blog_list',
+      '#theme' => 'app_blog_list',
       '#items' => $this->buildItems($taxonomy_term),
       '#pager' => [
         '#type' => 'pager',

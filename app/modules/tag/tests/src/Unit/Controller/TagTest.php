@@ -24,7 +24,7 @@ final class TagTest extends UnitTestCase {
 
     $result = $controller($term);
 
-    self::assertSame('niklan_blog_list', $result['#theme']);
+    self::assertSame('app_blog_list', $result['#theme']);
   }
 
   public function testTitle(): void {

@@ -3,13 +3,19 @@ langcode: ru
 status: true
 dependencies:
   module:
+    - app_blog
     - editor
     - media
-    - niklan
 name: Markdown
 format: markdown
 weight: -9
 filters:
+  app_blog_markdown:
+    id: app_blog_markdown
+    provider: app_blog
+    status: true
+    weight: -50
+    settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
@@ -83,9 +89,3 @@ filters:
       default_view_mode: default
       allowed_view_modes: {  }
       allowed_media_types: {  }
-  niklan_markdown:
-    id: niklan_markdown
-    provider: niklan
-    status: true
-    weight: -50
-    settings: {  }

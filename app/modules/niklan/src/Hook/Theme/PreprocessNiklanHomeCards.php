@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\media\MediaInterface;
 use Drupal\niklan\StaticPage\Home\Repository\HomeSettings;
-use Drupal\niklan\Utils\MediaHelper;
+use Drupal\app_contract\Utils\MediaHelper;
 
 #[Hook('preprocess_niklan_home_cards')]
 final readonly class PreprocessNiklanHomeCards {

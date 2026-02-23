@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\niklan\Node\Entity\ArticleBundle;
+use Drupal\app_blog\Node\ArticleBundle;
 use Drupal\pathauto\PathautoState;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
