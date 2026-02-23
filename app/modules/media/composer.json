@@ -4,5 +4,8 @@
     "version": "1.0.0-dev",
     "keywords": [
         "Drupal"
-    ]
+    ],
+    "require": {
+        "niklan/app_file": "^1.0"
+    }
 }

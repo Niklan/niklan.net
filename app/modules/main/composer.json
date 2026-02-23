@@ -6,8 +6,11 @@
         "Drupal"
     ],
     "require": {
+        "niklan/niklan": "^1.0",
         "niklan/app_contract": "^1.0",
         "niklan/app_platform": "^1.0",
+        "niklan/app_file": "^1.0",
+        "niklan/app_media": "^1.0",
         "niklan/app_blog": "^1.0",
         "niklan/app_comment": "^1.0",
         "niklan/app_tag": "^1.0",

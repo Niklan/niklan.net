@@ -6,15 +6,12 @@
         "Drupal"
     ],
     "require": {
-        "scrivo/highlight.php": "^9.0",
-        "ext-dom": "*",
-        "ext-imagick": "*",
-        "league/commonmark": "^2.0",
+        "niklan/app_blog": "^1.0",
+        "niklan/app_comment": "^1.0",
+        "niklan/app_contract": "^1.0",
+        "niklan/app_platform": "^1.0",
+        "niklan/app_tag": "^1.0",
         "drupal/media_library_form_element": "^2",
-        "niklan-asset/alpinejs": "^3.14",
-        "niklan-asset/hljs": "^11.9",
-        "symfony/dom-crawler": "^6.0|^7.0",
-        "symfony/config": "^6.0|^7.0",
-        "symfony/css-selector": "^6.0|^7.0"
+        "niklan-asset/alpinejs": "^3.14"
     }
 }

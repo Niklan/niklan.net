@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26f93b0e00856e771f15adbecaaa40fb",
+    "content-hash": "09a2dce6a12a21c9a10a5f4834b1a651",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4859,14 +4859,16 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/blog",
-                "reference": "ff6061f494f4b18a88e956c6b7d9e214f3dd7dba"
+                "reference": "3ffc4a73e02cf99f414b94184ca7d7fb0d9dca56"
             },
             "require": {
                 "ext-dom": "*",
                 "ext-imagick": "*",
                 "league/commonmark": "^2.0",
                 "niklan-asset/hljs": "^11.9",
-                "scrivo/highlight.php": "^9.0",
+                "niklan/app_contract": "^1.0",
+                "niklan/app_platform": "^1.0",
+                "niklan/external_content": "^1.0",
                 "symfony/config": "^6.0|^7.0",
                 "symfony/css-selector": "^6.0|^7.0",
                 "symfony/dom-crawler": "^6.0|^7.0"
@@ -4885,9 +4887,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/comment",
-                "reference": "35c0d7005b7e95db26ba39750bfb39882cbc33ba"
+                "reference": "8a2ee10e8f0c586a5cd5967d03ccdf6c7a23a327"
             },
             "require": {
+                "niklan/app_contract": "^1.0",
                 "nutgram/nutgram": "^4.31"
             },
             "type": "drupal-custom-module",
@@ -4926,7 +4929,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/file",
-                "reference": "2a1d485d7debbbd4400c0c82e26ffed45b0211e6"
+                "reference": "2c690696b0f58d33d6457bb76adae9e62851d5a8"
+            },
+            "require": {
+                "niklan/app_contract": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -4942,7 +4948,7 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/main",
-                "reference": "e1321edf8253f115af2e716710780e3fe8fb836c"
+                "reference": "1292dcc15b0c0404eccef5843380032ca58d966d"
             },
             "require": {
                 "drupal/media_library_form_element": "^2",
@@ -4950,10 +4956,13 @@
                 "niklan/app_blog": "^1.0",
                 "niklan/app_comment": "^1.0",
                 "niklan/app_contract": "^1.0",
+                "niklan/app_file": "^1.0",
+                "niklan/app_media": "^1.0",
                 "niklan/app_platform": "^1.0",
                 "niklan/app_portfolio": "^1.0",
                 "niklan/app_search": "^1.0",
-                "niklan/app_tag": "^1.0"
+                "niklan/app_tag": "^1.0",
+                "niklan/niklan": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -4969,7 +4978,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/media",
-                "reference": "b238886f2ae8cbe267409371561eb265921edf25"
+                "reference": "4ee491f3fc1f9ac517904e13c26f5eea629c1051"
+            },
+            "require": {
+                "niklan/app_file": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -4985,7 +4997,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/platform",
-                "reference": "50b8165a7a004db5baa07318b0c0a19f01936fae"
+                "reference": "896787e2e0dd45021c929f61649b8b666f3f7376"
+            },
+            "require": {
+                "niklan/app_contract": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -5001,7 +5016,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/portfolio",
-                "reference": "532e88cbe6d72f3802367f4cf01024f078c98770"
+                "reference": "18b2f4e2ad22b5af593423c2acb03dd2b5f00c7b"
+            },
+            "require": {
+                "niklan/app_contract": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -5033,9 +5051,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/tag",
-                "reference": "d0e060845b3dae46236293ac4a60807377b328ba"
+                "reference": "bde34c46e82738084b377ed4048e1cade6d5c55b"
             },
             "require": {
+                "niklan/app_contract": "^1.0",
                 "symfony/config": "^7.0"
             },
             "type": "drupal-custom-module",
@@ -5094,19 +5113,16 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/niklan",
-                "reference": "4c0c90d9fd0483d99a60462b7e100a30541113c4"
+                "reference": "d24e26cedf04fe4e17cd25bc378b7c78b6d42025"
             },
             "require": {
                 "drupal/media_library_form_element": "^2",
-                "ext-dom": "*",
-                "ext-imagick": "*",
-                "league/commonmark": "^2.0",
                 "niklan-asset/alpinejs": "^3.14",
-                "niklan-asset/hljs": "^11.9",
-                "scrivo/highlight.php": "^9.0",
-                "symfony/config": "^6.0|^7.0",
-                "symfony/css-selector": "^6.0|^7.0",
-                "symfony/dom-crawler": "^6.0|^7.0"
+                "niklan/app_blog": "^1.0",
+                "niklan/app_comment": "^1.0",
+                "niklan/app_contract": "^1.0",
+                "niklan/app_platform": "^1.0",
+                "niklan/app_tag": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -11366,10 +11382,11 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/dev",
-                "reference": "575f085b344224e1d543d80de9e73148c8874d32"
+                "reference": "61f68de361758c58d0908d2b09404e5b2800d07a"
             },
             "require": {
-                "niklan/app_main": "^1.0"
+                "niklan/app_main": "^1.0",
+                "niklan/niklan": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -15314,25 +15331,15 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "chi-teck/drupal-coder-extension": 15,
         "drupal/cache_pilot": 15,
         "drupal/glisseo": 5,
         "drupal/rabbit_hole": 10,
         "drupal/redirect": 15,
-        "niklan/app_blog": 20,
-        "niklan/app_comment": 20,
-        "niklan/app_contract": 20,
         "niklan/app_dev": 20,
-        "niklan/app_file": 20,
         "niklan/app_main": 20,
-        "niklan/app_media": 20,
-        "niklan/app_platform": 20,
-        "niklan/app_portfolio": 20,
-        "niklan/app_search": 20,
-        "niklan/app_tag": 20,
-        "niklan/external_content": 20,
         "niklan/laszlo": 20,
         "niklan/niklan": 20
     },

@@ -6,7 +6,9 @@
         "Drupal"
     ],
     "require": {
-        "scrivo/highlight.php": "^9.0",
+        "niklan/app_contract": "^1.0",
+        "niklan/app_platform": "^1.0",
+        "niklan/external_content": "^1.0",
         "ext-dom": "*",
         "ext-imagick": "*",
         "league/commonmark": "^2.0",

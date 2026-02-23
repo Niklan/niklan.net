@@ -55,17 +55,7 @@
         "drush/drush": "^13",
         "niklan-asset/photoswipe": "^5.4",
         "niklan-asset/quicklink": "^2.3",
-        "niklan/app_blog": "^1.0@dev",
-        "niklan/app_comment": "^1.0@dev",
-        "niklan/app_contract": "^1.0@dev",
-        "niklan/app_file": "^1.0@dev",
         "niklan/app_main": "^1.0@dev",
-        "niklan/app_media": "^1.0@dev",
-        "niklan/app_platform": "^1.0@dev",
-        "niklan/app_portfolio": "^1.0@dev",
-        "niklan/app_search": "^1.0@dev",
-        "niklan/app_tag": "^1.0@dev",
-        "niklan/external_content": "^1.0@dev",
         "niklan/laszlo": "^1.0@dev",
         "niklan/niklan": "^1.0@dev"
     },
@@ -79,7 +69,7 @@
     "conflict": {
         "drupal/drupal": "*"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
