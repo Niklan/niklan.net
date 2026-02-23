@@ -1,0 +1,12 @@
+{% embed 'laszlo:author-page' with {
+  title: 'Support'|t,
+  description,
+  donate_url,
+} only %}
+  {% block children %}
+    {% include 'laszlo:support' with {
+      description,
+      donate_url,
+    } only %}
+  {% endblock %}
+{% endembed %}

@@ -2,5 +2,5 @@ app_portfolio.portfolio.settings:
   title: Portfolio page settings
   description: Configure a portfolio page.
   route_name: app_portfolio.portfolio.settings
-  parent: niklan.admin_general
+  parent: app_main.admin_general
   weight: 50

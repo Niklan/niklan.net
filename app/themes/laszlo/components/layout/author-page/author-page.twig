@@ -11,25 +11,25 @@
     <nav class="author-page__navigation">
       {% include 'laszlo:author-page-navigation-item' with {
         label: 'About'|t({}, { context:'author' }),
-        url: path('niklan.about'),
+        url: path('app_main.about'),
         icon: 'user-id-bold-duotone',
         active_trail_pattern: '\/about$',
       } only %}
       {% include 'laszlo:author-page-navigation-item' with {
         label: 'Services'|t({}, { context:'work' }),
-        url: path('niklan.services'),
+        url: path('app_main.services'),
         icon: 'case',
         active_trail_pattern: '\/(services|portfolio(\/.*)?)$',
       } only %}
       {% include 'laszlo:author-page-navigation-item' with {
         label: 'Support'|t,
-        url: path('niklan.support'),
+        url: path('app_main.support'),
         icon: 'coffee-half-empty-twotone-loop',
         active_trail_pattern: '\/support$',
       } only %}
       {% include 'laszlo:author-page-navigation-item' with {
         label: 'Contact'|t({}, { context: 'menu' }),
-        url: path('niklan.contact'),
+        url: path('app_main.contact'),
         icon: 'envelope',
         active_trail_pattern: '\/contact$',
       } only %}

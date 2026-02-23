@@ -13,4 +13,4 @@ props:
       type: array
 libraryOverrides:
   dependencies:
-    - niklan/alpinejs
+    - app_main/alpinejs

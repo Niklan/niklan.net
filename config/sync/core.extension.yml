@@ -51,7 +51,6 @@ module:
   monolog: 0
   mysql: 0
   navigation: 0
-  niklan: 0
   node: 0
   options: 0
   page_cache: 0

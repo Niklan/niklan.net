@@ -48,5 +48,5 @@ props:
 libraryOverrides:
   dependencies:
     - core/drupal
-    - niklan/alpinejs
+    - app_main/alpinejs
     - laszlo/request-idle-callback

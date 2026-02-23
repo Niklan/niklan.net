@@ -17,4 +17,4 @@ props:
       format: iri-string
 libraryOverrides:
   dependencies:
-    - niklan/alpinejs
+    - app_main/alpinejs

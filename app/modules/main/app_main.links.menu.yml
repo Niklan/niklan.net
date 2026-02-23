@@ -1,0 +1,74 @@
+app_main.admin:
+  title: Niklan
+  parent: system.admin
+  route_name: app_main.admin
+  weight: -50
+
+app_main.admin_general:
+  title: General settings
+  parent: app_main.admin
+  route_name: app_main.admin_general
+  weight: -10
+
+app_main.home.settings:
+  title: Home page settings
+  description: Configure the home page with an introductory text and promo cards.
+  route_name: app_main.home.settings
+  parent: app_main.admin_general
+  weight: 0
+
+app_main.about.settings:
+  title: About page settings
+  description: Configure an about page with an author biography and photo.
+  route_name: app_main.about.settings
+  parent: app_main.admin_general
+  weight: 10
+
+app_main.services.settings:
+  title: Services page settings
+  description: Configure a services page with a description and an hourly rate.
+  route_name: app_main.services.settings
+  parent: app_main.admin_general
+  weight: 20
+
+app_main.support.settings:
+  title: Support page settings
+  description: Configure a support page with a description and a link to donate.
+  route_name: app_main.support.settings
+  parent: app_main.admin_general
+  weight: 30
+
+app_main.contact.settings:
+  title: Contact page settings
+  description: Configure a contact page.
+  route_name: app_main.contact.settings
+  parent: app_main.admin_general
+  weight: 40
+
+app_main.home:
+  title: Home
+  route_name: <front>
+  menu_name: main
+  weight: 0
+  metadata:
+    main_navigation_icon: 'home'
+    active_trail_pattern: '<front>'
+
+app_main.blog:
+  title: Blog
+  route_name: app_blog.blog_list
+  menu_name: main
+  weight: 1
+  metadata:
+    main_navigation_icon: 'document-add-bold-duotone'
+    active_trail_pattern: '\/(blog$|blog\/?)'
+
+app_main.about:
+  title: About
+  title_context: 'author'
+  route_name: app_main.about
+  menu_name: main
+  weight: 4
+  metadata:
+    main_navigation_icon: 'user-id-bold-duotone'
+    active_trail_pattern: '\/(about|services|support|contact|portfolio(\/.*)?)$'
