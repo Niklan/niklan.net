@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Tag\Repository;
+namespace Drupal\app_tag\Repository;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\app_contract\Contract\Tag\TagRepository;
-use Drupal\niklan\Tag\Entity\TagBundle;
+use Drupal\app_tag\Entity\TagBundle;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\taxonomy\TermStorageInterface;
 
 final readonly class DatabaseTagRepository implements TagRepository {

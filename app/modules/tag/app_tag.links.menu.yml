@@ -1,0 +1,8 @@
+app_tag.tag_list:
+  title: Tags
+  route_name: app_tag.tag_list
+  menu_name: main
+  weight: 3
+  metadata:
+    main_navigation_icon: 'hashtag-square-bold-duotone'
+    active_trail_pattern: '\/(tags$|tags\/?)'

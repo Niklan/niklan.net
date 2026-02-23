@@ -2,28 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Tag\Controller;
+namespace Drupal\app_tag\Controller;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\taxonomy\TermInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class TagList implements ContainerInjectionInterface {
+final readonly class TagList {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private TagUsageStatistics $statistics,
   ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(EntityTypeManagerInterface::class),
-      $container->get(TagUsageStatistics::class),
-    );
-  }
 
   private function buildItems(): array {
     $ids = \array_keys($this->statistics->usage());
@@ -43,7 +33,7 @@ final readonly class TagList implements ContainerInjectionInterface {
 
   public function __invoke(): array {
     return [
-      '#theme' => 'niklan_tag_list',
+      '#theme' => 'app_tag_list',
       '#items' => $this->buildItems(),
     ];
   }

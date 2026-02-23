@@ -100,15 +100,6 @@ niklan.blog_list:
   requirements:
     _permission: 'access content'
 
-niklan.tags:
-  path: '/tags'
-  methods: [GET]
-  defaults:
-    _title: 'Tags'
-    _controller: Drupal\niklan\Tag\Controller\TagList
-  requirements:
-    _permission: 'access content'
-
 niklan.contact:
   path: '/contact'
   methods: [GET]

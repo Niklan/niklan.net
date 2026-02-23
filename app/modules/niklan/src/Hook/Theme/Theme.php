@@ -51,11 +51,6 @@ final class Theme {
           'pager' => NULL,
         ],
       ],
-      'niklan_tag_list' => [
-        'variables' => [
-          'items' => [],
-        ],
-      ],
       'niklan_lightbox_responsive_image' => [
         'variables' => [
           'uri' => NULL,

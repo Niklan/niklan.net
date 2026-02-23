@@ -63,15 +63,6 @@ niklan.blog:
     main_navigation_icon: 'document-add-bold-duotone'
     active_trail_pattern: '\/(blog$|blog\/?)'
 
-niklan.tags:
-  title: Tags
-  route_name: niklan.tags
-  menu_name: main
-  weight: 3
-  metadata:
-    main_navigation_icon: 'hashtag-square-bold-duotone'
-    active_trail_pattern: '\/(tags$|tags\/?)'
-
 niklan.about:
   title: About
   title_context: 'author'

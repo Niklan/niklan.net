@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Tag\SiteMap;
+namespace Drupal\app_tag\SiteMap;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\app_contract\Contract\SiteMap\Category;
 use Drupal\app_contract\Contract\SiteMap\Section;
 use Drupal\app_contract\Contract\SiteMap\SiteMap;
 use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\taxonomy\TermInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+#[AutoconfigureTag('app_sitemap')]
 final readonly class TagSiteMap implements SiteMapBuilder {
 
   public function __construct(

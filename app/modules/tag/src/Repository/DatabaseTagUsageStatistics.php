@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Tag\Repository;
+namespace Drupal\app_tag\Repository;
 
+use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
 use Drupal\node\NodeInterface;
 
 final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {

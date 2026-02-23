@@ -30,11 +30,6 @@ services:
   Drupal\niklan\Media\Repository\DatabaseMediaRepository: { }
   Drupal\app_contract\Contract\Media\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
 
-  Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics: { }
-  Drupal\app_contract\Contract\Tag\TagUsageStatistics: '@Drupal\niklan\Tag\Repository\DatabaseTagUsageStatistics'
-  Drupal\niklan\Tag\Repository\DatabaseTagRepository: { }
-  Drupal\app_contract\Contract\Tag\TagRepository: '@Drupal\niklan\Tag\Repository\DatabaseTagRepository'
-
   Drupal\niklan\Blog\Repository\DatabaseArticleRepository: { }
   Drupal\app_contract\Contract\Blog\ArticleRepository: '@Drupal\niklan\Blog\Repository\DatabaseArticleRepository'
 
@@ -44,10 +39,6 @@ services:
   keyvalue.language_aware.database: '@Drupal\niklan\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory'
 
   Drupal\niklan\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes:
-    tags:
-      - { name: event_subscriber }
-
-  Drupal\niklan\Tag\EventSubscriber\TermPageBuild:
     tags:
       - { name: event_subscriber }
 
@@ -85,13 +76,10 @@ services:
   Drupal\niklan\SiteMap\Structure\SiteMapManager: { }
   Drupal\niklan\Blog\SiteMap\BlogSiteMap:
     tags:
-      - { name: niklan.sitemap }
-  Drupal\niklan\Tag\SiteMap\TagSiteMap:
-    tags:
-      - { name: niklan.sitemap }
+      - { name: app_sitemap }
   Drupal\niklan\Navigation\SiteMap\MainMenuSiteMap:
     tags:
-      - { name: niklan.sitemap }
+      - { name: app_sitemap }
   Drupal\niklan\Pager\EventSubscriber\PagerRedirect:
     tags:
       - { name: event_subscriber }

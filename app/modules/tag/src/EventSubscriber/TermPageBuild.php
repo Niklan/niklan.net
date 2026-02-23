@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Tag\EventSubscriber;
+namespace Drupal\app_tag\EventSubscriber;
 
+use Drupal\app_tag\Controller\Tag;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\niklan\Tag\Controller\Tag;
 use Drupal\taxonomy_custom_controller\Event\TaxonomyCustomControllerEvents;
 use Drupal\taxonomy_custom_controller\Event\TermPageBuildEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
