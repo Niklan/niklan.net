@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Tag\Entity;
+namespace Drupal\app_tag\Entity;
 
 use Drupal\app_contract\Contract\Tag\Tag;
 use Drupal\taxonomy\Entity\Term;

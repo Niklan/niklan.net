@@ -17,9 +17,10 @@ final readonly class PreprocessTaxonomyTermTags implements ContainerInjectionInt
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(TagUsageStatistics::class),
-    );
+    $statistics = $container->get(TagUsageStatistics::class);
+    \assert($statistics instanceof TagUsageStatistics);
+
+    return new self($statistics);
   }
 
   public function __invoke(array &$variables): void {

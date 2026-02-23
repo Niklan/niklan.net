@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Tag\Controller;
+namespace Drupal\app_tag\Controller;
 
+use Drupal\app_contract\Contract\Node\Node;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\app_contract\Contract\Node\Node;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

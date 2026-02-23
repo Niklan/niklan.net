@@ -9,7 +9,6 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\File\Entity\FileBundle;
 use Drupal\niklan\Node\Entity\ArticleBundle;
-use Drupal\niklan\Tag\Entity\TagBundle;
 
 #[Hook('entity_bundle_info_alter')]
 final class BundleInfoAlter {
@@ -26,12 +25,6 @@ final class BundleInfoAlter {
         'file' => [
           'class' => FileBundle::class,
           'label' => new TranslatableMarkup('File'),
-        ],
-      ],
-      'taxonomy_term' => [
-        'tags' => [
-          'class' => TagBundle::class,
-          'label' => new TranslatableMarkup('Tag'),
         ],
       ],
     ];

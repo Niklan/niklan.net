@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 final readonly class SiteMapManager implements SiteMapBuilder {
 
   public function __construct(
-    #[AutowireIterator('niklan.sitemap')]
+    #[AutowireIterator('app_sitemap')]
     private iterable $siteMaps,
   ) {}
 

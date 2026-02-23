@@ -27,6 +27,8 @@
     <!-- It forces to declare all params even only if a single one is needed. -->
     <exclude name="Drupal.Commenting.FunctionComment.ParamMissingDefinition"/>
     <exclude name="Drupal.Classes.InterfaceName.InterfaceSuffix"/>
+    <!-- Forces useless comments instead of straightforward explanation. -->
+    <exclude name="Drupal.Commenting.DocComment.ShortSingleLine"/>
   </rule>
 
   <!-- Project specific rules. -->
