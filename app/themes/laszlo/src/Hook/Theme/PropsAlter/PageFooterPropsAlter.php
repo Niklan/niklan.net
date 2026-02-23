@@ -17,9 +17,10 @@ final readonly class PageFooterPropsAlter implements ContainerInjectionInterface
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(Git::class),
-    );
+    $git = $container->get(Git::class);
+    \assert($git instanceof Git);
+
+    return new self($git);
   }
 
   private function buildVersionInfo(string $repository_path, string $repository_url): array {

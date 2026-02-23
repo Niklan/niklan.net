@@ -21,6 +21,7 @@ abstract class NiklanTestBase extends KernelTestBase {
    */
   protected static $modules = [
     'app_contract',
+    'app_platform',
     'app_tag',
     'breakpoint',
     'niklan',

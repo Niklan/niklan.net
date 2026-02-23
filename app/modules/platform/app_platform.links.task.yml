@@ -1,0 +1,3 @@
+# @ingroup language_aware_key_value
+key_value.language_aware:
+  deriver: Drupal\app_platform\Plugin\Menu\KeyValueLanguageAwareLocalTask

@@ -10,7 +10,7 @@ use Drupal\niklan\ExternalContent\Exception\ArticleParseException;
 use Drupal\niklan\ExternalContent\Exception\XmlLoadException;
 use Drupal\niklan\ExternalContent\Exception\XmlValidationException;
 use Drupal\niklan\ExternalContent\Validation\XmlValidator;
-use Drupal\niklan\Utils\PathHelper;
+use Drupal\app_contract\Utils\PathHelper;
 
 final readonly class ArticleXmlParser {
 

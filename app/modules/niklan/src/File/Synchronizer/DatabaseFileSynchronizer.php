@@ -14,7 +14,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\app_contract\Contract\File\File;
 use Drupal\app_contract\Contract\File\FileSynchronizer;
 use Drupal\niklan\File\Utils\FileHelper;
-use Drupal\niklan\Utils\PathHelper;
+use Drupal\app_contract\Utils\PathHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
