@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Search\Data;
+namespace Drupal\app_search\Data;
 
 /**
- * @implements \IteratorAggregate<string, \Drupal\niklan\Search\Data\EntitySearchResult>
+ * @implements \IteratorAggregate<string, \Drupal\app_search\Data\EntitySearchResult>
  */
 final class EntitySearchResults implements \IteratorAggregate, \Countable {
 
@@ -38,7 +38,7 @@ final class EntitySearchResults implements \IteratorAggregate, \Countable {
   }
 
   /**
-   * @return \ArrayIterator<string, \Drupal\niklan\Search\Data\EntitySearchResult>
+   * @return \ArrayIterator<string, \Drupal\app_search\Data\EntitySearchResult>
    */
   #[\Override]
   public function getIterator(): \ArrayIterator {

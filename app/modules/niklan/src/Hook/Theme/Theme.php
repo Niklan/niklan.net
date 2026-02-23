@@ -57,15 +57,6 @@ final class Theme {
           'items' => [],
         ],
       ],
-      'niklan_search_results' => [
-        'variables' => [
-          'query' => NULL,
-          'no_query' => NULL,
-          'no_results' => NULL,
-          'results' => [],
-          'pager' => NULL,
-        ],
-      ],
       'niklan_tag_list' => [
         'variables' => [
           'items' => [],

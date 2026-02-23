@@ -1,4 +1,4 @@
-{% do attributes.setAttribute('action', path('niklan.search_page')) %}
+{% do attributes.setAttribute('action', path('app_search.search_page')) %}
 {% do attributes.setAttribute('data-selector', 'laszlo:search-bar') %}
 <form{{ attributes.addClass('search-bar') }}>
   {% include 'laszlo:text-input' with {

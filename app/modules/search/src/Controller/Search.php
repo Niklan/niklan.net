@@ -2,37 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Search\Controller;
+namespace Drupal\app_search\Controller;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\app_search\Data\EntitySearchResult;
+use Drupal\app_search\Data\EntitySearchResults;
+use Drupal\app_search\Data\SearchParams;
+use Drupal\app_search\Repository\EntitySearch;
+use Drupal\app_search\Repository\GlobalSearch;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\Search\Data\EntitySearchResult;
-use Drupal\niklan\Search\Data\EntitySearchResults;
-use Drupal\niklan\Search\Data\SearchParams;
-use Drupal\niklan\Search\Repository\GlobalSearch;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final readonly class Search implements ContainerInjectionInterface {
+final class Search {
 
   protected const int PER_PAGE = 10;
 
   public function __construct(
-    protected GlobalSearch $entitySearch,
+    #[Autowire(service: GlobalSearch::class)]
+    protected EntitySearch $entitySearch,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected PagerManagerInterface $pagerManager,
   ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(GlobalSearch::class),
-      $container->get(EntityTypeManagerInterface::class),
-      $container->get(PagerManagerInterface::class),
-    );
-  }
 
   private function doSearch(string $keys): EntitySearchResults {
     $search_params = new SearchParams($keys, self::PER_PAGE, $this->pagerManager->findPage() * self::PER_PAGE);
@@ -75,7 +67,7 @@ final readonly class Search implements ContainerInjectionInterface {
     $query = (string) $request->query->get('q');
 
     return [
-      '#theme' => 'niklan_search_results',
+      '#theme' => 'app_search_results',
       '#no_query' => new TranslatableMarkup('You need to provide a search query to see the results.'),
       '#no_results' => new TranslatableMarkup('Nothing was found for your request.'),
       '#results' => $this->buildResults($query),

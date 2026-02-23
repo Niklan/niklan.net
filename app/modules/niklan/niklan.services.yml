@@ -52,15 +52,6 @@ services:
     tags:
       - { name: event_subscriber }
 
-  niklan.search.search_api:
-    abstract: true
-    arguments:
-      - '@search_api.query_helper'
-      - '@entity_type.manager'
-
-  Drupal\niklan\Search\Repository\GlobalSearch:
-    parent: niklan.search.search_api
-
   Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:
     arguments: [ '@plugin.manager.menu.local_task', '@current_route_match' ]
 

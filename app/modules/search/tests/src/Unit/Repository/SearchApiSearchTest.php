@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan\Unit\Search;
+namespace Drupal\Tests\app_search\Unit\Repository;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Search\Data\SearchParams;
-use Drupal\niklan\Search\Repository\GlobalSearch;
+use Drupal\app_search\Repository\SearchApiSearch;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\QueryInterface;
@@ -15,30 +15,48 @@ use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\search_api\Utility\QueryHelperInterface;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Prophecy\Argument;
 
-#[CoversClass(GlobalSearch::class)]
-final class GlobalSearchTest extends UnitTestCase {
+#[CoversClass(SearchApiSearch::class)]
+final class SearchApiSearchTest extends UnitTestCase {
 
-  #[DataProvider('dataProvider')]
-  public function testSearch(SearchParams $params, array $query_results): void {
-    $search = new GlobalSearch(
-      $this->prepareSearchApiQueryHelper($query_results),
-      $this->prepareEntityTypeManager(),
-    );
+  /**
+   * Tests that abstract class works in base implementation.
+   */
+  public function testObject(): void {
+    $search = $this->buildImplementation(['entity:node/1:ru']);
 
-    $search_results = $search->search($params);
+    self::assertEmpty($search->getCacheContexts());
+    self::assertEquals(['search_api_list:test'], $search->getCacheTags());
+    self::assertEquals(Cache::PERMANENT, $search->getCacheMaxAge());
 
-    self::assertCount(\count($query_results), $search_results);
+    // Make sure that query is properly build and executed.
+    $results = $search->getResults();
+    self::assertEquals('entity:node/1:ru', $results[0]->getId());
   }
 
-  public static function dataProvider(): \Generator {
-    yield [new SearchParams(NULL, 10), []];
-    yield [
-      new SearchParams('Drupal', 10),
-      ['entity:node/1:ru', 'entity:node/2:ru'],
-    ];
+  /**
+   * Builds a simple implementation.
+   *
+   * @param array $query_results
+   *   The expected query results.
+   */
+  protected function buildImplementation(array $query_results): SearchApiSearch {
+    $query_helper = $this->prepareSearchApiQueryHelper($query_results);
+    $entity_type_manger = $this->prepareEntityTypeManager();
+
+    return new class($query_helper, $entity_type_manger) extends SearchApiSearch {
+
+      public function getResults(): array {
+        return parent::getQuery()->execute()->getResultItems();
+      }
+
+      #[\Override]
+      protected function getIndexId(): string {
+        return 'test';
+      }
+
+    };
   }
 
   private function prepareSearchApiQueryHelper(array $query_results = []): QueryHelperInterface {

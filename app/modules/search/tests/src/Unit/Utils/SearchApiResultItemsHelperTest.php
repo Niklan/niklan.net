@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan\Unit\Utility;
+namespace Drupal\Tests\app_search\Unit\Utils;
 
-use Drupal\niklan\Search\Data\EntitySearchResult;
-use Drupal\niklan\Search\Utils\SearchApiResultItemsHelper;
+use Drupal\app_search\Data\EntitySearchResult;
+use Drupal\app_search\Utils\SearchApiResultItemsHelper;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\Tests\UnitTestCase;

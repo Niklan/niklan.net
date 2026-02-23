@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Search\Data;
+namespace Drupal\app_search\Data;
 
 final class SearchParams {
 

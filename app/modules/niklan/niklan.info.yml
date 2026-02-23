@@ -15,6 +15,5 @@ dependencies:
   - drupal:comment
   - drupal:system
   - drupal:user
-  - drupal:search_api
   # The default MIMEguesser can't handle Markdown.
   - sophron:sophron_guesser
