@@ -6,7 +6,6 @@ namespace Drupal\Tests\app_portfolio\Unit\Hook\Entity;
 
 use Drupal\app_portfolio\Hook\Entity\BundleInfoAlter;
 use Drupal\app_portfolio\Node\PortfolioBundle;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
