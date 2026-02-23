@@ -67,7 +67,7 @@ final readonly class Home implements ContainerInjectionInterface {
 
     $build['#sections']['latest_posts'] = [
       '#heading' => new TranslatableMarkup('Latest posts'),
-      '#theme' => 'niklan_blog_preview_list',
+      '#theme' => 'app_blog_preview_list',
       '#items' => \array_map(
         callback: fn ($node) => $this->getNodeViewBuilder()->view($node, 'preview'),
         array: $this->getNodeStorage()->loadMultiple($ids),
@@ -97,7 +97,7 @@ final readonly class Home implements ContainerInjectionInterface {
 
     $build['#sections']['too_big_to_read'] = [
       '#heading' => new TranslatableMarkup("TL;DR - ”I'd rather read a book”"),
-      '#theme' => 'niklan_blog_preview_list',
+      '#theme' => 'app_blog_preview_list',
       '#items' => \array_map(
         callback: fn ($node) => $this->getNodeViewBuilder()->view($node, 'preview'),
         array: $this->getNodeStorage()->loadMultiple($ids),
@@ -128,7 +128,7 @@ final readonly class Home implements ContainerInjectionInterface {
 
     $build['#sections']['most_discussed'] = [
       '#heading' => new TranslatableMarkup("The most discussed"),
-      '#theme' => 'niklan_blog_preview_list',
+      '#theme' => 'app_blog_preview_list',
       '#items' => \array_map(
         callback: fn (EntityInterface $node) => $this->getNodeViewBuilder()->view($node, 'preview'),
         array: $this->getNodeStorage()->loadMultiple($ids),

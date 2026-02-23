@@ -1,5 +1,5 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-replaces: 'niklan:code-block'
+replaces: 'app_blog:code-block'
 name: Code block
 status: experimental
 group: molecules
@@ -23,6 +23,6 @@ props:
       type: string
 libraryOverrides:
   dependencies:
-    - niklan/hljs
+    - app_blog/hljs
     - core/once
     - core/drupal

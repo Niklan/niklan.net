@@ -7,75 +7,15 @@ services:
     parent: logger.channel_base
     arguments: [ 'niklan' ]
 
-  logger.channel.niklan.external_content:
-    parent: logger.channel_base
-    arguments: [ 'niklan.external_content' ]
-
   Drupal\niklan\StaticPage\About\Repository\AboutSettings: { }
   Drupal\niklan\StaticPage\Contact\Repository\ContactSettings: { }
   Drupal\niklan\StaticPage\Services\Repository\ServicesSettings: { }
   Drupal\niklan\StaticPage\Support\Repository\SupportSettings: { }
   Drupal\niklan\StaticPage\Home\Repository\HomeSettings: { }
 
-  Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: { }
-  Drupal\app_contract\Contract\File\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'
-
-  Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer: { }
-  Drupal\app_contract\Contract\Media\MediaSynchronizer: '@Drupal\niklan\Media\Synchronizer\DatabaseMediaSynchronizer'
-
-  Drupal\niklan\Media\Repository\DatabaseMediaRepository: { }
-  Drupal\app_contract\Contract\Media\MediaRepository: '@Drupal\niklan\Media\Repository\DatabaseMediaRepository'
-
-  Drupal\niklan\Blog\Repository\DatabaseArticleRepository: { }
-  Drupal\app_contract\Contract\Blog\ArticleRepository: '@Drupal\niklan\Blog\Repository\DatabaseArticleRepository'
-
   Drupal\niklan\Navigation\Toolbar\ContentEditingToolbarLinksBuilder:
     arguments: [ '@plugin.manager.menu.local_task', '@current_route_match' ]
 
-  Drupal\niklan\Markup\Markdown\Extension\ArticleMarkdownExtension: { }
-
-  niklan.markdown.environment:
-    class: League\CommonMark\Environment\Environment
-    calls:
-      - [ addExtension, [ '@Drupal\niklan\Markup\Markdown\Extension\ArticleMarkdownExtension' ] ]
-  niklan.markdown.converter:
-    class: League\CommonMark\MarkdownConverter
-    arguments:
-      - '@niklan.markdown.environment'
-  League\CommonMark\MarkdownConverter: '@niklan.markdown.converter'
-
-  Drupal\niklan\Blog\Generator\BannerGenerator: { }
-  Drupal\niklan\Blog\SiteMap\BlogSiteMap:
-    tags:
-      - { name: app_sitemap }
   Drupal\niklan\Navigation\SiteMap\MainMenuSiteMap:
     tags:
       - { name: app_sitemap }
-
-  Drupal\niklan\ExternalContent\Validation\XmlValidator: {}
-  Drupal\niklan\ExternalContent\Parser\ArticleXmlParser: {}
-
-  # External Content: Stages.
-  Drupal\niklan\ExternalContent\Stages\MarkdownToAstParser: { }
-  Drupal\niklan\ExternalContent\Stages\AssetSynchronizer: { }
-  Drupal\niklan\ExternalContent\Stages\LinkProcessor: { }
-  Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater: { }
-  Drupal\niklan\ExternalContent\Stages\ArticleProcessor: {}
-  Drupal\niklan\ExternalContent\Stages\ArticleFinder: {}
-
-  # External Content: Pipelines.
-  Drupal\niklan\ExternalContent\Pipeline\ArticleProcessPipeline: {}
-  Drupal\niklan\ExternalContent\Pipeline\ArticleSyncPipeline: {}
-
-  # External Content: Nodes.
-  Drupal\niklan\ExternalContent\Nodes\ArticleLink\RenderArrayBuilder: {}
-  Drupal\niklan\ExternalContent\Nodes\Callout\RenderArrayBuilder: {}
-  Drupal\niklan\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder: {}
-  Drupal\niklan\ExternalContent\Nodes\MediaReference\RenderArrayBuilder: {}
-  Drupal\niklan\ExternalContent\Nodes\Footnote\RenderArrayBuilder: {}
-
-  # External Content: Extensions.
-  Drupal\niklan\ExternalContent\Extension\RenderArrayBuilderExtension: {}
-  Drupal\niklan\ExternalContent\Extension\HtmlParserExtension: {}
-  Drupal\niklan\ExternalContent\Extension\ArrayBuilderExtension: {}
-  Drupal\niklan\ExternalContent\Extension\ArrayParserExtension: {}

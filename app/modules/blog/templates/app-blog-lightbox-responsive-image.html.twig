@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display responsive image with zoom.
+ *
+ * Available variables:
+ * - attributes: The main wrapper element attributes.
+ * - uri: The image URI.
+ * - thumbnail_responsive_image_style_id: The responsive image style ID.
+ * - lightbox_image_style_id: The image style ID used for zoomed image.
+ * - alt: The image alt.
+ * - title: The image title.
+ * - responsive_image: The responsive image.
+ * - full_image_url: The full image URL.
+ * - size: The WxH size for aspect ratio.
+ *
+ * @ingroup themeable
+ * @see template_preprocess_app_blog_lightbox_responsive_image()
+ */
+#}
+<div{{ attributes.addClass('lightbox') }}>
+  <a href="{{ full_image_url }}" class="photoswipe lightbox__full-link"
+     data-size="{{ size }}">
+    <div class="lightbox__thumbnail">
+      {{ responsive_image }}
+    </div>
+
+    <div class="lightbox__magnify">
+      {{ include('@niklan/../assets/icons/000000/fullscreen_FILL0_wght400_GRAD0_opsz24.svg') }}
+    </div>
+  </a>
+</div>

@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\app_blog\ExternalContent\Nodes\Figcaption;
+
+use Drupal\Core\Render\Element\HtmlTag;
+use Drupal\external_content\Contract\Builder\RenderArray\Builder;
+use Drupal\external_content\Contract\Builder\RenderArray\ChildBuilder;
+use Drupal\external_content\DataStructure\RenderArray;
+use Drupal\external_content\Nodes\Node;
+use Drupal\external_content\Utils\HtmlTagHelper;
+
+/**
+ * @implements \Drupal\external_content\Contract\Builder\RenderArray\Builder<\Drupal\app_blog\ExternalContent\Nodes\Figcaption\Figcaption>
+ */
+final readonly class RenderArrayBuilder implements Builder {
+
+  public function supports(Node $node): bool {
+    return $node instanceof Figcaption;
+  }
+
+  public function buildElement(Node $node, ChildBuilder $child_builder): RenderArray {
+    $element = new RenderArray([
+      '#type' => 'html_tag',
+      '#tag' => 'figcaption',
+      '#pre_render' => [
+        HtmlTag::preRenderHtmlTag(...),
+        HtmlTagHelper::preRenderTag(...),
+      ],
+    ]);
+    $child_builder->buildChildren($node, $element);
+    return $element;
+  }
+
+}

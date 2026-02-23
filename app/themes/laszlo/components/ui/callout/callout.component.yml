@@ -1,5 +1,5 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-replaces: 'niklan:callout'
+replaces: 'app_blog:callout'
 name: Callout
 status: experimental
 group: ui

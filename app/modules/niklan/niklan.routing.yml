@@ -90,16 +90,6 @@ niklan.admin_general:
   requirements:
     _permission: 'access administration pages'
 
-niklan.blog_list:
-  path: '/blog'
-  methods: [GET]
-  defaults:
-    _title: 'Blog posts'
-    _controller: Drupal\niklan\Blog\Controller\BlogList
-    _title_pager_suffix: 'TRUE'
-  requirements:
-    _permission: 'access content'
-
 niklan.contact:
   path: '/contact'
   methods: [GET]

@@ -10,7 +10,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\laszlo\Hook\Theme\PropsAlter\BrandingPropsAlter;
 use Drupal\laszlo\Hook\Theme\PropsAlter\PageFooterPropsAlter;
 use Drupal\laszlo\Hook\Theme\PropsAlter\PageHeaderPropsAlter;
-use Drupal\niklan\ExternalContent\Command\Sync;
+use Drupal\app_blog\ExternalContent\Command\Sync;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessPage implements ContainerInjectionInterface {

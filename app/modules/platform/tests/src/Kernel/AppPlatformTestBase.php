@@ -24,6 +24,10 @@ abstract class AppPlatformTestBase extends KernelTestBase {
     'app_platform',
     'system',
     'user',
+    'file',
+    'media',
+    'image',
+    'field',
   ];
 
 }

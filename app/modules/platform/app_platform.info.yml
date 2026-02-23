@@ -7,3 +7,5 @@ package: App/Integration
 dependencies:
   - niklan:app_contract
   - drupal:system
+  - drupal:file
+  - drupal:media

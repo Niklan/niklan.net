@@ -43,13 +43,17 @@ parameters:
       handlers:
         - name: rotating_file.niklan
           formatter: 'json'
+    app_blog:
+      handlers:
+        - name: rotating_file.app_blog
+          formatter: 'json'
     app_comment.telegram:
       handlers:
         - name: rotating_file.app_comment.telegram
           formatter: 'json'
-    niklan.external_content:
+    app_blog.external_content:
       handlers:
-        - name: rotating_file.niklan.external_content
+        - name: rotating_file.app_blog.external_content
           formatter: 'json'
 
 
@@ -84,9 +88,12 @@ services:
   monolog.handler.rotating_file.niklan:
     class: Monolog\Handler\RotatingFileHandler
     arguments: ['../var/log/niklan.log', 7]
+  monolog.handler.rotating_file.app_blog:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: ['../var/log/app-blog.log', 7]
   monolog.handler.rotating_file.app_comment.telegram:
     class: Monolog\Handler\RotatingFileHandler
     arguments: [ '../var/log/telegram.log', 7 ]
-  monolog.handler.rotating_file.niklan.external_content:
+  monolog.handler.rotating_file.app_blog.external_content:
     class: Monolog\Handler\RotatingFileHandler
     arguments: [ '../var/log/external-content.log', 7 ]

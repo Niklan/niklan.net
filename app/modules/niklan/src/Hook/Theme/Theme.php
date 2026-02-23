@@ -39,31 +39,9 @@ final class Theme {
           'hourly_rate' => NULL,
         ],
       ],
-      'niklan_blog_list' => [
-        'variables' => [
-          'items' => [],
-          'pager' => NULL,
-        ],
-      ],
-      'niklan_lightbox_responsive_image' => [
-        'variables' => [
-          'uri' => NULL,
-          'thumbnail_responsive_image_style_id' => NULL,
-          'lightbox_image_style_id' => NULL,
-          'alt' => NULL,
-          'title' => NULL,
-          'attributes' => [],
-        ],
-      ],
       'niklan_home' => [
         'variables' => [
           'sections' => [],
-        ],
-      ],
-      'niklan_blog_preview_list' => [
-        'variables' => [
-          'heading' => NULL,
-          'items' => [],
         ],
       ],
       'niklan_home_intro' => [
@@ -75,14 +53,6 @@ final class Theme {
       'niklan_home_cards' => [
         'variables' => [
           'cards' => [],
-        ],
-      ],
-      'niklan_article_banner' => [
-        'variables' => [
-          'poster_base64' => NULL,
-          'text_lines' => [],
-          'comment_count' => 0,
-          'created' => 0,
         ],
       ],
       'niklan_sitemap' => [
