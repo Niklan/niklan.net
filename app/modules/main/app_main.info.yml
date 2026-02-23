@@ -6,12 +6,12 @@ container_rebuild_required: false
 package: App/Integration
 dependencies:
   - niklan:niklan
-  - niklan:app_contract
-  - niklan:app_platform
-  - niklan:app_blog
-  - niklan:app_comment
-  - niklan:app_tag
-  - niklan:app_search
-  - niklan:app_portfolio
+  - app_contract:app_contract
+  - app_platform:app_platform
+  - app_blog:app_blog
+  - app_comment:app_comment
+  - app_tag:app_tag
+  - app_search:app_search
+  - app_portfolio:app_portfolio
   - drupal:system
   - drupal:user

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a20394a7e80abb17973735de89fd26b1",
+    "content-hash": "26f93b0e00856e771f15adbecaaa40fb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4921,6 +4921,22 @@
             }
         },
         {
+            "name": "niklan/app_file",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/file",
+                "reference": "2a1d485d7debbbd4400c0c82e26ffed45b0211e6"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "niklan/app_main",
             "version": "1.0.0-dev",
             "dist": {
@@ -4938,6 +4954,22 @@
                 "niklan/app_portfolio": "^1.0",
                 "niklan/app_search": "^1.0",
                 "niklan/app_tag": "^1.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "niklan/app_media",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/media",
+                "reference": "b238886f2ae8cbe267409371561eb265921edf25"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -5001,7 +5033,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/tag",
-                "reference": "7a7aaf7d3104001a40600c873742c086ee1b87c0"
+                "reference": "d0e060845b3dae46236293ac4a60807377b328ba"
+            },
+            "require": {
+                "symfony/config": "^7.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -5059,7 +5094,7 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/niklan",
-                "reference": "91eb40d9d56a38624684b6234bb39ea31e767297"
+                "reference": "4c0c90d9fd0483d99a60462b7e100a30541113c4"
             },
             "require": {
                 "drupal/media_library_form_element": "^2",
@@ -5068,7 +5103,6 @@
                 "league/commonmark": "^2.0",
                 "niklan-asset/alpinejs": "^3.14",
                 "niklan-asset/hljs": "^11.9",
-                "nutgram/nutgram": "^4.31",
                 "scrivo/highlight.php": "^9.0",
                 "symfony/config": "^6.0|^7.0",
                 "symfony/css-selector": "^6.0|^7.0",
@@ -15291,7 +15325,9 @@
         "niklan/app_comment": 20,
         "niklan/app_contract": 20,
         "niklan/app_dev": 20,
+        "niklan/app_file": 20,
         "niklan/app_main": 20,
+        "niklan/app_media": 20,
         "niklan/app_platform": 20,
         "niklan/app_portfolio": 20,
         "niklan/app_search": 20,

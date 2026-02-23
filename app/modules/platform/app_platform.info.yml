@@ -5,7 +5,7 @@ core_version_requirement: ^11
 container_rebuild_required: false
 package: App/Integration
 dependencies:
-  - niklan:app_contract
+  - app_contract:app_contract
   - drupal:system
   - drupal:file
   - drupal:media

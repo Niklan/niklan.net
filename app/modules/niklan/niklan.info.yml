@@ -10,7 +10,7 @@ dependencies:
   - app_blog:app_blog
   - app_comment:app_comment
   - app_contract:app_contract
-  - niklan:app_platform
+  - app_platform:app_platform
   - app_tag:app_tag
   - drupal:comment
   - drupal:system
