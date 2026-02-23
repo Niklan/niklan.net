@@ -5,7 +5,6 @@ core_version_requirement: ^11
 container_rebuild_required: false
 package: App/Integration
 dependencies:
-  - niklan:niklan
   - app_main:app_main
   - drupal:field_ui
   - drupal:views_ui

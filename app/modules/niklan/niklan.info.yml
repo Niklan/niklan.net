@@ -7,11 +7,5 @@ package: Custom
 lifecycle: deprecated
 lifecycle_link: https://niklan.net
 dependencies:
-  - app_blog:app_blog
-  - app_comment:app_comment
   - app_contract:app_contract
-  - app_platform:app_platform
-  - app_tag:app_tag
-  - drupal:comment
   - drupal:system
-  - drupal:user

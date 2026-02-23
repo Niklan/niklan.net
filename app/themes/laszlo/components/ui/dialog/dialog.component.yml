@@ -18,4 +18,4 @@ slots:
     title: Content
 libraryOverrides:
   dependencies:
-    - 'niklan/alpinejs'
+    - 'app_main/alpinejs'

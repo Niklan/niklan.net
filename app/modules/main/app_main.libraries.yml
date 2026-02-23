@@ -1,0 +1,46 @@
+navigation:
+  css:
+    theme:
+      assets/css/niklan.navigation.css: { }
+
+mobile-sidebar:
+  js:
+    assets/js/mobile-sidebar.js: { }
+
+alpinejs:
+  version: 3.14.3
+  remote: https://github.com/alpinejs/alpine
+  license:
+    name: MIT
+    url: https://raw.githubusercontent.com/alpinejs/alpine/master/LICENSE.md
+    gpl-compatible: true
+  js:
+    /libraries/alpinejs/alpinejs.min.js:
+      weight: -10000
+      minified: true
+      preprocess: false
+      attributes:
+        defer: ''
+    assets/js/alpinejs.once.js: { weight: -20 }
+    assets/js/alpinejs.drupal-focus-trap.js: {}
+  dependencies:
+    - core/drupal.tabbingmanager
+
+share:
+  js:
+    assets/js/share.js: { }
+  dependencies:
+    - core/drupal
+    - core/once
+
+oembed-video:
+  js:
+    assets/js/oembed-video.js: { }
+  dependencies:
+    - core/drupal
+    - core/once
+
+content-editing.toolbar:
+  css:
+    theme:
+      assets/css/content-editing.toolbar.css: { }

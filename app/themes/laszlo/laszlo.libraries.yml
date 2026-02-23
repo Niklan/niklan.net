@@ -40,7 +40,7 @@ messages:
       assets/css/03-component/ui/status-messages.css: { }
       assets/css/03-component/ui/status-message.css: { }
   dependencies:
-    - niklan/alpinejs
+    - app_main/alpinejs
 
 hljs:
   css:

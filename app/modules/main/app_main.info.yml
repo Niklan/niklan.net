@@ -5,11 +5,8 @@ core_version_requirement: ^11
 container_rebuild_required: false
 package: App/Integration
 dependencies:
-  - niklan:niklan
   - app_contract:app_contract
   - app_platform:app_platform
-  - app_file:app_file
-  - app_media:app_media
   - app_blog:app_blog
   - app_comment:app_comment
   - app_tag:app_tag

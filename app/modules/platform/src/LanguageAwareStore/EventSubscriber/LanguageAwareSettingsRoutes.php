@@ -17,11 +17,11 @@ use Symfony\Component\Routing\RouteCollection;
 final readonly class LanguageAwareSettingsRoutes implements EventSubscriberInterface {
 
   public const array ROUTES_TO_ENHANCE = [
-    'niklan.home.settings',
-    'niklan.about.settings',
-    'niklan.contact.settings',
-    'niklan.services.settings',
-    'niklan.support.settings',
+    'app_main.home.settings',
+    'app_main.about.settings',
+    'app_main.contact.settings',
+    'app_main.services.settings',
+    'app_main.support.settings',
     'app_portfolio.portfolio.settings',
   ];
 

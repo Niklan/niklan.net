@@ -6,7 +6,7 @@ namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\niklan\StaticPage\Contact\Repository\ContactSettings;
+use Drupal\app_main\StaticPage\Contact\Repository\ContactSettings;
 use Psr\Container\ContainerInterface;
 
 final readonly class PreprocessMaintenancePage implements ContainerInjectionInterface {
@@ -16,7 +16,10 @@ final readonly class PreprocessMaintenancePage implements ContainerInjectionInte
   ) {}
 
   public static function create(ContainerInterface $container): self {
-    return new self($container->get(ContactSettings::class));
+    $contact_settings = $container->get(ContactSettings::class);
+    \assert($contact_settings instanceof ContactSettings);
+
+    return new self($contact_settings);
   }
 
   public function __invoke(array &$variables): void {
