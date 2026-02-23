@@ -7,10 +7,6 @@ services:
     parent: logger.channel_base
     arguments: [ 'niklan' ]
 
-  logger.channel.niklan.telegram:
-    parent: logger.channel_base
-    arguments: [ 'niklan.telegram' ]
-
   logger.channel.niklan.external_content:
     parent: logger.channel_base
     arguments: [ 'niklan.external_content' ]
@@ -68,10 +64,6 @@ services:
     tags:
       - { name: twig.extension }
 
-  Drupal\niklan\Comment\EventSubscriber\RouteAlter:
-    tags:
-      - { name: event_subscriber }
-
   Drupal\niklan\Blog\Generator\BannerGenerator: { }
   Drupal\niklan\SiteMap\Structure\SiteMapManager: { }
   Drupal\niklan\Blog\SiteMap\BlogSiteMap:
@@ -88,11 +80,6 @@ services:
       - { name: path_processor_inbound, priority: 1000 }
       - { name: path_processor_outbound, priority: -1000 }
   Drupal\niklan\Pager\Controller\PagerAwareTitleResolver: { }
-  Drupal\niklan\Telegram\Telegram: { }
-  Drupal\niklan\Comment\EventSubscriber\TelegramBotSubscriber:
-    tags:
-      - { name: event_subscriber }
-  Drupal\niklan\Comment\Telegram\CommentModerationHandler: { }
 
   Drupal\niklan\ExternalContent\Validation\XmlValidator: {}
   Drupal\niklan\ExternalContent\Parser\ArticleXmlParser: {}

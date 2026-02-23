@@ -126,11 +126,3 @@ niklan.sitemap:
     _controller: Drupal\niklan\SiteMap\Controller\SiteMapController
   requirements:
     _access: 'TRUE'
-
-niklan.telegram.webhook:
-  path: '/api/telegram/webhook'
-  methods: [POST]
-  defaults:
-    _controller: Drupal\niklan\Telegram\Controller\WebhookController
-  requirements:
-    _access: 'TRUE'

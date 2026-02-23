@@ -39,12 +39,6 @@ final class Theme {
           'hourly_rate' => NULL,
         ],
       ],
-      'niklan_comment_list' => [
-        'variables' => [
-          'heading' => NULL,
-          'items' => [],
-        ],
-      ],
       'niklan_blog_list' => [
         'variables' => [
           'items' => [],
@@ -61,13 +55,6 @@ final class Theme {
           'attributes' => [],
         ],
       ],
-      'niklan_comment_thread' => [
-        'variables' => [
-          'depth' => 0,
-          'thread_id' => NULL,
-          'comments' => [],
-        ],
-      ],
       'niklan_home' => [
         'variables' => [
           'sections' => [],
@@ -77,11 +64,6 @@ final class Theme {
         'variables' => [
           'heading' => NULL,
           'items' => [],
-        ],
-      ],
-      'niklan_comment_reply_page' => [
-        'variables' => [
-          'children' => [],
         ],
       ],
       'niklan_home_intro' => [

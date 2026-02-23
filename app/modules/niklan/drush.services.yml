@@ -7,9 +7,3 @@ services:
       - '@Drupal\Core\Cache\CacheTagsInvalidatorInterface'
     tags:
       - { name: console.command }
-  niklan.telegram.set_webhook:
-    class: Drupal\niklan\Telegram\Command\SetWebhook
-    arguments:
-      - '@Drupal\niklan\Telegram\Telegram'
-    tags:
-      - { name: console.command }

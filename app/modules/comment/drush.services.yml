@@ -1,0 +1,7 @@
+services:
+  app_comment.telegram.set_webhook:
+    class: Drupal\app_comment\Telegram\Command\SetWebhook
+    arguments:
+      - '@Drupal\app_comment\Telegram\Telegram'
+    tags:
+      - { name: console.command }
