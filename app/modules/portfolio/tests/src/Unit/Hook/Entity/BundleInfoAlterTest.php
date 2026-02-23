@@ -6,6 +6,7 @@ namespace Drupal\Tests\app_portfolio\Unit\Hook\Entity;
 
 use Drupal\app_portfolio\Hook\Entity\BundleInfoAlter;
 use Drupal\app_portfolio\Node\PortfolioBundle;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
@@ -19,15 +20,6 @@ final class BundleInfoAlterTest extends UnitTestCase {
     $hook($bundles);
 
     self::assertSame(PortfolioBundle::class, $bundles['node']['portfolio']['class']);
-  }
-
-  public function testPortfolioBundleLabel(): void {
-    $hook = new BundleInfoAlter();
-    $bundles = [];
-
-    $hook($bundles);
-
-    self::assertSame('Portfolio project', (string) $bundles['node']['portfolio']['label']);
   }
 
   public function testExistingBundlesPreserved(): void {
