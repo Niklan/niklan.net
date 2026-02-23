@@ -42,7 +42,7 @@ jobs:
             git pull
             composer install -n -o --no-dev --apcu-autoloader
             drush deploy
-            drush app-comment:telegram:set-webhook
+            drush app:comment:telegram:set-webhook
             task import/translations
             drush queue:delete warmer
             drush warmer:enqueue entity

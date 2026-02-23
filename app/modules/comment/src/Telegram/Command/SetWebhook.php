@@ -11,9 +11,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-  name: 'app-comment:telegram:set-webhook',
+  name: 'app:comment:telegram:set-webhook',
   description: 'Sets Telegram webhook.',
-  aliases: ['niklan:telegram:set-webhook']
+  aliases: ['niklan:telegram:set-webhook'],
 )]
 final class SetWebhook extends Command {
 
