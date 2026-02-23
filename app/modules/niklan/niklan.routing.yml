@@ -118,15 +118,6 @@ niklan.portfolio_list:
   requirements:
     _permission: 'access content'
 
-niklan.search_page:
-  path: '/search'
-  methods: [GET, POST]
-  defaults:
-    _title: 'Site search'
-    _controller: Drupal\niklan\Search\Controller\Search
-  requirements:
-    _permission: 'access content'
-
 niklan.tags:
   path: '/tags'
   methods: [GET]

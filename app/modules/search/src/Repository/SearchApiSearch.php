@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Search\Repository;
+namespace Drupal\app_search\Repository;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableDependencyInterface;
@@ -10,12 +10,14 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\Utility\QueryHelperInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 abstract class SearchApiSearch implements CacheableDependencyInterface {
 
   abstract protected function getIndexId(): string;
 
   public function __construct(
+    #[Autowire(service: 'search_api.query_helper')]
     protected QueryHelperInterface $queryHelper,
     protected EntityTypeManagerInterface $entityTypeManager,
   ) {}

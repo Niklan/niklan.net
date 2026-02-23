@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan\Unit\Data;
+namespace Drupal\Tests\app_search\Unit\Data;
 
-use Drupal\niklan\Search\Data\EntitySearchResult;
+use Drupal\app_search\Data\EntitySearchResult;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-#[CoversClass(\Drupal\niklan\Search\Data\EntitySearchResult::class)]
+#[CoversClass(EntitySearchResult::class)]
 final class EntitySearchResultTest extends UnitTestCase {
 
   #[DataProvider('dataProvider')]

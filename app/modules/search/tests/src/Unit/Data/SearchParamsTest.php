@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\niklan\Unit\Data;
+namespace Drupal\Tests\app_search\Unit\Data;
 
-use Drupal\niklan\Search\Data\SearchParams;
+use Drupal\app_search\Data\SearchParams;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;

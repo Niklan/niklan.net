@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Search\Utils;
+namespace Drupal\app_search\Utils;
 
-use Drupal\niklan\Search\Data\EntitySearchResult;
+use Drupal\app_search\Data\EntitySearchResult;
 use Drupal\search_api\Query\ResultSetInterface;
 
 final class SearchApiResultItemsHelper {
 
   /**
-   * @return array<string, \Drupal\niklan\Search\Data\EntitySearchResult>
+   * @return array<string, \Drupal\app_search\Data\EntitySearchResult>
    */
   public static function extractEntityIds(ResultSetInterface $result_set): array {
     $entity_ids = [];
