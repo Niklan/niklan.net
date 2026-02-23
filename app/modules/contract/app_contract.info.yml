@@ -6,3 +6,4 @@ container_rebuild_required: false
 package: App/Contract
 dependencies:
   - drupal:system
+  - drupal:node

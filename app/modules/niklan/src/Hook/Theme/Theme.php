@@ -51,12 +51,6 @@ final class Theme {
           'pager' => NULL,
         ],
       ],
-      'niklan_portfolio_list' => [
-        'variables' => [
-          'description' => [],
-          'items' => [],
-        ],
-      ],
       'niklan_tag_list' => [
         'variables' => [
           'items' => [],

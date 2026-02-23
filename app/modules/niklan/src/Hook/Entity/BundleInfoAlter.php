@@ -9,7 +9,6 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\niklan\File\Entity\FileBundle;
 use Drupal\niklan\Node\Entity\ArticleBundle;
-use Drupal\niklan\Node\Entity\PortfolioBundle;
 use Drupal\niklan\Tag\Entity\TagBundle;
 
 #[Hook('entity_bundle_info_alter')]
@@ -21,10 +20,6 @@ final class BundleInfoAlter {
         'blog_entry' => [
           'class' => ArticleBundle::class,
           'label' => new TranslatableMarkup('Blog article'),
-        ],
-        'portfolio' => [
-          'class' => PortfolioBundle::class,
-          'label' => new TranslatableMarkup('Portfolio project'),
         ],
       ],
       'file' => [

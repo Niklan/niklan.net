@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\niklan\StaticPage\Services\Repository;
 
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
+use Drupal\app_contract\LanguageAwareStore\LanguageAwareSettingsStore;
 
 final class ServicesSettings extends LanguageAwareSettingsStore {
 

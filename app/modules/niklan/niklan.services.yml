@@ -20,7 +20,6 @@ services:
   Drupal\niklan\StaticPage\Services\Repository\ServicesSettings: { }
   Drupal\niklan\StaticPage\Support\Repository\SupportSettings: { }
   Drupal\niklan\StaticPage\Home\Repository\HomeSettings: { }
-  Drupal\niklan\Portfolio\Repository\PortfolioSettings: { }
 
   Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer: { }
   Drupal\app_contract\Contract\File\FileSynchronizer: '@Drupal\niklan\File\Synchronizer\DatabaseFileSynchronizer'

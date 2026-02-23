@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
-use Drupal\niklan\Node\Entity\PortfolioBundle;
+use Drupal\app_portfolio\Node\PortfolioBundle;
 
 final readonly class PreprocessNodePortfolio {
 

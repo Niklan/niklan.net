@@ -6,7 +6,7 @@ namespace Drupal\niklan\StaticPage\About\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
+use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\niklan\StaticPage\About\Repository\AboutSettings;
 
 final class AboutSettingsForm extends LanguageAwareStoreForm {

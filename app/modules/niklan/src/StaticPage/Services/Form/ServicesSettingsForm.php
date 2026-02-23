@@ -6,7 +6,7 @@ namespace Drupal\niklan\StaticPage\Services\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
+use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\niklan\StaticPage\Services\Repository\ServicesSettings;
 
 final class ServicesSettingsForm extends LanguageAwareStoreForm {
