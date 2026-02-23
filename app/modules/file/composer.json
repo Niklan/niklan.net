@@ -1,0 +1,8 @@
+{
+    "name": "niklan/app_file",
+    "type": "drupal-custom-module",
+    "version": "1.0.0-dev",
+    "keywords": [
+        "Drupal"
+    ]
+}

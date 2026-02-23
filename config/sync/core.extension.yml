@@ -5,7 +5,9 @@ module:
   app_blog: 0
   app_comment: 0
   app_contract: 0
+  app_file: 0
   app_main: 0
+  app_media: 0
   app_platform: 0
   app_portfolio: 0
   app_search: 0

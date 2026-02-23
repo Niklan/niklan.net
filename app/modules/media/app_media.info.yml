@@ -1,0 +1,9 @@
+name: 'App: Media'
+description: 'Media infrastructure: synchronization, media repository, media entity bundle.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Feature
+dependencies:
+  - app_file:app_file
+  - drupal:media

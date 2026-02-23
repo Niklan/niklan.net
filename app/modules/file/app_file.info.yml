@@ -1,0 +1,9 @@
+name: 'App: File'
+description: 'File infrastructure: synchronization, checksums, file entity bundle.'
+type: module
+core_version_requirement: ^11
+container_rebuild_required: false
+package: App/Feature
+dependencies:
+  - app_contract:app_contract
+  - drupal:file
