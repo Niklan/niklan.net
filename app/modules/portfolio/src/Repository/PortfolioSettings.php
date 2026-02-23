@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Portfolio\Repository;
+namespace Drupal\app_portfolio\Repository;
 
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
+use Drupal\app_contract\LanguageAwareStore\LanguageAwareSettingsStore;
 
 final class PortfolioSettings extends LanguageAwareSettingsStore {
 
@@ -25,7 +25,7 @@ final class PortfolioSettings extends LanguageAwareSettingsStore {
 
   #[\Override]
   protected function getStoreId(): string {
-    return 'niklan.portfolio_settings';
+    return 'app_portfolio.settings';
   }
 
 }

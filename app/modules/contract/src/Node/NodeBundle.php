@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Node\Entity;
+namespace Drupal\app_contract\Node;
 
 use Drupal\app_contract\Contract\Node\Node;
 use Drupal\node\Entity\Node as DrupalNode;

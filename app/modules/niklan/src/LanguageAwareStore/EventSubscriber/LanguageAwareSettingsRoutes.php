@@ -22,7 +22,7 @@ final readonly class LanguageAwareSettingsRoutes implements EventSubscriberInter
     'niklan.contact.settings',
     'niklan.services.settings',
     'niklan.support.settings',
-    'niklan.portfolio.settings',
+    'app_portfolio.portfolio.settings',
   ];
 
   public function __construct(

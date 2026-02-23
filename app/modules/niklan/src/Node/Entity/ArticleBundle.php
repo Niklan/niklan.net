@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\niklan\Node\Entity;
 
 use Drupal\app_contract\Contract\Node\Article;
+use Drupal\app_contract\Node\NodeBundle;
 use Drupal\external_content\Nodes\Node as ContentNode;
 use Drupal\niklan\ExternalContent\Stages\ArticleTranslationFieldUpdater;
 use Drupal\niklan\ExternalContent\Utils\EstimatedReadTimeCalculator;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\LanguageAwareStore\Form;
+namespace Drupal\app_contract\LanguageAwareStore;
 
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
@@ -11,12 +11,8 @@ use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\LanguageAwareStore\Repository\LanguageAwareSettingsStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * @see \Drupal\niklan\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes
- */
 abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjectionInterface {
 
   use DependencySerializationTrait;

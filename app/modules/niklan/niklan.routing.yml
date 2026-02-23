@@ -16,15 +16,6 @@ niklan.about.settings:
   requirements:
     _permission: 'administer site configuration'
 
-niklan.portfolio.settings:
-  path: '/admin/niklan/portfolio'
-  methods: [GET, POST]
-  defaults:
-    _title: 'Portfolio settings'
-    _form: Drupal\niklan\Portfolio\Form\PortfolioSettingsForm
-  requirements:
-    _permission: 'administer site configuration'
-
 niklan.support:
   path: '/support'
   methods: [GET]
@@ -106,15 +97,6 @@ niklan.blog_list:
     _title: 'Blog posts'
     _controller: Drupal\niklan\Blog\Controller\BlogList
     _title_pager_suffix: 'TRUE'
-  requirements:
-    _permission: 'access content'
-
-niklan.portfolio_list:
-  path: '/portfolio'
-  methods: [GET]
-  defaults:
-    _title: 'Portfolio'
-    _controller: Drupal\niklan\Portfolio\Controller\PortfolioList
   requirements:
     _permission: 'access content'
 

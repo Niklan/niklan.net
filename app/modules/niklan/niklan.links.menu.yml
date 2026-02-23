@@ -45,13 +45,6 @@ niklan.contact.settings:
   parent: niklan.admin_general
   weight: 40
 
-niklan.portfolio.settings:
-  title: Portfolio page settings
-  description: Configure a portfolio page.
-  route_name: niklan.portfolio.settings
-  parent: niklan.admin_general
-  weight: 50
-
 niklan.home:
   title: Home
   route_name: <front>

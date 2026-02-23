@@ -7,7 +7,7 @@ namespace Drupal\niklan\StaticPage\Home\Form;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
+use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\niklan\StaticPage\Home\Repository\HomeSettings;
 use Drupal\niklan\Utils\AjaxFormHelper;
 

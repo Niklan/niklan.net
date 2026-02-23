@@ -2,28 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Portfolio\Controller;
+namespace Drupal\app_portfolio\Controller;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\app_portfolio\Repository\PortfolioSettings;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\niklan\Portfolio\Repository\PortfolioSettings;
 use Drupal\node\NodeInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class PortfolioList implements ContainerInjectionInterface {
+final readonly class PortfolioList {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private PortfolioSettings $settings,
   ) {}
-
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(EntityTypeManagerInterface::class),
-      $container->get(PortfolioSettings::class),
-    );
-  }
 
   protected function buildItems(): array {
     $view_builder = $this->entityTypeManager->getViewBuilder('node');
@@ -61,7 +51,7 @@ final readonly class PortfolioList implements ContainerInjectionInterface {
 
   public function __invoke(): array {
     return [
-      '#theme' => 'niklan_portfolio_list',
+      '#theme' => 'app_portfolio_list',
       '#description' => [
         '#type' => 'processed_text',
         '#text' => $this->settings->getDescription(),

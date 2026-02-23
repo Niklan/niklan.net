@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\LanguageAwareStore\Repository;
+namespace Drupal\app_contract\LanguageAwareStore;
 
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Cache\CacheBackendInterface;

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Node\Entity;
+namespace Drupal\app_portfolio\Node;
 
 use Drupal\app_contract\Contract\Node\Portfolio;
+use Drupal\app_contract\Node\NodeBundle;
 
 final class PortfolioBundle extends NodeBundle implements Portfolio {
 

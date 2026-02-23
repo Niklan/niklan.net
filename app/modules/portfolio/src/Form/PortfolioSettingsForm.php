@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Drupal\niklan\Portfolio\Form;
+namespace Drupal\app_portfolio\Form;
 
+use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
+use Drupal\app_portfolio\Repository\PortfolioSettings;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\niklan\LanguageAwareStore\Form\LanguageAwareStoreForm;
-use Drupal\niklan\Portfolio\Repository\PortfolioSettings;
 
 final class PortfolioSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   public function getFormId(): string {
-    return 'niklan_portfolio_settings';
+    return 'app_portfolio_settings';
   }
 
   #[\Override]
@@ -43,7 +43,10 @@ final class PortfolioSettingsForm extends LanguageAwareStoreForm {
 
   #[\Override]
   protected function getSettings(): PortfolioSettings {
-    return $this->getContainer()->get(PortfolioSettings::class);
+    $settings = $this->getContainer()->get(PortfolioSettings::class);
+    \assert($settings instanceof PortfolioSettings);
+
+    return $settings;
   }
 
 }
