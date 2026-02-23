@@ -156,7 +156,7 @@ final readonly class Home implements ContainerInjectionInterface {
 
     $build['#sections']['latest_comments'] = [
       '#heading' => new TranslatableMarkup('Opinion of anonymous users from the Internet'),
-      '#theme' => 'niklan_comment_list',
+      '#theme' => 'app_comment_list',
       '#items' => \array_map(
         callback: fn (EntityInterface $comment) => $this->entityTypeManager->getViewBuilder('comment')->view($comment, 'teaser'),
         array: $storage->loadMultiple($ids),

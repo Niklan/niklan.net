@@ -5,6 +5,5 @@ core_version_requirement: ^11
 container_rebuild_required: false
 package: App/Feature
 dependencies:
-  - niklan:niklan
-  - niklan:app_contract
+  - app_contract:app_contract
   - drupal:comment

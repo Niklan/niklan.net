@@ -14,7 +14,7 @@ dependencies:
     - node.type.blog_entry
   module:
     - external_content
-    - niklan
+    - app_comment
     - text
     - user
 id: node.blog_entry.full
@@ -30,7 +30,7 @@ content:
     weight: 0
     region: content
   comment_node_blog_entry:
-    type: niklan_comment
+    type: app_comment
     label: above
     settings: {  }
     third_party_settings: {  }

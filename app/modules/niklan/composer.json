@@ -13,7 +13,6 @@
         "drupal/media_library_form_element": "^2",
         "niklan-asset/alpinejs": "^3.14",
         "niklan-asset/hljs": "^11.9",
-        "nutgram/nutgram": "^4.31",
         "symfony/dom-crawler": "^6.0|^7.0",
         "symfony/config": "^6.0|^7.0",
         "symfony/css-selector": "^6.0|^7.0"
