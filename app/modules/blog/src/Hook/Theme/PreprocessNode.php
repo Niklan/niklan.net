@@ -2,41 +2,45 @@
 
 declare(strict_types=1);
 
-namespace Drupal\laszlo\Hook\Theme;
+namespace Drupal\app_blog\Hook\Theme;
 
+use Drupal\app_blog\ExternalContent\Builder\TableOfContentsBuilder;
+use Drupal\app_blog\Node\ArticleBundle;
 use Drupal\app_contract\Contract\File\File;
+use Drupal\app_contract\Utils\MediaHelper;
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
+use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
-use Drupal\app_blog\ExternalContent\Builder\TableOfContentsBuilder;
-use Drupal\app_blog\Node\ArticleBundle;
-use Drupal\app_contract\Utils\MediaHelper;
 use Drupal\taxonomy\TermInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterface {
+#[Hook('preprocess_node')]
+final readonly class PreprocessNode {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
-  #[\Override]
-  public static function create(ContainerInterface $container): self {
-    return new self(
-      $container->get(EntityTypeManagerInterface::class),
-    );
-  }
-
-  private function addFullVariables(ArticleBundle $node, array &$variables): void {
+  private function preprocessFull(ArticleBundle $node, array &$variables): void {
+    $this->addEstimatedReadTime($node, $variables);
+    $this->addPosterUri($node, $variables);
     $this->addAttachments($node, $variables);
     $this->addTableOfContents($node, $variables);
     $this->addTags($node, $variables);
     $this->addPreviousNext($node, $variables);
     $variables['#attached']['drupalSettings']['path']['isBlogArticlePage'] = TRUE;
+  }
+
+  private function preprocessTeaser(ArticleBundle $node, array &$variables): void {
+    $this->addEstimatedReadTime($node, $variables);
+    $this->addPosterUri($node, $variables);
+  }
+
+  private function preprocessPreview(ArticleBundle $node, array &$variables): void {
+    $this->addPosterUri($node, $variables);
   }
 
   private function addEstimatedReadTime(ArticleBundle $node, array &$variables): void {
@@ -167,13 +171,16 @@ final readonly class PreprocessNodeBlogEntry implements ContainerInjectionInterf
 
   public function __invoke(array &$variables): void {
     $node = $variables['node'];
-    \assert($node instanceof ArticleBundle);
-    $this->addEstimatedReadTime($node, $variables);
-    $this->addPosterUri($node, $variables);
+
+    if (!$node instanceof ArticleBundle) {
+      return;
+    }
 
     match ($variables['view_mode']) {
+      'full' => $this->preprocessFull($node, $variables),
+      'teaser' => $this->preprocessTeaser($node, $variables),
+      'preview' => $this->preprocessPreview($node, $variables),
       default => NULL,
-      'full' => $this->addFullVariables($node, $variables),
     };
   }
 
