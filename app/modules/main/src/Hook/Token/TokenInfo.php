@@ -32,6 +32,10 @@ final readonly class TokenInfo {
         'name' => new TranslatableMarkup('The canonical URL of the current page'),
         'description' => new TranslatableMarkup('The canonical URL of the current page.'),
       ],
+      'pager-suffix' => [
+        'name' => new TranslatableMarkup('Pager suffix'),
+        'description' => new TranslatableMarkup('Returns a pager suffix (e.g. " — page #2") on paginated pages, empty on the first page.'),
+      ],
     ];
   }
 

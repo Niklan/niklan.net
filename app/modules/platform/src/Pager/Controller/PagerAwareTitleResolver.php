@@ -31,7 +31,7 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
   public function getTitle(Request $request, Route $route): string|array|\Stringable|null {
     $title = $this->inner->getTitle($request, $route);
 
-    if ($this->shouldSkipSuffix($route, $title)) {
+    if (!$request->attributes->has('_title_pager_suffix') || !$title) {
       return $title;
     }
 
@@ -49,12 +49,8 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
     }
 
     return (string) $title . ' — ' . (string) new TranslatableMarkup('page #@number', [
-      '@number' => $this->pagerManager->getPager()?->getCurrentPage() ?? 0 + 1,
+      '@number' => ($this->pagerManager->getPager()?->getCurrentPage() ?? 0) + 1,
     ]);
-  }
-
-  private function shouldSkipSuffix(Route $route, mixed $title): bool {
-    return !$route->hasDefault('_title_pager_suffix') || !$title;
   }
 
   private function isFirstPage(): bool {

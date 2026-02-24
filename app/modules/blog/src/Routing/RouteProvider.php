@@ -18,7 +18,7 @@ final readonly class RouteProvider {
       defaults: [
         '_title' => 'Blog posts',
         '_controller' => BlogList::class,
-        '_title_pager_suffix' => 'TRUE',
+        '_title_pager_suffix' => TRUE,
       ],
       requirements: [
         '_permission' => 'access content',
