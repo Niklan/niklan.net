@@ -28,12 +28,20 @@ final class TagTest extends UnitTestCase {
   }
 
   public function testTitle(): void {
-    $controller = $this->buildController();
     $term = $this->buildTerm('PHP');
+
+    $result = Tag::title($term);
+
+    self::assertSame('Publications with the @name tag', $result->getUntranslatedString());
+  }
+
+  public function testNoTitleInBuildArray(): void {
+    $controller = $this->buildController();
+    $term = $this->buildTerm();
 
     $result = $controller($term);
 
-    self::assertSame('Publications with the @name tag', $result['#title']->getUntranslatedString());
+    self::assertArrayNotHasKey('#title', $result);
   }
 
   public function testPager(): void {

@@ -8,6 +8,7 @@ use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\app_blog\Generator\BannerGenerator;
 use Drupal\app_blog\Node\ArticleBundle;
@@ -54,6 +55,26 @@ final readonly class Tokens {
 
   private function replaceCurrentPageTokens(State $state): void {
     $state->replaceCallback('canonical-url', $this->replaceCurrentPageCanonicalUrl(...));
+    $state->replaceCallback('pager-suffix', $this->replaceCurrentPagePagerSuffix(...));
+  }
+
+  /**
+   * @ingroup seo_pager
+   */
+  private function replaceCurrentPagePagerSuffix(string $original, State $state): void {
+    $state->getCacheableMetadata()->addCacheContexts(['url.query_args:page']);
+    $pager = $this->pagerManager->getPager();
+
+    if ($pager === NULL || $pager->getTotalPages() < 1 || $pager->getCurrentPage() < 1) {
+      $state->setReplacement($original, '');
+
+      return;
+    }
+
+    $suffix = ' — ' . (string) new TranslatableMarkup('page #@number', [
+      '@number' => $pager->getCurrentPage() + 1,
+    ]);
+    $state->setReplacement($original, $suffix);
   }
 
   /**

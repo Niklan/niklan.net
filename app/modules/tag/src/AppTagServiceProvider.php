@@ -7,6 +7,7 @@ namespace Drupal\app_tag;
 use Drupal\app_contract\Contract\Tag\TagRepository;
 use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
 use Drupal\app_tag\Controller\TagList;
+use Drupal\app_tag\EventSubscriber\RouteAlter;
 use Drupal\app_tag\EventSubscriber\TermPageBuild;
 use Drupal\app_tag\Repository\DatabaseTagRepository;
 use Drupal\app_tag\Repository\DatabaseTagUsageStatistics;
@@ -34,6 +35,7 @@ final readonly class AppTagServiceProvider implements ServiceProviderInterface {
       ->setAlias(TagRepository::class, DatabaseTagRepository::class)
       ->setPublic(TRUE);
 
+    $autowire(RouteAlter::class);
     $autowire(TermPageBuild::class);
     $autowire(TagSiteMap::class);
   }

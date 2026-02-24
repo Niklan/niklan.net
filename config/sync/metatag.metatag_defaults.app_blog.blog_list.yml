@@ -5,4 +5,4 @@ dependencies: {  }
 id: app_blog.blog_list
 label: /blog
 tags:
-  description: 'Последние материалы в блоге: веб-разработка, советы по Drupal и многое другое. '
+  description: 'Последние материалы в блоге: веб-разработка, советы по Drupal и многое другое[current-page:pager-suffix].'

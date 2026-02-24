@@ -24,6 +24,12 @@ final readonly class Tag implements ContainerInjectionInterface {
     );
   }
 
+  public static function title(TermInterface $taxonomy_term): TranslatableMarkup {
+    return new TranslatableMarkup('Publications with the @name tag', [
+      '@name' => $taxonomy_term->label(),
+    ]);
+  }
+
   private function buildItems(TermInterface $taxonomy_term): array {
     $ids = $this
       ->entityTypeManager
@@ -51,9 +57,6 @@ final readonly class Tag implements ContainerInjectionInterface {
 
   public function __invoke(TermInterface $taxonomy_term): array {
     return [
-      '#title' => new TranslatableMarkup('Publications with the @name tag', [
-        '@name' => $taxonomy_term->label(),
-      ]),
       '#theme' => 'app_blog_list',
       '#items' => $this->buildItems($taxonomy_term),
       '#pager' => [
