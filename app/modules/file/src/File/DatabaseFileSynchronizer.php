@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\app_platform\File;
+namespace Drupal\app_file\File;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Utility\UrlHelper;
@@ -29,7 +29,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
     private TimeInterface $time,
     #[Autowire(service: 'file.mime_type.guesser')]
     private MimeTypeGuesserInterface $mimeTypeGuesser,
-    #[Autowire(service: 'logger.channel.app_platform')]
+    #[Autowire(service: 'logger.channel.app_file')]
     private LoggerInterface $logger,
   ) {}
 

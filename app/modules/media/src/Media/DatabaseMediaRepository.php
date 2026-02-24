@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\app_platform\Media;
+namespace Drupal\app_media\Media;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\file\FileInterface;

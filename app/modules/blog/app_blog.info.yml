@@ -4,6 +4,7 @@ core_version_requirement: ^11
 package: App/Feature
 dependencies:
   - app_contract:app_contract
+  - app_media:app_media
   - app_platform:app_platform
   - drupal:image
   - drupal:responsive_image

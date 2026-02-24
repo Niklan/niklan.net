@@ -7,5 +7,3 @@ package: App/Integration
 dependencies:
   - app_contract:app_contract
   - drupal:system
-  - drupal:file
-  - drupal:media

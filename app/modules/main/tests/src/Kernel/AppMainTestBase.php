@@ -22,7 +22,9 @@ abstract class AppMainTestBase extends KernelTestBase {
   protected static $modules = [
     'app_blog',
     'app_contract',
+    'app_file',
     'app_main',
+    'app_media',
     'app_platform',
     'app_tag',
     'breakpoint',
