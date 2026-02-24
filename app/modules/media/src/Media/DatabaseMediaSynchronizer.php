@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\app_platform\Media;
+namespace Drupal\app_media\Media;
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -24,7 +24,7 @@ final readonly class DatabaseMediaSynchronizer implements MediaSynchronizer {
     private FileSynchronizer $fileSynchronizer,
     private EntityTypeManagerInterface $entityTypeManager,
     private MediaRepository $mediaRepository,
-    #[Autowire(service: 'logger.channel.app_platform')]
+    #[Autowire(service: 'logger.channel.app_media')]
     private LoggerInterface $logger,
   ) {}
 

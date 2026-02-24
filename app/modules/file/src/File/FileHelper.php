@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\app_platform\File;
+namespace Drupal\app_file\File;
 
 final class FileHelper {
 

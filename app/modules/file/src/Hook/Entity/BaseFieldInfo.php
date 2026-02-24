@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\app_platform\Hook\Entity;
+namespace Drupal\app_file\Hook\Entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
