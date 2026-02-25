@@ -500,3 +500,15 @@ msgstr "Скопировано!"
 
 msgid "Expand code block"
 msgstr "Раскрыть блок кода"
+
+msgid "This is an RSS feed. Copy the URL from the address bar into your RSS reader to subscribe."
+msgstr "Это RSS-лента. Скопируйте URL из адресной строки в вашу RSS-читалку, чтобы подписаться."
+
+msgid "What is RSS?"
+msgstr "Что такое RSS?"
+
+msgid "Visit website"
+msgstr "Перейти на сайт"
+
+msgid "Recent posts"
+msgstr "Последние публикации"
