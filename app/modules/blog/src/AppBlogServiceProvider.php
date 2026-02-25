@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Drupal\app_blog;
 
 use Drupal\app_blog\Controller\BlogList;
+use Drupal\app_blog\Controller\RssFeed;
+use Drupal\app_blog\Controller\RssFeedRedirect;
+use Drupal\app_blog\Controller\RssFeedStylesheet;
 use Drupal\app_blog\ExternalContent\Extension\ArrayBuilderExtension;
 use Drupal\app_blog\ExternalContent\Extension\ArrayParserExtension;
 use Drupal\app_blog\ExternalContent\Extension\HtmlParserExtension;
@@ -68,8 +71,11 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
       ->addArgument(new Reference('app_blog.markdown.environment'));
     $container->setAlias(MarkdownConverter::class, 'app_blog.markdown.converter')->setPublic(TRUE);
 
-    // Controller.
+    // Controllers.
     $autowire(BlogList::class);
+    $autowire(RssFeed::class);
+    $autowire(RssFeedRedirect::class);
+    $autowire(RssFeedStylesheet::class);
 
     // Generator.
     $autowire(BannerGenerator::class);
