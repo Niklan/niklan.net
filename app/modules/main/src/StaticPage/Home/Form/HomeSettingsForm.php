@@ -56,16 +56,18 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
 
     /**
      * @var array{
-     *   media_id: string,
-     *   title: string,
-     *   description: string
+     *   content: array{
+     *     media_id: string,
+     *     title: string,
+     *     description: array{value: string, format: string}
+     *   }
      * } $card_item
      */
     foreach ($card_items as $card_item) {
       $cards[] = [
-        'media_id' => $card_item['media_id'],
-        'title' => $card_item['title'],
-        'description' => $card_item['description'],
+        'media_id' => $card_item['content']['media_id'],
+        'title' => $card_item['content']['title'],
+        'description' => $card_item['content']['description']['value'],
       ];
     }
 

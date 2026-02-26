@@ -27,7 +27,12 @@ final readonly class PreprocessAppMainHomeCards {
         '#format' => HomeSettings::TEXT_FORMAT,
       ];
 
-      $media = $media_storage->load($card['media_id']);
+      $media_id = $card['media_id'] ?? NULL;
+      if (!$media_id) {
+        continue;
+      }
+
+      $media = $media_storage->load($media_id);
       if (!$media instanceof MediaInterface) {
         continue;
       }
