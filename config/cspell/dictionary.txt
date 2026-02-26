@@ -3,10 +3,13 @@ Autoresize
 autoresize
 backref
 bazz
+devel
 Cravensworth
 Dflydev
 doctag
+fulltext
 hljs
+Inlines
 Laszlo
 laszlo
 Lightbox

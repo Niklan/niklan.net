@@ -1,0 +1,22 @@
+uuid: 1287b973-31a8-4577-8096-3d4a70f814b0
+langcode: ru
+status: true
+dependencies:
+  config:
+    - node.type.blog_entry
+id: node.blog_entry.promote
+field_name: promote
+entity_type: node
+bundle: blog_entry
+label: 'Помещено на главную страницу'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Вкл
+  off_label: Выкл
+field_type: boolean

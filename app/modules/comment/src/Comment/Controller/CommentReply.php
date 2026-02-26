@@ -15,9 +15,6 @@ final class CommentReply extends CommentController {
     $build = parent::getReplyForm($request, $entity, $field_name, $pid);
 
     $children = [];
-    // Drupal has wrong return type for the method.
-    // @see \Drupal\comment\Controller\CommentController::getReplyForm
-    // @phpstan-ignore-next-line
     foreach (Element::children($build) as $child) {
       $children[] = $build[$child];
     }
