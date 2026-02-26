@@ -10,7 +10,6 @@ final readonly class HtmlDomHelper {
     $attributes = [];
     if ($node->hasAttributes()) {
       foreach ($node->attributes as $attribute) {
-        \assert($attribute instanceof \DOMAttr);
         $attributes[$attribute->name] = $attribute->value;
       }
     }

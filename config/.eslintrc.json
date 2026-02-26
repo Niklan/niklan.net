@@ -15,7 +15,9 @@
   "rules": {
     "prettier/prettier": "off",
     "valid-jsdoc": "off",
-    "no-console": ["error", {"allow": ["warn", "error"]}]
+    "no-console": ["error", {"allow": ["warn", "error"]}],
+    "jsdoc/require-param": "off",
+    "jsdoc/check-tag-names": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2022

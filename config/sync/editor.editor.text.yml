@@ -33,6 +33,7 @@ settings:
       properties:
         reversed: false
         startIndex: true
+        styles: true
       multiBlock: true
     ckeditor5_sourceEditing:
       allowed_tags:
@@ -43,8 +44,6 @@ settings:
         - '<dd>'
         - '<a hreflang>'
         - '<blockquote cite>'
-        - '<ul type>'
-        - '<ol type="1 A I">'
         - '<h2 id="jump-*">'
         - '<h3 id>'
         - '<h4 id>'
