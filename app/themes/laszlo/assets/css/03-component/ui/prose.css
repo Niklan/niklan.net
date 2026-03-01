@@ -106,6 +106,39 @@
     color: var(--color-outline);
   }
 
+  .prose blockquote {
+    position: relative;
+    padding: var(--spacing-4);
+    padding-inline-start: calc(var(--spacing-4) + var(--spacing-8));
+    color: var(--prose-secondary-color);
+    border-inline-start: 3px solid var(--color-outline-variant);
+    border-radius: 0 var(--spacing-2) var(--spacing-2) 0;
+    background: var(--color-surface-container-low);
+    font-style: italic;
+
+    &::before {
+      position: absolute;
+      top: var(--spacing-4);
+      left: var(--spacing-4);
+      content: "\201C";
+      color: var(--color-outline-variant);
+      font-size: 2rem;
+      line-height: 1;
+    }
+  }
+
+  .prose blockquote > * {
+    margin-block: var(--spacing-2);
+
+    &:first-child {
+      margin-block-start: 0;
+    }
+
+    &:last-child {
+      margin-block-end: 0;
+    }
+  }
+
   .prose figure {
     display: flex;
     flex-direction: column;
