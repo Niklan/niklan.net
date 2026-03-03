@@ -126,7 +126,11 @@
         "patchLevel": {
             "drupal/core": "-p2"
         },
-        "patches": {},
+        "patches": {
+            "drupal/core": {
+                "SDC incorrectly throws an exception about embedded slots (dgo.to/3446933)": "./assets/patch/core-3446933-mr-8234.patch"
+            }
+        },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],

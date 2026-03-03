@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac802ccaa5ade5872e7365cd9c599df0",
+    "content-hash": "a7a330de74e393fbc2d919bdd6ede76b",
     "packages": [
         {
             "name": "app-asset/alpinejs",
