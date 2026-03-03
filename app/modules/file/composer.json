@@ -1,11 +1,11 @@
 {
-    "name": "niklan/app_file",
+    "name": "app/file",
     "type": "drupal-custom-module",
     "version": "1.0.0-dev",
     "keywords": [
         "Drupal"
     ],
     "require": {
-        "niklan/app_contract": "^1.0"
+        "app/contract": "^1.0"
     }
 }

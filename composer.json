@@ -1,5 +1,5 @@
 {
-    "name": "niklan/project",
+    "name": "app/project",
     "description": "Project for blog.",
     "type": "project",
     "license": "GPL-2.0-or-later",
@@ -27,7 +27,10 @@
         }
     ],
     "require": {
-        "php": ">=8.3",
+        "app-asset/photoswipe": "^5.4",
+        "app-asset/quicklink": "^2.3",
+        "app/laszlo": "^1.0@dev",
+        "app/main": "^1.0@dev",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.6",
         "drupal/antibot": "^2.0",
@@ -53,16 +56,13 @@
         "drupal/twig_tweak": "^3.0",
         "drupal/warmer": "^2.0",
         "drush/drush": "^13",
-        "niklan-asset/photoswipe": "^5.4",
-        "niklan-asset/quicklink": "^2.3",
-        "niklan/app_main": "^1.0@dev",
-        "niklan/laszlo": "^1.0@dev",
-        "niklan/niklan": "^1.0@dev"
+        "niklan/niklan": "^1.0@dev",
+        "php": ">=8.4"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^2.0@alpha",
         "drupal/core-dev": "~11.3.0",
-        "niklan/app_dev": "^1.0@dev",
+        "app/dev": "^1.0@dev",
         "php-parallel-lint/php-parallel-lint": "^1.3",
         "phpspec/prophecy-phpunit": "^2.0"
     },
@@ -93,7 +93,7 @@
     "extra": {
         "drupal-scaffold": {
             "allowed-packages": [
-                "niklan/project"
+                "app/project"
             ],
             "gitignore": false,
             "locations": {

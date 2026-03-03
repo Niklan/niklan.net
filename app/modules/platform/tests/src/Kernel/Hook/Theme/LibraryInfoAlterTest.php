@@ -55,7 +55,7 @@ final class LibraryInfoAlterTest extends AppPlatformTestBase {
     $expected_libraries = [
       'drupal.ajax' => [
         'js' => [
-          '/modules/custom/app_platform/assets/js/command.ajax.js' => [],
+          '/modules/custom/platform/assets/js/command.ajax.js' => [],
         ],
       ],
     ];

@@ -1,11 +1,11 @@
 {
-    "name": "niklan/app_media",
+    "name": "app/media",
     "type": "drupal-custom-module",
     "version": "1.0.0-dev",
     "keywords": [
         "Drupal"
     ],
     "require": {
-        "niklan/app_file": "^1.0"
+        "app/file": "^1.0"
     }
 }

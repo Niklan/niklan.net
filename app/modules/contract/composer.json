@@ -1,5 +1,5 @@
 {
-    "name": "niklan/app_contract",
+    "name": "app/contract",
     "type": "drupal-custom-module",
     "version": "1.0.0-dev",
     "keywords": [

@@ -1,5 +1,5 @@
 {
-    "name": "niklan-asset/alpinejs",
+    "name": "app-asset/alpinejs",
     "type": "drupal-library",
     "version": "3.14.3"
 }

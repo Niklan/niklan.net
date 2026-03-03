@@ -4,8 +4,307 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "209aadb5c570df67e19ffe9989f023ca",
+    "content-hash": "ac802ccaa5ade5872e7365cd9c599df0",
     "packages": [
+        {
+            "name": "app-asset/alpinejs",
+            "version": "3.14.3",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/alpinejs",
+                "reference": "7598e5fb64541ae1de99db26c397c85e0fb9f335"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app-asset/hljs",
+            "version": "11.11.1",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/hljs",
+                "reference": "dba59d01ff4758b2064a9893f3de83a5ef01d61e"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app-asset/lora",
+            "version": "35",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/lora",
+                "reference": "6626ebb944f6e15d17c6c4cf3f4af6f6f967ee75"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app-asset/photoswipe",
+            "version": "5.4.5",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/photoswipe",
+                "reference": "579535c2308a413ba73a59aacc90e08127d22ac3"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app-asset/quicklink",
+            "version": "2.3.0",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/quicklink",
+                "reference": "9073f5b14591eae321d5100b034539b9187a5f71"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/blog",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/blog",
+                "reference": "e7acc0485d5a01983400f9a7bf978cc210492b41"
+            },
+            "require": {
+                "app-asset/hljs": "^11.9",
+                "app/contract": "^1.0",
+                "app/platform": "^1.0",
+                "ext-dom": "*",
+                "ext-imagick": "*",
+                "league/commonmark": "^2.0",
+                "niklan/external_content": "^1.0",
+                "symfony/config": "^6.0|^7.0",
+                "symfony/css-selector": "^6.0|^7.0",
+                "symfony/dom-crawler": "^6.0|^7.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/comment",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/comment",
+                "reference": "fbb160f8f304670a01a374bfe97a6b7bfc3a6ffe"
+            },
+            "require": {
+                "app/contract": "^1.0",
+                "nutgram/nutgram": "^4.31"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/contract",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/contract",
+                "reference": "3f4104d4ee46cfa83fb4ac98eb26a7bb8260e644"
+            },
+            "type": "drupal-custom-module",
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\app_contract\\": "src/"
+                }
+            },
+            "description": "Temporary: autoload is needed for the initial deploy where app_contract is not yet enabled but niklan already references its interfaces. Remove after deploy.",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/file",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/file",
+                "reference": "101e2b12678d58fb4f5b647f5ef057716dd6e8be"
+            },
+            "require": {
+                "app/contract": "^1.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/laszlo",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/themes/laszlo",
+                "reference": "23ac22d30947f53d1b0a4f5c6b192a5f64c54cd7"
+            },
+            "require": {
+                "app-asset/lora": "^35",
+                "niklan/niklan": "^1.0@dev"
+            },
+            "type": "drupal-custom-theme",
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\laszlo\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/main",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/main",
+                "reference": "6d358d437bd16e887256e3cd3aa8276f419e6097"
+            },
+            "require": {
+                "app-asset/alpinejs": "^3.14",
+                "app/blog": "^1.0",
+                "app/comment": "^1.0",
+                "app/contract": "^1.0",
+                "app/file": "^1.0",
+                "app/media": "^1.0",
+                "app/platform": "^1.0",
+                "app/portfolio": "^1.0",
+                "app/search": "^1.0",
+                "app/tag": "^1.0",
+                "drupal/media_library_form_element": "^2",
+                "niklan/niklan": "^1.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/media",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/media",
+                "reference": "3223eb6d40235a37c45ef9b245117a20b7689995"
+            },
+            "require": {
+                "app/file": "^1.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/platform",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/platform",
+                "reference": "1f73a1b8f4629b53aea237301fea7c35f49d98b0"
+            },
+            "require": {
+                "app/contract": "^1.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/portfolio",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/portfolio",
+                "reference": "07b8f4ee4aa957e0410f910820a8bb09c2efb0a3"
+            },
+            "require": {
+                "app/contract": "^1.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/search",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/search",
+                "reference": "04d675a29ffac078b199ada1f5c726c37f565f4b"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "app/tag",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/tag",
+                "reference": "c3d180be1d4a7ba5bdb1f908651ac8c7dedede35"
+            },
+            "require": {
+                "app/contract": "^1.0",
+                "symfony/config": "^7.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "asm89/stack-cors",
             "version": "v2.3.0",
@@ -4675,283 +4974,6 @@
             "time": "2025-12-06T11:56:16+00:00"
         },
         {
-            "name": "niklan-asset/alpinejs",
-            "version": "3.14.3",
-            "dist": {
-                "type": "path",
-                "url": "assets/vendor/alpinejs",
-                "reference": "c534bfc58f16f3a76fbc5294cf0b9125eb91f892"
-            },
-            "type": "drupal-library",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan-asset/hljs",
-            "version": "11.11.1",
-            "dist": {
-                "type": "path",
-                "url": "assets/vendor/hljs",
-                "reference": "8e06cf1624219be2b5a0ad4deb4b6bf80ea65fe1"
-            },
-            "type": "drupal-library",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan-asset/lora",
-            "version": "35",
-            "dist": {
-                "type": "path",
-                "url": "assets/vendor/lora",
-                "reference": "0469f5c43ba4906324b80f6f688c9d5a89d25fd5"
-            },
-            "type": "drupal-library",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan-asset/photoswipe",
-            "version": "5.4.5",
-            "dist": {
-                "type": "path",
-                "url": "assets/vendor/photoswipe",
-                "reference": "b935f11b6200bc34c5e7fc552845413fc902ace7"
-            },
-            "type": "drupal-library",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan-asset/quicklink",
-            "version": "2.3.0",
-            "dist": {
-                "type": "path",
-                "url": "assets/vendor/quicklink",
-                "reference": "722b9f55cb71f57563c9940dba673c5ff27c9fee"
-            },
-            "type": "drupal-library",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_blog",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/blog",
-                "reference": "3ffc4a73e02cf99f414b94184ca7d7fb0d9dca56"
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-imagick": "*",
-                "league/commonmark": "^2.0",
-                "niklan-asset/hljs": "^11.9",
-                "niklan/app_contract": "^1.0",
-                "niklan/app_platform": "^1.0",
-                "niklan/external_content": "^1.0",
-                "symfony/config": "^6.0|^7.0",
-                "symfony/css-selector": "^6.0|^7.0",
-                "symfony/dom-crawler": "^6.0|^7.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_comment",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/comment",
-                "reference": "8a2ee10e8f0c586a5cd5967d03ccdf6c7a23a327"
-            },
-            "require": {
-                "niklan/app_contract": "^1.0",
-                "nutgram/nutgram": "^4.31"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_contract",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/contract",
-                "reference": "3ae39dc9495e683a4dfe81e01848e3a83ab6a6ba"
-            },
-            "type": "drupal-custom-module",
-            "autoload": {
-                "psr-4": {
-                    "Drupal\\app_contract\\": "src/"
-                }
-            },
-            "description": "Temporary: autoload is needed for the initial deploy where app_contract is not yet enabled but niklan already references its interfaces. Remove after deploy.",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_file",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/file",
-                "reference": "2c690696b0f58d33d6457bb76adae9e62851d5a8"
-            },
-            "require": {
-                "niklan/app_contract": "^1.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_main",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/main",
-                "reference": "1292dcc15b0c0404eccef5843380032ca58d966d"
-            },
-            "require": {
-                "drupal/media_library_form_element": "^2",
-                "niklan-asset/alpinejs": "^3.14",
-                "niklan/app_blog": "^1.0",
-                "niklan/app_comment": "^1.0",
-                "niklan/app_contract": "^1.0",
-                "niklan/app_file": "^1.0",
-                "niklan/app_media": "^1.0",
-                "niklan/app_platform": "^1.0",
-                "niklan/app_portfolio": "^1.0",
-                "niklan/app_search": "^1.0",
-                "niklan/app_tag": "^1.0",
-                "niklan/niklan": "^1.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_media",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/media",
-                "reference": "4ee491f3fc1f9ac517904e13c26f5eea629c1051"
-            },
-            "require": {
-                "niklan/app_file": "^1.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_platform",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/platform",
-                "reference": "896787e2e0dd45021c929f61649b8b666f3f7376"
-            },
-            "require": {
-                "niklan/app_contract": "^1.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_portfolio",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/portfolio",
-                "reference": "18b2f4e2ad22b5af593423c2acb03dd2b5f00c7b"
-            },
-            "require": {
-                "niklan/app_contract": "^1.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_search",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/search",
-                "reference": "64e7c2cdb97901d3a8cac336b6f851ddee676662"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "niklan/app_tag",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/tag",
-                "reference": "bde34c46e82738084b377ed4048e1cade6d5c55b"
-            },
-            "require": {
-                "niklan/app_contract": "^1.0",
-                "symfony/config": "^7.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "niklan/external_content",
             "version": "1.0.0-dev",
             "dist": {
@@ -4972,43 +4994,21 @@
             }
         },
         {
-            "name": "niklan/laszlo",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/themes/laszlo",
-                "reference": "f248b5dd1dfe695f1050570fe06d54bfab76f716"
-            },
-            "require": {
-                "niklan-asset/lora": "^35",
-                "niklan/niklan": "^1.0@dev"
-            },
-            "type": "drupal-custom-theme",
-            "autoload": {
-                "psr-4": {
-                    "Drupal\\laszlo\\": "src"
-                }
-            },
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "niklan/niklan",
             "version": "1.0.0-dev",
             "dist": {
                 "type": "path",
                 "url": "app/modules/niklan",
-                "reference": "d24e26cedf04fe4e17cd25bc378b7c78b6d42025"
+                "reference": "099e15bd5fde8e57efaa3a25cbc2d38c135c6f24"
             },
             "require": {
-                "drupal/media_library_form_element": "^2",
-                "niklan-asset/alpinejs": "^3.14",
-                "niklan/app_blog": "^1.0",
-                "niklan/app_comment": "^1.0",
-                "niklan/app_contract": "^1.0",
-                "niklan/app_platform": "^1.0",
-                "niklan/app_tag": "^1.0"
+                "app-asset/alpinejs": "^3.14",
+                "app/blog": "^1.0",
+                "app/comment": "^1.0",
+                "app/contract": "^1.0",
+                "app/platform": "^1.0",
+                "app/tag": "^1.0",
+                "drupal/media_library_form_element": "^2"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -5080,16 +5080,16 @@
         },
         {
             "name": "nutgram/nutgram",
-            "version": "4.42.0",
+            "version": "4.44.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nutgram/nutgram.git",
-                "reference": "034257dbc29947b73e04b5d92b07d780d8962810"
+                "reference": "9e69c5eb5bdf79ff96c0396007f909e19fd8a956"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nutgram/nutgram/zipball/034257dbc29947b73e04b5d92b07d780d8962810",
-                "reference": "034257dbc29947b73e04b5d92b07d780d8962810",
+                "url": "https://api.github.com/repos/nutgram/nutgram/zipball/9e69c5eb5bdf79ff96c0396007f909e19fd8a956",
+                "reference": "9e69c5eb5bdf79ff96c0396007f909e19fd8a956",
                 "shasum": ""
             },
             "require": {
@@ -5151,7 +5151,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nutgram/nutgram/issues",
-                "source": "https://github.com/nutgram/nutgram/tree/4.42.0"
+                "source": "https://github.com/nutgram/nutgram/tree/4.44.0"
             },
             "funding": [
                 {
@@ -5163,7 +5163,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-12T17:23:52+00:00"
+            "time": "2026-03-02T00:33:48+00:00"
         },
         {
             "name": "pear/archive_tar",
@@ -5284,6 +5284,7 @@
                 "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Console_Getopt",
                 "source": "https://github.com/pear/Console_Getopt"
             },
+            "abandoned": true,
             "time": "2019-11-20T18:27:48+00:00"
         },
         {
@@ -9538,6 +9539,26 @@
     ],
     "packages-dev": [
         {
+            "name": "app/dev",
+            "version": "1.0.0-dev",
+            "dist": {
+                "type": "path",
+                "url": "app/modules/dev",
+                "reference": "56ad947e666aac639311822be5bb02b25a1a1b53"
+            },
+            "require": {
+                "app/main": "^1.0",
+                "niklan/niklan": "^1.0"
+            },
+            "type": "drupal-custom-module",
+            "keywords": [
+                "Drupal"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "behat/mink",
             "version": "v1.13.0",
             "source": {
@@ -11293,26 +11314,6 @@
             "time": "2025-08-01T08:46:24+00:00"
         },
         {
-            "name": "niklan/app_dev",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/dev",
-                "reference": "61f68de361758c58d0908d2b09404e5b2800d07a"
-            },
-            "require": {
-                "niklan/app_main": "^1.0",
-                "niklan/niklan": "^1.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "nyholm/psr7-server",
             "version": "1.1.0",
             "source": {
@@ -12269,16 +12270,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "6.0.1",
+            "version": "6.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "2f5cbed597cb261d1ea458f3da3a9ad32e670b1e"
+                "reference": "897b5986ece6b4f9d8413fea345c7d49c757d6bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/2f5cbed597cb261d1ea458f3da3a9ad32e670b1e",
-                "reference": "2f5cbed597cb261d1ea458f3da3a9ad32e670b1e",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/897b5986ece6b4f9d8413fea345c7d49c757d6bf",
+                "reference": "897b5986ece6b4f9d8413fea345c7d49c757d6bf",
                 "shasum": ""
             },
             "require": {
@@ -12328,9 +12329,9 @@
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/6.0.1"
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/6.0.2"
             },
-            "time": "2026-01-20T15:30:42+00:00"
+            "time": "2026-03-01T18:43:49+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -15264,16 +15265,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.1.5",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "79155f94852fa27e2f73b459f6503f5e87e2c188"
+                "reference": "ff31ad6efc62e66e518fbab1cde3453d389bcdc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/79155f94852fa27e2f73b459f6503f5e87e2c188",
-                "reference": "79155f94852fa27e2f73b459f6503f5e87e2c188",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ff31ad6efc62e66e518fbab1cde3453d389bcdc8",
+                "reference": "ff31ad6efc62e66e518fbab1cde3453d389bcdc8",
                 "shasum": ""
             },
             "require": {
@@ -15320,29 +15321,29 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.1.5"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.6"
             },
-            "time": "2026-02-18T14:09:36+00:00"
+            "time": "2026-02-27T10:28:38+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "app/dev": 20,
+        "app/laszlo": 20,
+        "app/main": 20,
         "chi-teck/drupal-coder-extension": 15,
         "drupal/cache_pilot": 15,
         "drupal/glisseo": 5,
         "drupal/rabbit_hole": 10,
         "drupal/redirect": 15,
-        "niklan/app_dev": 20,
-        "niklan/app_main": 20,
-        "niklan/laszlo": 20,
         "niklan/niklan": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.3"
+        "php": ">=8.4"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

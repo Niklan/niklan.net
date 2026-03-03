@@ -1,18 +1,18 @@
 {
-    "name": "niklan/app_blog",
+    "name": "app/blog",
     "type": "drupal-custom-module",
     "version": "1.0.0-dev",
     "keywords": [
         "Drupal"
     ],
     "require": {
-        "niklan/app_contract": "^1.0",
-        "niklan/app_platform": "^1.0",
+        "app/contract": "^1.0",
+        "app/platform": "^1.0",
         "niklan/external_content": "^1.0",
         "ext-dom": "*",
         "ext-imagick": "*",
         "league/commonmark": "^2.0",
-        "niklan-asset/hljs": "^11.9",
+        "app-asset/hljs": "^11.9",
         "symfony/dom-crawler": "^6.0|^7.0",
         "symfony/config": "^6.0|^7.0",
         "symfony/css-selector": "^6.0|^7.0"
