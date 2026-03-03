@@ -57,7 +57,7 @@
         "drupal/warmer": "^2.0",
         "drush/drush": "^13",
         "niklan/niklan": "^1.0@dev",
-        "php": ">=8.3"
+        "php": ">=8.4"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^2.0@alpha",
