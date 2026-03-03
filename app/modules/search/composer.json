@@ -1,5 +1,5 @@
 {
-    "name": "niklan/app_search",
+    "name": "app/search",
     "type": "drupal-custom-module",
     "version": "1.0.0-dev",
     "keywords": [

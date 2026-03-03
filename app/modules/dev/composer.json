@@ -1,5 +1,5 @@
 {
-    "name": "niklan/app_dev",
+    "name": "app/dev",
     "type": "drupal-custom-module",
     "version": "1.0.0-dev",
     "keywords": [
@@ -7,6 +7,6 @@
     ],
     "require": {
         "niklan/niklan": "^1.0",
-        "niklan/app_main": "^1.0"
+        "app/main": "^1.0"
     }
 }

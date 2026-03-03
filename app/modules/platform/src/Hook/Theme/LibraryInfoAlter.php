@@ -31,7 +31,7 @@ final class LibraryInfoAlter {
       return;
     }
 
-    $version = InstalledVersions::getVersion('niklan-asset/photoswipe');
+    $version = InstalledVersions::getVersion('app-asset/photoswipe');
     $libraries['photoswipe.local']['version'] = $version;
 
     $js_files = [
