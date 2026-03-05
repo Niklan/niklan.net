@@ -72,7 +72,33 @@
       lines.pop();
     }
 
-    codeElement.innerHTML = lines
+    // Balance HTML tags across line boundaries so each line is self-contained.
+    // hljs may produce spans that cross multiple lines. When we wrap a line in
+    // a highlight <span>, any stray </span> inside would close the wrapper
+    // prematurely, pushing the remaining content outside the highlight.
+    const balancedLines = [];
+    let openTags = [];
+
+    lines.forEach((line) => {
+      const prefix = openTags.join('');
+      const lineOpenTags = [...openTags];
+
+      (line.match(/<span[^>]*>|<\/span>/g) || []).forEach((tag) => {
+        if (tag === '</span>') {
+          lineOpenTags.pop();
+        }
+        else {
+          lineOpenTags.push(tag);
+        }
+      });
+
+      const suffix = '</span>'.repeat(lineOpenTags.length);
+
+      balancedLines.push(prefix + line + suffix);
+      openTags = lineOpenTags;
+    });
+
+    codeElement.innerHTML = balancedLines
       .map((line, index) => {
         const lineNumber = index + 1;
         const cls = highlightedLines.has(lineNumber) ? ` class="${highlightClass}"` : '';
