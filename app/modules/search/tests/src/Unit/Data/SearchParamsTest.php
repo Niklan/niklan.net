@@ -16,9 +16,9 @@ final class SearchParamsTest extends UnitTestCase {
   public function testObject(?string $keys, int $limit, int $offset = 0): void {
     $params = new SearchParams($keys, $limit, $offset);
 
-    self::assertEquals($params->getKeys(), $keys);
-    self::assertEquals($params->getLimit(), $limit);
-    self::assertEquals($params->getOffset(), $offset);
+    self::assertEquals($params->keys, $keys);
+    self::assertEquals($params->limit, $limit);
+    self::assertEquals($params->offset, $offset);
   }
 
   public static function dataProvider(): \Generator {

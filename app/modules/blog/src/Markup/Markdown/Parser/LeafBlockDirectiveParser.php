@@ -51,7 +51,7 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
   }
 
   #[\Override]
-  public function isContainer(): bool {
+  public function isContainer(): false {
     return FALSE;
   }
 

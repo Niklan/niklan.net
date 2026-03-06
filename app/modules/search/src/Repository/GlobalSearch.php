@@ -13,8 +13,8 @@ final class GlobalSearch extends SearchApiSearch implements EntitySearch {
   #[\Override]
   public function search(SearchParams $params): EntitySearchResults {
     $query = $this->getQuery();
-    $query->keys($params->getKeys());
-    $query->range($params->getOffset(), $params->getLimit());
+    $query->keys($params->keys);
+    $query->range($params->offset, $params->limit);
     $query->sort('search_api_relevance', 'DESC');
 
     $results = $query->execute();

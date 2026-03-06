@@ -6,16 +6,13 @@ namespace Drupal\external_content\Nodes;
 
 final class Document extends Node {
 
-  /**
-   * @throws \LogicException
-   */
   #[\Override]
-  public function setParent(Node $node): void {
+  public function setParent(Node $node): never {
     throw new \LogicException('Document node cannot have a parent.');
   }
 
   #[\Override]
-  public function hasParent(): bool {
+  public function hasParent(): false {
     return FALSE;
   }
 

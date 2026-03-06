@@ -29,7 +29,7 @@ final class Search {
   private function doSearch(string $keys): EntitySearchResults {
     $search_params = new SearchParams($keys, self::PER_PAGE, $this->pagerManager->findPage() * self::PER_PAGE);
     $search_results = $this->entitySearch->search($search_params);
-    $this->pagerManager->createPager($search_results->getTotalResultsCount() ?? 0, self::PER_PAGE);
+    $this->pagerManager->createPager($search_results->totalResultsCount ?? 0, self::PER_PAGE);
 
     return $search_results;
   }
@@ -40,13 +40,13 @@ final class Search {
     }
 
     $search_results = $this->doSearch($query);
-    if ($search_results->getTotalResultsCount() === 0) {
+    if ($search_results->totalResultsCount === 0) {
       return [];
     }
 
     $this->warmUpResults($search_results);
 
-    return \array_map($this->buildSearchResult(...), $search_results->getItems());
+    return \array_map($this->buildSearchResult(...), $search_results->items);
   }
 
   private function buildSearchResult(EntitySearchResult $result): array {

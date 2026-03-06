@@ -20,7 +20,7 @@ final class EntitySearchResultsTest extends UnitTestCase {
       $input['total_results_count'],
     );
 
-    self::assertEquals($input['items'], $results->getItems());
+    self::assertEquals($input['items'], $results->items);
     self::assertEquals(
       $input['items'],
       $results->getIterator()->getArrayCopy(),
@@ -28,7 +28,7 @@ final class EntitySearchResultsTest extends UnitTestCase {
     self::assertEquals($expected['count'], $results->count());
     self::assertEquals(
       $input['total_results_count'],
-      $results->getTotalResultsCount(),
+      $results->totalResultsCount,
     );
     self::assertEquals(
       $expected['entity_type_ids'],

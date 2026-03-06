@@ -13,9 +13,11 @@ final class ExternalContentValidJsonConstraintValidator extends ConstraintValida
   public function validate(mixed $value, Constraint $constraint): void {
     \assert($constraint instanceof ExternalContentValidJsonConstraint);
 
-    if (!\is_string($value) || !\json_validate($value)) {
-      $this->addInvalidJsonViolation($constraint);
+    if (\is_string($value) && \json_validate($value)) {
+      return;
     }
+
+    $this->addInvalidJsonViolation($constraint);
   }
 
   private function addInvalidJsonViolation(ExternalContentValidJsonConstraint $constraint): void {
