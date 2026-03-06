@@ -86,7 +86,7 @@ final readonly class PreprocessNode {
 
     $content = $node->get('external_content')->first();
     \assert($content instanceof ExternalContentFieldItem);
-    $variables['toc_links'] = (new TableOfContentsBuilder())->build($content);
+    $variables['toc_links'] = new TableOfContentsBuilder()->build($content);
   }
 
   private function addTags(ArticleBundle $node, array &$variables): void {

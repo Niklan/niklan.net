@@ -25,7 +25,7 @@ final readonly class AppCommentServiceProvider implements ServiceProviderInterfa
 
     $container->setDefinition(
       id: 'logger.channel.app_comment.telegram',
-      definition: (new ChildDefinition('logger.channel_base'))->addArgument('app_comment.telegram'),
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_comment.telegram'),
     );
 
     $autowire(Telegram::class);

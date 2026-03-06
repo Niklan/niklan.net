@@ -14,12 +14,12 @@ final readonly class ContainerDirectiveHelper {
     // while a nested one does. Therefore, it is crucial that the inline-content
     // is searched only among direct child elements and not throughout the
     // entire child tree.
-    return (new Crawler($node))->filterXPath('.//*[1]/div[@data-selector="inline-content"]')->getNode(0);
+    return new Crawler($node)->filterXPath('.//*[1]/div[@data-selector="inline-content"]')->getNode(0);
   }
 
   public static function findDomContent(\DOMNode $node): ?\DOMNode {
     // @see ::findDomInlineContent() for explanation.
-    return (new Crawler($node))->filterXPath('.//*[1]/div[@data-selector="content"]')->getNode(0);
+    return new Crawler($node)->filterXPath('.//*[1]/div[@data-selector="content"]')->getNode(0);
   }
 
 }

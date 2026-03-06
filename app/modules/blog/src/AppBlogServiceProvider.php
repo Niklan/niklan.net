@@ -51,11 +51,11 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
     // Logger channels.
     $container->setDefinition(
       id: 'logger.channel.app_blog',
-      definition: (new ChildDefinition('logger.channel_base'))->addArgument('app_blog'),
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_blog'),
     );
     $container->setDefinition(
       id: 'logger.channel.app_blog.external_content',
-      definition: (new ChildDefinition('logger.channel_base'))->addArgument('app_blog.external_content'),
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_blog.external_content'),
     );
 
     // Repositories.

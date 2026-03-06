@@ -7,16 +7,12 @@ namespace Drupal\app_search\Data;
 /**
  * @implements \IteratorAggregate<string, \Drupal\app_search\Data\EntitySearchResult>
  */
-final class EntitySearchResults implements \IteratorAggregate, \Countable {
+final readonly class EntitySearchResults implements \IteratorAggregate, \Countable {
 
   public function __construct(
-    protected array $items,
-    protected ?int $totalResultsCount = NULL,
+    public array $items,
+    public ?int $totalResultsCount = NULL,
   ) {}
-
-  public function getItems(): array {
-    return $this->items;
-  }
 
   public function getEntityTypeIds(): array {
     return \array_keys($this->getEntityIds());
@@ -31,10 +27,6 @@ final class EntitySearchResults implements \IteratorAggregate, \Countable {
     }
 
     return $result;
-  }
-
-  public function getTotalResultsCount(): ?int {
-    return $this->totalResultsCount;
   }
 
   /**

@@ -66,7 +66,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $this->extensionManager->get(CustomHtmlParserExtension::ID)->register($parsers);
 
     // @phpstan-ignore-next-line argument.type
-    return (new HtmlParser($parsers))->parse($this->markdownConverter->convert($source)->getContent());
+    return new HtmlParser($parsers)->parse($this->markdownConverter->convert($source)->getContent());
   }
 
   public function denormalize(string $json): Document {
@@ -78,7 +78,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     \assert(\is_array($array));
 
     // @phpstan-ignore-next-line argument.type
-    return (new ArrayParser($parsers))->parse(ArrayElement::fromArray($array));
+    return new ArrayParser($parsers)->parse(ArrayElement::fromArray($array));
   }
 
   public function normalize(Document $content): string {
@@ -87,7 +87,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $this->extensionManager->get(CustomArrayBuilderExtension::ID)->register($builders);
 
     // @phpstan-ignore-next-line argument.type
-    $json = \json_encode((new ArrayBuilder($builders))->build($content)->toArray());
+    $json = \json_encode(new ArrayBuilder($builders)->build($content)->toArray());
     \assert(\is_string($json));
 
     return $json;
@@ -99,7 +99,7 @@ final class BlogArticle extends PluginBase implements EnvironmentPlugin, Contain
     $this->extensionManager->get(CustomRenderArrayExtension::ID)->register($builders);
 
     // @phpstan-ignore-next-line argument.type
-    return (new RenderArrayBuilder($builders))->build($content)->toRenderArray();
+    return new RenderArrayBuilder($builders)->build($content)->toRenderArray();
   }
 
 }

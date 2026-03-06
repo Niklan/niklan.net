@@ -50,25 +50,12 @@ final class Article implements \IteratorAggregate, \Countable {
   }
 
   public function hasPrimaryTranslation(): bool {
-    foreach ($this->translations as $translation) {
-      if (!$translation->isPrimary) {
-        continue;
-      }
-
-      return TRUE;
-    }
-
-    return FALSE;
+    return \array_any($this->translations, static fn (ArticleTranslation $t): bool => $t->isPrimary);
   }
 
   public function getPrimaryTranslation(): ArticleTranslation {
-    foreach ($this->translations as $translation) {
-      if ($translation->isPrimary) {
-        return $translation;
-      }
-    }
-
-    throw new PrimaryTranslationNotFoundException();
+    return \array_find($this->translations, static fn (ArticleTranslation $t): bool => $t->isPrimary)
+      ?? throw new PrimaryTranslationNotFoundException();
   }
 
   /**
