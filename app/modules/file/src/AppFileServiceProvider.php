@@ -24,7 +24,7 @@ final readonly class AppFileServiceProvider implements ServiceProviderInterface 
     // Logger channel.
     $container->setDefinition(
       id: 'logger.channel.app_file',
-      definition: (new ChildDefinition('logger.channel_base'))->addArgument('app_file'),
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_file'),
     );
 
     // File synchronization.

@@ -66,7 +66,7 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
     // Logger channels.
     $container->setDefinition(
       id: 'logger.channel.app_platform',
-      definition: (new ChildDefinition('logger.channel_base'))->addArgument('app_platform'),
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_platform'),
     );
 
     // Hooks.

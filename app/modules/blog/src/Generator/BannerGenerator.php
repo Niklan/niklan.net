@@ -79,7 +79,7 @@ final readonly class BannerGenerator {
     $build = [
       '#theme' => 'app_blog_article_banner',
       '#poster_base64' => $base64,
-      '#text_lines' => \explode(\PHP_EOL, (new UnicodeString($title))->wordwrap(20, \PHP_EOL, cut: TRUE)->toString()),
+      '#text_lines' => \explode(\PHP_EOL, new UnicodeString($title)->wordwrap(20, \PHP_EOL, cut: TRUE)->toString()),
       '#created' => $created,
       '#comment_count' => $comment_count,
     ];

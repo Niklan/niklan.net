@@ -27,22 +27,11 @@ final class Callout extends Node {
   }
 
   public function getBody(): ?CalloutBody {
-    foreach ($this->children as $child) {
-      if ($child instanceof CalloutBody) {
-        return $child;
-      }
-    }
-    return NULL;
+    return \array_find($this->children, static fn (Node $child): bool => $child instanceof CalloutBody);
   }
 
   public function getTitle(): ?CalloutTitle {
-    foreach ($this->children as $child) {
-      if ($child instanceof CalloutTitle) {
-        return $child;
-      }
-    }
-
-    return NULL;
+    return \array_find($this->children, static fn (Node $child): bool => $child instanceof CalloutTitle);
   }
 
   public static function getNodeType(): string {

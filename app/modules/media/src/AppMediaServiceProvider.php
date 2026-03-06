@@ -24,7 +24,7 @@ final readonly class AppMediaServiceProvider implements ServiceProviderInterface
     // Logger channel.
     $container->setDefinition(
       id: 'logger.channel.app_media',
-      definition: (new ChildDefinition('logger.channel_base'))->addArgument('app_media'),
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_media'),
     );
 
     // Media synchronization and repository.

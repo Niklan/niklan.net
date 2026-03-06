@@ -55,7 +55,7 @@ final class ArticleBundle extends NodeBundle implements Article {
     if (!$content instanceof ContentNode) {
       return 0;
     }
-    return (new EstimatedReadTimeCalculator())->calculateTotalTime($content);
+    return new EstimatedReadTimeCalculator()->calculateTotalTime($content);
   }
 
 }
