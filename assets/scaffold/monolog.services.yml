@@ -39,10 +39,6 @@ parameters:
         - name: rotating_file.csp
           formatter: 'json'
     # Custom channels.
-    niklan:
-      handlers:
-        - name: rotating_file.niklan
-          formatter: 'json'
     app_blog:
       handlers:
         - name: rotating_file.app_blog
@@ -85,9 +81,6 @@ services:
   monolog.handler.rotating_file.csp:
     class: Monolog\Handler\RotatingFileHandler
     arguments: ['../var/log/csp.log', 7]
-  monolog.handler.rotating_file.niklan:
-    class: Monolog\Handler\RotatingFileHandler
-    arguments: ['../var/log/niklan.log', 7]
   monolog.handler.rotating_file.app_blog:
     class: Monolog\Handler\RotatingFileHandler
     arguments: ['../var/log/app-blog.log', 7]

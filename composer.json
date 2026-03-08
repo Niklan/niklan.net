@@ -56,7 +56,6 @@
         "drupal/twig_tweak": "^3.0",
         "drupal/warmer": "^2.0",
         "drush/drush": "^13",
-        "niklan/niklan": "^1.0@dev",
         "php": ">=8.4"
     },
     "require-dev": {

@@ -6,7 +6,6 @@
         "Drupal"
     ],
     "require": {
-        "niklan/niklan": "^1.0",
         "app/contract": "^1.0",
         "app/platform": "^1.0",
         "app/file": "^1.0",
