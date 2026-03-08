@@ -6,6 +6,7 @@ namespace Drupal\Tests\app_blog\Unit\Plugin\Filter;
 
 use Drupal\app_blog\Plugin\Filter\CalloutFilter;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Tests\app_blog\Unit\Plugin\Filter\Stub\StubRenderer;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -101,6 +102,31 @@ final class CalloutFilterTest extends UnitTestCase {
     $filter->process($text, 'en');
 
     self::assertSame(2, $call_count);
+  }
+
+  public function testAttachmentsFromRenderedComponentPropagated(): void {
+    $renderer = new StubRenderer('<div>rendered</div>', ['library' => ['app_blog/callout']]);
+    $filter = $this->createFilter($renderer);
+
+    $text = '<app-callout data-type="note"><app-callout-body>Text</app-callout-body></app-callout>';
+    $result = $filter->process($text, 'en');
+
+    self::assertSame(['library' => ['app_blog/callout']], $result->getAttachments());
+  }
+
+  public function testAttachmentsMergedFromMultipleCallouts(): void {
+    $renderer = new StubRenderer('<div>rendered</div>');
+    $filter = $this->createFilter($renderer);
+
+    $text = <<<'HTML'
+    <app-callout data-type="note"><app-callout-body>A</app-callout-body></app-callout>
+    <app-callout data-type="tip"><app-callout-body>B</app-callout-body></app-callout>
+    HTML;
+
+    $result = $filter->process($text, 'en');
+
+    self::assertContains('test/lib-1', $result->getAttachments()['library']);
+    self::assertContains('test/lib-2', $result->getAttachments()['library']);
   }
 
   private function createFilter(RendererInterface $renderer): CalloutFilter {

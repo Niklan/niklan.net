@@ -90,8 +90,8 @@ final readonly class Home implements ContainerInjectionInterface {
       ->condition('nfd.langcode', $this->getCurrentLanguageId())
       ->condition('nfd.status', '1')
       ->range(0, self::LIMIT_PREVIEW_POSTS);
-    $query->leftJoin('node__external_content', 'ec', '[nfd].[nid] = [ec].[entity_id]');
-    $query->addExpression('CHAR_LENGTH([ec].[external_content_value])', 'length');
+    $query->leftJoin('node__field_content', 'fc', '[nfd].[nid] = [fc].[entity_id]');
+    $query->addExpression('CHAR_LENGTH([fc].[field_content_value])', 'length');
     $ids = $query->orderBy('length', 'DESC')->execute()?->fetchCol();
 
     if (!$ids) {

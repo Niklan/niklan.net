@@ -6,10 +6,10 @@ namespace Drupal\app_blog\Sync;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\app_blog\ExternalContent\Domain\Article;
-use Drupal\app_blog\ExternalContent\Domain\ArticleTranslation;
-use Drupal\app_blog\ExternalContent\Domain\SyncContext;
-use Drupal\app_blog\ExternalContent\Parser\ArticleXmlParser;
+use Drupal\app_blog\Sync\Domain\Article;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
+use Drupal\app_blog\Sync\Domain\SyncContext;
+use Drupal\app_blog\Sync\Parser\ArticleXmlParser;
 use Drupal\app_contract\Contract\Blog\ArticleRepository;
 use Drupal\app_contract\Contract\Node\Article as ArticleNode;
 use Drupal\app_contract\Contract\Tag\TagRepository;
@@ -35,7 +35,7 @@ final readonly class ArticleSynchronizer {
   }
 
   /**
-   * @return list<\Drupal\app_blog\ExternalContent\Domain\Article>
+   * @return list<\Drupal\app_blog\Sync\Domain\Article>
    */
   private function findArticles(SyncContext $context): array {
     $context->logger->info('Blog article search initiated', [

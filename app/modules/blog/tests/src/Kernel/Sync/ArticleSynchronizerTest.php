@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Kernel\Sync;
 
-use Drupal\app_blog\ExternalContent\Domain\SyncContext;
-use Drupal\app_blog\ExternalContent\Parser\ArticleXmlParser;
+use Drupal\app_blog\Sync\Domain\SyncContext;
+use Drupal\app_blog\Sync\Parser\ArticleXmlParser;
 use Drupal\app_blog\Sync\ArticleMapper;
 use Drupal\app_blog\Sync\ArticleProcessor;
 use Drupal\app_blog\Sync\ArticleSynchronizer;
@@ -54,7 +54,6 @@ final class ArticleSynchronizerTest extends KernelTestBase {
     'taxonomy',
     'text',
     'filter',
-    'external_content',
     'photoswipe',
     'breakpoint',
     'search_api',

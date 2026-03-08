@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\Sync;
 
-use Drupal\app_blog\ExternalContent\Domain\ArticleTranslation;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
 use Drupal\app_blog\Sync\Domain\ProcessedArticle;
 use Drupal\app_blog\Sync\Html\HtmlProcessor;

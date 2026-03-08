@@ -43,7 +43,6 @@ abstract class AppMainTestBase extends KernelTestBase {
     'filter',
     'search_api',
     'twig_tweak',
-    'external_content',
     'photoswipe',
   ];
 

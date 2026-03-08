@@ -10,7 +10,10 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\file\FileInterface;
 use Drupal\media\MediaInterface;
+use Drupal\media\MediaSourceInterface;
+use Drupal\Tests\app_blog\Unit\Plugin\Filter\Stub\StubRenderer;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;
@@ -101,10 +104,50 @@ final class MediaFilterTest extends UnitTestCase {
     self::assertContains('media:2', $result->getCacheTags());
   }
 
+  public function testAttachmentsFromRenderedImagePropagated(): void {
+    $media = $this->createImageMedia('img-uuid', 'public://image.jpg', ['media:10']);
+    $renderer = new StubRenderer('<span class="lightbox"><img /></span>', ['library' => ['photoswipe/photoswipe']]);
+
+    $filter = $this->createFilter(
+      mediaByUuid: ['img-uuid' => $media],
+      renderer: $renderer,
+    );
+    $text = '<app-media data-uuid="img-uuid" data-bundle="image" data-alt="Test"></app-media>';
+
+    $result = $filter->process($text, 'en');
+
+    self::assertContains('photoswipe/photoswipe', $result->getAttachments()['library']);
+    self::assertContains('media:10', $result->getCacheTags());
+  }
+
+  public function testAttachmentsMergedFromMultipleMedia(): void {
+    $media1 = $this->createImageMedia('uuid-1', 'public://img1.jpg', ['media:1']);
+    $media2 = $this->createImageMedia('uuid-2', 'public://img2.jpg', ['media:2']);
+    $renderer = new StubRenderer('<span class="lightbox"><img /></span>');
+
+    $filter = $this->createFilter(
+      mediaByUuid: [
+        'uuid-1' => $media1,
+        'uuid-2' => $media2,
+      ],
+      renderer: $renderer,
+    );
+
+    $text = <<<'HTML'
+    <app-media data-uuid="uuid-1" data-bundle="image" data-alt="A"></app-media>
+    <app-media data-uuid="uuid-2" data-bundle="image" data-alt="B"></app-media>
+    HTML;
+
+    $result = $filter->process($text, 'en');
+
+    self::assertContains('test/lib-1', $result->getAttachments()['library']);
+    self::assertContains('test/lib-2', $result->getAttachments()['library']);
+  }
+
   /**
    * @param array<string, \Drupal\media\MediaInterface> $mediaByUuid
    */
-  private function createFilter(array $mediaByUuid = [], ?EntityViewBuilderInterface $viewBuilder = NULL, string $renderedOutput = ''): MediaFilter {
+  private function createFilter(array $mediaByUuid = [], ?EntityViewBuilderInterface $viewBuilder = NULL, string $renderedOutput = '', ?RendererInterface $renderer = NULL): MediaFilter {
     $query = $this->prophesize(QueryInterface::class);
     $query->accessCheck(FALSE)->willReturn($query->reveal());
     $query->condition(Argument::cetera())->willReturn($query->reveal());
@@ -121,14 +164,64 @@ final class MediaFilterTest extends UnitTestCase {
       $entity_type_manager->getViewBuilder('media')->willReturn($viewBuilder);
     }
 
-    $renderer = $this->prophesize(RendererInterface::class);
-    $renderer->renderInIsolation(Argument::any())->willReturn($renderedOutput);
+    if (!$renderer) {
+      $renderer_prophecy = $this->prophesize(RendererInterface::class);
+      $renderer_prophecy->renderInIsolation(Argument::any())->willReturn($renderedOutput);
+      $renderer = $renderer_prophecy->reveal();
+    }
 
     return new MediaFilter(
       [], 'app_blog_media', ['provider' => 'app_blog'],
       $entity_type_manager->reveal(),
-      $renderer->reveal(),
+      $renderer,
     );
+  }
+
+  /**
+   * @param list<string> $cache_tags
+   */
+  private function createImageMedia(string $uuid, string $file_uri, array $cache_tags = []): MediaInterface {
+    $file = $this->prophesize(FileInterface::class);
+    $file->getFileUri()->willReturn($file_uri);
+
+    $source = $this->prophesize(MediaSourceInterface::class);
+    $source->getConfiguration()->willReturn(['source_field' => 'field_media_image']);
+
+    $field_value = new class ($file->reveal()) {
+
+      public function __construct(private readonly FileInterface $file) {}
+
+      public function first(): object {
+        $file = $this->file;
+        return new class ($file) {
+
+          public function __construct(private readonly FileInterface $file) {}
+
+          public function get(string $property): object {
+            $file = $this->file;
+            return new class ($file) {
+
+              public function __construct(private readonly FileInterface $file) {}
+
+              public function getValue(): FileInterface {
+                return $this->file;
+              }
+
+            };
+          }
+
+        };
+      }
+
+    };
+
+    $media = $this->prophesize(MediaInterface::class);
+    $media->uuid()->willReturn($uuid);
+    $media->getCacheTags()->willReturn($cache_tags);
+    $media->getSource()->willReturn($source->reveal());
+    $media->get('field_media_image')->willReturn($field_value);
+
+    return $media->reveal();
   }
 
 }

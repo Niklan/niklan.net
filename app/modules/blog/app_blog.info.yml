@@ -8,6 +8,5 @@ dependencies:
   - app_platform:app_platform
   - drupal:image
   - drupal:responsive_image
-  - niklan:external_content
   - sophron:sophron_guesser
   - photoswipe:photoswipe

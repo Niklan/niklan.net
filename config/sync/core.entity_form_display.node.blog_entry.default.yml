@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.blog_entry.body
     - field.field.node.blog_entry.comment_node_blog_entry
-    - field.field.node.blog_entry.external_content
     - field.field.node.blog_entry.external_id
     - field.field.node.blog_entry.field_media_attachments
     - field.field.node.blog_entry.field_media_image
@@ -53,9 +52,11 @@ content:
 hidden:
   body: true
   created: true
-  external_content: true
+  field_content: true
+  field_estimated_read_time: true
   field_media_attachments: true
   field_media_image: true
+  field_source_path_hash: true
   field_tags: true
   langcode: true
   path: true

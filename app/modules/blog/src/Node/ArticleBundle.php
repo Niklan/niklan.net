@@ -6,9 +6,6 @@ namespace Drupal\app_blog\Node;
 
 use Drupal\app_contract\Contract\Node\Article;
 use Drupal\app_contract\Node\NodeBundle;
-use Drupal\external_content\Nodes\Node as ContentNode;
-use Drupal\app_blog\ExternalContent\Stages\ArticleTranslationFieldUpdater;
-use Drupal\app_blog\ExternalContent\Utils\EstimatedReadTimeCalculator;
 
 /**
  * Provides a bundle class for 'blog_entry' content type.
@@ -39,7 +36,7 @@ final class ArticleBundle extends NodeBundle implements Article {
   }
 
   public function getContent(): ?string {
-    if (!$this->hasField('field_content') || $this->get('field_content')->isEmpty()) {
+    if ($this->get('field_content')->isEmpty()) {
       return NULL;
     }
 
@@ -47,39 +44,19 @@ final class ArticleBundle extends NodeBundle implements Article {
   }
 
   public function getSourcePathHash(): ?string {
-    if ($this->hasField('field_source_path_hash') && !$this->get('field_source_path_hash')->isEmpty()) {
-      return $this->get('field_source_path_hash')->getString();
+    if ($this->get('field_source_path_hash')->isEmpty()) {
+      return NULL;
     }
 
-    // Fallback to legacy external_content field.
-    $data = $this->getExternalContentData();
-    return $data[ArticleTranslationFieldUpdater::SOURCE_PATH_HASH_PROPERTY] ?? NULL;
-  }
-
-  public function getExternalContentData(): array {
-    if (!$this->hasField('external_content') || $this->get('external_content')->isEmpty()) {
-      return [];
-    }
-
-    $data = $this->get('external_content')->first()?->get('data')->getValue();
-    \assert(\is_string($data));
-    $result = \json_decode($data, TRUE);
-    \assert(\is_array($result) || \is_null($result));
-
-    return $result ?? [];
+    return $this->get('field_source_path_hash')->getString();
   }
 
   public function getEstimatedReadTime(): int {
-    if ($this->hasField('field_estimated_read_time') && !$this->get('field_estimated_read_time')->isEmpty()) {
-      return (int) $this->get('field_estimated_read_time')->getString();
-    }
-
-    // Fallback to legacy calculation from external_content.
-    $content = $this->get('external_content')->first()?->get('content')->getValue();
-    if (!$content instanceof ContentNode) {
+    if ($this->get('field_estimated_read_time')->isEmpty()) {
       return 0;
     }
-    return new EstimatedReadTimeCalculator()->calculateTotalTime($content);
+
+    return (int) $this->get('field_estimated_read_time')->getString();
   }
 
 }

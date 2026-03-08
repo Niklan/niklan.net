@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\app_blog\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -24,6 +25,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class CodeBlockFilter extends FilterBase implements ContainerFactoryPluginInterface {
 
   public const string ID = 'app_blog_code_block';
+
+  /**
+   * @var array<string, mixed>
+   */
+  private array $attachments = [];
 
   public function __construct(
     array $configuration,
@@ -47,11 +53,16 @@ final class CodeBlockFilter extends FilterBase implements ContainerFactoryPlugin
       return new FilterProcessResult($text);
     }
 
+    $this->attachments = [];
+
     foreach ($elements as $element) {
       $this->replaceCodeBlock($dom, $element);
     }
 
-    return new FilterProcessResult(Html::serialize($dom));
+    $result = new FilterProcessResult(Html::serialize($dom));
+    $result->setAttachments($this->attachments);
+
+    return $result;
   }
 
   #[\Override]
@@ -76,6 +87,7 @@ final class CodeBlockFilter extends FilterBase implements ContainerFactoryPlugin
       ],
     ];
     $this->replaceDomNode($dom, $element, (string) $this->renderer->renderInIsolation($build));
+    $this->attachments = BubbleableMetadata::mergeAttachments($this->attachments, $build['#attached'] ?? []);
   }
 
   private function collectByTag(\DOMDocument $dom, string $tag): array {

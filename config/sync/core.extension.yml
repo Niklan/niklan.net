@@ -24,7 +24,6 @@ module:
   datetime: 0
   dynamic_page_cache: 0
   editor: 0
-  external_content: 0
   field: 0
   file: 0
   file_mdm: 0
