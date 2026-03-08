@@ -8,25 +8,8 @@ use Drupal\app_blog\Controller\BlogList;
 use Drupal\app_blog\Controller\RssFeed;
 use Drupal\app_blog\Controller\RssFeedRedirect;
 use Drupal\app_blog\Controller\RssFeedStylesheet;
-use Drupal\app_blog\ExternalContent\Extension\ArrayBuilderExtension;
-use Drupal\app_blog\ExternalContent\Extension\ArrayParserExtension;
-use Drupal\app_blog\ExternalContent\Extension\HtmlParserExtension;
-use Drupal\app_blog\ExternalContent\Extension\RenderArrayBuilderExtension;
-use Drupal\app_blog\ExternalContent\Nodes\ArticleLink\RenderArrayBuilder as ArticleLinkBuilder;
-use Drupal\app_blog\ExternalContent\Nodes\Callout\RenderArrayBuilder as CalloutBuilder;
-use Drupal\app_blog\ExternalContent\Nodes\CodeBlock\RenderArrayBuilder as CodeBlockBuilder;
-use Drupal\app_blog\ExternalContent\Nodes\Footnote\RenderArrayBuilder as FootnoteBuilder;
-use Drupal\app_blog\ExternalContent\Nodes\MediaReference\RenderArrayBuilder as MediaReferenceBuilder;
-use Drupal\app_blog\ExternalContent\Parser\ArticleXmlParser;
-use Drupal\app_blog\ExternalContent\Pipeline\ArticleProcessPipeline;
-use Drupal\app_blog\ExternalContent\Pipeline\ArticleSyncPipeline;
-use Drupal\app_blog\ExternalContent\Stages\ArticleFinder;
-use Drupal\app_blog\ExternalContent\Stages\ArticleProcessor as LegacyArticleProcessor;
-use Drupal\app_blog\ExternalContent\Stages\ArticleTranslationFieldUpdater;
-use Drupal\app_blog\ExternalContent\Stages\AssetSynchronizer;
-use Drupal\app_blog\ExternalContent\Stages\LinkProcessor as LegacyLinkProcessor;
-use Drupal\app_blog\ExternalContent\Stages\MarkdownToAstParser;
-use Drupal\app_blog\ExternalContent\Validation\XmlValidator;
+use Drupal\app_blog\Sync\Parser\ArticleXmlParser;
+use Drupal\app_blog\Sync\Validation\XmlValidator;
 use Drupal\app_blog\Generator\BannerGenerator;
 use Drupal\app_blog\Markup\Markdown\Extension\ArticleMarkdownExtension;
 use Drupal\app_blog\Repository\DatabaseArticleRepository;
@@ -65,8 +48,8 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
       definition: new ChildDefinition('logger.channel_base')->addArgument('app_blog'),
     );
     $container->setDefinition(
-      id: 'logger.channel.app_blog.external_content',
-      definition: new ChildDefinition('logger.channel_base')->addArgument('app_blog.external_content'),
+      id: 'logger.channel.app_blog.sync',
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_blog.sync'),
     );
 
     // Repositories.
@@ -97,36 +80,11 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
       ->setAutoconfigured(TRUE)
       ->addTag('app_sitemap');
 
-    // External Content: Validation & Parser.
+    // XML parser & validation.
     $autowire(XmlValidator::class);
     $autowire(ArticleXmlParser::class);
 
-    // External Content: Stages (legacy, kept for Deploy A).
-    $autowire(MarkdownToAstParser::class);
-    $autowire(AssetSynchronizer::class);
-    $autowire(LegacyLinkProcessor::class);
-    $autowire(ArticleTranslationFieldUpdater::class);
-    $autowire(LegacyArticleProcessor::class);
-    $autowire(ArticleFinder::class);
-
-    // External Content: Pipelines (legacy, kept for Deploy A).
-    $autowire(ArticleProcessPipeline::class);
-    $autowire(ArticleSyncPipeline::class);
-
-    // External Content: Node Render Array Builders (legacy, kept for Deploy A).
-    $autowire(ArticleLinkBuilder::class);
-    $autowire(CalloutBuilder::class);
-    $autowire(CodeBlockBuilder::class);
-    $autowire(MediaReferenceBuilder::class);
-    $autowire(FootnoteBuilder::class);
-
-    // External Content: Extensions (legacy, kept for Deploy A).
-    $autowire(RenderArrayBuilderExtension::class);
-    $autowire(HtmlParserExtension::class);
-    $autowire(ArrayBuilderExtension::class);
-    $autowire(ArrayParserExtension::class);
-
-    // New Sync pipeline.
+    // Sync pipeline.
     $autowire(EstimatedReadTimeCalculator::class);
     $autowire(ArticleMapper::class);
     $autowire(ArticleProcessor::class);

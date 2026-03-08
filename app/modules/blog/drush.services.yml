@@ -1,8 +1,8 @@
 services:
-  app_blog.external_content.sync:
-    class: Drupal\app_blog\ExternalContent\Command\Sync
+  app_blog.sync.command:
+    class: Drupal\app_blog\Command\Sync
     arguments:
-      - '@logger.channel.app_blog.external_content'
+      - '@logger.channel.app_blog.sync'
       - '@Drupal\app_blog\Sync\ArticleSynchronizer'
       - '@Drupal\Core\Cache\CacheTagsInvalidatorInterface'
     tags:

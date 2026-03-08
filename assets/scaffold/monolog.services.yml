@@ -51,9 +51,9 @@ parameters:
       handlers:
         - name: rotating_file.app_comment.telegram
           formatter: 'json'
-    app_blog.external_content:
+    app_blog.sync:
       handlers:
-        - name: rotating_file.app_blog.external_content
+        - name: rotating_file.app_blog.sync
           formatter: 'json'
 
 
@@ -94,6 +94,6 @@ services:
   monolog.handler.rotating_file.app_comment.telegram:
     class: Monolog\Handler\RotatingFileHandler
     arguments: [ '../var/log/telegram.log', 7 ]
-  monolog.handler.rotating_file.app_blog.external_content:
+  monolog.handler.rotating_file.app_blog.sync:
     class: Monolog\Handler\RotatingFileHandler
-    arguments: [ '../var/log/external-content.log', 7 ]
+    arguments: [ '../var/log/blog-sync.log', 7 ]

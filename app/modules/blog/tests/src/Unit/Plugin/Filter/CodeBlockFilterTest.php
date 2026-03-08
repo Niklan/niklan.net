@@ -6,6 +6,7 @@ namespace Drupal\Tests\app_blog\Unit\Plugin\Filter;
 
 use Drupal\app_blog\Plugin\Filter\CodeBlockFilter;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Tests\app_blog\Unit\Plugin\Filter\Stub\StubRenderer;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -104,6 +105,31 @@ final class CodeBlockFilterTest extends UnitTestCase {
     $filter->process($text, 'en');
 
     self::assertSame(2, $call_count);
+  }
+
+  public function testAttachmentsFromRenderedComponentPropagated(): void {
+    $renderer = new StubRenderer('<pre>code</pre>', ['library' => ['app_blog/hljs']]);
+    $filter = $this->createFilter($renderer);
+
+    $text = '<app-code-block data-language="php">echo 1;</app-code-block>';
+    $result = $filter->process($text, 'en');
+
+    self::assertSame(['library' => ['app_blog/hljs']], $result->getAttachments());
+  }
+
+  public function testAttachmentsMergedFromMultipleCodeBlocks(): void {
+    $renderer = new StubRenderer('<pre>code</pre>');
+    $filter = $this->createFilter($renderer);
+
+    $text = <<<'HTML'
+    <app-code-block data-language="php">echo 1;</app-code-block>
+    <app-code-block data-language="js">let x;</app-code-block>
+    HTML;
+
+    $result = $filter->process($text, 'en');
+
+    self::assertContains('test/lib-1', $result->getAttachments()['library']);
+    self::assertContains('test/lib-2', $result->getAttachments()['library']);
   }
 
   private function createFilter(RendererInterface $renderer): CodeBlockFilter {

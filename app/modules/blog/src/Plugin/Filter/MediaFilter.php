@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\app_blog\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -59,13 +60,17 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
 
     $media_entities = $this->loadMediaByUuids($uuids);
     $cache_tags = [];
+    $attachments = [];
 
     foreach ($elements as $element) {
-      $cache_tags = [...$cache_tags, ...$this->processElement($dom, $element, $media_entities)];
+      [$element_tags, $element_attachments] = $this->processElement($dom, $element, $media_entities);
+      $cache_tags = [...$cache_tags, ...$element_tags];
+      $attachments = BubbleableMetadata::mergeAttachments($attachments, $element_attachments);
     }
 
     $result = new FilterProcessResult(Html::serialize($dom));
     $result->addCacheTags($cache_tags);
+    $result->setAttachments(BubbleableMetadata::mergeAttachments($attachments, $result->getAttachments()));
 
     return $result;
   }
@@ -84,14 +89,14 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
   /**
    * @param array<string, \Drupal\media\MediaInterface> $media_entities
    *
-   * @return list<string>
+   * @return array{list<string>, array<string, mixed>}
    */
   private function processElement(\DOMDocument $dom, \DOMElement $element, array $media_entities): array {
     $media = $media_entities[$element->getAttribute('data-uuid')] ?? NULL;
 
     if (!$media) {
       $element->parentNode?->removeChild($element);
-      return [];
+      return [[], []];
     }
 
     $build = match ($element->getAttribute('data-bundle')) {
@@ -103,11 +108,11 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
 
     if (!$build) {
       $element->parentNode?->removeChild($element);
-      return $media->getCacheTags();
+      return [$media->getCacheTags(), []];
     }
 
     $this->replaceDomNode($dom, $element, (string) $this->renderer->renderInIsolation($build));
-    return $media->getCacheTags();
+    return [$media->getCacheTags(), $build['#attached'] ?? []];
   }
 
   private function buildImage(\DOMElement $element, MediaInterface $media): ?array {

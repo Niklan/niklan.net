@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync\Html;
 
-use Drupal\app_blog\ExternalContent\Domain\ArticleTranslation;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
 use Drupal\app_blog\Sync\Html\MediaProcessor;
 use Drupal\app_contract\Contract\Media\MediaSynchronizer;

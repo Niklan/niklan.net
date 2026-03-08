@@ -36,7 +36,6 @@ final class InternalLinkFilterTest extends KernelTestBase {
     'taxonomy',
     'text',
     'filter',
-    'external_content',
     'photoswipe',
     'breakpoint',
     'search_api',
