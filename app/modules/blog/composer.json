@@ -8,12 +8,13 @@
     "require": {
         "app/contract": "^1.0",
         "app/platform": "^1.0",
+        "app-asset/hljs": "^11.9",
+        "drupal/photoswipe": "^5.0",
         "ext-dom": "*",
         "ext-imagick": "*",
         "league/commonmark": "^2.0",
-        "app-asset/hljs": "^11.9",
-        "symfony/dom-crawler": "^6.0|^7.0",
         "symfony/config": "^6.0|^7.0",
-        "symfony/css-selector": "^6.0|^7.0"
+        "symfony/css-selector": "^6.0|^7.0",
+        "symfony/dom-crawler": "^6.0|^7.0"
     }
 }

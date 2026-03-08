@@ -4,5 +4,9 @@
     "version": "1.0.0-dev",
     "keywords": [
         "Drupal"
-    ]
+    ],
+    "require": {
+        "app/contract": "^1.0",
+        "drupal/search_api": "^1.8"
+    }
 }
