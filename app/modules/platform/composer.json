@@ -6,6 +6,7 @@
         "Drupal"
     ],
     "require": {
-        "app/contract": "^1.0"
+        "app/contract": "^1.0",
+        "app-asset/photoswipe": "^5.4"
     }
 }

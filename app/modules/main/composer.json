@@ -15,7 +15,25 @@
         "app/tag": "^1.0",
         "app/search": "^1.0",
         "app/portfolio": "^1.0",
+        "app/laszlo": "^1.0",
+        "app-asset/alpinejs": "^3.14",
+        "app-asset/quicklink": "^2.3",
+        "drupal/antibot": "^2.0",
+        "drupal/cache_pilot": "^1.0@alpha",
+        "drupal/csp": "^1.31",
+        "drupal/easy_breadcrumb": "^2.0",
+        "drupal/image_effects": "^4.0",
+        "drupal/imagemagick": "^4.0",
         "drupal/media_library_form_element": "^2",
-        "app-asset/alpinejs": "^3.14"
+        "drupal/metatag": "^2.0",
+        "drupal/monolog": "^3.0",
+        "drupal/pathauto": "^1.0",
+        "drupal/quicklink": "^2.0",
+        "drupal/rabbit_hole": "^1.0@beta",
+        "drupal/redirect": "^1.0@alpha",
+        "drupal/simple_sitemap": "^4.1",
+        "drupal/token": "^1.0",
+        "drupal/twig_tweak": "^3.0",
+        "drupal/warmer": "^2.0"
     }
 }
