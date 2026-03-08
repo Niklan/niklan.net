@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- Custom types -->
+  <xs:simpleType name="articleIdType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z0-9.-]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="languageCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ru"/>
+      <xs:enumeration value="en"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="tagType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z0-9-]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Root element -->
+  <xs:element name="article">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="translations"/>
+        <xs:element ref="tags" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="id" type="articleIdType" use="required"/>
+      <xs:attribute name="created" type="xs:dateTime" use="required"/>
+      <xs:attribute name="updated" type="xs:dateTime" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Translations block -->
+  <xs:element name="translations">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="translation" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="title" type="xs:string"/>
+              <xs:element name="description" type="xs:string"/>
+              <xs:element name="poster">
+                <xs:complexType>
+                  <xs:attribute name="src" type="xs:string" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element ref="attachments" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="language" type="languageCodeType" use="required"/>
+            <xs:attribute name="primary" type="xs:boolean"/>
+            <xs:attribute name="src" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Tags block -->
+  <xs:element name="tags">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="tag" type="tagType" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Attachments block -->
+  <xs:element name="attachments">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="attachment" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="src" type="xs:string" use="required"/>
+            <xs:attribute name="title" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

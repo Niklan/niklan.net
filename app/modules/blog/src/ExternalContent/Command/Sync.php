@@ -8,7 +8,7 @@ use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\app_platform\Console\Log\ConsoleLogger;
 use Drupal\app_blog\ExternalContent\Domain\SyncContext;
-use Drupal\app_blog\ExternalContent\Pipeline\ArticleSyncPipeline;
+use Drupal\app_blog\Sync\ArticleSynchronizer;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -24,7 +24,7 @@ final class Sync extends Command {
 
   public function __construct(
     private readonly LoggerInterface $logger,
-    private readonly ArticleSyncPipeline $syncPipeline,
+    private readonly ArticleSynchronizer $articleSynchronizer,
     private readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
   ) {
     parent::__construct();
@@ -62,7 +62,7 @@ final class Sync extends Command {
 
     $context = new SyncContext($working_directory, $content_root, $logger);
     $context->setForceStatus((bool) $input->getOption('force'));
-    $this->syncPipeline->run($context);
+    $this->articleSynchronizer->sync($context);
     $this->cacheTagsInvalidator->invalidateTags([self::CACHE_TAG]);
 
     return self::SUCCESS;

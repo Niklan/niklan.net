@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\Hook\Theme;
 
-use Drupal\app_blog\ExternalContent\Builder\TableOfContentsBuilder;
 use Drupal\app_blog\Node\ArticleBundle;
+use Drupal\app_blog\Sync\Utils\TableOfContentsBuilder;
 use Drupal\app_contract\Contract\File\File;
 use Drupal\app_contract\Utils\MediaHelper;
 use Drupal\Core\Cache\CacheableMetadata;
@@ -13,7 +13,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\external_content\Plugin\Field\FieldType\ExternalContentFieldItem;
 use Drupal\media\MediaInterface;
 use Drupal\taxonomy\TermInterface;
 
@@ -80,13 +79,12 @@ final readonly class PreprocessNode {
   }
 
   private function addTableOfContents(ArticleBundle $node, array &$variables): void {
-    if ($node->get('external_content')->isEmpty()) {
+    $html = $node->getContent();
+    if ($html === NULL) {
       return;
     }
 
-    $content = $node->get('external_content')->first();
-    \assert($content instanceof ExternalContentFieldItem);
-    $variables['toc_links'] = new TableOfContentsBuilder()->build($content);
+    $variables['toc_links'] = new TableOfContentsBuilder()->build($html);
   }
 
   private function addTags(ArticleBundle $node, array &$variables): void {

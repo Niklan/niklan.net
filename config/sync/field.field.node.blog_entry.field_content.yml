@@ -1,0 +1,24 @@
+uuid: a1b2c3d4-e5f6-7890-abcd-ef1234567891
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - filter.format.blog_article
+    - node.type.blog_entry
+  module:
+    - text
+id: node.blog_entry.field_content
+field_name: field_content
+entity_type: node
+bundle: blog_entry
+label: Содержимое
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - blog_article
+field_type: text_long

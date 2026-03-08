@@ -1,0 +1,23 @@
+uuid: e5f6a7b8-c9d0-1234-efab-345678901234
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_estimated_read_time
+    - node.type.blog_entry
+id: node.blog_entry.field_estimated_read_time
+field_name: field_estimated_read_time
+entity_type: node
+bundle: blog_entry
+label: 'Estimated read time'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

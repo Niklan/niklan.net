@@ -3,7 +3,7 @@ services:
     class: Drupal\app_blog\ExternalContent\Command\Sync
     arguments:
       - '@logger.channel.app_blog.external_content'
-      - '@Drupal\app_blog\ExternalContent\Pipeline\ArticleSyncPipeline'
+      - '@Drupal\app_blog\Sync\ArticleSynchronizer'
       - '@Drupal\Core\Cache\CacheTagsInvalidatorInterface'
     tags:
       - { name: console.command }

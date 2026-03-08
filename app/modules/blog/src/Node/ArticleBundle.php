@@ -29,12 +29,31 @@ final class ArticleBundle extends NodeBundle implements Article {
   #[\Override]
   public function getCacheTagsToInvalidate(): array {
     $cache_tags = parent::getCacheTagsToInvalidate();
-    $external_content_data = $this->getExternalContentData();
-    if (\array_key_exists(ArticleTranslationFieldUpdater::SOURCE_PATH_HASH_PROPERTY, $external_content_data)) {
-      $cache_tags[] = 'external_content:' . $external_content_data[ArticleTranslationFieldUpdater::SOURCE_PATH_HASH_PROPERTY];
+
+    $source_path_hash = $this->getSourcePathHash();
+    if ($source_path_hash) {
+      $cache_tags[] = 'external_content:' . $source_path_hash;
     }
 
     return $cache_tags;
+  }
+
+  public function getContent(): ?string {
+    if (!$this->hasField('field_content') || $this->get('field_content')->isEmpty()) {
+      return NULL;
+    }
+
+    return $this->get('field_content')->getString();
+  }
+
+  public function getSourcePathHash(): ?string {
+    if ($this->hasField('field_source_path_hash') && !$this->get('field_source_path_hash')->isEmpty()) {
+      return $this->get('field_source_path_hash')->getString();
+    }
+
+    // Fallback to legacy external_content field.
+    $data = $this->getExternalContentData();
+    return $data[ArticleTranslationFieldUpdater::SOURCE_PATH_HASH_PROPERTY] ?? NULL;
   }
 
   public function getExternalContentData(): array {
@@ -51,6 +70,11 @@ final class ArticleBundle extends NodeBundle implements Article {
   }
 
   public function getEstimatedReadTime(): int {
+    if ($this->hasField('field_estimated_read_time') && !$this->get('field_estimated_read_time')->isEmpty()) {
+      return (int) $this->get('field_estimated_read_time')->getString();
+    }
+
+    // Fallback to legacy calculation from external_content.
     $content = $this->get('external_content')->first()?->get('content')->getValue();
     if (!$content instanceof ContentNode) {
       return 0;
