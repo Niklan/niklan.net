@@ -8,7 +8,6 @@
         }
     },
     "require": {
-        "niklan/niklan": "^1.0@dev",
         "app-asset/lora": "^35"
     }
 }

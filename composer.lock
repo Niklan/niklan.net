@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a7a330de74e393fbc2d919bdd6ede76b",
+    "content-hash": "383d8c768482d26afa2fcf4aee62c818",
     "packages": [
         {
             "name": "app-asset/alpinejs",
@@ -165,11 +165,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/themes/laszlo",
-                "reference": "23ac22d30947f53d1b0a4f5c6b192a5f64c54cd7"
+                "reference": "853797f0a2c2244ea69e204d4f8c085e7518d272"
             },
             "require": {
-                "app-asset/lora": "^35",
-                "niklan/niklan": "^1.0@dev"
+                "app-asset/lora": "^35"
             },
             "type": "drupal-custom-theme",
             "autoload": {
@@ -187,7 +186,7 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/main",
-                "reference": "6d358d437bd16e887256e3cd3aa8276f419e6097"
+                "reference": "fce929ffbbce68a6490359598caec508f4838589"
             },
             "require": {
                 "app-asset/alpinejs": "^3.14",
@@ -200,8 +199,7 @@
                 "app/portfolio": "^1.0",
                 "app/search": "^1.0",
                 "app/tag": "^1.0",
-                "drupal/media_library_form_element": "^2",
-                "niklan/niklan": "^1.0"
+                "drupal/media_library_form_element": "^2"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -4973,31 +4971,6 @@
             "time": "2025-12-06T11:56:16+00:00"
         },
         {
-            "name": "niklan/niklan",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/niklan",
-                "reference": "099e15bd5fde8e57efaa3a25cbc2d38c135c6f24"
-            },
-            "require": {
-                "app-asset/alpinejs": "^3.14",
-                "app/blog": "^1.0",
-                "app/comment": "^1.0",
-                "app/contract": "^1.0",
-                "app/platform": "^1.0",
-                "app/tag": "^1.0",
-                "drupal/media_library_form_element": "^2"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "nutgram/hydrator",
             "version": "7.0.2",
             "source": {
@@ -9523,11 +9496,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/dev",
-                "reference": "56ad947e666aac639311822be5bb02b25a1a1b53"
+                "reference": "6c0f988ddfa538c3482a42c536a1b3366e0b4715"
             },
             "require": {
-                "app/main": "^1.0",
-                "niklan/niklan": "^1.0"
+                "app/main": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -15315,8 +15287,7 @@
         "drupal/cache_pilot": 15,
         "drupal/glisseo": 5,
         "drupal/rabbit_hole": 10,
-        "drupal/redirect": 15,
-        "niklan/niklan": 20
+        "drupal/redirect": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,
