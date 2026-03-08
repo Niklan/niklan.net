@@ -10,9 +10,8 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponse;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileUrlGeneratorInterface;
-use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\image\ImageStyleInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,8 +23,6 @@ final class RssFeed {
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private LanguageManagerInterface $languageManager,
-    private FileUrlGeneratorInterface $fileUrlGenerator,
-    private ImageFactory $imageFactory,
     private ConfigFactoryInterface $configFactory,
   ) {}
 
@@ -87,7 +84,10 @@ final class RssFeed {
 
     $file_uri = $file->getFileUri();
     \assert(\is_string($file_uri));
-    $url = $this->fileUrlGenerator->generateAbsoluteString($file_uri);
+
+    $image_style = $this->entityTypeManager->getStorage('image_style')->load('150x200');
+    \assert($image_style instanceof ImageStyleInterface);
+    $url = $image_style->buildUrl($file_uri);
 
     $media_content = $dom->createElement('media:content');
     $media_content->setAttribute('url', $url);
@@ -96,12 +96,6 @@ final class RssFeed {
     $mime = $file->getMimeType();
     if (\is_string($mime)) {
       $media_content->setAttribute('type', $mime);
-    }
-
-    $image = $this->imageFactory->get($file_uri);
-    if ($image->isValid()) {
-      $media_content->setAttribute('width', (string) $image->getWidth());
-      $media_content->setAttribute('height', (string) $image->getHeight());
     }
 
     $item->appendChild($media_content);
