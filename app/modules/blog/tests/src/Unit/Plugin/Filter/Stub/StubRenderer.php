@@ -47,6 +47,10 @@ final class StubRenderer implements RendererInterface {
     return $this->markup('');
   }
 
+  /**
+   * @param array $elements
+   *   The render array.
+   */
   #[\Override]
   public function renderPlain(&$elements): Markup {
     return $this->markup('');
