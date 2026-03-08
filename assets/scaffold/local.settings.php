@@ -47,8 +47,8 @@ $config['system.mail']['mailer_dsn'] = [
 $settings['trusted_host_patterns'][] = 'nginx';
 $settings['trusted_host_patterns'][] = '^niklan\.localhost$';
 
-$settings['external_content_directory'] = 'private://content';
-$settings['external_content_repository_url'] = 'https://example.com/username/repository';
+$settings['content_directory'] = 'private://content';
+$settings['content_repository_url'] = 'https://example.com/username/repository';
 $settings['website_repository_url'] = 'https://example.com/username/repository';
 
 $settings['telegram_token'] = NULL;

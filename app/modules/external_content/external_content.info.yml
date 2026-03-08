@@ -1,6 +1,0 @@
-name: External Content
-description: 'Provides functionality to build content from external sources.'
-type: module
-core_version_requirement: ^11
-container_rebuild_required: false
-package: Custom

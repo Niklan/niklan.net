@@ -77,7 +77,7 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/blog",
-                "reference": "e7acc0485d5a01983400f9a7bf978cc210492b41"
+                "reference": "b04bca9af3a41833f273734335cb0d28e5d04d66"
             },
             "require": {
                 "app-asset/hljs": "^11.9",
@@ -86,7 +86,6 @@
                 "ext-dom": "*",
                 "ext-imagick": "*",
                 "league/commonmark": "^2.0",
-                "niklan/external_content": "^1.0",
                 "symfony/config": "^6.0|^7.0",
                 "symfony/css-selector": "^6.0|^7.0",
                 "symfony/dom-crawler": "^6.0|^7.0"
@@ -4972,26 +4971,6 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.7.0"
             },
             "time": "2025-12-06T11:56:16+00:00"
-        },
-        {
-            "name": "niklan/external_content",
-            "version": "1.0.0-dev",
-            "dist": {
-                "type": "path",
-                "url": "app/modules/external_content",
-                "reference": "c05c40b7a61b4d912e27c811f412d92a289ee379"
-            },
-            "require": {
-                "league/config": "^1.2",
-                "symfony/config": "^6.0|^7.0"
-            },
-            "type": "drupal-custom-module",
-            "keywords": [
-                "Drupal"
-            ],
-            "transport-options": {
-                "relative": true
-            }
         },
         {
             "name": "niklan/niklan",
