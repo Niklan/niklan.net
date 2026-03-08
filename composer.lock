@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eabd61fc95ac2d5b2aed961014178048",
+    "content-hash": "a69827c63de49480cc8d4da60ca1a044",
     "packages": [
         {
             "name": "app-asset/alpinejs",
@@ -4948,6 +4948,63 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.7.0"
             },
             "time": "2025-12-06T11:56:16+00:00"
+        },
+        {
+            "name": "niklan/composer-directories",
+            "version": "1.0.0-alpha4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Niklan/composer-directories.git",
+                "reference": "85ab5f4b24d3415832571f7f9a84cc2d660f1e32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Niklan/composer-directories/zipball/85ab5f4b24d3415832571f7f9a84cc2d660f1e32",
+                "reference": "85ab5f4b24d3415832571f7f9a84cc2d660f1e32",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^11.0",
+                "slevomat/coding-standard": "*",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Niklan\\ComposerDirectories\\DirectoriesPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Niklan\\ComposerDirectories\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Malyshev",
+                    "homepage": "https://niklan.net"
+                }
+            ],
+            "description": "Composer plugin that automatically creates directories defined in your composer.json.",
+            "keywords": [
+                "composer-plugin",
+                "directories",
+                "ensure-directories",
+                "mkdir"
+            ],
+            "support": {
+                "issues": "https://github.com/Niklan/composer-directories/issues",
+                "source": "https://github.com/Niklan/composer-directories/tree/1.0.0-alpha4"
+            },
+            "time": "2026-03-05T08:39:49+00:00"
         },
         {
             "name": "nutgram/hydrator",
@@ -15260,7 +15317,8 @@
     "stability-flags": {
         "app/dev": 20,
         "app/main": 20,
-        "chi-teck/drupal-coder-extension": 15
+        "chi-teck/drupal-coder-extension": 15,
+        "niklan/composer-directories": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

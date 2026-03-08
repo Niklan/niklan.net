@@ -33,6 +33,7 @@
         "drupal/core-composer-scaffold": "~11.3.0",
         "drupal/core-recommended": "~11.3.0",
         "drush/drush": "^13",
+        "niklan/composer-directories": "^1.0@alpha",
         "php": ">=8.4"
     },
     "require-dev": {
@@ -47,11 +48,6 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "scripts": {
-        "post-install-cmd": [
-            "ln -nfs ../../../var/files/public web/sites/default/files"
-        ]
-    },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
@@ -60,6 +56,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
+            "niklan/composer-directories": true,
             "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
@@ -67,6 +64,16 @@
         }
     },
     "extra": {
+        "ensure-directories": [
+            "var/files/private",
+            "var/files/private/translations",
+            "var/files/public",
+            "var/files/temporary",
+            "var/log"
+        ],
+        "symlinks": {
+            "var/files/public": "web/sites/default/files"
+        },
         "drupal-scaffold": {
             "allowed-packages": [
                 "app/project"
@@ -85,11 +92,6 @@
                     "overwrite": false
                 },
                 "[project-root]/recipes/README.txt": false,
-                "[project-root]/var/files/private/.keep": "assets/scaffold/.keep",
-                "[project-root]/var/files/private/translations/.keep": "assets/scaffold/.keep",
-                "[project-root]/var/files/public/.keep": "assets/scaffold/.keep",
-                "[project-root]/var/files/temporary/.keep": "assets/scaffold/.keep",
-                "[project-root]/var/log/.keep": "assets/scaffold/.keep",
                 "[web-root]/robots.txt": {
                     "append": "assets/scaffold/robots-txt-additions.txt"
                 },
