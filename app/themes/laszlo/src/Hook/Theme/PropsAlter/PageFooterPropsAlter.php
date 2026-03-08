@@ -52,17 +52,17 @@ final readonly class PageFooterPropsAlter implements ContainerInjectionInterface
   }
 
   public function __invoke(array $props): array {
-    $external_content_directory = Settings::get('external_content_directory');
-    \assert(\is_string($external_content_directory));
-    $external_content_repository_url = Settings::get('external_content_repository_url');
-    \assert(\is_string($external_content_repository_url));
+    $content_directory = Settings::get('content_directory');
+    \assert(\is_string($content_directory));
+    $content_repository_url = Settings::get('content_repository_url');
+    \assert(\is_string($content_repository_url));
     $website_repository_url = Settings::get('website_repository_url');
     \assert(\is_string($website_repository_url));
 
     $props['versions'] = [
       'content' => $this->buildVersionInfo(
-        repository_path: $external_content_directory,
-        repository_url: $external_content_repository_url,
+        repository_path: $content_directory,
+        repository_url: $content_repository_url,
       ),
       'website' => $this->buildVersionInfo(
         repository_path: \DRUPAL_ROOT,

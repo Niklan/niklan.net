@@ -49,8 +49,8 @@ final readonly class LinkProcessor implements HtmlContentProcessor {
   }
 
   private function convertToRepositoryLink(\DOMElement $element, string $path): void {
-    $content_dir = Settings::get('external_content_directory');
-    $repository_url = Settings::get('external_content_repository_url');
+    $content_dir = Settings::get('content_directory');
+    $repository_url = Settings::get('content_repository_url');
     \assert(\is_string($content_dir) && \is_string($repository_url));
 
     $element->setAttribute('href', \str_replace(

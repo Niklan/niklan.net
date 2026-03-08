@@ -116,8 +116,8 @@ final class LinkProcessorTest extends UnitTestCase {
     $content_url = vfsStream::url('content');
 
     new Settings([
-      'external_content_directory' => $content_url,
-      'external_content_repository_url' => 'https://github.com/test/repo',
+      'content_directory' => $content_url,
+      'content_repository_url' => 'https://github.com/test/repo',
     ]);
 
     $this->processor = new LinkProcessor();

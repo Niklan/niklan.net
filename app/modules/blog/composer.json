@@ -8,7 +8,6 @@
     "require": {
         "app/contract": "^1.0",
         "app/platform": "^1.0",
-        "niklan/external_content": "^1.0",
         "ext-dom": "*",
         "ext-imagick": "*",
         "league/commonmark": "^2.0",

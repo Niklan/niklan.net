@@ -29,7 +29,7 @@ final class ArticleBundle extends NodeBundle implements Article {
 
     $source_path_hash = $this->getSourcePathHash();
     if ($source_path_hash) {
-      $cache_tags[] = 'external_content:' . $source_path_hash;
+      $cache_tags[] = 'blog_content:' . $source_path_hash;
     }
 
     return $cache_tags;

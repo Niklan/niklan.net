@@ -49,7 +49,7 @@ final class Sync extends Command {
     $output->writeln('Start syncing...');
     $logger = new ConsoleLogger($this->logger, $output);
 
-    $content_root = Settings::get('external_content_directory');
+    $content_root = Settings::get('content_directory');
     \assert(\is_string($content_root));
     $source_uri = $input->getArgument('source-uri');
     \assert(\is_string($source_uri) || \is_null($source_uri));
