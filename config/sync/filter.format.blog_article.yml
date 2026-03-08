@@ -1,0 +1,53 @@
+uuid: f6a7b8c9-d0e1-2345-fabc-456789012345
+langcode: ru
+status: true
+dependencies:
+  module:
+    - app_blog
+    - filter
+name: 'Blog Article'
+format: blog_article
+weight: 0
+filters:
+  app_blog_callout:
+    id: app_blog_callout
+    provider: app_blog
+    status: true
+    weight: 0
+    settings: {  }
+  app_blog_code_block:
+    id: app_blog_code_block
+    provider: app_blog
+    status: true
+    weight: 1
+    settings: {  }
+  app_blog_code_highlight:
+    id: app_blog_code_highlight
+    provider: app_blog
+    status: true
+    weight: 5
+    settings: {  }
+  app_blog_footnote:
+    id: app_blog_footnote
+    provider: app_blog
+    status: true
+    weight: 4
+    settings: {  }
+  app_blog_internal_link:
+    id: app_blog_internal_link
+    provider: app_blog
+    status: true
+    weight: 3
+    settings: {  }
+  app_blog_media:
+    id: app_blog_media
+    provider: app_blog
+    status: true
+    weight: 2
+    settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }

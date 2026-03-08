@@ -1,0 +1,21 @@
+uuid: b2c3d4e5-f6a7-8901-bcde-f12345678901
+langcode: ru
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_source_path_hash
+field_name: field_source_path_hash
+entity_type: node
+type: string
+settings:
+  max_length: 32
+  case_sensitive: false
+  is_ascii: true
+module: core
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

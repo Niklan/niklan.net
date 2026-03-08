@@ -21,16 +21,27 @@ use Drupal\app_blog\ExternalContent\Parser\ArticleXmlParser;
 use Drupal\app_blog\ExternalContent\Pipeline\ArticleProcessPipeline;
 use Drupal\app_blog\ExternalContent\Pipeline\ArticleSyncPipeline;
 use Drupal\app_blog\ExternalContent\Stages\ArticleFinder;
-use Drupal\app_blog\ExternalContent\Stages\ArticleProcessor;
+use Drupal\app_blog\ExternalContent\Stages\ArticleProcessor as LegacyArticleProcessor;
 use Drupal\app_blog\ExternalContent\Stages\ArticleTranslationFieldUpdater;
 use Drupal\app_blog\ExternalContent\Stages\AssetSynchronizer;
-use Drupal\app_blog\ExternalContent\Stages\LinkProcessor;
+use Drupal\app_blog\ExternalContent\Stages\LinkProcessor as LegacyLinkProcessor;
 use Drupal\app_blog\ExternalContent\Stages\MarkdownToAstParser;
 use Drupal\app_blog\ExternalContent\Validation\XmlValidator;
 use Drupal\app_blog\Generator\BannerGenerator;
 use Drupal\app_blog\Markup\Markdown\Extension\ArticleMarkdownExtension;
 use Drupal\app_blog\Repository\DatabaseArticleRepository;
 use Drupal\app_blog\SiteMap\BlogSiteMap;
+use Drupal\app_blog\Sync\ArticleMapper;
+use Drupal\app_blog\Sync\ArticleProcessor;
+use Drupal\app_blog\Sync\ArticleSynchronizer;
+use Drupal\app_blog\Sync\Contract\HtmlContentProcessor;
+use Drupal\app_blog\Sync\Html\CalloutProcessor;
+use Drupal\app_blog\Sync\Html\CodeBlockProcessor;
+use Drupal\app_blog\Sync\Html\FigureProcessor;
+use Drupal\app_blog\Sync\Html\HtmlProcessor;
+use Drupal\app_blog\Sync\Html\LinkProcessor;
+use Drupal\app_blog\Sync\Html\MediaProcessor;
+use Drupal\app_blog\Sync\Utils\EstimatedReadTimeCalculator;
 use Drupal\app_contract\Contract\Blog\ArticleRepository;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderInterface;
@@ -90,30 +101,49 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
     $autowire(XmlValidator::class);
     $autowire(ArticleXmlParser::class);
 
-    // External Content: Stages.
+    // External Content: Stages (legacy, kept for Deploy A).
     $autowire(MarkdownToAstParser::class);
     $autowire(AssetSynchronizer::class);
-    $autowire(LinkProcessor::class);
+    $autowire(LegacyLinkProcessor::class);
     $autowire(ArticleTranslationFieldUpdater::class);
-    $autowire(ArticleProcessor::class);
+    $autowire(LegacyArticleProcessor::class);
     $autowire(ArticleFinder::class);
 
-    // External Content: Pipelines.
+    // External Content: Pipelines (legacy, kept for Deploy A).
     $autowire(ArticleProcessPipeline::class);
     $autowire(ArticleSyncPipeline::class);
 
-    // External Content: Node Render Array Builders.
+    // External Content: Node Render Array Builders (legacy, kept for Deploy A).
     $autowire(ArticleLinkBuilder::class);
     $autowire(CalloutBuilder::class);
     $autowire(CodeBlockBuilder::class);
     $autowire(MediaReferenceBuilder::class);
     $autowire(FootnoteBuilder::class);
 
-    // External Content: Extensions.
+    // External Content: Extensions (legacy, kept for Deploy A).
     $autowire(RenderArrayBuilderExtension::class);
     $autowire(HtmlParserExtension::class);
     $autowire(ArrayBuilderExtension::class);
     $autowire(ArrayParserExtension::class);
+
+    // New Sync pipeline.
+    $autowire(EstimatedReadTimeCalculator::class);
+    $autowire(ArticleMapper::class);
+    $autowire(ArticleProcessor::class);
+    $autowire(ArticleSynchronizer::class);
+
+    // HTML content processors — register interface for autoconfiguration.
+    $container->registerForAutoconfiguration(HtmlContentProcessor::class)
+      ->addTag(HtmlContentProcessor::class);
+
+    $autowire(MediaProcessor::class);
+    $autowire(FigureProcessor::class);
+    $autowire(CalloutProcessor::class);
+    $autowire(CodeBlockProcessor::class);
+    $autowire(LinkProcessor::class);
+
+    // HTML processor.
+    $autowire(HtmlProcessor::class);
   }
 
 }
