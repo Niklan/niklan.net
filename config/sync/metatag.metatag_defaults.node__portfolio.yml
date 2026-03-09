@@ -5,4 +5,6 @@ dependencies: {  }
 id: node__portfolio
 label: 'Содержимое: Портфолио'
 tags:
+  description: '[node:title] — проект из портфолио Drupal-разработчика Niklan.'
+  og_description: '[node:title] — проект из портфолио Drupal-разработчика Niklan.'
   og_title: '[node:title]'
