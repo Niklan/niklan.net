@@ -587,3 +587,6 @@ msgstr "Алиса"
 
 msgid "Read this page: @url and answer questions about the content."
 msgstr "Прочитай эту страницу: @url и ответь на вопросы по её содержимому."
+
+msgid "Copy prompt"
+msgstr "Скопировать промпт"

@@ -5,10 +5,32 @@
       loading: false,
       copied: false,
       copyLabel: Drupal.t('Copy Markdown'),
+      promptCopied: false,
+      promptLabel: Drupal.t('Copy prompt'),
 
       resetCopyState() {
         this.copied = false;
         this.copyLabel = Drupal.t('Copy Markdown');
+      },
+
+      async copyPrompt() {
+        const prompt = this.$root.dataset.aiPrompt;
+        if (!prompt) {
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(prompt);
+          this.promptCopied = true;
+          this.promptLabel = Drupal.t('Copied!');
+          setTimeout(() => {
+            this.promptCopied = false;
+            this.promptLabel = Drupal.t('Copy prompt');
+          }, 3000);
+        }
+        catch (error) {
+          // Silently handle errors.
+        }
       },
 
       async copyMarkdown() {

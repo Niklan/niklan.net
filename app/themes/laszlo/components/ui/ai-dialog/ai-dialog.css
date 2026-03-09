@@ -21,6 +21,49 @@
     justify-content: center;
   }
 
+  .ai-dialog__prompt {
+    position: relative;
+  }
+
+  .ai-dialog__prompt-text {
+    display: block;
+    padding: var(--spacing-3);
+    padding-right: var(--spacing-10);
+    word-break: break-all;
+    color: var(--color-on-surface-variant);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--spacing-2);
+    background-color: var(--color-surface-container);
+    font: var(--typography-body-small);
+  }
+
+  .ai-dialog__prompt-copy {
+    --icon-wrapper-width: 20px;
+
+    position: absolute;
+    top: var(--spacing-2);
+    right: var(--spacing-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: var(--color-on-surface-variant);
+    border: none;
+    border-radius: var(--spacing-1);
+    background: transparent;
+
+    &:hover {
+      color: var(--color-on-surface);
+      background-color: var(--color-surface-container-high);
+    }
+
+    &.ai-dialog__prompt-copy--copied {
+      color: var(--color-primary);
+    }
+  }
+
   .ai-dialog__links {
     display: flex;
     flex-flow: wrap;

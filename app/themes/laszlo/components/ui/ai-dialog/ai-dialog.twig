@@ -6,7 +6,15 @@
   { label: 'Alice'|t, icon: 'alice', modifier: 'alice', href: 'https://alice.yandex.ru/?set_text=' ~ ai_prompt|url_encode },
 ] %}
 {% do attributes.setAttribute('x-data', 'AiDialog') %}
+{% do attributes.setAttribute('data-ai-prompt', ai_prompt) %}
 <div{{ attributes.addClass('ai-dialog') }}>
+  <div class="ai-dialog__prompt">
+    <code class="ai-dialog__prompt-text">{{ ai_prompt }}</code>
+    <button class="ai-dialog__prompt-copy" @click.prevent="copyPrompt" :class="promptCopied && 'ai-dialog__prompt-copy--copied'" :aria-label="promptLabel">
+      {% include 'laszlo:icon' with { icon: 'copy' } only %}
+    </button>
+  </div>
+
   <div class="ai-dialog__actions">
     {% embed 'laszlo:button' with {
       attributes: create_attribute({
@@ -66,4 +74,5 @@
       {% endembed %}
     {% endfor %}
   </div>
+
 </div>

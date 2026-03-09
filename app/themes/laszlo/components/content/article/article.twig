@@ -52,6 +52,16 @@
 
     <div class="article__main">
       <aside class="article__sidebar">
+        {% include 'laszlo:fab' with {
+          attributes: create_attribute({
+            'class': ['article__sidebar-fab', 'article__sidebar-fab--ai'],
+            'x-data': '',
+            'title': 'Discuss with AI'|t,
+            '@click.prevent': "$dispatch('show-ai-dialog')",
+          }),
+          label: 'Discuss with AI'|t,
+          icon: 'ai',
+        } only %}
         {% if toc_links %}
           {% include 'laszlo:fab' with {
             attributes: create_attribute({
@@ -71,16 +81,6 @@
           }),
           label: 'Share'|t,
           icon: 'square-share-line-bold-duotone',
-        } only %}
-        {% include 'laszlo:fab' with {
-          attributes: create_attribute({
-            'class': ['article__sidebar-fab'],
-            'x-data': '',
-            'title': 'Discuss with AI'|t,
-            '@click.prevent': "$dispatch('show-ai-dialog')",
-          }),
-          label: 'Discuss with AI'|t,
-          icon: 'ai',
         } only %}
         {% include 'laszlo:fab' with {
           attributes: create_attribute({

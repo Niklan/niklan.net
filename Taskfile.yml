@@ -78,6 +78,11 @@ tasks:
     desc: Runs 'stylelint' command.
     cmd: '{{.NODE_BIN}} {{.NODEJS_BIN_DIR}}/stylelint {{.CLI_ARGS}}'
 
+  prettier:
+    label: Prettier
+    desc: Runs 'prettier' command.
+    cmd: '{{.NODE_BIN}} {{.NODEJS_BIN_DIR}}/prettier {{.CLI_ARGS}}'
+
   cspell:
     label: CSPell
     desc: Runs 'cspell' command.
@@ -210,6 +215,8 @@ tasks:
     label: CSS
     desc: Fix CSS issues.
     cmds:
+      - task: prettier
+        vars: { CLI_ARGS: '--write "./app/**/*.css"' }
       - task: validate/css
         vars: { CLI_ARGS: '--fix' }
 
