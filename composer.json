@@ -27,14 +27,14 @@
         }
     ],
     "require": {
+        "php": ">=8.4",
         "app/main": "^1.0@dev",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.6",
         "drupal/core-composer-scaffold": "~11.3.0",
         "drupal/core-recommended": "~11.3.0",
         "drush/drush": "^13",
-        "niklan/composer-directories": "^1.0@alpha",
-        "php": ">=8.4"
+        "niklan/composer-directories": "^1.0@alpha"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^2.0@alpha",
@@ -92,6 +92,7 @@
                     "overwrite": false
                 },
                 "[project-root]/recipes/README.txt": false,
+                "[web-root]/llms.txt": "assets/scaffold/llms.txt",
                 "[web-root]/robots.txt": {
                     "append": "assets/scaffold/robots-txt-additions.txt"
                 },

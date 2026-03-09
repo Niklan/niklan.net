@@ -17,6 +17,12 @@ final class BlogList {
     protected LanguageManagerInterface $languageManager,
   ) {}
 
+  public function load(): array {
+    $ids = $this->getEntityIds();
+
+    return $this->entityTypeManager->getStorage('node')->loadMultiple($ids);
+  }
+
   protected function getItems(): array {
     $items = [];
 
@@ -35,12 +41,6 @@ final class BlogList {
       '#type' => 'pager',
       '#quantity' => 5,
     ];
-  }
-
-  protected function load(): array {
-    $ids = $this->getEntityIds();
-
-    return $this->entityTypeManager->getStorage('node')->loadMultiple($ids);
   }
 
   protected function getEntityIds(): array {

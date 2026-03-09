@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\app_main;
 
+use Drupal\app_main\Llms\HomeLlmsSubscriber;
 use Drupal\app_main\Navigation\SiteMap\MainMenuSiteMap;
 use Drupal\app_main\Navigation\Toolbar\ContentEditingToolbarLinksBuilder;
 use Drupal\app_main\StaticPage\About\Repository\AboutSettings;
@@ -29,6 +30,8 @@ final readonly class AppMainServiceProvider implements ServiceProviderInterface 
     $autowire(ContactSettings::class);
     $autowire(ServicesSettings::class);
     $autowire(SupportSettings::class);
+
+    $autowire(HomeLlmsSubscriber::class);
 
     $container->register(ContentEditingToolbarLinksBuilder::class)
       ->setPublic(TRUE)
