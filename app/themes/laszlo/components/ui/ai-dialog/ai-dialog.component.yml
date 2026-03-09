@@ -1,0 +1,16 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: AI Dialog
+status: experimental
+group: molecules
+props:
+  type: object
+  required:
+    - url
+  properties:
+    url:
+      title: URL
+      type: string
+      format: iri-string
+libraryOverrides:
+  dependencies:
+    - app_main/alpinejs

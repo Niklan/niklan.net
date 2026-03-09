@@ -53,6 +53,11 @@
       {{ 'Skip to main content'|t }}
     </a>
     {{ page_top }}
+    {# Drupal's lazy builder does not render status_messages template when there
+       are no server-side messages, so [data-drupal-messages] is missing from the
+       DOM. This ensures the StatusMessages Alpine component is always available
+       for client-side messages (e.g. clipboard notifications). #}
+    {% include 'laszlo:status-messages' with { messages: [] } only %}
     {{ page }}
     {{ page_bottom }}
     <js-bottom-placeholder token="{{ placeholder_token }}">

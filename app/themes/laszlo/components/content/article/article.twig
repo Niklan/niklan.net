@@ -75,6 +75,16 @@
         {% include 'laszlo:fab' with {
           attributes: create_attribute({
             'class': ['article__sidebar-fab'],
+            'x-data': '',
+            'title': 'Discuss with AI'|t,
+            '@click.prevent': "$dispatch('show-ai-dialog')",
+          }),
+          label: 'Discuss with AI'|t,
+          icon: 'ai',
+        } only %}
+        {% include 'laszlo:fab' with {
+          attributes: create_attribute({
+            'class': ['article__sidebar-fab'],
           }),
           label: 'Comments'|t,
           icon: 'chat-round-dots-bold-duotone',
@@ -148,6 +158,21 @@
     {% block content %}
       {% include 'laszlo:share-dialog' with {
         title: content_title,
+        url: content_url,
+      } only %}
+    {% endblock %}
+  {% endembed %}
+
+  {% embed 'laszlo:dialog' with {
+    title: 'Discuss with AI'|t,
+    attributes: create_attribute({
+      'class': ['dialog--ai'],
+      '@show-ai-dialog.window': 'show',
+    }),
+    content_url: url_absolute,
+  } only %}
+    {% block content %}
+      {% include 'laszlo:ai-dialog' with {
         url: content_url,
       } only %}
     {% endblock %}
