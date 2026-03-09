@@ -1,0 +1,8 @@
+uuid: c622b175-e81a-4886-b3da-3f5b1a89a23e
+langcode: ru
+status: true
+dependencies: {  }
+id: app_search.search_page
+label: /search
+tags:
+  description: 'Поиск по блогу — находите статьи, руководства и заметки по веб-разработке и Drupal.'

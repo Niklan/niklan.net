@@ -1,0 +1,8 @@
+uuid: eb20af19-bbd1-4b54-98a1-2095b8aa9a9e
+langcode: ru
+status: true
+dependencies: {  }
+id: app_main.about
+label: /about
+tags:
+  description: 'Обо мне — кто я, чем занимаюсь, мой опыт и профессиональные интересы в веб-разработке.'

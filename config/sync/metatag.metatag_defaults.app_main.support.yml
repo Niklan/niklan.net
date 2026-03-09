@@ -1,0 +1,8 @@
+uuid: 48973575-6507-4e5b-9038-2c2d8fc095cb
+langcode: ru
+status: true
+dependencies: {  }
+id: app_main.support
+label: /support
+tags:
+  description: 'Информация о добровольной финансовой поддержке блога.'

@@ -1,0 +1,8 @@
+uuid: fb6e0da0-d3e2-45e5-ac55-409317bb6e33
+langcode: ru
+status: true
+dependencies: {  }
+id: app_main.services
+label: /services
+tags:
+  description: 'Разработка на Drupal — создание, поддержка и развитие сайтов. Условия сотрудничества и стоимость услуг.'

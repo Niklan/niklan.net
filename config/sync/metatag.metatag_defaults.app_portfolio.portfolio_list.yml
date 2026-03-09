@@ -1,0 +1,8 @@
+uuid: 0fbc77f3-50c2-414c-963c-fc3b18c93255
+langcode: ru
+status: true
+dependencies: {  }
+id: app_portfolio.portfolio_list
+label: /portfolio
+tags:
+  description: 'Портфолио — реализованные проекты по разработке сайтов на Drupal с описанием и скриншотами.'

@@ -1,0 +1,8 @@
+uuid: 1012ac86-d80a-4b3d-8e30-424c64a690ef
+langcode: ru
+status: true
+dependencies: {  }
+id: app_main.contact
+label: /contact
+tags:
+  description: 'Способы связи со мной — напишите на email или в Telegram для обсуждения проектов и сотрудничества.'

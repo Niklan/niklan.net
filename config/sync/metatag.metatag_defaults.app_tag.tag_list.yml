@@ -1,0 +1,8 @@
+uuid: e1c36a04-fb98-4259-aaa3-ec432a455560
+langcode: ru
+status: true
+dependencies: {  }
+id: app_tag.tag_list
+label: /tags
+tags:
+  description: 'Список тегов блога с количеством публикаций — выберите тему и найдите все связанные статьи.'

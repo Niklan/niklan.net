@@ -1,0 +1,8 @@
+uuid: 87c59492-42ac-41e5-9e93-2f56ded9bb6d
+langcode: ru
+status: true
+dependencies: {  }
+id: app_main.sitemap
+label: /sitemap
+tags:
+  description: 'Полная карта сайта — все разделы, статьи и проекты в одном месте для удобной навигации.'
