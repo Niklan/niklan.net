@@ -21,7 +21,7 @@ final class DevelopmentWarningToolbarTest extends KernelTestBase {
    * Provides a test for element when settings is enabled.
    */
   public function testWarning(): void {
-    $implementation = new DevelopmentWarningToolbar();
+    $implementation = new DevelopmentWarningToolbar($this->container->get('string_translation'));
     $result = $implementation();
 
     self::assertArrayHasKey('dev-site-warning', $result);
