@@ -569,3 +569,24 @@ msgstr "Просмотр страницы"
 
 msgid "Site index"
 msgstr "Карта сайта"
+
+msgid "Discuss with AI"
+msgstr "Обсудить с AI"
+
+msgid "Copy Markdown"
+msgstr "Скопировать Markdown"
+
+msgid "Copied!"
+msgstr "Скопировано!"
+
+msgid "View as Markdown"
+msgstr "Просмотреть как Markdown"
+
+msgid "Alice"
+msgstr "Алиса"
+
+msgid "Read this page: @url and answer questions about the content."
+msgstr "Прочитай эту страницу: @url и ответь на вопросы по её содержимому."
+
+msgid "Copy prompt"
+msgstr "Скопировать промпт"

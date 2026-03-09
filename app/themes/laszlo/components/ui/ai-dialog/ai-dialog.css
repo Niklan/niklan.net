@@ -1,0 +1,96 @@
+@layer component.ui {
+  .dialog--ai .dialog__pane {
+    background-color: var(--color-surface-container-lowest);
+    backdrop-filter: none;
+  }
+
+  .ai-dialog {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .ai-dialog__actions {
+    display: flex;
+    flex-flow: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .ai-dialog__action {
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .ai-dialog__prompt {
+    position: relative;
+  }
+
+  .ai-dialog__prompt-text {
+    display: block;
+    padding: var(--spacing-3);
+    padding-right: var(--spacing-10);
+    word-break: break-all;
+    color: var(--color-on-surface-variant);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--spacing-2);
+    background-color: var(--color-surface-container);
+    font: var(--typography-body-small);
+  }
+
+  .ai-dialog__prompt-copy {
+    --icon-wrapper-width: 20px;
+
+    position: absolute;
+    top: var(--spacing-2);
+    right: var(--spacing-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: var(--color-on-surface-variant);
+    border: none;
+    border-radius: var(--spacing-1);
+    background: transparent;
+
+    &:hover {
+      color: var(--color-on-surface);
+      background-color: var(--color-surface-container-high);
+    }
+
+    &.ai-dialog__prompt-copy--copied {
+      color: var(--color-primary);
+    }
+  }
+
+  .ai-dialog__links {
+    display: flex;
+    flex-flow: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .ai-dialog__link {
+    --button-color: white;
+    --button-color-hover: white;
+
+    flex-grow: 1;
+    justify-content: center;
+    font: var(--typography-label-large);
+  }
+
+  .ai-dialog__link--claude {
+    --button-background-color: #d77757;
+    --button-background-color-hover: color-mix(in sRGB, #d77757, black 10%);
+  }
+
+  .ai-dialog__link--chatgpt {
+    --button-background-color: #0d0d0d;
+    --button-background-color-hover: color-mix(in sRGB, #0d0d0d, black 10%);
+  }
+
+  .ai-dialog__link--alice {
+    --button-background-color: #7a55ff;
+    --button-background-color-hover: color-mix(in sRGB, #7a55ff, black 10%);
+  }
+}

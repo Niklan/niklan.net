@@ -1,0 +1,78 @@
+{% set llms_url = url ~ '?_wrapper_format=llms' %}
+{% set ai_prompt = 'Read this page: @url and answer questions about the content.'|t({'@url': llms_url}) %}
+{% set links = [
+  { label: 'Claude', icon: 'claude', modifier: 'claude', href: 'https://claude.ai/new?q=' ~ ai_prompt|url_encode },
+  { label: 'ChatGPT', icon: 'chatgpt', modifier: 'chatgpt', href: 'https://chatgpt.com/?prompt=' ~ ai_prompt|url_encode },
+  { label: 'Alice'|t, icon: 'alice', modifier: 'alice', href: 'https://alice.yandex.ru/?set_text=' ~ ai_prompt|url_encode },
+] %}
+{% do attributes.setAttribute('x-data', 'AiDialog') %}
+{% do attributes.setAttribute('data-ai-prompt', ai_prompt) %}
+<div{{ attributes.addClass('ai-dialog') }}>
+  <div class="ai-dialog__prompt">
+    <code class="ai-dialog__prompt-text">{{ ai_prompt }}</code>
+    <button class="ai-dialog__prompt-copy" @click.prevent="copyPrompt" :class="promptCopied && 'ai-dialog__prompt-copy--copied'" :aria-label="promptLabel">
+      {% include 'laszlo:icon' with { icon: 'copy' } only %}
+    </button>
+  </div>
+
+  <div class="ai-dialog__actions">
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['ai-dialog__action'],
+        '@click.prevent': 'copyMarkdown',
+        ':disabled': 'loading',
+      }),
+      variant: 'contained',
+      color: 'primary',
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'copy' } only %}
+      {% endblock %}
+      {% block children %}
+        <span x-text="copyLabel">{{ 'Copy Markdown'|t }}</span>
+      {% endblock %}
+    {% endembed %}
+
+    {% embed 'laszlo:button' with {
+      attributes: create_attribute({
+        'class': ['ai-dialog__action'],
+        'target': '_blank',
+        'rel': 'noopener nofollow',
+      }),
+      variant: 'contained',
+      color: 'primary',
+      href: llms_url,
+    } only %}
+      {% block start_icon %}
+        {% include 'laszlo:icon' with { icon: 'markdown' } only %}
+      {% endblock %}
+      {% block children %}
+        {{ 'View as Markdown'|t }}
+      {% endblock %}
+    {% endembed %}
+  </div>
+
+  <div class="ai-dialog__links">
+    {% for link in links %}
+      {% embed 'laszlo:button' with {
+        attributes: create_attribute({
+          'class': ['ai-dialog__link', 'ai-dialog__link--' ~ link.modifier],
+          'target': '_blank',
+          'rel': 'noopener nofollow',
+        }),
+        as_template: true,
+        href: link.href,
+        link_icon: link.icon,
+        link_label: link.label,
+      } only %}
+        {% block start_icon %}
+          {% include 'laszlo:icon' with { icon: link_icon } only %}
+        {% endblock %}
+        {% block children %}
+          {{ link_label }}
+        {% endblock %}
+      {% endembed %}
+    {% endfor %}
+  </div>
+
+</div>

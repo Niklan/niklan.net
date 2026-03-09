@@ -232,6 +232,61 @@
     max-width: 900px;
   }
 
+  .article__sidebar-fab--ai {
+    overflow: hidden;
+  }
+
+  .article__sidebar-fab--ai::before,
+  .article__sidebar-fab--ai::after {
+    position: absolute;
+    z-index: 0;
+    width: 200%;
+    height: 200%;
+    content: "";
+    animation: ai-fab-orbit 20s linear infinite;
+    opacity: 1;
+  }
+
+  .article__sidebar-fab--ai::before {
+    background: radial-gradient(
+      circle at center,
+      light-dark(#c4b5fd, #a78bfa) 0%,
+      transparent 60%
+    );
+  }
+
+  .article__sidebar-fab--ai::after {
+    animation-delay: -10s;
+    background: radial-gradient(
+      circle at center,
+      light-dark(#e9b8fb, #f0abfc) 0%,
+      transparent 60%
+    );
+  }
+
+  .article__sidebar-fab--ai > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes ai-fab-orbit {
+    0% {
+      transform: translate(25%, 0%);
+    }
+    25% {
+      transform: translate(0%, 25%);
+    }
+    50% {
+      transform: translate(-25%, 0%);
+    }
+    75% {
+      transform: translate(0%, -25%);
+    }
+    100% {
+      transform: translate(25%, 0%);
+    }
+  }
+
   @keyframes article-header-rgb-gamer-edition {
     0% {
       transform: rotate(0deg);

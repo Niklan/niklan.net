@@ -32,16 +32,6 @@ request-idle-callback:
   js:
     assets/js/request-idle-callback.polyfill.js: { }
 
-messages:
-  js:
-    assets/js/messages.js: { }
-  css:
-    theme:
-      assets/css/03-component/ui/status-messages.css: { }
-      assets/css/03-component/ui/status-message.css: { }
-  dependencies:
-    - app_main/alpinejs
-
 hljs:
   css:
     theme:

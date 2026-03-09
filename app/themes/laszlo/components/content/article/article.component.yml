@@ -30,6 +30,9 @@ props:
     previous_link:
       title: Previous link
       type: [ 'null', array ]
+libraryOverrides:
+  dependencies:
+    - app_main/alpinejs
 slots:
   summary:
     title: Summary
