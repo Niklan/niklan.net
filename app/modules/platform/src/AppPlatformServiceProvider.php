@@ -15,6 +15,7 @@ use Drupal\app_platform\Llms\EventSubscriber\LlmsFooterSubscriber;
 use Drupal\app_platform\Llms\EventSubscriber\PagerLlmsSubscriber;
 use Drupal\app_platform\Llms\HtmlToMarkdownConverter;
 use Drupal\app_platform\Llms\LlmsRenderer;
+use Drupal\app_platform\Llms\Middleware\LlmsRequestLogger;
 use Drupal\app_platform\Llms\PathProcessor\LlmsFormatPathProcessor;
 use Drupal\app_platform\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes;
 use Drupal\app_platform\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory;
@@ -74,6 +75,10 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
       id: 'logger.channel.app_platform',
       definition: new ChildDefinition('logger.channel_base')->addArgument('app_platform'),
     );
+    $container->setDefinition(
+      id: 'logger.channel.app_platform.llms',
+      definition: new ChildDefinition('logger.channel_base')->addArgument('app_platform.llms'),
+    );
 
     // Llms.
     $autowire(HtmlToMarkdownConverter::class);
@@ -81,6 +86,7 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
     $autowire(PagerLlmsSubscriber::class);
     $autowire(LlmsFooterSubscriber::class);
     $autowire(LlmsFormatPathProcessor::class);
+    $autowire(LlmsRequestLogger::class);
 
     // Hooks.
     $autowire(CacheBustingQuerySetting::class);

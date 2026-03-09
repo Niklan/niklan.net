@@ -51,6 +51,10 @@ parameters:
       handlers:
         - name: rotating_file.app_blog.sync
           formatter: 'json'
+    app_platform.llms:
+      handlers:
+        - name: rotating_file.app_platform.llms
+          formatter: 'json'
 
 
 services:
@@ -90,3 +94,6 @@ services:
   monolog.handler.rotating_file.app_blog.sync:
     class: Monolog\Handler\RotatingFileHandler
     arguments: [ '../var/log/blog-sync.log', 7 ]
+  monolog.handler.rotating_file.app_platform.llms:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments: [ '../var/log/llms.log', 7 ]
