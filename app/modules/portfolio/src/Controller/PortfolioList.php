@@ -15,6 +15,17 @@ final readonly class PortfolioList {
     private PortfolioSettings $settings,
   ) {}
 
+  /**
+   * @return \Drupal\node\NodeInterface[]
+   *   The nodes.
+   */
+  public function load(): array {
+    return $this
+      ->entityTypeManager
+      ->getStorage('node')
+      ->loadMultiple($this->getEntityIds());
+  }
+
   protected function buildItems(): array {
     $view_builder = $this->entityTypeManager->getViewBuilder('node');
     $items = [];
@@ -24,17 +35,6 @@ final readonly class PortfolioList {
     }
 
     return $items;
-  }
-
-  /**
-   * @return \Drupal\node\NodeInterface[]
-   *   The nodes.
-   */
-  protected function load(): array {
-    return $this
-      ->entityTypeManager
-      ->getStorage('node')
-      ->loadMultiple($this->getEntityIds());
   }
 
   protected function getEntityIds(): array {

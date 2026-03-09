@@ -9,7 +9,13 @@ use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
 use Drupal\app_platform\Console\Process\ProcessGit;
 use Drupal\app_platform\Console\Process\ProcessTerminal;
 use Drupal\app_platform\Hook\Asset\CacheBustingQuerySetting;
+use Drupal\app_platform\Hook\Core\LlmsPageAttachments;
 use Drupal\app_platform\Hook\Theme\LibraryInfoAlter;
+use Drupal\app_platform\Llms\EventSubscriber\LlmsFooterSubscriber;
+use Drupal\app_platform\Llms\EventSubscriber\PagerLlmsSubscriber;
+use Drupal\app_platform\Llms\HtmlToMarkdownConverter;
+use Drupal\app_platform\Llms\LlmsRenderer;
+use Drupal\app_platform\Llms\PathProcessor\LlmsFormatPathProcessor;
 use Drupal\app_platform\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes;
 use Drupal\app_platform\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory;
 use Drupal\app_platform\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory;
@@ -69,9 +75,17 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
       definition: new ChildDefinition('logger.channel_base')->addArgument('app_platform'),
     );
 
+    // Llms.
+    $autowire(HtmlToMarkdownConverter::class);
+    $autowire(LlmsRenderer::class);
+    $autowire(PagerLlmsSubscriber::class);
+    $autowire(LlmsFooterSubscriber::class);
+    $autowire(LlmsFormatPathProcessor::class);
+
     // Hooks.
     $autowire(CacheBustingQuerySetting::class);
     $autowire(LibraryInfoAlter::class);
+    $autowire(LlmsPageAttachments::class);
 
   }
 

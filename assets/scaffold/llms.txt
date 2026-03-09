@@ -1,0 +1,24 @@
+# Niklan.net
+
+> Personal blog of Nikita Malyshev (Niklan), a Drupal web developer. The site is primarily in Russian. It features articles about web development, Drupal, PHP, and related technologies.
+
+## How to access content
+
+Every page on this site supports a Markdown version optimized for LLMs. Append `?_wrapper_format=llms` to any page URL to get clean Markdown instead of HTML.
+
+Example: `https://niklan.net/blog/123?_wrapper_format=llms`
+
+## Pages
+
+- [Blog](/blog): Articles about web development, Drupal, PHP, and technology. Paginated list of all articles.
+- [Tags](/tags): Browse articles by topic tags with usage statistics.
+- [Portfolio](/portfolio): Portfolio of completed projects.
+- [About](/about): About the author — Nikita Malyshev, freelance Drupal web developer.
+- [Services](/services): Information about available services and collaboration.
+- [Contact](/contact): Contact information and ways to get in touch.
+- [Support](/support): Ways to support the author.
+
+## Optional
+
+- [Blog RSS Feed](/blog.xml): RSS feed for blog articles.
+- [Search](/search?q=QUERY): Site search. Replace QUERY with your search term.

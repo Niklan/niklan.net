@@ -512,3 +512,60 @@ msgstr "Перейти на сайт"
 
 msgid "Recent posts"
 msgstr "Последние публикации"
+
+msgid "Navigation"
+msgstr "Навигация"
+
+msgid "Page @current of @total"
+msgstr "Страница @current из @total"
+
+msgid "First page"
+msgstr "Первая страница"
+
+msgid "Previous page"
+msgstr "Предыдущая страница"
+
+msgid "Next page"
+msgstr "Следующая страница"
+
+msgid "Last page"
+msgstr "Последняя страница"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Estimated read time"
+msgstr "Примерное время чтения"
+
+msgid "@count min"
+msgstr "@count мин"
+
+msgid "Tags"
+msgstr "Теги"
+
+msgid "About the author"
+msgstr "Об авторе"
+
+msgid "All publications"
+msgstr "Все публикации"
+
+msgid "Categories"
+msgstr "Категории"
+
+msgid "Year"
+msgstr "Год"
+
+msgid "Project URL"
+msgstr "URL проекта"
+
+msgid "Screenshots"
+msgstr "Скриншоты"
+
+msgid "@count publications"
+msgstr "@count публикаций"
+
+msgid "View page"
+msgstr "Просмотр страницы"
+
+msgid "Site index"
+msgstr "Карта сайта"

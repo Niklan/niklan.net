@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\app_blog;
 
 use Drupal\app_blog\Controller\BlogList;
+use Drupal\app_blog\Llms\ArticleLlmsSubscriber;
+use Drupal\app_blog\Llms\BlogListLlmsSubscriber;
 use Drupal\app_blog\Controller\RssFeed;
 use Drupal\app_blog\Controller\RssFeedRedirect;
 use Drupal\app_blog\Controller\RssFeedStylesheet;
@@ -102,6 +104,10 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
 
     // HTML processor.
     $autowire(HtmlProcessor::class);
+
+    // Llms.
+    $autowire(ArticleLlmsSubscriber::class);
+    $autowire(BlogListLlmsSubscriber::class);
   }
 
 }

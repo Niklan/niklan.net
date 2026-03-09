@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Drupal\app_portfolio;
 
 use Drupal\app_portfolio\Controller\PortfolioList;
+use Drupal\app_portfolio\Llms\PortfolioListLlmsSubscriber;
+use Drupal\app_portfolio\Llms\PortfolioLlmsSubscriber;
 use Drupal\app_portfolio\Repository\PortfolioSettings;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderInterface;
@@ -20,6 +22,8 @@ final readonly class AppPortfolioServiceProvider implements ServiceProviderInter
 
     $autowire(PortfolioSettings::class);
     $autowire(PortfolioList::class);
+    $autowire(PortfolioListLlmsSubscriber::class);
+    $autowire(PortfolioLlmsSubscriber::class);
   }
 
 }

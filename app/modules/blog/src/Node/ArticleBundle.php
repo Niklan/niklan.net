@@ -40,7 +40,7 @@ final class ArticleBundle extends NodeBundle implements Article {
       return NULL;
     }
 
-    return $this->get('field_content')->getString();
+    return $this->get('field_content')->first()?->get('value')->getString();
   }
 
   public function getSourcePathHash(): ?string {
