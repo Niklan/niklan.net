@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 final class BundleInfoAlterTest extends UnitTestCase {
 
   public function testPortfolioBundleClass(): void {
-    $hook = new BundleInfoAlter();
+    $hook = new BundleInfoAlter($this->getStringTranslationStub());
     $bundles = [];
 
     $hook($bundles);
@@ -22,7 +22,7 @@ final class BundleInfoAlterTest extends UnitTestCase {
   }
 
   public function testExistingBundlesPreserved(): void {
-    $hook = new BundleInfoAlter();
+    $hook = new BundleInfoAlter($this->getStringTranslationStub());
     $bundles = [
       'node' => [
         'article' => [

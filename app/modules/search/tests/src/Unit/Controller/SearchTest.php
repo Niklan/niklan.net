@@ -99,6 +99,7 @@ final class SearchTest extends UnitTestCase {
       $entity_search->reveal(),
       $entity_type_manager,
       $pager_manager->reveal(),
+      $this->getStringTranslationStub(),
     );
   }
 
