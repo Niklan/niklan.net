@@ -7,7 +7,6 @@ namespace Drupal\app_portfolio\Form;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\app_portfolio\Repository\PortfolioSettings;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 final class PortfolioSettingsForm extends LanguageAwareStoreForm {
 
@@ -22,8 +21,8 @@ final class PortfolioSettingsForm extends LanguageAwareStoreForm {
 
     $form['description'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Body'),
-      '#description' => new TranslatableMarkup('The description of portfolio page.'),
+      '#title' => $this->stringTranslation->translate('Body'),
+      '#description' => $this->stringTranslation->translate('The description of portfolio page.'),
       '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [PortfolioSettings::TEXT_FORMAT],
       '#rows' => 3,

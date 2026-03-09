@@ -7,7 +7,7 @@ namespace Drupal\app_main\Navigation\SiteMap;
 use Drupal\Core\Link;
 use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\app_contract\Contract\SiteMap\Category;
 use Drupal\app_contract\Contract\SiteMap\Section;
 use Drupal\app_contract\Contract\SiteMap\SiteMap;
@@ -17,13 +17,14 @@ final readonly class MainMenuSiteMap implements SiteMapBuilder {
 
   public function __construct(
     private MenuLinkTreeInterface $menuLinkTree,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   #[\Override]
   public function build(): SiteMap {
     $sitemap = new SiteMap();
-    $category = new Category(new TranslatableMarkup('General', options: ['context' => 'site map category']));
-    $section = new Section(new TranslatableMarkup('Pages'));
+    $category = new Category($this->stringTranslation->translate('General', options: ['context' => 'site map category']));
+    $section = new Section($this->stringTranslation->translate('Pages'));
 
     $tree = $this->menuLinkTree->load('main', new MenuTreeParameters());
     $manipulators = [

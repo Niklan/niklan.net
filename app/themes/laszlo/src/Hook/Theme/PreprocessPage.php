@@ -6,7 +6,7 @@ namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\laszlo\Hook\Theme\PropsAlter\BrandingPropsAlter;
 use Drupal\laszlo\Hook\Theme\PropsAlter\PageFooterPropsAlter;
 use Drupal\laszlo\Hook\Theme\PropsAlter\PageHeaderPropsAlter;
@@ -17,12 +17,14 @@ final readonly class PreprocessPage implements ContainerInjectionInterface {
 
   public function __construct(
     private ClassResolverInterface $classResolver,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(ClassResolverInterface::class),
+      $container->get(TranslationInterface::class),
     );
   }
 
@@ -51,7 +53,7 @@ final readonly class PreprocessPage implements ContainerInjectionInterface {
           '#type' => 'component',
           '#component' => 'laszlo:search-bar',
           '#props' => [
-            'placeholder' => new TranslatableMarkup('Site search'),
+            'placeholder' => $this->stringTranslation->translate('Site search'),
           ],
         ],
       ],

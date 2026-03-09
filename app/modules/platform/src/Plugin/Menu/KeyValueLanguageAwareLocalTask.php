@@ -9,7 +9,7 @@ use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -19,12 +19,14 @@ final class KeyValueLanguageAwareLocalTask extends DeriverBase implements Contai
 
   public function __construct(
     private readonly LanguageManagerInterface $languageManager,
+    private readonly TranslationInterface $stringTranslation,
   ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container, $base_plugin_id): self {
     return new self(
       $container->get(LanguageManagerInterface::class),
+      $container->get(TranslationInterface::class),
     );
   }
 
@@ -33,7 +35,7 @@ final class KeyValueLanguageAwareLocalTask extends DeriverBase implements Contai
     foreach (LanguageAwareSettingsRoutes::ROUTES_TO_ENHANCE as $route_name) {
       // @todo This tab should be managed by the consumer.
       $this->derivatives[$route_name] = [
-        'title' => new TranslatableMarkup('Settings'),
+        'title' => $this->stringTranslation->translate('Settings'),
         'route_name' => $route_name,
         'base_route' => $route_name,
       ] + $base_plugin_definition;

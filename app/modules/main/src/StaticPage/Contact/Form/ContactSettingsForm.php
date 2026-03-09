@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\app_main\StaticPage\Contact\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\app_main\StaticPage\Contact\Repository\ContactSettings;
 
@@ -22,22 +21,22 @@ final class ContactSettingsForm extends LanguageAwareStoreForm {
 
     $form['email'] = [
       '#type' => 'email',
-      '#title' => new TranslatableMarkup('Email'),
+      '#title' => $this->stringTranslation->translate('Email'),
       '#default_value' => $this->getSettings()->getEmail(),
       '#required' => TRUE,
     ];
 
     $form['telegram'] = [
       '#type' => 'url',
-      '#title' => new TranslatableMarkup('Telegram'),
+      '#title' => $this->stringTranslation->translate('Telegram'),
       '#default_value' => $this->getSettings()->getTelegram(),
       '#required' => TRUE,
     ];
 
     $form['description'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Description'),
-      '#description' => new TranslatableMarkup('The description of the about page.'),
+      '#title' => $this->stringTranslation->translate('Description'),
+      '#description' => $this->stringTranslation->translate('The description of the about page.'),
       '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [ContactSettings::TEXT_FORMAT],
       '#rows' => 3,

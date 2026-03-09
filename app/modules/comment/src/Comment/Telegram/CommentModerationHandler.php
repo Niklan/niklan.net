@@ -9,7 +9,7 @@ use Drupal\comment\CommentInterface;
 use Drupal\comment\CommentStorageInterface;
 use Drupal\comment\Entity\Comment;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardButton;
@@ -22,6 +22,7 @@ final readonly class CommentModerationHandler {
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private Telegram $telegram,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   public function handle(CommentInterface $comment): void {
@@ -67,15 +68,15 @@ final readonly class CommentModerationHandler {
   }
 
   private function buildMessageText(CommentInterface $comment): string {
-    $new_comment = new TranslatableMarkup('New comment');
-    $publication_property = new TranslatableMarkup('Publication');
+    $new_comment = $this->stringTranslation->translate('New comment');
+    $publication_property = $this->stringTranslation->translate('Publication');
     $publication_label = $comment->getCommentedEntity()?->label();
     $publication_url = $comment->getCommentedEntity()?->toUrl()->setAbsolute()->toString();
-    $author_property = new TranslatableMarkup('Author');
+    $author_property = $this->stringTranslation->translate('Author');
     $author_name = $comment->getAuthorName();
-    $author_email_property = new TranslatableMarkup('Email');
+    $author_email_property = $this->stringTranslation->translate('Email');
     $author_email = $comment->getAuthorEmail();
-    $author_homepage_property = new TranslatableMarkup('Homepage');
+    $author_homepage_property = $this->stringTranslation->translate('Homepage');
     $author_homepage = $comment->getHomepage();
 
     $comment_html = $comment->get('comment_body')->first()?->get('value')->getValue() ?? '- empty comment body -';
@@ -98,17 +99,17 @@ final readonly class CommentModerationHandler {
     return InlineKeyboardMarkup::make()
       ->addRow(
         new InlineKeyboardButton(
-          text: (string) new TranslatableMarkup('Approve', [], ['context' => 'comment moderation']),
+          text: (string) $this->stringTranslation->translate('Approve', [], ['context' => 'comment moderation']),
           callback_data: CommentModerationCallbackType::Approve->buildCallbackId((string) $comment->id()),
         ),
         new InlineKeyboardButton(
-          text: (string) new TranslatableMarkup('Delete'),
+          text: (string) $this->stringTranslation->translate('Delete'),
           callback_data: CommentModerationCallbackType::Delete->buildCallbackId((string) $comment->id()),
         ),
       )
       ->addRow(
         new InlineKeyboardButton(
-          text: (string) new TranslatableMarkup('Edit on website'),
+          text: (string) $this->stringTranslation->translate('Edit on website'),
           url: $comment->toUrl('edit-form')->setAbsolute()->toString(),
         ),
       );
@@ -126,7 +127,7 @@ final readonly class CommentModerationHandler {
     $comment->setPublished();
     $this->storage()->save($comment);
 
-    $bot->answerCallbackQuery(text: (string) new TranslatableMarkup('Comment has been approved and published'));
+    $bot->answerCallbackQuery(text: (string) $this->stringTranslation->translate('Comment has been approved and published'));
     $bot->setMessageReaction([ReactionTypeEmoji::make(ReactionTypeEmoji::THUMBS_UP)]);
     $this->removeButtons($bot);
   }
@@ -139,11 +140,11 @@ final readonly class CommentModerationHandler {
     return InlineKeyboardMarkup::make()
       ->addRow(
         new InlineKeyboardButton(
-          text: (string) new TranslatableMarkup('Confirm deletion'),
+          text: (string) $this->stringTranslation->translate('Confirm deletion'),
           callback_data: CommentModerationCallbackType::DeleteConfirm->buildCallbackId($comment_id),
         ),
         new InlineKeyboardButton(
-          text: (string) new TranslatableMarkup('Cancel'),
+          text: (string) $this->stringTranslation->translate('Cancel'),
           callback_data: CommentModerationCallbackType::DeleteCancel->buildCallbackId($comment_id),
         ),
       );
@@ -151,7 +152,7 @@ final readonly class CommentModerationHandler {
 
   private function onDeleteConfirm(Comment $comment, Nutgram $bot): void {
     $this->storage()->delete([$comment]);
-    $bot->answerCallbackQuery(text: (string) new TranslatableMarkup('Comment has been deleted'));
+    $bot->answerCallbackQuery(text: (string) $this->stringTranslation->translate('Comment has been deleted'));
     $this->removeButtons($bot);
     $bot->setMessageReaction([ReactionTypeEmoji::make(ReactionTypeEmoji::THUMBS_DOWN)]);
   }

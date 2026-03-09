@@ -6,7 +6,7 @@ namespace Drupal\app_main\Hook\Toolbar;
 
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 
 #[Hook('toolbar')]
@@ -16,6 +16,7 @@ final class ContentEditingToolbar {
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
+    private readonly TranslationInterface $stringTranslation,
   ) {}
 
   protected function prepareContentEditingToolbar(): void {
@@ -23,15 +24,15 @@ final class ContentEditingToolbar {
       '#type' => 'toolbar_item',
       'tab' => [
         '#type' => 'link',
-        '#title' => new TranslatableMarkup('Edit'),
+        '#title' => $this->stringTranslation->translate('Edit'),
         '#url' => Url::fromRoute('<current>'),
         '#attributes' => [
-          'title' => new TranslatableMarkup('Edit'),
+          'title' => $this->stringTranslation->translate('Edit'),
           'class' => ['toolbar-icon', 'toolbar-icon-content-editing'],
         ],
       ],
       'tray' => [
-        '#heading' => new TranslatableMarkup('Edit'),
+        '#heading' => $this->stringTranslation->translate('Edit'),
         '#weight' => 0,
       ],
       '#weight' => -11,

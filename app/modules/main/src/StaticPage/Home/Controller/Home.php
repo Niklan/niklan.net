@@ -12,7 +12,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\app_main\StaticPage\Home\Repository\HomeSettings;
 use Drupal\filter\Plugin\FilterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -26,6 +26,7 @@ final readonly class Home implements ContainerInjectionInterface {
     private LanguageManagerInterface $languageManager,
     private Connection $connection,
     private HomeSettings $homeSettings,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   #[\Override]
@@ -38,6 +39,7 @@ final readonly class Home implements ContainerInjectionInterface {
       $container->get(LanguageManagerInterface::class),
       $container->get(Connection::class),
       $home_settings,
+      $container->get(TranslationInterface::class),
     );
   }
 
@@ -69,7 +71,7 @@ final readonly class Home implements ContainerInjectionInterface {
     }
 
     $build['#sections']['latest_posts'] = [
-      '#heading' => new TranslatableMarkup('Latest posts'),
+      '#heading' => $this->stringTranslation->translate('Latest posts'),
       '#theme' => 'app_blog_preview_list',
       '#items' => \array_map(
         callback: fn ($node) => $this->getNodeViewBuilder()->view($node, 'preview'),
@@ -99,7 +101,7 @@ final readonly class Home implements ContainerInjectionInterface {
     }
 
     $build['#sections']['too_big_to_read'] = [
-      '#heading' => new TranslatableMarkup("TL;DR - \u{201C}I'd rather read a book\u{201D}"),
+      '#heading' => $this->stringTranslation->translate("TL;DR - \u{201C}I'd rather read a book\u{201D}"),
       '#theme' => 'app_blog_preview_list',
       '#items' => \array_map(
         callback: fn ($node) => $this->getNodeViewBuilder()->view($node, 'preview'),
@@ -130,7 +132,7 @@ final readonly class Home implements ContainerInjectionInterface {
     }
 
     $build['#sections']['most_discussed'] = [
-      '#heading' => new TranslatableMarkup("The most discussed"),
+      '#heading' => $this->stringTranslation->translate("The most discussed"),
       '#theme' => 'app_blog_preview_list',
       '#items' => \array_map(
         callback: fn (EntityInterface $node) => $this->getNodeViewBuilder()->view($node, 'preview'),
@@ -158,7 +160,7 @@ final readonly class Home implements ContainerInjectionInterface {
     }
 
     $build['#sections']['latest_comments'] = [
-      '#heading' => new TranslatableMarkup('Opinion of anonymous users from the Internet'),
+      '#heading' => $this->stringTranslation->translate('Opinion of anonymous users from the Internet'),
       '#theme' => 'app_comment_list',
       '#items' => \array_map(
         callback: fn (EntityInterface $comment) => $this->entityTypeManager->getViewBuilder('comment')->view($comment, 'teaser'),

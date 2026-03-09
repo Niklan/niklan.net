@@ -12,7 +12,7 @@ use Drupal\app_search\Repository\GlobalSearch;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Drupal\Core\Pager\PagerManagerInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 final class Search {
@@ -24,6 +24,7 @@ final class Search {
     protected EntitySearch $entitySearch,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected PagerManagerInterface $pagerManager,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   private function doSearch(string $keys): EntitySearchResults {
@@ -68,8 +69,8 @@ final class Search {
 
     return [
       '#theme' => 'app_search_results',
-      '#no_query' => new TranslatableMarkup('You need to provide a search query to see the results.'),
-      '#no_results' => new TranslatableMarkup('Nothing was found for your request.'),
+      '#no_query' => $this->stringTranslation->translate('You need to provide a search query to see the results.'),
+      '#no_results' => $this->stringTranslation->translate('Nothing was found for your request.'),
       '#results' => $this->buildResults($query),
       '#query' => $query,
       '#pager' => ['#type' => 'pager', '#quantity' => 5],

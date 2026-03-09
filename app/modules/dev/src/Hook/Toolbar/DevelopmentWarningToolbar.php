@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\app_dev\Hook\Toolbar;
 
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 
 /**
  * Provides a development warning toolbar element.
@@ -14,6 +14,10 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  */
 #[Hook('toolbar')]
 final class DevelopmentWarningToolbar {
+
+  public function __construct(
+    private readonly TranslationInterface $stringTranslation,
+  ) {}
 
   /**
    * Implements hook_toolbar().
@@ -24,7 +28,7 @@ final class DevelopmentWarningToolbar {
       '#weight' => 999,
     ];
 
-    $label = new TranslatableMarkup('Development version');
+    $label = $this->stringTranslation->translate('Development version');
 
     $items['dev-site-warning']['#type'] = 'toolbar_item';
     $items['dev-site-warning']['tab'] = [
