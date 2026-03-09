@@ -8,7 +8,7 @@ use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 use Drupal\app_blog\Generator\BannerGenerator;
 use Drupal\app_blog\Node\ArticleBundle;
@@ -21,6 +21,7 @@ final readonly class Tokens {
     private BannerGenerator $bannerGenerator,
     private FileUrlGeneratorInterface $fileUrlGenerator,
     private PagerManagerInterface $pagerManager,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   private function replaceNodeArticleBannerImage(string $original, State $state): void {
@@ -71,7 +72,7 @@ final readonly class Tokens {
       return;
     }
 
-    $suffix = ' — ' . (string) new TranslatableMarkup('page #@number', [
+    $suffix = ' — ' . (string) $this->stringTranslation->translate('page #@number', [
       '@number' => $pager->getCurrentPage() + 1,
     ]);
     $state->setReplacement($original, $suffix);

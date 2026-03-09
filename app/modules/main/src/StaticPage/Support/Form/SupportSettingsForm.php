@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\app_main\StaticPage\Support\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\app_main\StaticPage\Support\Repository\SupportSettings;
 
@@ -22,8 +21,8 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
 
     $form['description'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Body'),
-      '#description' => new TranslatableMarkup('The description of support page.'),
+      '#title' => $this->stringTranslation->translate('Body'),
+      '#description' => $this->stringTranslation->translate('The description of support page.'),
       '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [SupportSettings::TEXT_FORMAT],
       '#rows' => 3,
@@ -32,8 +31,8 @@ final class SupportSettingsForm extends LanguageAwareStoreForm {
 
     $form['donate_url'] = [
       '#type' => 'url',
-      '#title' => new TranslatableMarkup('Donate URL'),
-      '#description' => new TranslatableMarkup('The URL of the donate page.'),
+      '#title' => $this->stringTranslation->translate('Donate URL'),
+      '#description' => $this->stringTranslation->translate('The URL of the donate page.'),
       '#default_value' => $this->getSettings()->getDonateUrl(),
     ];
 

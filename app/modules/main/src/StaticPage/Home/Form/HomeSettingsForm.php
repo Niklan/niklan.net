@@ -6,7 +6,6 @@ namespace Drupal\app_main\StaticPage\Home\Form;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\app_main\StaticPage\Home\Repository\HomeSettings;
 use Drupal\app_platform\Utils\AjaxFormHelper;
@@ -28,15 +27,15 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
 
     $form['heading'] = [
       '#type' => 'textfield',
-      '#title' => new TranslatableMarkup('Heading'),
+      '#title' => $this->stringTranslation->translate('Heading'),
       '#default_value' => $this->getSettings()->getHeading(),
       '#required' => TRUE,
     ];
 
     $form['description'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Description'),
-      '#description' => new TranslatableMarkup('The description of the home page.'),
+      '#title' => $this->stringTranslation->translate('Description'),
+      '#description' => $this->stringTranslation->translate('The description of the home page.'),
       '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [HomeSettings::TEXT_FORMAT],
       '#rows' => 3,
@@ -139,7 +138,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $form['cards'] = [
       '#type' => 'details',
       '#open' => $form_state->get('keep_cards_open') ?? FALSE,
-      '#title' => new TranslatableMarkup('Cards'),
+      '#title' => $this->stringTranslation->translate('Cards'),
       '#prefix' => '<div id="cards-wrapper">',
       '#suffix' => '</div>',
     ];
@@ -149,11 +148,11 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
       // Workaround for an empty string if not set. See #3247373.
       '#input' => FALSE,
       '#header' => [
-        'content' => new TranslatableMarkup('Content'),
-        'operations' => new TranslatableMarkup('Operations'),
-        '_weight' => new TranslatableMarkup('Weight'),
+        'content' => $this->stringTranslation->translate('Content'),
+        'operations' => $this->stringTranslation->translate('Operations'),
+        '_weight' => $this->stringTranslation->translate('Weight'),
       ],
-      '#empty' => new TranslatableMarkup('No cards has been added yet.'),
+      '#empty' => $this->stringTranslation->translate('No cards has been added yet.'),
       '#tabledrag' => [
         [
           'action' => 'order',
@@ -187,7 +186,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
             '#delta' => $i,
             '#type' => 'submit',
             '#submit' => [[self::class, 'removeCard']],
-            '#value' => new TranslatableMarkup('Delete'),
+            '#value' => $this->stringTranslation->translate('Delete'),
             '#attributes' => ['class' => ['button--small', 'button--danger']],
             '#validate' => [],
             '#limit_validation_errors' => [],
@@ -215,7 +214,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
       '#id' => 'cards-add-card',
       '#name' => 'cards_actions_add_button',
       '#type' => 'submit',
-      '#value' => new TranslatableMarkup('Add card'),
+      '#value' => $this->stringTranslation->translate('Add card'),
       '#submit' => [[self::class, 'addCard']],
       '#limit_validation_errors' => [],
       '#ajax' => [
@@ -232,7 +231,7 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $card['media_id'] = [
       '#type' => 'media_library',
       '#allowed_bundles' => ['image'],
-      '#title' => new TranslatableMarkup('Background'),
+      '#title' => $this->stringTranslation->translate('Background'),
       '#default_value' => $card_data['media_id'] ?? NULL,
       '#required' => TRUE,
     ];
@@ -240,13 +239,13 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $card['title'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
-      '#title' => new TranslatableMarkup('Title'),
+      '#title' => $this->stringTranslation->translate('Title'),
       '#default_value' => $card_data['title'] ?? NULL,
     ];
 
     $card['description'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Description'),
+      '#title' => $this->stringTranslation->translate('Description'),
       '#default_value' => $card_data['description'] ?? NULL,
       '#allowed_formats' => [HomeSettings::TEXT_FORMAT],
       '#rows' => 1,

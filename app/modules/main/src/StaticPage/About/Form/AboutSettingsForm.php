@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\app_main\StaticPage\About\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\app_main\StaticPage\About\Repository\AboutSettings;
 
@@ -52,13 +51,13 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
   public function buildContentSettings(array &$form, FormStateInterface $form_state): void {
     $form['content'] = [
       '#type' => 'fieldset',
-      '#title' => new TranslatableMarkup('Content'),
+      '#title' => $this->stringTranslation->translate('Content'),
     ];
 
     $form['content']['title'] = [
       '#type' => 'textfield',
-      '#title' => new TranslatableMarkup('Title'),
-      '#description' => new TranslatableMarkup('The title of the about page.'),
+      '#title' => $this->stringTranslation->translate('Title'),
+      '#description' => $this->stringTranslation->translate('The title of the about page.'),
       '#default_value' => $this->getSettings()->getTitle(),
       '#required' => TRUE,
     ];
@@ -66,8 +65,8 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
     $form['content']['subtitle'] = [
       '#type' => 'text_format',
       '#base_type' => 'textfield',
-      '#title' => new TranslatableMarkup('Subtitle'),
-      '#description' => new TranslatableMarkup('The subtitle of the about page.'),
+      '#title' => $this->stringTranslation->translate('Subtitle'),
+      '#description' => $this->stringTranslation->translate('The subtitle of the about page.'),
       '#default_value' => $this->getSettings()->getSubtitle(),
       '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#required' => TRUE,
@@ -75,8 +74,8 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
 
     $form['content']['summary'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Summary'),
-      '#description' => new TranslatableMarkup('The summary of the about page.'),
+      '#title' => $this->stringTranslation->translate('Summary'),
+      '#description' => $this->stringTranslation->translate('The summary of the about page.'),
       '#default_value' => $this->getSettings()->getSummary(),
       '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
@@ -85,8 +84,8 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
 
     $form['content']['description'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Description'),
-      '#description' => new TranslatableMarkup('The description of the about page.'),
+      '#title' => $this->stringTranslation->translate('Description'),
+      '#description' => $this->stringTranslation->translate('The description of the about page.'),
       '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [AboutSettings::TEXT_FORMAT],
       '#rows' => 3,
@@ -105,14 +104,14 @@ final class AboutSettingsForm extends LanguageAwareStoreForm {
   private function buildPhotoSettings(array &$form, FormStateInterface $form_state): void {
     $form['photo'] = [
       '#type' => 'fieldset',
-      '#title' => new TranslatableMarkup('Photo'),
+      '#title' => $this->stringTranslation->translate('Photo'),
     ];
 
     $form['photo']['media_id'] = [
       '#type' => 'media_library',
       '#allowed_bundles' => ['image'],
-      '#title' => new TranslatableMarkup('Photo'),
-      '#description' => new TranslatableMarkup('Media entity that contains a photo.'),
+      '#title' => $this->stringTranslation->translate('Photo'),
+      '#description' => $this->stringTranslation->translate('Media entity that contains a photo.'),
       '#default_value' => $this->getSettings()->getPhotoMediaId(),
     ];
   }

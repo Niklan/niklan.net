@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\app_main\StaticPage\Services\Form;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\app_main\StaticPage\Services\Repository\ServicesSettings;
 
@@ -22,8 +21,8 @@ final class ServicesSettingsForm extends LanguageAwareStoreForm {
 
     $form['description'] = [
       '#type' => 'text_format',
-      '#title' => new TranslatableMarkup('Body'),
-      '#description' => new TranslatableMarkup('The description of service page.'),
+      '#title' => $this->stringTranslation->translate('Body'),
+      '#description' => $this->stringTranslation->translate('The description of service page.'),
       '#default_value' => $this->getSettings()->getDescription(),
       '#allowed_formats' => [ServicesSettings::TEXT_FORMAT],
       '#rows' => 3,
@@ -32,7 +31,7 @@ final class ServicesSettingsForm extends LanguageAwareStoreForm {
 
     $form['hourly_rate'] = [
       '#type' => 'textfield',
-      '#title' => new TranslatableMarkup('Hourly rate'),
+      '#title' => $this->stringTranslation->translate('Hourly rate'),
       '#default_value' => $this->getSettings()->getHourlyRate(),
       '#required' => TRUE,
     ];

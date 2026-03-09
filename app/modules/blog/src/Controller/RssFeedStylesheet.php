@@ -10,7 +10,7 @@ use Drupal\Core\Cache\CacheableResponse;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
@@ -23,6 +23,7 @@ final class RssFeedStylesheet {
     private FileUrlGeneratorInterface $fileUrlGenerator,
     #[Autowire(service: 'keyvalue.language_aware')]
     private LanguageAwareFactory $languageAwareFactory,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   public function __invoke(): CacheableResponse {
@@ -43,10 +44,10 @@ final class RssFeedStylesheet {
       '@langcode' => $langcode,
       '@logo_url' => $logo_url,
       '@about_text' => \strip_tags($about_text),
-      '@banner_text' => (string) new TranslatableMarkup('This is an RSS feed. Copy the URL from the address bar into your RSS reader to subscribe.'),
-      '@what_is_rss' => (string) new TranslatableMarkup('What is RSS?'),
-      '@visit_site' => (string) new TranslatableMarkup('Visit website'),
-      '@recent_posts' => (string) new TranslatableMarkup('Recent posts'),
+      '@banner_text' => (string) $this->stringTranslation->translate('This is an RSS feed. Copy the URL from the address bar into your RSS reader to subscribe.'),
+      '@what_is_rss' => (string) $this->stringTranslation->translate('What is RSS?'),
+      '@visit_site' => (string) $this->stringTranslation->translate('Visit website'),
+      '@recent_posts' => (string) $this->stringTranslation->translate('Recent posts'),
     ]);
 
     $response = new CacheableResponse($xsl, CacheableResponse::HTTP_OK, [

@@ -10,7 +10,7 @@ use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjectionInterface {
@@ -23,6 +23,7 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
     protected ContainerInterface $container,
     protected MessengerInterface $messenger,
     protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
+    protected TranslationInterface $stringTranslation,
   ) {}
 
   #[\Override]
@@ -31,6 +32,7 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
       $container,
       $container->get(MessengerInterface::class),
       $container->get(CacheTagsInvalidatorInterface::class),
+      $container->get(TranslationInterface::class),
     );
   }
 
@@ -44,7 +46,7 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
     $form['actions']['#type'] = 'actions';
     $form['actions']['save'] = [
       '#type' => 'submit',
-      '#value' => new TranslatableMarkup('Save'),
+      '#value' => $this->stringTranslation->translate('Save'),
       '#button_type' => 'primary',
     ];
 
@@ -55,7 +57,7 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this
       ->getMessenger()
-      ->addStatus(new TranslatableMarkup('Settings successfully saved.'));
+      ->addStatus($this->stringTranslation->translate('Settings successfully saved.'));
 
     $this
       ->getCacheTagsInvalidator()

@@ -9,7 +9,7 @@ use Drupal\app_contract\Contract\SiteMap\Section;
 use Drupal\app_contract\Contract\SiteMap\SiteMap;
 use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
@@ -18,13 +18,14 @@ final readonly class TagSiteMap implements SiteMapBuilder {
 
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   #[\Override]
   public function build(): SiteMap {
     $sitemap = new SiteMap();
-    $category = new Category(new TranslatableMarkup('Blog'));
-    $section = new Section(new TranslatableMarkup('Tags'));
+    $category = new Category($this->stringTranslation->translate('Blog'));
+    $section = new Section($this->stringTranslation->translate('Tags'));
 
     foreach ($this->tags() as $tag) {
       \assert($tag instanceof TermInterface);

@@ -8,7 +8,7 @@ use Drupal\Core\Controller\TitleResolverInterface;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +25,7 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
     private TitleResolverInterface $inner,
     private PagerManagerInterface $pagerManager,
     private RendererInterface $renderer,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   #[\Override]
@@ -48,7 +49,7 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
       return $title;
     }
 
-    return (string) $title . ' — ' . (string) new TranslatableMarkup('page #@number', [
+    return (string) $title . ' — ' . (string) $this->stringTranslation->translate('page #@number', [
       '@number' => ($this->pagerManager->getPager()?->getCurrentPage() ?? 0) + 1,
     ]);
   }
