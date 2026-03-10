@@ -21,11 +21,11 @@ final readonly class LlmsFormatPathProcessor implements OutboundPathProcessorInt
   public function processOutbound($path, &$options = [], ?Request $request = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): string {
     $currentRequest = $this->requestStack->getCurrentRequest();
 
-    if ($currentRequest === NULL || $currentRequest->query->get('_wrapper_format') !== 'llms') {
+    if ($currentRequest === NULL || $currentRequest->getRequestFormat() !== 'llms') {
       return $path;
     }
 
-    $options['query']['_wrapper_format'] = 'llms';
+    $options['query']['_format'] = 'llms';
 
     return $path;
   }
