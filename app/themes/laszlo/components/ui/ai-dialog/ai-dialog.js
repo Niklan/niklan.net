@@ -39,7 +39,7 @@
         }
 
         const url = new URL(window.location.href);
-        url.searchParams.set('_wrapper_format', 'llms');
+        url.searchParams.set('_format', 'llms');
         this.loading = true;
 
         try {

@@ -1,4 +1,4 @@
-{% set llms_url = url ~ '?_wrapper_format=llms' %}
+{% set llms_url = url ~ '?_format=llms' %}
 {% set ai_prompt = 'Read this page: @url and answer questions about the content.'|t({'@url': llms_url}) %}
 {% set links = [
   { label: 'Claude', icon: 'claude', modifier: 'claude', href: 'https://claude.ai/new?q=' ~ ai_prompt|url_encode },
