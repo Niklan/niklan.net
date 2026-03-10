@@ -12,10 +12,8 @@ use Drupal\Core\Render\RenderContext;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[AutoconfigureTag('render.main_content_renderer', ['format' => 'llms'])]
 final readonly class LlmsRenderer implements MainContentRendererInterface {
 
   public function __construct(

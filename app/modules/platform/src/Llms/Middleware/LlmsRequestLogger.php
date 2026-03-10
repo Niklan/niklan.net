@@ -24,7 +24,7 @@ final readonly class LlmsRequestLogger implements HttpKernelInterface {
   public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = TRUE): Response {
     $response = $this->httpKernel->handle($request, $type, $catch);
 
-    if ($type === self::MAIN_REQUEST && $request->query->get('_wrapper_format') === 'llms') {
+    if ($type === self::MAIN_REQUEST && $request->getRequestFormat() === 'llms') {
       $this->logger->info('LLMS request', [
         'path' => $request->getPathInfo(),
         'user_agent' => $request->headers->get('User-Agent', ''),

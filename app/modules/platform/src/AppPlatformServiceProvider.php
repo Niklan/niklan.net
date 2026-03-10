@@ -12,6 +12,7 @@ use Drupal\app_platform\Hook\Asset\CacheBustingQuerySetting;
 use Drupal\app_platform\Hook\Core\LlmsPageAttachments;
 use Drupal\app_platform\Hook\Theme\LibraryInfoAlter;
 use Drupal\app_platform\Llms\EventSubscriber\LlmsFooterSubscriber;
+use Drupal\app_platform\Llms\EventSubscriber\LlmsViewSubscriber;
 use Drupal\app_platform\Llms\EventSubscriber\PagerLlmsSubscriber;
 use Drupal\app_platform\Llms\HtmlToMarkdownConverter;
 use Drupal\app_platform\Llms\LlmsRenderer;
@@ -83,6 +84,7 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
     // Llms.
     $autowire(HtmlToMarkdownConverter::class);
     $autowire(LlmsRenderer::class);
+    $autowire(LlmsViewSubscriber::class);
     $autowire(PagerLlmsSubscriber::class);
     $autowire(LlmsFooterSubscriber::class);
     $autowire(LlmsFormatPathProcessor::class);

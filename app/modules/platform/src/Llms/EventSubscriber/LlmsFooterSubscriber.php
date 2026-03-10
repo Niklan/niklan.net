@@ -41,7 +41,7 @@ final readonly class LlmsFooterSubscriber implements EventSubscriberInterface {
     $queryString = $event->request->server->get('QUERY_STRING', '');
     \assert(\is_string($queryString));
     \parse_str($queryString, $query);
-    unset($query['_wrapper_format']);
+    unset($query['_format']);
 
     if ($query !== []) {
       $url .= '?' . \http_build_query($query);

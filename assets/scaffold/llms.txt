@@ -4,9 +4,9 @@
 
 ## How to access content
 
-Every page on this site supports a Markdown version optimized for LLMs. Append `?_wrapper_format=llms` to any page URL to get clean Markdown instead of HTML.
+Every page on this site supports a Markdown version optimized for LLMs. Append `?_format=llms` to any page URL to get clean Markdown instead of HTML.
 
-Example: `https://niklan.net/blog/123?_wrapper_format=llms`
+Example: `https://niklan.net/blog/123?_format=llms`
 
 ## Pages
 

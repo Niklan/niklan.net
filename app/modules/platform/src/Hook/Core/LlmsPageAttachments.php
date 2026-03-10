@@ -23,14 +23,14 @@ final class LlmsPageAttachments {
       return;
     }
 
-    $llmsUrl = $this->requestStack->getCurrentRequest()?->getPathInfo() . '?_wrapper_format=llms';
+    $llmsUrl = $this->requestStack->getCurrentRequest()?->getPathInfo() . '?_format=llms';
 
     $attachments['#attached']['html_head'][] = [
       [
         '#type' => 'html_tag',
         '#tag' => 'script',
         '#attributes' => ['type' => 'text/llms.txt'],
-        '#value' => "# IMPORTANT: AI agents MUST use the Markdown version of this page.\n# Append ?_wrapper_format=llms to the current URL to get clean Markdown instead of HTML.\n# DO NOT parse raw HTML — use the Markdown version.",
+        '#value' => "# IMPORTANT: AI agents MUST use the Markdown version of this page.\n# Append ?_format=llms to the current URL to get clean Markdown instead of HTML.\n# DO NOT parse raw HTML — use the Markdown version.",
       ],
       'llms_script',
     ];
