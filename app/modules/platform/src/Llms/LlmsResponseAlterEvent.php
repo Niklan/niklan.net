@@ -4,17 +4,31 @@ declare(strict_types=1);
 
 namespace Drupal\app_platform\Llms;
 
+use Drupal\Core\Cache\CacheableDependencyInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class LlmsResponseAlterEvent extends Event {
 
+  private CacheableMetadata $cacheableMetadata;
+
   public function __construct(
     private string $markdown,
     public readonly Request $request,
     public readonly RouteMatchInterface $routeMatch,
-  ) {}
+  ) {
+    $this->cacheableMetadata = new CacheableMetadata();
+  }
+
+  public function addCacheableDependency(CacheableDependencyInterface $dependency): void {
+    $this->cacheableMetadata = $this->cacheableMetadata->merge(CacheableMetadata::createFromObject($dependency));
+  }
+
+  public function getCacheableMetadata(): CacheableMetadata {
+    return $this->cacheableMetadata;
+  }
 
   public function getMarkdown(): string {
     return $this->markdown;
