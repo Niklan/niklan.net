@@ -25,7 +25,7 @@ final class ArticleProcessorTest extends UnitTestCase {
   use ProphecyTrait;
 
   public function testProcessReturnsProcessedArticle(): void {
-    $processor = $this->buildProcessor(markdownHtml: '<p>Hello</p>');
+    $processor = $this->buildProcessor(markdown_html: '<p>Hello</p>');
     $translation = $this->createTranslation();
 
     $result = $processor->process($translation, vfsStream::url('content'));
@@ -54,7 +54,7 @@ final class ArticleProcessorTest extends UnitTestCase {
     $synchronizer->sync(Argument::not(vfsStream::url('content/blog/article/poster.png')))
       ->willReturn(NULL);
 
-    $processor = $this->buildProcessor(mediaSynchronizer: $synchronizer->reveal());
+    $processor = $this->buildProcessor(media_synchronizer: $synchronizer->reveal());
     $translation = $this->createTranslation();
 
     $result = $processor->process($translation, vfsStream::url('content'));
@@ -66,7 +66,7 @@ final class ArticleProcessorTest extends UnitTestCase {
     $synchronizer = $this->prophesize(MediaSynchronizer::class);
     $synchronizer->sync(Argument::any())->willReturn(NULL);
 
-    $processor = $this->buildProcessor(mediaSynchronizer: $synchronizer->reveal());
+    $processor = $this->buildProcessor(media_synchronizer: $synchronizer->reveal());
     $translation = $this->createTranslation();
 
     $result = $processor->process($translation, vfsStream::url('content'));
@@ -89,7 +89,7 @@ final class ArticleProcessorTest extends UnitTestCase {
       ['title' => 'Archive'],
     )->willReturn($media2);
 
-    $processor = $this->buildProcessor(mediaSynchronizer: $synchronizer->reveal());
+    $processor = $this->buildProcessor(media_synchronizer: $synchronizer->reveal());
     $translation = $this->createTranslation();
     $translation->addAttachment(['src' => 'file.pdf', 'title' => 'PDF File']);
     $translation->addAttachment(['src' => 'doc.zip', 'title' => 'Archive']);
@@ -106,7 +106,7 @@ final class ArticleProcessorTest extends UnitTestCase {
     $synchronizer->sync(Argument::any())->willReturn(NULL);
     $synchronizer->sync(Argument::any(), Argument::any())->willReturn(NULL);
 
-    $processor = $this->buildProcessor(mediaSynchronizer: $synchronizer->reveal());
+    $processor = $this->buildProcessor(media_synchronizer: $synchronizer->reveal());
     $translation = $this->createTranslation();
     $translation->addAttachment(['src' => 'missing.pdf', 'title' => 'Missing']);
 

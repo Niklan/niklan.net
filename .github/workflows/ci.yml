@@ -28,6 +28,10 @@ jobs:
         if: always()
         run: task validate/phplint
 
+      - name: PHP CS Fixer
+        if: always()
+        run: task validate/php-cs-fixer
+
       - name: PHPCS
         if: always()
         run: task validate/phpcs

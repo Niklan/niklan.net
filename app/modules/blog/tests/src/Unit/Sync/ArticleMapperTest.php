@@ -49,7 +49,7 @@ final class ArticleMapperTest extends UnitTestCase {
   public function testPosterMapped(): void {
     $poster = $this->prophesize(MediaInterface::class)->reveal();
     $entity = $this->createArticleMock();
-    $processed = $this->createProcessed(posterMedia: $poster);
+    $processed = $this->createProcessed(poster_media: $poster);
 
     $this->mapper->toEntity($processed, $entity->reveal());
 
@@ -70,7 +70,7 @@ final class ArticleMapperTest extends UnitTestCase {
 
   public function testSourcePathHashMapped(): void {
     $entity = $this->createArticleMock();
-    $processed = $this->createProcessed(sourcePathHash: 'abc123');
+    $processed = $this->createProcessed(source_path_hash: 'abc123');
 
     $this->mapper->toEntity($processed, $entity->reveal());
 
@@ -79,7 +79,7 @@ final class ArticleMapperTest extends UnitTestCase {
 
   public function testEstimatedReadTimeMapped(): void {
     $entity = $this->createArticleMock();
-    $processed = $this->createProcessed(estimatedReadTime: 5);
+    $processed = $this->createProcessed(estimated_read_time: 5);
 
     $this->mapper->toEntity($processed, $entity->reveal());
 
@@ -97,7 +97,7 @@ final class ArticleMapperTest extends UnitTestCase {
     $entity = $this->createArticleMock();
     $entity->get('field_media_attachments')->willReturn($field_list->reveal());
 
-    $processed = $this->createProcessed(attachmentsMedia: [$media1, $media2]);
+    $processed = $this->createProcessed(attachments_media: [$media1, $media2]);
 
     $this->mapper->toEntity($processed, $entity->reveal());
 

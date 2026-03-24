@@ -38,7 +38,7 @@ final class MediaFilterTest extends UnitTestCase {
     $media->uuid()->willReturn('uuid-1');
     $media->getCacheTags()->willReturn(['media:1']);
 
-    $filter = $this->createFilter(mediaByUuid: ['uuid-1' => $media->reveal()]);
+    $filter = $this->createFilter(media_by_uuid: ['uuid-1' => $media->reveal()]);
     $text = '<app-media data-uuid="uuid-1" data-bundle="unknown"></app-media>';
 
     $result = $filter->process($text, 'en');
@@ -65,9 +65,9 @@ final class MediaFilterTest extends UnitTestCase {
     $view_builder->view($media->reveal())->willReturn(['#markup' => '<iframe src="youtube"></iframe>']);
 
     $filter = $this->createFilter(
-      mediaByUuid: ['yt-uuid' => $media->reveal()],
-      viewBuilder: $view_builder->reveal(),
-      renderedOutput: '<iframe src="youtube"></iframe>',
+      media_by_uuid: ['yt-uuid' => $media->reveal()],
+      view_builder: $view_builder->reveal(),
+      rendered_output: '<iframe src="youtube"></iframe>',
     );
     $text = '<app-media data-uuid="yt-uuid" data-bundle="remote_video"></app-media>';
 
@@ -87,7 +87,7 @@ final class MediaFilterTest extends UnitTestCase {
     $media2->getCacheTags()->willReturn(['media:2']);
 
     $filter = $this->createFilter(
-      mediaByUuid: [
+      media_by_uuid: [
         'uuid-1' => $media1->reveal(),
         'uuid-2' => $media2->reveal(),
       ],
@@ -109,7 +109,7 @@ final class MediaFilterTest extends UnitTestCase {
     $renderer = new StubRenderer('<span class="lightbox"><img /></span>', ['library' => ['photoswipe/photoswipe']]);
 
     $filter = $this->createFilter(
-      mediaByUuid: ['img-uuid' => $media],
+      media_by_uuid: ['img-uuid' => $media],
       renderer: $renderer,
     );
     $text = '<app-media data-uuid="img-uuid" data-bundle="image" data-alt="Test"></app-media>';
@@ -126,7 +126,7 @@ final class MediaFilterTest extends UnitTestCase {
     $renderer = new StubRenderer('<span class="lightbox"><img /></span>');
 
     $filter = $this->createFilter(
-      mediaByUuid: [
+      media_by_uuid: [
         'uuid-1' => $media1,
         'uuid-2' => $media2,
       ],

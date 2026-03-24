@@ -33,7 +33,7 @@ final class ArticleTest extends UnitTestCase {
 
   public function testAddPrimaryTranslation(): void {
     $article = $this->createArticle();
-    $primary = $this->createTranslation(language: 'ru', isPrimary: TRUE);
+    $primary = $this->createTranslation(language: 'ru', is_primary: TRUE);
 
     $article->addTranslation($primary);
 
@@ -51,11 +51,11 @@ final class ArticleTest extends UnitTestCase {
 
   public function testDuplicatePrimaryTranslationThrows(): void {
     $article = $this->createArticle();
-    $article->addTranslation($this->createTranslation(language: 'ru', isPrimary: TRUE));
+    $article->addTranslation($this->createTranslation(language: 'ru', is_primary: TRUE));
 
     $this->expectException(\InvalidArgumentException::class);
     $this->expectExceptionMessage('Only one primary translation allowed');
-    $article->addTranslation($this->createTranslation(language: 'en', isPrimary: TRUE));
+    $article->addTranslation($this->createTranslation(language: 'en', is_primary: TRUE));
   }
 
   public function testMultipleNonPrimaryTranslations(): void {
