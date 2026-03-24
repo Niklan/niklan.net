@@ -61,6 +61,8 @@ final readonly class LlmsRenderer implements MainContentRendererInterface {
     $alter_event = new LlmsResponseAlterEvent($markdown, $request, $route_match);
     $this->eventDispatcher->dispatch($alter_event);
 
+    $cacheable_metadata = $cacheable_metadata->merge($alter_event->getCacheableMetadata());
+
     $response = new CacheableResponse($alter_event->getMarkdown(), 200, [
       'Content-Type' => 'text/markdown; charset=UTF-8',
       'X-Robots-Tag' => 'noindex',

@@ -24,6 +24,8 @@ final readonly class PagerLlmsSubscriber implements EventSubscriberInterface {
       return;
     }
 
+    $event->getCacheableMetadata()->addCacheContexts(['url.query_args.pagers:0']);
+
     $current = $pager->getCurrentPage();
     $total = $pager->getTotalPages();
     $last = $total - 1;
