@@ -13,6 +13,12 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
 
   private EstimatedReadTimeCalculator $calculator;
 
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->calculator = new EstimatedReadTimeCalculator();
+  }
+
   public function testEmptyHtml(): void {
     self::assertSame(0, $this->calculator->calculate(''));
   }
@@ -48,12 +54,6 @@ final class EstimatedReadTimeCalculatorTest extends UnitTestCase {
     $html = '<p>' . $words . '</p>';
     $result = $this->calculator->calculate($html);
     self::assertSame(1, $result);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->calculator = new EstimatedReadTimeCalculator();
   }
 
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\Command;
 
+use Drupal\app_blog\Sync\ArticleSynchronizer;
+use Drupal\app_blog\Sync\Domain\SyncContext;
+use Drupal\app_platform\Console\Log\ConsoleLogger;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\app_platform\Console\Log\ConsoleLogger;
-use Drupal\app_blog\Sync\Domain\SyncContext;
-use Drupal\app_blog\Sync\ArticleSynchronizer;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

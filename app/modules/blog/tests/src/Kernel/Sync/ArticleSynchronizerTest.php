@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Kernel\Sync;
 
-use Drupal\app_blog\Sync\Domain\SyncContext;
-use Drupal\app_blog\Sync\Parser\ArticleXmlParser;
 use Drupal\app_blog\Sync\ArticleMapper;
 use Drupal\app_blog\Sync\ArticleProcessor;
 use Drupal\app_blog\Sync\ArticleSynchronizer;
+use Drupal\app_blog\Sync\Domain\SyncContext;
 use Drupal\app_blog\Sync\Html\HtmlProcessor;
+use Drupal\app_blog\Sync\Parser\ArticleXmlParser;
 use Drupal\app_blog\Sync\Utils\EstimatedReadTimeCalculator;
 use Drupal\app_contract\Contract\Blog\ArticleRepository;
 use Drupal\app_contract\Contract\Media\MediaSynchronizer;
@@ -62,9 +62,36 @@ final class ArticleSynchronizerTest extends KernelTestBase {
     'sophron',
   ];
 
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->installEntitySchema('node');
+    $this->installEntitySchema('user');
+    $this->installEntitySchema('taxonomy_term');
+    $this->installSchema('node', ['node_access']);
+    $this->installConfig(['field', 'node', 'filter']);
+
+    NodeType::create(['type' => 'blog_entry', 'name' => 'Blog entry'])->save();
+
+    FilterFormat::create([
+      'format' => 'blog_article',
+      'name' => 'Blog Article',
+    ])->save();
+
+    $this->createField('body', 'text_with_summary');
+    $this->createField('external_id', 'string', ['max_length' => 255]);
+    $this->createField('field_content', 'text_long');
+    $this->createField('field_source_path_hash', 'string', ['max_length' => 32]);
+    $this->createField('field_estimated_read_time', 'integer', ['unsigned' => TRUE]);
+    $this->createField('field_tags', 'entity_reference', ['target_type' => 'taxonomy_term'], -1);
+    $this->createField('field_media_image', 'entity_reference', ['target_type' => 'media']);
+    $this->createField('field_media_attachments', 'entity_reference', ['target_type' => 'media'], -1);
+  }
+
   #[DataProvider('sourcePathPrefixProvider')]
   public function testNewArticleCreated(string $source_prefix): void {
-    $synchronizer = $this->buildSynchronizer(sourcePrefix: $source_prefix);
+    $synchronizer = $this->buildSynchronizer($source_prefix);
     $context = $this->createSyncContext();
 
     $synchronizer->sync($context);
@@ -145,33 +172,6 @@ final class ArticleSynchronizerTest extends KernelTestBase {
     yield 'bare path' => ['source_prefix' => ''];
   }
 
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('user');
-    $this->installEntitySchema('taxonomy_term');
-    $this->installSchema('node', ['node_access']);
-    $this->installConfig(['field', 'node', 'filter']);
-
-    NodeType::create(['type' => 'blog_entry', 'name' => 'Blog entry'])->save();
-
-    FilterFormat::create([
-      'format' => 'blog_article',
-      'name' => 'Blog Article',
-    ])->save();
-
-    $this->createField('body', 'text_with_summary');
-    $this->createField('external_id', 'string', ['max_length' => 255]);
-    $this->createField('field_content', 'text_long');
-    $this->createField('field_source_path_hash', 'string', ['max_length' => 32]);
-    $this->createField('field_estimated_read_time', 'integer', ['unsigned' => TRUE]);
-    $this->createField('field_tags', 'entity_reference', ['target_type' => 'taxonomy_term'], -1);
-    $this->createField('field_media_image', 'entity_reference', ['target_type' => 'media']);
-    $this->createField('field_media_attachments', 'entity_reference', ['target_type' => 'media'], -1);
-  }
-
   /**
    * @param array<string, mixed> $settings
    */
@@ -192,7 +192,7 @@ final class ArticleSynchronizerTest extends KernelTestBase {
     ])->save();
   }
 
-  private function buildSynchronizer(string $sourcePrefix = './'): ArticleSynchronizer {
+  private function buildSynchronizer(string $source_prefix = './'): ArticleSynchronizer {
     $schema = \file_get_contents(__DIR__ . '/../../../fixtures/article.xsd');
     \assert($schema !== FALSE);
 
@@ -200,7 +200,7 @@ final class ArticleSynchronizerTest extends KernelTestBase {
       'blog' => [
         'article.xsd' => $schema,
         'test' => [
-          'article.xml' => $this->buildArticleXml($sourcePrefix),
+          'article.xml' => $this->buildArticleXml($source_prefix),
           'article.ru.md' => '# Test',
         ],
       ],

@@ -13,6 +13,12 @@ final class CodeHighlightTest extends UnitTestCase {
 
   private CodeHighlight $filter;
 
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->filter = new CodeHighlight([], 'app_blog_code_highlight', ['provider' => 'app_blog']);
+  }
+
   public function testLibraryAttachedWhenPrePresent(): void {
     $result = $this->filter->process('<p>Text</p><pre><code>code</code></pre>', 'en');
 
@@ -38,12 +44,6 @@ final class CodeHighlightTest extends UnitTestCase {
 
     $attachments = $result->getAttachments();
     self::assertContains('app_blog/hljs', $attachments['library']);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->filter = new CodeHighlight([], 'app_blog_code_highlight', ['provider' => 'app_blog']);
   }
 
 }

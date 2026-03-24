@@ -12,15 +12,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class CssAlter implements ContainerInjectionInterface {
 
-  public function __construct(
-    private ThemeManagerInterface $themeManager,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(ThemeManagerInterface::class),
     );
+  }
+
+  public function __construct(
+    private ThemeManagerInterface $themeManager,
+  ) {}
+
+  public function __invoke(array &$css, AttachedAssetsInterface $assets, LanguageInterface $language): void {
+    $this->forcePrioritizedStyles($css);
   }
 
   private function forcePrioritizedStyles(array &$css): void {
@@ -33,10 +37,6 @@ final readonly class CssAlter implements ContainerInjectionInterface {
 
     // Workaround for #3489336.
     $css[$layers_path]['group'] = \CSS_AGGREGATE_DEFAULT;
-  }
-
-  public function __invoke(array &$css, AttachedAssetsInterface $assets, LanguageInterface $language): void {
-    $this->forcePrioritizedStyles($css);
   }
 
 }

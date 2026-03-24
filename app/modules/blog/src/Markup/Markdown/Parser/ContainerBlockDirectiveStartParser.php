@@ -18,7 +18,7 @@ use League\CommonMark\Util\RegexHelper;
 final class ContainerBlockDirectiveStartParser implements BlockStartParserInterface {
 
   #[\Override]
-  public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart {
+  public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parser_state): ?BlockStart {
     if ($cursor->getNextNonSpaceCharacter() !== ':') {
       return BlockStart::none();
     }
@@ -45,7 +45,7 @@ final class ContainerBlockDirectiveStartParser implements BlockStartParserInterf
       return BlockStart::none();
     }
 
-    $directiveInfo = \trim($cursor->getRemainder());
+    $directive_info = \trim($cursor->getRemainder());
     $cursor->advanceToEnd();
 
     $parser = new ContainerBlockDirectiveParser(
@@ -53,7 +53,7 @@ final class ContainerBlockDirectiveStartParser implements BlockStartParserInterf
     // of opening 'tag'.
       colonLength: \strlen(\ltrim($colon, " \t")),
       offset: $cursor->getIndent(),
-      directiveInfo: $directiveInfo,
+      directiveInfo: $directive_info,
     );
 
     return BlockStart::of($parser)->at($cursor);

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\app_main\Hook\Theme;
 
+use Drupal\app_contract\Utils\MediaHelper;
+use Drupal\app_main\StaticPage\Home\Repository\HomeSettings;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\media\MediaInterface;
-use Drupal\app_contract\Utils\MediaHelper;
-use Drupal\app_main\StaticPage\Home\Repository\HomeSettings;
 
 #[Hook('preprocess_app_main_home_cards')]
 final readonly class PreprocessAppMainHomeCards {

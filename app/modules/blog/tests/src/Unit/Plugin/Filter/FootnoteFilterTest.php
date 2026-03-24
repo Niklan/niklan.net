@@ -13,6 +13,12 @@ final class FootnoteFilterTest extends UnitTestCase {
 
   private FootnoteFilter $filter;
 
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->filter = new FootnoteFilter([], 'app_blog_footnote', ['provider' => 'app_blog']);
+  }
+
   public function testLibraryAttachedWhenFootnotesPresent(): void {
     $html = '<p>Text<sup class="footnote-ref"><a href="#fn1">1</a></sup></p>';
     $result = $this->filter->process($html, 'en');
@@ -32,12 +38,6 @@ final class FootnoteFilterTest extends UnitTestCase {
     $result = $this->filter->process($text, 'en');
 
     self::assertSame($text, $result->getProcessedText());
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->filter = new FootnoteFilter([], 'app_blog_footnote', ['provider' => 'app_blog']);
   }
 
 }

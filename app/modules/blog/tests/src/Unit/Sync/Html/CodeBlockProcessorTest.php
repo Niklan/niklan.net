@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync\Html;
 
-use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Html\CodeBlockProcessor;
 use Drupal\Component\Utility\Html;
 use Drupal\Tests\UnitTestCase;
@@ -16,6 +16,21 @@ final class CodeBlockProcessorTest extends UnitTestCase {
 
   private CodeBlockProcessor $processor;
   private ArticleProcessingContext $context;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->processor = new CodeBlockProcessor();
+    $translation = new ArticleTranslation(
+      sourcePath: 'article.ru.md',
+      language: 'ru',
+      title: 'Test',
+      description: 'Test',
+      posterPath: 'poster.png',
+      contentDirectory: '/tmp/test',
+    );
+    $this->context = new ArticleProcessingContext($translation, '/tmp');
+  }
 
   public function testPreWithCodeReplacedByPlaceholder(): void {
     $dom = Html::load('<pre data-language="php"><code>echo "hello";</code></pre>');
@@ -80,21 +95,6 @@ final class CodeBlockProcessorTest extends UnitTestCase {
 
     $result = Html::serialize($dom);
     self::assertStringContainsString('<p>No code here</p>', $result);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->processor = new CodeBlockProcessor();
-    $translation = new ArticleTranslation(
-      sourcePath: 'article.ru.md',
-      language: 'ru',
-      title: 'Test',
-      description: 'Test',
-      posterPath: 'poster.png',
-      contentDirectory: '/tmp/test',
-    );
-    $this->context = new ArticleProcessingContext($translation, '/tmp');
   }
 
 }

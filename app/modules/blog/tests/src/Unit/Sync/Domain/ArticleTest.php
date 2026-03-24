@@ -93,7 +93,7 @@ final class ArticleTest extends UnitTestCase {
     );
   }
 
-  private function createTranslation(string $language, bool $isPrimary = FALSE): ArticleTranslation {
+  private function createTranslation(string $language, bool $is_primary = FALSE): ArticleTranslation {
     return new ArticleTranslation(
       sourcePath: "$language/index.md",
       language: $language,
@@ -101,7 +101,7 @@ final class ArticleTest extends UnitTestCase {
       description: "Description $language",
       posterPath: 'poster.png',
       contentDirectory: '/content/blog/test',
-      isPrimary: $isPrimary,
+      isPrimary: $is_primary,
     );
   }
 

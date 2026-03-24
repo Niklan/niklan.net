@@ -4,20 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\app_main\StaticPage\About\Controller;
 
+use Drupal\app_contract\Utils\MediaHelper;
+use Drupal\app_main\StaticPage\About\Repository\AboutSettings;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\app_contract\Utils\MediaHelper;
-use Drupal\app_main\StaticPage\About\Repository\AboutSettings;
 use Drupal\filter\Plugin\FilterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class About implements ContainerInjectionInterface {
-
-  public function __construct(
-    private AboutSettings $settings,
-    private EntityTypeManagerInterface $entityTypeManager,
-  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
@@ -30,15 +25,10 @@ final readonly class About implements ContainerInjectionInterface {
     );
   }
 
-  private function preparePhotoUri(): ?string {
-    $id = $this->settings->getPhotoMediaId();
-    if (!\is_string($id)) {
-      return NULL;
-    }
-
-    $media = $this->entityTypeManager->getStorage('media')->load($id);
-    return MediaHelper::getFileUri($media);
-  }
+  public function __construct(
+    private AboutSettings $settings,
+    private EntityTypeManagerInterface $entityTypeManager,
+  ) {}
 
   public function __invoke(): array {
     $build = [
@@ -70,6 +60,16 @@ final readonly class About implements ContainerInjectionInterface {
     $cache->applyTo($build);
 
     return $build;
+  }
+
+  private function preparePhotoUri(): ?string {
+    $id = $this->settings->getPhotoMediaId();
+    if (!\is_string($id)) {
+      return NULL;
+    }
+
+    $media = $this->entityTypeManager->getStorage('media')->load($id);
+    return MediaHelper::getFileUri($media);
   }
 
 }

@@ -23,9 +23,9 @@ final readonly class PortfolioListLlmsSubscriber implements EventSubscriberInter
       return;
     }
 
-    $listCache = new CacheableMetadata();
-    $listCache->addCacheTags(['node_list:portfolio']);
-    $event->addCacheableDependency($listCache);
+    $list_cache = new CacheableMetadata();
+    $list_cache->addCacheTags(['node_list:portfolio']);
+    $event->addCacheableDependency($list_cache);
 
     $lines = $this->buildProjectLines($event);
     $event->setMarkdown(\implode("\n", $lines));

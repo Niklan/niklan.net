@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync\Html;
 
-use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Html\FigureProcessor;
 use Drupal\Component\Utility\Html;
 use Drupal\Tests\UnitTestCase;
@@ -16,6 +16,21 @@ final class FigureProcessorTest extends UnitTestCase {
 
   private FigureProcessor $processor;
   private ArticleProcessingContext $context;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->processor = new FigureProcessor();
+    $translation = new ArticleTranslation(
+      sourcePath: 'article.ru.md',
+      language: 'ru',
+      title: 'Test',
+      description: 'Test',
+      posterPath: 'poster.png',
+      contentDirectory: '/tmp/test',
+    );
+    $this->context = new ArticleProcessingContext($translation, '/tmp');
+  }
 
   public function testFigureDirectiveConverted(): void {
     $html = <<<'HTML'
@@ -93,21 +108,6 @@ final class FigureProcessorTest extends UnitTestCase {
 
     $result = Html::serialize($dom);
     self::assertSame(2, \substr_count($result, '<figure>'));
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->processor = new FigureProcessor();
-    $translation = new ArticleTranslation(
-      sourcePath: 'article.ru.md',
-      language: 'ru',
-      title: 'Test',
-      description: 'Test',
-      posterPath: 'poster.png',
-      contentDirectory: '/tmp/test',
-    );
-    $this->context = new ArticleProcessingContext($translation, '/tmp');
   }
 
 }

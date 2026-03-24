@@ -19,6 +19,31 @@ final class ContentEditingToolbar {
     private readonly TranslationInterface $stringTranslation,
   ) {}
 
+  public function __invoke(): array {
+    $supported_content_routes = [
+      'entity.node.canonical',
+      'entity.taxonomy_term.canonical',
+      'entity.user.canonical',
+    ];
+
+    if (\in_array($this->routeMatch->getRouteName(), $supported_content_routes)) {
+      $this->prepareContentEditingToolbar();
+    }
+    else {
+      // If current route is not supported we still add element with cache
+      // context. This will cover cases when after clearing the cache the first
+      // opened page doesn't contain this element and because of this the others
+      // will not contain it as well.
+      $this->items['app_main_content_editing'] = [
+        '#cache' => [
+          'contexts' => ['route'],
+        ],
+      ];
+    }
+
+    return $this->items;
+  }
+
   protected function prepareContentEditingToolbar(): void {
     $this->items['app_main_content_editing'] = [
       '#type' => 'toolbar_item',
@@ -52,31 +77,6 @@ final class ContentEditingToolbar {
       ],
       '#create_placeholder' => TRUE,
     ];
-  }
-
-  public function __invoke(): array {
-    $supported_content_routes = [
-      'entity.node.canonical',
-      'entity.taxonomy_term.canonical',
-      'entity.user.canonical',
-    ];
-
-    if (\in_array($this->routeMatch->getRouteName(), $supported_content_routes)) {
-      $this->prepareContentEditingToolbar();
-    }
-    else {
-      // If current route is not supported we still add element with cache
-      // context. This will cover cases when after clearing the cache the first
-      // opened page doesn't contain this element and because of this the others
-      // will not contain it as well.
-      $this->items['app_main_content_editing'] = [
-        '#cache' => [
-          'contexts' => ['route'],
-        ],
-      ];
-    }
-
-    return $this->items;
   }
 
 }

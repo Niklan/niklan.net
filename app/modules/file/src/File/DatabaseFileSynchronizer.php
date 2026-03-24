@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\app_file\File;
 
+use Drupal\app_contract\Contract\File\File;
+use Drupal\app_contract\Contract\File\FileSynchronizer;
+use Drupal\app_contract\Utils\PathHelper;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Uuid\UuidInterface;
@@ -11,9 +14,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
-use Drupal\app_contract\Contract\File\File;
-use Drupal\app_contract\Contract\File\FileSynchronizer;
-use Drupal\app_contract\Utils\PathHelper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;

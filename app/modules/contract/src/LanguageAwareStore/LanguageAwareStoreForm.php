@@ -17,15 +17,6 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
 
   use DependencySerializationTrait;
 
-  abstract protected function getSettings(): LanguageAwareSettingsStore;
-
-  final public function __construct(
-    protected ContainerInterface $container,
-    protected MessengerInterface $messenger,
-    protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
-    protected TranslationInterface $stringTranslation,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new static(
@@ -35,6 +26,13 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
       $container->get(TranslationInterface::class),
     );
   }
+
+  final public function __construct(
+    protected ContainerInterface $container,
+    protected MessengerInterface $messenger,
+    protected CacheTagsInvalidatorInterface $cacheTagsInvalidator,
+    protected TranslationInterface $stringTranslation,
+  ) {}
 
   #[\Override]
   public function validateForm(array &$form, FormStateInterface $form_state): void {
@@ -75,5 +73,7 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
   protected function getContainer(): ContainerInterface {
     return $this->container;
   }
+
+  abstract protected function getSettings(): LanguageAwareSettingsStore;
 
 }

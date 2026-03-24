@@ -14,11 +14,6 @@ abstract class AppPlatformTestBase extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $modules = [
     'app_contract',
     'app_platform',

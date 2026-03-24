@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Drupal\app_main\Navigation\SiteMap;
 
-use Drupal\Core\Link;
-use Drupal\Core\Menu\MenuLinkTreeInterface;
-use Drupal\Core\Menu\MenuTreeParameters;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\app_contract\Contract\SiteMap\Category;
 use Drupal\app_contract\Contract\SiteMap\Section;
 use Drupal\app_contract\Contract\SiteMap\SiteMap;
 use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
+use Drupal\Core\Link;
+use Drupal\Core\Menu\MenuLinkTreeInterface;
+use Drupal\Core\Menu\MenuTreeParameters;
+use Drupal\Core\StringTranslation\TranslationInterface;
 
 final readonly class MainMenuSiteMap implements SiteMapBuilder {
 

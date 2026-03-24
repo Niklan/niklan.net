@@ -144,29 +144,26 @@ final class MediaFilterTest extends UnitTestCase {
     self::assertContains('test/lib-2', $result->getAttachments()['library']);
   }
 
-  /**
-   * @param array<string, \Drupal\media\MediaInterface> $mediaByUuid
-   */
-  private function createFilter(array $mediaByUuid = [], ?EntityViewBuilderInterface $viewBuilder = NULL, string $renderedOutput = '', ?RendererInterface $renderer = NULL): MediaFilter {
+  private function createFilter(array $media_by_uuid = [], ?EntityViewBuilderInterface $view_builder = NULL, string $rendered_output = '', ?RendererInterface $renderer = NULL): MediaFilter {
     $query = $this->prophesize(QueryInterface::class);
     $query->accessCheck(FALSE)->willReturn($query->reveal());
     $query->condition(Argument::cetera())->willReturn($query->reveal());
-    $query->execute()->willReturn($mediaByUuid ? \array_combine(\range(1, \count($mediaByUuid)), \array_keys($mediaByUuid)) : []);
+    $query->execute()->willReturn($media_by_uuid ? \array_combine(\range(1, \count($media_by_uuid)), \array_keys($media_by_uuid)) : []);
 
     $storage = $this->prophesize(EntityStorageInterface::class);
     $storage->getQuery()->willReturn($query->reveal());
-    $storage->loadMultiple(Argument::any())->willReturn($mediaByUuid);
+    $storage->loadMultiple(Argument::any())->willReturn($media_by_uuid);
 
     $entity_type_manager = $this->prophesize(EntityTypeManagerInterface::class);
     $entity_type_manager->getStorage('media')->willReturn($storage->reveal());
 
-    if ($viewBuilder) {
-      $entity_type_manager->getViewBuilder('media')->willReturn($viewBuilder);
+    if ($view_builder) {
+      $entity_type_manager->getViewBuilder('media')->willReturn($view_builder);
     }
 
     if (!$renderer) {
       $renderer_prophecy = $this->prophesize(RendererInterface::class);
-      $renderer_prophecy->renderInIsolation(Argument::any())->willReturn($renderedOutput);
+      $renderer_prophecy->renderInIsolation(Argument::any())->willReturn($rendered_output);
       $renderer = $renderer_prophecy->reveal();
     }
 

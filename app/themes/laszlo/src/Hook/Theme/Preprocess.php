@@ -6,6 +6,10 @@ namespace Drupal\laszlo\Hook\Theme;
 
 final readonly class Preprocess {
 
+  public function __invoke(array &$variables, string $hook): void {
+    $this->passComponentData($variables);
+  }
+
   /**
    * Passes #component_data into template variables.
    *
@@ -24,10 +28,6 @@ final readonly class Preprocess {
     }
 
     $variables += $data['#component_data'];
-  }
-
-  public function __invoke(array &$variables, string $hook): void {
-    $this->passComponentData($variables);
   }
 
 }

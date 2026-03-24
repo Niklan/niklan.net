@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\app_main\StaticPage\Home\Controller;
 
+use Drupal\app_main\StaticPage\Home\Repository\HomeSettings;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
@@ -13,21 +14,12 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\app_main\StaticPage\Home\Repository\HomeSettings;
 use Drupal\filter\Plugin\FilterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Home implements ContainerInjectionInterface {
 
   private const int LIMIT_PREVIEW_POSTS = 6;
-
-  public function __construct(
-    private EntityTypeManagerInterface $entityTypeManager,
-    private LanguageManagerInterface $languageManager,
-    private Connection $connection,
-    private HomeSettings $homeSettings,
-    private TranslationInterface $stringTranslation,
-  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
@@ -41,6 +33,30 @@ final readonly class Home implements ContainerInjectionInterface {
       $home_settings,
       $container->get(TranslationInterface::class),
     );
+  }
+
+  public function __construct(
+    private EntityTypeManagerInterface $entityTypeManager,
+    private LanguageManagerInterface $languageManager,
+    private Connection $connection,
+    private HomeSettings $homeSettings,
+    private TranslationInterface $stringTranslation,
+  ) {}
+
+  public function __invoke(): array {
+    $build = [
+      '#theme' => 'app_main_home',
+      '#sections' => [],
+    ];
+
+    $this->addHomeIntro($build);
+    $this->addHomeCards($build);
+    $this->addLatestPosts($build);
+    $this->addTooBigToReadPosts($build);
+    $this->addMostDiscussed($build);
+    $this->addLatestComments($build);
+
+    return $build;
   }
 
   private function getCurrentLanguageId(): string {
@@ -213,22 +229,6 @@ final readonly class Home implements ContainerInjectionInterface {
       '#theme' => 'app_main_home_cards',
       '#cards' => $cards,
     ];
-  }
-
-  public function __invoke(): array {
-    $build = [
-      '#theme' => 'app_main_home',
-      '#sections' => [],
-    ];
-
-    $this->addHomeIntro($build);
-    $this->addHomeCards($build);
-    $this->addLatestPosts($build);
-    $this->addTooBigToReadPosts($build);
-    $this->addMostDiscussed($build);
-    $this->addLatestComments($build);
-
-    return $build;
   }
 
 }

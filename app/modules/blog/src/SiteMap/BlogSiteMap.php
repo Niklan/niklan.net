@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\SiteMap;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\app_contract\Contract\Node\Article;
 use Drupal\app_contract\Contract\SiteMap\Category;
 use Drupal\app_contract\Contract\SiteMap\Section;
 use Drupal\app_contract\Contract\SiteMap\SiteMap;
 use Drupal\app_contract\Contract\SiteMap\SiteMapBuilder;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 
 final readonly class BlogSiteMap implements SiteMapBuilder {
 

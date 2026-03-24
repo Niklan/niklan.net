@@ -13,6 +13,13 @@ final class LibraryInfoAlterTest extends AppPlatformTestBase {
 
   protected LibraryInfoAlter $libraryInfoAlter;
 
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->libraryInfoAlter = $this->container->get(LibraryInfoAlter::class);
+  }
+
   /**
    * Tests that 'drupal.ajax' not altered for other extensions.
    */
@@ -60,13 +67,6 @@ final class LibraryInfoAlterTest extends AppPlatformTestBase {
       ],
     ];
     self::assertEquals($expected_libraries, $libraries);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->libraryInfoAlter = $this->container->get(LibraryInfoAlter::class);
   }
 
 }

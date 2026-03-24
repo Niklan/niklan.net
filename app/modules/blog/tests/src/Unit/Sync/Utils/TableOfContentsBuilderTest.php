@@ -13,6 +13,12 @@ final class TableOfContentsBuilderTest extends UnitTestCase {
 
   private TableOfContentsBuilder $builder;
 
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->builder = new TableOfContentsBuilder();
+  }
+
   public function testEmptyHtmlReturnsEmpty(): void {
     self::assertSame([], $this->builder->build(''));
   }
@@ -75,12 +81,6 @@ final class TableOfContentsBuilderTest extends UnitTestCase {
     $result = $this->builder->build($html);
 
     self::assertSame([], $result);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->builder = new TableOfContentsBuilder();
   }
 
 }

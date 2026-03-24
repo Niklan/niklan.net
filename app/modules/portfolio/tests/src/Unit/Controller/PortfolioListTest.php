@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Drupal\Tests\app_portfolio\Unit\Controller;
 
 use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareFactory;
+use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareStore;
 use Drupal\app_portfolio\Controller\PortfolioList;
 use Drupal\app_portfolio\Repository\PortfolioSettings;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityViewBuilderInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareStore;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\UnitTestCase;

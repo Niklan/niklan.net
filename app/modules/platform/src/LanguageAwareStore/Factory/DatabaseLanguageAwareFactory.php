@@ -34,9 +34,6 @@ final class DatabaseLanguageAwareFactory implements LanguageAwareFactory {
     private readonly LanguageManagerInterface $languageManager,
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
   #[\Override]
   public function get($collection, ?string $language_code = NULL): LanguageAwareStore {
     \assert(Inspector::assertStringable($collection));

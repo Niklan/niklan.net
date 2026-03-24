@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Kernel\Plugin\Filter;
 
-use Drupal\Core\Database\Connection;
 use Drupal\app_blog\Plugin\Filter\InternalLinkFilter;
+use Drupal\Core\Database\Connection;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
@@ -44,6 +44,34 @@ final class InternalLinkFilterTest extends KernelTestBase {
     'sophron',
   ];
   private InternalLinkFilter $filter;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+
+    $this->installEntitySchema('node');
+    $this->installEntitySchema('user');
+
+    NodeType::create(['type' => 'blog_entry', 'name' => 'Blog entry'])->save();
+
+    FieldStorageConfig::create([
+      'field_name' => 'field_source_path_hash',
+      'entity_type' => 'node',
+      'type' => 'string',
+      'settings' => ['max_length' => 32],
+    ])->save();
+
+    FieldConfig::create([
+      'field_name' => 'field_source_path_hash',
+      'entity_type' => 'node',
+      'bundle' => 'blog_entry',
+      'label' => 'Source path hash',
+    ])->save();
+
+    $database = $this->container->get('database');
+    \assert($database instanceof Connection);
+    $this->filter = new InternalLinkFilter([], InternalLinkFilter::ID, ['provider' => 'app_blog'], $database);
+  }
 
   public function testTextWithoutHashAttributePassedThrough(): void {
     $text = '<p>No links</p>';
@@ -110,34 +138,6 @@ final class InternalLinkFilterTest extends KernelTestBase {
 
     self::assertStringContainsString('/node/' . $node->id(), $result->getProcessedText());
     self::assertStringNotContainsString('data-source-path-hash', $result->getProcessedText());
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->installEntitySchema('node');
-    $this->installEntitySchema('user');
-
-    NodeType::create(['type' => 'blog_entry', 'name' => 'Blog entry'])->save();
-
-    FieldStorageConfig::create([
-      'field_name' => 'field_source_path_hash',
-      'entity_type' => 'node',
-      'type' => 'string',
-      'settings' => ['max_length' => 32],
-    ])->save();
-
-    FieldConfig::create([
-      'field_name' => 'field_source_path_hash',
-      'entity_type' => 'node',
-      'bundle' => 'blog_entry',
-      'label' => 'Source path hash',
-    ])->save();
-
-    $database = $this->container->get('database');
-    \assert($database instanceof Connection);
-    $this->filter = new InternalLinkFilter([], InternalLinkFilter::ID, ['provider' => 'app_blog'], $database);
   }
 
   private function createBlogNode(string $source_path_hash): Node {

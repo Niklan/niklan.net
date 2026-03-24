@@ -34,6 +34,16 @@ final class InternalLinkFilter extends FilterBase implements ContainerFactoryPlu
    */
   private array $nodeIdsByHash = [];
 
+  #[\Override]
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get(Connection::class),
+    );
+  }
+
   public function __construct(
     array $configuration,
     $plugin_id,
@@ -67,16 +77,6 @@ final class InternalLinkFilter extends FilterBase implements ContainerFactoryPlu
     $result->addCacheTags($cache_tags);
 
     return $result;
-  }
-
-  #[\Override]
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get(Connection::class),
-    );
   }
 
   /**

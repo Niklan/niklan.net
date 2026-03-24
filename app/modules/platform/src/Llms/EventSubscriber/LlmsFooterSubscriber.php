@@ -38,9 +38,9 @@ final readonly class LlmsFooterSubscriber implements EventSubscriberInterface {
     // processors (e.g., PagerPathProcessor converts page=3 to page=2).
     $url = $event->request->getPathInfo();
 
-    $queryString = $event->request->server->get('QUERY_STRING', '');
-    \assert(\is_string($queryString));
-    \parse_str($queryString, $query);
+    $query_string = $event->request->server->get('QUERY_STRING', '');
+    \assert(\is_string($query_string));
+    \parse_str($query_string, $query);
     unset($query['_format']);
 
     if ($query !== []) {

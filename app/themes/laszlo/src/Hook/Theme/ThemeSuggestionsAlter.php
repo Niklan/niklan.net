@@ -10,6 +10,14 @@ use Drupal\taxonomy\TermInterface;
 
 final readonly class ThemeSuggestionsAlter {
 
+  public function __invoke(array &$suggestions, array &$variables, string $hook): void {
+    match ($hook) {
+      default => NULL,
+      'taxonomy_term' => $this->alterTaxonomyTerm($suggestions, $variables),
+      'comment' => $this->alterComment($suggestions, $variables),
+    };
+  }
+
   private function alterComment(array &$suggestions, array &$variables): void {
     $comment = $variables['elements']['#comment'];
     \assert($comment instanceof Comment);
@@ -42,14 +50,6 @@ final readonly class ThemeSuggestionsAlter {
     $suggestions[] = "{$entity_type_id}__id__$entity_id";
     $suggestions[] = "{$entity_type_id}__{$bundle}__$view_mode";
     $suggestions[] = "{$entity_type_id}__{$entity_id}__$view_mode";
-  }
-
-  public function __invoke(array &$suggestions, array &$variables, string $hook): void {
-    match ($hook) {
-      default => NULL,
-      'taxonomy_term' => $this->alterTaxonomyTerm($suggestions, $variables),
-      'comment' => $this->alterComment($suggestions, $variables),
-    };
   }
 
 }

@@ -30,20 +30,6 @@ final class CommentFormatter extends FormatterBase {
 
   public const string ID = 'app_comment';
 
-  public function __construct(
-    string $plugin_id,
-    $plugin_definition,
-    FieldDefinitionInterface $field_definition,
-    array $settings,
-    string $label,
-    string $view_mode,
-    array $third_party_settings,
-    private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly AccountInterface $currentUser,
-  ) {
-    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-  }
-
   #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): self {
     return new self(
@@ -57,6 +43,20 @@ final class CommentFormatter extends FormatterBase {
       $container->get(EntityTypeManagerInterface::class),
       $container->get(AccountInterface::class),
     );
+  }
+
+  public function __construct(
+    string $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    string $label,
+    string $view_mode,
+    array $third_party_settings,
+    private readonly EntityTypeManagerInterface $entityTypeManager,
+    private readonly AccountInterface $currentUser,
+  ) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
 
   #[\Override]

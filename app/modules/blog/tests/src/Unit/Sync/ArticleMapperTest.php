@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync;
 
-use Prophecy\Prophecy\ObjectProphecy;
 use Drupal\app_blog\Sync\ArticleMapper;
 use Drupal\app_blog\Sync\Domain\ProcessedArticle;
 use Drupal\app_contract\Contract\Node\Article;
@@ -14,6 +13,7 @@ use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 
 #[CoversClass(ArticleMapper::class)]
 final class ArticleMapperTest extends UnitTestCase {
@@ -21,6 +21,12 @@ final class ArticleMapperTest extends UnitTestCase {
   use ProphecyTrait;
 
   private ArticleMapper $mapper;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->mapper = new ArticleMapper();
+  }
 
   public function testTitleMapped(): void {
     $entity = $this->createArticleMock();
@@ -107,12 +113,6 @@ final class ArticleMapperTest extends UnitTestCase {
     $entity->set('field_media_attachments', NULL)->shouldHaveBeenCalledOnce();
   }
 
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->mapper = new ArticleMapper();
-  }
-
   /**
    * @return \Prophecy\Prophecy\ObjectProphecy<\Drupal\app_contract\Contract\Node\Article>
    */
@@ -127,18 +127,15 @@ final class ArticleMapperTest extends UnitTestCase {
     return $entity;
   }
 
-  /**
-   * @param list<\Drupal\media\MediaInterface> $attachmentsMedia
-   */
-  private function createProcessed(string $html = '<p>test</p>', string $sourcePathHash = 'hash', int $estimatedReadTime = 1, string $title = 'Title', string $description = 'Desc', ?MediaInterface $posterMedia = NULL, array $attachmentsMedia = []): ProcessedArticle {
+  private function createProcessed(string $html = '<p>test</p>', string $source_path_hash = 'hash', int $estimated_read_time = 1, string $title = 'Title', string $description = 'Desc', ?MediaInterface $poster_media = NULL, array $attachments_media = []): ProcessedArticle {
     return new ProcessedArticle(
       html: $html,
-      sourcePathHash: $sourcePathHash,
-      estimatedReadTime: $estimatedReadTime,
+      sourcePathHash: $source_path_hash,
+      estimatedReadTime: $estimated_read_time,
       title: $title,
       description: $description,
-      posterMedia: $posterMedia,
-      attachmentsMedia: $attachmentsMedia,
+      posterMedia: $poster_media,
+      attachmentsMedia: $attachments_media,
     );
   }
 

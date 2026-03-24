@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_search\Unit\Repository;
 
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\app_search\Data\SearchParams;
 use Drupal\app_search\Repository\GlobalSearch;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\QueryInterface;

@@ -16,14 +16,33 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class Deploy0001 implements ContainerInjectionInterface {
 
-  public function __construct(
-    private EntityTypeManagerInterface $entityTypeManager,
-  ) {}
-
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),
     );
+  }
+
+  public function __construct(
+    private EntityTypeManagerInterface $entityTypeManager,
+  ) {}
+
+  public function __invoke(array &$sandbox): string {
+    $this->prepareBatch($sandbox);
+
+    if ($sandbox['total'] === 0) {
+      $sandbox['#finished'] = 1;
+      return 'No blog entries found.';
+    }
+
+    $this->processBatch($sandbox);
+
+    return (string) new FormattableMarkup('@current of @total processed (@created redirects, @skipped skipped, @aliases aliases removed).', [
+      '@current' => $sandbox['current'],
+      '@total' => $sandbox['total'],
+      '@created' => $sandbox['created'],
+      '@skipped' => $sandbox['skipped'],
+      '@aliases' => $sandbox['aliases_removed'],
+    ]);
   }
 
   protected function prepareBatch(array &$sandbox): void {
@@ -107,25 +126,6 @@ final class Deploy0001 implements ContainerInjectionInterface {
       ->accessCheck(FALSE)
       ->condition('type', 'blog_entry')
       ->sort('nid');
-  }
-
-  public function __invoke(array &$sandbox): string {
-    $this->prepareBatch($sandbox);
-
-    if ($sandbox['total'] === 0) {
-      $sandbox['#finished'] = 1;
-      return 'No blog entries found.';
-    }
-
-    $this->processBatch($sandbox);
-
-    return (string) new FormattableMarkup('@current of @total processed (@created redirects, @skipped skipped, @aliases aliases removed).', [
-      '@current' => $sandbox['current'],
-      '@total' => $sandbox['total'],
-      '@created' => $sandbox['created'],
-      '@skipped' => $sandbox['skipped'],
-      '@aliases' => $sandbox['aliases_removed'],
-    ]);
   }
 
 }

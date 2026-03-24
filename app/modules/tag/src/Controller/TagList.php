@@ -15,6 +15,13 @@ final readonly class TagList {
     private TagUsageStatistics $statistics,
   ) {}
 
+  public function __invoke(): array {
+    return [
+      '#theme' => 'app_tag_list',
+      '#items' => $this->buildItems(),
+    ];
+  }
+
   private function buildItems(): array {
     $ids = \array_keys($this->statistics->usage());
     $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
@@ -29,13 +36,6 @@ final readonly class TagList {
         ->getStorage('taxonomy_term')
         ->loadMultiple($ids),
     );
-  }
-
-  public function __invoke(): array {
-    return [
-      '#theme' => 'app_tag_list',
-      '#items' => $this->buildItems(),
-    ];
   }
 
 }

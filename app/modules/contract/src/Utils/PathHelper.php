@@ -62,7 +62,7 @@ final class PathHelper {
       match ($segment) {
         '', '.' => NULL,
         '..' => \array_pop($result_segments),
-        default => \array_push($result_segments, $segment)
+        default => \array_push($result_segments, $segment),
       };
     }
 

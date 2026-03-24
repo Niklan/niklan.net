@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\Plugin\Filter;
 
+use Drupal\app_contract\Utils\MediaHelper;
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Template\Attribute;
@@ -16,7 +17,6 @@ use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Drupal\filter\Plugin\FilterInterface;
 use Drupal\media\MediaInterface;
-use Drupal\app_contract\Utils\MediaHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 #[Filter(
@@ -29,6 +29,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class MediaFilter extends FilterBase implements ContainerFactoryPluginInterface {
 
   public const string ID = 'app_blog_media';
+
+  #[\Override]
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get(EntityTypeManagerInterface::class),
+      $container->get(RendererInterface::class),
+    );
+  }
 
   public function __construct(
     array $configuration,
@@ -73,17 +84,6 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
     $result->setAttachments(BubbleableMetadata::mergeAttachments($attachments, $result->getAttachments()));
 
     return $result;
-  }
-
-  #[\Override]
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get(EntityTypeManagerInterface::class),
-      $container->get(RendererInterface::class),
-    );
   }
 
   /**

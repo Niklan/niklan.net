@@ -23,7 +23,7 @@ final class LlmsPageAttachments {
       return;
     }
 
-    $llmsUrl = $this->requestStack->getCurrentRequest()?->getPathInfo() . '?_format=llms';
+    $llms_url = $this->requestStack->getCurrentRequest()?->getPathInfo() . '?_format=llms';
 
     $attachments['#attached']['html_head'][] = [
       [
@@ -42,7 +42,7 @@ final class LlmsPageAttachments {
         '#attributes' => [
           'rel' => 'alternate',
           'type' => 'text/markdown',
-          'href' => $llmsUrl,
+          'href' => $llms_url,
           'title' => 'LLM-optimized Markdown version',
         ],
       ],

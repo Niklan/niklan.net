@@ -29,7 +29,7 @@ final readonly class PagerAwareTitleResolver implements TitleResolverInterface {
   ) {}
 
   #[\Override]
-  public function getTitle(Request $request, Route $route): string|array|\Stringable|null {
+  public function getTitle(Request $request, Route $route): string|array|\Stringable|NULL {
     $title = $this->inner->getTitle($request, $route);
 
     if (!$request->attributes->has('_title_pager_suffix') || !$title) {

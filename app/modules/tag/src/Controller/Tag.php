@@ -13,15 +13,29 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Tag implements ContainerInjectionInterface {
 
-  public function __construct(
-    private EntityTypeManagerInterface $entityTypeManager,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(EntityTypeManagerInterface::class),
     );
+  }
+
+  public function __construct(
+    private EntityTypeManagerInterface $entityTypeManager,
+  ) {}
+
+  public function __invoke(TermInterface $taxonomy_term): array {
+    return [
+      '#theme' => 'app_blog_list',
+      '#items' => $this->buildItems($taxonomy_term),
+      '#pager' => [
+        '#type' => 'pager',
+        '#quantity' => 5,
+      ],
+      '#cache' => [
+        'tags' => ['node_list'],
+      ],
+    ];
   }
 
   public static function title(TermInterface $taxonomy_term): TranslatableMarkup {
@@ -53,20 +67,6 @@ final readonly class Tag implements ContainerInjectionInterface {
         ->getStorage('node')
         ->loadMultiple($ids),
     );
-  }
-
-  public function __invoke(TermInterface $taxonomy_term): array {
-    return [
-      '#theme' => 'app_blog_list',
-      '#items' => $this->buildItems($taxonomy_term),
-      '#pager' => [
-        '#type' => 'pager',
-        '#quantity' => 5,
-      ],
-      '#cache' => [
-        'tags' => ['node_list'],
-      ],
-    ];
   }
 
 }

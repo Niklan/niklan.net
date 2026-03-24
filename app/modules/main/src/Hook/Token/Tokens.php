@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Drupal\app_main\Hook\Token;
 
+use Drupal\app_blog\Generator\BannerGenerator;
+use Drupal\app_blog\Node\ArticleBundle;
+use Drupal\app_contract\Utils\MediaHelper;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
-use Drupal\app_blog\Generator\BannerGenerator;
-use Drupal\app_blog\Node\ArticleBundle;
-use Drupal\app_contract\Utils\MediaHelper;
 
 #[Hook('tokens')]
 final readonly class Tokens {
@@ -23,6 +23,24 @@ final readonly class Tokens {
     private PagerManagerInterface $pagerManager,
     private TranslationInterface $stringTranslation,
   ) {}
+
+  public function __invoke(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
+    $state = new State(
+      replacements: [],
+      tokens: $tokens,
+      data: $data,
+      options: $options,
+      bubbleableMetadata: $bubbleable_metadata,
+    );
+
+    match ($type) {
+      default => NULL,
+      'node' => $this->replaceNodeTokens($state),
+      'current-page' => $this->replaceCurrentPageTokens($state),
+    };
+
+    return $state->getReplacements();
+  }
 
   private function replaceNodeArticleBannerImage(string $original, State $state): void {
     $node = $state->getData()['node'];
@@ -91,24 +109,6 @@ final readonly class Tokens {
 
     $url = Url::fromRoute('<current>');
     $state->setReplacement($original, $url->setOptions($options)->toString());
-  }
-
-  public function __invoke(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
-    $state = new State(
-      replacements: [],
-      tokens: $tokens,
-      data: $data,
-      options: $options,
-      bubbleableMetadata: $bubbleable_metadata,
-    );
-
-    match ($type) {
-      default => NULL,
-      'node' => $this->replaceNodeTokens($state),
-      'current-page' => $this->replaceCurrentPageTokens($state),
-    };
-
-    return $state->getReplacements();
   }
 
 }

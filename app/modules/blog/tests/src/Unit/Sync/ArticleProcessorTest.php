@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync;
 
-use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\ArticleProcessor;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Domain\ProcessedArticle;
 use Drupal\app_blog\Sync\Html\HtmlProcessor;
 use Drupal\app_blog\Sync\Utils\EstimatedReadTimeCalculator;
@@ -115,7 +115,7 @@ final class ArticleProcessorTest extends UnitTestCase {
     self::assertSame([], $result->attachmentsMedia);
   }
 
-  private function buildProcessor(string $markdownHtml = '<p>test</p>', ?MediaSynchronizer $mediaSynchronizer = NULL): ArticleProcessor {
+  private function buildProcessor(string $markdown_html = '<p>test</p>', ?MediaSynchronizer $media_synchronizer = NULL): ArticleProcessor {
     vfsStream::setup('content', NULL, [
       'blog' => [
         'article' => [
@@ -125,7 +125,7 @@ final class ArticleProcessorTest extends UnitTestCase {
     ]);
 
     $rendered = $this->prophesize(RenderedContent::class);
-    $rendered->getContent()->willReturn($markdownHtml);
+    $rendered->getContent()->willReturn($markdown_html);
 
     $converter = $this->prophesize(MarkdownConverter::class);
     $converter->convert(Argument::any())->willReturn($rendered->reveal());
@@ -133,16 +133,16 @@ final class ArticleProcessorTest extends UnitTestCase {
     // HtmlProcessor is final — use real instance with no processors.
     $html_processor = new HtmlProcessor([]);
 
-    if (!$mediaSynchronizer) {
+    if (!$media_synchronizer) {
       $synchronizer = $this->prophesize(MediaSynchronizer::class);
       $synchronizer->sync(Argument::any())->willReturn(NULL);
-      $mediaSynchronizer = $synchronizer->reveal();
+      $media_synchronizer = $synchronizer->reveal();
     }
 
     return new ArticleProcessor(
       $converter->reveal(),
       $html_processor,
-      $mediaSynchronizer,
+      $media_synchronizer,
       new EstimatedReadTimeCalculator(),
     );
   }

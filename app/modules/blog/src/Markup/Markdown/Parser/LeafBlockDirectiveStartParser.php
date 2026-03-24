@@ -18,7 +18,7 @@ use League\CommonMark\Util\RegexHelper;
 final class LeafBlockDirectiveStartParser implements BlockStartParserInterface {
 
   #[\Override]
-  public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart {
+  public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parser_state): ?BlockStart {
     if ($cursor->getNextNonSpaceCharacter() !== ':') {
       return BlockStart::none();
     }
