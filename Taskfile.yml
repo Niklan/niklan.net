@@ -56,6 +56,11 @@ tasks:
     desc: Runs 'parallel-lint' command.
     cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/parallel-lint {{.CLI_ARGS}}'
 
+  php-cs-fixer:
+    label: PHP CS Fixer
+    desc: Runs 'php-cs-fixer' command.
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/php-cs-fixer {{.CLI_ARGS}} --config={{.CONFIG_DIR}}/.php-cs-fixer.dist.php'
+
   phpunit:
     label: PHPUnit
     desc: Runs 'phpunit' command.
@@ -115,6 +120,7 @@ tasks:
       - task: validate/composer
       - task: validate/phplint
       - task: validate/phpcs
+      - task: validate/php-cs-fixer
       - task: validate/phpstan
       - task: validate/js
       - task: validate/css
@@ -144,6 +150,13 @@ tasks:
     desc: Validate PHP for code style.
     cmds:
       - task: phpcs
+
+  validate/php-cs-fixer:
+    label: PHP CS Fixer validation
+    desc: Validate PHP for code style using PHP CS Fixer.
+    cmds:
+      - task: php-cs-fixer
+        vars: { CLI_ARGS: 'check' }
 
   validate/phpstan:
     label: PHPStan analyze
@@ -193,6 +206,7 @@ tasks:
     label: Fixing found issues
     desc: Trying for automated fixes for found problems.
     cmds:
+      - task: fix/php-cs-fixer
       - task: fix/phpcs
       - task: fix/js
       - task: fix/css
@@ -203,6 +217,13 @@ tasks:
     desc: Fix PHPCS issues.
     cmds:
       - task: phpcbf
+
+  fix/php-cs-fixer:
+    label: PHP CS Fixer
+    desc: Fix PHP CS Fixer issues.
+    cmds:
+      - task: php-cs-fixer
+        vars: { CLI_ARGS: 'fix' }
 
   fix/js:
     label: JavaScript

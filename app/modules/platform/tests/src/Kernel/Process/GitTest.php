@@ -17,6 +17,12 @@ final class GitTest extends AppPlatformTestBase {
    */
   protected Git $git;
 
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->git = $this->container->get(Git::class);
+  }
+
   /**
    * Tests process creation for pulling from repository.
    */
@@ -42,12 +48,6 @@ final class GitTest extends AppPlatformTestBase {
     $process = $this->git->getFileLastCommitId('/foo/bar', 'baz/index.md');
     $this->assertEquals("'git' 'log' '--format=\"%H\"' '-n 1' '--' 'baz/index.md'", $process->getCommandLine());
     $this->assertEquals('/foo/bar', $process->getWorkingDirectory());
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->git = $this->container->get(Git::class);
   }
 
 }

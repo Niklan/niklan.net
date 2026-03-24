@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\app_platform\Llms;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableDependencyInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\Event;

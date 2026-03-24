@@ -12,16 +12,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PageHeaderPropsAlter implements ContainerInjectionInterface {
 
-  public function __construct(
-    private MenuLinkTreeInterface $menuLinkTree,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(MenuLinkTreeInterface::class),
     );
   }
+
+  public function __construct(
+    private MenuLinkTreeInterface $menuLinkTree,
+  ) {}
 
   public function __invoke(array $props): array {
     $tree = $this->menuLinkTree->load('main', new MenuTreeParameters());

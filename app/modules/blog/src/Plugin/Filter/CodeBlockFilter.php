@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\app_blog\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\filter\Attribute\Filter;
@@ -30,6 +30,16 @@ final class CodeBlockFilter extends FilterBase implements ContainerFactoryPlugin
    * @var array<string, mixed>
    */
   private array $attachments = [];
+
+  #[\Override]
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get(RendererInterface::class),
+    );
+  }
 
   public function __construct(
     array $configuration,
@@ -63,16 +73,6 @@ final class CodeBlockFilter extends FilterBase implements ContainerFactoryPlugin
     $result->setAttachments($this->attachments);
 
     return $result;
-  }
-
-  #[\Override]
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get(RendererInterface::class),
-    );
   }
 
   private function replaceCodeBlock(\DOMDocument $dom, \DOMElement $element): void {

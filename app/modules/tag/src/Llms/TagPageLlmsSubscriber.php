@@ -30,9 +30,9 @@ final readonly class TagPageLlmsSubscriber implements EventSubscriberInterface {
 
     $event->addCacheableDependency($term);
 
-    $listCache = new CacheableMetadata();
-    $listCache->addCacheTags(['node_list']);
-    $event->addCacheableDependency($listCache);
+    $list_cache = new CacheableMetadata();
+    $list_cache->addCacheTags(['node_list']);
+    $event->addCacheableDependency($list_cache);
 
     $items = $event->mainContent['#items'] ?? [];
 

@@ -21,9 +21,9 @@ final readonly class BlogListLlmsSubscriber implements EventSubscriberInterface 
       return;
     }
 
-    $listCache = new CacheableMetadata();
-    $listCache->addCacheTags(['node_list:blog_entry']);
-    $event->addCacheableDependency($listCache);
+    $list_cache = new CacheableMetadata();
+    $list_cache->addCacheTags(['node_list:blog_entry']);
+    $event->addCacheableDependency($list_cache);
 
     $lines = [];
 

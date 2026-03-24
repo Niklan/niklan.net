@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 abstract class SearchApiSearch implements CacheableDependencyInterface {
 
-  abstract protected function getIndexId(): string;
-
   public function __construct(
     #[Autowire(service: 'search_api.query_helper')]
     protected QueryHelperInterface $queryHelper,
@@ -46,5 +44,7 @@ abstract class SearchApiSearch implements CacheableDependencyInterface {
 
     return $this->queryHelper->createQuery($index);
   }
+
+  abstract protected function getIndexId(): string;
 
 }

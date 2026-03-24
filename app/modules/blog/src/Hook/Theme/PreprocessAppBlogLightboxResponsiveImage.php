@@ -22,6 +22,12 @@ final readonly class PreprocessAppBlogLightboxResponsiveImage {
     private PhotoswipeAssetsManagerInterface $photoswipeAssetsManager,
   ) {}
 
+  public function __invoke(array &$variables): void {
+    $this->photoswipeAssetsManager->attach($variables);
+    $this->prepareResponsiveImage($variables);
+    $this->prepareFullImageUrl($variables);
+  }
+
   private function prepareResponsiveImage(array &$variables): void {
     \assert($variables['thumbnail_responsive_image_style_id']);
     $storage = $this->entityTypeManager->getStorage('responsive_image_style');
@@ -61,12 +67,6 @@ final readonly class PreprocessAppBlogLightboxResponsiveImage {
     // Prepare size for zoom aspect ratio.
     $image = $this->imageFactory->get($style->buildUri($variables['uri']));
     $variables['size'] = "{$image->getWidth()}x{$image->getHeight()}";
-  }
-
-  public function __invoke(array &$variables): void {
-    $this->photoswipeAssetsManager->attach($variables);
-    $this->prepareResponsiveImage($variables);
-    $this->prepareFullImageUrl($variables);
   }
 
 }

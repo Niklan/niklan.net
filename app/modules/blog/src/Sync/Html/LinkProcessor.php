@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\Sync\Html;
 
-use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Site\Settings;
 use Drupal\app_blog\Sync\Contract\HtmlContentProcessor;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
 use Drupal\app_contract\Utils\PathHelper;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Site\Settings;
 
 final readonly class LinkProcessor implements HtmlContentProcessor {
 

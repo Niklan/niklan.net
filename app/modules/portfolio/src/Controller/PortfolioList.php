@@ -15,6 +15,18 @@ final readonly class PortfolioList {
     private PortfolioSettings $settings,
   ) {}
 
+  public function __invoke(): array {
+    return [
+      '#theme' => 'app_portfolio_list',
+      '#description' => [
+        '#type' => 'processed_text',
+        '#text' => $this->settings->getDescription(),
+        '#format' => PortfolioSettings::TEXT_FORMAT,
+      ],
+      '#items' => $this->buildItems(),
+    ];
+  }
+
   /**
    * @return \Drupal\node\NodeInterface[]
    *   The nodes.
@@ -47,18 +59,6 @@ final readonly class PortfolioList {
       ->condition('status', NodeInterface::PUBLISHED)
       ->sort('field_date', 'DESC')
       ->execute();
-  }
-
-  public function __invoke(): array {
-    return [
-      '#theme' => 'app_portfolio_list',
-      '#description' => [
-        '#type' => 'processed_text',
-        '#text' => $this->settings->getDescription(),
-        '#format' => PortfolioSettings::TEXT_FORMAT,
-      ],
-      '#items' => $this->buildItems(),
-    ];
   }
 
 }

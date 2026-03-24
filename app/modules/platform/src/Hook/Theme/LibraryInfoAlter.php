@@ -15,6 +15,11 @@ final class LibraryInfoAlter {
     protected ModuleExtensionList $moduleExtensionList,
   ) {}
 
+  public function __invoke(array &$libraries, string $extension): void {
+    $this->alterDrupalAjax($libraries, $extension);
+    $this->alterPhotoswipe($libraries, $extension);
+  }
+
   private function alterDrupalAjax(array &$libraries, string $extension): void {
     if ($extension !== 'core' || !isset($libraries['drupal.ajax'])) {
       return;
@@ -46,11 +51,6 @@ final class LibraryInfoAlter {
 
       $libraries['photoswipe.local']['js'][$js_file]['preprocess'] = FALSE;
     }
-  }
-
-  public function __invoke(array &$libraries, string $extension): void {
-    $this->alterDrupalAjax($libraries, $extension);
-    $this->alterPhotoswipe($libraries, $extension);
   }
 
 }

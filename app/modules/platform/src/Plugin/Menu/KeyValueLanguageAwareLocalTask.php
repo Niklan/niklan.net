@@ -17,11 +17,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class KeyValueLanguageAwareLocalTask extends DeriverBase implements ContainerDeriverInterface {
 
-  public function __construct(
-    private readonly LanguageManagerInterface $languageManager,
-    private readonly TranslationInterface $stringTranslation,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container, $base_plugin_id): self {
     return new self(
@@ -29,6 +24,11 @@ final class KeyValueLanguageAwareLocalTask extends DeriverBase implements Contai
       $container->get(TranslationInterface::class),
     );
   }
+
+  public function __construct(
+    private readonly LanguageManagerInterface $languageManager,
+    private readonly TranslationInterface $stringTranslation,
+  ) {}
 
   #[\Override]
   public function getDerivativeDefinitions($base_plugin_definition): array {

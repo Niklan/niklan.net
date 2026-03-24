@@ -10,15 +10,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class AttachmentsAlter implements ContainerInjectionInterface {
 
-  public function __construct(
-    private LanguageManagerInterface $languageManager,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get(LanguageManagerInterface::class),
     );
+  }
+
+  public function __construct(
+    private LanguageManagerInterface $languageManager,
+  ) {}
+
+  public function __invoke(array &$attachments): void {
+    $this->preloadFont($attachments);
   }
 
   private function preloadFont(array &$attachments): void {
@@ -47,10 +51,6 @@ final readonly class AttachmentsAlter implements ContainerInjectionInterface {
         'preload_font_' . $delta,
       ];
     }
-  }
-
-  public function __invoke(array &$attachments): void {
-    $this->preloadFont($attachments);
   }
 
 }

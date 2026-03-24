@@ -59,10 +59,10 @@ final readonly class PortfolioLlmsSubscriber implements EventSubscriberInterface
       $lines[] = \sprintf('- **%s**: %s', $year_label, $year);
     }
 
-    $projectUrl = $node->getProjectUrl();
-    if ($projectUrl !== NULL) {
+    $project_url = $node->getProjectUrl();
+    if ($project_url !== NULL) {
       $url_label = (string) $this->translation->translate('Project URL');
-      $lines[] = \sprintf('- **%s**: [%s](%s)', $url_label, $projectUrl, $projectUrl);
+      $lines[] = \sprintf('- **%s**: [%s](%s)', $url_label, $project_url, $project_url);
     }
 
     $categories = $node->getCategories();

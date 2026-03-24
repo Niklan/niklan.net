@@ -11,10 +11,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class SiteMapController implements ContainerInjectionInterface {
 
-  public function __construct(
-    private SiteMapBuilder $siteMapManager,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     $site_map_builder = $container->get(SiteMapBuilder::class);
@@ -22,6 +18,10 @@ final readonly class SiteMapController implements ContainerInjectionInterface {
 
     return new self($site_map_builder);
   }
+
+  public function __construct(
+    private SiteMapBuilder $siteMapManager,
+  ) {}
 
   public function __invoke(): array {
     $sitemap = $this->siteMapManager->build();

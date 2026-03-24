@@ -4,10 +4,21 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
-use Drupal\comment\CommentInterface;
 use Drupal\app_contract\Utils\MediaHelper;
+use Drupal\comment\CommentInterface;
 
 final readonly class PreprocessComment {
+
+  public function __invoke(array &$variables): void {
+    $comment = $variables['elements']['#comment'];
+    \assert($comment instanceof CommentInterface);
+    $this->addGeneralVariables($comment, $variables);
+
+    match ($variables['elements']['#view_mode']) {
+      default => NULL,
+      'teaser' => $this->addTeaserVariables($comment, $variables),
+    };
+  }
 
   private function addGeneralVariables(CommentInterface $comment, array &$variables): void {
     $variables['author_name'] = $comment->getAuthorName();
@@ -42,17 +53,6 @@ final readonly class PreprocessComment {
 
   private function addTeaserVariables(CommentInterface $comment, array &$variables): void {
     $this->addCommentedEntityPosterUri($comment, $variables);
-  }
-
-  public function __invoke(array &$variables): void {
-    $comment = $variables['elements']['#comment'];
-    \assert($comment instanceof CommentInterface);
-    $this->addGeneralVariables($comment, $variables);
-
-    match ($variables['elements']['#view_mode']) {
-      default => NULL,
-      'teaser' => $this->addTeaserVariables($comment, $variables),
-    };
   }
 
 }

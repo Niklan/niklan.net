@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\Repository;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\app_contract\Contract\Blog\ArticleRepository;
 use Drupal\app_blog\Node\ArticleBundle;
+use Drupal\app_contract\Contract\Blog\ArticleRepository;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeStorageInterface;
 
 final readonly class DatabaseArticleRepository implements ArticleRepository {

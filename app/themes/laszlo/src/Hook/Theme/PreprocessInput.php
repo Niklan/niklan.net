@@ -8,17 +8,6 @@ use Drupal\Core\Template\Attribute;
 
 final readonly class PreprocessInput {
 
-  private function preprocessCheckbox(array &$variables): void {
-    $element = &$variables['element'];
-    $variables['input_props'] = [
-      'input_attributes' => new Attribute($variables['attributes']),
-      'checked' => $element['#checked'],
-      'label' => $element['#title'],
-      'required' => $element['#required'],
-    ];
-    \array_filter($variables['input_props']);
-  }
-
   public function __invoke(array &$variables): void {
     $classes_to_remove = ['form-text', 'required', 'form-checkbox'];
     foreach ($variables['attributes']['class'] ?? [] as $index => $class) {
@@ -33,6 +22,17 @@ final readonly class PreprocessInput {
       default => NULL,
       'checkbox' => $this->preprocessCheckbox($variables),
     };
+  }
+
+  private function preprocessCheckbox(array &$variables): void {
+    $element = &$variables['element'];
+    $variables['input_props'] = [
+      'input_attributes' => new Attribute($variables['attributes']),
+      'checked' => $element['#checked'],
+      'label' => $element['#title'],
+      'required' => $element['#required'],
+    ];
+    \array_filter($variables['input_props']);
   }
 
 }

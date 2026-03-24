@@ -34,7 +34,8 @@
   <!-- Project specific rules. -->
   <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
   <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
-  <rule ref="SlevomatCodingStandard.Classes.ClassStructure"/>
+  <!-- Handled by PHP-CS-Fixer ordered_class_elements. -->
+  <!-- <rule ref="SlevomatCodingStandard.Classes.ClassStructure"/> -->
   <rule ref="SlevomatCodingStandard.Complexity.Cognitive"/>
   <rule ref="SlevomatCodingStandard.Classes.PropertySpacing">
     <properties>

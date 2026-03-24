@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync\Html;
 
-use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Html\MediaProcessor;
 use Drupal\app_contract\Contract\Media\MediaSynchronizer;
 use Drupal\Component\Utility\Html;
@@ -20,6 +20,20 @@ final class MediaProcessorTest extends UnitTestCase {
   use ProphecyTrait;
 
   private ArticleProcessingContext $context;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $translation = new ArticleTranslation(
+      sourcePath: 'article.ru.md',
+      language: 'ru',
+      title: 'Test',
+      description: 'Test',
+      posterPath: 'poster.png',
+      contentDirectory: '/content/blog/2026/article',
+    );
+    $this->context = new ArticleProcessingContext($translation, '/content');
+  }
 
   public function testImageReplacedWithPlaceholder(): void {
     $media = $this->prophesize(MediaInterface::class);
@@ -145,20 +159,6 @@ final class MediaProcessorTest extends UnitTestCase {
     $result = Html::serialize($dom);
     self::assertStringContainsString(' controls', $result);
     self::assertStringNotContainsString('autoplay', $result);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $translation = new ArticleTranslation(
-      sourcePath: 'article.ru.md',
-      language: 'ru',
-      title: 'Test',
-      description: 'Test',
-      posterPath: 'poster.png',
-      contentDirectory: '/content/blog/2026/article',
-    );
-    $this->context = new ArticleProcessingContext($translation, '/content');
   }
 
 }

@@ -12,11 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class BrandingPropsAlter implements ContainerInjectionInterface {
 
-  public function __construct(
-    private ConfigFactoryInterface $configFactory,
-    private ThemeManagerInterface $themeManager,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
@@ -24,6 +19,11 @@ final readonly class BrandingPropsAlter implements ContainerInjectionInterface {
       $container->get(ThemeManagerInterface::class),
     );
   }
+
+  public function __construct(
+    private ConfigFactoryInterface $configFactory,
+    private ThemeManagerInterface $themeManager,
+  ) {}
 
   public function __invoke(array $props): array {
     $site_settings = $this->configFactory->get('system.site');

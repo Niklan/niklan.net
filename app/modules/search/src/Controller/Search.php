@@ -10,9 +10,9 @@ use Drupal\app_search\Data\SearchParams;
 use Drupal\app_search\Repository\EntitySearch;
 use Drupal\app_search\Repository\GlobalSearch;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 
 final class Search {
@@ -26,6 +26,28 @@ final class Search {
     protected PagerManagerInterface $pagerManager,
     private TranslationInterface $stringTranslation,
   ) {}
+
+  public function __invoke(Request $request): array {
+    $query = (string) $request->query->get('q');
+
+    return [
+      '#theme' => 'app_search_results',
+      '#no_query' => $this->stringTranslation->translate('You need to provide a search query to see the results.'),
+      '#no_results' => $this->stringTranslation->translate('Nothing was found for your request.'),
+      '#results' => $this->buildResults($query),
+      '#query' => $query,
+      '#pager' => ['#type' => 'pager', '#quantity' => 5],
+      '#cache' => [
+        'contexts' => [
+          'url.query_args:q',
+          'url.query_args.pagers:0',
+        ],
+        'tags' => [
+          'search_api_list:global_index',
+        ],
+      ],
+    ];
+  }
 
   private function doSearch(string $keys): EntitySearchResults {
     $search_params = new SearchParams($keys, self::PER_PAGE, $this->pagerManager->findPage() * self::PER_PAGE);
@@ -62,28 +84,6 @@ final class Search {
     foreach ($search_results->getEntityIds() as $entity_type_id => $entity_ids) {
       $this->entityTypeManager->getStorage($entity_type_id)->loadMultiple($entity_ids);
     }
-  }
-
-  public function __invoke(Request $request): array {
-    $query = (string) $request->query->get('q');
-
-    return [
-      '#theme' => 'app_search_results',
-      '#no_query' => $this->stringTranslation->translate('You need to provide a search query to see the results.'),
-      '#no_results' => $this->stringTranslation->translate('Nothing was found for your request.'),
-      '#results' => $this->buildResults($query),
-      '#query' => $query,
-      '#pager' => ['#type' => 'pager', '#quantity' => 5],
-      '#cache' => [
-        'contexts' => [
-          'url.query_args:q',
-          'url.query_args.pagers:0',
-        ],
-        'tags' => [
-          'search_api_list:global_index',
-        ],
-      ],
-    ];
   }
 
 }

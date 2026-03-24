@@ -17,6 +17,17 @@ final class BlogList {
     protected LanguageManagerInterface $languageManager,
   ) {}
 
+  public function __invoke(): array {
+    return [
+      '#theme' => 'app_blog_list',
+      '#items' => $this->getItems(),
+      '#pager' => $this->buildPager(),
+      '#cache' => [
+        'tags' => ['node_list:blog_entry'],
+      ],
+    ];
+  }
+
   public function load(): array {
     $ids = $this->getEntityIds();
 
@@ -59,17 +70,6 @@ final class BlogList {
     }
 
     return $query->execute();
-  }
-
-  public function __invoke(): array {
-    return [
-      '#theme' => 'app_blog_list',
-      '#items' => $this->getItems(),
-      '#pager' => $this->buildPager(),
-      '#cache' => [
-        'tags' => ['node_list:blog_entry'],
-      ],
-    ];
   }
 
 }

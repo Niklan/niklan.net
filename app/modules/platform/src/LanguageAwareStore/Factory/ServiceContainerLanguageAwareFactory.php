@@ -42,9 +42,6 @@ final class ServiceContainerLanguageAwareFactory implements LanguageAwareFactory
     private readonly array $options = [],
   ) {}
 
-  /**
-   * {@inheritdoc}
-   */
   public function get($collection, ?string $language_code = NULL): LanguageAwareStore {
     \assert(Inspector::assertStringable($collection));
     $language_code ??= $this->languageManager->getCurrentLanguage()->getId();

@@ -17,11 +17,7 @@ final class Article implements \IteratorAggregate, \Countable {
   private array $translations = [];
 
   /**
-   * @param string $id
-   * @param string $created
-   * @param string $updated
    * @param array{}|list<string> $tags
-   * @param string $directory
    */
   public function __construct(
     public string $id,

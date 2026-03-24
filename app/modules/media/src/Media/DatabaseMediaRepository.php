@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\app_media\Media;
 
+use Drupal\app_contract\Contract\Media\MediaRepository;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\file\FileInterface;
 use Drupal\file\FileUsage\FileUsageInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaStorage;
-use Drupal\app_contract\Contract\Media\MediaRepository;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final readonly class DatabaseMediaRepository implements MediaRepository {

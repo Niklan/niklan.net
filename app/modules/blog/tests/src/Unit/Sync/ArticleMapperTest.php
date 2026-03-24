@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync;
 
-use Prophecy\Prophecy\ObjectProphecy;
 use Drupal\app_blog\Sync\ArticleMapper;
 use Drupal\app_blog\Sync\Domain\ProcessedArticle;
 use Drupal\app_contract\Contract\Node\Article;
@@ -14,6 +13,7 @@ use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 
 #[CoversClass(ArticleMapper::class)]
 final class ArticleMapperTest extends UnitTestCase {
@@ -21,6 +21,12 @@ final class ArticleMapperTest extends UnitTestCase {
   use ProphecyTrait;
 
   private ArticleMapper $mapper;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $this->mapper = new ArticleMapper();
+  }
 
   public function testTitleMapped(): void {
     $entity = $this->createArticleMock();
@@ -43,7 +49,7 @@ final class ArticleMapperTest extends UnitTestCase {
   public function testPosterMapped(): void {
     $poster = $this->prophesize(MediaInterface::class)->reveal();
     $entity = $this->createArticleMock();
-    $processed = $this->createProcessed(posterMedia: $poster);
+    $processed = $this->createProcessed(poster_media: $poster);
 
     $this->mapper->toEntity($processed, $entity->reveal());
 
@@ -64,7 +70,7 @@ final class ArticleMapperTest extends UnitTestCase {
 
   public function testSourcePathHashMapped(): void {
     $entity = $this->createArticleMock();
-    $processed = $this->createProcessed(sourcePathHash: 'abc123');
+    $processed = $this->createProcessed(source_path_hash: 'abc123');
 
     $this->mapper->toEntity($processed, $entity->reveal());
 
@@ -73,7 +79,7 @@ final class ArticleMapperTest extends UnitTestCase {
 
   public function testEstimatedReadTimeMapped(): void {
     $entity = $this->createArticleMock();
-    $processed = $this->createProcessed(estimatedReadTime: 5);
+    $processed = $this->createProcessed(estimated_read_time: 5);
 
     $this->mapper->toEntity($processed, $entity->reveal());
 
@@ -91,7 +97,7 @@ final class ArticleMapperTest extends UnitTestCase {
     $entity = $this->createArticleMock();
     $entity->get('field_media_attachments')->willReturn($field_list->reveal());
 
-    $processed = $this->createProcessed(attachmentsMedia: [$media1, $media2]);
+    $processed = $this->createProcessed(attachments_media: [$media1, $media2]);
 
     $this->mapper->toEntity($processed, $entity->reveal());
 
@@ -105,12 +111,6 @@ final class ArticleMapperTest extends UnitTestCase {
     $this->mapper->toEntity($processed, $entity->reveal());
 
     $entity->set('field_media_attachments', NULL)->shouldHaveBeenCalledOnce();
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $this->mapper = new ArticleMapper();
   }
 
   /**
@@ -127,18 +127,15 @@ final class ArticleMapperTest extends UnitTestCase {
     return $entity;
   }
 
-  /**
-   * @param list<\Drupal\media\MediaInterface> $attachmentsMedia
-   */
-  private function createProcessed(string $html = '<p>test</p>', string $sourcePathHash = 'hash', int $estimatedReadTime = 1, string $title = 'Title', string $description = 'Desc', ?MediaInterface $posterMedia = NULL, array $attachmentsMedia = []): ProcessedArticle {
+  private function createProcessed(string $html = '<p>test</p>', string $source_path_hash = 'hash', int $estimated_read_time = 1, string $title = 'Title', string $description = 'Desc', ?MediaInterface $poster_media = NULL, array $attachments_media = []): ProcessedArticle {
     return new ProcessedArticle(
       html: $html,
-      sourcePathHash: $sourcePathHash,
-      estimatedReadTime: $estimatedReadTime,
+      sourcePathHash: $source_path_hash,
+      estimatedReadTime: $estimated_read_time,
       title: $title,
       description: $description,
-      posterMedia: $posterMedia,
-      attachmentsMedia: $attachmentsMedia,
+      posterMedia: $poster_media,
+      attachmentsMedia: $attachments_media,
     );
   }
 

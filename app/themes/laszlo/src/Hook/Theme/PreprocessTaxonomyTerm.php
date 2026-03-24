@@ -11,10 +11,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessTaxonomyTerm implements ContainerInjectionInterface {
 
-  public function __construct(
-    private ClassResolverInterface $classResolver,
-  ) {}
-
   #[\Override]
   public static function create(ContainerInterface $container): self {
     return new self(
@@ -22,9 +18,9 @@ final readonly class PreprocessTaxonomyTerm implements ContainerInjectionInterfa
     );
   }
 
-  private function addCommonVariables(TermInterface $term, array &$variables): void {
-    $variables['url_absolute'] = $term->toUrl()->setAbsolute()->toString();
-  }
+  public function __construct(
+    private ClassResolverInterface $classResolver,
+  ) {}
 
   public function __invoke(array &$variables): void {
     $term = $variables['term'];
@@ -42,6 +38,10 @@ final readonly class PreprocessTaxonomyTerm implements ContainerInjectionInterfa
     }
 
     $this->classResolver->getInstanceFromDefinition($class)($variables);
+  }
+
+  private function addCommonVariables(TermInterface $term, array &$variables): void {
+    $variables['url_absolute'] = $term->toUrl()->setAbsolute()->toString();
   }
 
 }

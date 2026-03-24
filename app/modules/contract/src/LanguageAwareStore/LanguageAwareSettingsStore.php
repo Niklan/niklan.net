@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\app_contract\LanguageAwareStore;
 
+use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareFactory;
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareFactory;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 abstract class LanguageAwareSettingsStore implements CacheableDependencyInterface {
 
   private ?string $currentLanguage = NULL;
-
-  abstract protected function getStoreId(): string;
 
   public function __construct(
     #[Autowire(service: 'keyvalue.language_aware')]
@@ -52,6 +50,8 @@ abstract class LanguageAwareSettingsStore implements CacheableDependencyInterfac
       language_code: $this->currentLanguage,
     );
   }
+
+  abstract protected function getStoreId(): string;
 
   private function lookupLanguageFromRoute(): void {
     // Only attempt to resolve the language from the route if it has not already

@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme\PropsAlter;
 
+use Drupal\app_contract\Contract\Console\Git;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Site\Settings;
-use Drupal\app_contract\Contract\Console\Git;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PageFooterPropsAlter implements ContainerInjectionInterface {
-
-  public function __construct(
-    private Git $git,
-  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
@@ -21,6 +17,32 @@ final readonly class PageFooterPropsAlter implements ContainerInjectionInterface
     \assert($git instanceof Git);
 
     return new self($git);
+  }
+
+  public function __construct(
+    private Git $git,
+  ) {}
+
+  public function __invoke(array $props): array {
+    $content_directory = Settings::get('content_directory');
+    \assert(\is_string($content_directory));
+    $content_repository_url = Settings::get('content_repository_url');
+    \assert(\is_string($content_repository_url));
+    $website_repository_url = Settings::get('website_repository_url');
+    \assert(\is_string($website_repository_url));
+
+    $props['versions'] = [
+      'content' => $this->buildVersionInfo(
+        repository_path: $content_directory,
+        repository_url: $content_repository_url,
+      ),
+      'website' => $this->buildVersionInfo(
+        repository_path: \DRUPAL_ROOT,
+        repository_url: $website_repository_url,
+      ),
+    ];
+
+    return $props;
   }
 
   private function buildVersionInfo(string $repository_path, string $repository_url): array {
@@ -49,28 +71,6 @@ final readonly class PageFooterPropsAlter implements ContainerInjectionInterface
     $commit_id = \trim($commit_id);
 
     return \str_replace('"', '', $commit_id);
-  }
-
-  public function __invoke(array $props): array {
-    $content_directory = Settings::get('content_directory');
-    \assert(\is_string($content_directory));
-    $content_repository_url = Settings::get('content_repository_url');
-    \assert(\is_string($content_repository_url));
-    $website_repository_url = Settings::get('website_repository_url');
-    \assert(\is_string($website_repository_url));
-
-    $props['versions'] = [
-      'content' => $this->buildVersionInfo(
-        repository_path: $content_directory,
-        repository_url: $content_repository_url,
-      ),
-      'website' => $this->buildVersionInfo(
-        repository_path: \DRUPAL_ROOT,
-        repository_url: $website_repository_url,
-      ),
-    ];
-
-    return $props;
   }
 
 }

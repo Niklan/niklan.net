@@ -43,7 +43,7 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
   }
 
   #[\Override]
-  public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue {
+  public function tryContinue(Cursor $cursor, BlockContinueParserInterface $active_block_parser): ?BlockContinue {
     // Since this directive is not a container and the cursor has already been
     // moved to the end of the line in the initial parser, the continuation is
     // immediately interrupted.
@@ -51,17 +51,17 @@ final class LeafBlockDirectiveParser extends AbstractBlockContinueParser impleme
   }
 
   #[\Override]
-  public function isContainer(): false {
+  public function isContainer(): FALSE {
     return FALSE;
   }
 
   #[\Override]
-  public function parseInlines(InlineParserEngineInterface $inlineParser): void {
+  public function parseInlines(InlineParserEngineInterface $inline_parser): void {
     if (!$this->block->inlineContentRaw) {
       return;
     }
 
-    $inlineParser->parse(
+    $inline_parser->parse(
       contents: $this->block->inlineContentRaw,
       block: $this->block->inlineContent,
     );

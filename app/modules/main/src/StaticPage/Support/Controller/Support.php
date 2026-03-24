@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\app_main\StaticPage\Support\Controller;
 
+use Drupal\app_main\StaticPage\Support\Repository\SupportSettings;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\app_main\StaticPage\Support\Repository\SupportSettings;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class Support implements ContainerInjectionInterface {
-
-  public function __construct(
-    private SupportSettings $settings,
-  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
@@ -22,6 +18,10 @@ final readonly class Support implements ContainerInjectionInterface {
 
     return new self($settings);
   }
+
+  public function __construct(
+    private SupportSettings $settings,
+  ) {}
 
   public function __invoke(): array {
     $build = [

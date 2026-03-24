@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\app_blog\Command\Sync;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\laszlo\Hook\Theme\PropsAlter\BrandingPropsAlter;
 use Drupal\laszlo\Hook\Theme\PropsAlter\PageFooterPropsAlter;
 use Drupal\laszlo\Hook\Theme\PropsAlter\PageHeaderPropsAlter;
-use Drupal\app_blog\Command\Sync;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessPage implements ContainerInjectionInterface {
-
-  public function __construct(
-    private ClassResolverInterface $classResolver,
-    private TranslationInterface $stringTranslation,
-  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
@@ -28,14 +23,24 @@ final readonly class PreprocessPage implements ContainerInjectionInterface {
     );
   }
 
+  public function __construct(
+    private ClassResolverInterface $classResolver,
+    private TranslationInterface $stringTranslation,
+  ) {}
+
+  public function __invoke(array &$variables): void {
+    $this->prepareHeader($variables);
+    $this->prepareFooter($variables);
+  }
+
   private function prepareHeader(array &$variables): void {
-    $headerAlter = $this->classResolver->getInstanceFromDefinition(PageHeaderPropsAlter::class);
-    $brandingAlter = $this->classResolver->getInstanceFromDefinition(BrandingPropsAlter::class);
+    $header_alter = $this->classResolver->getInstanceFromDefinition(PageHeaderPropsAlter::class);
+    $branding_alter = $this->classResolver->getInstanceFromDefinition(BrandingPropsAlter::class);
 
     $variables['header'] = [
       '#type' => 'component',
       '#component' => 'laszlo:page-header',
-      '#propsAlter' => [$headerAlter(...)],
+      '#propsAlter' => [$header_alter(...)],
       '#props' => [
         'navigation' => [],
       ],
@@ -43,7 +48,7 @@ final readonly class PreprocessPage implements ContainerInjectionInterface {
         'branding' => [
           '#type' => 'component',
           '#component' => 'laszlo:branding',
-          '#propsAlter' => [$brandingAlter(...)],
+          '#propsAlter' => [$branding_alter(...)],
           '#props' => [
             'name' => '',
             'url' => '',
@@ -64,12 +69,12 @@ final readonly class PreprocessPage implements ContainerInjectionInterface {
   }
 
   private function prepareFooter(array &$variables): void {
-    $footerAlter = $this->classResolver->getInstanceFromDefinition(PageFooterPropsAlter::class);
+    $footer_alter = $this->classResolver->getInstanceFromDefinition(PageFooterPropsAlter::class);
 
     $variables['footer'] = [
       '#type' => 'component',
       '#component' => 'laszlo:page-footer',
-      '#propsAlter' => [$footerAlter(...)],
+      '#propsAlter' => [$footer_alter(...)],
       '#props' => [
         'versions' => [],
       ],
@@ -78,11 +83,6 @@ final readonly class PreprocessPage implements ContainerInjectionInterface {
         'tags' => [Sync::CACHE_TAG],
       ],
     ];
-  }
-
-  public function __invoke(array &$variables): void {
-    $this->prepareHeader($variables);
-    $this->prepareFooter($variables);
   }
 
 }

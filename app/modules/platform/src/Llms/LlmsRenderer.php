@@ -25,47 +25,47 @@ final readonly class LlmsRenderer implements MainContentRendererInterface {
 
   #[\Override]
   public function renderResponse(array $main_content, Request $request, RouteMatchInterface $route_match): CacheableResponse {
-    $renderEvent = new LlmsRenderEvent($main_content, $request, $route_match);
-    $this->eventDispatcher->dispatch($renderEvent);
+    $render_event = new LlmsRenderEvent($main_content, $request, $route_match);
+    $this->eventDispatcher->dispatch($render_event);
 
-    $cacheableMetadata = CacheableMetadata::createFromRenderArray($main_content);
+    $cacheable_metadata = CacheableMetadata::createFromRenderArray($main_content);
 
-    $cacheableMetadata = $cacheableMetadata->merge($renderEvent->getCacheableMetadata());
+    $cacheable_metadata = $cacheable_metadata->merge($render_event->getCacheableMetadata());
 
-    if ($renderEvent->hasCustomMarkdown()) {
-      $markdown = $renderEvent->getMarkdown() ?? '';
+    if ($render_event->hasCustomMarkdown()) {
+      $markdown = $render_event->getMarkdown() ?? '';
     }
     else {
-      $renderContext = new RenderContext();
-      $rendered = $this->renderer->executeInRenderContext($renderContext, function () use (&$main_content): string {
+      $render_context = new RenderContext();
+      $rendered = $this->renderer->executeInRenderContext($render_context, function () use (&$main_content): string {
         return (string) $this->renderer->render($main_content);
       });
       \assert(\is_string($rendered));
       $markup = $rendered;
 
-      if (!$renderContext->isEmpty()) {
-        $bubbleable = $renderContext->pop();
+      if (!$render_context->isEmpty()) {
+        $bubbleable = $render_context->pop();
         \assert($bubbleable instanceof CacheableMetadata);
-        $cacheableMetadata = $cacheableMetadata->merge($bubbleable);
+        $cacheable_metadata = $cacheable_metadata->merge($bubbleable);
       }
 
       $markdown = $this->htmlToMarkdownConverter->convert($markup);
     }
 
-    $title = $renderEvent->getTitle() ?? $this->resolveTitle($main_content, $request, $route_match);
+    $title = $render_event->getTitle() ?? $this->resolveTitle($main_content, $request, $route_match);
 
     if ($title !== '') {
       $markdown = "# {$title}\n\n{$markdown}";
     }
 
-    $alterEvent = new LlmsResponseAlterEvent($markdown, $request, $route_match);
-    $this->eventDispatcher->dispatch($alterEvent);
+    $alter_event = new LlmsResponseAlterEvent($markdown, $request, $route_match);
+    $this->eventDispatcher->dispatch($alter_event);
 
-    $response = new CacheableResponse($alterEvent->getMarkdown(), 200, [
+    $response = new CacheableResponse($alter_event->getMarkdown(), 200, [
       'Content-Type' => 'text/markdown; charset=UTF-8',
       'X-Robots-Tag' => 'noindex',
     ]);
-    $response->addCacheableDependency($cacheableMetadata);
+    $response->addCacheableDependency($cacheable_metadata);
 
     return $response;
   }

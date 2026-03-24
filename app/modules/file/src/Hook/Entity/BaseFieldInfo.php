@@ -16,6 +16,13 @@ final class BaseFieldInfo {
     private readonly TranslationInterface $stringTranslation,
   ) {}
 
+  public function __invoke(EntityTypeInterface $entity_type): array {
+    return match ($entity_type->id()) {
+      'file' => $this->file(),
+      default => [],
+    };
+  }
+
   protected function file(): array {
     $fields = [];
 
@@ -25,13 +32,6 @@ final class BaseFieldInfo {
       ->setSetting('max_length', 255);
 
     return $fields;
-  }
-
-  public function __invoke(EntityTypeInterface $entity_type): array {
-    return match ($entity_type->id()) {
-      'file' => $this->file(),
-      default => [],
-    };
   }
 
 }

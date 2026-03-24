@@ -18,13 +18,13 @@ interface Terminal {
    *   The command to run and its arguments listed as separate entries.
    * @param string|null $cwd
    *   The working directory or null to use the working dir of the current PHP
-   *   process.
+   *                         process.
    * @param array|null $env
    *   The environment variables or null to use the same environment as the
-   *   current PHP process.
+   *                        current PHP process.
    * @param mixed $input
    *   The input as stream resource, scalar or \Traversable, or null for no
-   *    input.
+   *                     input.
    * @param float|null $timeout
    *   The timeout in seconds or null to disable.
    */

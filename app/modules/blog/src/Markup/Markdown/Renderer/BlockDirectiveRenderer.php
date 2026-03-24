@@ -15,18 +15,18 @@ use League\CommonMark\Util\HtmlElement;
  */
 abstract class BlockDirectiveRenderer implements NodeRendererInterface {
 
-  abstract protected function directiveSelector(): string;
-
   #[\Override]
-  public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable {
+  public function render(Node $node, ChildNodeRendererInterface $child_renderer): \Stringable {
     \assert($node instanceof BlockDirective);
 
     return new HtmlElement(
       tagName: 'div',
       attributes: $this->prepareElementAttributes($node),
-      contents: $this->prepareContents($node, $childRenderer),
+      contents: $this->prepareContents($node, $child_renderer),
     );
   }
+
+  abstract protected function directiveSelector(): string;
 
   private function prepareElementAttributes(BlockDirective $node): array {
     $attributes = [
@@ -51,22 +51,22 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
     );
   }
 
-  private function prepareContents(BlockDirective $node, ChildNodeRendererInterface $childRenderer): string {
+  private function prepareContents(BlockDirective $node, ChildNodeRendererInterface $child_renderer): string {
     $contents = $this->wrapContents(
       selector: 'inline-content',
       node: $node->inlineContent,
-      childRenderer: $childRenderer,
+      child_renderer: $child_renderer,
     );
     $contents .= $this->wrapContents(
       selector: 'content',
       node: $node,
-      childRenderer: $childRenderer,
+      child_renderer: $child_renderer,
     );
 
     return $contents;
   }
 
-  private function wrapContents(string $selector, Node $node, ChildNodeRendererInterface $childRenderer): string {
+  private function wrapContents(string $selector, Node $node, ChildNodeRendererInterface $child_renderer): string {
     if (!$node->hasChildren()) {
       return '';
     }
@@ -74,7 +74,7 @@ abstract class BlockDirectiveRenderer implements NodeRendererInterface {
     return (string) new HtmlElement(
       tagName: 'div',
       attributes: ['data-selector' => $selector],
-      contents: $childRenderer->renderNodes($node->children()),
+      contents: $child_renderer->renderNodes($node->children()),
     );
   }
 

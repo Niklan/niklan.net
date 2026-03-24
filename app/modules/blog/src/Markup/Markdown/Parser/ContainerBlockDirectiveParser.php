@@ -46,7 +46,7 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
   }
 
   #[\Override]
-  public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): BlockContinue {
+  public function tryContinue(Cursor $cursor, BlockContinueParserInterface $active_block_parser): BlockContinue {
     if ($cursor->getNextNonSpaceCharacter() === ':') {
       $match = RegexHelper::matchFirst(
         pattern: '/^\s*(:{3,})(?=\s*$)/',
@@ -71,7 +71,7 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
   }
 
   #[\Override]
-  public function canContain(AbstractBlock $childBlock): bool {
+  public function canContain(AbstractBlock $child_block): bool {
     return TRUE;
   }
 
@@ -81,12 +81,12 @@ final class ContainerBlockDirectiveParser extends AbstractBlockContinueParser im
   }
 
   #[\Override]
-  public function parseInlines(InlineParserEngineInterface $inlineParser): void {
+  public function parseInlines(InlineParserEngineInterface $inline_parser): void {
     if (!$this->block->inlineContentRaw) {
       return;
     }
 
-    $inlineParser->parse(
+    $inline_parser->parse(
       contents: $this->block->inlineContentRaw,
       block: $this->block->inlineContent,
     );

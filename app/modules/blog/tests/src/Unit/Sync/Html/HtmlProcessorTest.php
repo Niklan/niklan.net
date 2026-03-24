@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync\Html;
 
-use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Contract\HtmlContentProcessor;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Html\HtmlProcessor;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -19,6 +19,20 @@ final class HtmlProcessorTest extends UnitTestCase {
   use ProphecyTrait;
 
   private ArticleProcessingContext $context;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+    $translation = new ArticleTranslation(
+      sourcePath: 'article.ru.md',
+      language: 'ru',
+      title: 'Test',
+      description: 'Test',
+      posterPath: 'poster.png',
+      contentDirectory: '/tmp/test',
+    );
+    $this->context = new ArticleProcessingContext($translation, '/tmp');
+  }
 
   public function testProcessorsAreCalledInOrder(): void {
     $calls = [];
@@ -67,20 +81,6 @@ final class HtmlProcessorTest extends UnitTestCase {
     $result = $processor->process('<p>unchanged</p>', $this->context);
 
     self::assertStringContainsString('<p>unchanged</p>', $result);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-    $translation = new ArticleTranslation(
-      sourcePath: 'article.ru.md',
-      language: 'ru',
-      title: 'Test',
-      description: 'Test',
-      posterPath: 'poster.png',
-      contentDirectory: '/tmp/test',
-    );
-    $this->context = new ArticleProcessingContext($translation, '/tmp');
   }
 
 }

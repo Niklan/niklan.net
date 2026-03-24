@@ -11,9 +11,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(DevelopmentWarningToolbar::class)]
 final class DevelopmentWarningToolbarTest extends KernelTestBase {
 
-  /**
-   * {@inheritdoc}
-   */
   // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
   protected static $modules = ['toolbar', 'system', 'user'];
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_blog\Unit\Sync\Html;
 
-use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Domain\ArticleProcessingContext;
+use Drupal\app_blog\Sync\Domain\ArticleTranslation;
 use Drupal\app_blog\Sync\Html\LinkProcessor;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Site\Settings;
@@ -20,6 +20,39 @@ final class LinkProcessorTest extends UnitTestCase {
   private LinkProcessor $processor;
   private ArticleProcessingContext $context;
   private vfsStreamDirectory $articleDir;
+
+  #[\Override]
+  protected function setUp(): void {
+    parent::setUp();
+
+    $root = vfsStream::setup('content', NULL, [
+      'blog' => [
+        'article' => [],
+      ],
+    ]);
+
+    $article_dir = $root->getChild('blog/article');
+    \assert($article_dir instanceof vfsStreamDirectory);
+    $this->articleDir = $article_dir;
+
+    $content_url = vfsStream::url('content');
+
+    new Settings([
+      'content_directory' => $content_url,
+      'content_repository_url' => 'https://github.com/test/repo',
+    ]);
+
+    $this->processor = new LinkProcessor();
+    $translation = new ArticleTranslation(
+      sourcePath: 'article.ru.md',
+      language: 'ru',
+      title: 'Test',
+      description: 'Test',
+      posterPath: 'poster.png',
+      contentDirectory: vfsStream::url('content/blog/article'),
+    );
+    $this->context = new ArticleProcessingContext($translation, $content_url);
+  }
 
   public function testExternalLinkNotProcessed(): void {
     $dom = Html::load('<a href="https://example.com">External</a>');
@@ -97,39 +130,6 @@ final class LinkProcessorTest extends UnitTestCase {
     self::assertStringContainsString('href="https://ext.com"', $result);
     self::assertStringContainsString('data-source-path-hash=', $result);
     self::assertStringContainsString('href="#anchor"', $result);
-  }
-
-  #[\Override]
-  protected function setUp(): void {
-    parent::setUp();
-
-    $root = vfsStream::setup('content', NULL, [
-      'blog' => [
-        'article' => [],
-      ],
-    ]);
-
-    $article_dir = $root->getChild('blog/article');
-    \assert($article_dir instanceof vfsStreamDirectory);
-    $this->articleDir = $article_dir;
-
-    $content_url = vfsStream::url('content');
-
-    new Settings([
-      'content_directory' => $content_url,
-      'content_repository_url' => 'https://github.com/test/repo',
-    ]);
-
-    $this->processor = new LinkProcessor();
-    $translation = new ArticleTranslation(
-      sourcePath: 'article.ru.md',
-      language: 'ru',
-      title: 'Test',
-      description: 'Test',
-      posterPath: 'poster.png',
-      contentDirectory: vfsStream::url('content/blog/article'),
-    );
-    $this->context = new ArticleProcessingContext($translation, $content_url);
   }
 
 }

@@ -23,6 +23,21 @@ final readonly class PreprocessNode {
     private EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
+  public function __invoke(array &$variables): void {
+    $node = $variables['node'];
+
+    if (!$node instanceof ArticleBundle) {
+      return;
+    }
+
+    match ($variables['view_mode']) {
+      'full' => $this->preprocessFull($node, $variables),
+      'teaser' => $this->preprocessTeaser($node, $variables),
+      'preview' => $this->preprocessPreview($node, $variables),
+      default => NULL,
+    };
+  }
+
   private function preprocessFull(ArticleBundle $node, array &$variables): void {
     $this->addEstimatedReadTime($node, $variables);
     $this->addPosterUri($node, $variables);
@@ -165,21 +180,6 @@ final readonly class PreprocessNode {
 
     $cache->addCacheableDependency($next);
     $cache->applyTo($variables);
-  }
-
-  public function __invoke(array &$variables): void {
-    $node = $variables['node'];
-
-    if (!$node instanceof ArticleBundle) {
-      return;
-    }
-
-    match ($variables['view_mode']) {
-      'full' => $this->preprocessFull($node, $variables),
-      'teaser' => $this->preprocessTeaser($node, $variables),
-      'preview' => $this->preprocessPreview($node, $variables),
-      default => NULL,
-    };
   }
 
 }

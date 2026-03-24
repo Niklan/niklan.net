@@ -25,9 +25,9 @@ final readonly class TagListLlmsSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    $listCache = new CacheableMetadata();
-    $listCache->addCacheTags(['taxonomy_term_list']);
-    $event->addCacheableDependency($listCache);
+    $list_cache = new CacheableMetadata();
+    $list_cache->addCacheTags(['taxonomy_term_list']);
+    $event->addCacheableDependency($list_cache);
 
     $usage = $this->statistics->usage();
     $ids = \array_keys($usage);

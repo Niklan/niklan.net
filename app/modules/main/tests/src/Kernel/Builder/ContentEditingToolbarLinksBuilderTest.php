@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_main\Kernel\Build;
 
+use Drupal\app_main\Navigation\Toolbar\ContentEditingToolbarLinksBuilder;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Menu\LocalTaskManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Security\DoTrustedCallbackTrait;
 use Drupal\Core\Url;
-use Drupal\app_main\Navigation\Toolbar\ContentEditingToolbarLinksBuilder;
 use Drupal\Tests\app_main\Kernel\AppMainTestBase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;

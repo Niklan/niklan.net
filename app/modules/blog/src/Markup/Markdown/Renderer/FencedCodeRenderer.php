@@ -18,7 +18,7 @@ use League\CommonMark\Util\Xml;
 final class FencedCodeRenderer implements NodeRendererInterface {
 
   #[\Override]
-  public function render(Node $node, ChildNodeRendererInterface $childRenderer): \Stringable {
+  public function render(Node $node, ChildNodeRendererInterface $child_renderer): \Stringable {
     \assert($node instanceof FencedCode);
 
     $attrs = $node->data->getData('attributes');

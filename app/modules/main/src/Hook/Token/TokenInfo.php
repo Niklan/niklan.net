@@ -14,6 +14,12 @@ final readonly class TokenInfo {
     private TranslationInterface $stringTranslation,
   ) {}
 
+  public function __invoke(): array {
+    return [
+      'tokens' => $this->defineTokens(),
+    ];
+  }
+
   private function defineTokens(): array {
     return [
       'node' => $this->defineNodeTokens(),
@@ -40,12 +46,6 @@ final readonly class TokenInfo {
         'name' => $this->stringTranslation->translate('Pager suffix'),
         'description' => $this->stringTranslation->translate('Returns a pager suffix (e.g. " — page #2") on paginated pages, empty on the first page.'),
       ],
-    ];
-  }
-
-  public function __invoke(): array {
-    return [
-      'tokens' => $this->defineTokens(),
     ];
   }
 

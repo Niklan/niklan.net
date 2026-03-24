@@ -14,15 +14,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class Deploy0001 implements ContainerInjectionInterface {
 
-  public function __construct(
-    private Connection $database,
-  ) {}
-
   public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('database'),
     );
   }
+
+  public function __construct(
+    private Connection $database,
+  ) {}
 
   public function __invoke(): string {
     $updated = $this->database

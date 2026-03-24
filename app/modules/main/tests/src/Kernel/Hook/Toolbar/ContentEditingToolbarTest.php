@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_main\Kernel\Hook\Toolbar;
 
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\app_main\Hook\Toolbar\ContentEditingToolbar;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Tests\app_main\Kernel\AppMainTestBase;
 use PHPUnit\Framework\Attributes\CoversClass;
 

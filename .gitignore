@@ -49,3 +49,6 @@ production.settings.example.php
 
 # Ignore helpers for PHPStorm.
 .phpstorm.meta.php
+
+# PHP-CS-Fixer cache.
+.php-cs-fixer.cache

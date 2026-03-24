@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\app_portfolio\Unit\Repository;
 
-use Prophecy\Argument;
 use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareFactory;
-use Drupal\app_portfolio\Repository\PortfolioSettings;
 use Drupal\app_contract\Contract\LanguageAwareStore\LanguageAwareStore;
+use Drupal\app_portfolio\Repository\PortfolioSettings;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Prophecy\Argument;
 
 #[CoversClass(PortfolioSettings::class)]
 final class PortfolioSettingsTest extends UnitTestCase {

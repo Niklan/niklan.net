@@ -7,7 +7,6 @@ namespace Drupal\app_blog\Sync\Exception;
 final class XmlValidationException extends \RuntimeException {
 
   /**
-   * @param string $message
    * @param list<string> $errors
    */
   public function __construct(string $message, array $errors = []) {

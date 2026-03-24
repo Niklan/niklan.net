@@ -9,8 +9,8 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Tests\app_blog\Unit\Plugin\Filter\Stub\StubRenderer;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 #[CoversClass(CalloutFilter::class)]
 final class CalloutFilterTest extends UnitTestCase {

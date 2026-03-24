@@ -9,12 +9,6 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 final readonly class FormCommentFormAlter {
 
-  public static function afterBuild(array $form, FormStateInterface $form_state): array {
-    $form['comment_body']['widget'][0]['format']['#access'] = FALSE;
-
-    return $form;
-  }
-
   public function __invoke(array &$form, FormStateInterface $form_state, string $form_id): void {
     $form['author']['name']['#placeholder'] = new TranslatableMarkup('Laszlo Cravensworth');
     $form['author']['name']['#size'] = NULL;
@@ -52,6 +46,12 @@ final readonly class FormCommentFormAlter {
     }
 
     $form['#after_build'][] = [self::class, 'afterBuild'];
+  }
+
+  public static function afterBuild(array $form, FormStateInterface $form_state): array {
+    $form['comment_body']['widget'][0]['format']['#access'] = FALSE;
+
+    return $form;
   }
 
 }

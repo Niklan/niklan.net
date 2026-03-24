@@ -14,6 +14,23 @@ use Drupal\Core\Url;
 #[Hook('preprocess_pager')]
 final class PreprocessPager {
 
+  public function __invoke(array &$variables): void {
+    // Sometimes on views pages can show warning about invalid argument.
+    if (!isset($variables['items'])) {
+      return;
+    }
+
+    foreach ($variables['items'] as $type => &$items) {
+      match ($type) {
+        default => $this->processOtherLink($items),
+        'pages' => $this->processPagesItems($items),
+      };
+    }
+
+    // This method should be called after links are processed.
+    $this->addMetaPrevNext($variables);
+  }
+
   /**
    * Cleans pager URL by force them to be processed by outbound processor.
    */
@@ -71,34 +88,17 @@ final class PreprocessPager {
     }
 
     $variables['#attached']['html_head'][] = [
-    [
-      '#tag' => 'link',
-      '#attributes' => [
-        'rel' => 'next',
-        'href' => Url::fromUserInput($items['next']['href'], ['path_processing' => FALSE])
-          ->setAbsolute()
-          ->toString(),
+      [
+        '#tag' => 'link',
+        '#attributes' => [
+          'rel' => 'next',
+          'href' => Url::fromUserInput($items['next']['href'], ['path_processing' => FALSE])
+            ->setAbsolute()
+            ->toString(),
+        ],
       ],
-    ],
       'app_main_pager_next_link',
     ];
-  }
-
-  public function __invoke(array &$variables): void {
-    // Sometimes on views pages can show warning about invalid argument.
-    if (!isset($variables['items'])) {
-      return;
-    }
-
-    foreach ($variables['items'] as $type => &$items) {
-      match ($type) {
-        default => $this->processOtherLink($items),
-        'pages' => $this->processPagesItems($items),
-      };
-    }
-
-    // This method should be called after links are processed.
-    $this->addMetaPrevNext($variables);
   }
 
 }

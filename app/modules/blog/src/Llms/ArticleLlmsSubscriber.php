@@ -56,10 +56,10 @@ final readonly class ArticleLlmsSubscriber implements EventSubscriberInterface {
     $created = \date('Y-m-d', (int) $node->getCreatedTime());
     $lines[] = \sprintf('- **%s**: %s', $date_label, $created);
 
-    $readTime = $node->getEstimatedReadTime();
-    if ($readTime > 0) {
+    $read_time = $node->getEstimatedReadTime();
+    if ($read_time > 0) {
       $read_time_label = (string) $this->translation->translate('Estimated read time');
-      $min_label = (string) $this->translation->translate('@count min', ['@count' => $readTime]);
+      $min_label = (string) $this->translation->translate('@count min', ['@count' => $read_time]);
       $lines[] = \sprintf('- **%s**: %s', $read_time_label, $min_label);
     }
 

@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\app_contract\Contract\Tag\TagUsageStatistics;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final readonly class PreprocessTaxonomyTermTags implements ContainerInjectionInterface {
-
-  public function __construct(
-    private TagUsageStatistics $statistics,
-  ) {}
 
   #[\Override]
   public static function create(ContainerInterface $container): self {
@@ -22,6 +18,10 @@ final readonly class PreprocessTaxonomyTermTags implements ContainerInjectionInt
 
     return new self($statistics);
   }
+
+  public function __construct(
+    private TagUsageStatistics $statistics,
+  ) {}
 
   public function __invoke(array &$variables): void {
     $term = $variables['term'];

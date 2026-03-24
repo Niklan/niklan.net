@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\app_main\StaticPage\About\Form;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\app_contract\LanguageAwareStore\LanguageAwareStoreForm;
 use Drupal\app_main\StaticPage\About\Repository\AboutSettings;
+use Drupal\Core\Form\FormStateInterface;
 
 final class AboutSettingsForm extends LanguageAwareStoreForm {
 
