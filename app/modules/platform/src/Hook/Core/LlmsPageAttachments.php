@@ -8,7 +8,7 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-#[Hook('page_attachments_alter')]
+#[Hook('page_attachments')]
 final class LlmsPageAttachments {
 
   public function __construct(
