@@ -11,7 +11,3 @@ parameters:
   ignoreErrors:
     # Drupal render arrays are impossible to fix.
     - identifier: missingType.iterableValue
-    # @see https://github.com/mglaman/phpstan-drupal/issues/825#issuecomment-2661425679
-    -
-      message: '#^Call to method Drupal\\Core\\Entity\\Query\\QueryInterface\:\:accessCheck\(\) with false will always evaluate to true\.$#'
-      identifier: method.alreadyNarrowedType
