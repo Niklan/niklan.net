@@ -87,6 +87,7 @@ final class ArticleSynchronizerTest extends KernelTestBase {
     $this->createField('field_tags', 'entity_reference', ['target_type' => 'taxonomy_term'], -1);
     $this->createField('field_media_image', 'entity_reference', ['target_type' => 'media']);
     $this->createField('field_media_attachments', 'entity_reference', ['target_type' => 'media'], -1);
+    $this->createField('field_compatibility', 'software_compatibility', [], -1);
   }
 
   #[DataProvider('sourcePathPrefixProvider')]
@@ -142,6 +143,25 @@ final class ArticleSynchronizerTest extends KernelTestBase {
     self::assertCount(1, $nodes);
     $node = \reset($nodes);
     self::assertSame('Existing Title', $node->getTitle());
+  }
+
+  public function testCompatibilitySynced(): void {
+    $synchronizer = $this->buildSynchronizer();
+    $context = $this->createSyncContext();
+
+    $synchronizer->sync($context);
+
+    $nodes = $this->loadBlogNodes();
+    self::assertCount(1, $nodes);
+    $node = \reset($nodes);
+    $field = $node->get('field_compatibility');
+    self::assertCount(3, $field);
+    self::assertSame('drupal', $field->get(0)->get('name')->getValue());
+    self::assertSame('^10.3 || ^11', $field->get(0)->get('constraint')->getValue());
+    self::assertSame('php', $field->get(1)->get('name')->getValue());
+    self::assertSame('^8.3', $field->get(1)->get('constraint')->getValue());
+    self::assertSame('docker', $field->get(2)->get('name')->getValue());
+    self::assertNull($field->get(2)->get('constraint')->getValue());
   }
 
   public function testForcedSyncUpdatesEvenUnchanged(): void {
@@ -271,6 +291,11 @@ final class ArticleSynchronizerTest extends KernelTestBase {
           <poster src="{$source_prefix}poster.png"/>
         </translation>
       </translations>
+      <compatibility>
+        <software name="drupal" constraint="^10.3 || ^11"/>
+        <software name="php" constraint="^8.3"/>
+        <software name="docker"/>
+      </compatibility>
     </article>
     XML;
   }

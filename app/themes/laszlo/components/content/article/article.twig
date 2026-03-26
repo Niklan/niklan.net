@@ -28,9 +28,17 @@
           {% block summary %}{% endblock %}
         </div>
 
-        {% if tags %}
+        {% if tags or compatibility is not empty %}
           <div class="article__tags">
             {{ tags }}
+            {% for item in compatibility %}
+              {% include 'laszlo:chip' with {
+                label: item.label,
+                icon: item.name,
+                icon_pack: 'software',
+                suffix: item.constraint,
+              } only %}
+            {% endfor %}
           </div>
         {% endif %}
 

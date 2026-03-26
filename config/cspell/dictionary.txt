@@ -32,5 +32,6 @@ Taskfile
 Twotone
 twotone
 TYPEHINT
+Webmozart
 wght
 youtu

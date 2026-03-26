@@ -1,0 +1,19 @@
+uuid: 2ce18598-b3da-4ae5-871c-1e84756cd505
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_compatibility
+    - node.type.blog_entry
+id: node.blog_entry.field_compatibility
+field_name: field_compatibility
+entity_type: node
+bundle: blog_entry
+label: Compatibility
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: software_compatibility

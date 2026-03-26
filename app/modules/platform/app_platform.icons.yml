@@ -1,0 +1,17 @@
+software:
+  label: Software
+  description: Icons for software and technology platforms.
+  extractor: svg
+  config:
+    sources:
+      - assets/icons/software/*.svg
+  template: >
+    <svg
+      {{ attributes
+          .setAttribute('viewBox', attributes.viewBox|default('0 0 24 24'))
+          .setAttribute('fill', 'currentColor')
+          .setAttribute('aria-hidden', 'true')
+      }}
+    >
+      {{ content }}
+    </svg>

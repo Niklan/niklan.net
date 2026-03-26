@@ -1,0 +1,16 @@
+laszlo:
+  label: Laszlo
+  extractor: svg
+  config:
+    sources:
+      - components/ui/icon/icons/*.svg
+  template: >
+    <svg
+      {{ attributes
+          .setAttribute('viewBox', attributes.viewBox|default('0 0 24 24'))
+          .setAttribute('fill', 'currentColor')
+          .setAttribute('aria-hidden', 'true')
+      }}
+    >
+      {{ content }}
+    </svg>

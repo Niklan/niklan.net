@@ -1,0 +1,19 @@
+uuid: b6b4c2ac-b21f-46bb-bea9-62c35abd5064
+langcode: ru
+status: true
+dependencies:
+  module:
+    - app_platform
+    - node
+id: node.field_compatibility
+field_name: field_compatibility
+entity_type: node
+type: software_compatibility
+settings: {  }
+module: app_platform
+locked: false
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

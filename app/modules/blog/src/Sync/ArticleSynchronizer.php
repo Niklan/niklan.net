@@ -135,6 +135,7 @@ final readonly class ArticleSynchronizer {
     $entity->setChangedTime($updated->getTimestamp());
 
     $this->updateTags($article, $entity);
+    $this->updateCompatibility($article, $entity);
   }
 
   private function updateTags(Article $article, ArticleNode $entity): void {
@@ -146,6 +147,16 @@ final readonly class ArticleSynchronizer {
       }
 
       $entity->get('field_tags')->appendItem($tag_entity->id());
+    }
+  }
+
+  private function updateCompatibility(Article $article, ArticleNode $entity): void {
+    $entity->set('field_compatibility', NULL);
+    foreach ($article->compatibility as $item) {
+      $entity->get('field_compatibility')->appendItem([
+        'name' => $item->name,
+        'constraint' => $item->constraint,
+      ]);
     }
   }
 

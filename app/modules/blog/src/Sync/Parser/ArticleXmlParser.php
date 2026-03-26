@@ -6,6 +6,7 @@ namespace Drupal\app_blog\Sync\Parser;
 
 use Drupal\app_blog\Sync\Domain\Article;
 use Drupal\app_blog\Sync\Domain\ArticleTranslation;
+use Drupal\app_blog\Sync\Domain\SoftwareCompatibility;
 use Drupal\app_blog\Sync\Exception\ArticleParseException;
 use Drupal\app_blog\Sync\Exception\XmlLoadException;
 use Drupal\app_blog\Sync\Exception\XmlValidationException;
@@ -35,12 +36,14 @@ final readonly class ArticleXmlParser {
 
     $article_node = $this->getArticleNode($xpath);
     $tags = $this->parseTags($xpath);
+    $compatibility = $this->parseCompatibility($xpath);
     $article = new Article(
       id: $article_node->getAttribute('id'),
       created: $article_node->getAttribute('created'),
       updated: $article_node->getAttribute('updated'),
       tags: $tags,
       directory: \dirname($file_path),
+      compatibility: $compatibility,
     );
 
     foreach ($this->parseTranslations($xpath, $article) as $translation) {
@@ -77,6 +80,27 @@ final readonly class ArticleXmlParser {
     }
 
     return $tags;
+  }
+
+  /**
+   * @return list<\Drupal\app_blog\Sync\Domain\SoftwareCompatibility>
+   */
+  private function parseCompatibility(\DOMXPath $xpath): array {
+    $software_list = $xpath->query('/article/compatibility/software');
+    \assert($software_list instanceof \DOMNodeList);
+
+    $compatibility = [];
+    foreach ($software_list as $software_node) {
+      \assert($software_node instanceof \DOMElement);
+      $compatibility[] = new SoftwareCompatibility(
+        name: $software_node->getAttribute('name'),
+        constraint: $software_node->hasAttribute('constraint')
+          ? $software_node->getAttribute('constraint')
+          : NULL,
+      );
+    }
+
+    return $compatibility;
   }
 
   private function parseTranslations(\DOMXPath $xpath, Article $article): array {

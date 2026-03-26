@@ -13,3 +13,7 @@ props:
     icon:
       title: Icon name
       type: string
+    pack:
+      title: Icon pack
+      type: string
+      default: laszlo

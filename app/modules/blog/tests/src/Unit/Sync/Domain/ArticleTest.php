@@ -6,6 +6,7 @@ namespace Drupal\Tests\app_blog\Unit\Sync\Domain;
 
 use Drupal\app_blog\Sync\Domain\Article;
 use Drupal\app_blog\Sync\Domain\ArticleTranslation;
+use Drupal\app_blog\Sync\Domain\SoftwareCompatibility;
 use Drupal\app_blog\Sync\Exception\PrimaryTranslationNotFoundException;
 use Drupal\Tests\UnitTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -66,6 +67,33 @@ final class ArticleTest extends UnitTestCase {
 
     self::assertCount(3, $article);
     self::assertFalse($article->hasPrimaryTranslation());
+  }
+
+  public function testCompatibilityDefaultsToEmpty(): void {
+    $article = $this->createArticle();
+
+    self::assertSame([], $article->compatibility);
+  }
+
+  public function testCompatibilityPopulated(): void {
+    $compatibility = [
+      new SoftwareCompatibility(name: 'drupal', constraint: '^10.3 || ^11'),
+      new SoftwareCompatibility(name: 'php', constraint: '^8.3'),
+      new SoftwareCompatibility(name: 'docker'),
+    ];
+    $article = new Article(
+      id: 'test-article',
+      created: '2026-01-01T00:00:00',
+      updated: '2026-03-01T00:00:00',
+      tags: [],
+      directory: '/content/blog/test',
+      compatibility: $compatibility,
+    );
+
+    self::assertCount(3, $article->compatibility);
+    self::assertSame('drupal', $article->compatibility[0]->name);
+    self::assertSame('^10.3 || ^11', $article->compatibility[0]->constraint);
+    self::assertNull($article->compatibility[2]->constraint);
   }
 
   public function testIterableOverTranslations(): void {
