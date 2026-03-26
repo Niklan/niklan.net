@@ -1,8 +1,17 @@
-{% do attributes.setAttribute('href', href) %}
 {% do attributes.addClass([
   'chip',
   'chip--variant--' ~ variant|default('filled'),
   'chip--size--' ~ size|default('medium'),
   'chip--color--' ~ color|default('default'),
 ]) %}
-<a{{ attributes }}>{{ label }}</a>
+{% set content_markup %}
+  {%- if icon %}{% include 'laszlo:icon' with { icon: icon, pack: icon_pack|default('laszlo'), attributes: create_attribute({ class: ['chip__icon'] }) } only %}{% endif -%}
+  {{- label -}}
+  {%- if suffix %}<span class="chip__suffix">{{ suffix }}</span>{% endif -%}
+{% endset %}
+{% if href %}
+  {% do attributes.setAttribute('href', href) %}
+  <a{{ attributes }}>{{ content_markup }}</a>
+{% else %}
+  <span{{ attributes }}>{{ content_markup }}</span>
+{% endif %}

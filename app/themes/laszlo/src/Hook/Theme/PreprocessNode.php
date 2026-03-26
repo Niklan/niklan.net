@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\laszlo\Hook\Theme;
 
+use Drupal\app_blog\Node\ArticleBundle;
 use Drupal\app_contract\Contract\Node\Node;
 use Drupal\app_portfolio\Node\PortfolioBundle;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
@@ -32,6 +33,7 @@ final readonly class PreprocessNode implements ContainerInjectionInterface {
 
     $class = match ($node::class) {
       default => NULL,
+      ArticleBundle::class => PreprocessNodeBlogEntry::class,
       PortfolioBundle::class => PreprocessNodePortfolio::class,
     };
 

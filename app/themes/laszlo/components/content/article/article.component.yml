@@ -24,6 +24,10 @@ props:
     tags:
       title: Tags
       type: [ 'null', array ]
+    compatibility:
+      title: Compatibility
+      type: array
+      default: []
     next_link:
       title: Next link
       type: [ 'null', array ]

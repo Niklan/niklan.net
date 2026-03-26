@@ -18,6 +18,7 @@ final class Article implements \IteratorAggregate, \Countable {
 
   /**
    * @param array{}|list<string> $tags
+   * @param list<\Drupal\app_blog\Sync\Domain\SoftwareCompatibility> $compatibility
    */
   public function __construct(
     public string $id,
@@ -25,6 +26,7 @@ final class Article implements \IteratorAggregate, \Countable {
     public string $updated,
     public array $tags,
     public string $directory,
+    public array $compatibility = [],
   ) {}
 
   public function addTranslation(ArticleTranslation $translation): void {

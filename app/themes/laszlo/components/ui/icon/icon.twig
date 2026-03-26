@@ -1,5 +1,5 @@
 {% do attributes.setAttribute('aria-hidden', 'true') %}
 {% do attributes.setAttribute('data-icon', icon) %}
 <span{{ attributes.addClass('icon') }}>
-  {{- source(componentMetadata.path ~ '/icons/' ~ icon ~ '.svg') -}}
+  {{- icon(pack|default('laszlo'), icon) -}}
 </span>
