@@ -51,7 +51,7 @@ final class FencedCodeRenderer implements NodeRendererInterface {
 
     $attrs->set('data-language', \rtrim($info_parts[1]));
     // The additional information expected as JSON after language.
-    if (!\array_key_exists(2, $info_parts) || !\stristr($info_parts[2], '{')) {
+    if (!\stristr($info_parts[2], '{')) {
       return;
     }
 
