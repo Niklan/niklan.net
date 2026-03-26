@@ -45,7 +45,7 @@ final readonly class PreprocessNodeBlogEntry {
     $compatibility = [];
     foreach ($article->get('field_compatibility') as $item) {
       $name = $item->get('name')->getValue();
-      Assert::string($name);
+      assert(\is_string($name));
       $compatibility[] = [
         'name' => $name,
         'label' => self::SOFTWARE_LABELS[$name] ?? \ucfirst($name),
