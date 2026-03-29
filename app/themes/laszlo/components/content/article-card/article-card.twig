@@ -3,7 +3,7 @@
     attributes: create_attribute({
       class: ['article-card__poster'],
     }),
-    src: poster_uri|image_style('150x200'),
+    src: poster_uri|image_scale_crop(150, 200),
     width: 150,
     height: 200,
     loading: 'eager',
@@ -12,8 +12,8 @@
       '150px',
     ],
     srcset: {
-      '150w': poster_uri|image_style('150x200'),
-      '300w': poster_uri|image_style('300x400'),
+      '150w': poster_uri|image_scale_crop(150, 200),
+      '300w': poster_uri|image_scale_crop(300, 400),
     }
   } only %}
 

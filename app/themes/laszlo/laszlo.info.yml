@@ -7,6 +7,8 @@ description: >-
 type: theme
 base theme: false
 core_version_requirement: ^11
+dependencies:
+  - app_image:app_image
 regions:
   content: Content
 libraries:

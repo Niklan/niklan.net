@@ -21,7 +21,6 @@ use Drupal\app_platform\Llms\HtmlToMarkdownConverter;
 use Drupal\app_platform\Llms\LlmsRenderer;
 use Drupal\app_platform\Llms\Middleware\LlmsRequestLogger;
 use Drupal\app_platform\Llms\PathProcessor\LlmsFormatPathProcessor;
-use Drupal\app_platform\Markup\Twig\Extension\ImageDimensions;
 use Drupal\app_platform\Pager\Controller\PagerAwareTitleResolver;
 use Drupal\app_platform\Pager\EventSubscriber\PagerRedirect;
 use Drupal\app_platform\Pager\PathProcessor\PagerPathProcessor;
@@ -54,10 +53,6 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
 
     $autowire(LanguageAwareSettingsRoutes::class)
       ->addTag('event_subscriber');
-
-    // Markup.
-    $autowire(ImageDimensions::class)
-      ->addTag('twig.extension');
 
     // SiteMap.
     $autowire(SiteMapManager::class);

@@ -6,13 +6,13 @@ namespace Drupal\app_blog\Controller;
 
 use Drupal\app_blog\Node\ArticleBundle;
 use Drupal\app_contract\Utils\MediaHelper;
+use Drupal\app_image\DynamicImageStyle\DynamicImageStyle;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableResponse;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Url;
-use Drupal\image\ImageStyleInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,6 +24,7 @@ final class RssFeed {
     private EntityTypeManagerInterface $entityTypeManager,
     private LanguageManagerInterface $languageManager,
     private ConfigFactoryInterface $configFactory,
+    private DynamicImageStyle $dynamicImageStyle,
   ) {}
 
   public function __invoke(): CacheableResponse {
@@ -156,9 +157,10 @@ final class RssFeed {
     $file_uri = $file->getFileUri();
     \assert(\is_string($file_uri));
 
-    $image_style = $this->entityTypeManager->getStorage('image_style')->load('150x200');
-    \assert($image_style instanceof ImageStyleInterface);
-    $url = $image_style->buildUrl($file_uri);
+    $url = $this
+      ->dynamicImageStyle
+      ->effect('image_scale_and_crop', ['width' => 150, 'height' => 200])
+      ->buildUrl($file_uri);
 
     $media_content = $dom->createElement('media:content');
     $media_content->setAttribute('url', $url);

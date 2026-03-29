@@ -3,7 +3,7 @@
     attributes: create_attribute({
       class: ['article-preview__poster'],
     }),
-    src: poster_uri|image_style('200x264'),
+    src: poster_uri|image_scale_crop(200, 264),
     width: 200,
     height: 264,
     alt: title,
@@ -16,11 +16,11 @@
       '182px',
     ],
     srcset: {
-      '200w': poster_uri|image_style('200x264'),
-      '300w': poster_uri|image_style('300x400'),
-      '400w': poster_uri|image_style('400x528'),
-      '600w': poster_uri|image_style('600x800'),
-      '800w': poster_uri|image_style('800x1064'),
+      '200w': poster_uri|image_scale_crop(200, 264),
+      '300w': poster_uri|image_scale_crop(300, 400),
+      '400w': poster_uri|image_scale_crop(400, 528),
+      '600w': poster_uri|image_scale_crop(600, 800),
+      '800w': poster_uri|image_scale_crop(800, 1064),
     }
   } only %}
 

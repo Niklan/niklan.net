@@ -1,11 +1,11 @@
 <article{{ attributes.addClass('article') }}>
   <div class="article__main-pane">
-    <header class="article__header" style="--background-image: url({{ poster_uri|image_style('200x264') }})">
+    <header class="article__header" style="--background-image: url({{ poster_uri|image_scale_crop(200, 264) }})">
       {% include 'laszlo:image' with {
         attributes: create_attribute({
           class: ['article__poster'],
         }),
-        src: poster_uri|image_style('200x264'),
+        src: poster_uri|image_scale_crop(200, 264),
         width: 200,
         height: 264,
         alt: title,
@@ -14,8 +14,8 @@
           '200px',
         ],
         srcset: {
-          '200w': poster_uri|image_style('200x264'),
-          '400w': poster_uri|image_style('400x528'),
+          '200w': poster_uri|image_scale_crop(200, 264),
+          '400w': poster_uri|image_scale_crop(400, 528),
         }
       } only %}
 

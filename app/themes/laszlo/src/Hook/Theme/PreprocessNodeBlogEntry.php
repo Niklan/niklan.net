@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\laszlo\Hook\Theme;
 
 use Drupal\app_blog\Node\ArticleBundle;
-use Webmozart\Assert\Assert;
 
 final readonly class PreprocessNodeBlogEntry {
 
@@ -45,7 +44,7 @@ final readonly class PreprocessNodeBlogEntry {
     $compatibility = [];
     foreach ($article->get('field_compatibility') as $item) {
       $name = $item->get('name')->getValue();
-      assert(\is_string($name));
+      \assert(\is_string($name));
       $compatibility[] = [
         'name' => $name,
         'label' => self::SOFTWARE_LABELS[$name] ?? \ucfirst($name),

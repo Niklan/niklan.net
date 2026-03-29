@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\app_blog\Generator;
 
+use Drupal\app_image\DynamicImageStyle\DynamicImageStyle;
 use Drupal\Component\Utility\Crypt;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Template\TwigEnvironment;
-use Drupal\image\ImageStyleInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 use Symfony\Component\String\UnicodeString;
@@ -26,7 +25,7 @@ final readonly class BannerGenerator {
     #[Autowire(service: 'file.mime_type.guesser')]
     private MimeTypeGuesserInterface $mimeTypeGuesser,
     private TwigEnvironment $twig,
-    private EntityTypeManagerInterface $entityTypeManager,
+    private DynamicImageStyle $dynamicImageStyle,
   ) {}
 
   public function generate(string $poster_path, string $title, int $created, int $comment_count): ?string {
@@ -65,13 +64,9 @@ final readonly class BannerGenerator {
   }
 
   private function renderSvg(string $poster_path, string $title, int $created, int $comment_count): string {
-    $image_style = $this->entityTypeManager->getStorage('image_style')->load('400x528');
-
-    if ($image_style instanceof ImageStyleInterface) {
-      $style_uri = $image_style->buildUri($poster_path);
-      $image_style->createDerivative($poster_path, $style_uri);
-      $poster_path = $style_uri;
-    }
+    $builder = $this->dynamicImageStyle->effect('image_scale_and_crop', ['width' => 400, 'height' => 528]);
+    $builder->createDerivative($poster_path);
+    $poster_path = $builder->buildUri($poster_path);
 
     $mime = $this->mimeTypeGuesser->guessMimeType($poster_path);
     $base64 = "data:$mime;base64," . \base64_encode((string) \file_get_contents($poster_path));

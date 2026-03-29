@@ -1,0 +1,9 @@
+{
+    "name": "app/image",
+    "type": "drupal-custom-module",
+    "version": "1.0.0",
+    "require": {
+        "php": "^8.4",
+        "webmozart/assert": "^2.1"
+    }
+}
