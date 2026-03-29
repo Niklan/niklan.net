@@ -16,7 +16,7 @@
         attributes: create_attribute({
           class: ['home-cards__background'],
         }),
-        src: background_uri|image_style('400x400'),
+        src: background_uri|image_scale_crop(400, 400),
         width: 400,
         height: 400,
         loading: 'eager',
@@ -30,10 +30,10 @@
           '374px',
         ],
         srcset: {
-          '400w': background_uri|image_style('400x400'),
-          '600w': background_uri|image_style('600x600'),
-          '800w': background_uri|image_style('800x800'),
-          '1200w': background_uri|image_style('1200x1200'),
+          '400w': background_uri|image_scale_crop(400, 400),
+          '600w': background_uri|image_scale_crop(600, 600),
+          '800w': background_uri|image_scale_crop(800, 800),
+          '1200w': background_uri|image_scale_crop(1200, 1200),
         }
       } only %}
     {% endif %}

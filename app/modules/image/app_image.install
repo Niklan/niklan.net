@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall hooks for the App: Image module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Component\Utility\Crypt;
+
+/**
+ * Implements hook_install().
+ */
+function app_image_install(): void {
+  \Drupal::state()->set('app_image.dynamic_image_style_key', Crypt::randomBytesBase64());
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function app_image_uninstall(): void {
+  \Drupal::state()->delete('app_image.dynamic_image_style_key');
+}

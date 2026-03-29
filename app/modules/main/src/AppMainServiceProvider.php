@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\app_main;
 
+use Drupal\app_main\CompilerPass\StubsCompilerPass;
 use Drupal\app_main\Llms\HomeLlmsSubscriber;
 use Drupal\app_main\Navigation\SiteMap\MainMenuSiteMap;
 use Drupal\app_main\Navigation\Toolbar\ContentEditingToolbarLinksBuilder;
@@ -20,6 +21,7 @@ final readonly class AppMainServiceProvider implements ServiceProviderInterface 
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
+    $container->addCompilerPass(new StubsCompilerPass(), priority: -100);
     $autowire = static fn (string $class) => $container
       ->autowire($class)
       ->setPublic(TRUE)

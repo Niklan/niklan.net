@@ -1,16 +1,16 @@
-{% set dimensions = uri|image_dimensions('big_image') %}
+{% set dimensions = uri|image_scale(2000)|dynamic_image_dimensions %}
 {% embed 'laszlo:lightbox' with {
   uri,
-  url: uri|image_style('big_image'),
+  url: uri|image_scale(2000),
   lightbox_width: dimensions.width,
   lightbox_height: dimensions.height,
   responsive_image,
   alt,
 } only %}
   {% block thumbnail %}
-    {% set dimensions = uri|image_dimensions('400xy') %}
+    {% set dimensions = uri|image_scale(400)|dynamic_image_dimensions %}
     {% include 'laszlo:image' with {
-      src: uri|image_style('400xy'),
+      src: uri|image_scale(400),
       width: dimensions.width,
       height: dimensions.height,
       alt,
@@ -23,11 +23,11 @@
         '944px',
       ],
       srcset: {
-        '400w': uri|image_style('400xy'),
-        '600w': uri|image_style('600xy'),
-        '800w': uri|image_style('800xy'),
-        '1000w': uri|image_style('1000xy'),
-        '1200w': uri|image_style('1200xy'),
+        '400w': uri|image_scale(400),
+        '600w': uri|image_scale(600),
+        '800w': uri|image_scale(800),
+        '1000w': uri|image_scale(1000),
+        '1200w': uri|image_scale(1200),
       }
     } only %}
   {% endblock %}

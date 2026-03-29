@@ -14,7 +14,7 @@
           attributes: create_attribute({
             class: ['about__photo'],
           }),
-          src: photo_uri|image_style('200x200_contain'),
+          src: photo_uri|image_scale(200, 200)|image_set_canvas({exact: {width: 200, height: 200}}),
           width: 200,
           height: 200,
           alt: "Author's photo"|t,
