@@ -21,6 +21,7 @@ final class InternalLinkFilterTest extends KernelTestBase {
     'app_blog',
     'app_contract',
     'app_file',
+    'app_image',
     'app_media',
     'app_platform',
     'app_tag',
