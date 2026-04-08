@@ -73,6 +73,7 @@
   }
 
   .code-block__button {
+    all: unset;
     position: absolute;
     z-index: 10;
     right: 0;
@@ -85,11 +86,10 @@
     padding-bottom: var(--spacing-3);
     cursor: pointer;
     text-decoration: underline;
+    text-underline-offset: 3px;
     color: var(--color-on-surface-variant);
     border-radius: 0 0 var(--spacing-2) var(--spacing-2);
     font: var(--typography-label-medium);
-    all: unset;
-    text-underline-offset: 3px;
     &:hover {
       background-image: linear-gradient(
         to bottom,
