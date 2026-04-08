@@ -18,11 +18,7 @@
       background-color 150ms ease-in-out;
     text-decoration: none;
     color: var(--arrow-color);
-    background-color: color-mix(
-      in sRGB,
-      var(--arrow-background-color),
-      transparent 50%
-    );
+    background-color: var(--arrow-background-color);
     backdrop-filter: blur(var(--spacing-4));
     font: var(--typography-label-large);
     clip-path: polygon(

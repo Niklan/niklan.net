@@ -1,7 +1,5 @@
 @layer element {
   code {
-    --inline-color: light-dark(#005cc5, #79c0ff);
-
     color: var(--color-on-surface);
     border-radius: var(--spacing-1);
     background: var(--color-surface-container-high);
@@ -21,7 +19,6 @@
     padding: var(--spacing-1);
     vertical-align: middle;
     word-break: break-word;
-    color: var(--inline-color);
     font-size: 0.8em;
   }
 }
