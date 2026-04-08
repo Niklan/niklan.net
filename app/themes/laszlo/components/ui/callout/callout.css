@@ -8,13 +8,11 @@
     flex-direction: column;
     padding: var(--spacing-6);
     color: var(--color-on-surface);
-    border: 2px solid
-      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 30%);
     border-radius: var(--spacing-3);
     background-image: linear-gradient(
       to bottom,
-      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 90%),
-      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 85%)
+      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 85%),
+      color-mix(in sRGB, var(--_callout-color), var(--color-surface) 80%)
     );
     gap: var(--spacing-4);
   }

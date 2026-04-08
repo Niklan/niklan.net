@@ -1,6 +1,6 @@
 @layer component.ui {
   .code-block {
-    --collapse-height: 60px;
+    --collapse-height: 100px;
 
     display: flex;
     flex-direction: column;
@@ -23,14 +23,24 @@
       transition: opacity 0.2s;
       pointer-events: none;
       opacity: 0;
-      border-top: 1px solid var(--color-outline-variant);
       border-radius: 0 0 var(--spacing-2) var(--spacing-2);
-      background: color-mix(
-        in sRGB,
-        var(--color-secondary-fixed),
-        transparent 50%
+      background: linear-gradient(
+        to bottom,
+        color-mix(
+            in sRGB,
+            var(--color-surface-container-high),
+            transparent 100%
+          )
+          0%,
+        color-mix(in sRGB, var(--color-surface-container-high), transparent 85%)
+          25%,
+        color-mix(in sRGB, var(--color-surface-container-high), transparent 60%)
+          50%,
+        color-mix(in sRGB, var(--color-surface-container-high), transparent 20%)
+          70%,
+        var(--color-surface-container-high) 80%,
+        var(--color-surface-container-high) 100%
       );
-      backdrop-filter: blur(var(--spacing-2));
     }
   }
 
@@ -63,17 +73,29 @@
   }
 
   .code-block__button {
-    all: unset;
     position: absolute;
     z-index: 10;
     right: 0;
     bottom: 0;
     left: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     height: var(--collapse-height);
+    padding-bottom: var(--spacing-3);
     cursor: pointer;
-    text-align: center;
-    text-transform: uppercase;
-    color: var(--color-on-secondary-fixed);
-    font: var(--typography-label-large);
+    text-decoration: underline;
+    color: var(--color-on-surface-variant);
+    border-radius: 0 0 var(--spacing-2) var(--spacing-2);
+    font: var(--typography-label-medium);
+    all: unset;
+    text-underline-offset: 3px;
+    &:hover {
+      background-image: linear-gradient(
+        to bottom,
+        transparent,
+        color-mix(in sRGB, var(--color-shadow), transparent 88%)
+      );
+    }
   }
 }
