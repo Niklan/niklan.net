@@ -24,10 +24,12 @@ final class Deploy0002 implements ContainerInjectionInterface {
     $deleted = [];
     foreach (['public', 'private'] as $scheme) {
       $dir = $scheme . '://styles/dynamic';
-      if (\is_dir($dir)) {
-        $this->fileSystem->deleteRecursive($dir);
-        $deleted[] = $scheme;
+      if (!\is_dir($dir)) {
+        continue;
       }
+
+      $this->fileSystem->deleteRecursive($dir);
+      $deleted[] = $scheme;
     }
 
     if ($deleted === []) {
