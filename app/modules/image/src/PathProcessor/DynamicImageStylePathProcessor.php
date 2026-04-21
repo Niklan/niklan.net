@@ -40,10 +40,12 @@ final readonly class DynamicImageStylePathProcessor implements InboundPathProces
     }
 
     // Private files: /system/files/styles/dynamic/...
-    // Rewrite to internal path that won't be caught by PathProcessorFiles.
+    // Set 'file' query param to block PathProcessorFiles (it skips processing
+    // when 'file' is already present), then rewrite to the registered route.
     $private_prefix = '/system/files/styles/dynamic/';
     if (\str_starts_with($path, $private_prefix)) {
-      return '/app-image/dynamic-private';
+      $request->query->set('file', 'dynamic');
+      return '/system/files/styles/dynamic';
     }
 
     return $path;
