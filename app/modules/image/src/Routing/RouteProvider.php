@@ -37,7 +37,7 @@ final readonly class RouteProvider {
     ));
 
     $routes->add('app_image.dynamic_image_style_private', new Route(
-      path: '/app-image/dynamic-private',
+      path: '/system/files/styles/dynamic',
       defaults: [
         '_controller' => DynamicImageStyleController::class,
         '_disable_route_normalizer' => TRUE,

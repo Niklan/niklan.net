@@ -7,8 +7,7 @@ namespace Drupal\app_image\DynamicImageStyle;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Site\Settings;
-use Drupal\Core\State\StateInterface;
+use Drupal\Core\PrivateKey;
 use Drupal\Core\StreamWrapper\LocalStream;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
@@ -34,7 +33,7 @@ final readonly class DynamicImageStyle {
   public function __construct(
     private EntityTypeManagerInterface $entityTypeManager,
     private StreamWrapperManagerInterface $streamWrapperManager,
-    private StateInterface $state,
+    private PrivateKey $privateKey,
   ) {}
 
   public function effect(string $id, array $data = []): DynamicImageStyleBuilder {
@@ -45,52 +44,19 @@ final readonly class DynamicImageStyle {
    * @param list<array{0: string, 1: array<string, mixed>}> $effects
    */
   public function buildUrl(string $uri, array $effects): string {
-    $scheme = StreamWrapperManager::getScheme($uri);
-    $target = StreamWrapperManager::getTarget($uri);
-    Assert::string($scheme);
-    Assert::string($target);
-    $compressed = $this->compressEffects($effects);
+    [$scheme, $target, $compressed, $hash] = $this->resolveDerivativePath($uri, $effects);
     $itok = $this->generateToken($compressed, $uri);
-    $hash = Crypt::hashBase64($compressed);
-
-    $image_style = $this->createImageStyle($effects);
-    $original_extension = \pathinfo($target, \PATHINFO_EXTENSION);
-    $derivative_extension = $image_style->getDerivativeExtension($original_extension);
-
-    $path = $target;
-    if ($original_extension !== $derivative_extension) {
-      $path .= '.' . $derivative_extension;
-    }
-
+    $encoded_effects = \urlencode($compressed);
     $base_path = $this->getBaseUrlPath($scheme);
-
-    return '/' . $base_path . '/styles/dynamic/' . $hash . '/' . $scheme . '/' . $path
-      . '?effects=' . \urlencode($compressed)
-      . '&itok=' . $itok;
+    return "/$base_path/styles/dynamic/$hash/$scheme/$target?effects=$encoded_effects&itok=$itok";
   }
 
   /**
    * @param list<array{0: string, 1: array<string, mixed>}> $effects
    */
   public function buildUri(string $uri, array $effects): string {
-    $scheme = StreamWrapperManager::getScheme($uri);
-    $target = StreamWrapperManager::getTarget($uri);
-    Assert::string($scheme);
-    Assert::string($target);
-
-    $compressed = $this->compressEffects($effects);
-    $hash = Crypt::hashBase64($compressed);
-
-    $image_style = $this->createImageStyle($effects);
-    $original_extension = \pathinfo($target, \PATHINFO_EXTENSION);
-    $derivative_extension = $image_style->getDerivativeExtension($original_extension);
-
-    $path = $target;
-    if ($original_extension !== $derivative_extension) {
-      $path .= '.' . $derivative_extension;
-    }
-
-    return "$scheme://styles/dynamic/$hash/$scheme/$path";
+    [$scheme, $target, , $hash] = $this->resolveDerivativePath($uri, $effects);
+    return "$scheme://styles/dynamic/$hash/$scheme/$target";
   }
 
   /**
@@ -121,8 +87,7 @@ final readonly class DynamicImageStyle {
   }
 
   public function generateToken(string $compressed, string $uri): string {
-    $key = $this->state->get('app_image.dynamic_image_style_key', Settings::getHashSalt());
-    return \substr(Crypt::hmacBase64($compressed . ':' . $uri, $key), 0, 8);
+    return \substr(Crypt::hmacBase64($compressed . ':' . $uri, $this->privateKey->get()), 0, 8);
   }
 
   /**
@@ -138,6 +103,33 @@ final readonly class DynamicImageStyle {
     }
 
     return $image_style;
+  }
+
+  private function hashEffects(string $compressed): string {
+    return \substr(Crypt::hashBase64($compressed), 0, 8);
+  }
+
+  /**
+   * @param list<array{0: string, 1: array<string, mixed>}> $effects
+   * @return array{string, string, string, string}
+   */
+  private function resolveDerivativePath(string $uri, array $effects): array {
+    $scheme = StreamWrapperManager::getScheme($uri);
+    $target = StreamWrapperManager::getTarget($uri);
+    Assert::string($scheme);
+    Assert::string($target);
+
+    $image_style = $this->createImageStyle($effects);
+    $original_extension = \pathinfo($target, \PATHINFO_EXTENSION);
+    $derivative_extension = $image_style->getDerivativeExtension($original_extension);
+    if ($original_extension !== $derivative_extension) {
+      $target .= '.' . $derivative_extension;
+    }
+
+    $compressed = $this->compressEffects($effects);
+    $hash = $this->hashEffects($compressed);
+
+    return [$scheme, $target, $compressed, $hash];
   }
 
   /**
