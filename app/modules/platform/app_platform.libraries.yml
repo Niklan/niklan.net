@@ -1,0 +1,10 @@
+foresightjs:
+  js:
+    /libraries/foresight/dist/foresight.umd.js: { weight: -20, minified: true, preprocess: false }
+
+foresightjs.init:
+  js:
+    assets/js/foresight.init.js: { weight: -10 }
+  dependencies:
+    - core/drupal
+    - app_platform/foresightjs

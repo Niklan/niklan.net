@@ -11,6 +11,7 @@ use Drupal\app_platform\Console\Process\ProcessTerminal;
 use Drupal\app_platform\Hook\Asset\CacheBustingQuerySetting;
 use Drupal\app_platform\Hook\Core\LlmsPageAttachments;
 use Drupal\app_platform\Hook\Theme\LibraryInfoAlter;
+use Drupal\app_platform\Http\DateHeaderMiddleware;
 use Drupal\app_platform\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes;
 use Drupal\app_platform\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory;
 use Drupal\app_platform\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory;
@@ -37,6 +38,10 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
       ->autowire($class)
       ->setPublic(TRUE)
       ->setAutoconfigured(TRUE);
+
+    $container->register('app_platform.date_header_middleware', DateHeaderMiddleware::class)
+      ->setPublic(TRUE)
+      ->addTag('http_middleware', ['priority' => 201]);
 
     // Console.
     $container
