@@ -59,6 +59,7 @@ The project uses several custom `$settings` in `settings.php`:
 | `telegram_secret_token` | Secret token for Telegram webhook verification |
 | `telegram_chat_id` | Telegram chat ID for moderation notifications |
 | `app_foresight` | (default: `TRUE`) Allows to disable the ForesightJS prefetch library for an environment. Only active for anonymous users. When disabled, no link prefetching is performed. |
+| `app_yandex_metrika_id` | Yandex.Metrika counter ID. When set, adds a tracking pixel (`<img src="https://mc.yandex.ru/watch/{ID}" …>`) to the bottom of every page. |
 
 ## 🧬 Quality Tools
 
