@@ -20,6 +20,19 @@
             }
         },
         {
+            "name": "app-asset/foresight",
+            "version": "3.5.0",
+            "dist": {
+                "type": "path",
+                "url": "assets/vendor/foresight",
+                "reference": "18273468d4fae88e3063080fcc13a2f48dcf74f5"
+            },
+            "type": "drupal-library",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "app-asset/hljs",
             "version": "11.11.1",
             "dist": {
@@ -272,9 +285,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/platform",
-                "reference": "2dcfe97539bbc54cb1b3b26f099ac0d5229f301a"
+                "reference": "4702b12f3f3a2c8774d30b0a32f135a68f6b8a0c"
             },
             "require": {
+                "app-asset/foresight": "^3.5",
                 "app-asset/photoswipe": "^5.4",
                 "app/contract": "^1.0",
                 "league/html-to-markdown": "^5.1"

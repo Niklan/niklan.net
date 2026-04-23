@@ -16,9 +16,11 @@ lightbox
 LLMS
 Llms
 llms
+foresightjs
 Malyshev
 Niklan
 niklan
+noprefetch
 Nutgram
 opsz
 Photoswipe

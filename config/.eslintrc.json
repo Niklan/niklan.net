@@ -10,7 +10,8 @@
   ],
   "globals": {
     "ColorScheme": true,
-    "AlpineOnce": true
+    "AlpineOnce": true,
+    "ForesightLib": true
   },
   "rules": {
     "prettier/prettier": "off",
