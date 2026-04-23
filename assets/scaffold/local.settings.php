@@ -55,5 +55,6 @@ $settings['telegram_token'] = NULL;
 $settings['telegram_chat_id'] = NULL;
 $settings['telegram_secret_token'] = NULL;
 $settings['app_foresight'] = FALSE;
+$settings['app_yandex_metrika_id'] = NULL;
 
 $config['cache_pilot.settings']['connection_dsn'] = 'tcp://php:9000';
