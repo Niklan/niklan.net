@@ -13,13 +13,13 @@ filters:
     id: app_blog_callout
     provider: app_blog
     status: true
-    weight: 0
+    weight: 6
     settings: {  }
   app_blog_code_block:
     id: app_blog_code_block
     provider: app_blog
     status: true
-    weight: 1
+    weight: 0
     settings: {  }
   app_blog_code_highlight:
     id: app_blog_code_highlight
