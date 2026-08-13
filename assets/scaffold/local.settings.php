@@ -51,9 +51,6 @@ $settings['content_directory'] = 'private://content';
 $settings['content_repository_url'] = 'https://example.com/username/repository';
 $settings['website_repository_url'] = 'https://example.com/username/repository';
 
-$settings['telegram_token'] = NULL;
-$settings['telegram_chat_id'] = NULL;
-$settings['telegram_secret_token'] = NULL;
 $settings['app_foresight'] = FALSE;
 $settings['app_yandex_metrika_id'] = NULL;
 
