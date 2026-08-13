@@ -85,6 +85,25 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
   }
 
   #[\Override]
+  public function getAllKeys(): iterable {
+    try {
+      return $this
+        ->connection
+        ->select($this->table)
+        ->fields($this->table, ['name'])
+        ->condition('collection', $this->collection)
+        ->condition('language_code', $this->languageCode)
+        ->execute()
+        ?->fetchCol() ?? [];
+    }
+    catch (\Exception $exception) {
+      $this->catchException($exception);
+
+      return [];
+    }
+  }
+
+  #[\Override]
   public function getAll(): array {
     $result = NULL;
 

@@ -45,8 +45,8 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly RendererInterface $renderer,
+    protected readonly EntityTypeManagerInterface $entityTypeManager,
+    protected readonly RendererInterface $renderer,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }

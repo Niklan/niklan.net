@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\app_comment\Plugin\Field\FieldFormatter;
 
 use Drupal\comment\CommentFieldItemList;
+use Drupal\comment\CommentingStatus;
 use Drupal\comment\CommentInterface;
-use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
@@ -53,8 +53,8 @@ final class CommentFormatter extends FormatterBase {
     string $label,
     string $view_mode,
     array $third_party_settings,
-    private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly AccountInterface $currentUser,
+    protected readonly EntityTypeManagerInterface $entityTypeManager,
+    protected readonly AccountInterface $currentUser,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
   }
@@ -80,7 +80,7 @@ final class CommentFormatter extends FormatterBase {
   }
 
   private function isVisible(CommentFieldItemList $items): bool {
-    $is_not_hidden = $items->first()?->get('status')->getValue() !== CommentItemInterface::HIDDEN;
+    $is_not_hidden = $items->first()?->get('status')->getValue() !== CommentingStatus::Hidden->value;
     $is_user_has_access = $this->currentUser->hasPermission('access comments');
 
     return $is_not_hidden && $is_user_has_access;
@@ -158,7 +158,7 @@ final class CommentFormatter extends FormatterBase {
   }
 
   private function prepareCommentForm(CommentFieldItemList $items): array {
-    $is_open = $items->first()?->get('status')->getValue() !== CommentItemInterface::OPEN;
+    $is_open = $items->first()?->get('status')->getValue() !== CommentingStatus::Open->value;
     $is_user_allowed_to_comment = $this->currentUser->hasPermission('post comments');
 
     if (!$is_open || !$is_user_allowed_to_comment) {

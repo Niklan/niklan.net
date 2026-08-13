@@ -28,7 +28,7 @@ final readonly class WidgetTextTextareaFormAlter {
     $is_admin = \Drupal::routeMatch()->getRouteObject()?->hasOption('_admin_route') ?? FALSE;
 
     if ($element['#type'] === 'text_format' && !$is_admin) {
-      \hide($element['format']);
+      $element['format']['#access'] = FALSE;
     }
 
     if ($element['#type'] === 'textarea') {

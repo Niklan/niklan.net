@@ -57,10 +57,9 @@ final class ServiceContainerLanguageAwareFactory implements LanguageAwareFactory
         $service_id = self::DEFAULT_SERVICE;
       }
 
-      $this->stores[$collection][$language_code] = $this
-        ->container
-        ->get($service_id)
-        ->get($collection, $language_code);
+      $factory = $this->container->get($service_id);
+      \assert($factory instanceof LanguageAwareFactory);
+      $this->stores[$collection][$language_code] = $factory->get($collection, $language_code);
     }
 
     return $this->stores[$collection][$language_code];

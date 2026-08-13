@@ -32,7 +32,7 @@ final readonly class PreprocessInput {
       'label' => $element['#title'],
       'required' => $element['#required'],
     ];
-    \array_filter($variables['input_props']);
+    $variables['input_props'] = \array_filter($variables['input_props']);
   }
 
 }

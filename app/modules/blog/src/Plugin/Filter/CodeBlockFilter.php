@@ -29,7 +29,7 @@ final class CodeBlockFilter extends FilterBase implements ContainerFactoryPlugin
   /**
    * @var array<string, mixed>
    */
-  private array $attachments = [];
+  protected array $attachments = [];
 
   #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
@@ -45,7 +45,7 @@ final class CodeBlockFilter extends FilterBase implements ContainerFactoryPlugin
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    private readonly RendererInterface $renderer,
+    protected readonly RendererInterface $renderer,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }

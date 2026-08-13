@@ -32,6 +32,8 @@ final class KeyValueLanguageAwareLocalTask extends DeriverBase implements Contai
 
   #[\Override]
   public function getDerivativeDefinitions($base_plugin_definition): array {
+    \assert(\is_array($base_plugin_definition));
+
     foreach (LanguageAwareSettingsRoutes::ROUTES_TO_ENHANCE as $route_name) {
       // @todo This tab should be managed by the consumer.
       $this->derivatives[$route_name] = [
