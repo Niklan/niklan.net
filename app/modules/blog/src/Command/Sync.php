@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand(name: 'app:blog:sync', description: 'Sync blog articles.', aliases: ['niklan:blog:sync'])]
 final class Sync extends Command {
@@ -23,6 +24,7 @@ final class Sync extends Command {
   public const string CACHE_TAG = 'app_blog:content_sync';
 
   public function __construct(
+    #[Autowire(service: 'logger.channel.app_blog.sync')]
     private readonly LoggerInterface $logger,
     private readonly ArticleSynchronizer $articleSynchronizer,
     private readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,

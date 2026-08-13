@@ -31,15 +31,15 @@
         "app/main": "^1.0@dev",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.6",
-        "drupal/core-composer-scaffold": "~11.3.0",
-        "drupal/core-recommended": "~11.3.0",
+        "drupal/core-composer-scaffold": "~11.4.0",
+        "drupal/core-recommended": "~11.4.0",
         "drush/drush": "^13",
         "niklan/composer-directories": "^1.0@alpha"
     },
     "require-dev": {
         "app/dev": "^1.0@dev",
         "chi-teck/drupal-coder-extension": "^2.0@alpha",
-        "drupal/core-dev": "~11.3.0",
+        "drupal/core-dev": "~11.4.0",
         "friendsofphp/php-cs-fixer": "^3.94",
         "php-parallel-lint/php-parallel-lint": "^1.3",
         "phpspec/prophecy-phpunit": "^2.0"
@@ -61,6 +61,7 @@
             "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
+            "symfony/runtime": true,
             "tbachert/spi": true
         }
     },

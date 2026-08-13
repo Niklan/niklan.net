@@ -32,7 +32,7 @@ final class InternalLinkFilter extends FilterBase implements ContainerFactoryPlu
    *
    * @var array<string, int>
    */
-  private array $nodeIdsByHash = [];
+  protected array $nodeIdsByHash = [];
 
   #[\Override]
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
@@ -48,7 +48,7 @@ final class InternalLinkFilter extends FilterBase implements ContainerFactoryPlu
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    private readonly Connection $database,
+    protected readonly Connection $database,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
