@@ -88,8 +88,15 @@ final class CommentFormatter extends FormatterBase {
 
   private function prepareComments(CommentFieldItemList $items): array {
     $comments_data = $this->loadCommentsData($items);
+    $tree = $this->buildTree($comments_data, 0);
 
-    return $this->buildTree($comments_data, 0);
+    // Matches core's CommentDefaultFormatter: the pager is nested inside the
+    // 'comments' subtree (not a sibling of it) so it renders as part of
+    // {{ comments }} in field--comment.html.twig, which core's own template
+    // does not expose a separate 'pager' variable for.
+    $tree['pager'] = ['#type' => 'pager'];
+
+    return $tree;
   }
 
   private function loadCommentsData(CommentFieldItemList $items): array {

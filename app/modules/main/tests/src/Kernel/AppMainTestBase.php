@@ -41,6 +41,8 @@ abstract class AppMainTestBase extends KernelTestBase {
     'taxonomy',
     'text',
     'filter',
+    'metatag',
+    'token',
     'search_api',
     'twig_tweak',
     'photoswipe',

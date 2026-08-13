@@ -20,10 +20,14 @@ final class PagerPathProcessor implements InboundPathProcessorInterface, Outboun
       return $path;
     }
 
-    if ($request->query->has('page')) {
+    // Guard against double processing: PathBasedBreadcrumbBuilder calls
+    // processInbound() again on the same request, which would decrement
+    // the already-converted internal page number a second time.
+    if ($request->query->has('page') && !$request->attributes->has('_pager_processed')) {
       $page_external = (int) $request->query->get('page');
       $page_internal = $page_external ? $page_external - 1 : 0;
       $request->query->set('page', $page_internal);
+      $request->attributes->set('_pager_processed', TRUE);
     }
 
     return $path;
@@ -32,6 +36,16 @@ final class PagerPathProcessor implements InboundPathProcessorInterface, Outboun
   #[\Override]
   public function processOutbound($path, &$options = [], ?Request $request = NULL, ?BubbleableMetadata $bubbleable_metadata = NULL): string {
     if (!$this->isApplicable($path, $options)) {
+      return $path;
+    }
+
+    // A non-numeric "page" (e.g. leaked from an invalid request while
+    // building an error page's "return to" URL) has no valid outbound
+    // representation, so it is dropped rather than causing a TypeError
+    // below.
+    if (!\is_numeric($options['query']['page'])) {
+      unset($options['query']['page']);
+
       return $path;
     }
 
