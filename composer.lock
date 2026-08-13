@@ -119,11 +119,10 @@
             "dist": {
                 "type": "path",
                 "url": "app/modules/comment",
-                "reference": "fbb160f8f304670a01a374bfe97a6b7bfc3a6ffe"
+                "reference": "c14514f5aa4dd900584f955caafd3b1f5f670192"
             },
             "require": {
-                "app/contract": "^1.0",
-                "nutgram/nutgram": "^4.31"
+                "app/contract": "^1.0"
             },
             "type": "drupal-custom-module",
             "keywords": [
@@ -4139,52 +4138,6 @@
             "time": "2021-12-07T10:10:20+00:00"
         },
         {
-            "name": "illuminate/macroable",
-            "version": "v13.25.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/illuminate/macroable.git",
-                "reference": "59b5b5f3cf290a91db8cf6cd3d35ff56978bc057"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/macroable/zipball/59b5b5f3cf290a91db8cf6cd3d35ff56978bc057",
-                "reference": "59b5b5f3cf290a91db8cf6cd3d35ff56978bc057",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "13.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Illuminate\\Support\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "The Illuminate Macroable package.",
-            "homepage": "https://laravel.com",
-            "support": {
-                "issues": "https://github.com/laravel/framework/issues",
-                "source": "https://github.com/laravel/framework"
-            },
-            "time": "2026-04-29T09:35:06+00:00"
-        },
-        {
             "name": "justinrainbow/json-schema",
             "version": "6.8.2",
             "source": {
@@ -4317,67 +4270,6 @@
                 "source": "https://github.com/laravel/prompts/tree/v0.3.22"
             },
             "time": "2026-08-04T14:50:50+00:00"
-        },
-        {
-            "name": "laravel/serializable-closure",
-            "version": "v2.0.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/serializable-closure.git",
-                "reference": "dccd8bcb851bb03fcc005df650b708b57cc52661"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/serializable-closure/zipball/dccd8bcb851bb03fcc005df650b708b57cc52661",
-                "reference": "dccd8bcb851bb03fcc005df650b708b57cc52661",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
-                "nesbot/carbon": "^2.67|^3.0",
-                "pestphp/pest": "^2.36|^3.0|^4.0",
-                "phpstan/phpstan": "^2.0",
-                "symfony/var-dumper": "^6.2.0|^7.0.0|^8.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\SerializableClosure\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                },
-                {
-                    "name": "Nuno Maduro",
-                    "email": "nuno@laravel.com"
-                }
-            ],
-            "description": "Laravel Serializable Closure provides an easy and secure way to serialize closures in PHP.",
-            "keywords": [
-                "closure",
-                "laravel",
-                "serializable"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/serializable-closure/issues",
-                "source": "https://github.com/laravel/serializable-closure"
-            },
-            "time": "2026-07-21T16:49:22+00:00"
         },
         {
             "name": "league/commonmark",
@@ -5304,153 +5196,6 @@
             "time": "2026-03-05T08:39:49+00:00"
         },
         {
-            "name": "nutgram/hydrator",
-            "version": "7.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nutgram/hydrator.git",
-                "reference": "a9dc51b7e6ea61b3e582f0fecd8c91ea22602c11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nutgram/hydrator/zipball/a9dc51b7e6ea61b3e582f0fecd8c91ea22602c11",
-                "reference": "a9dc51b7e6ea61b3e582f0fecd8c91ea22602c11",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.1",
-                "psr/container": "^1.1 || ^2.0"
-            },
-            "require-dev": {
-                "illuminate/container": "^10.0",
-                "phpunit/phpunit": "^10"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SergiX44\\Hydrator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sergio Brighenti",
-                    "email": "sergio@brighenti.me",
-                    "homepage": "https://github.com/SergiX44"
-                },
-                {
-                    "name": "Anatoly Fenric",
-                    "email": "afenric@gmail.com",
-                    "homepage": "https://github.com/fenric"
-                }
-            ],
-            "description": "Hydrator for PHP 8.0+",
-            "homepage": "https://github.com/nutgram/hydrator",
-            "keywords": [
-                "data-mapper",
-                "dto",
-                "hydrator",
-                "jsonmapper",
-                "mapper",
-                "php8"
-            ],
-            "support": {
-                "issues": "https://github.com/nutgram/hydrator/issues",
-                "source": "https://github.com/nutgram/hydrator/tree/7.2.0"
-            },
-            "time": "2026-07-24T20:41:06+00:00"
-        },
-        {
-            "name": "nutgram/nutgram",
-            "version": "4.49.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nutgram/nutgram.git",
-                "reference": "bc1635f33cb9fba7f2897903937876b5546f9f71"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nutgram/nutgram/zipball/bc1635f33cb9fba7f2897903937876b5546f9f71",
-                "reference": "bc1635f33cb9fba7f2897903937876b5546f9f71",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "guzzlehttp/guzzle": "^7.2",
-                "illuminate/macroable": ">=9.0",
-                "laravel/serializable-closure": "^1.0|^2.0",
-                "nutgram/hydrator": "^7.2.0",
-                "php": "^8.2",
-                "psr/log": "^1.0|^2.0|^3.0",
-                "psr/simple-cache": "^1.0|^2.0|^3.0",
-                "sergix44/container": "^3.0"
-            },
-            "require-dev": {
-                "ext-reflection": "*",
-                "mockery/mockery": "^1.6",
-                "pestphp/pest": "^3.0|^4.0",
-                "roave/security-advisories": "dev-latest",
-                "vimeo/psalm": "^6.1.0"
-            },
-            "suggest": {
-                "ext-sodium": "To validate WebApp data for Third-Party Use"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/Support/Helpers.php"
-                ],
-                "psr-4": {
-                    "SergiX44\\Nutgram\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sergio Brighenti",
-                    "email": "sergio@brighenti.me",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Luca Patera",
-                    "email": "lucapatera@outlook.it",
-                    "role": "Developer"
-                }
-            ],
-            "description": "The Telegram bot library that doesn't drive you nuts",
-            "homepage": "https://github.com/SergiX44/Nutgram",
-            "keywords": [
-                "api",
-                "bot",
-                "framework",
-                "laravel",
-                "library",
-                "nutgram",
-                "telegram"
-            ],
-            "support": {
-                "issues": "https://github.com/nutgram/nutgram/issues",
-                "source": "https://github.com/nutgram/nutgram/tree/4.49.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/Lukasss93",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/SergiX44",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-08-07T07:56:36+00:00"
-        },
-        {
             "name": "pear/archive_tar",
             "version": "1.6.0",
             "source": {
@@ -6223,57 +5968,6 @@
             "time": "2024-09-11T13:17:53+00:00"
         },
         {
-            "name": "psr/simple-cache",
-            "version": "3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/simple-cache.git",
-                "reference": "764e0b3939f5ca87cb904f570ef9be2d78a07865"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/764e0b3939f5ca87cb904f570ef9be2d78a07865",
-                "reference": "764e0b3939f5ca87cb904f570ef9be2d78a07865",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\SimpleCache\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interfaces for simple caching",
-            "keywords": [
-                "cache",
-                "caching",
-                "psr",
-                "psr-16",
-                "simple-cache"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/simple-cache/tree/3.0.0"
-            },
-            "time": "2021-10-29T13:26:27+00:00"
-        },
-        {
             "name": "psy/psysh",
             "version": "v0.12.24",
             "source": {
@@ -6534,62 +6228,6 @@
                 }
             ],
             "time": "2024-07-03T04:53:05+00:00"
-        },
-        {
-            "name": "sergix44/container",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sergix44/container.git",
-                "reference": "202747e5e9b6a46eb9681259d861753dd5a9fab2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sergix44/container/zipball/202747e5e9b6a46eb9681259d861753dd5a9fab2",
-                "reference": "202747e5e9b6a46eb9681259d861753dd5a9fab2",
-                "shasum": ""
-            },
-            "require": {
-                "ext-reflection": "*",
-                "php": "^8.1",
-                "psr/container": "^1.1|^2.0"
-            },
-            "provide": {
-                "psr/container-implementation": "^1.1|^2.0"
-            },
-            "require-dev": {
-                "pestphp/pest": "^2.0",
-                "php-di/php-di": "^7.0",
-                "vimeo/psalm": "^5.13"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SergiX44\\Container\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sergio Brighenti",
-                    "email": "sergio@brighenti.me"
-                }
-            ],
-            "description": "A simple and fast service container",
-            "support": {
-                "issues": "https://github.com/sergix44/container/issues",
-                "source": "https://github.com/sergix44/container/tree/3.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/SergiX44",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-06-18T12:52:08+00:00"
         },
         {
             "name": "symfony/config",

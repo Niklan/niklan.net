@@ -1,2 +1,0 @@
-route_callbacks:
-  - Drupal\app_comment\Routing\RouteProvider

@@ -21,7 +21,6 @@ Malyshev
 Niklan
 niklan
 noprefetch
-Nutgram
 opsz
 Photoswipe
 photoswipe

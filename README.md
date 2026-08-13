@@ -55,9 +55,6 @@ The project uses several custom `$settings` in `settings.php`:
 | `content_repository_url` | URL of the content repository, used for generating source links (e.g. `https://github.com/user/content`) |
 | `website_repository_url` | URL of the website repository, used in the footer for version info (e.g. `https://github.com/user/website`) |
 | `niklan_git_binary` | Path to the `git` binary (defaults to system `git`) |
-| `telegram_token` | Telegram Bot API token for comment moderation |
-| `telegram_secret_token` | Secret token for Telegram webhook verification |
-| `telegram_chat_id` | Telegram chat ID for moderation notifications |
 | `app_foresight` | (default: `TRUE`) Allows to disable the ForesightJS prefetch library for an environment. Only active for anonymous users. When disabled, no link prefetching is performed. |
 | `app_yandex_metrika_id` | Yandex.Metrika counter ID. When set, adds a tracking pixel (`<img src="https://mc.yandex.ru/watch/{ID}" …>`) to the bottom of every page. |
 

@@ -1,5 +1,5 @@
 name: 'App: Comment'
-description: 'Comments feature: comment display, reply handling, Telegram moderation.'
+description: 'Comments feature: comment display, reply handling.'
 type: module
 core_version_requirement: ^11
 container_rebuild_required: false
