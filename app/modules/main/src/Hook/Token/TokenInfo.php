@@ -46,6 +46,10 @@ final readonly class TokenInfo {
         'name' => $this->stringTranslation->translate('Pager suffix'),
         'description' => $this->stringTranslation->translate('Returns a pager suffix (e.g. " — page #2") on paginated pages, empty on the first page.'),
       ],
+      'pager-robots' => [
+        'name' => $this->stringTranslation->translate('Pager robots directive'),
+        'description' => $this->stringTranslation->translate('Returns "noindex, follow" on paginated pages beyond the first, empty on the first page.'),
+      ],
     ];
   }
 

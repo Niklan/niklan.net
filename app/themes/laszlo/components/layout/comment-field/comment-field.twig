@@ -1,0 +1,21 @@
+<div{{ attributes.addClass('comment-field') }}>
+  {% if comments %}
+    <div class="comment-field__items">
+      {{ comments }}
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    {% set load_more_settings = {
+      'replace': {
+        '.comment-field__pager': '.comment-field__pager',
+      },
+      'append': {
+        '.comment-field__items > *': '.comment-field__items',
+      },
+    } %}
+    <footer class="comment-field__pager" data-load-more-settings="{{ load_more_settings|json_encode }}">
+      {{ pager }}
+    </footer>
+  {% endif %}
+</div>

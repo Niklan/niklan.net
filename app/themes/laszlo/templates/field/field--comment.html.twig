@@ -1,2 +1,5 @@
-{{ comments }}
+{% include 'laszlo:comment-field' with {
+  comments,
+  pager,
+} only %}
 {{ comment_form }}

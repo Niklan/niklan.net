@@ -68,6 +68,14 @@ final readonly class PagerNotFound implements EventSubscriberInterface {
     throw new NotFoundHttpException();
   }
 
+  #[\Override]
+  public static function getSubscribedEvents(): array {
+    return [
+      KernelEvents::REQUEST => ['onKernelRequest', 40],
+      KernelEvents::RESPONSE => ['onKernelResponse'],
+    ];
+  }
+
   private function isOutOfRange(int $page): bool {
     $pager = $this->pagerManager->getPager();
 
@@ -76,14 +84,6 @@ final readonly class PagerNotFound implements EventSubscriberInterface {
     }
 
     return $page >= $pager->getTotalPages();
-  }
-
-  #[\Override]
-  public static function getSubscribedEvents(): array {
-    return [
-      KernelEvents::REQUEST => ['onKernelRequest', 40],
-      KernelEvents::RESPONSE => ['onKernelResponse'],
-    ];
   }
 
 }

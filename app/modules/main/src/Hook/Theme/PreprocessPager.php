@@ -20,10 +20,15 @@ final class PreprocessPager {
       return;
     }
 
+    // Custom property, not part of core's Pager render element: lets a
+    // specific pager instance (e.g. comments) point its links at an anchor
+    // instead of the top of the page.
+    $fragment = $variables['pager']['#fragment'] ?? NULL;
+
     foreach ($variables['items'] as $type => &$items) {
       match ($type) {
-        default => $this->processOtherLink($items),
-        'pages' => $this->processPagesItems($items),
+        default => $this->processOtherLink($items, $fragment),
+        'pages' => $this->processPagesItems($items, $fragment),
       };
     }
 
@@ -34,33 +39,37 @@ final class PreprocessPager {
   /**
    * Cleans pager URL by force them to be processed by outbound processor.
    */
-  protected function cleanUrl(string $url): string {
+  protected function cleanUrl(string $url, ?string $fragment): string {
     // We do nothing if no query parameters is presented in href.
     if (\stristr($url, '?') === FALSE) {
       return $url;
     }
 
-    return Url::fromRoute('<current>', [], [
-      'query' => UrlHelper::parse($url)['query'],
-    ])->toString();
+    $options = ['query' => UrlHelper::parse($url)['query']];
+
+    if ($fragment !== NULL) {
+      $options['fragment'] = $fragment;
+    }
+
+    return Url::fromRoute('<current>', [], $options)->toString();
   }
 
-  private function processPagesItems(array &$items): void {
+  private function processPagesItems(array &$items, ?string $fragment): void {
     foreach ($items as &$item) {
       if (!isset($item['href'])) {
         continue;
       }
 
-      $item['href'] = $this->cleanUrl($item['href']);
+      $item['href'] = $this->cleanUrl($item['href'], $fragment);
     }
   }
 
-  private function processOtherLink(array &$item): void {
+  private function processOtherLink(array &$item, ?string $fragment): void {
     if (!isset($item['href'])) {
       return;
     }
 
-    $item['href'] = $this->cleanUrl($item['href']);
+    $item['href'] = $this->cleanUrl($item['href'], $fragment);
   }
 
   private function addMetaPrevNext(array &$variables): void {

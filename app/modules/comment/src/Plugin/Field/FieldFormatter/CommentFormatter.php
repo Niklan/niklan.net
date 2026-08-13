@@ -91,10 +91,16 @@ final class CommentFormatter extends FormatterBase {
     $tree = $this->buildTree($comments_data, 0);
 
     // Matches core's CommentDefaultFormatter: the pager is nested inside the
-    // 'comments' subtree (not a sibling of it) so it renders as part of
-    // {{ comments }} in field--comment.html.twig, which core's own template
-    // does not expose a separate 'pager' variable for.
-    $tree['pager'] = ['#type' => 'pager'];
+    // 'comments' subtree (not a sibling of it), because field--comment's
+    // preprocessing only forwards a 'comments' variable to the template.
+    // Theme markup (BEM classes, "load more" wiring) is not this formatter's
+    // concern — see PreprocessFieldComment, which splits 'pager' back out
+    // into its own template variable.
+    //
+    // '#fragment' is a custom property (not a core Pager one) picked up by
+    // app_main's PreprocessPager, so pager links land on #comments instead
+    // of the top of the page.
+    $tree['pager'] = ['#type' => 'pager', '#fragment' => 'comments'];
 
     return $tree;
   }
