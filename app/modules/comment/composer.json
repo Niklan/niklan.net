@@ -6,7 +6,6 @@
         "Drupal"
     ],
     "require": {
-        "app/contract": "^1.0",
-        "nutgram/nutgram": "^4.31"
+        "app/contract": "^1.0"
     }
 }
