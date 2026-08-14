@@ -75,6 +75,7 @@ final readonly class Tokens {
   private function replaceCurrentPageTokens(State $state): void {
     $state->replaceCallback('canonical-url', $this->replaceCurrentPageCanonicalUrl(...));
     $state->replaceCallback('pager-suffix', $this->replaceCurrentPagePagerSuffix(...));
+    $state->replaceCallback('pager-robots', $this->replaceCurrentPagePagerRobots(...));
   }
 
   /**
@@ -94,6 +95,28 @@ final readonly class Tokens {
       '@number' => $pager->getCurrentPage() + 1,
     ]);
     $state->setReplacement($original, $suffix);
+  }
+
+  /**
+   * Returns "noindex, follow" on paginated pages beyond the first.
+   *
+   * A page 2+ of, say, an article's comments duplicates the entire article
+   * body verbatim and differs only in which comments are shown — indexing
+   * it alongside the canonical article page is pure duplicate content.
+   *
+   * @ingroup seo_pager
+   */
+  private function replaceCurrentPagePagerRobots(string $original, State $state): void {
+    $state->getCacheableMetadata()->addCacheContexts(['url.query_args:page']);
+    $pager = $this->pagerManager->getPager();
+
+    if ($pager === NULL || $pager->getCurrentPage() < 1) {
+      $state->setReplacement($original, '');
+
+      return;
+    }
+
+    $state->setReplacement($original, 'noindex, follow');
   }
 
   /**

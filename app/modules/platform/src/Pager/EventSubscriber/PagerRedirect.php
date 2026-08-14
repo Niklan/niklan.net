@@ -30,13 +30,10 @@ final readonly class PagerRedirect implements EventSubscriberInterface {
       return;
     }
 
-    $page = (string) $request->query->get('page', '');
-    $is_first_pages = \in_array($request->query->get('page'), ['0', '1'], TRUE);
-    // Negative pagers can be entered manually, Drupal simply fails on them.
-    // This code will also fix that behavior for an edge cases.
-    $is_negative_page = \str_starts_with($page, '-');
-
-    if (!$is_first_pages && !$is_negative_page) {
+    // Only "page=0"/"page=1" are duplicates of the canonical first page and
+    // deserve a redirect. Negative or non-numeric values are not a variant
+    // of any real page at all — those get a 404 from PagerNotFound instead.
+    if (!\in_array($request->query->get('page'), ['0', '1'], TRUE)) {
       return;
     }
 

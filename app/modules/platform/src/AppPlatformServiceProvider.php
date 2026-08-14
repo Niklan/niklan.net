@@ -12,6 +12,7 @@ use Drupal\app_platform\Hook\Asset\CacheBustingQuerySetting;
 use Drupal\app_platform\Hook\Core\LlmsPageAttachments;
 use Drupal\app_platform\Hook\Theme\LibraryInfoAlter;
 use Drupal\app_platform\Http\DateHeaderMiddleware;
+use Drupal\app_platform\Http\ErrorPageDetector;
 use Drupal\app_platform\LanguageAwareStore\EventSubscriber\LanguageAwareSettingsRoutes;
 use Drupal\app_platform\LanguageAwareStore\Factory\DatabaseLanguageAwareFactory;
 use Drupal\app_platform\LanguageAwareStore\Factory\ServiceContainerLanguageAwareFactory;
@@ -23,6 +24,7 @@ use Drupal\app_platform\Llms\LlmsRenderer;
 use Drupal\app_platform\Llms\Middleware\LlmsRequestLogger;
 use Drupal\app_platform\Llms\PathProcessor\LlmsFormatPathProcessor;
 use Drupal\app_platform\Pager\Controller\PagerAwareTitleResolver;
+use Drupal\app_platform\Pager\EventSubscriber\PagerNotFound;
 use Drupal\app_platform\Pager\EventSubscriber\PagerRedirect;
 use Drupal\app_platform\Pager\PathProcessor\PagerPathProcessor;
 use Drupal\app_platform\SiteMap\Structure\SiteMapManager;
@@ -42,6 +44,7 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
     $container->register('app_platform.date_header_middleware', DateHeaderMiddleware::class)
       ->setPublic(TRUE)
       ->addTag('http_middleware', ['priority' => 201]);
+    $autowire(ErrorPageDetector::class);
 
     // Console.
     $container
@@ -65,6 +68,8 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
 
     // Pager.
     $autowire(PagerRedirect::class)
+      ->addTag('event_subscriber');
+    $autowire(PagerNotFound::class)
       ->addTag('event_subscriber');
     $autowire(PagerPathProcessor::class)
       ->addTag('path_processor_inbound', ['priority' => 1000])
