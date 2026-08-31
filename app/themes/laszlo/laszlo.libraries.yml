@@ -58,3 +58,8 @@ tooltip:
   css:
     theme:
       assets/css/03-component/ui/tooltip.css: { }
+
+top-bar:
+  css:
+    theme:
+      assets/css/03-component/theme/top-bar.css: { }

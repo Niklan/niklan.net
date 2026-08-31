@@ -26,3 +26,5 @@ libraries-extend:
   app_blog/footnote.tooltip:
     - laszlo/tooltip
   core/drupal.message: false
+  navigation/internal.navigation:
+    - laszlo/top-bar
