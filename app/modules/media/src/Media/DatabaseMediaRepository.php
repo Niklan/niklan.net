@@ -38,8 +38,7 @@ final readonly class DatabaseMediaRepository implements MediaRepository {
   }
 
   public function findBySourceField(string $bundle, string $source_field, string $value): ?MediaInterface {
-    $ids = $this
-      ->getStorage()
+    $ids = $this->getStorage()
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('bundle', $bundle)

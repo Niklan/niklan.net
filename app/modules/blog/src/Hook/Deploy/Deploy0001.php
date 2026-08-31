@@ -60,10 +60,7 @@ final class Deploy0001 implements ContainerInjectionInterface {
 
   protected function processBatch(array &$sandbox): void {
     /** @var array<int|string> $nids */
-    $nids = $this
-      ->getNodeQuery()
-      ->range($sandbox['current'], $sandbox['limit'])
-      ->execute();
+    $nids = $this->getNodeQuery()->range($sandbox['current'], $sandbox['limit'])->execute();
 
     $redirect_storage = $this->entityTypeManager->getStorage('redirect');
 
@@ -102,11 +99,7 @@ final class Deploy0001 implements ContainerInjectionInterface {
     $alias_storage = $this->entityTypeManager->getStorage('path_alias');
 
     /** @var array<int|string> $alias_ids */
-    $alias_ids = $alias_storage
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('alias', "/blog/{$nid}")
-      ->execute();
+    $alias_ids = $alias_storage->getQuery()->accessCheck(FALSE)->condition('alias', "/blog/{$nid}")->execute();
 
     if ($alias_ids === []) {
       return 0;
@@ -119,8 +112,7 @@ final class Deploy0001 implements ContainerInjectionInterface {
   }
 
   protected function getNodeQuery(): QueryInterface {
-    return $this
-      ->entityTypeManager
+    return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
       ->accessCheck(FALSE)

@@ -35,10 +35,7 @@ final readonly class PortfolioList {
    *   The nodes.
    */
   public function load(): array {
-    return $this
-      ->entityTypeManager
-      ->getStorage('node')
-      ->loadMultiple($this->getEntityIds());
+    return $this->entityTypeManager->getStorage('node')->loadMultiple($this->getEntityIds());
   }
 
   protected function buildItems(): array {
@@ -53,8 +50,7 @@ final readonly class PortfolioList {
   }
 
   protected function getEntityIds(): array {
-    return $this
-      ->entityTypeManager
+    return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
       ->accessCheck(FALSE)

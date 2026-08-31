@@ -157,8 +157,7 @@ final class RssFeed {
     $file_uri = $file->getFileUri();
     \assert(\is_string($file_uri));
 
-    $url = $this
-      ->dynamicImageStyle
+    $url = $this->dynamicImageStyle
       ->effect('image_scale_and_crop', ['width' => 150, 'height' => 200])
       ->buildUrl($file_uri);
 

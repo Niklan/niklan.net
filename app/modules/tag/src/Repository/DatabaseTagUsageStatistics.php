@@ -47,8 +47,7 @@ final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {
 
   #[\Override]
   public function count(int $tag_id): int {
-    return $this
-      ->entityTypeManager
+    return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
       ->accessCheck(FALSE)
@@ -61,15 +60,9 @@ final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {
 
   #[\Override]
   public function firstPublicationDate(int $tag_id): ?int {
-    $query = $this
-      ->connection
-      ->select('node_field_data', 'nd')
-      ->fields('nd', ['created']);
+    $query = $this->connection->select('node_field_data', 'nd')->fields('nd', ['created']);
     $query->leftJoin('node__field_tags', 'nft', 'nd.nid = nft.entity_id');
-    $query
-      ->condition('nft.field_tags_target_id', $tag_id)
-      ->orderBy('nid',)
-      ->range(0, 1);
+    $query->condition('nft.field_tags_target_id', $tag_id)->orderBy('nid',)->range(0, 1);
     $result = $query->execute()?->fetch();
 
     if (!$result) {

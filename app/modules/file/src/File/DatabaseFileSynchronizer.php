@@ -75,8 +75,7 @@ final readonly class DatabaseFileSynchronizer implements FileSynchronizer {
   }
 
   private function findExistingFileId(string $checksum): ?int {
-    $result = $this
-      ->getFileStorage()
+    $result = $this->getFileStorage()
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition(self::CHECKSUM_FIELD, $checksum)

@@ -72,15 +72,15 @@ final readonly class Home implements ContainerInjectionInterface {
   }
 
   private function addLatestPosts(array &$build): void {
-    $ids = $this
-      ->getNodeStorage()
+    $ids = $this->getNodeStorage()
       ->getQuery()
       ->accessCheck(FALSE)
       ->range(0, self::LIMIT_PREVIEW_POSTS)
       ->condition('type', 'blog_entry')
       ->condition('status', '1')
       ->condition('langcode', $this->getCurrentLanguageId())
-      ->sort('created', 'DESC')->execute();
+      ->sort('created', 'DESC')
+      ->execute();
 
     if (!$ids) {
       return;
@@ -100,8 +100,7 @@ final readonly class Home implements ContainerInjectionInterface {
   }
 
   private function addTooBigToReadPosts(array &$build): void {
-    $query = $this
-      ->connection
+    $query = $this->connection
       ->select('node_field_data', 'nfd')
       ->fields('nfd', ['nid'])
       ->condition('nfd.type', 'blog_entry')
@@ -130,8 +129,7 @@ final readonly class Home implements ContainerInjectionInterface {
   }
 
   private function addMostDiscussed(array &$build): void {
-    $query = $this
-      ->connection
+    $query = $this->connection
       ->select('node_field_data', 'nfd')
       ->fields('nfd', ['nid'])
       ->condition('nfd.type', 'blog_entry')
@@ -179,7 +177,9 @@ final readonly class Home implements ContainerInjectionInterface {
       '#heading' => $this->stringTranslation->translate('Opinion of anonymous users from the Internet'),
       '#theme' => 'app_comment_list',
       '#items' => \array_map(
-        callback: fn (EntityInterface $comment) => $this->entityTypeManager->getViewBuilder('comment')->view($comment, 'teaser'),
+        callback: fn (EntityInterface $comment) => $this->entityTypeManager
+          ->getViewBuilder('comment')
+          ->view($comment, 'teaser'),
         array: $storage->loadMultiple($ids),
       ),
       '#cache' => [

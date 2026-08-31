@@ -22,10 +22,7 @@ final readonly class AppMainServiceProvider implements ServiceProviderInterface 
   #[\Override]
   public function register(ContainerBuilder $container): void {
     $container->addCompilerPass(new StubsCompilerPass(), priority: -100);
-    $autowire = static fn (string $class) => $container
-      ->autowire($class)
-      ->setPublic(TRUE)
-      ->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
 
     $autowire(HomeSettings::class);
     $autowire(AboutSettings::class);
@@ -35,15 +32,13 @@ final readonly class AppMainServiceProvider implements ServiceProviderInterface 
 
     $autowire(HomeLlmsSubscriber::class);
 
-    $container->register(ContentEditingToolbarLinksBuilder::class)
+    $container
+      ->register(ContentEditingToolbarLinksBuilder::class)
       ->setPublic(TRUE)
       ->addArgument(new Reference('plugin.manager.menu.local_task'))
       ->addArgument(new Reference('current_route_match'));
 
-    $container->autowire(MainMenuSiteMap::class)
-      ->setPublic(TRUE)
-      ->setAutoconfigured(TRUE)
-      ->addTag('app_sitemap');
+    $container->autowire(MainMenuSiteMap::class)->setPublic(TRUE)->setAutoconfigured(TRUE)->addTag('app_sitemap');
   }
 
 }

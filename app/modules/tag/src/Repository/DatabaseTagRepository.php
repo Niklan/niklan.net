@@ -18,8 +18,7 @@ final readonly class DatabaseTagRepository implements TagRepository {
   ) {}
 
   public function findByExternalId(string $external_id): ?TagBundle {
-    $ids = $this
-      ->getStorage()
+    $ids = $this->getStorage()
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('vid', self::VID)

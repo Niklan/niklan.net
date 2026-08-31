@@ -16,8 +16,7 @@ final readonly class DatabaseArticleRepository implements ArticleRepository {
   ) {}
 
   public function findByExternalId(string $external_id): ?ArticleBundle {
-    $ids = $this
-      ->getStorage()
+    $ids = $this->getStorage()
       ->getQuery()
       ->accessCheck(FALSE)
       ->condition('type', 'blog_entry')

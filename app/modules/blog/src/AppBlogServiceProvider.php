@@ -39,10 +39,7 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
-    $autowire = static fn (string $class) => $container
-      ->autowire($class)
-      ->setPublic(TRUE)
-      ->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
 
     // Logger channels.
     $container->setDefinition(
@@ -61,9 +58,11 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
     // Markdown environment & converter.
     $autowire(ArticleMarkdownExtension::class);
 
-    $container->register('app_blog.markdown.environment', Environment::class)
+    $container
+      ->register('app_blog.markdown.environment', Environment::class)
       ->addMethodCall('addExtension', [new Reference(ArticleMarkdownExtension::class)]);
-    $container->register('app_blog.markdown.converter', MarkdownConverter::class)
+    $container
+      ->register('app_blog.markdown.converter', MarkdownConverter::class)
       ->addArgument(new Reference('app_blog.markdown.environment'));
     $container->setAlias(MarkdownConverter::class, 'app_blog.markdown.converter')->setPublic(TRUE);
 
@@ -77,10 +76,7 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
     $autowire(BannerGenerator::class);
 
     // SiteMap.
-    $container->autowire(BlogSiteMap::class)
-      ->setPublic(TRUE)
-      ->setAutoconfigured(TRUE)
-      ->addTag('app_sitemap');
+    $container->autowire(BlogSiteMap::class)->setPublic(TRUE)->setAutoconfigured(TRUE)->addTag('app_sitemap');
 
     // XML parser & validation.
     $autowire(XmlValidator::class);
@@ -93,8 +89,7 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
     $autowire(ArticleSynchronizer::class);
 
     // HTML content processors — register interface for autoconfiguration.
-    $container->registerForAutoconfiguration(HtmlContentProcessor::class)
-      ->addTag(HtmlContentProcessor::class);
+    $container->registerForAutoconfiguration(HtmlContentProcessor::class)->addTag(HtmlContentProcessor::class);
 
     $autowire(MediaProcessor::class);
     $autowire(FigureProcessor::class);

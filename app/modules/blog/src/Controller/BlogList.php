@@ -38,10 +38,7 @@ final class BlogList {
     $items = [];
 
     foreach ($this->load() as $node) {
-      $items[] = $this
-        ->entityTypeManager
-        ->getViewBuilder('node')
-        ->view($node, 'teaser');
+      $items[] = $this->entityTypeManager->getViewBuilder('node')->view($node, 'teaser');
     }
 
     return $items;
@@ -55,8 +52,7 @@ final class BlogList {
   }
 
   protected function getEntityIds(): array {
-    $query = $this
-      ->entityTypeManager
+    $query = $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
       ->accessCheck(FALSE)

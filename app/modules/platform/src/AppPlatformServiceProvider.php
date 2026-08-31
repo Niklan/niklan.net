@@ -36,20 +36,16 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
-    $autowire = static fn (string $class) => $container
-      ->autowire($class)
-      ->setPublic(TRUE)
-      ->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
 
-    $container->register('app_platform.date_header_middleware', DateHeaderMiddleware::class)
+    $container
+      ->register('app_platform.date_header_middleware', DateHeaderMiddleware::class)
       ->setPublic(TRUE)
       ->addTag('http_middleware', ['priority' => 201]);
     $autowire(ErrorPageDetector::class);
 
     // Console.
-    $container
-      ->autowire('app_platform.process.terminal', ProcessTerminal::class)
-      ->setPublic(TRUE);
+    $container->autowire('app_platform.process.terminal', ProcessTerminal::class)->setPublic(TRUE);
     $autowire(ProcessGit::class);
     $container->setAlias(Git::class, ProcessGit::class);
 
