@@ -1,0 +1,20 @@
+/**
+ * Matches the specificity of core's `:is(#extra-specificity-hack,
+ * [data-drupal-admin-styles]).top-bar` selector in top-bar.css so this
+ * override reliably wins. Deliberately NOT wrapped in an `@layer` — core's
+ * own top-bar.css isn't layered either, and unlayered CSS always wins over
+ * layered CSS regardless of specificity.
+ *
+ * `position: absolute` mirrors the same override used on t-m-g.ru and
+ * clive.ru — core's own `position: fixed` here computes correctly but
+ * still visibly scrolls with the page, so `fixed` is not usable as-is.
+ */
+:is(#extra-specificity-hack, [data-drupal-admin-styles]).top-bar {
+  border-bottom: 1px solid var(--color-outline-variant);
+  box-shadow: none;
+
+  @media (min-width: 64rem) {
+    position: absolute !important;
+    inset-block-start: 0 !important;
+  }
+}
