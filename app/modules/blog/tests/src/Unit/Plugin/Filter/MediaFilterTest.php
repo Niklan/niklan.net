@@ -148,7 +148,9 @@ final class MediaFilterTest extends UnitTestCase {
     $query = $this->prophesize(QueryInterface::class);
     $query->accessCheck(FALSE)->willReturn($query->reveal());
     $query->condition(Argument::cetera())->willReturn($query->reveal());
-    $query->execute()->willReturn($media_by_uuid ? \array_combine(\range(1, \count($media_by_uuid)), \array_keys($media_by_uuid)) : []);
+    $query
+      ->execute()
+      ->willReturn($media_by_uuid ? \array_combine(\range(1, \count($media_by_uuid)), \array_keys($media_by_uuid)) : []);
 
     $storage = $this->prophesize(EntityStorageInterface::class);
     $storage->getQuery()->willReturn($query->reveal());

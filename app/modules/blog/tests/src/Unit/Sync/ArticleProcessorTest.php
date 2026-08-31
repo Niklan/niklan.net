@@ -49,10 +49,8 @@ final class ArticleProcessorTest extends UnitTestCase {
   public function testPosterMediaSynced(): void {
     $poster = $this->prophesize(MediaInterface::class)->reveal();
     $synchronizer = $this->prophesize(MediaSynchronizer::class);
-    $synchronizer->sync(vfsStream::url('content/blog/article/poster.png'))
-      ->willReturn($poster);
-    $synchronizer->sync(Argument::not(vfsStream::url('content/blog/article/poster.png')))
-      ->willReturn(NULL);
+    $synchronizer->sync(vfsStream::url('content/blog/article/poster.png'))->willReturn($poster);
+    $synchronizer->sync(Argument::not(vfsStream::url('content/blog/article/poster.png')))->willReturn(NULL);
 
     $processor = $this->buildProcessor(media_synchronizer: $synchronizer->reveal());
     $translation = $this->createTranslation();

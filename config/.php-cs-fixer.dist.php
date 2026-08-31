@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-use Niklan\PhpCsFixer\Fixer\NamingConventionFixer;
+use App\PhpCsFixer\Fixer\ChainedMethodCallFixer;
+use App\PhpCsFixer\Fixer\NamingConventionFixer;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 require_once __DIR__ . '/php-cs-fixer/Fixer/AbstractFixer.php';
 require_once __DIR__ . '/php-cs-fixer/Fixer/NamingConventionFixer.php';
+require_once __DIR__ . '/php-cs-fixer/Fixer/ChainedMethodCallFixer.php';
 
 $finder = Finder::create()
   ->in(__DIR__ . '/../app')
@@ -22,10 +24,12 @@ return (new Config())
   ->setFinder($finder)
   ->registerCustomFixers([
     new NamingConventionFixer(),
+    new ChainedMethodCallFixer(),
   ])
   ->setRules([
-    // Custom naming fixer.
-    'Niklan/naming_convention' => TRUE,
+    // Custom fixers.
+    'App/naming_convention' => TRUE,
+    'App/chained_method_call_head' => TRUE,
 
     // Strict types.
     'declare_strict_types' => TRUE,

@@ -32,7 +32,8 @@ final class CalloutFilterTest extends UnitTestCase {
     $renderer = $this->prophesize(RendererInterface::class);
     $matches_callout = static fn (array $build): bool => $build['#component'] === 'app_blog:callout'
       && $build['#props']['type'] === 'warning';
-    $renderer->renderInIsolation(Argument::that($matches_callout))
+    $renderer
+      ->renderInIsolation(Argument::that($matches_callout))
       ->willReturn('<div class="callout-rendered">Warning content</div>');
 
     $filter = $this->createFilter($renderer->reveal());

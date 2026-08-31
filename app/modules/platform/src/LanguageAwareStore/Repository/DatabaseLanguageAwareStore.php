@@ -28,8 +28,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
   #[\Override]
   public function has($key): bool {
     try {
-      return (bool) $this
-        ->connection
+      return (bool) $this->connection
         ->select($this->table)
         ->fields($this->table, ['name'])
         ->condition('collection', $this->collection)
@@ -57,8 +56,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
   public function getMultiple(array $keys): array {
     $values = [];
     try {
-      $result = $this
-        ->connection
+      $result = $this->connection
         ->select($this->table)
         ->fields($this->table, ['name', 'value'])
         ->condition('collection', $this->collection)
@@ -108,8 +106,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
     $result = NULL;
 
     try {
-      $result = $this
-        ->connection
+      $result = $this->connection
         ->select($this->table)
         ->fields($this->table, ['name', 'value'])
         ->condition('collection', $this->collection)
@@ -176,8 +173,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
   #[\Override]
   public function rename($key, $new_key): void {
     try {
-      $this
-        ->connection
+      $this->connection
         ->update($this->table)
         ->fields(['name' => $new_key])
         ->condition('collection', $this->collection)
@@ -199,8 +195,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
   public function deleteMultiple(array $keys): void {
     while ($keys) {
       try {
-        $this
-          ->connection
+        $this->connection
           ->delete($this->table)
           ->condition('collection', $this->collection)
           ->condition('language_code', $this->languageCode)
@@ -226,11 +221,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
   #[\Override]
   public function deleteAll(): void {
     try {
-      $this
-        ->connection
-        ->delete($this->table)
-        ->condition('collection', $this->collection)
-        ->execute();
+      $this->connection->delete($this->table)->condition('collection', $this->collection)->execute();
     }
     catch (\Exception $e) {
       $this->catchException($e);

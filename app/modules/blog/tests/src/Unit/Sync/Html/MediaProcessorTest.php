@@ -111,8 +111,7 @@ final class MediaProcessorTest extends UnitTestCase {
     $media = $this->prophesize(MediaInterface::class);
     $media->uuid()->willReturn('yt-uuid');
     $synchronizer = $this->prophesize(MediaSynchronizer::class);
-    $synchronizer->sync('https://youtu.be/dQw4w9WgXcQ')
-      ->willReturn($media->reveal());
+    $synchronizer->sync('https://youtu.be/dQw4w9WgXcQ')->willReturn($media->reveal());
 
     $processor = new MediaProcessor($synchronizer->reveal());
     $html = '<div data-selector="niklan:leaf-directive" data-type="youtube" vid="dQw4w9WgXcQ"></div>';
@@ -143,8 +142,7 @@ final class MediaProcessorTest extends UnitTestCase {
     $media = $this->prophesize(MediaInterface::class);
     $media->uuid()->willReturn('video-uuid');
     $synchronizer = $this->prophesize(MediaSynchronizer::class);
-    $synchronizer->sync('/content/blog/2026/article/video.mp4')
-      ->willReturn($media->reveal());
+    $synchronizer->sync('/content/blog/2026/article/video.mp4')->willReturn($media->reveal());
 
     $processor = new MediaProcessor($synchronizer->reveal());
     $html = <<<'HTML'

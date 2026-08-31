@@ -121,8 +121,7 @@ final readonly class PreprocessNode {
   }
 
   private function preparePreviousNextQuery(ArticleBundle $node, string $created_operator): QueryInterface {
-    return $this
-      ->entityTypeManager
+    return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
       ->accessCheck(FALSE)

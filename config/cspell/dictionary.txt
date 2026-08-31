@@ -4,6 +4,7 @@ autoresize
 backref
 bazz
 Cravensworth
+desync
 devel
 Dflydev
 doctag
@@ -21,6 +22,7 @@ Malyshev
 Niklan
 niklan
 noprefetch
+NULLSAFE
 opsz
 Photoswipe
 photoswipe

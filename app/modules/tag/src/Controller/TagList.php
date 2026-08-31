@@ -31,10 +31,7 @@ final readonly class TagList {
         entity: $term,
         view_mode: 'teaser',
       ),
-      array: $this
-        ->entityTypeManager
-        ->getStorage('taxonomy_term')
-        ->loadMultiple($ids),
+      array: $this->entityTypeManager->getStorage('taxonomy_term')->loadMultiple($ids),
     );
   }
 

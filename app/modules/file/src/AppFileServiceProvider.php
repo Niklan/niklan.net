@@ -16,10 +16,7 @@ final readonly class AppFileServiceProvider implements ServiceProviderInterface 
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
-    $autowire = static fn (string $class) => $container
-      ->autowire($class)
-      ->setPublic(TRUE)
-      ->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
 
     // Logger channel.
     $container->setDefinition(

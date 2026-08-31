@@ -184,10 +184,7 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
     }
 
     $storage = $this->entityTypeManager->getStorage('media');
-    $ids = $storage->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('uuid', $uuids, 'IN')
-      ->execute();
+    $ids = $storage->getQuery()->accessCheck(FALSE)->condition('uuid', $uuids, 'IN')->execute();
 
     if (!$ids) {
       return [];

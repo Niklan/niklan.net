@@ -45,8 +45,7 @@ final readonly class Tag implements ContainerInjectionInterface {
   }
 
   private function buildItems(TermInterface $taxonomy_term): array {
-    $ids = $this
-      ->entityTypeManager
+    $ids = $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
       ->accessCheck(FALSE)
@@ -62,10 +61,7 @@ final readonly class Tag implements ContainerInjectionInterface {
         entity: $node,
         view_mode: 'teaser',
       ),
-      array: $this
-        ->entityTypeManager
-        ->getStorage('node')
-        ->loadMultiple($ids),
+      array: $this->entityTypeManager->getStorage('node')->loadMultiple($ids),
     );
   }
 

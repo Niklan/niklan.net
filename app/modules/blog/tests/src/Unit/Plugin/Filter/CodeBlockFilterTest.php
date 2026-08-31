@@ -33,7 +33,8 @@ final class CodeBlockFilterTest extends UnitTestCase {
     $matches_code_block = static fn (array $build): bool => $build['#component'] === 'app_blog:code-block'
       && $build['#props']['language'] === 'php'
       && $build['#props']['code'] === 'echo 1;';
-    $renderer->renderInIsolation(Argument::that($matches_code_block))
+    $renderer
+      ->renderInIsolation(Argument::that($matches_code_block))
       ->willReturn('<pre class="hljs"><code>echo 1;</code></pre>');
 
     $filter = $this->createFilter($renderer->reveal());

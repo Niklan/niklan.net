@@ -53,13 +53,9 @@ abstract class LanguageAwareStoreForm implements FormInterface, ContainerInjecti
 
   #[\Override]
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this
-      ->getMessenger()
-      ->addStatus($this->stringTranslation->translate('Settings successfully saved.'));
+    $this->getMessenger()->addStatus($this->stringTranslation->translate('Settings successfully saved.'));
 
-    $this
-      ->getCacheTagsInvalidator()
-      ->invalidateTags($this->getSettings()->getCacheTags());
+    $this->getCacheTagsInvalidator()->invalidateTags($this->getSettings()->getCacheTags());
   }
 
   protected function getMessenger(): MessengerInterface {

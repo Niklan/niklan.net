@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Niklan\PhpCsFixer\Fixer;
+namespace App\PhpCsFixer\Fixer;
 
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -20,12 +20,12 @@ use SplFileInfo;
  */
 final class NamingConventionFixer extends AbstractFixer {
 
-  private const SUPERGLOBALS = [
+  private const array SUPERGLOBALS = [
     '$GLOBALS', '$_SERVER', '$_GET', '$_POST', '$_FILES',
     '$_COOKIE', '$_SESSION', '$_REQUEST', '$_ENV',
   ];
 
-  private const PROPERTY_MODIFIER_TOKENS = [
+  private const array PROPERTY_MODIFIER_TOKENS = [
     \T_PUBLIC,
     \T_PROTECTED,
     \T_PRIVATE,
@@ -37,7 +37,7 @@ final class NamingConventionFixer extends AbstractFixer {
     CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE,
   ];
 
-  private const VISIBILITY_TOKENS = [
+  private const array VISIBILITY_TOKENS = [
     \T_PUBLIC,
     \T_PROTECTED,
     \T_PRIVATE,
@@ -46,7 +46,7 @@ final class NamingConventionFixer extends AbstractFixer {
     CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE,
   ];
 
-  private const TYPE_TOKENS = [
+  private const array TYPE_TOKENS = [
     \T_STRING,
     \T_NS_SEPARATOR,
     \T_NAME_QUALIFIED,
@@ -62,15 +62,15 @@ final class NamingConventionFixer extends AbstractFixer {
   ];
 
   public function getName(): string {
-    return 'Niklan/naming_convention';
+    return 'App/naming_convention';
   }
 
   public function getDefinition(): FixerDefinitionInterface {
     return new FixerDefinition(
       'Properties → camelCase, parameters and local variables → snake_case.',
-      [
+      codeSamples: [
         new CodeSample(
-          <<<'PHP'
+          code: <<<'PHP'
             <?php
 
             class Foo {
@@ -91,8 +91,8 @@ final class NamingConventionFixer extends AbstractFixer {
             PHP,
         ),
       ],
-      null,
-      'Renames properties, parameters and variables, which may break external references.',
+      description: null,
+      riskyDescription: 'Renames properties, parameters and variables, which may break external references (e.g. named arguments at call sites). Run PHPStan after applying this fixer — it reliably catches the resulting undefined property/parameter errors, except references made purely by string (reflection, magic __get/__set, serialization).',
     );
   }
 
@@ -157,10 +157,9 @@ final class NamingConventionFixer extends AbstractFixer {
         continue;
       }
 
-      $close_paren = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $open_paren);
+      $close_paren = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $open_paren);
       $is_arrow = $tokens[$index]->isGivenKind(\T_FN);
-
-      $params_to_rename = $this->fixParameters($tokens, $open_paren, $close_paren);
+      $forwarded_to_parent = [];
 
       if ($is_arrow) {
         $arrow = $tokens->getNextTokenOfKind($close_paren, [[\T_DOUBLE_ARROW]]);
@@ -179,8 +178,11 @@ final class NamingConventionFixer extends AbstractFixer {
           continue;
         }
 
-        $body_end = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $body_start);
+        $body_end = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $body_start);
+        $forwarded_to_parent = $this->findParentConstructorForwardedParams($tokens, $body_start, $body_end);
       }
+
+      $params_to_rename = $this->fixParameters($tokens, $open_paren, $close_paren, $forwarded_to_parent);
 
       foreach ($params_to_rename as $old_name => $new_name) {
         $this->renameVariableInRange($tokens, $old_name, $new_name, $body_start, $body_end);
@@ -192,7 +194,10 @@ final class NamingConventionFixer extends AbstractFixer {
     }
   }
 
-  private function fixParameters(Tokens $tokens, int $open_paren, int $close_paren): array {
+  /**
+   * @param list<string> $forwarded_to_parent
+   */
+  private function fixParameters(Tokens $tokens, int $open_paren, int $close_paren, array $forwarded_to_parent): array {
     $params_to_rename = [];
 
     for ($i = $open_paren + 1; $i < $close_paren; $i++) {
@@ -201,6 +206,14 @@ final class NamingConventionFixer extends AbstractFixer {
       }
 
       if ($this->hasVisibilityModifier($tokens, $i)) {
+        continue;
+      }
+
+      // Forwarded as-is to the parent constructor: its name is likely
+      // constrained by the parent's own (possibly promoted) property name,
+      // or by a service definition binding an argument by this exact name —
+      // renaming it here would silently desync from either.
+      if (\in_array($tokens[$i]->getContent(), $forwarded_to_parent, true)) {
         continue;
       }
 
@@ -242,7 +255,7 @@ final class NamingConventionFixer extends AbstractFixer {
 
       $prev = $tokens->getPrevMeaningfulToken($i);
 
-      if ($prev !== null && $tokens[$prev]->isGivenKind(\T_OBJECT_OPERATOR)) {
+      if ($prev !== null && $tokens[$prev]->isGivenKind([\T_OBJECT_OPERATOR, \T_DOUBLE_COLON])) {
         continue;
       }
 
@@ -333,6 +346,51 @@ final class NamingConventionFixer extends AbstractFixer {
     return false;
   }
 
+  /**
+   * Finds variables passed as-is to a `parent::__construct(...)` call
+   * inside the given range — those names are excluded from renaming.
+   *
+   * @return list<string>
+   */
+  private function findParentConstructorForwardedParams(Tokens $tokens, int $body_start, int $body_end): array {
+    for ($i = $body_start; $i <= $body_end; $i++) {
+      if (!$tokens[$i]->isGivenKind(\T_STRING) || \strtolower($tokens[$i]->getContent()) !== 'parent') {
+        continue;
+      }
+
+      $colon = $tokens->getNextMeaningfulToken($i);
+
+      if ($colon === null || !$tokens[$colon]->isGivenKind(\T_DOUBLE_COLON)) {
+        continue;
+      }
+
+      $method = $tokens->getNextMeaningfulToken($colon);
+
+      if ($method === null || \strtolower($tokens[$method]->getContent()) !== '__construct') {
+        continue;
+      }
+
+      $open = $tokens->getNextMeaningfulToken($method);
+
+      if ($open === null || !$tokens[$open]->equals('(')) {
+        continue;
+      }
+
+      $close = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS, $open);
+      $forwarded = [];
+
+      for ($j = $open + 1; $j < $close; $j++) {
+        if ($tokens[$j]->isGivenKind(\T_VARIABLE)) {
+          $forwarded[] = $tokens[$j]->getContent();
+        }
+      }
+
+      return $forwarded;
+    }
+
+    return [];
+  }
+
   private function findFunctionBodyFromParam(Tokens $tokens, int $param_index): ?array {
     $depth = 0;
 
@@ -348,7 +406,7 @@ final class NamingConventionFixer extends AbstractFixer {
             return null;
           }
 
-          $body_end = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $body_start);
+          $body_end = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $body_start);
 
           return [$body_start, $body_end];
         }
@@ -368,7 +426,7 @@ final class NamingConventionFixer extends AbstractFixer {
       }
       elseif ($tokens[$i]->equals('{')) {
         if ($depth === 0) {
-          $end = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $i);
+          $end = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_BRACE, $i);
 
           return [$i, $end];
         }
