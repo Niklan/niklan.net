@@ -24,6 +24,9 @@ final readonly class PortfolioList {
         '#format' => PortfolioSettings::TEXT_FORMAT,
       ],
       '#items' => $this->buildItems(),
+      '#cache' => [
+        'tags' => ['node_list:portfolio'],
+      ],
     ];
   }
 
