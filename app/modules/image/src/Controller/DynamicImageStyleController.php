@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Lock\LockBackendInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\Core\StreamWrapper\LocalStream;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
@@ -43,7 +44,8 @@ final readonly class DynamicImageStyleController {
   public function __invoke(Request $request): Response {
     [$original_uri, $effects, $compressed] = $this->validateRequest($request);
 
-    $is_public = StreamWrapperManager::getScheme($original_uri) !== 'private';
+    $scheme = StreamWrapperManager::getScheme($original_uri);
+    $is_public = $this->isPublicScheme(\is_string($scheme) ? $scheme : '');
     $headers = $this->checkFileAccess($original_uri, $is_public);
 
     $derivative_uri = $this->dynamicImageStyle->buildUri($original_uri, $effects);
@@ -93,6 +95,24 @@ final readonly class DynamicImageStyleController {
     catch (\JsonException | \TypeError) {
       throw new NotFoundHttpException();
     }
+  }
+
+  /**
+   * A bare `$scheme !== 'private'` check (as core's
+   * ImageStyleDownloadController had before SA-CORE-2026-010) misclassifies
+   * any contrib/custom scheme as public, skipping ::checkFileAccess() for it.
+   * Only 'public' and schemes explicitly listed in
+   * file_additional_public_schemes are public; anything else — including
+   * 'private' and any unlisted custom scheme — is not.
+   */
+  private function isPublicScheme(string $scheme): bool {
+    /** @var list<string> $configured_public_schemes */
+    $configured_public_schemes = Settings::get('file_additional_public_schemes', []);
+    $additional_public_schemes = \array_diff(
+      $configured_public_schemes,
+      ['public', 'private', 'temporary'],
+    );
+    return \in_array($scheme, ['public', ...$additional_public_schemes], strict: TRUE);
   }
 
   /**
@@ -158,7 +178,7 @@ final readonly class DynamicImageStyleController {
     }
     [, $scheme, $target] = $parts;
 
-    $target = $this->stripDerivativeExtension($target, $compressed);
+    $target = \rawurldecode($this->stripDerivativeExtension($target, $compressed));
 
     return $scheme . '://' . $target;
   }
