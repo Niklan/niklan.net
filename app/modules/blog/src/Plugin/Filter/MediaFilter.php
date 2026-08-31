@@ -184,7 +184,7 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
     }
 
     $storage = $this->entityTypeManager->getStorage('media');
-    $ids = $storage->getQuery()->accessCheck(FALSE)->condition('uuid', $uuids, 'IN')->execute();
+    $ids = $storage->getQuery()->accessCheck(access_check: FALSE)->condition('uuid', $uuids, 'IN')->execute();
 
     if (!$ids) {
       return [];
@@ -218,7 +218,7 @@ final class MediaFilter extends FilterBase implements ContainerFactoryPluginInte
     // from source, so while ($body->firstChild) would loop infinitely.
     $fragment = $dom->createDocumentFragment();
     foreach (\iterator_to_array($body->childNodes) as $child) {
-      $fragment->appendChild($dom->importNode($child, TRUE));
+      $fragment->appendChild($dom->importNode($child, deep: TRUE));
     }
 
     $element->parentNode?->replaceChild($fragment, $element);

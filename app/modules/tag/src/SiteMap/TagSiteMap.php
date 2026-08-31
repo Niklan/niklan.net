@@ -43,7 +43,7 @@ final readonly class TagSiteMap implements SiteMapBuilder {
     $storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $ids = $storage
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('status', '1')
       ->condition('vid', 'tags')
       ->sort('tid', 'DESC')

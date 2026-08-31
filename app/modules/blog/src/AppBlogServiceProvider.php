@@ -39,7 +39,10 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
-    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container
+      ->autowire($class)
+      ->setPublic(boolean: TRUE)
+      ->setAutoconfigured(autoconfigured: TRUE);
 
     // Logger channels.
     $container->setDefinition(
@@ -64,7 +67,7 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
     $container
       ->register('app_blog.markdown.converter', MarkdownConverter::class)
       ->addArgument(new Reference('app_blog.markdown.environment'));
-    $container->setAlias(MarkdownConverter::class, 'app_blog.markdown.converter')->setPublic(TRUE);
+    $container->setAlias(MarkdownConverter::class, 'app_blog.markdown.converter')->setPublic(boolean: TRUE);
 
     // Controllers.
     $autowire(BlogList::class);
@@ -76,7 +79,11 @@ final readonly class AppBlogServiceProvider implements ServiceProviderInterface 
     $autowire(BannerGenerator::class);
 
     // SiteMap.
-    $container->autowire(BlogSiteMap::class)->setPublic(TRUE)->setAutoconfigured(TRUE)->addTag('app_sitemap');
+    $container
+      ->autowire(BlogSiteMap::class)
+      ->setPublic(boolean: TRUE)
+      ->setAutoconfigured(autoconfigured: TRUE)
+      ->addTag('app_sitemap');
 
     // XML parser & validation.
     $autowire(XmlValidator::class);

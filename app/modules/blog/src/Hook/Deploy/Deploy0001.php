@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Removes numeric /blog/{nid} aliases, creates 301 redirects to node/{nid}.
  */
-final class Deploy0001 implements ContainerInjectionInterface {
+final readonly class Deploy0001 implements ContainerInjectionInterface {
 
   public static function create(ContainerInterface $container): self {
     return new self(
@@ -71,7 +71,7 @@ final class Deploy0001 implements ContainerInjectionInterface {
 
       $existing = $redirect_storage
         ->getQuery()
-        ->accessCheck(FALSE)
+        ->accessCheck(access_check: FALSE)
         ->condition('redirect_source.path', $source_path)
         ->range(0, 1)
         ->execute();
@@ -99,7 +99,11 @@ final class Deploy0001 implements ContainerInjectionInterface {
     $alias_storage = $this->entityTypeManager->getStorage('path_alias');
 
     /** @var array<int|string> $alias_ids */
-    $alias_ids = $alias_storage->getQuery()->accessCheck(FALSE)->condition('alias', "/blog/{$nid}")->execute();
+    $alias_ids = $alias_storage
+      ->getQuery()
+      ->accessCheck(access_check: FALSE)
+      ->condition('alias', "/blog/{$nid}")
+      ->execute();
 
     if ($alias_ids === []) {
       return 0;
@@ -115,7 +119,7 @@ final class Deploy0001 implements ContainerInjectionInterface {
     return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('type', 'blog_entry')
       ->sort('nid');
   }

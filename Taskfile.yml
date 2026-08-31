@@ -61,6 +61,13 @@ tasks:
     desc: Runs 'php-cs-fixer' command.
     cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/php-cs-fixer {{.CLI_ARGS}} --config={{.CONFIG_DIR}}/.php-cs-fixer.dist.php'
 
+  rector:
+    label: Rector
+    desc: Runs 'rector' command.
+    vars:
+      CLI_ARGS: '{{.CLI_ARGS | default "process"}}'
+    cmd: '{{.PHP_BIN}} {{.COMPOSER_BIN_DIR}}/rector {{.CLI_ARGS}} --config={{.CONFIG_DIR}}/rector.php'
+
   phpunit:
     label: PHPUnit
     desc: Runs 'phpunit' command.
@@ -119,6 +126,7 @@ tasks:
     cmds:
       - task: validate/composer
       - task: validate/phplint
+      - task: validate/rector
       - task: validate/phpcs
       - task: validate/php-cs-fixer
       - task: validate/phpstan
@@ -157,6 +165,13 @@ tasks:
     cmds:
       - task: php-cs-fixer
         vars: { CLI_ARGS: 'check' }
+
+  validate/rector:
+    label: Rector dry-run
+    desc: Check for Rector refactorings without applying them.
+    cmds:
+      - task: rector
+        vars: { CLI_ARGS: 'process --dry-run' }
 
   validate/phpstan:
     label: PHPStan analyze
@@ -206,6 +221,7 @@ tasks:
     label: Fixing found issues
     desc: Trying for automated fixes for found problems.
     cmds:
+      - task: fix/rector
       - task: fix/php-cs-fixer
       - task: fix/phpcs
       - task: fix/js
@@ -224,6 +240,12 @@ tasks:
     cmds:
       - task: php-cs-fixer
         vars: { CLI_ARGS: 'fix' }
+
+  fix/rector:
+    label: Rector
+    desc: Apply Rector refactorings.
+    cmds:
+      - task: rector
 
   fix/js:
     label: JavaScript

@@ -7,7 +7,7 @@ namespace Drupal\app_platform\Console\Log;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class ConsoleLogger implements LoggerInterface {
+final readonly class ConsoleLogger implements LoggerInterface {
 
   public function __construct(
     private LoggerInterface $innerLogger,
@@ -23,7 +23,7 @@ final class ConsoleLogger implements LoggerInterface {
     \assert(\is_string($level));
     $formatted = $this->format($level, $message, $context);
 
-    if (\in_array($level, ['error', 'critical', 'alert', 'emergency'], TRUE)) {
+    if (\in_array($level, ['error', 'critical', 'alert', 'emergency'], strict: TRUE)) {
       $this->output->writeln("<error>$formatted</error>");
     }
     elseif ($level === 'warning') {

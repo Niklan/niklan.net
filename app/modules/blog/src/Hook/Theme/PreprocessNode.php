@@ -124,7 +124,7 @@ final readonly class PreprocessNode {
     return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('type', $node->bundle())
       ->condition('created', $node->getCreatedTime(), $created_operator)
       ->range(0, 1)

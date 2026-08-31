@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Unifies comment body format to 'comments' for all existing comments.
  */
-final class Deploy0001 implements ContainerInjectionInterface {
+final readonly class Deploy0001 implements ContainerInjectionInterface {
 
   private const string TARGET_FORMAT = 'comments';
 

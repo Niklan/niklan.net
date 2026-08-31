@@ -9,11 +9,11 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 #[Hook('page_attachments')]
-final class LlmsPageAttachments {
+final readonly class LlmsPageAttachments {
 
   public function __construct(
-    private readonly RouteMatchInterface $routeMatch,
-    private readonly RequestStack $requestStack,
+    private RouteMatchInterface $routeMatch,
+    private RequestStack $requestStack,
   ) {}
 
   public function __invoke(array &$attachments): void {

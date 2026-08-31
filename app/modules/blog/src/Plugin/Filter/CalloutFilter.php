@@ -118,7 +118,7 @@ final class CalloutFilter extends FilterBase implements ContainerFactoryPluginIn
     // from source, so while ($body->firstChild) would loop infinitely.
     $fragment = $dom->createDocumentFragment();
     foreach (\iterator_to_array($body->childNodes) as $child) {
-      $fragment->appendChild($dom->importNode($child, TRUE));
+      $fragment->appendChild($dom->importNode($child, deep: TRUE));
     }
 
     $element->parentNode?->replaceChild($fragment, $element);

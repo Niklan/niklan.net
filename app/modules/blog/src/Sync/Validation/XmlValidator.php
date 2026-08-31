@@ -68,7 +68,7 @@ final readonly class XmlValidator {
    */
   private function validateAgainstSchema(\DOMDocument $document, string $schema_path): void {
     \libxml_clear_errors();
-    $previous_error_setting = \libxml_use_internal_errors(TRUE);
+    $previous_error_setting = \libxml_use_internal_errors(use_errors: TRUE);
 
     try {
       if (!$document->schemaValidate($schema_path)) {

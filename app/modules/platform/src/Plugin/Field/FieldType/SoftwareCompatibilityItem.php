@@ -31,7 +31,7 @@ final class SoftwareCompatibilityItem extends FieldItemBase {
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
     $properties['name'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Software name'))
-      ->setRequired(TRUE);
+      ->setRequired(required: TRUE);
 
     $properties['constraint'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Version constraint'));

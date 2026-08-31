@@ -186,21 +186,21 @@ final class MediaFilterTest extends UnitTestCase {
     $source = $this->prophesize(MediaSourceInterface::class);
     $source->getConfiguration()->willReturn(['source_field' => 'field_media_image']);
 
-    $field_value = new class ($file->reveal()) {
+    $field_value = new readonly class ($file->reveal()) {
 
-      public function __construct(private readonly FileInterface $file) {}
+      public function __construct(private FileInterface $file) {}
 
       public function first(): object {
         $file = $this->file;
-        return new class ($file) {
+        return new readonly class ($file) {
 
-          public function __construct(private readonly FileInterface $file) {}
+          public function __construct(private FileInterface $file) {}
 
           public function get(string $property): object {
             $file = $this->file;
-            return new class ($file) {
+            return new readonly class ($file) {
 
-              public function __construct(private readonly FileInterface $file) {}
+              public function __construct(private FileInterface $file) {}
 
               public function getValue(): FileInterface {
                 return $this->file;

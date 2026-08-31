@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Sets blog_entry body format to 'blog_article' where it is NULL.
  */
-final class Deploy0002 implements ContainerInjectionInterface {
+final readonly class Deploy0002 implements ContainerInjectionInterface {
 
   public static function create(ContainerInterface $container): self {
     return new self(

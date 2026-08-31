@@ -47,7 +47,7 @@ final readonly class PageAttachmentsAlter {
     $metatag_ids = \array_keys($this->metatagTagPluginManager->getDefinitions());
     $attachments['#attached']['html_head'] = \array_filter(
       $attachments['#attached']['html_head'],
-      static fn (array $item): bool => !\in_array($item[1] ?? NULL, $metatag_ids, TRUE),
+      static fn (array $item): bool => !\in_array($item[1] ?? NULL, $metatag_ids, strict: TRUE),
     );
   }
 

@@ -33,7 +33,7 @@ final readonly class PagerRedirect implements EventSubscriberInterface {
     // Only "page=0"/"page=1" are duplicates of the canonical first page and
     // deserve a redirect. Negative or non-numeric values are not a variant
     // of any real page at all — those get a 404 from PagerNotFound instead.
-    if (!\in_array($request->query->get('page'), ['0', '1'], TRUE)) {
+    if (!\in_array($request->query->get('page'), ['0', '1'], strict: TRUE)) {
       return;
     }
 

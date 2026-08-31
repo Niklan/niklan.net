@@ -74,7 +74,7 @@ final readonly class Home implements ContainerInjectionInterface {
   private function addLatestPosts(array &$build): void {
     $ids = $this->getNodeStorage()
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->range(0, self::LIMIT_PREVIEW_POSTS)
       ->condition('type', 'blog_entry')
       ->condition('status', '1')
@@ -162,7 +162,7 @@ final readonly class Home implements ContainerInjectionInterface {
     $storage = $this->entityTypeManager->getStorage('comment');
     $ids = $storage
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('status', '1')
       ->condition('langcode', $this->getCurrentLanguageId())
       ->sort('created', 'DESC')

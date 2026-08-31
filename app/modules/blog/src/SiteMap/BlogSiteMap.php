@@ -41,7 +41,7 @@ final readonly class BlogSiteMap implements SiteMapBuilder {
     $storage = $this->entityTypeManager->getStorage('node');
     $ids = $storage
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('status', '1')
       ->condition('type', 'blog_entry')
       ->sort('nid', 'DESC')

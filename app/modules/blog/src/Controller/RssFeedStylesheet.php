@@ -14,7 +14,7 @@ use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-final class RssFeedStylesheet {
+final readonly class RssFeedStylesheet {
 
   public function __construct(
     private ExtensionPathResolver $extensionPathResolver,
