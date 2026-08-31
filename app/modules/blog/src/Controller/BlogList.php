@@ -55,7 +55,7 @@ final class BlogList {
     $query = $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('type', 'blog_entry')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('langcode', $this->languageManager->getCurrentLanguage()->getId(), '=')

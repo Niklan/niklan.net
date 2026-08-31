@@ -85,12 +85,12 @@ final class HomeSettingsForm extends LanguageAwareStoreForm {
     $cards_count = $form_state->get('cards_count');
     \assert(\is_int($cards_count));
     $form_state->set('cards_count', $cards_count + 1);
-    $form_state->set('keep_cards_open', TRUE);
+    $form_state->set('keep_cards_open', value: TRUE);
     $form_state->setRebuild();
   }
 
   public static function removeCard(array &$form, FormStateInterface $form_state): void {
-    $form_state->set('keep_cards_open', TRUE);
+    $form_state->set('keep_cards_open', value: TRUE);
 
     $button = $form_state->getTriggeringElement();
     // This is row delta during build.

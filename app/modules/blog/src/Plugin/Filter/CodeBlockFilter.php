@@ -110,7 +110,7 @@ final class CodeBlockFilter extends FilterBase implements ContainerFactoryPlugin
     // from source, so while ($body->firstChild) would loop infinitely.
     $fragment = $dom->createDocumentFragment();
     foreach (\iterator_to_array($body->childNodes) as $child) {
-      $fragment->appendChild($dom->importNode($child, TRUE));
+      $fragment->appendChild($dom->importNode($child, deep: TRUE));
     }
 
     $element->parentNode?->replaceChild($fragment, $element);

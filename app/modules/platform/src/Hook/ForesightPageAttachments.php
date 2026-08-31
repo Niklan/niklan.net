@@ -18,7 +18,7 @@ final readonly class ForesightPageAttachments {
   ) {}
 
   public function __invoke(array &$attachments): void {
-    if (!Settings::get('app_foresight', TRUE)) {
+    if (!Settings::get('app_foresight', default: TRUE)) {
       return;
     }
 

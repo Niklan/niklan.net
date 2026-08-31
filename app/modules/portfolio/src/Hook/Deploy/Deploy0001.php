@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Changes portfolio body format from 'markdown' to 'text'.
  */
-final class Deploy0001 implements ContainerInjectionInterface {
+final readonly class Deploy0001 implements ContainerInjectionInterface {
 
   public static function create(ContainerInterface $container): self {
     return new self(

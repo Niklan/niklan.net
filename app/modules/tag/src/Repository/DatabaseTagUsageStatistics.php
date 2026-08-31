@@ -50,7 +50,7 @@ final readonly class DatabaseTagUsageStatistics implements TagUsageStatistics {
     return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('type', 'blog_entry')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('field_tags', $tag_id)

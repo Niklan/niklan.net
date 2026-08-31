@@ -13,10 +13,10 @@ use Drupal\Core\StringTranslation\TranslationInterface;
  * @ingroup toolbar
  */
 #[Hook('toolbar')]
-final class DevelopmentWarningToolbar {
+final readonly class DevelopmentWarningToolbar {
 
   public function __construct(
-    private readonly TranslationInterface $stringTranslation,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   /**

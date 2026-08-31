@@ -33,7 +33,7 @@ final readonly class CalloutProcessor implements HtmlContentProcessor {
 
   private function processElement(\DOMDocument $dom, \DOMElement $element): void {
     $type = $element->getAttribute('data-type');
-    if (!\in_array($type, self::CALLOUT_TYPES, TRUE)) {
+    if (!\in_array($type, self::CALLOUT_TYPES, strict: TRUE)) {
       return;
     }
 

@@ -25,7 +25,7 @@ final class LinkProcessorTest extends UnitTestCase {
   protected function setUp(): void {
     parent::setUp();
 
-    $root = vfsStream::setup('content', NULL, [
+    $root = vfsStream::setup('content', permissions: NULL, structure: [
       'blog' => [
         'article' => [],
       ],

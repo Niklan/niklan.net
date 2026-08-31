@@ -21,14 +21,17 @@ final readonly class AppTagServiceProvider implements ServiceProviderInterface {
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
-    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container
+      ->autowire($class)
+      ->setPublic(boolean: TRUE)
+      ->setAutoconfigured(autoconfigured: TRUE);
 
     $autowire(DatabaseTagUsageStatistics::class);
     $autowire(DatabaseTagRepository::class);
     $autowire(TagList::class);
 
-    $container->setAlias(TagUsageStatistics::class, DatabaseTagUsageStatistics::class)->setPublic(TRUE);
-    $container->setAlias(TagRepository::class, DatabaseTagRepository::class)->setPublic(TRUE);
+    $container->setAlias(TagUsageStatistics::class, DatabaseTagUsageStatistics::class)->setPublic(boolean: TRUE);
+    $container->setAlias(TagRepository::class, DatabaseTagRepository::class)->setPublic(boolean: TRUE);
 
     $autowire(RouteAlter::class);
     $autowire(TermPageBuild::class);

@@ -10,10 +10,10 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslationInterface;
 
 #[Hook('entity_base_field_info')]
-final class BaseFieldInfo {
+final readonly class BaseFieldInfo {
 
   public function __construct(
-    private readonly TranslationInterface $stringTranslation,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   public function __invoke(EntityTypeInterface $entity_type): array {

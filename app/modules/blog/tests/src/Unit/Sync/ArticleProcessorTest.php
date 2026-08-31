@@ -114,7 +114,7 @@ final class ArticleProcessorTest extends UnitTestCase {
   }
 
   private function buildProcessor(string $markdown_html = '<p>test</p>', ?MediaSynchronizer $media_synchronizer = NULL): ArticleProcessor {
-    vfsStream::setup('content', NULL, [
+    vfsStream::setup('content', permissions: NULL, structure: [
       'blog' => [
         'article' => [
           'index.md' => '# Hello',

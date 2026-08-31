@@ -50,7 +50,7 @@ final class TableOfContentsBuilder {
   }
 
   private function isHeadingTag(string $tag): bool {
-    return \in_array($tag, ['h2', 'h3', 'h4', 'h5', 'h6'], TRUE);
+    return \in_array($tag, ['h2', 'h3', 'h4', 'h5', 'h6'], strict: TRUE);
   }
 
   private function extractHeadingText(\DOMElement $heading): string {

@@ -217,7 +217,7 @@ final class ArticleSynchronizerTest extends KernelTestBase {
     $schema = \file_get_contents(__DIR__ . '/../../../fixtures/article.xsd');
     \assert($schema !== FALSE);
 
-    vfsStream::setup('content', NULL, [
+    vfsStream::setup('content', permissions: NULL, structure: [
       'blog' => [
         'article.xsd' => $schema,
         'test' => [

@@ -53,7 +53,7 @@ final readonly class PortfolioList {
     return $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('type', 'portfolio')
       ->condition('status', NodeInterface::PUBLISHED)
       ->sort('field_date', 'DESC')

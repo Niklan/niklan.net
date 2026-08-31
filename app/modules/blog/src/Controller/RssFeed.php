@@ -16,7 +16,7 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class RssFeed {
+final readonly class RssFeed {
 
   private const int ITEMS_LIMIT = 20;
 
@@ -105,7 +105,7 @@ final class RssFeed {
     $ids = $this->entityTypeManager
       ->getStorage('node')
       ->getQuery()
-      ->accessCheck(FALSE)
+      ->accessCheck(access_check: FALSE)
       ->condition('type', 'blog_entry')
       ->condition('status', NodeInterface::PUBLISHED)
       ->condition('langcode', $this->languageManager->getCurrentLanguage()->getId())

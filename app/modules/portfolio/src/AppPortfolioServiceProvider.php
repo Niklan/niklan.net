@@ -15,7 +15,10 @@ final readonly class AppPortfolioServiceProvider implements ServiceProviderInter
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
-    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container
+      ->autowire($class)
+      ->setPublic(boolean: TRUE)
+      ->setAutoconfigured(autoconfigured: TRUE);
 
     $autowire(PortfolioSettings::class);
     $autowire(PortfolioList::class);

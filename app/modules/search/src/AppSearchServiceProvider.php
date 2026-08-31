@@ -14,10 +14,16 @@ final readonly class AppSearchServiceProvider implements ServiceProviderInterfac
 
   #[\Override]
   public function register(ContainerBuilder $container): void {
-    $autowire = static fn (string $class) => $container->autowire($class)->setPublic(TRUE)->setAutoconfigured(TRUE);
+    $autowire = static fn (string $class) => $container
+      ->autowire($class)
+      ->setPublic(boolean: TRUE)
+      ->setAutoconfigured(autoconfigured: TRUE);
 
-    $container->autowire(SearchApiSearch::class)->setAbstract(TRUE);
-    $container->registerChild(GlobalSearch::class, SearchApiSearch::class)->setPublic(TRUE)->setAutoconfigured(TRUE);
+    $container->autowire(SearchApiSearch::class)->setAbstract(boolean: TRUE);
+    $container
+      ->registerChild(GlobalSearch::class, SearchApiSearch::class)
+      ->setPublic(boolean: TRUE)
+      ->setAutoconfigured(autoconfigured: TRUE);
 
     $autowire(Search::class);
   }

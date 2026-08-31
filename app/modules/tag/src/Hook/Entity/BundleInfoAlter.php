@@ -10,10 +10,10 @@ use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\TranslationInterface;
 
 #[Hook('entity_bundle_info_alter')]
-final class BundleInfoAlter {
+final readonly class BundleInfoAlter {
 
   public function __construct(
-    private readonly TranslationInterface $stringTranslation,
+    private TranslationInterface $stringTranslation,
   ) {}
 
   public function __invoke(array &$bundles): void {

@@ -11,7 +11,7 @@ final readonly class PreprocessInput {
   public function __invoke(array &$variables): void {
     $classes_to_remove = ['form-text', 'required', 'form-checkbox'];
     foreach ($variables['attributes']['class'] ?? [] as $index => $class) {
-      if (!\in_array($class, $classes_to_remove, TRUE)) {
+      if (!\in_array($class, $classes_to_remove, strict: TRUE)) {
         continue;
       }
 

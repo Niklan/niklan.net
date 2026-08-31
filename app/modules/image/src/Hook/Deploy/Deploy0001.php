@@ -8,7 +8,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\State\StateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class Deploy0001 implements ContainerInjectionInterface {
+final readonly class Deploy0001 implements ContainerInjectionInterface {
 
   public static function create(ContainerInterface $container): self {
     return new self(

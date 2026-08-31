@@ -19,10 +19,10 @@ final readonly class AppImageServiceProvider implements ServiceProviderInterface
   public function register(ContainerBuilder $container): void {
     $autowire = static fn (string $class): Definition => $container
       ->autowire($class)
-      ->setPublic(TRUE)
-      ->setAutoconfigured(TRUE);
+      ->setPublic(boolean: TRUE)
+      ->setAutoconfigured(autoconfigured: TRUE);
 
-    $container->setParameter('app_image.skip_procedural_hook_scan', TRUE);
+    $container->setParameter('app_image.skip_procedural_hook_scan', value: TRUE);
 
     $autowire(DynamicImageStyle::class);
     $autowire(DynamicImageStyleController::class);

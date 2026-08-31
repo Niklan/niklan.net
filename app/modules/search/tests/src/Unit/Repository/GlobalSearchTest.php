@@ -34,7 +34,7 @@ final class GlobalSearchTest extends UnitTestCase {
   }
 
   public static function dataProvider(): \Generator {
-    yield [new SearchParams(NULL, 10), []];
+    yield [new SearchParams(keys: NULL, limit: 10), []];
     yield [
       new SearchParams('Drupal', 10),
       ['entity:node/1:ru', 'entity:node/2:ru'],

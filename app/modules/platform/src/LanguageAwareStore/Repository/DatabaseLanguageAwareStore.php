@@ -303,7 +303,7 @@ final readonly class DatabaseLanguageAwareStore implements LanguageAwareStore {
   protected function ensureTableExists(): bool {
     try {
       $database_schema = $this->connection->schema();
-      $database_schema->createTable($this->table, $this->schemaDefinition());
+      $database_schema->createTable($this->table, self::schemaDefinition());
     }
     // If the table already exists, then attempting to recreate it will throw an
     // exception. In this case just catch the exception and do nothing.

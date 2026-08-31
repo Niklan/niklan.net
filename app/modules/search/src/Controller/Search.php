@@ -24,7 +24,7 @@ final class Search {
     protected EntitySearch $entitySearch,
     protected EntityTypeManagerInterface $entityTypeManager,
     protected PagerManagerInterface $pagerManager,
-    private TranslationInterface $stringTranslation,
+    private readonly TranslationInterface $stringTranslation,
   ) {}
 
   public function __invoke(Request $request): array {
