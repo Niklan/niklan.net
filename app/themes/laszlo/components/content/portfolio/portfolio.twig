@@ -24,7 +24,9 @@
   {% if photos|render|trim is not empty %}
     <div class="prose portfolio__photos">
       <h2 class="portfolio__photos-title">{{ 'Screenshots'|t }}</h2>
-      {{ photos }}
+      <div class="photoswipe-gallery">
+        {{ photos }}
+      </div>
     </div>
   {% endif %}
 </article>
