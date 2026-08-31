@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Niklan\PhpCsFixer\Fixer;
+namespace App\PhpCsFixer\Fixer;
 
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -11,7 +11,7 @@ use SplFileInfo;
 abstract class AbstractFixer implements FixerInterface {
 
   public function supports(SplFileInfo $file): bool {
-    return true;
+    return TRUE;
   }
 
   public function getPriority(): int {
@@ -19,7 +19,7 @@ abstract class AbstractFixer implements FixerInterface {
   }
 
   public function isRisky(): bool {
-    return false;
+    return FALSE;
   }
 
   public function fix(SplFileInfo $file, Tokens $tokens): void {
