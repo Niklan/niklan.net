@@ -44,10 +44,10 @@ final readonly class InvalidPageNotFound implements EventSubscriberInterface {
       return;
     }
 
-    // Without an initialized pager there are no pages at all: the page is not
-    // paginated, or the requested one does not exist.
+    // The pager is NULL when the controller did not run (Dynamic Page Cache
+    // hit) as well, so its absence says nothing about the page being invalid.
     $pager = $this->pagerManager->getPager();
-    if ($pager === NULL || $page >= $pager->getTotalPages()) {
+    if ($pager !== NULL && $page >= $pager->getTotalPages()) {
       throw new NotFoundHttpException();
     }
   }
