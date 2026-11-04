@@ -23,7 +23,6 @@ final readonly class TokenInfo {
   private function defineTokens(): array {
     return [
       'node' => $this->defineNodeTokens(),
-      'current-page' => $this->defineCurrentPageTokens(),
     ];
   }
 
@@ -32,23 +31,6 @@ final readonly class TokenInfo {
       'article-banner-image' => [
         'name' => $this->stringTranslation->translate('The article banner image'),
         'description' => $this->stringTranslation->translate('The banner used for social networks and messengers'),
-      ],
-    ];
-  }
-
-  private function defineCurrentPageTokens(): array {
-    return [
-      'canonical-url' => [
-        'name' => $this->stringTranslation->translate('The canonical URL of the current page'),
-        'description' => $this->stringTranslation->translate('The canonical URL of the current page.'),
-      ],
-      'pager-suffix' => [
-        'name' => $this->stringTranslation->translate('Pager suffix'),
-        'description' => $this->stringTranslation->translate('Returns a pager suffix (e.g. " — page #2") on paginated pages, empty on the first page.'),
-      ],
-      'pager-robots' => [
-        'name' => $this->stringTranslation->translate('Pager robots directive'),
-        'description' => $this->stringTranslation->translate('Returns "noindex, follow" on paginated pages beyond the first, empty on the first page.'),
       ],
     ];
   }

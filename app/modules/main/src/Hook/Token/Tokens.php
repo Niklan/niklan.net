@@ -9,10 +9,7 @@ use Drupal\app_blog\Node\ArticleBundle;
 use Drupal\app_contract\Utils\MediaHelper;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Render\BubbleableMetadata;
-use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\Core\Url;
 
 #[Hook('tokens')]
 final readonly class Tokens {
@@ -20,8 +17,6 @@ final readonly class Tokens {
   public function __construct(
     private BannerGenerator $bannerGenerator,
     private FileUrlGeneratorInterface $fileUrlGenerator,
-    private PagerManagerInterface $pagerManager,
-    private TranslationInterface $stringTranslation,
   ) {}
 
   public function __invoke(string $type, array $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata): array {
@@ -36,7 +31,6 @@ final readonly class Tokens {
     match ($type) {
       default => NULL,
       'node' => $this->replaceNodeTokens($state),
-      'current-page' => $this->replaceCurrentPageTokens($state),
     };
 
     return $state->getReplacements();
@@ -70,68 +64,6 @@ final readonly class Tokens {
 
   private function replaceNodeTokens(State $state): void {
     $state->replaceCallback('article-banner-image', $this->replaceNodeArticleBannerImage(...));
-  }
-
-  private function replaceCurrentPageTokens(State $state): void {
-    $state->replaceCallback('canonical-url', $this->replaceCurrentPageCanonicalUrl(...));
-    $state->replaceCallback('pager-suffix', $this->replaceCurrentPagePagerSuffix(...));
-    $state->replaceCallback('pager-robots', $this->replaceCurrentPagePagerRobots(...));
-  }
-
-  /**
-   * @ingroup seo_pager
-   */
-  private function replaceCurrentPagePagerSuffix(string $original, State $state): void {
-    $state->getCacheableMetadata()->addCacheContexts(['url.query_args:page']);
-    $pager = $this->pagerManager->getPager();
-
-    if ($pager === NULL || $pager->getTotalPages() < 1 || $pager->getCurrentPage() < 1) {
-      $state->setReplacement($original, '');
-
-      return;
-    }
-
-    $suffix = ' — ' . (string) $this->stringTranslation->translate('page #@number', [
-      '@number' => $pager->getCurrentPage() + 1,
-    ]);
-    $state->setReplacement($original, $suffix);
-  }
-
-  /**
-   * Returns "noindex, follow" on paginated pages beyond the first.
-   *
-   * A page 2+ of, say, an article's comments duplicates the entire article
-   * body verbatim and differs only in which comments are shown — indexing
-   * it alongside the canonical article page is pure duplicate content.
-   *
-   * @ingroup seo_pager
-   */
-  private function replaceCurrentPagePagerRobots(string $original, State $state): void {
-    $state->getCacheableMetadata()->addCacheContexts(['url.query_args:page']);
-    $pager = $this->pagerManager->getPager();
-
-    if ($pager === NULL || $pager->getCurrentPage() < 1) {
-      $state->setReplacement($original, '');
-
-      return;
-    }
-
-    $state->setReplacement($original, 'noindex, follow');
-  }
-
-  /**
-   * @ingroup seo_pager
-   */
-  private function replaceCurrentPageCanonicalUrl(string $original, State $state): void {
-    $state->getCacheableMetadata()->addCacheContexts(['route', 'url.query_args:page']);
-    $options = ['absolute' => TRUE];
-
-    if ($this->pagerManager->getPager()?->getTotalPages() > 0) {
-      $options['query'] = ['page' => $this->pagerManager->getPager()->getCurrentPage()];
-    }
-
-    $url = Url::fromRoute('<current>');
-    $state->setReplacement($original, $url->setOptions($options)->toString());
   }
 
 }

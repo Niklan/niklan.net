@@ -18,7 +18,7 @@ final readonly class RouteAlter implements EventSubscriberInterface {
       return;
     }
 
-    $route->setDefault('_title_pager_suffix', TRUE);
+    $route->setDefault('_title_page_suffix', TRUE);
     $route->setDefault('_title_callback', Tag::class . '::title');
   }
 

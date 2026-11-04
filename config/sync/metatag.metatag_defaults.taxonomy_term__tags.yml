@@ -5,4 +5,4 @@ dependencies: {  }
 id: taxonomy_term__tags
 label: 'Taxonomy term: Теги'
 tags:
-  description: 'Подборка публикаций на тему [term:name][current-page:pager-suffix].'
+  description: 'Подборка публикаций на тему [term:name][current-page:paged-text: — страница №@page].'
