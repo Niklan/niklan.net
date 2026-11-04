@@ -7,5 +7,5 @@ _core:
 id: '403'
 label: '403 доступ запрещен'
 tags:
-  canonical_url: '[site:url]'
-  shortlink: '[site:url]'
+  canonical_url: '<none>'
+  shortlink: '<none>'
