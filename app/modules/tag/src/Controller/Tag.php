@@ -40,7 +40,7 @@ final readonly class Tag implements ContainerInjectionInterface {
 
   public static function title(TermInterface $taxonomy_term): TranslatableMarkup {
     return new TranslatableMarkup('Publications with the @name tag', [
-      '@name' => $taxonomy_term->label(),
+      '@name' => (string) $taxonomy_term->label(),
     ]);
   }
 
