@@ -98,8 +98,8 @@ final class CommentFormatter extends FormatterBase {
     // into its own template variable.
     //
     // '#fragment' is a custom property (not a core Pager one) picked up by
-    // app_main's PreprocessPager, so pager links land on #comments instead
-    // of the top of the page.
+    // app_platform's PreprocessPager, so pager links land on #comments
+    // instead of the top of the page.
     $tree['pager'] = ['#type' => 'pager', '#fragment' => 'comments'];
 
     return $tree;

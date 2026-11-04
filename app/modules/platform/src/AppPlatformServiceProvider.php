@@ -23,10 +23,10 @@ use Drupal\app_platform\Llms\HtmlToMarkdownConverter;
 use Drupal\app_platform\Llms\LlmsRenderer;
 use Drupal\app_platform\Llms\Middleware\LlmsRequestLogger;
 use Drupal\app_platform\Llms\PathProcessor\LlmsFormatPathProcessor;
-use Drupal\app_platform\Pager\Controller\PagerAwareTitleResolver;
-use Drupal\app_platform\Pager\EventSubscriber\PagerNotFound;
-use Drupal\app_platform\Pager\EventSubscriber\PagerRedirect;
-use Drupal\app_platform\Pager\PathProcessor\PagerPathProcessor;
+use Drupal\app_platform\Pager\FirstPageRedirect;
+use Drupal\app_platform\Pager\InvalidPageNotFound;
+use Drupal\app_platform\Pager\PageNumberPathProcessor;
+use Drupal\app_platform\Pager\PageSuffixTitleResolver;
 use Drupal\app_platform\SiteMap\Structure\SiteMapManager;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderInterface;
@@ -66,14 +66,10 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
     $container->setAlias(SiteMapBuilder::class, SiteMapManager::class);
 
     // Pager.
-    $autowire(PagerRedirect::class)
-      ->addTag('event_subscriber');
-    $autowire(PagerNotFound::class)
-      ->addTag('event_subscriber');
-    $autowire(PagerPathProcessor::class)
-      ->addTag('path_processor_inbound', ['priority' => 1000])
-      ->addTag('path_processor_outbound', ['priority' => -1000]);
-    $autowire(PagerAwareTitleResolver::class);
+    $autowire(PageNumberPathProcessor::class);
+    $autowire(FirstPageRedirect::class);
+    $autowire(InvalidPageNotFound::class);
+    $autowire(PageSuffixTitleResolver::class);
 
     // Logger channels.
     $container->setDefinition(
