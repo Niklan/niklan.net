@@ -43,7 +43,7 @@ final readonly class InvalidPageNotFound implements EventSubscriberInterface {
       return;
     }
 
-    if (\in_array('url.query_args', $response->getCacheableMetadata()->getCacheContexts(), strict: TRUE)) {
+    if (\in_array('pager:rendered', $response->getCacheableMetadata()->getCacheTags(), strict: TRUE)) {
       return;
     }
 

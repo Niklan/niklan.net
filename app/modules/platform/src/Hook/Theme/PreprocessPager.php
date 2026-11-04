@@ -20,10 +20,16 @@ final readonly class PreprocessPager {
    * @param array{pager: array{'#route_name'?: string, '#fragment'?: string}, items?: array<mixed>} $variables
    */
   public function __invoke(array &$variables): void {
+    if (!isset($variables['items'])) {
+      return;
+    }
+
+    $variables['#cache']['tags'][] = 'pager:rendered';
+
     // Only '<none>' pagers bypass path processors (the '_no_path' route
     // option). Other routes are already processed by the URL generator, so
     // handling them again would shift the page number twice.
-    if (($variables['pager']['#route_name'] ?? '<none>') !== '<none>' || !isset($variables['items'])) {
+    if (($variables['pager']['#route_name'] ?? '<none>') !== '<none>') {
       return;
     }
 
