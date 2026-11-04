@@ -30,10 +30,7 @@ final readonly class DatabaseArticleRepository implements ArticleRepository {
 
   #[\Override]
   public function findAllExceptExternalIds(array $external_ids): array {
-    $query = $this->getStorage()
-      ->getQuery()
-      ->accessCheck(FALSE)
-      ->condition('type', 'blog_entry');
+    $query = $this->getStorage()->getQuery()->accessCheck(FALSE)->condition('type', 'blog_entry');
     if ($external_ids !== []) {
       $query->condition('external_id', $external_ids, 'NOT IN');
     }

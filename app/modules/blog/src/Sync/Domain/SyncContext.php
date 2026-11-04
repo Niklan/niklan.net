@@ -10,14 +10,13 @@ use Psr\Log\NullLogger;
 final class SyncContext {
 
   private bool $isForced = FALSE;
+  private bool $removeMissing = FALSE;
 
   public function __construct(
     public readonly string $workingDirectory,
     public readonly string $contentRoot,
     public readonly LoggerInterface $logger = new NullLogger(),
   ) {}
-
-  private bool $removeMissing = FALSE;
 
   public function setRemoveMissing(bool $status): void {
     $this->removeMissing = $status;
