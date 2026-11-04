@@ -23,6 +23,10 @@ final readonly class PreprocessPager {
     // Only '<none>' pagers bypass path processors (the '_no_path' route
     // option). Other routes are already processed by the URL generator, so
     // handling them again would shift the page number twice.
+    if (isset($variables['items'])) {
+      $variables['#cache']['tags'][] = 'pager:rendered';
+    }
+
     if (($variables['pager']['#route_name'] ?? '<none>') !== '<none>' || !isset($variables['items'])) {
       return;
     }
