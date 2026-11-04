@@ -45,6 +45,12 @@ final class Sync extends Command {
       mode: InputOption::VALUE_NONE,
       description: 'Force sync even if up-to-date.',
     );
+
+    $this->addOption(
+      name: 'remove-missing',
+      mode: InputOption::VALUE_NONE,
+      description: 'Remove articles that no longer exist in the content source. Works only for a full sync.',
+    );
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
@@ -64,6 +70,7 @@ final class Sync extends Command {
 
     $context = new SyncContext($working_directory, $content_root, $logger);
     $context->setForceStatus((bool) $input->getOption('force'));
+    $context->setRemoveMissing((bool) $input->getOption('remove-missing'));
     $this->articleSynchronizer->sync($context);
     $this->cacheTagsInvalidator->invalidateTags([self::CACHE_TAG]);
 

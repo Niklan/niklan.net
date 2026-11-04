@@ -63,7 +63,7 @@ final readonly class ConsoleLogger implements LoggerInterface {
   }
 
   private function format(string $level, string|\Stringable $message, array $context): string {
-    return \sprintf('[%s] %s %s', \strtoupper($level), $message, \json_encode($context));
+    return \sprintf('[%s] %s %s', \strtoupper($level), $message, \json_encode($context, \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_INVALID_UTF8_SUBSTITUTE));
   }
 
 }

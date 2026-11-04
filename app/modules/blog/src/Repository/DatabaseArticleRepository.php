@@ -15,6 +15,7 @@ final readonly class DatabaseArticleRepository implements ArticleRepository {
     private EntityTypeManagerInterface $entityTypeManager,
   ) {}
 
+  #[\Override]
   public function findByExternalId(string $external_id): ?ArticleBundle {
     $ids = $this->getStorage()
       ->getQuery()
@@ -25,6 +26,18 @@ final readonly class DatabaseArticleRepository implements ArticleRepository {
       ->execute();
     // @phpstan-ignore-next-line
     return $ids ? $this->getStorage()->load(\reset($ids)) : NULL;
+  }
+
+  #[\Override]
+  public function findAllExceptExternalIds(array $external_ids): array {
+    $query = $this->getStorage()->getQuery()->accessCheck(FALSE)->condition('type', 'blog_entry');
+    if ($external_ids !== []) {
+      $query->condition('external_id', $external_ids, 'NOT IN');
+    }
+    $ids = $query->execute();
+
+    // @phpstan-ignore-next-line
+    return \array_values($this->getStorage()->loadMultiple($ids));
   }
 
   private function getStorage(): NodeStorageInterface {

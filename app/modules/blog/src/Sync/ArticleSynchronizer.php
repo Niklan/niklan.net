@@ -32,6 +32,44 @@ final readonly class ArticleSynchronizer {
     foreach ($articles as $article) {
       $this->syncArticle($article, $context);
     }
+
+    if (!$context->shouldRemoveMissing()) {
+      return;
+    }
+
+    $this->removeMissing($articles, $context);
+  }
+
+  /**
+   * @param list<\Drupal\app_blog\Sync\Domain\Article> $articles
+   */
+  private function removeMissing(array $articles, SyncContext $context): void {
+    // Partial sync sees only a part of the content, everything else would be
+    // treated as missing and deleted.
+    if (\realpath($context->workingDirectory) !== \realpath($context->contentRoot)) {
+      $context->logger->warning('Removal of missing articles skipped, sync is limited to a part of the content root');
+      return;
+    }
+
+    // Protects against wiping everything when the content is not mounted.
+    if ($articles === []) {
+      $context->logger->warning('Removal of missing articles skipped, no articles found in the source');
+      return;
+    }
+
+    $external_ids = \array_map(static fn (Article $article): string => $article->id, $articles);
+    foreach ($this->articleRepository->findAllExceptExternalIds($external_ids) as $entity) {
+      $context->logger->info('Removing missing article', ['nid' => $entity->id(), 'title' => $entity->label()]);
+      try {
+        $entity->delete();
+      }
+      catch (\Throwable $exception) {
+        $context->logger->error('Failed to remove missing article', [
+          'nid' => $entity->id(),
+          'error' => $exception->getMessage(),
+        ]);
+      }
+    }
   }
 
   /**
