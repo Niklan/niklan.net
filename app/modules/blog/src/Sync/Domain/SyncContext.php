@@ -17,6 +17,16 @@ final class SyncContext {
     public readonly LoggerInterface $logger = new NullLogger(),
   ) {}
 
+  private bool $removeMissing = FALSE;
+
+  public function setRemoveMissing(bool $status): void {
+    $this->removeMissing = $status;
+  }
+
+  public function shouldRemoveMissing(): bool {
+    return $this->removeMissing;
+  }
+
   public function setForceStatus(bool $status): void {
     $this->isForced = $status;
   }
