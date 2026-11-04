@@ -27,6 +27,7 @@ use Drupal\app_platform\Pager\FirstPageRedirect;
 use Drupal\app_platform\Pager\InvalidPageNotFound;
 use Drupal\app_platform\Pager\PageNumberPathProcessor;
 use Drupal\app_platform\Pager\PageSuffixTitleResolver;
+use Drupal\app_platform\Pager\RangeCheckedPagerManager;
 use Drupal\app_platform\SiteMap\Structure\SiteMapManager;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderInterface;
@@ -69,6 +70,7 @@ final readonly class AppPlatformServiceProvider implements ServiceProviderInterf
     $autowire(PageNumberPathProcessor::class);
     $autowire(FirstPageRedirect::class);
     $autowire(InvalidPageNotFound::class);
+    $autowire(RangeCheckedPagerManager::class);
     $autowire(PageSuffixTitleResolver::class);
 
     // Logger channels.
